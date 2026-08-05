@@ -261,7 +261,7 @@ LangChain 1.0·LangGraph 1.0이 **2025-10-22 GA**되었고 현행 진입점은 `
 
 | 자료 | 발행 | 각주로만 필요한 이유 |
 |------|------|-------------------|
-| [ATAM: Method for Architecture Evaluation (CMU/SEI-2000-TR-004)](https://www.sei.cmu.edu/documents/629/2000_005_001_13706.pdf) | 2000 | 품질속성 시나리오 6요소(`source·stimulus·artifact·environment·response·response measure`)의 원전. AgentArcEval이 이 양식을 그대로 이어받음 |
+| [ATAM: Method for Architecture Evaluation (CMU/SEI-2000-TR-004)](https://www.sei.cmu.edu/documents/629/2000_005_001_13706.pdf) | 2000 | ~~품질속성 시나리오 6요소의 원전~~ **→ 2026-08-06 원문 대조 결과 불일치.** 원문 Figure 7 템플릿은 **5항목**(`Scenario·Attribute·Environment·Stimulus·Response`)이며 `source of stimulus`·`six-part` 문자열이 **0회**임. 6요소는 AgentArcEval에는 실재하나 **출처가 이 보고서가 아님**(Bass 외 저서일 가능성, 미확보). 상세는 [근거 계보 검증](../guides/_shared/근거-계보-검증.md) V-1 |
 | ISO/IEC 25010:2023 | 2023 | 품질속성 분류 어휘의 현행 표준. 2025년 이후 대체 표준 없음 |
 | [Developing multiagent systems: The Gaia methodology (ACM TOSEM)](https://dl.acm.org/doi/10.1145/958961.958963) | 2003 | `역할 = 책임·프로토콜·권한` 정의의 원전. 4-4절 `역할에 권한 포함` 규칙의 출처 |
 | An Introduction to MultiAgent Systems, 2nd ed. (Wooldridge) | 2009 | 역할·조직구조 개념의 교과서적 정본이며 Gaia 공동 저자 서술. **LLM 내용 없음** |
