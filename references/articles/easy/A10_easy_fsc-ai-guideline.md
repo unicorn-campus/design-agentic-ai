@@ -106,7 +106,7 @@ AI를 쓰는 업무마다 적용되는 법이 다릅니다.
 결정과 책임은 사람 몫입니다.
 
 문서는 사람이 개입하는 방식을 네 가지로 나눕니다.
-`HITL` · `HOTL` · `HOVLT` · `HOUTL`입니다.
+`HITL`(Human-in-the-loop) · `HOTL`(Human-on-the-loop) · `HOVLT`(Human-over-the-loop) · `HOUTL`(Human-out-of-the-loop)입니다.
 왼쪽으로 갈수록 사람이 많이 개입합니다.
 
 **HITL**은 사람의 승인 없이는 AI가 결정을 못 내리는 방식입니다.
