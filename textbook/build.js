@@ -313,11 +313,12 @@ const SLIDES = [
       "4  안 넘기기로 한 항목이 있나",
     ] },
     right: { bar: "런치픽 핵심 판정", items: [
-      "경계 6개(TB-1 ~ TB-6)를 그음",
+      "경계 6개를 그어 번호를 붙임",
+      "TB = 신뢰 경계(Trust Boundary)",
       "알레르기 항목명은 모델에 안 보냄",
       "걸러낸 뒤의 후보 목록만 보냄",
     ] },
-    table: { head: ["모델 경계(TB-2)", "넘김", "넘기지 않음"], rows: [
+    table: { head: ["모델 경계", "넘김", "넘기지 않음"], rows: [
       ["취향 카테고리 코드", "넘김", "—"],
       ["후보 식당 목록", "넘김", "—"],
       ["알레르기 항목명", "—", "칸 자체를 없앰"],
@@ -371,7 +372,7 @@ const SLIDES = [
       ["초과 시 착지", "캐시 폴백", "예산 안으로 들어옴"],
     ] },
     img: { file: "s10-timeout-budget-split.png", caption: "두 줄로 나눠 각각 검증" },
-    callout: "`p95`는 100번 중 95번이 그 안에 드는 값임. 폴백은 더 빨라지는 것이 아니라 앞 단계 상한을 소진한 뒤 도는 경로임",
+    callout: "p95는 100번 중 95번이 그 안에 드는 값임. 폴백은 더 빨라지는 것이 아니라 앞 단계 상한을 소진한 뒤 도는 경로임",
   },
 
   // S11 (플로니)
@@ -484,7 +485,7 @@ const SLIDES = [
       "원인 단계를 못 찾아 못 고침",
     ] },
     img: { file: "s15-guardrail-three-points.png", caption: "막는 곳 3 · 기록은 별도임" },
-    callout: "입구를 사용자 입력창으로만 읽으면 0건이 됨 — 외부 API 응답과 캐시에 담긴 글도 입구임. `토큰`은 모델이 글을 세는 단위임",
+    callout: "입구를 사용자 입력창으로만 읽으면 0건이 됨 — 외부 API 응답과 캐시에 담긴 글도 입구임. 토큰은 모델이 글을 세는 단위임",
   },
 
   // S16 (커넥니)
@@ -727,7 +728,7 @@ async function main() {
     else await createContent(d);
   }
 
-  const out = path.join(DIR, "AI앱아키텍처설계-산출물7종-교재.pptx");
+  const out = process.env.OUT_PPTX || path.join(DIR, "AI앱아키텍처설계-산출물7종-교재.pptx");
   await pptx.writeFile({ fileName: out });
   console.log(`✅ PPT 생성 완료 — 슬라이드 ${SLIDES.length}장`);
   console.log(`   ${out}`);
