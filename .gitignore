@@ -33,3 +33,6 @@ src/**/__pycache__/
 .pytest_cache/
 
 .playwright-mcp/
+
+# PowerPoint 임시 잠금 파일
+~$*
