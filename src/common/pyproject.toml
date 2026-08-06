@@ -1,0 +1,13 @@
+[project]
+name = "lp-common"
+version = "0.1.0"
+description = "런치픽 공용 패키지 — 코드표·예산·마스킹·관측·출력검사"
+requires-python = ">=3.11"
+dependencies = ["asyncpg>=0.29"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["lp_common"]
