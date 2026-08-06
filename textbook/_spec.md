@@ -55,10 +55,10 @@
 담당 슬라이드 1장 = 아래 블록 1개. 파일 1개에 담당 슬라이드를 순서대로 이어 씀.
 
 ```markdown
-## S09. ③ 에이전트 역할 계약서 — 무엇을 정하나
+## S11. ④ 에이전트 역할 계약서 — 무엇을 정하나
 
 - 패턴: A
-- breadcrumb: Ⅲ. 산출물별 작성법 › ③ 에이전트 역할 계약서
+- breadcrumb: Ⅱ. 산출물별 작성법 › ④ 에이전트 역할 계약서
 - 제목: 혼자 할 일을 여럿에게 나누지 않기
 - 리드문: (16pt 한 문장, 45자 이내)
 
@@ -74,7 +74,7 @@
 | ... | ... | ... |
 
 ### 이미지
-- 파일명: `s09-agent-single-vs-multi.png`
+- 파일명: `s11-single-vs-multi-agent.png`
 - 배치: 우측 (또는 하단 전폭 / 좌측)
 - 캡션: (12pt, 25자 이내)
 - 이미지 프롬프트:
@@ -93,7 +93,7 @@
 | 요소 | 상한 |
 |------|------|
 | 리드문 | 45자 · 1문장 |
-| 좌/우 항목 | 각 4개 이하 · 1개 35자 이하 |
+| 좌/우 항목 | 각 4개 이하 · 1개 35자 이하(S13 ⑤ 경로 5가지만 5개 허용 — 판정 J-1) |
 | 표 | 슬라이드당 1개 · 5행 이하 · 4열 이하 |
 | 슬라이드 총 글자 수 | **250자 이하**(표·캡션 포함, 강의 노트 제외) |
 | 최소 폰트 | 12pt (그보다 작아야 할 분량이면 항목을 버림) |
@@ -112,7 +112,9 @@
 | # | 규칙 |
 |---|------|
 | 1 | 프롬프트는 **영문**으로 쓰고, 이미지에 넣을 **한글 라벨만 따옴표로 지정**함 |
-| 2 | 한글 라벨은 **1개 6자 이하 · 이미지당 8개 이하.** 문장은 절대 넣지 않음 |
+| 2 | 한글 라벨은 **1개 7자 이하 · 이미지당 8개 이하.** 문장은 절대 넣지 않음.  
+`지식/도구`(5자)·`가드레일/관측`(7자)까지 한 줄로 렌더됨을 실측 확인함. 7자를 쓸 때는
+프롬프트에 `each node's width adapts to its label so every label sits on ONE line`을 붙임 |
 | 3 | 스타일 고정 문구를 반드시 포함: `clean flat vector infographic, corporate consulting style, white background, deep navy #1E2A5C and bright blue #2E74C6 accents, thin gray connectors, generous white space, no gradients on text, no 3D, no photo` |
 | 4 | 도식 유형은 5가지 중 1개를 고름 — `흐름도` / `계층 박스` / `판정 트리` / `비교 대조(좌우)` / `경계선 다이어그램` |
 | 5 | 크기 `1536x1024`, 품질 `medium`, 형식 `png` |
@@ -143,8 +145,8 @@
 | 담당 | 출력 파일 | 슬라이드 |
 |------|----------|---------|
 | 클로니 | `textbook/script/00-clonie.md` | S01 ~ S08, S19, S20 |
-| 플로니 | `textbook/script/03-flonie.md` | S09, S10, S13, S14 |
-| 지식니 | `textbook/script/05-jisikni.md` | S11, S12 |
+| 플로니 | `textbook/script/03-flonie.md` | S09, S10(③) · S11, S12(④) |
+| 지식니 | `textbook/script/05-jisikni.md` | S13, S14 |
 | 커넥니 | `textbook/script/06-connectni.md` | S15, S16, S17, S18 |
 
 **이미지는 각자 만들지 않음.** 프롬프트만 스크립트에 적고, 생성은 모달니가 일괄 수행함.

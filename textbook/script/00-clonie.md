@@ -113,11 +113,11 @@ Clean flat vector infographic, corporate consulting style, white background. Sev
 rounded rectangle bars stacked in a vertical column. Each bar contains a white circled
 number on its left AND a large Korean label centered in the bar. From top to bottom the
 pairs are exactly: circled 1 with label "목표", circled 2 with label "구조", circled 3 with
-label "순서", circled 4 with label "역할", circled 5 with label "지식", circled 6 with label
-"관측", circled 7 with label "배포". Bars alternate deep navy #1E2A5C and bright blue
+label "순서", circled 4 with label "역할", circled 5 with label "지식/도구", circled 6 with label
+"가드레일/관측", circled 7 with label "배포". Bars alternate deep navy #1E2A5C and bright blue
 #2E74C6 fill, label text in white. A thin gray vertical arrow runs down the left side of
 the column from top to bottom. One curved thin gray double-headed arrow on the right side
-links the bar labeled "역할" with the bar labeled "지식". EVERY bar must contain its Korean
+links the bar labeled "역할" with the bar labeled "지식/도구". EVERY bar must contain its Korean
 label — no empty bars. Exactly seven Korean labels and seven numbers, no other text, no
 sentences. Generous white space, no gradients on text, no 3D, no photo, no extra letters
 ```
@@ -155,18 +155,20 @@ sentences. Generous white space, no gradients on text, no 3D, no photo, no extra
 Clean flat vector infographic dependency diagram, corporate consulting style, white
 background, landscape layout. Seven rounded rectangle nodes with short Korean labels placed
 in a single horizontal row, evenly spaced, in this exact order: "목표", "구조", "순서",
-"역할", "지식", "관측", "배포". Arrows, all starting and ending exactly on a node edge — no
+"역할", "지식/도구", "가드레일/관측", "배포". Each node's width adapts to its label so every
+label sits on ONE line without wrapping. Arrows, all starting and ending exactly on a node edge — no
 arrow may end in empty space:
 (a) thick deep navy #1E2A5C arrows between adjacent nodes: 구조 to 순서, 순서 to 역할,
-역할 to 지식;
+역할 to 지식/도구;
 (b) one thick deep navy line routed ABOVE the row, leaving the top edge of 목표 and entering
 the top edge of 순서 with the arrowhead pointing DOWN into 순서;
 (c) one thin light gray line routed ABOVE the row, higher than (b), leaving the top edge of
 구조 and entering the top edge of 배포 with the arrowhead pointing DOWN into 배포;
-(d) thin light gray adjacent arrows: 목표 to 구조, 지식 to 관측, 관측 to 배포;
+(d) thin light gray adjacent arrows: 목표 to 구조, 지식/도구 to 가드레일/관측,
+가드레일/관측 to 배포;
 (e) two dashed bright blue #2E74C6 curved arrows routed BELOW the row: one leaving 순서 and
-entering 목표, one leaving 관측 and entering 순서;
-(f) one short dashed bright blue arrow below the row from 지식 into 역할.
+entering 목표, one leaving 가드레일/관측 and entering 순서;
+(f) one short dashed bright blue arrow below the row from 지식/도구 into 역할.
 EVERY node must contain its Korean label — exactly seven Korean labels, no other text,
 no legend, no numbers, no sentences. Generous white space, no gradients on text, no 3D,
 no photo, no extra letters
