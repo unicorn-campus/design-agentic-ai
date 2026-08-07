@@ -27,7 +27,6 @@ Thumbs.db
 .vscode/
 
 # 로컬 실행 비밀값 — 이미지·저장소에 넣지 않음 (⑦ 4-3 위반 예시 2번)
-src/.env
 src/front/node_modules/
 src/front/dist/
 src/**/__pycache__/

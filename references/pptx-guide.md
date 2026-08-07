@@ -92,14 +92,14 @@
 
 | 요소 | 서체 | 굵기 | 크기 | 색상 |
 |------|------|------|------|------|
-| 페이지 제목 | **Pretendard** | ExtraBold(800) | 40pt | `#1E2A5C` |
-| 섹션 헤더 바 텍스트 | **Pretendard** | Bold | 20pt | `#FFFFFF` |
-| 섹션 헤더(본문) | **Pretendard** | Bold | 28pt | `#1E2A5C` |
-| breadcrumb (경로) | **Pretendard** | SemiBold | 13pt | `#7C8598` |
-| 본문 강조 텍스트 | **Pretendard** | Bold | 18pt | `#2B3242` |
-| 본문 일반 텍스트 | **Pretendard** | Regular | 16pt | `#3B4557` |
-| 카드 내 텍스트 | **Pretendard** | Regular | 14pt | `#4A5364` |
-| 캡션 / 메타 | **Pretendard** | Regular | 12pt | `#7C8598` |
+| 페이지 제목 | **Pretendard** | ExtraBold(800) | 48pt | `#1E2A5C` |
+| 섹션 헤더 바 텍스트 | **Pretendard** | Bold | 24pt | `#FFFFFF` |
+| 섹션 헤더(본문) | **Pretendard** | Bold | 32pt | `#1E2A5C` |
+| breadcrumb (경로) | **Pretendard** | SemiBold | 15pt | `#7C8598` |
+| 본문 강조 텍스트 | **Pretendard** | Bold | 21pt | `#2B3242` |
+| 본문 일반 텍스트 | **Pretendard** | Regular | 18pt | `#3B4557` |
+| 카드 내 텍스트 | **Pretendard** | Regular | 16pt | `#4A5364` |
+| 캡션 / 메타 | **Pretendard** | Regular | 14pt | `#7C8598` |
 
 #### 굵기 스케일
 `Regular 400` · `SemiBold 600` · `Bold 700` · `ExtraBold 800`
@@ -122,10 +122,10 @@
 #### 페이지 헤더 구조 (모든 콘텐츠 슬라이드 공통)
 
 ```
-① breadcrumb    : "Ⅰ. 디자인 시스템 › 2. 컬러"   (13pt, #7C8598)
-② 페이지 제목    : "컬러 시스템"                  (40pt Bold, #1E2A5C)
+① breadcrumb    : "Ⅰ. 디자인 시스템 › 2. 컬러"   (15pt, #7C8598)
+② 페이지 제목    : "컬러 시스템"                  (48pt Bold, #1E2A5C)
 ③ 언더라인 룰    : 전폭 3pt #D9E0EC 위에 좌측 150px #2E74C6 액센트 세그먼트
-④ (선택) 리드문  : 한 문장 요약                   (16pt, #4A5364)
+④ (선택) 리드문  : 한 문장 요약                   (18pt, #4A5364)
 ```
 
 #### 레이아웃 패턴
@@ -167,7 +167,7 @@
 |------|------|
 | 형태 | Rectangle (라운드 6px) |
 | 배경 | 단색 `#1E2A5C` 또는 `linear-gradient(90deg,#1E2A5C,#2E74C6)` |
-| 텍스트 | White, 20pt, Bold, 가운데 정렬 |
+| 텍스트 | White, 24pt, Bold, 가운데 정렬 |
 | 용도 | 좌/우 섹션 구분(목적·추진전략, 목표·결과물 등) |
 
 #### 넘버 스퀘어 배지
@@ -214,7 +214,7 @@
 | 헤더 행 | 배경 `#E2EEF9`, 텍스트 `#1E2A5C` Bold |
 | 본문 행 | 흰색 / `#F5F8FC` 교차, 텍스트 `#3B4557` |
 | 행 구분선 | `#EDF0F6` |
-| 행 높이 | 0.45~0.55″ (12pt 이상 + 여유 패딩) |
+| 행 높이 | 0.45~0.55″ (14pt 이상 + 여유 패딩) |
 
 #### 인용 콜아웃
 
@@ -239,9 +239,9 @@
 #### 필수 준수 사항
 
 - 콘텐츠는 반드시 **흰색 배경** 위, 좌우 40pt 여백 안에 배치
-- 페이지 제목은 `#1E2A5C` ExtraBold 40pt로 좌측 상단에 배치하고 언더라인 룰을 둠
-- breadcrumb(경로)는 제목 위 13pt `#7C8598`로 표기
-- 본문 텍스트 최소 크기 **12pt** — 12pt 미만이 필요할 정도면 슬라이드를 분리할 것
+- 페이지 제목은 `#1E2A5C` ExtraBold 48pt로 좌측 상단에 배치하고 언더라인 룰을 둠
+- breadcrumb(경로)는 제목 위 15pt `#7C8598`로 표기
+- 본문 텍스트 최소 크기 **14pt** — 14pt 미만이 필요할 정도면 슬라이드를 분리할 것
 - 하단 여백이 **1.0인치 이상** 남으면 표·카드의 글자/행 높이를 키워 균형있게 채울 것
 - 헤더 바·배지·박스는 **지정 팔레트 내 컬러**만 사용
 - 흰 카드에는 `#D9E0EC` 테두리를 추가하여 시인성 확보
@@ -263,7 +263,7 @@
 - 콘텐츠 영역 너비(`CW`)를 2등분하고 중간 갭 0.2~0.3″ 확보
 - 각 테이블 위에 다크 배지(섹션 제목)를 배치하여 구분
 - 두 테이블의 상단 y좌표를 동일하게 정렬
-- 행 높이를 넉넉히(0.45~0.55″) 잡아 12pt 이상 폰트와 여유 패딩 확보
+- 행 높이를 넉넉히(0.45~0.55″) 잡아 14pt 이상 폰트와 여유 패딩 확보
 
 ---
 
@@ -284,17 +284,17 @@ const C = {
 
 **규칙**: 색상 리터럴을 슬라이드마다 반복 입력하지 말고 `C.*` 상수 사용.
 
-#### 6-2. 최소 폰트 크기 강제 (12pt)
+#### 6-2. 최소 폰트 크기 강제 (14pt)
 
 ```javascript
-const MIN_FONT = 12;
-const fs12 = (size) => {
+const MIN_FONT = 14;
+const fsMin = (size) => {
   if (size < MIN_FONT) throw new Error(`fontSize ${size} < ${MIN_FONT}pt 금지! 슬라이드를 분리할 것`);
   return size;
 };
 ```
 
-**규칙**: `fontSize` 값을 직접 숫자로 쓰지 말고 반드시 `fs12()` 함수를 경유할 것.
+**규칙**: `fontSize` 값을 직접 숫자로 쓰지 말고 반드시 `fsMin()` 함수를 경유할 것.
 
 #### 6-3. 헤더 바 헬퍼
 
@@ -309,7 +309,7 @@ function headerBar(slide, { x, y, w, text, accent = false }) {
     line: { type: "none" },
   });
   slide.addText(text, { x, y, w, h: 0.5, align: "center", color: "FFFFFF",
-    bold: true, fontSize: fs12(20), fontFace: FONT });
+    bold: true, fontSize: fsMin(24), fontFace: FONT });
 }
 ```
 
@@ -323,7 +323,7 @@ function numBadge(slide, { x, y, n, color = C.blue, size = 0.4 }) {
     x, y, w: size, h: size, rectRadius: 0.05, fill: { color }, line: { type: "none" },
   });
   slide.addText(String(n), { x, y, w: size, h: size, align: "center", valign: "middle",
-    color: "FFFFFF", bold: true, fontSize: fs12(16), fontFace: FONT });
+    color: "FFFFFF", bold: true, fontSize: fsMin(18), fontFace: FONT });
 }
 ```
 
@@ -331,8 +331,8 @@ function numBadge(slide, { x, y, n, color = C.blue, size = 0.4 }) {
 
 ```javascript
 function pageHeader(slide, { crumb, title }) {
-  slide.addText(crumb, { x: 0.55, y: 0.45, w: 12, h: 0.3, color: C.sub, fontSize: fs12(13), fontFace: FONT });
-  slide.addText(title, { x: 0.55, y: 0.72, w: 14, h: 0.7, color: C.navy, bold: true, fontSize: fs12(40), fontFace: FONT });
+  slide.addText(crumb, { x: 0.55, y: 0.45, w: 12, h: 0.3, color: C.sub, fontSize: fsMin(15), fontFace: FONT });
+  slide.addText(title, { x: 0.55, y: 0.72, w: 14, h: 0.7, color: C.navy, bold: true, fontSize: fsMin(48), fontFace: FONT });
   slide.addShape(pptx.shapes.RECTANGLE, { x: 0.55, y: 1.55, w: 14.9, h: 0.04, fill: { color: C.border }, line: { type: "none" } });
   slide.addShape(pptx.shapes.RECTANGLE, { x: 0.55, y: 1.55, w: 2.1,  h: 0.04, fill: { color: C.blue },   line: { type: "none" } });
 }
@@ -384,7 +384,7 @@ slide.addTable(
       { text: "유형", options: { fill: C.tableHead, color: C.navy, bold: true } } ],
     ["7.5", "EIF"],
   ],
-  { x: 0.55, y: 1.9, w: 9, colW: [2, 7], fontSize: fs12(12), fontFace: FONT,
+  { x: 0.55, y: 1.9, w: 9, colW: [2, 7], fontSize: fsMin(14), fontFace: FONT,
     rowH: 0.5, border: { type: "solid", color: C.line, pt: 1 } }
 );
 ```
@@ -395,7 +395,7 @@ slide.addTable(
 
 ```javascript
 const FONT = "Pretendard";
-{ text: "안녕하세요", options: { fontFace: FONT, fontSize: fs12(16) } }
+{ text: "안녕하세요", options: { fontFace: FONT, fontSize: fsMin(18) } }
 ```
 
 **규칙**: `Calibri`, `Arial`, `맑은 고딕` 등 직접 지정 금지. 시스템 폴백은 PPT 뷰어가 처리.
@@ -426,7 +426,7 @@ main().catch((e) => { console.error("❌ PPT 생성 실패:", e); process.exit(1
 
 | # | 검증 항목 | 방법 | 합격 기준 |
 |---|----------|------|----------|
-| 1 | 최소 폰트 크기 | 스크립트 내 모든 fontSize 값 확인 | 12pt 이상 (fs12 경유) |
+| 1 | 최소 폰트 크기 | 스크립트 내 모든 fontSize 값 확인 | 14pt 이상 (fsMin 경유) |
 | 2 | 하단 여백 | 최하단 콘텐츠 ~ 푸터 간 거리 계산 | 1.0인치 미만 |
 | 3 | 콘텐츠 누락 | 텍스트 추출 후 원본 대조 | 모든 항목 포함 |
 | 4 | 이미지 임베딩 | 스크립트의 이미지 경로 존재 여부 | 파일 존재 확인 |

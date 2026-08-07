@@ -1,3 +1,0 @@
--r requirements-base.txt
-langgraph==0.6.7
-anthropic==0.120.2
