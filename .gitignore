@@ -1,6 +1,7 @@
 .claude/
 .temp/
 *.log
+.env
 
 # 제3자 저작물 — 재배포 권리 없음 (각자 내려받아 같은 경로에 둘 것)
 # Manning 상업 출판물. Neo4j 무료 배포: https://neo4j.com/essential-graphrag/
