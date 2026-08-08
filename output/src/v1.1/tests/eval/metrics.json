@@ -1,0 +1,42 @@
+{
+  "source": "output/design/01-목표품질속성카드.md 및 06-가드레일관측설계.md",
+  "repetitions": 2,
+  "execution_concurrency": 1,
+  "open_items": [
+    "실물 API 진입점 URL·응답 스키마",
+    "알레르겐 판정 데이터 원천",
+    "추천 정확도 향상률 산출식·원천",
+    "골든셋 정답 검수자 2명",
+    "실물 API 개선 전 기준선",
+    "피크 시간대 트래픽 집중 비율과 부하시험 시나리오",
+    "G-2 취향 반영 비율 목표값"
+  ],
+  "metrics": [
+    {
+      "metric_id": "Q-1 응답시간",
+      "kind": "p95_latency_ms",
+      "percentile_ratio": 0.95,
+      "target": {"op": "lte", "value": 3000, "unit": "ms"},
+      "minimum_samples": 20,
+      "measurement": "live_only"
+    },
+    {
+      "metric_id": "Q-2 설명가능성",
+      "kind": "all_pass_ratio",
+      "target": {"op": "eq", "value": 1.0, "unit": "ratio"},
+      "measurement": "live_only"
+    },
+    {
+      "metric_id": "Q-3 안전성",
+      "kind": "failure_count",
+      "target": {"op": "eq", "value": 0, "unit": "count"},
+      "measurement": "live_only"
+    }
+  ],
+  "diagnostics": [
+    {"metric_id": "route_accuracy", "target": null},
+    {"metric_id": "must_include_coverage", "target": null},
+    {"metric_id": "evidence_trace_rate", "target": null},
+    {"metric_id": "tool_sequence_accuracy", "target": null}
+  ]
+}
