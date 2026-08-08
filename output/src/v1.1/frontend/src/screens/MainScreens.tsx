@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { fetchRecommendations, recordMeal } from "../api";
-import { mealHistory, rejectReasons, sampleRecommendations, type Recommendation, type Route } from "../data";
+import { rejectReasons, sampleRecommendations, type MealFeedback, type MealHistoryEntry, type Recommendation, type Route } from "../data";
 import { BottomNav, Header, Modal, Page } from "../components/Chrome";
 
 type Navigate = (route: Route) => void;
@@ -76,7 +76,7 @@ export function NavigationScreen({ navigate, recommendation }: { navigate: Navig
   );
 }
 
-export function MealScreen({ navigate, recommendation }: { navigate: Navigate; recommendation: Recommendation }) {
+export function MealScreen({ navigate, recommendation, onMealCompleted }: { navigate: Navigate; recommendation: Recommendation; onMealCompleted: (feedback: MealFeedback) => void }) {
   const [recorded, setRecorded] = useState(false);
   const [feedback, setFeedback] = useState<"good" | "bad" | null>(null);
   const [message, setMessage] = useState("");
@@ -90,24 +90,26 @@ export function MealScreen({ navigate, recommendation }: { navigate: Navigate; r
       <Header title="식사 기록" back="navigation" navigate={navigate} />
       <Page>
         {!recorded ? <section className="record-hero"><div className="meal-emoji">🍲</div><p>{recommendation.restaurantName}</p><h1>{recommendation.menuName},<br />맛있게 드셨나요?</h1><button className="record-main-button" onClick={() => void save()}>✓<span>식사 기록하기</span></button></section>
-          : <section className="feedback-panel"><div className="success-mark">✓</div><h1>오늘 점심 어땠어요?</h1><p>{message}</p><div className="emoji-feedback"><button className={feedback === "good" ? "selected" : ""} onClick={() => setFeedback("good")}>👍<span>좋았어요</span></button><button className={feedback === "bad" ? "selected" : ""} onClick={() => setFeedback("bad")}>👎<span>별로였어요</span></button></div><div className="chip-group feedback-keywords"><button className="chip">맛있었어요</button><button className="chip">양 적당</button><button className="chip">빨리 나왔어요</button></div><button className="btn btn-primary btn-full" disabled={!feedback} onClick={() => navigate("home")}>피드백 완료</button><button className="btn-text btn-full" onClick={() => navigate("home")}>건너뛰기</button></section>}
+          : <section className="feedback-panel"><div className="success-mark">✓</div><h1>오늘 점심 어땠어요?</h1><p>{message}</p><div className="emoji-feedback"><button className={feedback === "good" ? "selected" : ""} onClick={() => setFeedback("good")}>👍<span>좋았어요</span></button><button className={feedback === "bad" ? "selected" : ""} onClick={() => setFeedback("bad")}>👎<span>별로였어요</span></button></div><div className="chip-group feedback-keywords"><button className="chip">맛있었어요</button><button className="chip">양 적당</button><button className="chip">빨리 나왔어요</button></div><button className="btn btn-primary btn-full" disabled={!feedback} onClick={() => { if (feedback) onMealCompleted(feedback); navigate("home"); }}>피드백 완료</button><button className="btn-text btn-full" onClick={() => { onMealCompleted("neutral"); navigate("home"); }}>건너뛰기</button></section>}
       </Page>
       {recorded && <div className="undo-bar"><span>식사 기록 완료</span><button onClick={() => setRecorded(false)}>실행 취소</button></div>}
     </>
   );
 }
 
-export function InsightsScreen({ navigate }: { navigate: Navigate }) {
-  const [tab, setTab] = useState<"history" | "insight">("history");
-  const mealByDay = useMemo(() => new Map(mealHistory.map((item) => [item.day, item])), []);
+export function InsightsScreen({ navigate, view, records }: { navigate: Navigate; view: "history" | "insight"; records: MealHistoryEntry[] }) {
+  const now = new Date();
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const monthLabel = `${now.getFullYear()}년 ${now.getMonth() + 1}월`;
+  const mealByDay = useMemo(() => new Map(records.map((item) => [item.day, item])), [records]);
   return (
     <>
       <Header title="나의 점심" navigate={navigate} />
       <Page>
-        <div className="segmented-tabs" role="tablist"><button className={tab === "history" ? "active" : ""} onClick={() => setTab("history")} role="tab">이력</button><button className={tab === "insight" ? "active" : ""} onClick={() => setTab("insight")} role="tab">인사이트</button></div>
-        {tab === "history" ? <>
-          <div className="calendar-header"><button className="btn-icon">←</button><strong>2026년 2월</strong><button className="btn-icon">→</button></div>
-          <div className="calendar-grid">{["일","월","화","수","목","금","토"].map((day) => <span className="calendar-label" key={day}>{day}</span>)}{Array.from({ length: 28 }, (_, index) => index + 1).map((day) => { const meal = mealByDay.get(day); return <div className={`calendar-day ${meal ? "has-meal" : ""}`} key={day}><span>{day}</span>{meal && <small title={meal.restaurant}>{meal.feedback === "good" ? "😊" : "😕"}</small>}</div>; })}</div>
+        <div className="segmented-tabs" role="tablist"><button className={view === "history" ? "active" : ""} aria-selected={view === "history"} onClick={() => navigate("history")} role="tab">이력</button><button className={view === "insight" ? "active" : ""} aria-selected={view === "insight"} onClick={() => navigate("insights")} role="tab">인사이트</button></div>
+        {view === "history" ? <>
+          <div className="calendar-header"><button className="btn-icon">←</button><strong>{monthLabel}</strong><button className="btn-icon">→</button></div>
+          <div className="calendar-grid">{["일","월","화","수","목","금","토"].map((day) => <span className="calendar-label" key={day}>{day}</span>)}{Array.from({ length: daysInMonth }, (_, index) => index + 1).map((day) => { const meal = mealByDay.get(day); return <div className={`calendar-day ${meal ? "has-meal" : ""}`} data-testid={`meal-day-${day}`} key={day}><span>{day}</span>{meal && <small title={meal.restaurant}>{meal.feedback === "good" ? "😊" : meal.feedback === "bad" ? "😕" : "🍽️"}</small>}</div>; })}</div>
           <section className="premium-callout"><div><strong>30일 이전 이력도 계속 보관하세요</strong><p>프리미엄은 식사 이력을 제한 없이 기억해요.</p></div><button className="btn-text" onClick={() => navigate("subscription")}>체험하기</button></section>
         </> : <section className="insight-stack">
           <article className="card insight-card highlight-card"><span>이번 주 당신의 점심 패턴</span><h2>한식을 가장 좋아하시네요!</h2><p>이번 주 4일 연속 국물 메뉴였어요 🍲</p></article>
@@ -115,12 +117,12 @@ export function InsightsScreen({ navigate }: { navigate: Navigate }) {
           <article className="card insight-card"><h3>만족도 변화</h3><div className="satisfaction"><strong>4.2</strong><span>/ 5.0</span><b>↗ 0.4</b></div><p>추천 정확도가 첫 주보다 42% 좋아졌어요.</p></article>
         </section>}
       </Page>
-      <BottomNav active="insights" navigate={navigate} />
+      <BottomNav active={view === "history" ? "history" : "insights"} navigate={navigate} />
     </>
   );
 }
 
-export function ProfileScreen({ navigate }: { navigate: Navigate }) {
+export function ProfileScreen({ navigate, dietaryConfigured, locationEnabled, onLocationChange }: { navigate: Navigate; dietaryConfigured: boolean; locationEnabled: boolean; onLocationChange: (enabled: boolean) => void }) {
   const [name, setName] = useState("준혁");
   const [draft, setDraft] = useState(name);
   const [editing, setEditing] = useState(false);
@@ -131,10 +133,10 @@ export function ProfileScreen({ navigate }: { navigate: Navigate }) {
       <Page>
         <section className="profile-hero"><div className="profile-avatar">준</div><div><h1>{name}님</h1><p>준혁님과 12번의 점심을 함께했어요.</p></div><button className="btn-text" onClick={() => setEditing(true)}>수정</button></section>
         <Settings title="계정"><SettingRow label="이메일" value="junhyuk@example.com" /><SettingRow label="닉네임" value={name} /></Settings>
-        <Settings title="식이제한"><SettingRow label="알레르기·식이 유형" value="설정됨" onClick={() => navigate("dietary")} /></Settings>
+        <Settings title="식이제한"><SettingRow label="알레르기·식이 유형" value={dietaryConfigured ? "설정됨" : "미설정"} onClick={() => navigate("dietary")} /></Settings>
         <Settings title="알림"><ToggleRow label="점심 추천 알림" value={recommendAlert} onChange={setRecommendAlert} /><ToggleRow label="피드백 리마인더" value onChange={() => undefined} /></Settings>
         <Settings title="구독"><SettingRow label="현재 플랜" value="무료" onClick={() => navigate("subscription")} /></Settings>
-        <Settings title="위치"><ToggleRow label="위치 정보 제공" value onChange={() => undefined} /></Settings>
+        <Settings title="위치"><ToggleRow label="위치 정보 제공" value={locationEnabled} onChange={onLocationChange} /></Settings>
         <button className="btn-text muted profile-logout" onClick={() => navigate("login")}>로그아웃</button>
       </Page>
       <BottomNav active="profile" navigate={navigate} />

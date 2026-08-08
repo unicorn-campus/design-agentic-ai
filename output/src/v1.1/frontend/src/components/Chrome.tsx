@@ -28,7 +28,7 @@ export function Header({ title, location, back, navigate }: HeaderProps) {
 
 const tabs: Array<{ id: Route; label: string; icon: string }> = [
   { id: "home", label: "홈", icon: "🏠" },
-  { id: "insights", label: "이력", icon: "📋" },
+  { id: "history", label: "이력", icon: "📋" },
   { id: "insights", label: "인사이트", icon: "📊" },
   { id: "profile", label: "프로필", icon: "👤" },
 ];

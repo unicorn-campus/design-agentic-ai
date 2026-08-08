@@ -69,7 +69,11 @@ export function QuizScreen({ navigate }: { navigate: Navigate }) {
   );
 }
 
-export function LocationScreen({ navigate }: { navigate: Navigate }) {
+export function LocationScreen({ navigate, onLocationChoice }: { navigate: Navigate; onLocationChoice: (enabled: boolean) => void }) {
+  const choose = (enabled: boolean) => {
+    onLocationChoice(enabled);
+    navigate("dietary");
+  };
   return (
     <>
       <Header back="quiz" navigate={navigate} />
@@ -83,8 +87,8 @@ export function LocationScreen({ navigate }: { navigate: Navigate }) {
             <div><strong>위치는 추천에만 사용해요</strong><p>동의는 프로필에서 언제든 변경할 수 있어요.</p></div>
           </div>
           <div className="stack-actions">
-            <button className="btn btn-primary btn-full" onClick={() => navigate("dietary")}>위치 정보 허용하기</button>
-            <button className="btn btn-secondary btn-full" onClick={() => navigate("dietary")}>지금은 허용하지 않기</button>
+            <button className="btn btn-primary btn-full" onClick={() => choose(true)}>위치 정보 허용하기</button>
+            <button className="btn btn-secondary btn-full" onClick={() => choose(false)}>지금은 허용하지 않기</button>
           </div>
         </section>
       </Page>
@@ -92,7 +96,7 @@ export function LocationScreen({ navigate }: { navigate: Navigate }) {
   );
 }
 
-export function DietaryScreen({ navigate }: { navigate: Navigate }) {
+export function DietaryScreen({ navigate, onConfigured }: { navigate: Navigate; onConfigured: (configured: boolean) => void }) {
   const [consent, setConsent] = useState(false);
   const [selectedAllergens, setSelectedAllergens] = useState<string[]>([]);
   const [diet, setDiet] = useState("일반");
@@ -104,7 +108,7 @@ export function DietaryScreen({ navigate }: { navigate: Navigate }) {
     <>
       <Header title="식이제한 설정" back="location" navigate={navigate} />
       <Page>
-        <div className="skip-row"><span>안전한 추천을 위해 알려주세요</span><button className="btn-text" onClick={() => navigate("home")}>나중에 하기</button></div>
+        <div className="skip-row"><span>안전한 추천을 위해 알려주세요</span><button className="btn-text" onClick={() => { onConfigured(false); navigate("home"); }}>나중에 하기</button></div>
         <label className="consent-check">
           <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
           <span><strong>건강 관련 정보 수집에 동의합니다</strong><small>알레르기·식이 정보는 안전 추천에만 사용됩니다.</small></span>
@@ -121,7 +125,7 @@ export function DietaryScreen({ navigate }: { navigate: Navigate }) {
             {dietTypes.map((item) => <button key={item} className={`chip ${diet === item ? "selected" : ""}`} onClick={() => setDiet(item)}>{item}</button>)}
           </div>
         </section>
-        <button className="btn btn-primary btn-full dietary-submit" disabled={!consent} onClick={() => navigate("home")}>설정 완료</button>
+        <button className="btn btn-primary btn-full dietary-submit" disabled={!consent} onClick={() => { onConfigured(true); navigate("home"); }}>설정 완료</button>
       </Page>
     </>
   );

@@ -6,6 +6,7 @@ export type Route =
   | "home"
   | "navigation"
   | "meal"
+  | "history"
   | "insights"
   | "profile"
   | "subscription";
@@ -24,6 +25,16 @@ export interface Recommendation {
   reasonDetail: string;
   contextTags: string[];
   address: string;
+}
+
+export type MealFeedback = "good" | "bad" | "neutral";
+
+export interface MealHistoryEntry {
+  recommendationId?: string;
+  day: number;
+  restaurant: string;
+  category: string;
+  feedback: MealFeedback;
 }
 
 export const foods = [
@@ -86,7 +97,7 @@ export const sampleRecommendations: Recommendation[] = [
   },
 ];
 
-export const mealHistory = [
+export const mealHistory: MealHistoryEntry[] = [
   { day: 1, restaurant: "미소된장", category: "한식", feedback: "good" },
   { day: 3, restaurant: "봉주르 파스타", category: "양식", feedback: "good" },
   { day: 4, restaurant: "홍콩반점", category: "중식", feedback: "bad" },
