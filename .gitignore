@@ -32,6 +32,17 @@ src/front/dist/
 src/**/__pycache__/
 .pytest_cache/
 
+# 07-api-ui 프론트엔드 — 로컬 개발용, 저장소에 올리지 않음
+output/src/v1/frontend/node_modules/
+output/src/v1/frontend/dist/
+output/src/v1/frontend/.env.local
+output/src/v1.1/frontend/node_modules/
+output/src/v1.1/frontend/dist/
+output/src/v1.1/frontend/.env.local
+output/src/v1.2/frontend/node_modules/
+output/src/v1.2/frontend/dist/
+output/src/v1.2/frontend/.env.local
+
 .playwright-mcp/
 
 # PowerPoint 임시 잠금 파일

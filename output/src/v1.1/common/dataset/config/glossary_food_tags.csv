@@ -1,6 +1,0 @@
-canonical,synonyms,kind,collision_rule,status,source
-한식,#한식|한식당|한국음식,category,keep_all_candidates,confirmed,uiux.md:243 (⑤ 5절 K-3 ⓐ)
-국물,#국물|국물요리|탕|찌개,taste_tag,keep_all_candidates,confirmed,uiux.md:243 (⑤ 5절 K-3 ⓐ)
-매운맛,#매운맛|매움|스파이시,taste_tag,keep_all_candidates,confirmed,uiux.md:243 (⑤ 5절 K-3 ⓐ)
-[확인필요: 음식 카드 마스터 구축 주체·건수·태그 분류 체계],,category,keep_all_candidates,open,⑤ 14절 미확정 항목 — 카테고리 5종 이상 전체 목록이 원문에 없음
-[확인필요: 음식 카드 마스터 구축 주체·건수·태그 분류 체계],,taste_tag,keep_all_candidates,open,⑤ 14절 미확정 항목 — 맛 태그 전체 목록이 원문에 없음
