@@ -1,0 +1,48 @@
+@startuml
+!theme mono
+title W-03 상담 종료 이벤트 처리
+
+queue "상담 이벤트 버스" as Bus
+participant "규칙 처리기\nR-D2" as Rule
+participant "LLM 담당자\nR-L1" as LLM
+participant "위험 예측 AI\nR-D1" as Predict
+actor "상담사·검토자\nR-H1" as Human
+database "상담 지식 RAG" as Knowledge
+database "CRM" as CRM
+collections "설문 시스템" as Survey
+queue "격리 큐" as DLQ
+
+Bus -> Rule : S-E1 [이벤트] 상담이 종료되었음
+Rule -> Rule : 멱등키·스키마 검사\nLLM 0회
+
+alt 유효한 신규 이벤트
+  Rule -> Rule : S-E2 [커맨드] 상담 원문을 마스킹하라
+  Rule -> LLM : 마스킹 원문
+  LLM -> Knowledge : S-E3 근거 확인\nK-GLS-01·K-SEM-01
+  Knowledge --> LLM : 대표어·근거 문단
+  LLM -> Rule : [이벤트] 상담 요약이 작성되었음\nLLM 1회
+  Rule -> Predict : S-E4 해결·감정·반복 특성\nLLM 0회
+  Predict --> Rule : [이벤트] 사후 위험도가 산출되었음
+  alt 위험도 0.80 이상 또는 분쟁 징후
+    Rule -> Human : S-E5 [커맨드] 고위험 기록을 검토하라
+    Human --> Rule : [이벤트] 상담 기록이 승인·수정되었음
+  else 저위험
+    Rule -> Rule : [정책] 사람 검토 생략
+  end
+  Rule -> CRM : S-E6 [커맨드] 승인 기록을 저장하라
+  CRM --> Rule : [이벤트] 상담 기록이 저장되었음
+  Rule -> Survey : S-E7 [커맨드] 동의 고객에게 설문을 발송하라
+  Survey --> Rule : [이벤트] 만족도 설문이 발송되었음
+else 중복 이벤트
+  Rule -> Rule : [정책] 처리 없이 감사 로그 기록
+else 스키마·마스킹 오류
+  Rule -> DLQ : [커맨드] 실패 이벤트를 격리하라
+end
+
+note right of Rule
+  CRM 쓰기: 멱등 재시도 2회
+  설문 발송: 재시도 1회
+  상한 초과: 격리·운영자 알림
+end note
+@enduml
+

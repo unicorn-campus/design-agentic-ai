@@ -2,17 +2,37 @@
 !theme mono
 title 신용카드사 Help Desk 워크플로우 연결도
 
-rectangle "고객 상담" as consultation {
-  (WF-01 동기 고객 문의) as WF01
-}
+actor "고객" as Customer
+actor "상담사·검토자\nR-H1" as Human
+rectangle "W-01\n고객 문의 동기 처리" as W01
+rectangle "W-02\n매일 02:00 지식 개선 배치" as W02
+rectangle "W-03\n상담 종료 이벤트 처리" as W03
+database "읽기 복제본·분석 뷰" as Structured
+database "RAG·GraphRAG\n용어사전·온톨로지" as Knowledge
+cloud "공식 웹·영상 (E)" as External
+database "CRM·지식 개선 대기열" as Output
 
-rectangle "상담 운영" as operation {
-  (WF-03 상담 종료 후처리) as WF03
-  (WF-02 상담 지식 개선 배치) as WF02
-}
+Customer --> W01 : [커맨드] 문의하라
+W01 --> Customer : [이벤트] 고객 답변이 전달되었음
+W01 --> Human : [정책] 고위험·근거 상충 시 이관
+W01 --> W03 : [이벤트] 상담이 종료되었음
+W02 --> Human : [커맨드] FAQ 후보를 심사하라
+Human --> W02 : [이벤트] FAQ 후보가 승인되었음
+W03 --> Human : [정책] 고위험 기록 검토
 
-WF01 --> WF03 : [이벤트] 상담이 종료됨
-WF03 --> WF02 : [데이터] 마스킹된 상담 요약
-WF02 ..> WF01 : [정책/규칙] 승인된 FAQ만 검색 대상에 반영
+W01 --> Structured
+W01 --> Knowledge
+W01 --> External
+W02 --> Structured
+W02 --> Knowledge
+W02 --> External
+W02 --> Output
+W03 --> Knowledge
+W03 --> Output
 
+note bottom
+  워크플로우는 정확히 3건임.
+  (E)는 비신뢰 외부 시스템임.
+end note
 @enduml
+

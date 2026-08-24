@@ -1,0 +1,44 @@
+@startuml
+!theme mono
+title W-02 매일 02:00 상담 지식 개선 배치
+
+participant "스케줄러·규칙 처리기\nR-D2" as Rule
+participant "LLM 담당자\nR-L1" as LLM
+participant "우선순위 예측 AI\nR-D1" as Predict
+actor "지식 검토자\nR-H1" as Human
+database "상담 읽기 복제본·분석 뷰" as Structured
+database "RAG·GraphRAG" as Knowledge
+participant "공식 웹·영상 (E)" as External
+database "지식 개선 대기열" as Queue
+
+Rule -> Rule : S-B1 매일 02:00\n[커맨드] 배치를 시작하라
+Rule -> Structured : S-B2 전일 상담 고정 쿼리\nK-ST-FQ-01, LLM 0회
+Structured --> Rule : [이벤트] 전일 상담이 조회되었음
+Rule -> LLM : 마스킹 상담·분석 질문
+LLM -> LLM : S-B3 NL2SQL 작성\nK-ST-NL-01, LLM 1회
+LLM -> Rule : SELECT 후보
+Rule -> Structured : S-B4 허용 목록 검사 후 실행\n최대 100행
+Structured --> LLM : [이벤트] 상담 통계가 조회되었음
+LLM -> Knowledge : S-B5 반복 문의·관계 근거 검색\nK-GLS-01·K-SEM-01·K-REL-01·K-ONT-01
+Knowledge --> LLM : 주제·문서·관계 경로
+LLM -> Rule : 비식별 개선 주제
+Rule -> External : S-B6 공식 변경 근거 확인\n웹·영상 각 최대 10건
+External --> Rule : URL·제목·조회 시각·자막 구간
+Rule -> Predict : S-B7 빈도·위험·재문의율\nLLM 0회
+Predict --> LLM : [이벤트] 개선 우선순위가 산출되었음
+LLM -> Human : S-B8 [이벤트] FAQ 후보가 작성되었음
+Human -> Rule : S-B9 [이벤트] FAQ 후보가 승인·반려되었음
+
+alt 승인됨
+  Rule -> Queue : S-B10 [커맨드] 승인 후보를 등록하라
+  Queue --> Rule : [이벤트] FAQ 개선 후보가 등록되었음
+else 반려·기한 초과
+  Rule -> Rule : [정책] 자동 게시 금지·운영자 알림
+end
+
+note right of External
+  비신뢰 입력
+  공식 출처만 허용
+  민감정보 검색 금지
+end note
+@enduml

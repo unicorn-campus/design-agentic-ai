@@ -1,0 +1,47 @@
+@startuml
+!theme mono
+title W-01 고객 문의 동기 처리
+
+actor "고객" as Customer
+participant "규칙 처리기\nR-D2" as Rule
+participant "LLM 담당자\nR-L1" as LLM
+participant "위험 예측 AI\nR-D1" as Predict
+actor "상담사·검토자\nR-H1" as Human
+database "정형 조회계" as Structured
+database "RAG·GraphRAG" as Knowledge
+participant "공식 웹·영상 (E)" as External
+
+Customer -> Rule : [커맨드] 문의를 접수하라
+Rule -> Structured : S-R1 고정 쿼리\nK-ST-FQ-01, LLM 0회
+Structured --> Rule : [이벤트] 고객 상태가 조회되었음
+Rule -> LLM : [이벤트] 문의가 접수되었음
+LLM -> LLM : S-R2 문의 해석\nK-GLS-01, LLM 1회
+LLM -> LLM : S-R3 NL2SQL 작성\nK-ST-NL-01, LLM 1회
+LLM -> Rule : SQL 후보
+Rule -> Structured : S-R4 SELECT 검사·실행\nLLM 0회, 최대 100행
+Structured --> Rule : [이벤트] 분석 결과가 조회되었음
+Rule -> LLM : 검증된 정형 결과
+LLM -> Knowledge : S-R5 내부 근거 검색\nK-SEM-01·K-REL-01·K-ONT-01
+Knowledge --> LLM : 문서 근거·3홉 이내 관계
+LLM -> Rule : 비식별 외부 검색어
+Rule -> External : S-R6 공식 웹·영상 조회\nK-EXT-WEB-01·K-EXT-VIDEO-01
+External --> Rule : URL·제목·조회 시각·자막 구간
+Rule -> Predict : S-R7 고정 특성 전달\nLLM 0회
+Predict --> Rule : [이벤트] 상담 위험도가 산출되었음
+Rule -> LLM : 검증 결과·근거·위험도
+LLM -> Rule : S-R8 근거 답변 초안\nLLM 1회
+
+alt 위험도 0.80 이상 또는 근거 상충
+  Rule -> Human : S-R9 [커맨드] 고위험 답변을 검토하라
+  Human --> Rule : [이벤트] 답변이 승인·수정·중단되었음
+else 저위험이며 모든 검사 통과
+  Rule -> Rule : [정책] 사람 검토 생략
+end
+
+Rule -> Customer : S-R10 [이벤트] 고객 답변이 전달되었음
+note right of External
+  비신뢰 입력
+  민감정보 검색 금지
+  출처 필드 보존
+end note
+@enduml
