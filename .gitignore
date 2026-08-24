@@ -1,6 +1,7 @@
 .temp/
 *.log
 .env
+.omc/
 
 # 브라우저 자동화 산출물
 .playwright-mcp/
@@ -18,6 +19,3 @@ Thumbs.db
 .idea/
 .vscode/
 
-
-# OMC 도구 상태 (로컬 전용)
-.omc/
