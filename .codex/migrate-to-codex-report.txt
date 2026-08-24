@@ -1,0 +1,23 @@
+Migration inventory:
+  inactive: instruction files - none found
+  active: skills - 2 found
+    - design-architecture
+    - develop-agentic-ai
+  inactive: command sources - none found
+  inactive: subagents - none found
+Migration surfaces:
+  inactive: AGENTS.md - No supported instruction file found.
+  active: skills - 2 skill(s) converted.
+  inactive: MCP config - Not selected by CLI flags.
+  inactive: subagents - Not selected by CLI flags.
+Migration report:
+  rewritten: .agents/skills/design-architecture/SKILL.md - Claude tool metadata and calls converted to Codex workflow guidance.
+  rewritten: .agents/skills/develop-agentic-ai/SKILL.md - Claude tool metadata and calls converted to Codex workflow guidance.
+  copied: .agents/skills/design-architecture/guides - Skill guide files copied; transient `.omc/state` excluded.
+  copied: .agents/skills/design-architecture/prompts - Skill prompt files copied.
+  copied: .agents/skills/develop-agentic-ai/prompts - Skill prompt files copied and Context7 tool sequence clarified.
+  added: .agents/skills/*/agents/openai.yaml - Codex UI metadata and invocation policy added.
+Validation:
+  ok: skill frontmatter contains name and description.
+  ok: Codex-specific metadata YAML parses successfully.
+  ok: copied PDF checksum matches the source.

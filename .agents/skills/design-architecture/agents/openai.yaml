@@ -1,0 +1,7 @@
+interface:
+  display_name: "Agentic AI 아키텍처 설계"
+  short_description: "기획 산출물에서 아키텍처 설계서 7종과 반영대조표 생성"
+  default_prompt: "$design-architecture를 사용해 기획 산출물 기반 아키텍처 설계서를 작성해 주세요."
+
+policy:
+  allow_implicit_invocation: true
