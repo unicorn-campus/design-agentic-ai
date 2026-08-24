@@ -1,0 +1,28 @@
+@startuml
+!theme mono
+title WF-02 상담 지식 개선 배치
+
+participant "배치 스케줄러" as Scheduler
+participant "상담 분석" as Analytics
+participant "FAQ 후보 생성" as Candidate
+participant "품질 검사" as Quality
+participant "운영자 검토함" as ReviewQueue
+actor "지식·준법 검토자" as Reviewer
+
+Scheduler -> Analytics : [커맨드] 전일 상담 분석 시작\n[데이터] 배치 기준일, 실행 ID
+Analytics -> Analytics : [정책/규칙] 상담 이력 민감정보 마스킹
+Analytics -> Analytics : [커맨드] 반복 문의·오답 후보 탐지
+Analytics --> Candidate : [이벤트] 반복 문의와 오답 후보가 탐지됨\n[데이터] 빈도, 재문의율, 수정률
+
+alt 분석 대상 100건 이상
+  Candidate -> Candidate : [커맨드] FAQ 개선 후보 생성
+  Candidate --> Quality : [이벤트] FAQ 개선 후보가 생성됨\n[데이터] 질문, 답변 초안, 근거, 영향도
+  Quality -> Quality : [정책/규칙] 근거 유효성·중복·금지 정보 검사
+  Quality --> ReviewQueue : [이벤트] 후보 검증이 완료됨
+  ReviewQueue -> ReviewQueue : [정책/규칙] 자동 게시 금지·승인 대기
+  ReviewQueue --> Reviewer : [이벤트] FAQ 개선 후보가 승인 대기됨
+else 분석 대상 100건 미만
+  Analytics -> Analytics : [이벤트] 데이터 부족으로 배치가 종료됨
+end
+
+@enduml

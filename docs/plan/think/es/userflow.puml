@@ -1,0 +1,18 @@
+@startuml
+!theme mono
+title 신용카드사 Help Desk 워크플로우 연결도
+
+rectangle "고객 상담" as consultation {
+  (WF-01 동기 고객 문의) as WF01
+}
+
+rectangle "상담 운영" as operation {
+  (WF-03 상담 종료 후처리) as WF03
+  (WF-02 상담 지식 개선 배치) as WF02
+}
+
+WF01 --> WF03 : [이벤트] 상담이 종료됨
+WF03 --> WF02 : [데이터] 마스킹된 상담 요약
+WF02 ..> WF01 : [정책/규칙] 승인된 FAQ만 검색 대상에 반영
+
+@enduml

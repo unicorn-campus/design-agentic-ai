@@ -1,0 +1,36 @@
+@startuml
+!theme mono
+title WF-03 상담 종료 후처리
+
+participant "상담 채널" as Channel
+participant "후처리 오케스트레이션" as Orchestrator
+participant "상담 요약" as Summary
+participant "개인정보 보호" as Privacy
+actor "상담사" as Agent
+participant "(E)고객관리시스템 CRM" as CRM
+participant "(E)설문 알림" as Survey
+participant "운영자 실패 보관함" as FailureQueue
+
+Channel -> Orchestrator : [이벤트] 상담이 종료됨\n[데이터] 상담 ID, 고객 ID 토큰, 대화 위치
+Orchestrator -> Orchestrator : [정책/규칙] 상담 ID 중복 이벤트 제거
+Orchestrator -> Summary : [커맨드] 상담 요약 생성
+Summary --> Privacy : [이벤트] 상담 요약이 생성됨\n[데이터] 사유, 확인 내용, 안내 결과, 후속 조치
+Privacy -> Privacy : [커맨드] 민감정보 마스킹·검사
+Privacy --> Orchestrator : [이벤트] 상담 요약이 마스킹됨
+
+alt 요약 신뢰도 0.85 미만 또는 민감 상담
+  Orchestrator -> Agent : [커맨드] 상담 요약 확인 요청
+  Agent --> Orchestrator : [이벤트] 상담 요약이 확인됨
+end
+
+Orchestrator -> CRM : [커맨드] 상담 요약 저장
+alt CRM 저장 성공
+  CRM --> Orchestrator : [이벤트] 상담 요약이 저장됨
+  Orchestrator -> Survey : [커맨드] 만족도 설문 발송\n[정책/규칙] 수신 동의 확인
+  Survey --> Orchestrator : [이벤트] 만족도 설문이 발송됨
+else 3회 재시도 후 실패
+  Orchestrator -> FailureQueue : [커맨드] 실패 작업 보관
+  FailureQueue --> Orchestrator : [이벤트] 후처리 실패가 운영자에게 통지됨
+end
+
+@enduml

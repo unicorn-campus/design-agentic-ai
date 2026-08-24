@@ -1,0 +1,38 @@
+@startuml
+!theme mono
+title WF-01 동기 고객 문의
+
+actor "고객" as Customer
+participant "상담 채널" as Channel
+participant "상담 오케스트레이션" as Orchestrator
+participant "지식 검색" as Knowledge
+participant "(E)고객·카드 조회 API" as CardAPI
+participant "(E)거래 조회 API" as TxAPI
+participant "상담사 데스크" as AgentDesk
+
+Customer -> Channel : [커맨드] 고객 문의 접수\n[데이터] 문의 본문, 고객 세션
+Channel -> Orchestrator : [커맨드] 문의 처리 요청\n[데이터] 요청 ID, 마스킹된 문의
+Orchestrator -> Orchestrator : [정책/규칙] 문의 유형·위험 등급 분류
+Orchestrator -> Knowledge : [커맨드] 승인된 답변 근거 검색
+Knowledge --> Orchestrator : [이벤트] 승인된 답변 근거가 검색됨\n[데이터] 문서 ID, 버전, 근거 구간
+
+opt 본인 상태 조회가 필요한 문의
+  Orchestrator -> CardAPI : [커맨드] 고객·카드 상태 조회\n[정책/규칙] 인증·최소 권한 확인
+  CardAPI --> Orchestrator : [이벤트] 고객·카드 상태가 조회됨
+  Orchestrator -> TxAPI : [커맨드] 거래 상태 조회\n[데이터] 거래 토큰, 조회 목적
+  TxAPI --> Orchestrator : [이벤트] 거래 상태가 조회됨
+end
+
+Orchestrator -> Orchestrator : [커맨드] 근거 기반 답변 생성
+Orchestrator -> Orchestrator : [정책/규칙] 민감정보·금지 조치·근거 유효성 검사
+
+alt 신뢰도 0.80 이상이고 민감 조치가 아님
+  Orchestrator --> Channel : [이벤트] 근거 포함 답변이 생성됨
+  Channel --> Customer : [이벤트] 근거 포함 답변이 제공됨
+else 낮은 신뢰도·근거 없음·민원·분쟁·조회 실패
+  Orchestrator -> AgentDesk : [커맨드] 상담사 인계 생성\n[데이터] 문의 요약, 근거, 조회 상태
+  AgentDesk --> Channel : [이벤트] 문의가 상담사에게 인계됨
+  Channel --> Customer : [이벤트] 상담사 연결 상태가 안내됨
+end
+
+@enduml
