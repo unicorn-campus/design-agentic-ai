@@ -1,17 +1,9 @@
-.claude/
 .temp/
 *.log
 .env
 
-# 제3자 저작물 — 재배포 권리 없음 (각자 내려받아 같은 경로에 둘 것)
-# Manning 상업 출판물. Neo4j 무료 배포: https://neo4j.com/essential-graphrag/
-references/books/Essential-GraphRAG.pdf
-
 # 브라우저 자동화 산출물
 .playwright-mcp/
-
-# 조사 원본 보고서 (팀원별 중간 산출물)
-.research/
 
 # Python
 __pycache__/
@@ -26,24 +18,6 @@ Thumbs.db
 .idea/
 .vscode/
 
-# 로컬 실행 비밀값 — 이미지·저장소에 넣지 않음 (⑦ 4-3 위반 예시 2번)
-src/front/node_modules/
-src/front/dist/
-src/**/__pycache__/
-.pytest_cache/
 
-# 07-api-ui 프론트엔드 — 로컬 개발용, 저장소에 올리지 않음
-output/src/v1/frontend/node_modules/
-output/src/v1/frontend/dist/
-output/src/v1/frontend/.env.local
-output/src/v1.1/frontend/node_modules/
-output/src/v1.1/frontend/dist/
-output/src/v1.1/frontend/.env.local
-output/src/v1.2/frontend/node_modules/
-output/src/v1.2/frontend/dist/
-output/src/v1.2/frontend/.env.local
-
-.playwright-mcp/
-
-# PowerPoint 임시 잠금 파일
-~$*
+# OMC 도구 상태 (로컬 전용)
+.omc/
