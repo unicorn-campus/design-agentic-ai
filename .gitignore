@@ -1,6 +1,7 @@
 .temp/
 *.log
 .env
+.env.mariadb
 .omc/
 
 # 브라우저 자동화 산출물
@@ -18,4 +19,3 @@ Thumbs.db
 *.swp
 .idea/
 .vscode/
-
