@@ -1,0 +1,806 @@
+{
+  "stage_id": "S-R4",
+  "synthetic": true,
+  "rows": [
+    {
+      "masked_customer_id": "SYNTHETIC:C000000",
+      "transaction_date": "2026-01-01",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC00"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000001",
+      "transaction_date": "2026-01-02",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC01"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000002",
+      "transaction_date": "2026-01-03",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC02"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000003",
+      "transaction_date": "2026-01-04",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC03"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000004",
+      "transaction_date": "2026-01-05",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC04"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000005",
+      "transaction_date": "2026-01-06",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC05"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000006",
+      "transaction_date": "2026-01-07",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC06"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000007",
+      "transaction_date": "2026-01-08",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC07"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000008",
+      "transaction_date": "2026-01-09",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC08"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000009",
+      "transaction_date": "2026-01-10",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC09"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000010",
+      "transaction_date": "2026-01-11",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC10"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000011",
+      "transaction_date": "2026-01-12",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC11"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000012",
+      "transaction_date": "2026-01-13",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC12"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000013",
+      "transaction_date": "2026-01-14",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC13"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000014",
+      "transaction_date": "2026-01-15",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC14"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000015",
+      "transaction_date": "2026-01-16",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC15"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000016",
+      "transaction_date": "2026-01-17",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC16"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000017",
+      "transaction_date": "2026-01-18",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC17"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000018",
+      "transaction_date": "2026-01-19",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC18"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000019",
+      "transaction_date": "2026-01-20",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC19"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000020",
+      "transaction_date": "2026-01-21",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC00"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000021",
+      "transaction_date": "2026-01-22",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC01"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000022",
+      "transaction_date": "2026-01-23",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC02"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000023",
+      "transaction_date": "2026-01-24",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC03"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000024",
+      "transaction_date": "2026-01-25",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC04"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000025",
+      "transaction_date": "2026-01-26",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC05"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000026",
+      "transaction_date": "2026-01-27",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC06"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000027",
+      "transaction_date": "2026-01-28",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC07"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000028",
+      "transaction_date": "2026-01-29",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC08"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000029",
+      "transaction_date": "2026-01-30",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC09"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000030",
+      "transaction_date": "2026-01-31",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC10"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000031",
+      "transaction_date": "2026-02-01",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC11"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000032",
+      "transaction_date": "2026-02-02",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC12"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000033",
+      "transaction_date": "2026-02-03",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC13"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000034",
+      "transaction_date": "2026-02-04",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC14"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000035",
+      "transaction_date": "2026-02-05",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC15"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000036",
+      "transaction_date": "2026-02-06",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC16"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000037",
+      "transaction_date": "2026-02-07",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC17"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000038",
+      "transaction_date": "2026-02-08",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC18"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000039",
+      "transaction_date": "2026-02-09",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC19"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000040",
+      "transaction_date": "2026-02-10",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC00"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000041",
+      "transaction_date": "2026-02-11",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC01"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000042",
+      "transaction_date": "2026-02-12",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC02"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000043",
+      "transaction_date": "2026-02-13",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC03"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000044",
+      "transaction_date": "2026-02-14",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC04"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000045",
+      "transaction_date": "2026-02-15",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC05"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000046",
+      "transaction_date": "2026-02-16",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC06"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000047",
+      "transaction_date": "2026-02-17",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC07"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000048",
+      "transaction_date": "2026-02-18",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC08"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000049",
+      "transaction_date": "2026-02-19",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC09"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000050",
+      "transaction_date": "2026-02-20",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC10"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000051",
+      "transaction_date": "2026-02-21",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC11"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000052",
+      "transaction_date": "2026-02-22",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC12"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000053",
+      "transaction_date": "2026-02-23",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC13"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000054",
+      "transaction_date": "2026-02-24",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC14"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000055",
+      "transaction_date": "2026-02-25",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC15"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000056",
+      "transaction_date": "2026-02-26",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC16"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000057",
+      "transaction_date": "2026-02-27",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC17"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000058",
+      "transaction_date": "2026-02-28",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC18"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000059",
+      "transaction_date": "2026-03-01",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC19"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000060",
+      "transaction_date": "2026-03-02",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC00"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000061",
+      "transaction_date": "2026-03-03",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC01"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000062",
+      "transaction_date": "2026-03-04",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC02"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000063",
+      "transaction_date": "2026-03-05",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC03"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000064",
+      "transaction_date": "2026-03-06",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC04"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000065",
+      "transaction_date": "2026-03-07",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC05"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000066",
+      "transaction_date": "2026-03-08",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC06"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000067",
+      "transaction_date": "2026-03-09",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC07"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000068",
+      "transaction_date": "2026-03-10",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC08"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000069",
+      "transaction_date": "2026-03-11",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC09"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000070",
+      "transaction_date": "2026-03-12",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC10"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000071",
+      "transaction_date": "2026-03-13",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC11"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000072",
+      "transaction_date": "2026-03-14",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC12"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000073",
+      "transaction_date": "2026-03-15",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC13"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000074",
+      "transaction_date": "2026-03-16",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC14"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000075",
+      "transaction_date": "2026-03-17",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC15"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000076",
+      "transaction_date": "2026-03-18",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC16"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000077",
+      "transaction_date": "2026-03-19",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC17"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000078",
+      "transaction_date": "2026-03-20",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC18"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000079",
+      "transaction_date": "2026-03-21",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC19"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000080",
+      "transaction_date": "2026-03-22",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC00"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000081",
+      "transaction_date": "2026-03-23",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC01"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000082",
+      "transaction_date": "2026-03-24",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC02"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000083",
+      "transaction_date": "2026-03-25",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC03"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000084",
+      "transaction_date": "2026-03-26",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC04"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000085",
+      "transaction_date": "2026-03-27",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC05"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000086",
+      "transaction_date": "2026-03-28",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC06"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000087",
+      "transaction_date": "2026-03-29",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC07"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000088",
+      "transaction_date": "2026-03-30",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC08"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000089",
+      "transaction_date": "2026-03-31",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC09"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000090",
+      "transaction_date": "2026-04-01",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC10"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000091",
+      "transaction_date": "2026-04-02",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC11"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000092",
+      "transaction_date": "2026-04-03",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC12"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000093",
+      "transaction_date": "2026-04-04",
+      "transaction_status": "정상",
+      "decline_reason_code": "STATUS",
+      "amount_bucket": "HIGH",
+      "merchant_category_code": "MCC13"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000094",
+      "transaction_date": "2026-04-05",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC14"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000095",
+      "transaction_date": "2026-04-06",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC15"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000096",
+      "transaction_date": "2026-04-07",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "MEDIUM",
+      "merchant_category_code": "MCC16"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000097",
+      "transaction_date": "2026-04-08",
+      "transaction_status": "정상",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC17"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000098",
+      "transaction_date": "2026-04-09",
+      "transaction_status": "이용거절",
+      "decline_reason_code": "LIMIT",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC18"
+    },
+    {
+      "masked_customer_id": "SYNTHETIC:C000099",
+      "transaction_date": "2026-04-10",
+      "transaction_status": "정상",
+      "decline_reason_code": "NOT_APPLICABLE",
+      "amount_bucket": "LOW",
+      "merchant_category_code": "MCC19"
+    }
+  ]
+}
