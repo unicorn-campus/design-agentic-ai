@@ -208,3 +208,16 @@ src/common/
 | `[확인필요: LLM 모델 이름]` | `HELP_DESK_LLM_MODEL` 설정 전 모델 클라이언트 생성 불가 | 프로젝트 운영자 |
 
 확인필요 2건임.
+
+## API 경계 공통 모듈
+
+`help_desk_api`는 FastAPI 요청 검증, 단일 오류 응답, 입력·출력 가드레일, 민감정보 가리기와
+SSE 최종 이벤트 조립을 제공함. 서비스 모듈은 응답 형을 새로 정의하지 않고
+`help_desk_workflow.contracts`의 구조화 결과 형을 재사용함.
+
+| 환경변수 | 용도 | 비밀값 |
+|---|---|:---:|
+| `HELP_DESK_HTTP_PORT` | P-1 공개 API 포트 | 아니오 |
+| `HELP_DESK_P2_INTERNAL_PORT` | P-2 내부 승인 API 포트 | 아니오 |
+| `HELP_DESK_P3_INTERNAL_PORT` | P-3 내부 승인 API 포트 | 아니오 |
+| `HELP_DESK_MASKING_SALT` | 공개 응답 비식별 해시 | 예 |

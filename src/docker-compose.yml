@@ -1,0 +1,93 @@
+name: help-desk-local
+
+x-service-defaults: &service-defaults
+  restart: unless-stopped
+  read_only: true
+  cap_drop:
+    - ALL
+  security_opt:
+    - no-new-privileges:true
+  tmpfs:
+    - /tmp:rw,noexec,nosuid,size=64m
+  networks:
+    - help-desk-internal
+  volumes:
+    - help-desk-checkpoints:/var/lib/help-desk
+
+services:
+  p1-sync-inquiry:
+    <<: *service-defaults
+    image: help-desk-p1:${HELP_DESK_IMAGE_TAG:-local-unverified}
+    build:
+      context: .
+      dockerfile: services/p1-sync-inquiry/Dockerfile
+    env_file:
+      - ${HELP_DESK_COMMON_ENV_FILE:-./common/.env.example}
+      - ${HELP_DESK_TOOLS_ENV_FILE:-./tools/.env.example}
+      - ${HELP_DESK_P1_SECRET_FILE:-./deploy/secrets/p1/.env.example}
+    environment:
+      HELP_DESK_HTTP_PORT: "8080"
+    ports:
+      - "8080:8080"
+    cpus: 1.0
+    mem_limit: 512m
+    healthcheck:
+      test: ["CMD", "python", "/opt/help-desk-deploy/scripts/healthcheck.py", "p1", "/health/live"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  p2-knowledge-improvement-batch:
+    <<: *service-defaults
+    image: help-desk-p2:${HELP_DESK_IMAGE_TAG:-local-unverified}
+    build:
+      context: .
+      dockerfile: services/p2-knowledge-improvement-batch/Dockerfile
+    env_file:
+      - ${HELP_DESK_COMMON_ENV_FILE:-./common/.env.example}
+      - ${HELP_DESK_TOOLS_ENV_FILE:-./tools/.env.example}
+      - ${HELP_DESK_P2_CONFIG_FILE:-./services/p2-knowledge-improvement-batch/.env.example}
+      - ${HELP_DESK_P2_SECRET_FILE:-./deploy/secrets/p2/.env.example}
+    environment:
+      HELP_DESK_P2_INTERNAL_PORT: "8081"
+    expose:
+      - "8081"
+    cpus: 1.0
+    mem_limit: 512m
+    healthcheck:
+      test: ["CMD", "python", "/opt/help-desk-deploy/scripts/healthcheck.py", "p2", "/health/live"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  p3-conversation-closed-event:
+    <<: *service-defaults
+    image: help-desk-p3:${HELP_DESK_IMAGE_TAG:-local-unverified}
+    build:
+      context: .
+      dockerfile: services/p3-conversation-closed-event/Dockerfile
+    env_file:
+      - ${HELP_DESK_COMMON_ENV_FILE:-./common/.env.example}
+      - ${HELP_DESK_TOOLS_ENV_FILE:-./tools/.env.example}
+      - ${HELP_DESK_P3_SECRET_FILE:-./deploy/secrets/p3/.env.example}
+    environment:
+      HELP_DESK_P3_INTERNAL_PORT: "8082"
+    expose:
+      - "8082"
+    cpus: 1.0
+    mem_limit: 512m
+    healthcheck:
+      test: ["CMD", "python", "/opt/help-desk-deploy/scripts/healthcheck.py", "p3", "/health/live"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+networks:
+  help-desk-internal:
+    driver: bridge
+
+volumes:
+  help-desk-checkpoints:

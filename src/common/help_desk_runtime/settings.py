@@ -37,9 +37,14 @@ class RuntimeSettings(BaseSettings):
     checkpoint_backend: Literal["memory", "sqlite"] = "sqlite"
     checkpoint_uri: str
     checkpoint_encryption_key: SecretStr
+    masking_salt: SecretStr
     checkpoint_w1_retention_ms: int
     checkpoint_w2_retention_ms: int
     checkpoint_w3_retention_ms: int
+
+    http_port: int
+    p2_internal_port: int
+    p3_internal_port: int
 
     analytics_base_url: str | None = None
     analytics_timeout_seconds: float | None = None
@@ -52,6 +57,43 @@ class RuntimeSettings(BaseSettings):
     dataset_s_b4_seed_rows: int | None = None
     dataset_snapshot_dir: str | None = None
     glossary_postgres_dsn: SecretStr | None = None
+
+    knowledge_rag_dsn: SecretStr | None = None
+    knowledge_rag_table: str | None = None
+    knowledge_rag_index_name: str | None = None
+    knowledge_rag_product: str | None = None
+    knowledge_rag_source_documents: str | None = None
+    knowledge_rag_source_count: int | None = None
+    knowledge_rag_baseline_date: str | None = None
+    knowledge_rag_extraction: str | None = None
+    knowledge_rag_cleaning: str | None = None
+    knowledge_rag_chunk_tokens: int | None = None
+    knowledge_rag_overlap_tokens: int | None = None
+    knowledge_rag_separator: str | None = None
+    knowledge_rag_embedding_model: str | None = None
+    knowledge_rag_embedding_dimensions: int | None = None
+    knowledge_rag_hnsw_min_chunks: int | None = None
+    knowledge_rag_hnsw_m: int | None = None
+    knowledge_rag_hnsw_ef_construction: int | None = None
+    knowledge_rag_hnsw_ef_search: int | None = None
+    knowledge_rag_search_method: str | None = None
+    knowledge_rag_fusion_method: str | None = None
+    knowledge_rag_rrf_k: int | None = None
+    knowledge_rag_diversity: str | None = None
+    knowledge_rag_top_k: int | None = None
+    knowledge_rag_filter_score: float | None = None
+
+    knowledge_graph_uri: str | None = None
+    knowledge_graph_user: str | None = None
+    knowledge_graph_password: SecretStr | None = None
+    knowledge_graph_database: str | None = None
+    knowledge_graph_product: str | None = None
+    knowledge_graph_version: str | None = None
+    knowledge_graph_max_hops: int | None = None
+    knowledge_graph_result_limit: int | None = None
+    knowledge_graph_role_map_path: str | None = None
+    knowledge_graph_human_sample_size: int | None = None
+    knowledge_graph_human_accuracy: float | None = None
 
     w1_total_budget_ms: int
     w2_total_budget_ms: int

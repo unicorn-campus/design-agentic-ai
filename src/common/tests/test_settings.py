@@ -22,6 +22,7 @@ def test_design_values_load_from_environment_example(monkeypatch: pytest.MonkeyP
     monkeypatch.setenv("HELP_DESK_LLM_API_KEY", "key-from-runtime")
     monkeypatch.setenv("HELP_DESK_CHECKPOINT_URI", "checkpoint-from-runtime")
     monkeypatch.setenv("HELP_DESK_CHECKPOINT_ENCRYPTION_KEY", "encryption-from-runtime")
+    monkeypatch.setenv("HELP_DESK_MASKING_SALT", "masking-salt-from-runtime")
 
     settings = RuntimeSettings(_env_file=ENV_EXAMPLE)
 

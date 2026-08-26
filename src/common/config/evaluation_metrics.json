@@ -1,0 +1,98 @@
+{
+  "schema_version": "1",
+  "source": "output/design/01-목표품질속성카드.md",
+  "metrics": [
+    {
+      "id": "G-1",
+      "name": "인증 고객 문의가 근거 답변 또는 맥락이 유지된 상담사 인계로 종료됨",
+      "measurement": "문의 접수 시각과 첫 답변 또는 인계 완료 시각 차이의 p95",
+      "scoring_method": "load_scenario",
+      "target": {"display": "5초 이내(p95)", "operator": "lte", "value": 5000, "unit": "ms"}
+    },
+    {
+      "id": "G-2",
+      "name": "전일 상담 기반 FAQ 개선 후보가 근거와 함께 승인 대기열에 등록됨",
+      "measurement": "배치 완료 시각이 매일 06:00 이전인 실행 일수 ÷ 전체 배치 실행 일수",
+      "scoring_method": "log_aggregation",
+      "target": {"display": "매일 06:00 이전 100%", "operator": "gte", "value": 1.0, "unit": "ratio"}
+    },
+    {
+      "id": "G-3",
+      "name": "상담 종료 이벤트가 마스킹된 CRM 기록과 설문 발송 결과로 처리됨",
+      "measurement": "종료 이벤트 수신 시각과 CRM 기록 완료 시각 차이의 p95",
+      "scoring_method": "log_aggregation",
+      "target": {"display": "60초 이내(p95)", "operator": "lte", "value": 60000, "unit": "ms"}
+    },
+    {
+      "id": "Q-1",
+      "name": "응답시간",
+      "measurement": "워크플로우별 시작 이벤트와 성공 종료 이벤트 시각 차이의 p95",
+      "scoring_method": "load_scenario",
+      "target": {
+        "display": "W-01 5초 이내(p95), W-02 매일 06:00 이전, W-03 60초 이내(p95)",
+        "operator": "workflow_targets",
+        "unit": "mixed"
+      }
+    },
+    {
+      "id": "Q-2",
+      "name": "설명가능성",
+      "measurement": "출처가 있는 근거 필요 문장 수 ÷ 전체 근거 필요 문장 수",
+      "scoring_method": "answer_key",
+      "target": {"display": "근거 커버리지 100%", "operator": "gte", "value": 1.0, "unit": "ratio"}
+    },
+    {
+      "id": "Q-3",
+      "name": "안전성",
+      "measurement": "민감정보 원문 노출 건수 + 무승인 상태 변경 건수",
+      "scoring_method": "answer_key",
+      "target": {
+        "display": "노출 0건, 무승인 변경 0건",
+        "operator": "all_lte",
+        "values": {"sensitive_exposures": 0, "unauthorized_changes": 0},
+        "unit": "count"
+      }
+    }
+  ],
+  "workflow_budgets": {
+    "W-1": {"worst_case_ms": 609300, "total_budget_ms": 615000, "designed_p95_ms": 3200},
+    "W-2": {
+      "worst_case_ms": 12960000,
+      "total_budget_ms": 14400000,
+      "designed_completion": "03:07",
+      "target_completion": "06:00"
+    },
+    "W-3": {"worst_case_ms": 58000, "total_budget_ms": 60000, "designed_p95_ms": 23400}
+  },
+  "connector_order_required": false,
+  "required_scoring_methods": ["answer_key", "load_scenario", "log_aggregation"],
+  "role_criteria": [
+    {"stage": "S-R1", "role_id": "R-D1", "criterion": "인증·권한·길이·민감정보 검사를 통과한 문의 1건이 접수됨"},
+    {"stage": "S-R2", "role_id": "R-L1", "criterion": "상담사 인계·정형 조회·복합 근거 중 1개 경로가 결정됨"},
+    {"stage": "S-R3", "role_id": "R-L1", "criterion": "검사 대상 SQL 후보 1건이 생성됨"},
+    {"stage": "S-R4", "role_id": "R-D1", "criterion": "허용된 조회 결과가 100행 이하로 답변 근거에 전달됨"},
+    {"stage": "S-R5", "role_id": "R-L1", "criterion": "문서 원천과 관계 원천을 표시한 내부 근거가 생성됨"},
+    {"stage": "S-R6", "role_id": "R-D1", "criterion": "URL·제목·조회 시각·자막 구간이 표시된 외부 근거가 생성됨"},
+    {"stage": "S-R7", "role_id": "R-D1", "criterion": "위험 점수와 저위험·고위험 중 1개 분기가 생성됨"},
+    {"stage": "S-R8", "role_id": "R-L1", "criterion": "근거와 다음 행동이 표시된 답변 초안 1건이 생성됨"},
+    {"stage": "S-R9", "role_id": "R-H1", "criterion": "승인·수정·중단 중 1개 결정이 반환됨"},
+    {"stage": "S-R10", "role_id": "R-D1", "criterion": "근거와 다음 행동이 표시되고 민감정보 원문이 없는 답변이 전달됨"},
+    {"stage": "S-B1", "role_id": "R-D1", "criterion": "동일 실행이 없는 배치 1건이 시작됨"},
+    {"stage": "S-B2", "role_id": "R-D1", "criterion": "전일 마스킹 상담이 10,000건 이하로 조회됨"},
+    {"stage": "S-B3", "role_id": "R-L1", "criterion": "검사 대상 통계 SQL 후보 1건이 생성됨"},
+    {"stage": "S-B4", "role_id": "R-D1", "criterion": "검사된 통계 결과가 100행 이하로 생성됨"},
+    {"stage": "S-B5", "role_id": "R-L1", "criterion": "원천이 있는 개선 주제가 100개 이하로 생성됨"},
+    {"stage": "S-B6", "role_id": "R-D1", "criterion": "재확인 가능한 외부 출처만 FAQ 후보 근거에 포함됨"},
+    {"stage": "S-B7", "role_id": "R-D1", "criterion": "후보별 우선순위 점수와 오류 표시가 생성됨"},
+    {"stage": "S-B8", "role_id": "R-L1", "criterion": "근거와 우선순위가 표시된 FAQ 후보가 20건 이하로 생성됨"},
+    {"stage": "S-B9", "role_id": "R-H2", "criterion": "승인·수정·반려 중 1개 결정이 반환됨"},
+    {"stage": "S-B10", "role_id": "R-H2", "criterion": "승인 ID가 있는 후보만 1번 등록되고 자동 게시되지 않음"},
+    {"stage": "S-E1", "role_id": "R-D1", "criterion": "신규 접수·중복 반환·스키마 오류 격리 중 하나가 수행됨"},
+    {"stage": "S-E2", "role_id": "R-D1", "criterion": "상담 원문에서 금지된 민감정보 원문이 검출되지 않음"},
+    {"stage": "S-E3", "role_id": "R-L1", "criterion": "문의 사유·확인 내용·안내 결과·후속 조치가 있는 요약 1건이 생성됨"},
+    {"stage": "S-E4", "role_id": "R-D1", "criterion": "사후 위험 점수와 오류 표시 1건이 생성됨"},
+    {"stage": "S-E5", "role_id": "R-H3", "criterion": "승인·수정·반려 중 1개 결정이 반환됨"},
+    {"stage": "S-E6", "role_id": "R-H3", "criterion": "승인된 마스킹 요약만 상담 1건에 멱등 저장됨"},
+    {"stage": "S-E7", "role_id": "R-H4", "criterion": "상담 원문이 없는 설문 링크가 동의 고객에게 1번 발송되고 결과가 기록됨"}
+  ]
+}

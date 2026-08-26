@@ -1,0 +1,14 @@
+{
+  "bindings": [
+    {
+      "actor_id": "R-L1",
+      "workflow_id": "W-1",
+      "role": "helpdesk_w1_graph_reader"
+    },
+    {
+      "actor_id": "R-L1",
+      "workflow_id": "W-2",
+      "role": "helpdesk_w2_graph_reader"
+    }
+  ]
+}

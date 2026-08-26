@@ -1,0 +1,10 @@
+**/.env
+**/.env.local
+**/*.local.env
+**/.venv
+**/node_modules
+**/dist
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/tests

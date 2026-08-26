@@ -1,6 +1,8 @@
 .temp/
 *.log
 .env
+.env.local
+*.local.env
 .env.mariadb
 .omc/
 
@@ -12,6 +14,12 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+
+# Node
+node_modules/
+
+# 빌드 산출물
+dist/
 
 # OS·에디터
 Thumbs.db

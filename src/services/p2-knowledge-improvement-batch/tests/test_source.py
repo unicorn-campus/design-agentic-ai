@@ -29,6 +29,7 @@ def test_dataset_settings_load_through_common_runtime(monkeypatch: pytest.Monkey
     monkeypatch.setenv("HELP_DESK_LLM_API_KEY", "unused")
     monkeypatch.setenv("HELP_DESK_CHECKPOINT_URI", "unused")
     monkeypatch.setenv("HELP_DESK_CHECKPOINT_ENCRYPTION_KEY", "unused")
+    monkeypatch.setenv("HELP_DESK_MASKING_SALT", "test-only-salt")
 
     settings = RuntimeSettings(_env_file=COMMON_ENV)
 

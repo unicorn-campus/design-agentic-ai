@@ -184,6 +184,14 @@ Agentic AI 아키텍트(총괄) 겸 오케스트레이터
   — AI가 지시문과 입력 데이터를 명확히 구분, 혼용 오류 방지. 출처: 1회차/프롬프트예제
 - [HIGH] 이미지 생성 시 **`gpt-image-mcp`를 사용할 것**(`mcp__gpt-image-mcp__generate_image`)  
   — 한글이 깨지지 않고 정교하게 렌더링됨. 수정은 `edit_image`로 원본 경로를 넘겨 이어서 함. 출처: 3회차/도식재작성
+- [MED] 스킬·플러그인이 안 보이면 **마켓플레이스 미등록 가능성**을 먼저 확인할 것  
+  — 로컬 스킬 폴더·설치된 플러그인·claude.ai 카탈로그 검색만으로 "존재하지 않음" 단정 금지.  
+  `claude plugin marketplace list`로 등록된 마켓플레이스를 먼저 확인. 출처: 3회차/eli5스킬조회
+- [HIGH] 코드·개념을 쉽게 설명할 때 **`eli5` 플러그인 사용**  
+  — 큰 그림 중심 HTML Artifact 한 장으로 출력. Anthropic 사내에서 코드 가시화에 활용. 사용법 `/eli5 {주제}`.  
+  설치 ① `claude plugin marketplace add anthropics/claude-plugins-community`  
+  설치 ② `claude plugin install eli5@claude-community`  
+  출처: [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community/blob/main/eli5/skills/eli5/SKILL.md), 3회차/eli5스킬조회
 
 ---
 
