@@ -2,7 +2,7 @@
 # 이 파일을 직접 고치지 않음. 원본 또는 .agents/agents/_mapping.toml 을 고친 뒤 스크립트를 다시 실행함
 name = "connectni"
 description = "도구 연동 엔지니어 커넥니. MCP 서버, A2A, 외부 시스템 커넥터, 인증·권한·시크릿, 도구 오류 처리 설계 전문가. 에이전트가 외부 세계와 연결되는 지점을 설계할 때 사용."
-model = "gpt-5.6-terra"
+model = "gpt-5.6-sol"
 model_reasoning_effort = "high"
 sandbox_mode = "workspace-write"
 developer_instructions = '''

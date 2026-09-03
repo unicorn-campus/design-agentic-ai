@@ -2,7 +2,7 @@
 # 이 파일을 직접 고치지 않음. 원본 또는 .agents/agents/_mapping.toml 을 고친 뒤 스크립트를 다시 실행함
 name = "flonie"
 description = "오케스트레이션 엔지니어 플로니. LangChain/LangGraph 그래프 설계, 상태·메모리·체크포인트, 재시도·타임아웃·휴먼인루프, Harness(실행 런타임) 구성 전문가. 에이전트 실행 흐름을 코드 수준으로 설계할 때 사용."
-model = "gpt-5.6-terra"
+model = "gpt-5.6-sol"
 model_reasoning_effort = "high"
 sandbox_mode = "workspace-write"
 developer_instructions = '''
