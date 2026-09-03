@@ -98,7 +98,9 @@ API·UI 엔지니어
 - 팀원 위임 시 해당 팀원의 프로파일·성향·경력을 시스템 프롬프트에 반영하여 호출
 - 위임 프롬프트는 `references/prompt-guide.md`의 8섹션 표준을 따름
 - 패턴은 문서상 선언이 아니라 실제 Agent 호출로 실행함 (정직한 보고 규칙 준수)
-- 팀원 정의 파일 위치: `.claude/agents/{에이전트명}.md` (Agent 도구의 `subagent_type`에 에이전트명 사용)
+- 팀원 정의 원본: `.agents/agents/{에이전트명}.md` (Agent 도구의 `subagent_type`에 에이전트명 사용).
+  Claude Code용 `.claude/agents/{에이전트명}.md`와 Codex용 `.agents/agents/{에이전트명}.toml`은
+  `scripts/sync-agents.py`가 원본에서 생성함 — 생성물을 직접 고치지 않음(아래 「멀티 도구 호환 구조」 참조)
 
 ### 담당 영역 라우팅
 - 요청에 아래 키워드·주제가 등장하면 해당 팀원에게 위임함 (복수 해당 시 협업 패턴 적용)
@@ -139,6 +141,24 @@ API·UI 엔지니어
   - 예: 기획 워크플로우 = 파이프라인형 뼈대 + 각 단계 내부 의사결정은 토론형
   - 예: 공동 산출물 초안은 협업형 → 최종 통합·검수는 계층형
 - 조합 시 클로니가 상위 뼈대 패턴 1개를 정하고, 하위 단계에 세부 패턴을 배치함
+
+## 멀티 도구 호환 구조
+스킬·에이전트를 Claude Code · Codex · Cursor · Antigravity에서 함께 쓰기 위해 **원본은 `.agents/`에 1벌만** 두고,
+도구별 파일은 `scripts/sync-agents.py`가 생성함. 자세한 규칙은 `.agents/README.md`에 있음.
+
+| 구분 | 경로 | 손으로 고치나 |
+|------|------|-------------|
+| 스킬 원본 | `.agents/skills/{스킬명}/SKILL.md` (+ `prompts/` `guides/` `shell/` 등) | 고침. 프론트매터는 표준 6키만, Claude 확장 키는 `metadata.claude:` 아래 |
+| 에이전트 원본 | `.agents/agents/{에이전트명}.md` | 고침. 모델은 `tier`, 권한은 `permissions` 범주로만 적음 |
+| 도구별 매핑표 | `.agents/agents/_mapping.toml` | 고침. 범주 → 도구별 모델 ID·sandbox 값 |
+| Claude Code 스킬 래퍼 | `.claude/skills/{스킬명}/SKILL.md` | **생성물.** 원본 본문을 동적 주입(`` !`cat` ``)함 |
+| Claude Code·Cursor 에이전트 | `.claude/agents/{에이전트명}.md` | **생성물.** 원본을 읽고 따르라는 포인터만 담음 |
+| Codex 에이전트 | `.codex/agents/{에이전트명}.toml` + `.codex/config.toml`의 `[agents.*]` 구간 | **생성물.** 지침은 원본 포인터만 담음 |
+
+- 에이전트 본문(8섹션)은 `.agents/agents/{에이전트명}.md` 한 곳에만 둠. 생성물은 프론트매터·모델·권한 + 포인터임
+- 원본을 고친 뒤 반드시 `python scripts/sync-agents.py`를 실행함. `--check`는 생성물이 최신인지만 검사함
+- 심볼릭 링크는 쓰지 않음 — Windows 개발자 모드·`core.symlinks` 의존을 피하고, 래퍼가 Claude 확장 프론트매터를 맡음
+- Codex는 에이전트 TOML을 드롭인·인라인으로 인식하지 않으므로 `.codex/config.toml` `config_file` 등록이 필수임(2026-09-03 실측)
 
 ## 대화 가이드
 - 언어: 특별한 언급이 없는 경우 한국어를 사용
