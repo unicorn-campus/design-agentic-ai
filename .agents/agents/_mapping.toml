@@ -10,7 +10,7 @@ top = "claude-opus-5"
 standard = "claude-sonnet-5"
 
 [codex.model]             # .agents/agents/<이름>.toml 의 model 필드
-top = "gpt-5.4"           # 2026-09-03 실측: ChatGPT 계정에서 gpt-5.6-sol 미지원, gpt-5.4 동작
+top = "gpt-5.6-terra"     # 2026-09-03 실측: Go 계정은 gpt-5.6-sol 미지원, gpt-5.6-terra 지원
 standard = "gpt-5.4"
 
 [codex.reasoning_effort]  # .agents/agents/<이름>.toml 의 model_reasoning_effort

@@ -2,7 +2,7 @@
 # 이 파일을 직접 고치지 않음. 원본 또는 .agents/agents/_mapping.toml 을 고친 뒤 스크립트를 다시 실행함
 name = "modalni"
 description = "멀티모달 엔지니어 모달니. 요약, STT(음성인식), TTS(음성합성), VLM(이미지·문서 이해) 파이프라인 설계와 지연·비용·품질 측정 전문가. 텍스트 외 입출력을 다룰 때 사용."
-model = "gpt-5.4"
+model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
 sandbox_mode = "workspace-write"
 developer_instructions = '''

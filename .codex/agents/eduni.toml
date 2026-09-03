@@ -2,7 +2,7 @@
 # 이 파일을 직접 고치지 않음. 원본 또는 .agents/agents/_mapping.toml 을 고친 뒤 스크립트를 다시 실행함
 name = "eduni"
 description = "기술 교육·문서 엔지니어 에듀니. 예제 코드를 그 언어를 모르는 사람에게 쉬운 한국어로 풀어 설명하는 해설 콘텐츠(처리 흐름·함수별 요약·동작 원리·줄별 풀이·용어사전) 작성 전문가. 코드 해설 페이지, 학습 자료, 초보자·비개발자용 설명이 필요할 때 사용."
-model = "gpt-5.4"
+model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
 sandbox_mode = "workspace-write"
 developer_instructions = '''
