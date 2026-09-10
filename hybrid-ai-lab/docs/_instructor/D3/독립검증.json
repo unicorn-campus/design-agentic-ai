@@ -1,0 +1,22 @@
+{
+  "files": 6,
+  "records": 48,
+  "members": 12,
+  "per_segment": {
+    "1": 8,
+    "2": 8,
+    "3": 8,
+    "4": 8,
+    "5": 8,
+    "6": 8
+  },
+  "per_member": 4,
+  "six_pii_categories_all_records": true,
+  "db_member_and_join_date_checks": "passed",
+  "prior_consultation_links": "passed",
+  "live_approved_amount_recheck": "passed",
+  "future_fact_months": 0,
+  "turn_boundary_check": "passed",
+  "reference_chunk_count": 96,
+  "evaluation_limit": "원문·구조 검증임. 모델 학습·실제 RAG 성능 측정은 수행하지 않음."
+}

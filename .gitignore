@@ -27,3 +27,8 @@ Thumbs.db
 *.swp
 .idea/
 .vscode/
+
+# 실행 시 생성하는 합성 SQLite 데이터
+data/s22/
+hybrid-ai-lab/data/s22/
+.pytest_cache/

@@ -1,0 +1,2 @@
+# 개별 Markdown의 YAML 메타데이터 읽기에 사용함.
+PyYAML>=6.0,<7

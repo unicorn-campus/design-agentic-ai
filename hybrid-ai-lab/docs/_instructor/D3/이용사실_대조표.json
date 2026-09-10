@@ -1,0 +1,386 @@
+[
+  {
+    "record_id": "C-20260314-001",
+    "member_id": "M-1001",
+    "as_of": "2026-03-14",
+    "month": "2026-02",
+    "approved_count": 0,
+    "approved_amount": 0
+  },
+  {
+    "record_id": "C-20260401-001",
+    "member_id": "M-1001",
+    "as_of": "2026-04-01",
+    "month": "2026-03",
+    "approved_count": 9,
+    "approved_amount": 1050000
+  },
+  {
+    "record_id": "C-20260518-001",
+    "member_id": "M-1001",
+    "as_of": "2026-05-18",
+    "month": "2026-04",
+    "approved_count": 9,
+    "approved_amount": 1103000
+  },
+  {
+    "record_id": "C-20260814-001",
+    "member_id": "M-1001",
+    "as_of": "2026-08-14",
+    "month": "2026-07",
+    "approved_count": 10,
+    "approved_amount": 1260000
+  },
+  {
+    "record_id": "C-20260302-002",
+    "member_id": "M-1050",
+    "as_of": "2026-03-02",
+    "month": "2026-02",
+    "approved_count": 0,
+    "approved_amount": 0
+  },
+  {
+    "record_id": "C-20260501-003",
+    "member_id": "M-1050",
+    "as_of": "2026-05-01",
+    "month": "2026-04",
+    "approved_count": 16,
+    "approved_amount": 1218000
+  },
+  {
+    "record_id": "C-20260707-006",
+    "member_id": "M-1050",
+    "as_of": "2026-07-07",
+    "month": "2026-06",
+    "approved_count": 16,
+    "approved_amount": 1155000
+  },
+  {
+    "record_id": "C-20260802-007",
+    "member_id": "M-1050",
+    "as_of": "2026-08-02",
+    "month": "2026-07",
+    "approved_count": 19,
+    "approved_amount": 1218000
+  },
+  {
+    "record_id": "C-20260302-001",
+    "member_id": "M-1042",
+    "as_of": "2026-03-02",
+    "month": "2026-02",
+    "approved_count": 14,
+    "approved_amount": 1652000
+  },
+  {
+    "record_id": "C-20260402-002",
+    "member_id": "M-1042",
+    "as_of": "2026-04-02",
+    "month": "2026-03",
+    "approved_count": 16,
+    "approved_amount": 1574000
+  },
+  {
+    "record_id": "C-20260531-002",
+    "member_id": "M-1042",
+    "as_of": "2026-05-31",
+    "month": "2026-04",
+    "approved_count": 19,
+    "approved_amount": 1495000
+  },
+  {
+    "record_id": "C-20260607-003",
+    "member_id": "M-1042",
+    "as_of": "2026-06-07",
+    "month": "2026-05",
+    "approved_count": 20,
+    "approved_amount": 1416000
+  },
+  {
+    "record_id": "C-20260407-007",
+    "member_id": "M-2048",
+    "as_of": "2026-04-07",
+    "month": "2026-03",
+    "approved_count": 17,
+    "approved_amount": 1375000
+  },
+  {
+    "record_id": "C-20260526-007",
+    "member_id": "M-2048",
+    "as_of": "2026-05-26",
+    "month": "2026-04",
+    "approved_count": 16,
+    "approved_amount": 1340000
+  },
+  {
+    "record_id": "C-20260607-011",
+    "member_id": "M-2048",
+    "as_of": "2026-06-07",
+    "month": "2026-05",
+    "approved_count": 23,
+    "approved_amount": 1305000
+  },
+  {
+    "record_id": "C-20260818-018",
+    "member_id": "M-2048",
+    "as_of": "2026-08-18",
+    "month": "2026-07",
+    "approved_count": 15,
+    "approved_amount": 1236000
+  },
+  {
+    "record_id": "C-20260310-008",
+    "member_id": "M-3001",
+    "as_of": "2026-03-10",
+    "month": "2026-02",
+    "approved_count": 16,
+    "approved_amount": 9459000
+  },
+  {
+    "record_id": "C-20260410-016",
+    "member_id": "M-3001",
+    "as_of": "2026-04-10",
+    "month": "2026-03",
+    "approved_count": 13,
+    "approved_amount": 9224000
+  },
+  {
+    "record_id": "C-20260626-011",
+    "member_id": "M-3001",
+    "as_of": "2026-06-26",
+    "month": "2026-05",
+    "approved_count": 10,
+    "approved_amount": 8755000
+  },
+  {
+    "record_id": "C-20260701-016",
+    "member_id": "M-3001",
+    "as_of": "2026-07-01",
+    "month": "2026-06",
+    "approved_count": 13,
+    "approved_amount": 8520000
+  },
+  {
+    "record_id": "C-20260318-013",
+    "member_id": "M-3049",
+    "as_of": "2026-03-18",
+    "month": "2026-02",
+    "approved_count": 19,
+    "approved_amount": 13943000
+  },
+  {
+    "record_id": "C-20260407-019",
+    "member_id": "M-3049",
+    "as_of": "2026-04-07",
+    "month": "2026-03",
+    "approved_count": 14,
+    "approved_amount": 8619000
+  },
+  {
+    "record_id": "C-20260526-017",
+    "member_id": "M-3049",
+    "as_of": "2026-05-26",
+    "month": "2026-04",
+    "approved_count": 10,
+    "approved_amount": 8619000
+  },
+  {
+    "record_id": "C-20260602-020",
+    "member_id": "M-3049",
+    "as_of": "2026-06-02",
+    "month": "2026-05",
+    "approved_count": 15,
+    "approved_amount": 8619000
+  },
+  {
+    "record_id": "C-20260322-015",
+    "member_id": "M-4001",
+    "as_of": "2026-03-22",
+    "month": "2026-02",
+    "approved_count": 23,
+    "approved_amount": 1470000
+  },
+  {
+    "record_id": "C-20260410-028",
+    "member_id": "M-4001",
+    "as_of": "2026-04-10",
+    "month": "2026-03",
+    "approved_count": 19,
+    "approved_amount": 1400000
+  },
+  {
+    "record_id": "C-20260514-020",
+    "member_id": "M-4001",
+    "as_of": "2026-05-14",
+    "month": "2026-04",
+    "approved_count": 24,
+    "approved_amount": 1330000
+  },
+  {
+    "record_id": "C-20260814-025",
+    "member_id": "M-4001",
+    "as_of": "2026-08-14",
+    "month": "2026-07",
+    "approved_count": 9,
+    "approved_amount": 1120000
+  },
+  {
+    "record_id": "C-20260310-018",
+    "member_id": "M-4049",
+    "as_of": "2026-03-10",
+    "month": "2026-02",
+    "approved_count": 14,
+    "approved_amount": 1124000
+  },
+  {
+    "record_id": "C-20260402-018",
+    "member_id": "M-4049",
+    "as_of": "2026-04-02",
+    "month": "2026-03",
+    "approved_count": 22,
+    "approved_amount": 1124000
+  },
+  {
+    "record_id": "C-20260607-024",
+    "member_id": "M-4049",
+    "as_of": "2026-06-07",
+    "month": "2026-05",
+    "approved_count": 17,
+    "approved_amount": 1218000
+  },
+  {
+    "record_id": "C-20260726-023",
+    "member_id": "M-4049",
+    "as_of": "2026-07-26",
+    "month": "2026-06",
+    "approved_count": 24,
+    "approved_amount": 1124000
+  },
+  {
+    "record_id": "C-20260314-024",
+    "member_id": "M-5001",
+    "as_of": "2026-03-14",
+    "month": "2026-02",
+    "approved_count": 24,
+    "approved_amount": 2057000
+  },
+  {
+    "record_id": "C-20260430-026",
+    "member_id": "M-5001",
+    "as_of": "2026-04-30",
+    "month": "2026-03",
+    "approved_count": 20,
+    "approved_amount": 1893000
+  },
+  {
+    "record_id": "C-20260614-029",
+    "member_id": "M-5001",
+    "as_of": "2026-06-14",
+    "month": "2026-05",
+    "approved_count": 22,
+    "approved_amount": 1893000
+  },
+  {
+    "record_id": "C-20260710-030",
+    "member_id": "M-5001",
+    "as_of": "2026-07-10",
+    "month": "2026-06",
+    "approved_count": 17,
+    "approved_amount": 2003000
+  },
+  {
+    "record_id": "C-20260322-025",
+    "member_id": "M-5049",
+    "as_of": "2026-03-22",
+    "month": "2026-02",
+    "approved_count": 19,
+    "approved_amount": 1926000
+  },
+  {
+    "record_id": "C-20260410-032",
+    "member_id": "M-5049",
+    "as_of": "2026-04-10",
+    "month": "2026-03",
+    "approved_count": 14,
+    "approved_amount": 1872000
+  },
+  {
+    "record_id": "C-20260626-023",
+    "member_id": "M-5049",
+    "as_of": "2026-06-26",
+    "month": "2026-05",
+    "approved_count": 18,
+    "approved_amount": 1926000
+  },
+  {
+    "record_id": "C-20260701-030",
+    "member_id": "M-5049",
+    "as_of": "2026-07-01",
+    "month": "2026-06",
+    "approved_count": 21,
+    "approved_amount": 1981000
+  },
+  {
+    "record_id": "C-20260307-034",
+    "member_id": "M-6001",
+    "as_of": "2026-03-07",
+    "month": "2026-02",
+    "approved_count": 25,
+    "approved_amount": 1145000
+  },
+  {
+    "record_id": "C-20260414-033",
+    "member_id": "M-6001",
+    "as_of": "2026-04-14",
+    "month": "2026-03",
+    "approved_count": 19,
+    "approved_amount": 1129000
+  },
+  {
+    "record_id": "C-20260507-035",
+    "member_id": "M-6001",
+    "as_of": "2026-05-07",
+    "month": "2026-04",
+    "approved_count": 20,
+    "approved_amount": 1113000
+  },
+  {
+    "record_id": "C-20260630-032",
+    "member_id": "M-6001",
+    "as_of": "2026-06-30",
+    "month": "2026-05",
+    "approved_count": 22,
+    "approved_amount": 1098000
+  },
+  {
+    "record_id": "C-20260301-035",
+    "member_id": "M-6049",
+    "as_of": "2026-03-01",
+    "month": "2026-02",
+    "approved_count": 24,
+    "approved_amount": 1313000
+  },
+  {
+    "record_id": "C-20260418-035",
+    "member_id": "M-6049",
+    "as_of": "2026-04-18",
+    "month": "2026-03",
+    "approved_count": 20,
+    "approved_amount": 1269000
+  },
+  {
+    "record_id": "C-20260502-035",
+    "member_id": "M-6049",
+    "as_of": "2026-05-02",
+    "month": "2026-04",
+    "approved_count": 27,
+    "approved_amount": 1225000
+  },
+  {
+    "record_id": "C-20260714-038",
+    "member_id": "M-6049",
+    "as_of": "2026-07-14",
+    "month": "2026-06",
+    "approved_count": 24,
+    "approved_amount": 1138000
+  }
+]

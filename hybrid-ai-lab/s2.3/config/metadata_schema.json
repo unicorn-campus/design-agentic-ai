@@ -1,0 +1,13 @@
+{
+  "required": ["doc_type", "created_at", "version", "owner_dept", "access_level", "source"],
+  "allowed_keys": ["source", "doc_type", "created_at", "version", "owner_dept", "access_level",
+    "effective_date", "supersedes", "page", "record_id", "consult_date", "channel", "member_id",
+    "member_pseudo_id", "agent_pseudo_id", "age_band", "pseudonymized", "topic", "synthetic",
+    "classification_basis", "created_at_origin", "metadata_origin", "product_id", "product_ids",
+    "section_kind", "table_count"],
+  "enums": {
+    "doc_type": ["regulation", "benefit_guide", "consult_log"],
+    "owner_dept": ["product_planning", "customer_service", "benefit_ops"],
+    "access_level": ["public", "internal", "restricted"]
+  }
+}
