@@ -229,29 +229,40 @@ State 필드명 = 결과 JSON 키. 이름을 바꾸려면 세 곳을 함께 바�
 
 ```mermaid
 flowchart TD
-    S([START]) --> A[select_sources]
-    A -->|"len(sources) == 0"| X1
-    A -->|"len(sources) > 0"| B[extract]
-    B --> C[pseudonymize]
-    C --> D[apply_profile]
-    D --> V[validate_metadata]
-    V -->|"validation.invalid > 0"| X1
-    V -->|"validation.invalid == 0"| CH[chunk]
-    CH -->|"dry_run == True"| X2
-    CH -->|"dry_run == False"| EM[embed]
-    EM --> UP[upsert]
-    UP --> VC[verify_count]
-    VC -->|"len(failed) > 0"| X3
-    VC -->|"len(failed) == 0 and review_count > 0"| X4
-    VC -->|"len(failed) == 0 and review_count == 0"| X0
-
+    S([START])
+    A["select_sources"]
+    B["extract"]
+    C["pseudonymize"]
+    D["apply_profile"]
+    V["validate_metadata"]
+    CH["chunk"]
+    EM["embed"]
+    UP["upsert"]
+    VC["verify_count"]
     X0["status=ok / exit_code=0"]
     X1["status=error / exit_code=1 설정·입력 오류"]
     X2["status=dry_run / exit_code=0 임베딩 0회"]
     X3["status=ok / exit_code=3 일부 적재 실패"]
     X4["status=ok / exit_code=2 청킹 검토 보류"]
+    E([END])
 
-    X0 --> E([END])
+    S --> A
+    A -->|"대상 0건"| X1
+    A -->|"대상 1건 이상"| B
+    B --> C
+    C --> D
+    D --> V
+    V -->|"검증 오류 1건 이상"| X1
+    V -->|"검증 오류 0건"| CH
+    CH -->|"dry_run 켜짐"| X2
+    CH -->|"dry_run 꺼짐"| EM
+    EM --> UP
+    UP --> VC
+    VC -->|"적재 실패 1건 이상"| X3
+    VC -->|"적재 실패 0건, 검토 보류 1건 이상"| X4
+    VC -->|"적재 실패 0건, 검토 보류 0건"| X0
+
+    X0 --> E
     X1 --> E
     X2 --> E
     X3 --> E
@@ -267,49 +278,62 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    S([START]) --> Q[check_query]
-    Q -->|"빈 질문 / top_k <= 0 / 모르는 role·mode / 인덱스 없음"| Y1
-    Q -->|"dry_run == True"| Y2
-    Q -->|"정상"| VS[vector_search]
-
-    VS -->|"mode == vector"| RQ[route_query]
-    VS -->|"mode in (hybrid, hybrid_rerank)"| BM[bm25_search]
-    BM --> FS[fuse_scores]
-    FS --> RQ
-
-    RQ -->|"TRANSFORM_MODE == off"| RR
-    RQ -->|"변환 관문 통과: transform_gate_score >= TRANSFORM_GATE_THRESHOLD(0.70)"| RR
-    RQ -->|"캐시 적중 또는 라우터 LLM 1회 → action == transform"| ST[search_transformed]
-    RQ -->|"action in (keep, clarify) 또는 라우터 실패"| RR
-
-    ST --> MQ[merge_queries]
-    MQ --> RR
-
-    RR{"mode == hybrid_rerank ?"}
-    RR -->|"예"| RK[rerank]
-    RR -->|"아니오"| G
-    RK --> G
-
-    G{"답변 관문 gate_score >= ANSWER_GATE_THRESHOLD(0.62) ?"}
-    G -->|"아니오 (답변 LLM 0회)"| Y3
-    G -->|"예"| BP[build_prompt]
-    BP -->|"prompt_only == True"| Y4
-    BP -->|"정상"| GA[generate_answer]
-
-    GA -->|"재시도 소진 또는 호출 상한"| Y5
-    GA -->|"응답 수신"| VE[verify_evidence]
-    VE -->|"verification == fail and repair_count < MAX_REPAIRS(2)"| BP
-    VE -->|"verification == fail and repair_count >= MAX_REPAIRS"| Y5
-    VE -->|"verification == pass"| Y0
-
+    S([START])
+    Q["check_query"]
+    VS["vector_search"]
+    BM["bm25_search"]
+    FS["fuse_scores"]
+    RQ["route_query"]
+    ST["search_transformed"]
+    MQ["merge_queries"]
+    DM{"mode 가 hybrid_rerank 인가?"}
+    RK["rerank"]
+    GT{"답변 관문: gate_score 가 ANSWER_GATE_THRESHOLD 0.62 이상인가?"}
+    BP["build_prompt"]
+    GA["generate_answer"]
+    VE["verify_evidence"]
     Y0["status=ok / exit_code=0"]
     Y1["status=error / exit_code=1"]
     Y2["status=dry_run / exit_code=0"]
     Y3["status=needs_check / answer.verification=needs_check"]
     Y4["status=prompt_only / exit_code=0"]
     Y5["status=halted_by_limit / exit_code=0 정상 END"]
+    E([END])
 
-    Y0 --> E([END])
+    S --> Q
+    Q -->|"빈 질문 / top_k 0 이하 / 모르는 role·mode / 인덱스 없음"| Y1
+    Q -->|"dry_run 켜짐"| Y2
+    Q -->|"정상"| VS
+
+    VS -->|"mode = vector"| RQ
+    VS -->|"mode = hybrid 또는 hybrid_rerank"| BM
+    BM --> FS
+    FS --> RQ
+
+    RQ -->|"TRANSFORM_MODE = off"| DM
+    RQ -->|"변환 관문 통과: 원 질문 Top-1 이 TRANSFORM_GATE_THRESHOLD 0.70 이상"| DM
+    RQ -->|"라우터 판정 transform: 캐시 적중 또는 라우터 LLM 1회"| ST
+    RQ -->|"라우터 판정 keep 또는 clarify, 라우터 실패"| DM
+
+    ST --> MQ
+    MQ --> DM
+
+    DM -->|"예"| RK
+    DM -->|"아니오"| GT
+    RK --> GT
+
+    GT -->|"아니오: 답변 LLM 0회"| Y3
+    GT -->|"예"| BP
+    BP -->|"prompt_only 켜짐"| Y4
+    BP -->|"정상"| GA
+
+    GA -->|"재시도 소진 또는 호출 상한 도달"| Y5
+    GA -->|"응답 수신"| VE
+    VE -->|"검증 실패, 재수리 횟수가 MAX_REPAIRS 2 미만"| BP
+    VE -->|"검증 실패, 재수리 상한 도달"| Y5
+    VE -->|"검증 통과"| Y0
+
+    Y0 --> E
     Y1 --> E
     Y2 --> E
     Y3 --> E
