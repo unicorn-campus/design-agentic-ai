@@ -1,0 +1,311 @@
+[목표]
+교육생에게 LangChain·LangGraph 기반 RAG 예제를 제공하기 위하여, 기존 s3.2의 임베딩·적재·검색 기능과
+s3.3의 Hybrid·리랭킹·답변 기능을 LangChain·LangGraph로 재구현한 Indexer 앱 1개·Retriever 앱 1개 개발
+
+[역할]
+- 총괄: 당신은 Agentic AI 아키텍처 총괄 클로니임. 공유 계약 동결, 인터페이스 충돌 조정,
+  실행 증거 기반 최종 검수를 담당함
+- 투입 팀원 — Agent 도구의 `subagent_type`에 아래 에이전트명을 지정하여 실제 호출함
+  - `flonie`(플로니): 백엔드 12년 + LangGraph 프로덕션 4년. 그래프·State(Reducer)·SqliteSaver 체크포인트·
+    타임아웃·재시도·LCEL 실행 방식 설계 및 Indexer 그래프 구현 주관
+  - `jisikni`(지식니): 데이터 엔지니어 8년 + RAG 구축 5년. 인덱스 메타데이터 스키마·검색 함수 시그니처·
+    권한 필터·Hybrid 가중치·리랭킹·검색 품질 평가셋 설계 및 Retriever 그래프 구현 주관
+  - `connectni`(커넥니): 시스템 통합 15년. 모델 제공자 어댑터(Groq·Claude·OpenAI), API 키 주입 경로,
+    타임아웃·재시도·오류 분류 규칙 담당
+  - `stackni`(스택니): 풀스택 8년. Layered Architecture 계층 배치표, 실행 진입점 CLI 규격,
+    `requirements.txt` 구성, 두 앱의 디렉터리 골격 생성 담당
+  - `eduni`(에듀니): 개발 5년 + 기술 교육·라이팅 6년. 교육생 독자 기준 README 2종과 기존 대비 비교표 작성 담당
+- 미투입 팀원과 사유
+  - `modalni`(모달니): 입력이 이미 정제된 텍스트 청크이므로 STT·TTS·VLM·OCR 대상이 없음
+  - `opsni`(옵스니): 산출물이 로컬 가상환경 실행 예제이므로 컨테이너·매니페스트·롤백 대상이 없음
+- 팀원 간 직접 대화는 금지하고 클로니가 매 라운드를 중개함
+
+[맥락]
+- 내 상황: 강사로서 s2.3, s3.1 ~ s3.3을 LangChain 없이 만든 상태이며, 같은 기능을 LangChain·LangGraph로
+  다시 만든 대조 예제가 필요함
+- 독자: s2.3 ~ s3.3 실습을 마친 교육생. Python 3.10 이상 실행 경험은 있으나 LangChain·LangGraph는 미경험
+- 사용 시점: s3.2·s3.3을 LangChain 버전과 나란히 비교하는 후속 차시 1회
+
+[입력]
+- 재개발 대상(기능 이식)
+  - `hybrid-ai-lab/s3.2/src/`의 `indexing_ref.py`, `retrieval_ref.py`, `answering_ref.py`,
+    `helpers.py`, `models.py`
+  - `hybrid-ai-lab/s3.3/src/`의 `hybrid_search_ref.py`, `hybrid_utils.py`
+  - `hybrid-ai-lab/s3.3/src/rerank.py`는 `rerank()` 함수만 이식하고
+    `rerank_each_query_and_merge()`와 `adaptive_search` 의존은 이식하지 않음
+- 참조용(계층 구조만 차용, 코드 이식 없음): `hybrid-ai-lab/s2.3/docprep/`의
+  presentation·application·domain·infrastructure 4계층 구성
+- 참조용(입력 데이터 생산자, 수정 금지): `hybrid-ai-lab/s3.1/run_chunking.py`
+- Indexer 입력 데이터: `hybrid-ai-lab/s3.1/data/chunked/chunks.jsonl`
+  - 승인 청크 485건 = D1 53 · D2 336 · D3 96. `chunk_id` 형식은 `D1_0000`처럼 4자리 0패딩임
+  - `review.jsonl`·`exceptions.jsonl`은 적재 대상 아님
+- Retriever 평가 질문: `hybrid-ai-lab/s3.3/templates/baseline_questions.json`
+  - 8건. q7은 정답 미매핑으로 평가 제외하며 채점 대상은 7건임
+- 기존 실측 기준선: `hybrid-ai-lab/s3.3/results/slide28_rerank_actual.json`
+  - `vector_top5.inclusion_rate` = 0.8571(6/7), `mean_expected_chunk_rank` = 2.125
+  - `hybrid_top5.inclusion_rate` = 0.8571(6/7), `mean_expected_chunk_rank` = 2.375
+  - warm 실측 지연: 검색 61 ~ 114ms, 리랭킹 2,762 ~ 9,798ms
+- 기존 LLM 어댑터: `hybrid-ai-lab/s3.2/src/llm_client.py`(Claude),
+  `hybrid-ai-lab/s3.3/src/groq_client.py`(Groq)
+
+[처리]
+- 협업 패턴: 파이프라인형 뼈대(분석 → 계획 → 골격 → 구현 → 검증 → 문서 → 통합)에
+  1·2단계는 토론형, 4단계는 협업형, 5 ~ 7단계는 계층형을 배치함
+- 1단계: 기존 소스 분석 (팀원 4명 병렬 위임 — 읽기 전용이며 상호 의존 없음)
+  - `jisikni`: 청킹·임베딩·적재·검색·리랭킹 경로와 메타데이터 키·권한 필터 규칙 정리
+  - `flonie`: 실행 흐름·단계 경계·재시도·종료 코드 규약 정리
+  - `connectni`: 제공자별 호출 방식·키 로딩 우선순위·오류 처리 현황 정리
+  - `stackni`: s2.3의 계층 분리 기준과 진입점 규격 정리
+  - 인덱싱 실소요 실측: 485건을 KURE-v1으로 임베딩하는 데 걸리는 시간을 1회 측정하여 예산 기준값 확정
+  - 출력파일: `analysis.md`. 필수 6항목
+    - (1) 재개발 대상 함수 목록과 시그니처
+    - (2) 기존 파라미터 승계표(임베딩 모델·벡터 차원·DB 경로·컬렉션·거리함수·Top-K·가중치·임계값·타임아웃)
+    - (3) 기존 입력 검증·예외 규칙 목록
+    - (4) 기능별 LangChain 대체 컴포넌트 매핑표
+    - (5) 승계하지 않는 항목과 그 사유 (Claude 기본 모델 변경, LLM 기본 제공자 변경 등)
+    - (6) 인덱싱 실소요 실측값과 그에 근거한 인덱싱 예산 제안값
+- 2단계: 개발 계획 수립 (초안 4건 병렬 → 클로니 수렴)
+  - `flonie`: Mermaid 워크플로우, State(Reducer) 스키마, 체크포인트 키, 노드별 타임아웃·재시도,
+    LCEL 실행 방식 선택 근거 초안
+  - `jisikni`: 인덱스 컬렉션·메타데이터 스키마, 검색 함수 시그니처, 권한 필터, 평가셋 초안
+  - `connectni`: 제공자 추상화 인터페이스, Config 키 이름, 키 주입 경로, 오류 분류표 초안
+  - `stackni`: 계층 배치표, 진입점 CLI 규격, `requirements.txt` 구성 초안
+  - 클로니 수렴 — 아래 충돌 지점을 이 시점에 전부 해소하고 공유 계약으로 동결
+    - State 필드명·자료형 ↔ 인덱스 메타데이터 키 (같은 값의 이름을 단일화)
+    - 검색 함수 시그니처·반환형 ↔ Retriever 노드 입출력 계약
+    - LLM 어댑터 반환형·예외 종류 ↔ 노드 재시도·타임아웃 분기
+    - 계층 배치표 ↔ 노드 구현 파일 위치 (도메인 규칙과 인프라 호출의 분리 지점)
+    - 벡터DB 경로·컬렉션명 ↔ 두 앱이 읽는 Config 키
+  - 노드별 개발 계획서 작성 — 노드마다 필수 8항목 = 노드명 / 입력 State 키 / 출력 State 키와 Reducer /
+    실패 시 동작 / 타임아웃(초) / 재시도 횟수 / 사용 LangChain 컴포넌트명 / 검증 방법
+  - 노드 구성(확정값, 총 13개)
+    - Indexer 5개: `load_chunks` → `validate_metadata` → `embed` → `upsert` → `verify_count`
+    - Retriever 8개: `check_query` → `vector_search` → `bm25_search` → `fuse_scores` → `rerank`
+      → `build_prompt` → `generate_answer` → `verify_evidence`
+  - Mermaid 워크플로우는 `flowchart TD`로 Indexer 1개·Retriever 1개를 그리고 노드·엣지·조건 분기·
+    종료 조건을 모두 표기함
+  - 출력파일: `plan.md`
+  - 게이트 G1(사용자 승인): AskUserQuestion으로 아래 3종을 제시하고 승인받기.
+    미승인 시 코드 파일을 생성하지 않음
+    - Mermaid 워크플로우 2종
+    - 공유 계약서 (State 필드 · 메타데이터 키 · 검색 시그니처 · DB 경로 · 컬렉션명 · Config 키 이름)
+    - 노드 13개 전원의 8항목 계획서
+- 3단계: 공통 골격 생성 (G1 승인 후 순차, 4단계의 선행 조건)
+  - `stackni`: 두 앱의 계층 디렉터리·진입점·`requirements.txt`·`.env.example`·`.gitignore` 생성
+  - 골격은 계약에 정의된 함수 시그니처만 두고 본문은 비워 둠
+- 4단계: Indexer 개발과 Retriever 개발 (공유 계약 동결 완료이므로 병렬 수행)
+  - `flonie` 주관 + `jisikni` 보조: Indexer 앱 개발 — 적재 노드, State 전이, 체크포인트, 단위 테스트
+  - `jisikni` 주관 + `flonie` 보조: Retriever 앱 개발 — 검색·필터·리랭킹·답변 노드, Structured Output
+    스키마, 단위 테스트
+  - `connectni`: 양쪽 공통 LLM 어댑터·키 로딩·재시도 모듈을 제공하고 두 앱이 동일 모듈을 사용함
+  - 테스트: `python -m unittest discover -s tests -v` 실행
+    - 노드마다 정상 경로 1건·실패 경로 1건을 최소로 하여 Indexer 10건 이상, Retriever 16건 이상
+    - 여기에 권한 필터·임계값 0.62 관문·종료 코드·체크포인트 재개 시험을 더함
+    - 실패·오류 0건을 통과 기준으로 하며 통과 로그 전문을 보관함
+  - 라운드 중개: 계약 변경이 필요하면 해당 팀원이 클로니에게 요청을 올리고, 클로니가 상대 팀원에게
+    전달한 뒤 양쪽 반영을 확인함
+- 5단계: 실측 검증 (순차 필수 — Retriever 검증은 Indexer가 만든 실제 인덱스에 의존)
+  - Indexer 실행 → `collection_count`·`newly_embedded`·`skipped_by_hash`·`failed`·벡터 차원 확인
+    - `failed`가 1건 이상이면 실패로 보고 `flonie`·`connectni`에 수정 위임
+  - 게이트 G2(사용자 승인): Indexer 실행 로그 전문과 위 5개 수치를 제시하고 승인받기
+  - 승인 후 Retriever를 같은 인덱스로 실행하여 대표 질문 1건의 Top-K·근거·답변·지연을 실측
+    - 답변 검증 실패·근거 불일치 시 `jisikni`·`connectni`에 수정 위임
+  - 동등성 실측: `jisikni`가 `baseline_questions.json`의 채점 대상 7건을 Vector 단독 모드와
+    Hybrid+Rerank 모드로 각각 실행함. 두 모드 모두 LLM 호출 0회로 검색만 수행하며,
+    질문별 정답 순위와 Top-5 포함 여부를 기록함
+  - 출력파일: `verify-report.md` (실행 명령, 실제 출력 전문, 통과·실패 판정, 단계별 소요 시간 포함)
+- 6단계: 문서 작성 (실측 확정 후 순차)
+  - `eduni`: README 2종 작성. 필수 6개 절
+    - (1) 개요 (2) 디렉토리 구조와 계층별 책임 표
+    - (3) 가상환경 설정(Windows PowerShell·Git Bash·macOS/Linux 3종 명령과 `requirements.txt` 2개 설치 순서)
+    - (4) 실행 방법(복사 가능한 명령 전문) (5) 결과와 검증(실제 실행 수치·증거 파일 경로) (6) 한계
+  - `eduni`: 기존 대비 비교표 작성 — 필수 4열 = 기존 함수명 / 새 LangChain 컴포넌트명 / 달라진 점 /
+    같은 결과가 나오는지. 동등성 수치는 `verify-report.md`의 표만 인용하고 재실행하지 않음
+  - 실행 명령과 출력 예시는 `verify-report.md`의 실제 로그만 사용하고 추측으로 작성하지 않음
+  - 출력파일: `README.md`(앱별 1개), `COMPARISON.md`
+- 7단계: 최종 통합·검수 (클로니 직접 수행)
+  - 계약 준수 대조 — State 필드·메타데이터 키·검색 시그니처·컬렉션명·오류 처리가
+    `plan.md` 공유 계약과 일치하는지 확인
+  - README 기재 내용과 실제 소스·실행 로그의 불일치 확인
+  - 게이트 G3(사용자 승인): 아래 3종을 제시하고 승인받기
+    - 최종 산출물 파일 목록
+    - 두 앱의 시험 통과 로그 전문
+    - `verify-report.md`의 실측 수치 표
+- 휴먼인루프 게이트는 총 3개이며 미승인 시 다음 단계로 진행하지 않음
+
+[출력]
+- Indexer: `hybrid-ai-lab/vector/indexer/`
+  - `run_indexer.py`, `requirements.txt`, `README.md`, `.env.example`, `.gitignore`
+  - `app/presentation/cli.py`
+  - `app/application/{graph.py, state.py, ports.py}`
+  - `app/domain/validation.py`
+  - `app/infrastructure/{chroma_store.py, embedder.py}`
+  - `tests/`
+  - `data/chroma/` — 새 벡터DB. 컬렉션명 `card_docs`
+  - `data/index_manifest.json` — 증분 적재용 해시 기록
+  - `data/checkpoints/indexer.sqlite` — LangGraph 체크포인트
+  - `data/index_run1.json` — 실행 결과
+  - `data/chroma_smoke/` — smoke 백엔드 전용 분리 저장소
+- Retriever: `hybrid-ai-lab/vector/retriever/`
+  - `run_retriever.py`, `requirements.txt`, `README.md`, `.env.example`, `.gitignore`
+  - `app/presentation/cli.py`
+  - `app/application/{graph.py, state.py, ports.py}`
+  - `app/domain/{scoring.py, access.py}`
+  - `app/infrastructure/{chroma_store.py, bm25_index.py, reranker.py, llm_client.py}`
+  - `tests/`
+  - `data/bm25_index.pkl` — BM25 색인 캐시
+  - `data/checkpoints/retriever.sqlite` — LangGraph 체크포인트
+  - `data/search_run1.json` — 대표 질문 1건 실행 결과
+  - `data/equivalence_run1.json` — 채점 대상 7건 동등성 실측 결과
+- 중간·최종 문서: `hybrid-ai-lab/vector/{analysis.md, plan.md, verify-report.md, COMPARISON.md}`
+- 가상환경: `hybrid-ai-lab/vector/.venv` (두 앱이 공유하는 1개)
+- 톤앤매너: 한국어 명사체(~함/~임), 한 줄 120자 이내, 줄바꿈 시 줄 끝 스페이스 2개.
+  코드 주석은 "무엇을 왜"를 한 줄로 설명하며 교육생이 처음 보는 LangChain 컴포넌트에는 역할 주석 필수
+
+[제약조건]
+- MUST:
+  - 추가 정보나 내 의사결정이 필요하면 반드시 나에게 요청
+  - 배포 형태: 동작하는 완성본 1종만 제공함. 교육생용 빈칸 골격과 `_ref.py`는 만들지 않음
+  - Layered Architecture: 계층 이름과 책임을 s2.3의 `docprep/`과 동일하게 둠
+    - `presentation/`: 옵션 해석·경로 결정·결과 안내
+    - `application/`: LangGraph StateGraph 조립, State 정의, Protocol 기반 입출력 계약
+    - `domain/`: 메타데이터 검증·점수 계산·권한 판정 규칙 (외부 I/O 금지)
+    - `infrastructure/`: ChromaDB·임베딩 모델·BM25·리랭커·LLM 어댑터
+  - 기존 값 승계(변경 금지)
+    - 임베딩 모델 `nlpai-lab/KURE-v1`, 벡터 1,024차원, 입력 한도 8,192토큰, 접두어 미사용.
+      한도 초과 입력은 자르지 않고 실패로 기록함
+    - 벡터DB는 ChromaDB PersistentClient, 거리 공간 cosine, 컬렉션명 `card_docs`
+    - 검색 기본값 Top-K 5, 적재 배치 크기 32, 배치 재시도 1회
+    - 답변 관문 유사도 임계값 0.62
+    - 권한 매핑 agent → public·internal / auditor → public·internal·restricted, 모르는 역할은 오류로 중단
+    - 종료 코드 규약 0 성공 / 1 설정·입력 오류 / 2 일부 적재 실패
+  - 벡터DB 경로와 컬렉션명은 두 앱이 같은 Config 키(`CHROMA_PATH`, `CHROMA_COLLECTION`)로 읽으며
+    2단계 공유 계약에 명시함. 기존 `s3.2`의 벡터DB에는 쓰지 않음
+  - 청킹은 재개발 범위에 포함하지 않음. s3.1이 만든 `chunks.jsonl`을 그대로 입력으로 쓰고 재청킹하지 않음
+  - Retriever 기능 범위
+    - Vector 단독 / BM25 + Vector Hybrid(가중치 BM25 0.4 · Vector 0.6, 후보 수 Top-K × 4) /
+      리랭킹(`BAAI/bge-reranker-v2-m3`, max_length 512, 최종 Top-5) / LLM 답변 생성 + 원문 근거 검증
+    - s3.3의 적응형 검색·질문 변환·LLM 라우팅은 범위에서 제외함
+    - 리랭커 모델은 모듈 최상위가 아니라 최초 사용 시점에 지연 로드함
+  - CLI 옵션 소유표(확정값). 표에 없는 옵션은 만들지 않음
+    - Indexer: `--thread-id`, `--full-reindex`, `--dry-run`,
+      `--backend {sentence-transformers,smoke}`
+    - Retriever: `--thread-id`, `--query`, `--top-k`, `--mode {vector,hybrid,hybrid_rerank}`,
+      `--role`, `--dry-run`, `--prompt-only`, `--max-llm-calls`
+  - LangChain 공통
+    - 프롬프트는 시스템 프롬프트와 유저 프롬프트를 명확히 분리
+    - 앱이 Indexer·Retriever 2개이고 실행 시점·입력이 분리되므로 원문의 "단일 워크플로우"를
+      앱별 StateGraph 1개씩으로 나눔. 두 그래프 사이에 메시지 전달은 두지 않고 인덱스 컬렉션만 공유함
+    - 서브그래프·에이전트 간 메시지 전달은 사용하지 않으며 모든 경로가 END로 수렴해야 함
+    - 노드 간 데이터 공유는 StateGraph의 State(Reducer)로 구현
+    - 그래프 실행은 `config={"recursion_limit": 25}`로 호출하고, 재검색·재시도 루프는 노드마다 최대 2회
+      상한을 둠. 상한 도달 시 예외 대신 State의 `status`를 `halted_by_limit`으로 두고 정상 종료함
+    - 세션 체크포인트는 `langgraph-checkpoint-sqlite`의 `SqliteSaver`(동기)를 사용하고
+      `--thread-id`로 세션 키를 지정함
+    - 재개 시험은 중간 노드에서 강제 예외로 실행을 중단한 뒤 같은 `--thread-id`에
+      `invoke(None, config)`로 재개하여, 중단 이전 노드가 재실행되지 않고 중단 노드부터 이어짐을
+      로그로 확인함. 새 입력으로 같은 `--thread-id`를 호출하면 노드가 모두 재실행되므로
+      이를 재개로 보지 않음
+    - Output Parser 대신 Structured Output 사용. 답변 스키마는 기존 `answering_ref.py`의
+      `conclusion` / `evidence` / `sources` / `verification` 구조를 승계함
+    - LCEL 실행 방식 확정값: Indexer 배치 적재·Retriever 단발 검색·답변 생성 모두 `invoke`를 사용함.
+      답변을 Structured Output으로 받으면 `stream`은 완성 객체 1개만 방출하여 점진 표시 효과가 없고
+      두 앱 모두 UI가 없으므로 `stream`·`astream`·`ainvoke`는 사용하지 않음
+  - LLM 인터페이스
+    - Config의 `LLM_PROVIDER`로 제공자를 선택하며 기본값은 `groq`임
+      - Groq LPU(기본): `openai/gpt-oss-120b`
+      - Claude(옵션): `claude-opus-5`. 기존 어댑터 기본값 `claude-sonnet-5`에서 의도적으로 올린 값이며
+        승계표에 "변경" 사유로 기록함
+      - OpenAI(옵션): `GPT 5.6-Sol` — 실제 API 모델 ID는 실행 전 Config에서 확인 후 지정함
+    - 세 제공자 어댑터를 모두 구현하되 실측 검증은 기본 제공자 `groq`로 수행함.
+      Claude·OpenAI 경로는 키 없이 통과하는 계약 시험으로 대신함
+    - 타임아웃은 단계별로 분리함 — 임베딩 배치 120초, 벡터 검색 10초, 리랭킹 60초, LLM 호출 60초.
+      LLM 60초는 기존 `llm_client.py`·`groq_client.py`의 `timeout=60.0`을 승계한 값이며
+      원문의 30초를 대체함. 모델 최초 로드는 타임아웃 대상에서 제외하고 소요 시간을 로그에 기록함
+    - 재시도는 429·5xx·연결 오류에만 지수 백오프 2회(초기 1초, 배수 2, 지터 ±20%)를 적용하고
+      4xx 인증·요청 오류는 재시도하지 않음. 한 노드의 재시도 포함 총 대기는 180초를 넘지 않음
+    - 노드별 `max_tokens` 상한을 Config에 고정함 — 답변 생성 2,000, 구조화 판정 256
+  - 비용 가드레일
+    - 인덱싱은 증분 적재를 기본으로 함. `chunk_id`와 본문 SHA-256을 `index_manifest.json`에 기록하고
+      해시가 바뀐 청크만 임베딩함. 전체 재임베딩은 `--full-reindex` 지정 시에만 수행함
+    - 실행 결과 JSON에 `collection_count`·`newly_embedded`·`skipped_by_hash`·`failed`를 분리 기록함
+    - 임베딩 모델과 리랭커는 프로세스당 1회만 로드하고 기본 캐시를 재사용함.
+      최초 실행 시 모델 다운로드가 발생하는 사실을 README에 명시함
+    - Retriever 1회 실행당 LLM 호출 상한을 기본 8회로 두고 `--max-llm-calls`로만 변경 가능함.
+      상한 집계에는 답변 생성·구조화 판정·재시도 호출을 모두 포함함.
+      상한 초과 시 호출하지 않고 종료 코드 1로 중단함
+    - 동등성 평가 7건은 `--prompt-only`로 실행하여 LLM 호출 0회로 수행함.
+      답변 생성 실측은 대표 질문 1건으로 한정함
+    - `--dry-run`은 LLM·임베딩 호출 0회로 예상 호출 수·대상 청크 수만 출력하고 종료함
+    - 개발 작업 상한: 서브에이전트 위임 총 32회 이내
+      (1·2단계 8회 · 3단계 1회 · 4단계 구현·중개 15회 · 5단계 수정 5회 · 6단계 문서 3회),
+      한 노드당 재작성 라운드 2회 이내, 전체 테스트 재실행 3회 이내
+    - 각 단계 종료 시 누적 위임 횟수를 보고하고 상한의 80% 도달 시 잔여 계획을 먼저 알림
+  - 성능 예산 (근거: `slide28_rerank_actual.json`의 warm 실측)
+    - 리랭킹 제외 검색 1건 p95 0.3초 이내 (실측 61 ~ 114ms)
+    - 리랭킹 포함 검색 1건 p95 12초 이내 (실측 2,762 ~ 9,798ms)
+    - 답변 생성 1건 p95 15초 이내
+    - 인덱싱 1회(485건) 예산은 1단계 실측값에 여유 30%를 더한 값으로 확정하고 `analysis.md`에 근거를 남김
+    - 측정은 `time.perf_counter`로 단계별 `elapsed_ms`를 기록하고 결과 JSON의 `timings` 필드에 저장함
+  - 보안
+    - API 키는 `.env` 또는 환경변수로만 주입함. 저장소에는 값이 빈 `.env.example`만 둠
+    - 설정 우선순위는 CLI → 환경변수 → 앱 `.env` → `hybrid-ai-lab/.env` → 기본값
+    - 두 앱에 각각 `.gitignore`를 만들고 `.env`, `.venv/`, `data/`, `__pycache__/`, `*.pyc`를 등록함.
+      생성 후 `git check-ignore -v`로 `.env`가 실제로 무시되는지 확인함
+    - 외부 모델 다운로드 없이 실행 가능한 경로를 제공함
+      - Indexer는 `--backend smoke`로 384차원 테스트 벡터를 써서 적재·메타데이터 검증·권한 필터만 확인함
+      - Retriever는 `--prompt-only`로 LLM 호출 없이 Top-K와 완성 프롬프트만 출력함
+      - smoke 결과는 별도 저장소에 분리하고 검색 품질 평가와 차원 1,024 판정에는 쓰지 않음
+    - 상담 문서는 `access_level=restricted`를 유지하고 역할 필터를 검색 단계에서 강제함.
+      인덱싱 입력은 s3.1이 만든 `chunks.jsonl`만 사용하고 원문 TXT를 직접 읽지 않음
+  - 가상환경은 `vector/`에 1개만 만들고 두 앱의 `requirements.txt`를 순서대로 설치함.
+    공통 의존성(langchain·langgraph·chromadb·sentence-transformers)은 두 파일에 같은 버전으로 핀함.
+    LangChain·LangGraph 의존성이 새로 추가되므로 기존 `s3.2`의 가상환경을 재사용하지 않음
+- MUST NOT:
+  - 추측하지 말고 입력 소스에 기반하여 개발
+  - 기존 s2.3·s3.1·s3.2·s3.3의 파일을 수정·삭제하지 않음 (읽기 전용)
+  - 임베딩 모델·차원·거리함수·청킹 파라미터를 소스 확인 없이 새 값으로 바꾸지 않음
+  - 키 값·Authorization 헤더·요청 본문 전문을 로그·결과 파일·README에 출력하지 않음
+  - 인덱스·체크포인트·결과 파일을 저장소에 커밋하지 않음
+  - 평가 목적의 전체 질문 세트 반복 실행을 사용자 승인 없이 3회 이상 수행하지 않음
+  - 실행 로그 없이 "테스트 통과"·"정상 작동"을 보고하지 않음
+- 완료조건:
+  - Indexer 최초 실행 결과가 `collection_count` 485 · `newly_embedded` 485 · `failed` 0 ·
+    벡터 차원 1,024이며 `index_run1.json`에 저장됨
+  - Indexer 재실행 결과가 `newly_embedded` 0 · `skipped_by_hash` 485 · `collection_count` 485임
+  - Retriever를 `--query "연회비 면제 조건은?" --top-k 5 --mode hybrid_rerank`로 실행한 결과가
+    `search_run1.json`에 저장되고 Top-1 `chunk_id`·점수·`timings`가 README에 기재됨
+  - 두 앱의 `python -m unittest discover -s tests -v` 결과가 실패 0건·오류 0건이며 로그 전문을 제시함
+  - 강제 중단 후 같은 `--thread-id`로 `invoke(None, config)` 재개 시 중단 이전 노드가 재실행되지 않음이
+    테스트 로그로 확인됨
+  - 동등성 판정: 채점 대상 7건의 Top-5 정답 포함률이 Vector 단독 모드에서 6/7 이상이고,
+    Hybrid+Rerank 모드에서 6/7 이상이면서 평균 정답 순위가 Vector 단독의 2.125보다 작음.
+    결과를 `equivalence_run1.json`에 저장하고 기존 실측값과 나란히 `COMPARISON.md`에 기록함
+  - README 2종·`COMPARISON.md`·`verify-report.md`가 모두 생성되고 기재 내용이 실행 로그와 일치함
+
+[예시]
+- `plan.md`의 노드 계획서 1행 샘플
+
+| 노드명 | 입출력 State 키 | 실패 시 동작 | 제한 | 컴포넌트 | 검증 방법 |
+|---|---|---|---|---|---|
+| `embed` | in `chunks` / out `vectors`, `failed_ids`(add) | 실패 기록 후 계속 | 120초·1회 | `HuggingFaceEmbeddings` | 차원 1,024 |
+
+- Retriever 실행 결과 JSON의 기대 형태
+
+```json
+{
+  "query": "연회비 면제 조건은?",
+  "mode": "hybrid_rerank",
+  "hits": [
+    {"chunk_id": "D1_0010", "score": 0.741, "rerank_score": 0.92, "access_level": "public"}
+  ],
+  "answer": {"conclusion": "...", "evidence": ["..."], "sources": ["D1_0010"], "verification": "pass"},
+  "timings": {"search_ms": 62, "rerank_ms": 2762, "llm_ms": 3360},
+  "llm_calls": 1
+}
+```
+
+- 나쁜 예(금지)
+  - "테스트를 작성했으므로 완료" — 실행 로그 없이 완료 보고함
+  - "적재가 정상적으로 되었음" — 건수·차원 수치 없이 서술만 함
+  - "검색 품질이 개선됨" — 정답 포함률·평균 순위 수치 없이 서술만 함

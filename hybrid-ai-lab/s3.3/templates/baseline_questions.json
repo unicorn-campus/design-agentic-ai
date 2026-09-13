@@ -1,0 +1,54 @@
+{
+  "description": "S3.3 슬라이드 20의 고정 질문 8건",
+  "cases": [
+    {
+      "id": "q1",
+      "question": "연회비 면제 조건은?",
+      "expected_chunk_ids": ["D1_0010"],
+      "expected_location": "제10조 제1항"
+    },
+    {
+      "id": "q2",
+      "question": "지난해 카드를 많이 썼는데 다음 연회비도 내야 하나요?",
+      "expected_chunk_ids": ["D1_0010"],
+      "expected_location": "제10조 제1항"
+    },
+    {
+      "id": "q3",
+      "question": "카드를 꾸준히 사용한 고객이 다음 해 고정 비용을 내지 않으려면 어떤 조건이 필요한가요?",
+      "expected_chunk_ids": ["D1_0010"],
+      "expected_location": "제10조 제1항"
+    },
+    {
+      "id": "q4",
+      "question": "연회비 면제 조건은?",
+      "expected_chunk_ids": ["D1_0010"],
+      "expected_location": "제10조 제1항"
+    },
+    {
+      "id": "q5",
+      "question": "한빛 모아생활 카드의 생활 포인트 적립률과 월 한도는?",
+      "expected_chunk_ids": ["D2_0003"],
+      "expected_location": "한빛 모아생활 · 생활 포인트 적립"
+    },
+    {
+      "id": "q6",
+      "question": "작년에 카드를 꾸준히 쓰고 돈도 제때 냈습니다. 올해 정기 비용을 안 내는 기준과 한빛 모아생활에서 점수를 받기 위한 최소 사용액을 함께 알려주세요.",
+      "expected_chunk_ids": ["D1_0010", "D2_0003"],
+      "expected_location": "제10조 제1항 + 한빛 모아생활 · 생활 포인트 적립"
+    },
+    {
+      "id": "q7",
+      "question": "장기 보유 고객에게 적용되는 유지 혜택의 신청 조건은 무엇인가요?",
+      "expected_chunk_ids": [],
+      "expected_location": "교재 표기 D2 §3",
+      "note": "현재 S3.1 청크와 S3.2 인덱스에 대응 원문·정답 chunk_id가 없어 평가에서 제외함"
+    },
+    {
+      "id": "q8",
+      "question": "가입 후 6개월 이내 해지하면 연회비는 어떻게 처리되나요?",
+      "expected_chunk_ids": ["D1_0010"],
+      "expected_location": "제10조 제4항~제6항"
+    }
+  ]
+}

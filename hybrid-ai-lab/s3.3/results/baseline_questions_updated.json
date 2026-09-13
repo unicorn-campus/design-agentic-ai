@@ -1,0 +1,343 @@
+{
+  "mode": "baseline",
+  "retrieve_k": 10,
+  "judge_k": 3,
+  "case_count": 8,
+  "scored_count": 7,
+  "passed_count": 6,
+  "inclusion_rate": 0.8571,
+  "dataset_ready": false,
+  "rows": [
+    {
+      "id": "q1",
+      "question": "연회비 면제 조건은?",
+      "queries": [
+        "연회비 면제 조건은?"
+      ],
+      "expected_chunk_ids": [
+        "D1_0010"
+      ],
+      "expected_location": "제10조 제1항",
+      "ranks": {
+        "D1_0010": 1
+      },
+      "top_hits": [
+        {
+          "rank": 1,
+          "chunk_id": "D1_0010",
+          "score": 0.741,
+          "location": "제10조 제1항",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "D1_0009",
+          "score": 0.647,
+          "location": "제9조",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "D2_0000",
+          "score": 0.638,
+          "location": "문서 적용 기준",
+          "source": "D2_카드혜택안내_합성.pdf"
+        }
+      ],
+      "scorable": true,
+      "top_k_included": true,
+      "note": "",
+      "elapsed_ms": 12847.3
+    },
+    {
+      "id": "q2",
+      "question": "지난해 카드를 많이 썼는데 다음 연회비도 내야 하나요?",
+      "queries": [
+        "지난해 카드를 많이 썼는데 다음 연회비도 내야 하나요?"
+      ],
+      "expected_chunk_ids": [
+        "D1_0010"
+      ],
+      "expected_location": "제10조 제1항",
+      "ranks": {
+        "D1_0010": 2
+      },
+      "top_hits": [
+        {
+          "rank": 1,
+          "chunk_id": "D1_0009",
+          "score": 0.74,
+          "location": "제9조",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "D1_0010",
+          "score": 0.699,
+          "location": "제10조 제1항",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "D1_0015",
+          "score": 0.668,
+          "location": "제12조의3",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        }
+      ],
+      "scorable": true,
+      "top_k_included": true,
+      "note": "",
+      "elapsed_ms": 72.6
+    },
+    {
+      "id": "q3",
+      "question": "카드를 꾸준히 사용한 고객이 다음 해 고정 비용을 내지 않으려면 어떤 조건이 필요한가요?",
+      "queries": [
+        "카드를 꾸준히 사용한 고객이 다음 해 고정 비용을 내지 않으려면 어떤 조건이 필요한가요?"
+      ],
+      "expected_chunk_ids": [
+        "D1_0010"
+      ],
+      "expected_location": "제10조 제1항",
+      "ranks": {
+        "D1_0010": 2
+      },
+      "top_hits": [
+        {
+          "rank": 1,
+          "chunk_id": "D1_0015",
+          "score": 0.686,
+          "location": "제12조의3",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "D1_0010",
+          "score": 0.669,
+          "location": "제10조 제1항",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "D1_0012",
+          "score": 0.636,
+          "location": "제11조",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        }
+      ],
+      "scorable": true,
+      "top_k_included": true,
+      "note": "",
+      "elapsed_ms": 75.3
+    },
+    {
+      "id": "q4",
+      "question": "연회비 면제 조건은?",
+      "queries": [
+        "연회비 면제 조건은?"
+      ],
+      "expected_chunk_ids": [
+        "D1_0010"
+      ],
+      "expected_location": "제10조 제1항",
+      "ranks": {
+        "D1_0010": 1
+      },
+      "top_hits": [
+        {
+          "rank": 1,
+          "chunk_id": "D1_0010",
+          "score": 0.741,
+          "location": "제10조 제1항",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "D1_0009",
+          "score": 0.647,
+          "location": "제9조",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "D2_0000",
+          "score": 0.638,
+          "location": "문서 적용 기준",
+          "source": "D2_카드혜택안내_합성.pdf"
+        }
+      ],
+      "scorable": true,
+      "top_k_included": true,
+      "note": "",
+      "elapsed_ms": 63.1
+    },
+    {
+      "id": "q5",
+      "question": "한빛 모아생활 카드의 생활 포인트 적립률과 월 한도는?",
+      "queries": [
+        "한빛 모아생활 카드의 생활 포인트 적립률과 월 한도는?"
+      ],
+      "expected_chunk_ids": [
+        "D2_0003"
+      ],
+      "expected_location": "한빛 모아생활 · 생활 포인트 적립",
+      "ranks": {
+        "D2_0003": 1
+      },
+      "top_hits": [
+        {
+          "rank": 1,
+          "chunk_id": "D2_0003",
+          "score": 0.802,
+          "location": "한빛 모아생활 · D2-C001-B01 · 생활 포인트 적립",
+          "source": "D2_카드혜택안내_합성.pdf"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "D2_0007",
+          "score": 0.796,
+          "location": "한빛 모아생활 플러스 · D2-C002-B01 · 생활 포인트 적립",
+          "source": "D2_카드혜택안내_합성.pdf"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "D2_0171",
+          "score": 0.761,
+          "location": "한빛 일상포인트 · D2-C035-B01 · 결제금액별 생활 적립",
+          "source": "D2_카드혜택안내_합성.pdf"
+        }
+      ],
+      "scorable": true,
+      "top_k_included": true,
+      "note": "",
+      "elapsed_ms": 64.8
+    },
+    {
+      "id": "q6",
+      "question": "작년에 카드를 꾸준히 쓰고 돈도 제때 냈습니다. 올해 정기 비용을 안 내는 기준과 한빛 모아생활에서 점수를 받기 위한 최소 사용액을 함께 알려주세요.",
+      "queries": [
+        "작년에 카드를 꾸준히 쓰고 돈도 제때 냈습니다. 올해 정기 비용을 안 내는 기준과 한빛 모아생활에서 점수를 받기 위한 최소 사용액을 함께 알려주세요."
+      ],
+      "expected_chunk_ids": [
+        "D1_0010",
+        "D2_0003"
+      ],
+      "expected_location": "제10조 제1항 + 한빛 모아생활 · 생활 포인트 적립",
+      "ranks": {
+        "D1_0010": null,
+        "D2_0003": 3
+      },
+      "top_hits": [
+        {
+          "rank": 1,
+          "chunk_id": "D2_0005",
+          "score": 0.693,
+          "location": "한빛 모아생활 · D2-C001-B03 · 이용 기준",
+          "source": "D2_카드혜택안내_합성.pdf"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "D2_0006",
+          "score": 0.687,
+          "location": "D2-C002 한빛 모아생활 플러스 · 연회비",
+          "source": "D2_카드혜택안내_합성.pdf"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "D2_0003",
+          "score": 0.686,
+          "location": "한빛 모아생활 · D2-C001-B01 · 생활 포인트 적립",
+          "source": "D2_카드혜택안내_합성.pdf"
+        }
+      ],
+      "scorable": true,
+      "top_k_included": false,
+      "note": "",
+      "elapsed_ms": 89.5
+    },
+    {
+      "id": "q7",
+      "question": "장기 보유 고객에게 적용되는 유지 혜택의 신청 조건은 무엇인가요?",
+      "queries": [
+        "장기 보유 고객에게 적용되는 유지 혜택의 신청 조건은 무엇인가요?"
+      ],
+      "expected_chunk_ids": [],
+      "expected_location": "교재 표기 D2 §3",
+      "ranks": {},
+      "top_hits": [
+        {
+          "rank": 1,
+          "chunk_id": "D1_0015",
+          "score": 0.585,
+          "location": "제12조의3",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "D2_0203",
+          "score": 0.549,
+          "location": "한빛 가게모음 프리미엄 · D2-C040-B04 · 사업자 지원 서비스",
+          "source": "D2_카드혜택안내_합성.pdf"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "D2_0305",
+          "score": 0.546,
+          "location": "한빛 단골생활 · D2-C059-B02 · 주간 할인 쿠폰",
+          "source": "D2_카드혜택안내_합성.pdf"
+        }
+      ],
+      "scorable": false,
+      "top_k_included": null,
+      "note": "현재 S3.1 청크와 S3.2 인덱스에 대응 원문·정답 chunk_id가 없어 평가에서 제외함",
+      "elapsed_ms": 72.8
+    },
+    {
+      "id": "q8",
+      "question": "가입 후 6개월 이내 해지하면 연회비는 어떻게 처리되나요?",
+      "queries": [
+        "가입 후 6개월 이내 해지하면 연회비는 어떻게 처리되나요?"
+      ],
+      "expected_chunk_ids": [
+        "D1_0010"
+      ],
+      "expected_location": "제10조 제4항~제6항",
+      "ranks": {
+        "D1_0010": 1
+      },
+      "top_hits": [
+        {
+          "rank": 1,
+          "chunk_id": "D1_0010",
+          "score": 0.748,
+          "location": "제10조 제1항",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "D1_0047",
+          "score": 0.724,
+          "location": "제36조",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "D1_0015",
+          "score": 0.716,
+          "location": "제12조의3",
+          "source": "D1_개인회원표준약관_합성.pdf"
+        }
+      ],
+      "scorable": true,
+      "top_k_included": true,
+      "note": "",
+      "elapsed_ms": 70.0
+    }
+  ],
+  "implementation": "reference",
+  "search_implementation": "reference",
+  "db_path": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\s3.2\\data\\chroma\\group1",
+  "collection": "card_docs_ref",
+  "model": "nlpai-lab/KURE-v1"
+}

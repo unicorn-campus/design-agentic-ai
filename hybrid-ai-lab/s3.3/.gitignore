@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+results/*
+!results/query_transform_comparison_kure.md
+!results/adaptive_top1_070.md
+!results/adaptive_q6_decomposition.md
+!results/adaptive_q3_q6_improved.md
+!results/adaptive_top1_070_updated.md
+!results/adaptive_top1_070_updated.json
+!results/baseline_questions_updated.json

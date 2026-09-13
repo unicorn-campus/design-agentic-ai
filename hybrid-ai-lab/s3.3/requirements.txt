@@ -1,0 +1,2 @@
+-r ../s3.2/requirements-model.txt
+rank-bm25>=0.2,<1
