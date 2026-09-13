@@ -37,6 +37,7 @@ def main(reference: bool = False) -> int:
     parser.add_argument('--role', default='agent')
     parser.add_argument('--filters', default='{}', help='JSON 객체, 예: {"doc_type":"regulation"}')
     parser.add_argument('--doc-type', choices=('regulation', 'benefit_guide', 'consult_log'))
+    parser.add_argument('--member-id', help='상담 화면의 가명 고객키를 검색 필터로 주입')
     parser.add_argument('--version', help='문서 개정판 필터, 예: 1.2')
     parser.add_argument('--questions', type=Path, help='슬라이드 15~16의 질문 3건 JSON')
     parser.add_argument('--output', type=Path, help='JSON 실행 결과 또는 비교표 .md 저장 경로')
@@ -77,6 +78,8 @@ def main(reference: bool = False) -> int:
                 raise ValueError('--filters는 JSON 객체여야 함')
             if args.doc_type:
                 filters['doc_type'] = args.doc_type
+            if args.member_id:
+                filters['member_pseudo_id'] = args.member_id
             if args.version:
                 filters['version'] = args.version
             if args.action == 'search':
@@ -101,11 +104,19 @@ def main(reference: bool = False) -> int:
                     'prompt_checks': check_prompt(prompt, empty_prompt, args.query, hits),
                 }
                 if args.action == 'answer':
-                    from src.evidence import build_evidence_answer, render_answer
+                    from src.evidence import render_answer
                     from src.llm_client import ask_llm
-                    response = ask_llm(answer_module.RAG_SYSTEM, prompt)
-                    answer = build_evidence_answer(response['content'], hits)
-                    value['llm_response'] = response
+
+                    responses = []
+
+                    def capture_response(system, user):
+                        response = ask_llm(system, user)
+                        responses.append(response)
+                        return response
+
+                    answer = answer_module.answer_with_sources(
+                        args.query, hits, ask_fn=capture_response)
+                    value['llm_response'] = responses[0] if responses else None
                     value['answer'] = answer
                     value['rendered_answer'] = render_answer(answer)
                     value['evidence_check'] = answer['verification']

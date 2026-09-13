@@ -1,7 +1,7 @@
 # S3.2 임베딩·적재와 검색 실습
 
-교재 슬라이드 1~21 범위의 실습 코드임. 조별 골격과 `_ref` 완성본을 별도로 제공함.  
-슬라이드 18~21은 검색 결과를 조립하고 원문 위치·원문 발췌·출처가 있는 답을 만듦.
+교재 슬라이드 1~22 범위의 실습 코드임. 조별 골격과 `_ref` 완성본을 별도로 제공함.  
+슬라이드 18~22는 검색 결과를 조립하고 원문 위치·원문 발췌·출처가 있는 안전한 답을 만듦.
 
 ## 파일과 작성할 부분
 
@@ -13,8 +13,8 @@
 | `src/retrieval_ref.py` | 권한 필터·검색 완성본 |
 | `src/models.py` | `Chunk`·`Hit` 공통 구조 |
 | `src/helpers.py` | 강사 제공 모델·Chroma·메타데이터 처리 |
-| `src/answering.py` | 슬라이드 18~21: 조별 프롬프트 조립 TODO 1곳 작성 |
-| `src/answering_ref.py` | 프롬프트 조립 완성본 |
+| `src/answering.py` | 슬라이드 18~22: 프롬프트 조립·검색 전후 검증 관문 완성본 |
+| `src/answering_ref.py` | 같은 기능의 강사 참고 구현 |
 | `src/sources.py` | 약관 조항·혜택 항목·상담 턴 위치와 원본 문서 표시 |
 | `src/evidence.py` | JSON 응답 해석·원문 발췌 검증·사람용 답변 표시 |
 | `src/llm_client.py` | 저장소 `.env`의 키를 사용하는 Claude 호출 어댑터 |
@@ -137,10 +137,12 @@ s3.2/.venv/Scripts/python.exe s3.2/run_lab_ref.py variants --questions s3.2/temp
 기본 강사 컬렉션 `card_docs_ref`와 재현용 `card_docs_ref_kure_v12`에 KURE 벡터 485개를 적재함.  
 실패 0건과 벡터 차원 1,024를 확인함.
 
-## 슬라이드 18~21: 프롬프트 조립과 원문 발췌 검사
+## 슬라이드 18~22: 프롬프트 조립과 원문 발췌 검사
 
-학생은 `src/answering.py`의 TODO 한 곳을 완성함. 강사 완성본은 `_ref`로 바로 실행 가능함.  
+`src/answering.py`에 프롬프트 조립과 `answer_with_sources`의 두 검증 관문을 구현함.  
+강사 참고 구현은 `_ref`로 별도 제공함.  
 Windows 명령줄에서 JSON 따옴표 문제를 피하도록 `--doc-type`과 `--version` 필터를 제공함.
+상담 화면의 고객 문맥은 질문에 식별자를 쓰지 않고 `--member-id`로 가명 고객키를 주입함.
 
 ```powershell
 s3.2/.venv/Scripts/python.exe s3.2/run_lab_ref.py prompt `
@@ -170,6 +172,15 @@ s3.2/.venv/Scripts/python.exe s3.2/run_lab_ref.py answer `
 2026-09-10 실제 실행 결과는 `data/slide21/prompt_test_kure_v12.json`과  
 `data/slide21/answer_test_kure_v12.json`에 저장함. 사람이 읽는 결과와 검증 내용은  
 `data/slide21/test_report_kure_v12.md`에서 확인 가능함.
+
+슬라이드 22의 관문 (1) 실제 실행 결과는 `data/slide22/actual_gate1_block_kure_v12.json`,  
+관문 (1) 통과 후 관문 (2) 실제 실행 결과는 `data/slide22/actual_answer_cli_kure_v12.json`에 저장함.  
+첫 결과는 Top-1 `0.540`과 `llm_response=null`, 두 번째 결과는 Top-1 `0.741`과  
+`automatic_valid=true`, 검증된 원문 발췌 3건을 기록함.
+
+슬라이드 24의 샘플 질문 5건은 `data/slide24/sample_questions_kure_v12.json`에 저장함.  
+슬라이드 25의 KURE-v1·Claude 실제 실행 요약은 `data/slide25/sample_results_kure_v12.json`에 저장함.  
+약관·혜택·교차 질문 3건, 문서 밖 질문 1건, `agent`·`auditor` 권한 비교 질문 1건으로 구성함.
 
 ## 구현 참고
 

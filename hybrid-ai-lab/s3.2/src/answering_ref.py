@@ -1,4 +1,4 @@
-"""슬라이드 18~21 강사 완성본: 검색 결과와 질문을 조립함."""
+"""슬라이드 18~22 강사 완성본: 검색 결과를 조립하고 안전한 답변을 만듦."""
 
 from .answering import RAG_SYSTEM, THRESHOLD, needs_check
 from .evidence import build_evidence_answer

@@ -18,7 +18,12 @@ def _config_value(name: str, default: str = "") -> str:
     return values.get(name) or default
 
 
-def ask_llm(system: str, user: str, max_tokens: int = 1800) -> dict:
+def ask_llm(
+    system: str,
+    user: str,
+    max_tokens: int = 1800,
+    temperature: float | None = None,
+) -> dict:
     """Claude Messages API를 한 번 호출하고 본문과 사용량을 반환함."""
     api_key = _config_value("CLAUDE_API_KEY")
     model = _config_value("CLAUDE_MODEL", "claude-sonnet-5")
@@ -26,13 +31,27 @@ def ask_llm(system: str, user: str, max_tokens: int = 1800) -> dict:
         raise ValueError("루트 또는 s3.2/.env에 CLAUDE_API_KEY를 설정해야 함")
     try:
         with anthropic.Anthropic(api_key=api_key, timeout=60.0, max_retries=1) as client:
-            message = client.messages.create(
-                model=model,
-                max_tokens=max_tokens,
-                thinking={"type": "disabled"},
-                system=system,
-                messages=[{"role": "user", "content": user}],
-            )
+            request = {
+                "model": model,
+                "max_tokens": max_tokens,
+                "system": system,
+                "messages": [{"role": "user", "content": user}],
+            }
+            if model.startswith("claude-fable"):
+                # Fable 5.x는 adaptive thinking만 지원함.
+                request["thinking"] = {"type": "adaptive"}
+                request["output_config"] = {
+                    "effort": _config_value("CLAUDE_EFFORT", "low")
+                }
+            else:
+                request["thinking"] = {"type": "disabled"}
+            # 환경 변수로만 선택 적용해 기존 실습 명령과 호환함.
+            configured_temperature = _config_value("CLAUDE_TEMPERATURE")
+            if temperature is None and configured_temperature:
+                temperature = float(configured_temperature)
+            if temperature is not None:
+                request["temperature"] = temperature
+            message = client.messages.create(**request)
     except anthropic.APIStatusError as error:
         raise RuntimeError(
             f"Claude API 호출 실패(HTTP {error.status_code}). 키 권한·모델 접근·잔액 확인 필요"

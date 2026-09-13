@@ -1,5 +1,7 @@
-"""슬라이드 18~21 조별 골격: 검색 결과 프롬프트를 완성함."""
+"""슬라이드 18~22 조별 구현: 검색 결과를 조립하고 안전한 답변을 만듦."""
 
+from .evidence import build_evidence_answer
+from .llm_client import ask_llm
 from .models import Hit
 from .sources import format_source
 
@@ -30,8 +32,11 @@ def build_rag_prompt(question: str, hits: list[Hit]) -> str:
     blocks = []
     for index, hit in enumerate(hits, start=1):
         source = format_source(hit.metadata)
-        # TODO: 검색결과 번호·원본 문서·chunk_id·본문을 한 블록으로 추가함.
-        raise NotImplementedError("build_rag_prompt의 검색 결과 블록 조립을 작성해야 함")
+        chunk_id = hit.metadata.get("chunk_id") or "미지정"
+        blocks.append(
+            f"[검색결과 {index}]\n원본 문서: {source}\n"
+            f"내부 chunk_id: {chunk_id}\n본문:\n{hit.text}"
+        )
     joined = "\n\n".join(blocks)
     return f"[검색결과 목록]\n{joined}\n\n[질문]\n{question.strip()}"
 
@@ -48,9 +53,16 @@ def needs_check(question: str, reason: str) -> dict:
 
 
 def answer_with_sources(question: str, hits: list[Hit], threshold: float = THRESHOLD,
-                        ask_fn=None) -> dict:
-    """슬라이드 22 조별 골격: 검색 전·생성 후 관문을 완성함."""
+                        ask_fn=ask_llm) -> dict:
+    """검색 전 점수와 생성 후 원문 발췌 검사를 통과한 답을 반환함."""
     if not hits or hits[0].score < threshold:
         return needs_check(question, "근거 없음 또는 유사도 미달")
-    # TODO: LLM 호출 → build_evidence_answer → 검증 실패 분기 → answer 반환을 작성함.
-    raise NotImplementedError("answer_with_sources의 생성 후 검증 관문을 작성해야 함")
+    response = ask_fn(RAG_SYSTEM, build_rag_prompt(question, hits))
+    raw = response.get("content", "") if isinstance(response, dict) else str(response)
+    try:
+        answer = build_evidence_answer(raw, hits)
+    except ValueError:
+        return needs_check(question, "LLM JSON 해석 실패")
+    if not answer["verification"]["automatic_valid"]:
+        return needs_check(question, "응답 구조·원문 발췌 검사 실패")
+    return answer
