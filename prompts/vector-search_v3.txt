@@ -83,7 +83,7 @@ Retriever 앱 1개를 LangChain·LangGraph로 재구현하여 개발
     - (5) 승계하지 않는 항목과 그 사유 (Claude 기본 모델 변경, LLM 기본 제공자 변경 등)
     - (6) 단계별 소요 시간 실측값과 그에 근거한 예산 제안값
 - 2단계: 개발 계획 수립 (초안 4건 병렬 → 클로니 수렴)
-  - `flonie`: Mermaid 워크플로우, State(Reducer) 스키마, 체크포인트 키, 노드별 타임아웃·재시도,
+  - `flonie`: PlantUML 워크플로우(시퀀스다이어그램), State(Reducer) 스키마, 체크포인트 키, 노드별 타임아웃·재시도,
     LCEL 실행 방식 선택 근거 초안
   - `jisikni`: 문서·청크 자료형, 인덱스 컬렉션·메타데이터 스키마, 검색 함수 시그니처, 권한 필터,
     평가셋 초안
@@ -119,12 +119,12 @@ Retriever 앱 1개를 LangChain·LangGraph로 재구현하여 개발
     - `chunk`: D1·D3은 절·턴 기준, D2는 표 기준으로 분할하고 KURE-v1 토크나이저로 토큰 한도 적용.
       검토 보류·길이 예외를 분리 기록
     - `embed` → `upsert` → `verify_count`: 임베딩·적재·건수와 차원 확인
-  - Mermaid 워크플로우는 `flowchart TD`로 Indexer 1개·Retriever 1개를 그리고 노드·엣지·조건 분기·
+  - 워크플로우는 `flowchart TD`로 Indexer 1개·Retriever 1개를 그리고 노드·엣지·조건 분기·
     종료 조건을 모두 표기함
   - 출력파일: `plan.md`
   - 게이트 G1(사용자 승인): AskUserQuestion으로 아래 3종을 제시하고 승인받기.
     미승인 시 코드 파일을 생성하지 않음
-    - Mermaid 워크플로우 2종
+    - PlantUML 워크플로우 2종
     - 공유 계약서 (문서·청크 자료형 · State 필드 · 메타데이터 키 · 검색 시그니처 · DB 경로 ·
       컬렉션명 · Config 키 이름 · 종료 코드 규약 · API 응답 스키마 · SSE 이벤트 이름)
     - 노드 17개 전원의 8항목 계획서

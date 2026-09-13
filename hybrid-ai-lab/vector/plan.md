@@ -7,7 +7,7 @@
 ## 목차
 0. G1 결정 요청 항목 (사용자 판단 필요)
 1. 공유 계약서 (동결 대상)
-2. Mermaid 워크플로우 2종
+2. PlantUML 워크플로우 2종 (시퀀스 다이어그램)
 3. State 스키마 2종과 결과 JSON 대응
 4. 노드 20개 계획서 (8항목)
 5. 지식·데이터 설계 (자료형·인덱스·검색 시그니처·권한·평가셋)
@@ -223,50 +223,139 @@ State 필드명 = 결과 JSON 키. 이름을 바꾸려면 세 곳을 함께 바�
 
 ---
 
-## 2. Mermaid 워크플로우 2종 (플로니 초안 수렴)
+## 2. PlantUML 워크플로우 2종 — 시퀀스 다이어그램 (플로니 초안 수렴)
 
 ### 2-1. Indexer (9노드)
 
-```mermaid
-flowchart TD
-    S([START])
-    A["select_sources"]
-    B["extract"]
-    C["pseudonymize"]
-    D["apply_profile"]
-    V["validate_metadata"]
-    CH["chunk"]
-    EM["embed"]
-    UP["upsert"]
-    VC["verify_count"]
-    X0["status=ok / exit_code=0"]
-    X1["status=error / exit_code=1 설정·입력 오류"]
-    X2["status=dry_run / exit_code=0 임베딩 0회"]
-    X3["status=ok / exit_code=3 일부 적재 실패"]
-    X4["status=ok / exit_code=2 청킹 검토 보류"]
-    E([END])
+```plantuml
+@startuml indexer_workflow
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Malgun Gothic"
+skinparam sequenceMessageAlign left
+skinparam maxMessageSize 240
+autonumber "<b>[00]"
 
-    S --> A
-    A -->|"대상 0건"| X1
-    A -->|"대상 1건 이상"| B
-    B --> C
-    C --> D
-    D --> V
-    V -->|"검증 오류 1건 이상"| X1
-    V -->|"검증 오류 0건"| CH
-    CH -->|"dry_run 켜짐"| X2
-    CH -->|"dry_run 꺼짐"| EM
-    EM --> UP
-    UP --> VC
-    VC -->|"적재 실패 1건 이상"| X3
-    VC -->|"적재 실패 0건, 검토 보류 1건 이상"| X4
-    VC -->|"적재 실패 0건, 검토 보류 0건"| X0
+actor "강사 / 교육생" as U
+participant "표현 계층\nrun_indexer.py" as P
+participant "Indexer 그래프\napplication/graph.py" as G
+participant "도메인 규칙\nconsultations · validation · chunking" as D
+participant "파일 · PDF\npdf_reader · file_store" as F
+participant "임베딩 모델\nKURE-v1 (1024차원)" as EM
+database "ChromaDB\ncard_docs (cosine)" as CH
+database "체크포인트\nindexer.sqlite" as CP
 
-    X0 --> E
-    X1 --> E
-    X2 --> E
-    X3 --> E
-    X4 --> E
+U -> P : run_indexer.py --in docs --out data --doc all
+P -> G : invoke(초기 State, thread_id, recursion_limit=25)
+activate G
+
+== 1. 원문 선택 ==
+group select_sources (10초)
+  G -> F : docs 폴더 훑기
+  F --> G : D1·D2 PDF 2건 + D3 상담 TXT 6건
+  note right of G : _instructor 폴더와 심볼릭 링크는 제외함
+  alt 대상 0건
+    G --> P : status=error, exit_code=1
+  end
+end
+G -> CP : State 저장
+
+== 2. 추출 ==
+group extract (PDF 1건당 60초)
+  loop 원문 파일 8건
+    alt PDF 인 경우 (D1·D2)
+      G -> F : PyMuPDF 페이지 추출, 여백 제거
+      F --> G : 물리 페이지 1장 = Document 1건
+    else 상담 TXT 인 경우 (D3)
+      G -> F : 파일 읽기
+      G -> D : parse_consultations, 상담ID 머리글 기준 분리
+      D --> G : 상담 1건 = Document 1건
+    end
+    G -> F : SHA-256 지문 계산
+  end
+  alt 상담 분리 건수와 머리글 수가 다름
+    G --> P : IndexerInputError, exit_code=1
+  end
+  note right of G : documents 259건\n규정 15 + 혜택 196 + 상담 48
+end
+G -> CP : State 저장
+
+== 3. 가명화 ==
+group pseudonymize (30초)
+  G -> D : 이름·연락처·카드번호·회원번호 제거, 나이를 연령대로 바꿈
+  D --> G : 정제된 Document, pseudonymized=true
+  note right of G : 항상 수행하며 끄는 옵션이 없음\n가명화 이전 본문은 저장도 로그 출력도 하지 않음
+  alt 가명화 필요 항목 누락
+    G --> P : PseudonymizeError, exit_code=1
+  end
+end
+
+== 4. 프로필 병합과 메타데이터 검증 ==
+group apply_profile (10초)
+  G -> D : document_profiles.json 병합
+  alt 금지 키 6종 덮어쓰기 시도
+    D --> G : ProfileOverrideError
+    G --> P : exit_code=1
+  end
+end
+group validate_metadata (30초)
+  G -> D : 필수 키 · 허용 값 · 상담 ID 중복 검사
+  D --> G : checked=259, invalid=0
+  G -> F : documents.jsonl · manifest.json · report.json · validation.json 저장
+  alt invalid 가 1건 이상
+    G --> P : status=error, exit_code=1
+  end
+end
+G -> CP : State 저장
+
+== 5. 청킹 ==
+group chunk (문서 1건당 30초)
+  G -> D : 입력 단위 재구성 후 D1 조·항 / D2 표 / D3 턴 기준 분할
+  G -> D : KURE-v1 토크나이저로 토큰 한도 8192 재검사
+  D --> G : 청크 485건, 제외 16, 길이 예외 56, 검토 보류 0
+  G -> F : chunks.jsonl · review.jsonl · exceptions.jsonl · report.json 저장
+  alt --dry-run 인 경우
+    G --> P : status=dry_run, exit_code=0, 임베딩 0회
+  end
+end
+G -> CP : State 저장
+
+== 6. 임베딩과 적재 ==
+group embed (배치 120초, 재시도 2회)
+  G -> F : index_manifest.json 읽기
+  F --> G : chunk_id 별 본문 SHA-256
+  note right of G : 해시가 같은 청크는 건너뜀\n--full-reindex 면 전량 다시 함
+  loop 배치 32건씩
+    G -> EM : embed_documents(청크 본문)
+    EM --> G : 1024차원 벡터
+  end
+end
+group upsert (배치 120초, 재시도 2회)
+  loop 배치 32건씩
+    G -> CH : upsert(ids, embeddings, documents, metadatas)
+  end
+  alt 배치가 2회 시도 뒤에도 실패
+    note right of G : 그 청크만 failed 로 기록하고 계속함
+  end
+end
+
+== 7. 건수 확인과 종료 ==
+group verify_count (10초)
+  G -> CH : count(), peek(1)
+  CH --> G : collection_count=485, dimension=1024
+  G -> F : index_manifest.json 갱신
+  alt failed 가 1건 이상
+    G --> P : status=ok, exit_code=3
+  else 검토 보류가 1건 이상
+    G --> P : status=ok, exit_code=2
+  else 모두 정상
+    G --> P : status=ok, exit_code=0
+  end
+end
+deactivate G
+
+P -> F : index_run 결과 JSON 저장
+P --> U : stdout JSON 과 종료 코드
+@enduml
 ```
 
 - 정상 전량 경로 9 super-step. 되돌아오는 엣지 없음(노드 단위 배치 루프는 16배치 × 3노드 = 48 > 25라 금지)  
@@ -276,69 +365,169 @@ flowchart TD
 
 ### 2-2. Retriever (11노드 — 질문 변환 포함)
 
-```mermaid
-flowchart TD
-    S([START])
-    Q["check_query"]
-    VS["vector_search"]
-    RQ["route_query"]
-    BM["bm25_search"]
-    FS["fuse_scores"]
-    TQ{"변환 질의가 있는가?"}
-    ST["search_transformed"]
-    MQ["merge_queries"]
-    DM{"mode 가 hybrid_rerank 인가?"}
-    RK["rerank"]
-    GT{"답변 관문: gate_score 가 ANSWER_GATE_THRESHOLD 0.62 이상인가?"}
-    BP["build_prompt"]
-    GA["generate_answer"]
-    VE["verify_evidence"]
-    Y0["status=ok / exit_code=0"]
-    Y1["status=error / exit_code=1"]
-    Y2["status=dry_run / exit_code=0"]
-    Y3["status=needs_check / answer.verification=needs_check"]
-    Y4["status=prompt_only / exit_code=0"]
-    Y5["status=halted_by_limit / exit_code=0 정상 END"]
-    E([END])
+```plantuml
+@startuml retriever_workflow
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Malgun Gothic"
+skinparam sequenceMessageAlign left
+skinparam maxMessageSize 240
+autonumber "<b>[00]"
 
-    S --> Q
-    Q -->|"빈 질문 / top_k 0 이하 / 모르는 role·mode / 인덱스 없음"| Y1
-    Q -->|"dry_run 켜짐"| Y2
-    Q -->|"정상"| VS
+actor "상담원 / 감사자" as U
+participant "표현 계층\nCLI · FastAPI" as P
+participant "Retriever 그래프\napplication/graph.py" as G
+participant "도메인 규칙\nscoring · access · query_transform" as D
+database "ChromaDB\ncard_docs" as CH
+collections "BM25 색인\nbm25_index.pkl" as BM
+database "변환 캐시\ntransform_cache.json" as TC
+participant "리랭커\nbge-reranker-v2-m3" as RK
+participant "LLM\nGroq 기본" as LLM
 
-    VS -->|"원 질문 벡터 검색. Top-1 코사인 유사도를 transform_gate_score 로 둠"| RQ
+U -> P : --query 연회비 면제 조건은? --mode hybrid_rerank --transform auto --role agent
+P -> D : is_known_role(role)
+D --> P : 열람 가능 등급
+P -> G : invoke(초기 State, thread_id, recursion_limit=25)
+activate G
 
-    RQ -->|"mode = vector : 벡터 결과를 원 질문 결과로 씀"| TQ
-    RQ -->|"mode = hybrid 또는 hybrid_rerank : 원 질문 하이브리드 검색"| BM
-    BM --> FS
-    FS --> TQ
+== 1. 질문과 인덱스 확인 ==
+group check_query (10초)
+  G -> CH : count(), check_signature()
+  CH --> G : collection_count=485, dimension=1024
+  alt 빈 질문 · top_k 0 이하 · 모르는 role 이나 mode
+    G --> P : status=error, exit_code=1, HTTP 400
+  else 컬렉션 0건 · 임베딩 서명 불일치
+    G --> P : status=error, exit_code=1, HTTP 503
+  end
+  alt --dry-run 인 경우
+    G --> P : status=dry_run, 검색 없이 종료
+  end
+end
 
-    TQ -->|"없음: 원 질문 결과만 사용"| DM
-    TQ -->|"있음: 변환 질의도 같은 하이브리드 경로로 검색"| ST
-    ST --> MQ
-    MQ --> DM
+== 2. 원 질문 벡터 검색 ==
+group vector_search (10초, 재시도 2회)
+  G -> D : build_where(role)
+  D --> G : access_level 이 public, internal 중 하나
+  G -> CH : embed_query(원 질문) 후 similarity_search_with_score(k = top_k x 4)
+  CH --> G : vector_hits, score = 1 - distance
+  note right of G #LightYellow
+    transform_gate_score = Top-1 코사인 유사도
+    변환 판단은 이 절대 점수로만 함
+    하이브리드 융합 점수는 후보 안 상대 점수라 쓰지 않음
+  end note
+end
 
-    DM -->|"예"| RK
-    DM -->|"아니오"| GT
-    RK --> GT
+== 3. 질문 변환 판단 ==
+group route_query
+  alt TRANSFORM_MODE 가 off 이거나 transform_gate_score 가 0.70 이상
+    note right of G : 변환하지 않음\nroute_action = off 또는 gate_pass\n라우터 LLM 0회
+  else transform_gate_score 가 0.70 미만
+    G -> TC : get(원 질문)
+    alt 캐시 적중
+      TC --> G : RouteDecision, 라우터 LLM 0회
+    else 캐시 없음
+      G -> LLM : 라우터 프롬프트, max_tokens=500
+      LLM --> G : action, technique, queries
+      G -> D : 질의 개수 규칙 검사
+      note right of D : multi 는 3개\ndecomposition 은 2 ~ 4개\n그 밖의 기법은 1개
+      alt 규칙 위반 또는 라우터 실패
+        D --> G : keep 으로 격하하고 route_error 기록
+      else 통과
+        D --> G : transformed_queries 확보
+        G -> TC : put(원 질문, decision)
+      end
+    end
+  end
+end
 
-    GT -->|"아니오: 답변 LLM 0회"| Y3
-    GT -->|"예"| BP
-    BP -->|"prompt_only 켜짐"| Y4
-    BP -->|"정상"| GA
+== 4. 원 질문 하이브리드 검색 ==
+group bm25_search 와 fuse_scores (mode 가 hybrid 계열일 때만)
+  G -> BM : scores(원 질문), 공백 분리 토큰화
+  BM --> G : chunk_id 별 BM25 점수
+  G -> D : 후보 집합 최소-최대 정규화 후 가중합
+  note right of D : BM25 0.4 + Vector 0.6
+  G -> D : filter_candidates(role), BM25 신규 후보 권한 재검사
+  D --> G : baseline_hits
+end
 
-    GA -->|"재시도 소진 또는 호출 상한 도달"| Y5
-    GA -->|"응답 수신"| VE
-    VE -->|"검증 실패, 재수리 횟수가 MAX_REPAIRS 2 미만"| BP
-    VE -->|"검증 실패, 재수리 상한 도달"| Y5
-    VE -->|"검증 통과"| Y0
+== 5. 변환 질의 검색과 병합 ==
+alt 변환 질의가 있음
+  group search_transformed (질의 1건당 10초, 노드 안 순차 루프)
+    loop 변환 질의 2 ~ 4건
+      G -> CH : 벡터 검색
+      G -> BM : BM25 점수
+      G -> D : 원 질문과 같은 가중치로 융합
+      D --> G : 질의별 후보 목록
+    end
+  end
+  group merge_queries (10초)
+    G -> D : weighted_rrf(원 질문 결과 + 변환 질의 결과), rrf_k=60
+    note right of D
+      원 질문 가중치
+      decomposition 이면 0.1
+      그 밖의 기법이면 0.5
+      나머지를 변환 질의 수로 나눔
+    end note
+    alt technique 가 decomposition
+      G -> D : ensure_decomposition_coverage, 하위 질문별 상위 3건 보장
+    end
+    D --> G : hits
+  end
+else 변환 질의가 없음
+  note right of G : baseline_hits 를 그대로 hits 로 씀
+end
 
-    Y0 --> E
-    Y1 --> E
-    Y2 --> E
-    Y3 --> E
-    Y4 --> E
-    Y5 --> E
+== 6. 리랭킹 ==
+alt mode 가 hybrid_rerank
+  group rerank (60초)
+    G -> RK : 질문과 청크 쌍 채점, max_length=512, Sigmoid
+    RK --> G : rerank_score
+    G -> D : apply_rerank 로 정렬 후 최종 Top-K
+    D --> G : hits
+  end
+  alt 타임아웃 또는 모델 로드 실패
+    note right of G : 후보를 그대로 통과시키고 경고만 기록함
+  end
+end
+
+== 7. 답변 관문 ==
+G -> D : passes_gate(hits, ANSWER_GATE_THRESHOLD=0.62)
+note right of D : gate_score = 최종 hits 의 vector_score 최댓값
+alt 관문 미달
+  D --> G : 통과 못 함
+  G --> P : status=needs_check, 답변 LLM 0회
+end
+
+== 8. 답변 생성과 근거 검증 ==
+loop 재수리 최대 MAX_REPAIRS=2 회
+  group build_prompt (10초)
+    G -> D : 시스템 프롬프트와 유저 프롬프트 조립, 근거 청크 포함
+    alt --prompt-only 인 경우
+      G --> P : status=prompt_only, llm_calls=0
+    end
+  end
+  group generate_answer (시도당 60초, 총 180초 마감)
+    alt llm_calls 가 상한에 도달
+      note right of G : 호출하지 않고 status=halted_by_limit
+    else 여유 있음
+      G -> LLM : Structured Output(AnswerDraft), max_tokens=2000
+      LLM --> G : conclusion, caution, evidence 의 ref 와 quote
+    end
+  end
+  group verify_evidence (10초, LLM 0회)
+    G -> D : ref 범위 검사, 발췌 원문 대조, 위치 확인
+    alt 통과
+      D --> G : verification=pass
+    else 실패
+      D --> G : verification=fail, repair_hints
+      note right of G : 힌트를 붙여 build_prompt 로 되돌아감
+    end
+  end
+end
+
+G --> P : SearchResult 반환 (hits, answer, route, timings, llm_calls, status)
+deactivate G
+P --> U : stdout JSON · HTTP 200 · SSE final 이벤트
+@enduml
 ```
 
 흐름 요약(순서가 중요함)
@@ -390,30 +579,17 @@ BM25로만 올라온 청크는 `vector_score`가 `None`이라 판정에 기여�
 - `search_transformed`는 변환 질의 2 ~ 4개를 **노드 안 루프**로 처리함(노드 단위 fan-out을 만들지 않아 super-step이 늘지 않음)
 - 두 그래프를 합치면 9 + 17 > 25이므로 별개 StateGraph 2개 유지
 
-### 2-3. `route_query` 내부 판정
+### 2-3. `route_query` 내부 판정 (위 시퀀스 3절 상세)
 
-```mermaid
-flowchart TD
-    A["route_query 진입"]
-    B{"TRANSFORM_MODE 가 auto 인가?"}
-    C{"transform_gate_score 가 TRANSFORM_GATE_THRESHOLD 0.70 미만인가?"}
-    D{"변환 캐시에 이 질문의 결정이 있는가?"}
-    F["라우터 LLM 1회 호출"]
-    G{"라우터 판정이 transform 이고 질의 개수 규칙을 지켰는가?"}
-    H["변환 질의 확보. route_action = transform"]
-    I["변환 안 함. route_action = off / gate_pass / keep / clarify"]
+`route_query` 판정 순서(위 시퀀스 3절에 그대로 나타남)
 
-    A --> B
-    B -->|"아니오"| I
-    B -->|"예"| C
-    C -->|"아니오: 원 질문만으로 충분함"| I
-    C -->|"예"| D
-    D -->|"있음: LLM 0회"| G
-    D -->|"없음"| F
-    F --> G
-    G -->|"예"| H
-    G -->|"아니오: keep·clarify·라우터 실패·개수 규칙 위반"| I
-```
+| 순서 | 검사 | 예 | 아니오 |
+|:--:|---|---|---|
+| 1 | `TRANSFORM_MODE` 가 `auto` 인가 | 2번으로 | 변환 안 함 (`route_action=off`) |
+| 2 | `transform_gate_score` 가 `TRANSFORM_GATE_THRESHOLD`(0.70) 미만인가 | 3번으로 | 변환 안 함 (`route_action=gate_pass`) |
+| 3 | 변환 캐시에 이 질문의 결정이 있는가 | 5번으로 (라우터 LLM 0회) | 4번으로 |
+| 4 | 라우터 LLM 1회 호출 | 5번으로 | — |
+| 5 | 판정이 `transform` 이고 질의 개수 규칙을 지켰는가 | 변환 질의 확보 (`route_action=transform`) | 변환 안 함 (`keep`·`clarify`·`route_error`) |
 
 `route_query`가 보는 점수는 **`vector_search`가 낸 원 질문 Top-1 코사인 유사도**임. 하이브리드 융합 점수가 아님.
 그래서 `bm25_search`·`fuse_scores`보다 **앞**에 놓임.
