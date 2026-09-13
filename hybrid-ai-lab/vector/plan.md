@@ -479,13 +479,21 @@ end
 == 6. 리랭킹 ==
 alt mode 가 hybrid_rerank
   group rerank (60초)
-    G -> RK : 질문과 청크 쌍 채점, max_length=512, Sigmoid
-    RK --> G : rerank_score
-    G -> D : apply_rerank 로 정렬 후 최종 Top-K
-    D --> G : hits
+    note right of G : 질의 그룹마다 자기 질의로 따로 채점함\n원 질문 그룹은 원 질문으로\n하위 질문 그룹은 그 하위 질문으로
+    loop 질의 그룹, 원 질문 1개 + 변환 질의 0 ~ 4개
+      G -> RK : 그 그룹의 질의와 청크 쌍 채점, max_length=512, Sigmoid
+      RK --> G : 그룹별 rerank_score
+    end
+    alt technique 가 decomposition
+      G -> D : 하위 질문별 상위 3건 보장 후 리랭커 점수 최댓값으로 병합
+      note right of D : merge_score = 0.9 x 하위질문 점수 + 0.1 x 원질문 점수
+    else 그 밖의 기법이거나 변환 없음
+      G -> D : 리랭킹된 그룹들을 가중 RRF 로 병합, 원 질문 0.5
+    end
+    D --> G : hits, 최종 Top-K
   end
   alt 타임아웃 또는 모델 로드 실패
-    note right of G : 후보를 그대로 통과시키고 경고만 기록함
+    note right of G : 직전 병합 결과를 그대로 통과시키고 경고만 기록함
   end
 end
 
@@ -601,6 +609,7 @@ BM25로만 올라온 청크는 `vector_score`가 `None`이라 판정에 기여�
 | `route_query` | 위 그림대로 판정함. 라우터 LLM은 `TRANSFORM_MODE=auto`이고 변환 관문 미달이고 캐시에 없을 때만 1회 호출됨 | `TRANSFORM_MODE`, `TRANSFORM_GATE_THRESHOLD`, `TRANSFORM_CACHE_PATH`, `TRANSFORM_MULTI_COUNT`, `TRANSFORM_DECOMPOSITION_MIN/_MAX`, `LLM_MAX_TOKENS_ROUTER` |
 | `search_transformed` | 변환 질의마다 **원 질문과 같은 검색 경로**로 검색함. `mode`가 `hybrid`·`hybrid_rerank`이면 질의마다 벡터 검색 + BM25 + 융합을 노드 안에서 수행하고, `mode=vector`이면 벡터 검색만 함. 노드 안 순차 반복이라 super-step이 늘지 않음 | `CANDIDATE_MULTIPLIER`, `HYBRID_WEIGHT_BM25`, `HYBRID_WEIGHT_VECTOR`, `TIMEOUT_VECTOR_SEARCH` |
 | `merge_queries` | 원 질문 결과와 변환 결과를 **가중 RRF**로 병합. 원 질문 가중치는 `decomposition`이면 `0.1`, 그 외 `0.5`이고 나머지를 변환 질의 수로 나눔. `decomposition`이면 하위 질문별 상위 `TRANSFORM_PER_QUERY_TOP_K`(3)건을 결과에 보장함 | `TRANSFORM_RRF_K`, `TRANSFORM_ORIGINAL_WEIGHT`, `TRANSFORM_ORIGINAL_WEIGHT_DECOMPOSITION`, `TRANSFORM_PER_QUERY_TOP_K` |
+| `rerank`(변환과 맞물림) | **질의 그룹마다 자기 질의로 따로 리랭킹**한 뒤 병합함. `decomposition`이면 하위 질문별 상위 3건 보장 + 리랭커 점수 최댓값 병합(원 질문 0.1), 그 외에는 리랭킹된 그룹들을 가중 RRF로 병합(원 질문 0.5). `mode=hybrid_rerank`일 때 이 결과가 최종 `hits`이며 `merge_queries`의 RRF 결과를 대체함 | `RERANK_MAX_LENGTH`, `TRANSFORM_RRF_K`, `TRANSFORM_ORIGINAL_WEIGHT`, `TRANSFORM_ORIGINAL_WEIGHT_DECOMPOSITION`, `TRANSFORM_PER_QUERY_TOP_K` |
 
 가중 RRF 계산식(기존 `adaptive_search.weighted_rrf` 승계, `settings` 값만 주입)
 
@@ -779,7 +788,7 @@ verify_evidence`) + `total_ms`. 1-2절의 `embed_query_ms`·`search_ms` 등 축�
 | `fuse_scores` | `vector_hits, bm25_scores, role, top_k` | `candidates·baseline_hits`(덮), 변환 질의가 없으면 `hits·gate_score`(덮), `timings` | 가중치 음수·합 0 → `ConfigError` 중단. BM25 신규 후보 권한 재검사 미충족은 제외. **`transform_gate_score`를 건드리지 않음**(변환 판단은 벡터 유사도로만 함) | 10초 | 0 | `domain/scoring.normalize/fuse/rank` + `domain/access.filter_candidates` | `test_fuse_matches_baseline_ranking` / `test_fuse_does_not_touch_transform_gate_score` |
 | `search_transformed` | `transformed_queries, mode, role, top_k` | `transformed_hit_groups`(덮), `warnings`, `timings` | 질의 1건 검색 실패 → 그 질의만 빈 결과로 두고 경고 후 계속. 전부 실패 → 원 질문 결과 유지. 변환 질의가 없으면 건너뜀 | 10초 × 질의 수(노드 안 순차 루프) | 질의별 1 | 원 질문과 같은 경로 재사용 — hybrid 모드면 질의마다 `VectorStorePort.search` + `BM25Port.scores` + `domain/scoring.fuse` | `test_search_transformed_uses_hybrid_path` / `test_search_transformed_partial_failure_warns` |
 | `merge_queries` | `baseline_hits, transformed_hit_groups, technique, top_k` | `hits`(덮), `gate_score`(덮), `merge_weights·coverage_applied`(덮), `timings` | 병합 결과 0건 → `baseline_hits`를 그대로 씀 + 경고. 변환 질의가 없으면 건너뜀 | 10초 | 0 | `domain/query_transform.weighted_rrf`·`ensure_decomposition_coverage`(`adaptive_search.py:176-220` 이식, 가중치는 settings 주입) | `test_merge_uses_weight_05_for_rewrite` / `test_merge_uses_weight_01_and_coverage_for_decomposition` |
-| `rerank` | `query, hits(직전 노드가 낸 최종 후보), top_k` | `hits·gate_score`(덮), `warnings`, `timings` | 타임아웃·모델 로드 실패 → `candidates` 상위 Top-K를 그대로 `hits`로 통과(폴백) + 경고, `rerank_score=None` | 60초 | 0(폴백) | `sentence_transformers.CrossEncoder(RERANK_MODEL, max_length=512)` 지연 로드 + Sigmoid + `domain/scoring.apply_rerank` | `test_rerank_reorders_top5` / `test_rerank_timeout_falls_back` |
+| `rerank` | `query, baseline_hits, transformed_hit_groups, technique, top_k` | `hits·gate_score`(덮), `warnings`, `timings` | 타임아웃·모델 로드 실패 → `merge_queries`가 낸 `hits`를 그대로 통과(폴백) + 경고, `rerank_score=None` | 60초 | 0(폴백) | `sentence_transformers.CrossEncoder(RERANK_MODEL, max_length=512)` 지연 로드 + Sigmoid + `domain/query_transform.rerank_each_query_and_merge`(`s3.3/src/rerank.py:49-121` 이식) | `test_rerank_scores_each_group_with_own_query` / `test_rerank_timeout_falls_back` |
 | `build_prompt` | `query, hits, repair_hints, prompt_only` | `prompt`(덮), `status·exit_code`(prompt_only 시), `timings` | 프롬프트 길이 초과 → 근거를 뒤에서부터 줄임 + 경고. 1건까지 줄여도 초과 → `PromptTooLongError` 중단 | 10초 | 0 | `langchain_core.prompts.ChatPromptTemplate`(system·user 분리) | `test_build_prompt_includes_chunk_ids` / `test_build_prompt_shrinks_on_overflow` |
 | `generate_answer` | `prompt, max_llm_calls, llm_calls` | `raw_answer`(덮), `llm_calls`(+전송 시도 수), `status·exit_code`(소진 시), `timings` | 진입 전 `llm_calls >= max_llm_calls` → 호출 없이 `halted_by_limit`. 429·5xx·연결 재시도 소진 → `halted_by_limit`. `LLMAuthError`·`LLMRequestError` → 중단 exit 1. 파싱 실패는 `raw_answer.parsing_error`로 넘김 | 60초/시도, 총 180초 마감(G1-7) | 어댑터 내부 2회(백오프 1초·×2·±20%) | `LLMPort.complete_structured(system, user, AnswerDraft, max_tokens=2000)` ← `ChatGroq/ChatAnthropic/ChatOpenAI.with_structured_output(method="json_schema", include_raw=True)` | `test_generate_answer_returns_structured` / `test_generate_answer_blocked_at_call_limit` |
 | `verify_evidence` | `raw_answer, hits, repair_count` | `answer`(덮), `repair_hints`(add), `repair_count`(+1), `status·exit_code`, `timings` | 대조 실패 & `repair_count < 2` → `build_prompt`로 엣지 복귀. 상한 → `halted_by_limit`(exit 0). LLM 0회 | 10초 | 0(엣지 루프) | `domain/scoring.build_answer/verify_quote`(`evidence.py` 이식) | `test_verify_evidence_accepts_exact_quote` / `test_verify_evidence_loops_back_on_mismatch` |
@@ -1143,6 +1152,25 @@ Pydantic(표현 계층 `api.py`): `SearchRequest(query: str(min 1), top_k: int(1
 | `TRANSFORM_MULTI_COUNT` | 3 | `adaptive_search.py:156` |
 | `TRANSFORM_DECOMPOSITION_MIN/_MAX` | 2 / 4 | `adaptive_search.py:158` |
 | `LLM_MAX_TOKENS_ROUTER` | 500 | `s3.3/src/s32_bridge.py:54-56` |
+
+### 리랭킹 단계 정정 (2026-09-13, 사용자 질문으로 발견)
+
+원 질문과 각 변환 질의는 **모두 각각 하이브리드 검색**을 받음(`run_rerank.py:127-132`).
+리랭킹도 마찬가지로 **질의 그룹마다 자기 질의로 따로** 수행한 뒤 병합함(`run_rerank.py:161-166`,
+`s3.3/src/rerank.py:49-121` `rerank_each_query_and_merge`). 하위 질문 그룹은 원 질문이 아니라
+그 하위 질문으로 채점해야 함.
+
+초안에는 "병합 결과 하나를 원 질문으로 리랭킹"으로 잘못 적혀 있었고 위 표·다이어그램에서 바로잡음.
+이 차이를 두면 `tuned_transform_hybrid_rerank_top5`(7/7 · 1.375) 기준선이 재현되지 않음.
+
+| 검색·리랭킹 횟수 (decomposition 하위 질문 3개, `mode=hybrid_rerank` 기준) | 횟수 |
+|---|---:|
+| 하이브리드 검색(벡터 + BM25 + 융합) | 4회 = 원 질문 1 + 하위 질문 3 |
+| 질의 임베딩 | 4회 (원 질문 벡터 검색 결과는 변환 관문과 융합에 함께 씀) |
+| 리랭커 채점 | 4회 (그룹마다 1회) |
+| 가중 RRF 병합 | 검색 단계 1회 + 리랭킹 단계 1회 |
+| 라우터 LLM | 최대 1회 (캐시 적중 시 0회) |
+| 답변 LLM | 1회 + 재수리 최대 2회 |
 
 ### 기존 s3.3과 달라진 점 1건 (의도적 개선)
 
