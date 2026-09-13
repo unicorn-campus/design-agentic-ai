@@ -31,7 +31,7 @@
 | G1-4 | 공통 설정 모듈 배치 | 출력 파일 목록에 공통 모듈 자리가 없음. 두 앱은 독립 실행 예제임 | `app/settings.py`를 두 앱에 **동일 파일**로 배치(diff 0을 시험으로 보장). LLM 어댑터는 Retriever에만 둠(Indexer는 LLM 0회) | `vector/common/` 패키지 공유(앱이 독립 실행 예제가 아니게 됨) |
 | G1-5 | 검색 후보 수 옵션 | 기존은 `--retrieve-k`(10)·`--judge-k`(3)·`--top-n`(5) 3개 이름. 목표 소유표는 `--top-k` 하나 | `--top-k` = 최종 건수(기본 5), 후보 수 = Top-K × 4 고정(프롬프트 확정값) | 옵션 추가(소유표 위반) |
 | G1-6 | `verify_evidence` 실패 시 루프 상한 `MAX_REPAIRS` | 프롬프트: 루프 상한 2회, 초과 시 `halted_by_limit`. 기존 s3.3은 1회 재호출. 재시도가 super-step을 소모하는 최악 가정에서도 2회면 23/25(플로니 계산) | `MAX_REPAIRS=2`(프롬프트 상한 그대로). 실제 재호출 횟수는 LLM 호출 예산(CLI 8회·API 요청당 2회)이 추가로 제한함 → API에서는 사실상 1회. 각 재호출은 `llm_calls`에 집계 | `MAX_REPAIRS=1`(기존 s3.3 동작과 동일) |
-| G1-10 | 관문 0.62를 hybrid·hybrid_rerank의 융합 점수에 그대로 쓰면 작동하지 않음 | 기존 0.62는 코사인 유사도(`round(1-distance,3)`) 기준이고, 융합 점수는 후보 집합 최소-최대 정규화 후 가중합이라 1등이 거의 항상 0.6 이상. s3.3에는 관문 자체가 없음(플로니 소스 확인) | `Hit`에 `vector_score`(코사인 유사도)를 보존하고, 모든 mode에서 **최종 `hits` 중 `vector_score` 최댓값**(`gate_score`)에 0.62를 적용. BM25로만 올라온 청크는 `vector_score=None`으로 판정에서 제외 | 관문을 `vector` mode에만 적용(hybrid 경로는 근거 없는 답변을 막지 못함) |
+| G1-10 | 관문 0.62를 hybrid·hybrid_rerank의 융합 점수에 그대로 쓰면 작동하지 않음 | 기존 0.62는 코사인 유사도(`round(1-distance,3)`) 기준이고, 융합 점수는 후보 집합 최소-최대 정규화 후 가중합이라 1등이 거의 항상 0.6 이상. s3.3에는 관문 자체가 없음(플로니 소스 확인) | `Hit`에 `vector_score`(코사인 유사도)를 보존하고, 모든 mode에서 **최종 1위 `hits[0]`의 `vector_score`**를 `gate_score`로 사용하여 0.62 적용. 최종 1위가 BM25 전용이라 `vector_score=None`이면 관문 미달 | 관문을 `vector` mode에만 적용(hybrid 경로는 근거 없는 답변을 막지 못함) |
 | G1-11 | 오류 종료(exit 1) 시 `status` 값 | 5종(`ok`·`needs_check`·`halted_by_limit`·`dry_run`·`prompt_only`)에 오류용 값이 없어 `ok`로 보고하면 정직한 보고 위반 | `status` 값에 **`error`** 1종 추가(6종). `needs_check`는 유사도 관문 미달 전용 | `needs_check` 재사용(exit_code로만 구분) |
 | G1-12 | `hybrid_rerank` 동등성 합격 기준 | **해소됨.** 사용자 지시로 질문 변환이 범위에 들어오면서 기존 실측 4종이 모두 기준선이 됨(`vector` 6/7·2.125, `hybrid` 6/7·2.375, `transform+hybrid` 7/7·1.125, `transform+hybrid_rerank` 7/7·1.375) | 조합별 기준선과 나란히 비교(5-5절 표). 네 조합 모두 포함률 ≥ 기준선, 평균 순위 ≤ 기준선이면 통과 | — |
 | G1-13 | 질문 변환 범위 편입 (사용자 지시) | 원 프롬프트는 "s3.3의 적응형 검색·질문 변환·LLM 라우팅 제외"였으나 사용자가 워크플로우에 명시하도록 지시함 | Retriever 노드 8 → **11**(`route_query`·`search_transformed`·`merge_queries` 추가). `--transform {off,auto}` 신설, 기본 `off`. 기법 5종(rewrite·multi·hyde·stepback·decomposition)과 가중 RRF 병합·decomposition 커버리지 이식. `rerank_each_query_and_merge()`도 함께 이식(원 프롬프트의 이식 제외 지시를 사용자 지시가 덮음) | — |
@@ -62,10 +62,12 @@
 | 자료형 | 정의 | 원본 위치 |
 |---|---|---|
 | 문서 | `langchain_core.documents.Document(page_content: str, metadata: dict)`. 메타데이터 키는 `analysis.md` 부록 A-1 그대로 | s2.3 `documents.jsonl` |
-| 청크 | `Document`이며 `id = chunk_id`, `metadata["chunk_id"] = chunk_id`. `chunk_id` 정본 = `{doc_key}_{index:04d}`(`D1_0000`, `D3_0000`). 추가 키는 부록 A-2 | s3.1 `chunks.jsonl` |
+| 청크 | `Document`이며 `id = chunk_id`, `metadata["chunk_id"] = chunk_id`. D1·D2는 `{doc_key}_{index:04d}`(`D1_0000`), D3는 `D3_{record_id}_{index:04d}`(`D3_C-20260302-002_0000`)임. 추가 키는 부록 A-2 | s3.1 `chunks.jsonl` |
 | `Hit`(Pydantic) | `chunk_id: str, score: float, vector_score: float \| None, rerank_score: float \| None, access_level: str, source: str, location: str, text: str, metadata: dict`. `score` = vector `round(1-distance, 3)` / hybrid 융합 점수(6자리). `vector_score` = 코사인 유사도(BM25로만 올라온 청크는 None). `location` = `clause_no`(D1·D2) 또는 `record_id` + ` 턴 ` + `turn_range`(D3) | s3.2 `models.Hit`, s3.3 `lab_cli` |
 | `AnswerDraft`(LLM Structured Output 스키마) | `conclusion: str, caution: str, evidence: list[EvidenceDraft{ref: int, quote: str}]`. 앱 밖으로 나가지 않는 중간 자료형 | s3.2 `evidence.py` 입력 형식 |
-| `Answer`(Pydantic, 최종) | `conclusion: str, caution: str, evidence: list[str]('{location} \| "{quote}"'), sources: list[str], verification: Literal["pass","fail","needs_check"], verification_errors: list[str], gate_score: float \| None` | s3.2 `evidence.py` 출력 형식 |
+| `Evidence`(Pydantic, 최종 근거) | `location: str, quote: str, quote_verified: bool, location_verified: bool, chunk_id: str \| None, source: dict` | s3.2 `evidence.py:65-72` 출력 형식 |
+| `Verification`(Pydantic, 자동 검증 결과) | `automatic_valid: bool, branch: Literal["needs_check"] \| None = None`. 일반 답변은 `schema_errors: list[str]`, `invalid_refs: list[Any]`, `quote_failures: list[dict]`, `location_failures: list[dict]`, `verified_quote_count: int`, `semantic_review_required: bool`을 사용함. `needs_check` 분기는 `branch`만 추가하고 나머지는 기본값 사용 | s3.2 `evidence.py:88-102`, `answering.py:44-52` 출력 형식 |
+| `Answer`(Pydantic, 최종) | `conclusion: str, caution: str, evidence: list[Evidence], sources: list[str], verification: Verification` | s3.2 `evidence.py`, `answering.py` 출력 형식 |
 | `RouteDecision`(Pydantic, 라우터 Structured Output 스키마) | `action: Literal["clarify","keep","transform"], technique: Literal["rewrite","multi","hyde","stepback","decomposition"] \| None, queries: list[str], reason: str, clarification: str` | s3.3 `adaptive_search.RouteDecision` |
 | Retriever 결과 `SearchResult` | `query, mode, transform, role, top_k, hits: list[Hit], answer: Answer \| None, prompt: str \| None, route{action, technique, transformed_queries, merge_weights, coverage_applied, gate_score, reason, error, clarification, cache_hit}, timings: dict, llm_calls: int, status: str, thread_id: str`. `timings` 키는 노드명 + `total_ms` | 신규(세 곳 공유) |
 | Indexer 결과 `IndexResult` | `sources: int, extract{document_count, by_doc_type, consultation_mismatch, pseudonymized}, chunk{input_units, skipped, chunk_count, review_count, exception_count, by_doc}, index{collection_count, newly_embedded, skipped_by_hash, failed, embedding_dimension}, timings{extract_ms, chunk_ms, embed_ms, upsert_ms, total_ms}, status, exit_code, thread_id` | 프롬프트 예시 |
@@ -213,7 +215,7 @@ State 필드명 = 결과 JSON 키. 이름을 바꾸려면 세 곳을 함께 바�
 | R8 | cosine 지정 키(지식니, 설치본 소스 확인) | `Chroma(collection_configuration={"hnsw": {"space": "cosine"}}, collection_metadata={"lab_embedding": 서명})`. `collection_metadata={"hnsw:space": ...}`는 cosine이 걸리지 않으므로 금지 |
 | R9 | `embed`·`upsert` 분리 시 `add_documents`가 재임베딩함(지식니) | `VectorStorePort.upsert(ids, texts, embeddings, metadatas)`로 하부 컬렉션 `upsert`를 직접 호출. `add_documents`는 쓰지 않음 |
 | R10 | D3 `chunk_id` 실제 형식(지식니, 실데이터 확인) | 정본 = D1·D2 `{doc_key}_{index:04d}`, **D3 `D3_{record_id}_{index:04d}`**(예 `D3_C-20260302-002_0000`). 기존 `chunks.jsonl` 485건과 동일 |
-| R11 | `Answer`에 `caution`이 없어 검사 규칙 1개 소실(지식니) | LLM 스키마 `AnswerDraft{conclusion, caution, evidence[{ref, quote}]}`와 최종 `Answer{conclusion, caution, evidence[str], sources[str], verification, verification_errors}`를 분리. `caution` 승계 |
+| R11 | `Answer`에 `caution`이 없어 검사 규칙 1개 소실(지식니) | LLM 스키마 `AnswerDraft{conclusion, caution, evidence[{ref, quote}]}`와 최종 `Answer{conclusion, caution, evidence[Evidence], sources[str], verification: Verification}`를 분리. `caution`과 기존 자동 검증 상세값 승계 |
 | R12 | `metadata["chunk_id"]` 저장은 부록 A 대비 키 1개 추가(지식니) | 저장함(읽기 경로 단순화, 검색 결과·순위 영향 없음). 부록 A-2 예외 항목으로 명시 |
 | R13 | `documents`에 누적 Reducer를 걸면 3배로 불어남(플로니) | `documents`는 **덮어쓰기**. `extract → pseudonymize → apply_profile`이 변형 후 교체하는 구조 |
 | R14 | `vectors`를 State에 두면 체크포인트 약 4 ~ 12MB(플로니) | `embed`가 `data/embeddings/{thread_id}.npy`에 저장하고 State에는 `vectors_path`·`pending_ids`만 둠 |
@@ -499,7 +501,7 @@ end
 
 == 7. 답변 관문 ==
 G -> D : passes_gate(hits, ANSWER_GATE_THRESHOLD=0.62)
-note right of D : gate_score = 최종 hits 의 vector_score 최댓값
+note right of D : gate_score = 최종 1위 hits[0] 의 vector_score
 alt 관문 미달
   D --> G : 통과 못 함
   G --> P : status=needs_check, 답변 LLM 0회
@@ -524,9 +526,9 @@ loop 재수리 최대 MAX_REPAIRS=2 회
   group verify_evidence (10초, LLM 0회)
     G -> D : ref 범위 검사, 발췌 원문 대조, 위치 확인
     alt 통과
-      D --> G : verification=pass
+      D --> G : verification.automatic_valid=true
     else 실패
-      D --> G : verification=fail, repair_hints
+      D --> G : verification.automatic_valid=false, repair_hints
       note right of G : 힌트를 붙여 build_prompt 로 되돌아감
     end
   end
@@ -554,7 +556,7 @@ P --> U : stdout JSON · HTTP 200 · SSE final 이벤트
 | 관문 | 위치 | 기준값 Config | 보는 점수 | 점수의 성격 | 미달 시 |
 |---|---|---|---|---|---|
 | **변환 판단 관문** | `route_query` 안 | `TRANSFORM_GATE_THRESHOLD` 0.70 | `transform_gate_score` = **`vector_search`가 낸 원 질문 Top-1 코사인 유사도** | 절대 점수 | 질문을 변환해 하이브리드로 다시 검색함(라우터 LLM 최대 1회) |
-| **답변 관문** | `generate_answer` 진입 전 | `ANSWER_GATE_THRESHOLD` 0.62 | `gate_score` = 최종 `hits`의 `vector_score` 최댓값 | 절대 점수 | 답변 LLM을 부르지 않고 `needs_check`로 종료 |
+| **답변 관문** | `generate_answer` 진입 전 | `ANSWER_GATE_THRESHOLD` 0.62 | `gate_score` = 최종 1위 `hits[0]`의 `vector_score` | 절대 점수 | 답변 LLM을 부르지 않고 `needs_check`로 종료 |
 
 두 관문 모두 **코사인 유사도**를 보므로 세 mode에서 같은 뜻을 가짐. 경계값에서는 변환하지 않음
 (`transform_gate_score >= 0.70`이면 통과 — 기존 `adaptive_search.py:245`의 `>=` 판정 승계).
@@ -577,10 +579,19 @@ P --> U : stdout JSON · HTTP 200 · SSE final 이벤트
 근거가 없는데도 답변 LLM을 부르게 됨. 덧붙여 기존 s3.3에는 이 관문 코드 자체가 없어 "기존 동작 승계"라는 근거도 없음
 (`grep -n "THRESHOLD\|0\.62" s3.3/src/answering.py` 0건).
 
-**계약**: `Hit`에 코사인 유사도를 `vector_score`로 따로 보존하고, 관문은 **모든 mode에서
-`gate_score = max(h.vector_score for h in hits if h.vector_score is not None)`** 로 판정함.
-BM25로만 올라온 청크는 `vector_score`가 `None`이라 판정에 기여하지 않음. `hits`가 비었거나 `vector_score`가 전부 `None`이면
-`gate_score = None`으로 두고 관문 미달로 처리함. 이렇게 하면 0.62가 세 mode에서 같은 뜻이 되고 s3.2 동작과 수치가 일치함.
+**계약**: `Hit`에 코사인 유사도를 `vector_score`로 따로 보존하고, 관문은 모든 mode에서 다음과 같이 판정함.
+
+```python
+gate_score = (
+    hits[0].vector_score
+    if hits and hits[0].vector_score is not None
+    else None
+)
+```
+
+최종 1위가 BM25 전용이라 `vector_score`가 `None`이면 관문 미달로 처리함. 더 낮은 순위 청크의 높은 벡터 점수가
+1위 결과의 부족함을 가리지 않도록 함. 이 방식은 기존 s3.2의 `hits[0].score` 판정 순서를 유지하면서, 세 mode에서
+0.62가 같은 코사인 유사도 의미를 갖게 함.
 
 - super-step: 변환이 없으면 `vector` 6 · `hybrid` 8 · `hybrid_rerank` 9.
   변환이 일어나면 `search_transformed`·`merge_queries` 2개가 더해져 최대 11. 답변 루프 2회 +6 → **최대 17 ≤ 25**
@@ -715,7 +726,7 @@ class RetrieverState(TypedDict, total=False):
     vector_hits: list[Hit]; bm25_scores: dict[str, float]; candidates: list[Hit]
     baseline_hits: list[Hit]                             # 원 질문 검색 결과(변환 병합의 기준 목록)
     hits: list[Hit]                                      # 최종 Top-K(R1: mode별 마지막 검색 노드가 씀)
-    gate_score: float | None                             # 답변 관문용. 최종 hits의 vector_score 최댓값
+    gate_score: float | None                             # 답변 관문용. 최종 1위 hits[0]의 vector_score
     # 질문 변환 3노드
     transform_gate_score: float | None                   # 변환 판단용. vector_search 가 낸 원 질문 Top-1 코사인 유사도
     route_action: Literal["off", "gate_pass", "keep", "clarify", "transform"]
@@ -739,7 +750,9 @@ class RetrieverState(TypedDict, total=False):
     exit_code: int
 ```
 
-`Hit`·`Answer`·`AnswerDraft`·`SearchResult`·`IndexResult` Pydantic 모델은 같은 `state.py`에 둠(1-2절).  
+`Hit`·`Evidence`·`Verification`·`Answer`·`AnswerDraft`·`SearchResult`·`IndexResult`를 Pydantic 모델로 정의함.
+
+모든 모델은 같은 `state.py`에 둠(1-2절).
 결과 JSON `SearchResult`는 `build_search_result(state)`가 조립하며 CLI·POST·SSE `final`이 같은 함수를 씀.
 `timings` 키는 노드명 그대로(`check_query, vector_search, bm25_search, fuse_scores, rerank, build_prompt, generate_answer,
 verify_evidence`) + `total_ms`. 1-2절의 `embed_query_ms`·`search_ms` 등 축약 키는 쓰지 않고 노드명 키로 통일함(계약 갱신)
@@ -1083,7 +1096,10 @@ Pydantic(표현 계층 `api.py`): `SearchRequest(query: str(min 1), top_k: int(1
 | 앱 | 범위 | 최소 | 계획 건수 | 출처 |
 |---|---|---|---|---|
 | Indexer | 노드 9개 정상·실패 각 1건(18) + 상담 분리 불일치·원문 폴더 출력 금지·프로필 덮어쓰기 금지(6종 파라미터)·증분 적재·체크포인트 재개·종료 코드 2/3 | 18 | 27 이상 | 지식니 F-1 · 플로니 D-2 |
-| Retriever | 노드 11개 정상·실패 각 1건(22) + 권한 필터 3건·답변 관문 0.62 경계 3건·정규화·융합·정렬·근거 대조 + **질문 변환 8건**(아래) + API 라우트 10건(`TestClient`, `dependency_overrides`로 모델 미적재) + LLM 계약 시험 18건(키 없이 통과) + `settings.py` diff 0 | 22(API 6 포함) | 60 이상 | 지식니 F-2 · 스택니 F-2 · 커넥니 F |
+| Retriever | 노드 11개 정상·실패 각 1건(22) + 권한 필터 3건·답변 관문 0.62 경계와 최종 1위 사용 4건·정규화·융합·정렬·근거 대조 + **질문 변환 8건**(아래) + API 라우트 10건(`TestClient`, `dependency_overrides`로 모델 미적재) + LLM 계약 시험 18건(키 없이 통과) + `settings.py` diff 0 | 22(API 6 포함) | 60 이상 | 지식니 F-2 · 스택니 F-2 · 커넥니 F |
+
+답변 관문의 최종 1위 사용 시험: `hits[0].vector_score=0.61`, `hits[1].vector_score=0.90`을 주입해도
+`gate_score=0.61`, `status="needs_check"`, 답변 LLM 호출 0회여야 함.
 
 질문 변환 시험 8건(LLM 없이, 라우터 응답을 가짜로 주입)
 
