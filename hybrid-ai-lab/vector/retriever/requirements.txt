@@ -1,0 +1,26 @@
+# Linux CPU 환경은 torch 설치 전에 PyTorch CPU 인덱스 사용 필요
+langchain==1.4.0
+langchain-core==1.6.3
+langgraph==1.2.11
+langgraph-checkpoint-sqlite==3.1.1
+langchain-huggingface==1.2.2
+langchain-chroma==1.1.0
+chromadb==1.5.9
+sentence-transformers==6.0.1
+torch==2.14.0
+python-dotenv==1.2.3
+pydantic==2.13.5
+rank-bm25==0.2.2
+fastapi==0.141.1
+uvicorn==0.52.4
+sse-starlette==3.4.11
+httpx==0.28.1
+aiosqlite==0.22.1
+langchain-groq==1.1.3
+langchain-anthropic==1.7.2
+langchain-openai==1.6.2
+groq==0.37.1
+anthropic==1.5.0
+openai==3.13.0
+
+# KURE-v1 약 2GB, bge-reranker-v2-m3 약 2.2GB 최초 다운로드 발생

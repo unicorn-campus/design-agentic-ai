@@ -1,0 +1,13 @@
+{
+  "D1_개인회원표준약관_합성.pdf": {
+    "owner_dept": "product_planning",
+    "access_level": "public",
+    "supersedes": "1.1",
+    "classification_basis": "교육용 합성 약관의 고객 공개본으로 분류함"
+  },
+  "D2_카드혜택안내_합성.pdf": {
+    "owner_dept": "benefit_ops",
+    "access_level": "public",
+    "classification_basis": "교육용 합성 상품안내의 고객 공개본으로 분류함"
+  }
+}

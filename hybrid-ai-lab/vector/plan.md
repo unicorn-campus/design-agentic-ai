@@ -29,7 +29,7 @@
 | G1-2 | "구조화 판정 max_tokens 256" | 원문 근거 검증(`verify_evidence`)은 기존 `evidence.py` 규칙 기반 대조를 승계하며 LLM 판정 호출이 없음. LLM 호출은 `generate_answer`(답변 2,000)만 | Config 키 `LLM_MAX_TOKENS_JUDGE`를 두지 않음(미사용 설정 금지). API 요청당 상한 2회 = 답변 1회 + 수정 재호출 1회로 해석 | 판정용 LLM 호출을 추가(요청당 호출이 3회가 되어 상한 2회와 충돌) |
 | G1-3 | 임베딩 실행 장치 | CPU 임베딩 485건 486초(약 8분). RTX 4090 사용 시 수십 배 단축 예상이나 기존 기준선은 CPU였고 교육생 환경에 GPU 보장 없음 | CPU 기본 유지(`torch==2.14.0` CPU 빌드 핀). 최초 1회만 8분 소요, 이후 증분 적재 | CUDA torch를 별도 index-url로 설치(requirements에 플랫폼 분기 필요) |
 | G1-4 | 공통 설정 모듈 배치 | 출력 파일 목록에 공통 모듈 자리가 없음. 두 앱은 독립 실행 예제임 | `app/settings.py`를 두 앱에 **동일 파일**로 배치(diff 0을 시험으로 보장). LLM 어댑터는 Retriever에만 둠(Indexer는 LLM 0회) | `vector/common/` 패키지 공유(앱이 독립 실행 예제가 아니게 됨) |
-| G1-5 | 검색 후보 수 옵션 | 기존은 `--retrieve-k`(10)·`--judge-k`(3)·`--top-n`(5) 3개 이름. 목표 소유표는 `--top-k` 하나 | `--top-k` = 최종 건수(기본 5), 후보 수 = Top-K × 4 고정(프롬프트 확정값) | 옵션 추가(소유표 위반) |
+| G1-5 | 검색 후보 수 옵션 | 기존은 `--retrieve-k`(10)·`--judge-k`(3)·`--top-n`(5) 3개 이름. 목표 소유표는 `--top-k` 하나 | **A안 승인·적용.** `vector`·`hybrid`는 질문별 목표 5건에서 검색기별 원시 후보 20건을 수집함. `hybrid_rerank`는 질문별 융합 목표 10건에서 검색기별 원시 후보 40건을 수집하고 Rerank 후 최종 5건을 반환함 | 옵션 추가(소유표 위반) |
 | G1-6 | `verify_evidence` 실패 시 루프 상한 `MAX_REPAIRS` | 프롬프트: 루프 상한 2회, 초과 시 `halted_by_limit`. 기존 s3.3은 1회 재호출. 재시도가 super-step을 소모하는 최악 가정에서도 2회면 23/25(플로니 계산) | `MAX_REPAIRS=2`(프롬프트 상한 그대로). 실제 재호출 횟수는 LLM 호출 예산(CLI 8회·API 요청당 2회)이 추가로 제한함 → API에서는 사실상 1회. 각 재호출은 `llm_calls`에 집계 | `MAX_REPAIRS=1`(기존 s3.3 동작과 동일) |
 | G1-10 | 관문 0.62를 hybrid·hybrid_rerank의 융합 점수에 그대로 쓰면 작동하지 않음 | 기존 0.62는 코사인 유사도(`round(1-distance,3)`) 기준이고, 융합 점수는 후보 집합 최소-최대 정규화 후 가중합이라 1등이 거의 항상 0.6 이상. s3.3에는 관문 자체가 없음(플로니 소스 확인) | `Hit`에 `vector_score`(코사인 유사도)를 보존하고, 모든 mode에서 **최종 1위 `hits[0]`의 `vector_score`**를 `gate_score`로 사용하여 0.62 적용. 최종 1위가 BM25 전용이라 `vector_score=None`이면 관문 미달 | 관문을 `vector` mode에만 적용(hybrid 경로는 근거 없는 답변을 막지 못함) |
 | G1-11 | 오류 종료(exit 1) 시 `status` 값 | 5종(`ok`·`needs_check`·`halted_by_limit`·`dry_run`·`prompt_only`)에 오류용 값이 없어 `ok`로 보고하면 정직한 보고 위반 | `status` 값에 **`error`** 1종 추가(6종). `needs_check`는 유사도 관문 미달 전용 | `needs_check` 재사용(exit_code로만 구분) |
@@ -111,7 +111,7 @@ State 필드명 = 결과 JSON 키. 이름을 바꾸려면 세 곳을 함께 바�
 |---|---|---|---|:--:|---|
 | **검색·융합** | | | | | |
 | `TOP_K_DEFAULT` | `5` | Retriever | `--top-k` 기본값, 최종 건수 | 고정 | `s3.2/lab_cli.py:36` |
-| `CANDIDATE_MULTIPLIER` | `4` | Retriever | 후보 수 = Top-K × 이 값 | 고정 | `s3.3/hybrid_search_ref.py:37` |
+| `CANDIDATE_MULTIPLIER` | `4` | Retriever | 원시 후보 배수 | 고정 | `hybrid_search_ref.py:37` |
 | `HYBRID_WEIGHT_BM25` | `0.4` | Retriever | 융합 가중치 | 고정 | `hybrid_search_ref.py:20` |
 | `HYBRID_WEIGHT_VECTOR` | `0.6` | Retriever | 융합 가중치 | 고정 | `hybrid_search_ref.py:21` |
 | `ANSWER_GATE_THRESHOLD` | `0.62` | Retriever | 답변 관문(Top-1 `vector_score`) | 고정 | `s3.2/src/answering.py:25` |
@@ -183,7 +183,7 @@ State 필드명 = 결과 JSON 키. 이름을 바꾸려면 세 곳을 함께 바�
 | 추출·정제 | 상담 분리 `[상담ID]` 머리글, 분리 건수 ≠ 머리글 수 → 오류 중단. 가명화 항상(옵션 없음). PDF 여백 제거(위 5.5%·아래 95%). 결과를 원문 폴더 하위에 저장 금지. 프로필이 `source·page·record_id·member_id·member_pseudo_id·pseudonymized` 덮어쓰기 → 오류. 파일별 SHA-256 → `manifest.json` |
 | 청킹 | `max_chars` 600, `overlap` 80, D2 `overlap` 0, `turns_per_chunk` 4, `overlap_turns` 1, KURE-v1 토크나이저 8,192, `review.jsonl`·`exceptions.jsonl` 분리 |
 | 적재 | KURE-v1 1,024차원, 접두어 없음, normalize, 토큰 초과는 실패 기록(자르지 않음). ChromaDB `PersistentClient`, cosine, `card_docs`, 배치 32, 배치 재시도 1회. 증분 적재(`index_manifest.json` = `{chunk_id: sha256(text)}`), `--full-reindex`는 컬렉션 삭제 후 전량 |
-| 검색 | Top-K 5, 후보 Top-K × 4, Hybrid BM25 0.4 · Vector 0.6(후보 집합 최소-최대 정규화 후 가중합), BM25 토큰화 `split()`, 리랭커 Sigmoid·최종 Top-5, 관문 0.62(Top-1 `score`) |
+| 검색 | 최종 Top-K 5. `vector`·`hybrid`는 검색기별 원시 후보 20건 → 최종 5건. `hybrid_rerank`는 검색기별 원시 후보 40건 → 융합 10건 → Rerank 최종 5건. `CANDIDATE_MULTIPLIER=4`는 질문별 검색·융합 목표 수에 적용. Hybrid BM25 0.4 · Vector 0.6, BM25 토큰화 `split()`, 리랭커 Sigmoid, 관문 0.62(Top-1 `vector_score`) |
 | 권한 | `agent` → public·internal / `auditor` → public·internal·restricted / 그 외 오류. Chroma `where`(검색 전)와 BM25 후보(융합 후) 두 곳이 `domain/access.py` 규칙 하나를 호출 |
 | 타임아웃 | PDF 1건 60초 · 청킹 1문서 30초 · 임베딩 배치 120초 · 벡터 검색 10초 · 리랭킹 60초 · LLM 60초. 모델 최초 로드는 제외·로그 기록 |
 | 재시도 | 429·5xx·연결 오류만 지수 백오프 2회(초기 1초·배수 2·지터 ±20%), 4xx 재시도 없음, 노드 총 대기 180초 이내. LangChain 클라이언트 `max_retries=0` |
@@ -618,7 +618,7 @@ gate_score = (
 | 노드 | 하는 일 | 쓰는 Config |
 |---|---|---|
 | `route_query` | 위 그림대로 판정함. 라우터 LLM은 `TRANSFORM_MODE=auto`이고 변환 관문 미달이고 캐시에 없을 때만 1회 호출됨 | `TRANSFORM_MODE`, `TRANSFORM_GATE_THRESHOLD`, `TRANSFORM_CACHE_PATH`, `TRANSFORM_MULTI_COUNT`, `TRANSFORM_DECOMPOSITION_MIN/_MAX`, `LLM_MAX_TOKENS_ROUTER` |
-| `search_transformed` | 변환 질의마다 **원 질문과 같은 검색 경로**로 검색함. `mode`가 `hybrid`·`hybrid_rerank`이면 질의마다 벡터 검색 + BM25 + 융합을 노드 안에서 수행하고, `mode=vector`이면 벡터 검색만 함. 노드 안 순차 반복이라 super-step이 늘지 않음 | `CANDIDATE_MULTIPLIER`, `HYBRID_WEIGHT_BM25`, `HYBRID_WEIGHT_VECTOR`, `TIMEOUT_VECTOR_SEARCH` |
+| `search_transformed` | 변환 질의마다 **원 질문과 같은 검색 경로와 후보 계약**으로 검색함. `mode`가 `hybrid`·`hybrid_rerank`이면 질의마다 벡터 검색 + BM25 + 융합을 노드 안에서 수행하고, `mode=vector`이면 벡터 검색만 함. 노드 안 순차 반복이라 super-step이 늘지 않음 | `CANDIDATE_MULTIPLIER`, `HYBRID_WEIGHT_BM25`, `HYBRID_WEIGHT_VECTOR`, `TIMEOUT_VECTOR_SEARCH` |
 | `merge_queries` | 원 질문 결과와 변환 결과를 **가중 RRF**로 병합. 원 질문 가중치는 `decomposition`이면 `0.1`, 그 외 `0.5`이고 나머지를 변환 질의 수로 나눔. `decomposition`이면 하위 질문별 상위 `TRANSFORM_PER_QUERY_TOP_K`(3)건을 결과에 보장함 | `TRANSFORM_RRF_K`, `TRANSFORM_ORIGINAL_WEIGHT`, `TRANSFORM_ORIGINAL_WEIGHT_DECOMPOSITION`, `TRANSFORM_PER_QUERY_TOP_K` |
 | `rerank`(변환과 맞물림) | **질의 그룹마다 자기 질의로 따로 리랭킹**한 뒤 병합함. `decomposition`이면 하위 질문별 상위 3건 보장 + 리랭커 점수 최댓값 병합(원 질문 0.1), 그 외에는 리랭킹된 그룹들을 가중 RRF로 병합(원 질문 0.5). `mode=hybrid_rerank`일 때 이 결과가 최종 `hits`이며 `merge_queries`의 RRF 결과를 대체함 | `RERANK_MAX_LENGTH`, `TRANSFORM_RRF_K`, `TRANSFORM_ORIGINAL_WEIGHT`, `TRANSFORM_ORIGINAL_WEIGHT_DECOMPOSITION`, `TRANSFORM_PER_QUERY_TOP_K` |
 
@@ -795,7 +795,7 @@ verify_evidence`) + `total_ms`. 1-2절의 `embed_query_ms`·`search_ms` 등 축�
 | 노드 | 입력 State | 출력 State(Reducer) | 실패 시 동작 | 타임아웃 | 재시도 | 컴포넌트 | 검증(정상/실패 시험) |
 |---|---|---|---|---|---|---|---|
 | `check_query` | `query, role, mode, top_k, dry_run` | `index_info·status·exit_code`(덮), `timings` | 빈 질문·`top_k<=0`·모르는 role/mode → `status=error, exit 1`(HTTP 400). 컬렉션 0건·서명 불일치 → `exit 1` + `index_info.signature_ok=False`(HTTP 503) | 10초 | 0 | Pydantic 입력 검증, `VectorStorePort.count/check_signature` | `test_check_query_ok_sets_index_info` / `test_check_query_unknown_role_exit1` |
-| `vector_search` | `query, role, top_k` | `vector_hits`(덮), **`transform_gate_score`(덮) = Top-1 코사인 유사도**, mode=vector면 `baseline_hits`(덮), `timings` | Chroma 오류 재시도 후 `RetrievalError` 중단. 빈 컬렉션은 빈 목록 → 두 관문 모두 차단 | 10초 | `RetryPolicy(max_attempts=3, retry_on=RetrievalRetryableError)` | `HuggingFaceEmbeddings.embed_query` + `Chroma.similarity_search_with_score(query, k=top_k*CANDIDATE_MULTIPLIER, filter=where)`, `score=round(1-distance,3)` | `test_vector_search_returns_top_k` / `test_vector_search_sets_transform_gate_score` |
+| `vector_search` | `query, role, mode, top_k` | `vector_hits`(덮), **`transform_gate_score`(덮) = Top-1 코사인 유사도**, mode=vector면 `baseline_hits`(덮), `timings` | Chroma 오류 재시도 후 `RetrievalError` 중단. 빈 컬렉션은 빈 목록 → 두 관문 모두 차단 | 10초 | `RetryPolicy(max_attempts=3, retry_on=RetrievalRetryableError)` | `candidate_sizes()`가 `raw_k`·`fused_k` 계산. `hybrid_rerank`는 `fused_k=top_k*HYBRID_RERANK_FUSION_MULTIPLIER`, 그 외는 `fused_k=top_k`. `raw_k=fused_k*CANDIDATE_MULTIPLIER` | `test_vector_search_returns_top_k` / `test_vector_search_sets_transform_gate_score` |
 | `route_query` | `query, transform_mode, transform_gate_score` | `route_action·technique·transformed_queries·route_reason·route_error·clarification·transform_cache_hit`(덮), `llm_calls`(+), `timings` | `TRANSFORM_MODE=off` 또는 `transform_gate_score >= 0.70` → `route_action`만 채우고 통과(LLM 0회). 라우터 실패·질의 개수 규칙 위반 → `keep`으로 격하하고 `route_error`에 사유 기록(중단 아님). 호출 상한 도달 시 호출 없이 `keep` | 60초/시도, 총 180초 마감 | 어댑터 내부 2회 | `LLMPort.complete_structured(system, user, RouteDecision, max_tokens=LLM_MAX_TOKENS_ROUTER)`. 캐시 적중 시 호출 없음 | `test_route_query_skips_when_gate_passes` / `test_route_query_invalid_query_count_falls_back_to_keep` |
 | `bm25_search` | `query, top_k` | `bm25_scores`(덮), `warnings`, `timings` | 색인 없음 → 빈 사전 + 경고 후 계속(승계). `mode=vector`면 건너뜀 | 10초(색인은 기동 시 워밍업) | 1 | `rank_bm25.BM25Okapi`(`split()` 토큰화), `data/bm25_index.pkl` 캐시 | `test_bm25_scores_nonempty` / `test_bm25_missing_index_returns_empty_and_warns` |
 | `fuse_scores` | `vector_hits, bm25_scores, role, top_k` | `candidates·baseline_hits`(덮), 변환 질의가 없으면 `hits·gate_score`(덮), `timings` | 가중치 음수·합 0 → `ConfigError` 중단. BM25 신규 후보 권한 재검사 미충족은 제외. **`transform_gate_score`를 건드리지 않음**(변환 판단은 벡터 유사도로만 함) | 10초 | 0 | `domain/scoring.normalize/fuse/rank` + `domain/access.filter_candidates` | `test_fuse_matches_baseline_ranking` / `test_fuse_does_not_touch_transform_gate_score` |
@@ -999,7 +999,7 @@ Retriever (`vector/retriever/`)
 | 옵션 | 타입 | 기본값 | choices | 설명 |
 |---|---|---|---|---|
 | `--query` | str | 필수 | — | 빈 문자열 → 종료 코드 1 |
-| `--top-k` | int | 5 | — | 최종 건수(후보 = × 4) |
+| `--top-k` | int | 5 | — | 최종 건수. Rerank 모드는 융합 10건·원시 40건, 그 외는 원시 20건 |
 | `--mode` | str | `hybrid_rerank` | vector·hybrid·hybrid_rerank | 검색 경로 |
 | `--transform` | str | `off` | off·auto | 질문 변환. `auto`는 원 질문 Top-1이 `TRANSFORM_GATE_THRESHOLD`(0.70) 미만일 때만 변환 |
 | `--role` | str | `agent` | agent·auditor | 모르는 값은 argparse가 차단 |
@@ -1187,6 +1187,24 @@ Pydantic(표현 계층 `api.py`): `SearchRequest(query: str(min 1), top_k: int(1
 | 가중 RRF 병합 | 검색 단계 1회 + 리랭킹 단계 1회 |
 | 라우터 LLM | 최대 1회 (캐시 적중 시 0회) |
 | 답변 LLM | 1회 + 재수리 최대 2회 |
+
+### A안 후보 계약 승인·적용 (2026-09-13)
+
+사용자 승인에 따라 최종 Top-K 5를 유지하면서 모드별 후보 계약을 다음과 같이 확정함.
+
+| 모드 | 질문별 검색·융합 목표 | 검색기별 원시 후보 | Rerank 입력 | 최종 결과 |
+|---|---:|---:|---:|---:|
+| `vector` | 5건 | 20건 | 해당 없음 | 5건 |
+| `hybrid` | 5건 | 20건 | 해당 없음 | 5건 |
+| `hybrid_rerank` | 10건 | 40건 | 10건 | 5건 |
+
+`candidate_sizes()`가 `raw_k`·`fused_k`를 계산함.
+`HYBRID_RERANK_FUSION_MULTIPLIER=2`는 Rerank의 질문별 융합 목표를 10건으로 만듦.
+`CANDIDATE_MULTIPLIER=4`는 이 질문별 목표에 적용되어 검색기별 원시 후보 40건을 만듦.
+다른 모드는 질문별 목표 5건에 4를 곱하여 검색기별 원시 후보 20건을 사용함.
+
+같은 7개 질문 재측정에서 네 조합 모두 기준선을 충족함.
+`hybrid_rerank/auto`는 7/7·1.375이며 q6의 기대 청크 순위는 1위와 4위임.
 
 ### 기존 s3.3과 달라진 점 1건 (의도적 개선)
 
