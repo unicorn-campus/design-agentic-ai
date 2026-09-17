@@ -31,7 +31,7 @@ def configure_s32(
     *,
     db_path: Path | str | None = None,
     collection: str = "card_docs_ref",
-    backend: str = "sentence-transformers",
+    embedding_backend: str = "sentence-transformers",
     model: str = "nlpai-lab/KURE-v1",
 ):
     """S3.2 검색 설정을 기존 인덱스 위치에 맞게 구성함."""
@@ -40,7 +40,7 @@ def configure_s32(
     return helpers.configure(
         db_path=path,
         collection=collection,
-        backend=backend,
+        embedding_backend=embedding_backend,
         model=model,
     )
 
@@ -54,4 +54,3 @@ def get_search(reference: bool = True):
 def ask_llm(system: str, user: str, max_tokens: int = 500):
     """S3.2의 Claude 호출 어댑터를 그대로 사용함."""
     return load_s32_module("llm_client").ask_llm(system, user, max_tokens=max_tokens)
-

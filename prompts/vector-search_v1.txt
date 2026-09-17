@@ -79,7 +79,7 @@ s3.3의 Hybrid·리랭킹·답변 기능을 LangChain·LangGraph로 재구현한
   - 노드별 개발 계획서 작성 — 노드마다 필수 8항목 = 노드명 / 입력 State 키 / 출력 State 키와 Reducer /
     실패 시 동작 / 타임아웃(초) / 재시도 횟수 / 사용 LangChain 컴포넌트명 / 검증 방법
   - 노드 구성(확정값, 총 13개)
-    - Indexer 5개: `load_chunks` → `validate_metadata` → `embed` → `upsert` → `verify_count`
+    - Indexer 5개: `load_chunks` → `validate_metadata` → `embed` → `upsert` → `finalize_index`
     - Retriever 8개: `check_query` → `vector_search` → `bm25_search` → `fuse_scores` → `rerank`
       → `build_prompt` → `generate_answer` → `verify_evidence`
   - Mermaid 워크플로우는 `flowchart TD`로 Indexer 1개·Retriever 1개를 그리고 노드·엣지·조건 분기·
@@ -189,7 +189,7 @@ s3.3의 Hybrid·리랭킹·답변 기능을 LangChain·LangGraph로 재구현한
     - 리랭커 모델은 모듈 최상위가 아니라 최초 사용 시점에 지연 로드함
   - CLI 옵션 소유표(확정값). 표에 없는 옵션은 만들지 않음
     - Indexer: `--thread-id`, `--full-reindex`, `--dry-run`,
-      `--backend {sentence-transformers,smoke}`
+      `--embedding-backend {sentence-transformers,smoke}`
     - Retriever: `--thread-id`, `--query`, `--top-k`, `--mode {vector,hybrid,hybrid_rerank}`,
       `--role`, `--dry-run`, `--prompt-only`, `--max-llm-calls`
   - LangChain 공통
@@ -253,7 +253,7 @@ s3.3의 Hybrid·리랭킹·답변 기능을 LangChain·LangGraph로 재구현한
     - 두 앱에 각각 `.gitignore`를 만들고 `.env`, `.venv/`, `data/`, `__pycache__/`, `*.pyc`를 등록함.
       생성 후 `git check-ignore -v`로 `.env`가 실제로 무시되는지 확인함
     - 외부 모델 다운로드 없이 실행 가능한 경로를 제공함
-      - Indexer는 `--backend smoke`로 384차원 테스트 벡터를 써서 적재·메타데이터 검증·권한 필터만 확인함
+      - Indexer는 `--embedding-backend smoke`로 384차원 테스트 벡터를 써서 적재·메타데이터 검증·권한 필터만 확인함
       - Retriever는 `--prompt-only`로 LLM 호출 없이 Top-K와 완성 프롬프트만 출력함
       - smoke 결과는 별도 저장소에 분리하고 검색 품질 평가와 차원 1,024 판정에는 쓰지 않음
     - 상담 문서는 `access_level=restricted`를 유지하고 역할 필터를 검색 단계에서 강제함.

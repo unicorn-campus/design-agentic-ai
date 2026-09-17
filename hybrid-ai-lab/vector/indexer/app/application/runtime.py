@@ -39,10 +39,17 @@ class BoundedTimeoutRunner:
 
     def run(
         self,
+        # 실행할 함수: 받은 값을 처리할 함수이며, 결과의 자료형(T)을 그대로 돌려줌.
         function: Callable[..., T],
+        # *args: key 없이 값만 전달한 추가 인수들을 순서대로 모음.
+        # 예: run(함수, "민지", 25, ...)를 호출하면 args는 ("민지", 25)가 됨.
         *args: Any,
+        # 함수가 끝나기를 기다릴 최대 시간(초)임.
         timeout_seconds: float,
+        # 타임아웃이 나면 오류 메시지에 표시할 작업 이름임.
         operation: str,
+        # **kwargs: key=value 형식으로 전달한 추가 인수들을 이름과 함께 모음.
+        # 예: run(함수, 이름="민지", ...)를 호출하면 kwargs는 {"이름": "민지"}가 됨.
         **kwargs: Any,
     ) -> T:
         timeout = float(timeout_seconds)
@@ -79,10 +86,17 @@ atexit.register(_RUNNER.close)
 
 
 def run_with_timeout(
+    # 실행할 함수: 받은 값을 처리할 함수이며, 결과의 자료형(T)을 그대로 돌려줌.
     function: Callable[..., T],
+    # *args: key 없이 값만 전달한 추가 인수들을 순서대로 모음.
+    # 예: run(함수, "민지", 25, ...)를 호출하면 args는 ("민지", 25)가 됨.
     *args: Any,
+    # 함수가 끝나기를 기다릴 최대 시간(초)임.
     timeout_seconds: float,
+    # 타임아웃이 나면 오류 메시지에 표시할 작업 이름임.
     operation: str,
+    # **kwargs: key=value 형식으로 전달한 추가 인수들을 이름과 함께 모음.
+    # 예: run(함수, 이름="민지", ...)를 호출하면 kwargs는 {"이름": "민지"}가 됨.
     **kwargs: Any,
 ) -> T:
     """프로세스 공용 제한 실행기에서 하위 호출을 실행함."""

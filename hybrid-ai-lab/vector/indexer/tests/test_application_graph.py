@@ -38,8 +38,6 @@ class FakeIndexerResources:
                 "reports": [{"source": "D1.pdf"}],
                 "fingerprints": {"D1.pdf": "abc"},
             }
-        if name == "pseudonymize":
-            return {"documents": state["documents"], "pseudonymized": True}
         if name == "apply_profile":
             return {"documents": state["documents"]}
         if name == "validate_metadata":
@@ -53,7 +51,7 @@ class FakeIndexerResources:
             return {"pending_ids": ["D1_0000"], "vectors_path": "vectors.npy", "newly_embedded": 1}
         if name == "upsert":
             return {"ok_ids": ["D1_0000"], "count_before": 0}
-        if name == "verify_count":
+        if name == "finalize_index":
             return {"count_after": 1, "accounting_ok": True, "embedding_dimension": 384}
         raise AssertionError(name)
 
@@ -83,7 +81,7 @@ def initial_state(**overrides: object) -> dict:
         "output_path": "/tmp/out",
         "doc": "all",
         "segment": None,
-        "backend": "smoke",
+        "embedding_backend": "smoke",
         "dry_run": False,
         "full_reindex": False,
         "thread_id": "idx-test",
@@ -99,13 +97,13 @@ def initial_state(**overrides: object) -> dict:
 
 
 class IndexerGraphTest(unittest.TestCase):
-    def test_builder_has_exact_nine_nodes(self) -> None:
+    def test_builder_has_exact_eight_nodes(self) -> None:
         resources = FakeIndexerResources()
         graph = build_graph(resources)
         names = set(graph.get_graph().nodes) - {"__start__", "__end__"}
         self.assertEqual(set(INDEXER_NODE_NAMES), names)
 
-    def test_normal_path_runs_nine_nodes_in_order(self) -> None:
+    def test_normal_path_runs_eight_nodes_in_order(self) -> None:
         resources = FakeIndexerResources()
         result = build_graph(resources).invoke(initial_state(), execution_config("idx-normal"))
         self.assertEqual(list(INDEXER_NODE_NAMES), resources.calls)
@@ -116,7 +114,7 @@ class IndexerGraphTest(unittest.TestCase):
     def test_dry_run_stops_after_chunk(self) -> None:
         resources = FakeIndexerResources()
         result = build_graph(resources).invoke(initial_state(dry_run=True), execution_config("idx-dry"))
-        self.assertEqual(list(INDEXER_NODE_NAMES[:6]), resources.calls)
+        self.assertEqual(list(INDEXER_NODE_NAMES[:5]), resources.calls)
         self.assertEqual("dry_run", result["status"])
 
     def test_embed_retry_is_bounded_to_two_retries(self) -> None:
@@ -187,9 +185,9 @@ class IndexerGraphTest(unittest.TestCase):
         )
         resources = IndexerResources(settings, None, None, None, None)
 
-        def slow_chunk(*_args: object, **_kwargs: object) -> tuple[list, list, list]:
+        def slow_chunk(*_args: object, **_kwargs: object) -> tuple[list, list]:
             release.wait(1)
-            return [], [], []
+            return [], []
 
         unit = {"text": "제1조", "meta": {"doc_key": "D1"}, "key": "D1"}
         try:
@@ -199,6 +197,36 @@ class IndexerGraphTest(unittest.TestCase):
                         resources._run_chunk({"documents": [], "doc": "all", "output_path": "/tmp"})
         finally:
             release.set()
+
+    def test_chunk_assigns_global_ids_after_processing_each_input_unit(self) -> None:
+        settings = SimpleNamespace(
+            TIMEOUT_CHUNK_PER_DOC=30,
+            CHUNK_MAX_CHARS=600,
+            CHUNK_OVERLAP=80,
+            CHUNK_D2_OVERLAP=0,
+            CHUNK_TURNS_PER_CHUNK=4,
+            CHUNK_OVERLAP_TURNS=1,
+            MAX_INPUT_TOKENS=8192,
+        )
+        file_store = SimpleNamespace(
+            save_jsonl=lambda *_args: None,
+            save_json=lambda *_args: None,
+        )
+        resources = IndexerResources(settings, None, file_store, None, None)
+        units = [
+            {"text": "제1조(첫째)\n본문", "meta": {"doc_key": "D1"}, "key": "D1"},
+            {"text": "제2조(둘째)\n본문", "meta": {"doc_key": "D1"}, "key": "D1"},
+        ]
+
+        with patch("app.domain.chunking.prepare_units", return_value=(units, [])):
+            result = resources._run_chunk(
+                {"documents": [], "doc": "all", "output_path": "/tmp"}
+            )
+
+        self.assertEqual(
+            [item.id for item in result["chunks"]],
+            ["D1_0000", "D1_0001"],
+        )
 
     def test_embed_timeout_is_applied_per_batch(self) -> None:
         release = threading.Event()
@@ -239,6 +267,26 @@ class IndexerGraphTest(unittest.TestCase):
         self.assertEqual([], result["pending_ids"])
         self.assertEqual("OperationTimeoutError", result["failed"][0]["reason"])
 
+    def test_finalize_index_detects_count_mismatch_when_no_ids_were_written(self) -> None:
+        settings = SimpleNamespace(CHROMA_COLLECTION="test", EMBED_MODEL="test-model")
+        file_store = SimpleNamespace(save_json=lambda *_args: None)
+        embedder = SimpleNamespace(signature="test-signature", dimension=384)
+        vector_store = SimpleNamespace(count=lambda: 9)
+        resources = IndexerResources(settings, None, file_store, embedder, vector_store)
+
+        result = resources._run_finalize_index(
+            {
+                "thread_id": "idx-count-mismatch",
+                "output_path": "/tmp",
+                "embedding_backend": "smoke",
+                "count_before": 10,
+                "ok_ids": [],
+                "fingerprints": {},
+            }
+        )
+
+        self.assertFalse(result["accounting_ok"])
+
     def test_result_builder_uses_shared_state_fields(self) -> None:
         resources = FakeIndexerResources()
         state = build_graph(resources).invoke(initial_state(), execution_config("idx-result"))
@@ -247,6 +295,36 @@ class IndexerGraphTest(unittest.TestCase):
         self.assertEqual(1, result.extract.document_count)
         self.assertEqual(1, result.chunk.chunk_count)
         self.assertEqual(384, result.index.embedding_dimension)
+
+    def test_result_builder_reports_every_node_timing(self) -> None:
+        timings = {
+            "select_sources": 1,
+            "extract": 2,
+            "apply_profile": 3,
+            "validate_metadata": 4,
+            "chunk": 5,
+            "embed": 6,
+            "upsert": 7,
+            "finalize_index": 8,
+            "total_ms": 40,
+        }
+
+        result = build_index_result(initial_state(timings=timings))
+
+        self.assertEqual(
+            {
+                "select_sources_ms": 1,
+                "extract_ms": 2,
+                "apply_profile_ms": 3,
+                "validate_metadata_ms": 4,
+                "chunk_ms": 5,
+                "embed_ms": 6,
+                "upsert_ms": 7,
+                "finalize_index_ms": 8,
+                "total_ms": 40,
+            },
+            result.timings.model_dump(),
+        )
 
     def test_timing_reducer_accumulates_loop_values(self) -> None:
         self.assertEqual({"verify_evidence": 12}, merge_timings({"verify_evidence": 5}, {"verify_evidence": 7}))

@@ -99,17 +99,44 @@ class ChromaVectorStore:
         from langchain_chroma import Chroma
 
         self.signature = signature
+        # Chroma 생성 파라미터:
+        # - collection_name: Chroma 안에서 벡터 묶음을 구분하는 컬렉션 이름
+        # - embedding_function: 텍스트를 벡터로 바꿀 함수이며, 이미 만든 벡터를 직접 넣으면 None 사용 가능
+        # - persist_directory: Chroma 데이터와 인덱스를 디스크에 영구 저장할 폴더 경로
+        # - collection_configuration: HNSW 벡터 인덱스가 코사인 거리를 사용하도록 설정
+        #   HNSW(Hierarchical Navigable Small World)는 가까운 벡터끼리 여러 층의 그래프로 연결하는 인덱스임.
+        #   검색할 때 모든 벡터를 하나씩 비교하지 않고 그래프를 따라가며 유사한 벡터를 빠르게 찾음.
+        # - collection_metadata: 사용한 임베딩 서명과 거리 방식을 컬렉션 정보에 기록하여 나중에 검증
         self._store = Chroma(
             collection_name=collection,
             embedding_function=embedding_function,
             persist_directory=str(path),
             collection_configuration={"hnsw": {"space": "cosine"}},
-            collection_metadata={"lab_embedding": signature, "hnsw:space": "cosine"},
+
+            #   embedding_model_signature: Chroma 예약어가 아닌 프로젝트 키이며, 모델·정책 서명을 저장함.
+            #   hnsw:space: Chroma가 벡터 거리 계산 방식을 확인하는 데 사용하는 설정 키임.
+            collection_metadata={"embedding_model_signature": signature, "hnsw:space": "cosine"},
         )
         self._collection = self._store._collection
 
     def upsert(self, ids, texts, embeddings, metadatas) -> None:
-        clean = [sanitize_metadata({**metadata, "chunk_id": chunk_id}) for chunk_id, metadata in zip(ids, metadatas)]
+        # sanitize_metadata의 목적:
+        # Chroma 메타데이터가 허용하는 str·int·float·bool 값만 그대로 두고 저장 가능한 형태로 정리함.
+        # 필수 항목인 access_level과 doc_type을 검사하고, 잘못되었으면 MetadataError를 발생시킴.
+        # None 값은 제거하고, list·dict 같은 복합 값은 한글을 유지한 JSON 문자열로 변환하여 내용을 보존함.
+        clean = []
+
+        # 같은 위치의 청크 ID와 메타데이터를 한 쌍씩 가져옴.
+        for chunk_id, metadata in zip(ids, metadatas):
+            # 기존 메타데이터를 복사하고 실제 저장 ID를 chunk_id에 넣음. 기존 chunk_id가 있으면 새 값으로 덮어씀.
+            metadata_with_id = {**metadata, "chunk_id": chunk_id}
+
+            # Chroma에 안전하게 저장할 수 있도록 필수값을 검사하고 각 값을 원시값 또는 JSON 문자열로 정리함.
+            clean_metadata = sanitize_metadata(metadata_with_id)
+
+            # 정리된 메타데이터를 Chroma upsert에 전달할 최종 목록에 추가함.
+            clean.append(clean_metadata)
+
         self._collection.upsert(ids=ids, documents=texts, embeddings=embeddings, metadatas=clean)
 
     def reset(self) -> None:
@@ -135,12 +162,22 @@ class ChromaVectorStore:
 
     def check_signature(self, expected: str) -> bool:
         metadata = self._collection.metadata or {}
-        return metadata.get("lab_embedding") == expected and metadata.get("hnsw:space", "cosine") == "cosine"
+        return (
+            metadata.get("embedding_model_signature") == expected
+            and metadata.get("hnsw:space", "cosine") == "cosine"
+        )
 
 
-def create_vector_store(*, backend: str, path: Path, collection: str, signature: str, embedding_function=None):
-    if backend == "memory":
+def create_vector_store(
+    *,
+    embedding_backend: str,
+    path: Path,
+    collection: str,
+    signature: str,
+    embedding_function=None,
+):
+    if embedding_backend == "memory":
         return MemoryVectorStore(signature)
-    if backend not in {"smoke", "sentence-transformers"}:
-        raise ValueError(f"지원하지 않는 vector backend: {backend}")
+    if embedding_backend not in {"smoke", "sentence-transformers"}:
+        raise ValueError(f"지원하지 않는 임베딩 백엔드: {embedding_backend}")
     return ChromaVectorStore(path, collection, signature, embedding_function)

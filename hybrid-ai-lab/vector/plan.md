@@ -49,7 +49,7 @@
 | 항목 | 확정값 |
 |---|---|
 | 그래프 수 | 2개(Indexer·Retriever), 서브그래프·그래프 간 메시지 없음, 인덱스 컬렉션만 공유 |
-| Indexer 노드(9) | `select_sources` → `extract` → `pseudonymize` → `apply_profile` → `validate_metadata` → `chunk` → `embed` → `upsert` → `verify_count` |
+| Indexer 노드(9) | `select_sources` → `extract` → `pseudonymize` → `apply_profile` → `validate_metadata` → `chunk` → `embed` → `upsert` → `finalize_index` |
 | Retriever 노드(11) | `check_query` → `vector_search` → **`route_query`** → `bm25_search` → `fuse_scores` → `search_transformed` → `merge_queries` → `rerank` → `build_prompt` → `generate_answer` → `verify_evidence` |
 | 실행 config | `{"configurable": {"thread_id": ...}, "recursion_limit": 25}` |
 | 실행 방식 | Indexer `invoke` / Retriever CLI·`POST /search`·`POST /answer` `invoke` / `GET /answer/stream` `astream_events(version="v2")`. 그 외(`stream`·`ainvoke`·`abatch`) 사용 금지 |
@@ -70,7 +70,7 @@
 | `Answer`(Pydantic, 최종) | `conclusion: str, caution: str, evidence: list[Evidence], sources: list[str], verification: Verification` | s3.2 `evidence.py`, `answering.py` 출력 형식 |
 | `RouteDecision`(Pydantic, 라우터 Structured Output 스키마) | `action: Literal["clarify","keep","transform"], technique: Literal["rewrite","multi","hyde","stepback","decomposition"] \| None, queries: list[str], reason: str, clarification: str` | s3.3 `adaptive_search.RouteDecision` |
 | Retriever 결과 `SearchResult` | `query, mode, transform, role, top_k, hits: list[Hit], answer: Answer \| None, prompt: str \| None, route{action, technique, transformed_queries, merge_weights, coverage_applied, gate_score, reason, error, clarification, cache_hit}, timings: dict, llm_calls: int, status: str, thread_id: str`. `timings` 키는 노드명 + `total_ms` | 신규(세 곳 공유) |
-| Indexer 결과 `IndexResult` | `sources: int, extract{document_count, by_doc_type, consultation_mismatch, pseudonymized}, chunk{input_units, skipped, chunk_count, review_count, exception_count, by_doc}, index{collection_count, newly_embedded, skipped_by_hash, failed, embedding_dimension}, timings{extract_ms, chunk_ms, embed_ms, upsert_ms, total_ms}, status, exit_code, thread_id` | 프롬프트 예시 |
+| Indexer 결과 `IndexResult` | `sources: int, extract{document_count, by_doc_type, consultation_mismatch, pseudonymized}, chunk{input_units, skipped, chunk_count, review_count, exception_count, by_doc}, index{collection_count, newly_embedded, skipped_by_hash, failed, embedding_dimension}, timings{select_sources_ms, extract_ms, apply_profile_ms, validate_metadata_ms, chunk_ms, embed_ms, upsert_ms, finalize_index_ms, total_ms}, status, exit_code, thread_id` | 프롬프트 예시 |
 | API 전용 필드 | `request_id`(응답 최상위). 그 외 필드는 CLI 결과 JSON과 키·자료형 동일 | — |
 | `status` 값 | `ok` · `needs_check`(관문 미달) · `halted_by_limit` · `dry_run` · `prompt_only` · `error`(설정·입력 오류, exit 1) | — |
 | `chunk_id` 정본 | D1·D2 `{doc_key}_{index:04d}`(`D1_0010`), D3 `D3_{record_id}_{index:04d}`(`D3_C-20260302-002_0000`). `chunk` 노드의 저장 ID 재부여 단계 한 곳에서만 생성 | s3.1 `run_chunking.py:63,69`, 실데이터 |
@@ -341,7 +341,7 @@ group upsert (배치 120초, 재시도 2회)
 end
 
 == 7. 건수 확인과 종료 ==
-group verify_count (10초)
+group finalize_index (10초)
   G -> CH : count(), peek(1)
   CH --> G : collection_count=485, dimension=1024
   G -> F : index_manifest.json 갱신
@@ -670,7 +670,7 @@ class IndexerState(TypedDict, total=False):
     # 입력(표현 계층이 채움, 덮어쓰기)
     input_path: str; output_path: str
     doc: Literal["D1", "D2", "D3", "all"]; segment: int | None
-    backend: Literal["sentence-transformers", "smoke"]
+    embedding_backend: Literal["sentence-transformers", "smoke"]
     dry_run: bool; full_reindex: bool; thread_id: str
     profiles: dict[str, Any]; schema: dict[str, Any]
     force_fail_node: str | None                          # 재개 시험 전용 스위치
@@ -693,7 +693,7 @@ class IndexerState(TypedDict, total=False):
     # embed (증분)
     pending_ids: list[str]; vectors_path: str            # R14: 벡터는 npy 파일
     newly_embedded: int; skipped_by_hash: int
-    # upsert / verify_count
+    # upsert / finalize_index
     ok_ids: Annotated[list[str], operator.add]
     failed: Annotated[list[dict], operator.add]          # {chunk_id, reason}
     count_before: int; count_after: int; accounting_ok: bool; embedding_dimension: int
@@ -708,7 +708,8 @@ class IndexerState(TypedDict, total=False):
 `sources`(건수), `extract{document_count, by_doc_type, consultation_mismatch=0, pseudonymized}`,
 `chunk{input_units, skipped, chunk_count, review_count, exception_count, by_doc}`,
 `index{collection_count, newly_embedded, skipped_by_hash, failed, embedding_dimension}`,
-`timings{extract_ms, chunk_ms, embed_ms, upsert_ms, total_ms}`, `status`, `exit_code`, `thread_id`
+`timings{select_sources_ms, extract_ms, apply_profile_ms, validate_metadata_ms, chunk_ms, embed_ms, upsert_ms,
+finalize_index_ms, total_ms}`, `status`, `exit_code`, `thread_id`
 
 ### 3-3. RetrieverState
 
@@ -770,7 +771,7 @@ verify_evidence`) + `total_ms`. 1-2절의 `embed_query_ms`·`search_ms` 등 축�
   `--thread-id`에 새 입력이 오면 stderr 경고 후 `None`으로 재개함
 - 재개 시험(부록 F 실측 방식): `--force-fail-node embed`로 강제 예외 → `update_state(config, {"force_fail_node": None})` →
   `invoke(None, config)` → 노드 로그(`data/logs/{thread_id}.jsonl`)가 `select_sources ~ chunk` 6건 재등장 없이 `embed, upsert,
-  verify_count` 3건만 추가되고 `chunks` 길이가 485(970 아님)임을 확인. Retriever는 `--force-fail-node generate_answer`
+  finalize_index` 3건만 추가되고 `chunks` 길이가 485(970 아님)임을 확인. Retriever는 `--force-fail-node generate_answer`
 
 ---
 
@@ -786,9 +787,9 @@ verify_evidence`) + `total_ms`. 1-2절의 `embed_query_ms`·`search_ms` 등 축�
 | `apply_profile` | `documents, profiles` | `documents`(덮), `warnings`(add), `timings` | 금지 키 6종 덮어쓰기 → `ProfileOverrideError` 중단(exit 1). 필수 키 빈 것은 경고 | 10초 | 0 | `domain/validation.py` | `test_apply_profile_sets_owner_dept` / `test_apply_profile_forbidden_key_raises` |
 | `validate_metadata` | `documents, schema, output_path` | `validation`(덮), `warnings`(add), `status·exit_code`(덮), `timings`. 파일 4종 저장 | `invalid > 0` → `status=error, exit 1` 후 END. 출력이 원문 폴더 하위 → `OutputPathError` 중단 | 30초 | 0 | Pydantic 스키마 검증 + `mkstemp → os.replace` | `test_validate_metadata_zero_invalid_259` / `test_validate_metadata_output_inside_input_raises` |
 | `chunk` | `documents, output_path, dry_run` | `chunks·reviews·exceptions·skipped`(add), `input_units`(덮), `status·exit_code`(dry_run 시), `timings`. 파일 4종 저장 | 분할 `ValueError`는 `reviews` 격하 후 계속. `chunk_id` 중복·`char_len` 불일치 → `ChunkIntegrityError` 중단 | 문서 1건 30초 | 0 | `tokenizers.Tokenizer`(KURE-v1 로컬) + `domain/chunking.py` + `Document` | `test_chunk_produces_485` / `test_chunk_duplicate_id_raises` |
-| `embed` | `chunks, full_reindex, backend` | `pending_ids·vectors_path·newly_embedded·skipped_by_hash`(덮), `failed`(add), `timings` | 배치 실패 재시도 1회(승계) 후 해당 청크 `failed` 기록·계속. 토큰 한도 초과 → 실패 기록(자르지 않음). 모델 로드 실패 → 중단 | 배치 120초(모델 로드 제외·로그) | 배치 1(승계) + 노드 `RetryPolicy(max_attempts=3, retry_on=EmbedRetryableError)` | `langchain_huggingface.HuggingFaceEmbeddings(model_name=EMBED_MODEL, encode_kwargs={"normalize_embeddings": True, "batch_size": 32})` 또는 smoke, `numpy.save` | `test_embed_skips_unchanged_hash` / `test_embed_token_overflow_recorded_failed` |
+| `embed` | `chunks, full_reindex, embedding_backend` | `pending_ids·vectors_path·newly_embedded·skipped_by_hash`(덮), `failed`(add), `timings` | 배치 실패 재시도 1회(승계) 후 해당 청크 `failed` 기록·계속. 토큰 한도 초과 → 실패 기록(자르지 않음). 모델 로드 실패 → 중단 | 배치 120초(모델 로드 제외·로그) | 배치 1(승계) + 노드 `RetryPolicy(max_attempts=3, retry_on=EmbedRetryableError)` | `langchain_huggingface.HuggingFaceEmbeddings(model_name=EMBED_MODEL, encode_kwargs={"normalize_embeddings": True, "batch_size": 32})` 또는 smoke, `numpy.save` | `test_embed_skips_unchanged_hash` / `test_embed_token_overflow_recorded_failed` |
 | `upsert` | `pending_ids, vectors_path, chunks` | `ok_ids`(add), `failed`(add), `count_before`(덮), `warnings`, `timings` | 배치 재시도 후 실패 → `failed` + 경고, 계속. 권한 키 누락·허용 밖 → `MetadataError` 중단 | 배치 120초 | `RetryPolicy(max_attempts=3, retry_on=UpsertRetryableError)` | Chroma 하부 컬렉션 `upsert(ids, embeddings, documents, metadatas)`(R9), `collection_configuration cosine`(R8) | `test_upsert_indexes_485` / `test_upsert_invalid_access_level_raises` |
-| `verify_count` | `ok_ids, failed, reviews, count_before` | `count_after·accounting_ok·embedding_dimension·status·exit_code`(덮), `warnings`, `timings`. `index_manifest.json` 저장 | 건수 불일치 → `accounting_ok=False` + 경고(중단 아님). `failed > 0` → exit 3, 아니면 `review_count > 0` → exit 2 | 10초 | 1 | `VectorStorePort.count()`, `peek` 1건으로 차원 확인 | `test_verify_count_matches_485` / `test_verify_count_failed_sets_exit3` |
+| `finalize_index` | `ok_ids, failed, reviews, count_before` | `count_after·accounting_ok·embedding_dimension·status·exit_code`(덮), `warnings`, `timings`. `index_manifest.json` 저장 | 건수 불일치 → `accounting_ok=False` + 경고(중단 아님). `failed > 0` → exit 3, 아니면 `review_count > 0` → exit 2 | 10초 | 1 | `VectorStorePort.count()`, `peek` 1건으로 차원 확인 | `test_finalize_index_matches_485` / `test_finalize_index_failed_sets_exit3` |
 
 ### 4-2. Retriever 11노드
 
@@ -834,8 +835,8 @@ Chroma(collection_name=CHROMA_COLLECTION, embedding_function=embedder, persist_d
 - `similarity_search_with_score`는 **거리**를 반환(작을수록 유사) → `score = round(1 - distance, 3)`(기존과 동일)
 - 메타데이터 키: analysis.md 부록 A-1·A-2 전부 + `chunk_id`. `None` 값은 키 제거, 복합 값(`product_ids`)은 JSON 문자열 보존,
   `access_level`·`doc_type` 허용 밖은 중단(기존 `sanitize_metadata` 승계)
-- `--backend smoke`: 384차원 SHA-256 바이그램 해시, `data/chroma_smoke/` 고정 경로, 서명 `smoke-sha256-bigram-v1`, 단위 시험 전용
-- `index_manifest.json`: `{format_version, generated_at, collection, backend, embed_model, embedding_signature, embedding_dimension,
+- `--embedding-backend smoke`: 384차원 SHA-256 바이그램 해시, `data/chroma_smoke/` 고정 경로, 서명 `smoke-sha256-bigram-v1`, 단위 시험 전용
+- `index_manifest.json`: `{format_version, generated_at, collection, embedding_backend, embed_model, embedding_signature, embedding_dimension,
   tokenizer_sha256, chunk_params, inputs_sha256{파일: sha256}, chunks{chunk_id: {text_sha256, metadata_sha256, indexed_at}}, counts}`.
   판정: 없음 → 신규 / 해시 동일 → 건너뜀 / 다름 → 재임베딩 / 서명·파라미터 변경 → 전체 재적재 승격 + 경고
 
@@ -992,7 +993,7 @@ Retriever (`vector/retriever/`)
 | `--thread-id` | str | `idx-` + UUID 8자리 | — | 체크포인트 세션 키 |
 | `--full-reindex` | flag | False | — | 해시 무시 전량 재적재(컬렉션 삭제 후) |
 | `--dry-run` | flag | False | — | chunk까지만, 임베딩 0회, `status=dry_run` |
-| `--backend` | str | `sentence-transformers` | sentence-transformers·smoke | `smoke`는 `data/chroma_smoke/` 별도 저장 |
+| `--embedding-backend` | str | `sentence-transformers` | sentence-transformers·smoke | `smoke`는 `data/chroma_smoke/` 별도 저장 |
 
 `run_retriever.py`
 

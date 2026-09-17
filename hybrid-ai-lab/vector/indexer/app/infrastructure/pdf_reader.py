@@ -9,6 +9,81 @@ import pymupdf
 
 
 def _lines(page):
+    """PDF 한 페이지의 글자를 위치와 함께 읽어 ``(bbox, text)`` 목록으로 반환함.
+
+    첨부 예시에는 제목, 두 문단, 표가 다음과 같이 들어 있음::
+
+        제5조(통지 방법)
+        ① 카드사는 앱 알림, 문자, 전자우편 또는 우편 중 회원이 선택한 수단으로 중요한 내용을 알립니다.
+        ② 연락처가 바뀐 회원은 지체 없이 정보를 수정합니다. ...
+
+        통지 종류       기본 수단    보조 수단    확인 기록
+        약관 변경       앱 알림      전자우편     발송일·열람일
+        이상거래 정지   문자         앱 알림      발송일·정지 사유
+        연회비 반환 지연 전자우편    문자         예정일·지연 사유
+
+    각 코드 줄은 이 페이지를 다음 순서로 처리함.
+
+    1. ``result = []``
+       제목·본문·표에서 읽은 줄을 담을 빈 목록을 준비함.
+
+    2. ``for block in page.get_text("dict")["blocks"]``
+       페이지를 사전으로 바꾼 뒤 제목, 본문, 표의 글자가 들어 있는 블록을 하나씩 꺼냄.
+       예를 들어 제목 블록, ① 문단 블록, 표 셀 블록 등이 차례로 처리 대상이 됨.
+       제목 ``제5조(통지 방법)``이 들어 있는 block의 간단한 예시는 다음과 같음::
+
+           block = {
+               "type": 0,
+               "bbox": (28, 15, 230, 48),
+               "lines": [
+                   {
+                       "bbox": (28, 15, 230, 48),
+                       "spans": [
+                           {"text": "제5조"},
+                           {"text": "(통지 방법)"},
+                       ],
+                   }
+               ],
+           }
+
+       ``type: 0``은 글자 블록이라는 뜻이고, ``bbox``는 블록 전체의 위치임.
+       ``lines``에는 이 블록의 글자 줄들이 들어 있으며, 3번 반복문이 이 목록을 하나씩 꺼냄.
+
+    3. ``for line in block.get("lines", [])``
+       현재 블록 안에서 글자 줄을 하나씩 꺼냄.
+       이미지 블록처럼 ``lines``가 없으면 빈 목록을 사용하므로 반복하지 않고 건너뜀.
+
+    4. ``text = "".join(span["text"] for span in line["spans"]).strip()``
+       글꼴이나 서식 때문에 여러 span으로 나뉜 글자 조각을 한 줄로 이어 붙임.
+       예를 들어 ``"제5조"``와 ``"(통지 방법)"``을 ``"제5조(통지 방법)"``으로 만듦.
+
+    5. ``if text``
+       합친 결과에 실제 글자가 있는지 확인하여 빈 줄을 제외함.
+
+    6. ``result.append((tuple(line["bbox"]), text))``
+       줄의 위치와 완성한 글자를 한 쌍으로 저장함.
+       bbox는 ``(왼쪽 x, 위쪽 y, 오른쪽 x, 아래쪽 y)`` 좌표임.
+
+    7. ``return result``
+       페이지에서 추출한 모든 ``(줄 위치, 줄 내용)``을 목록으로 반환함.
+
+    반환값 일부는 다음과 같음. 좌표는 설명을 위한 예시임::
+
+        [
+            ((28, 15, 230, 48), "제5조(통지 방법)"),
+            ((28, 67, 1000, 96), "① 카드사는 앱 알림, 문자, 전자우편 또는 우편 중 ..."),
+            ((78, 201, 265, 250), "통지 종류"),
+            ((285, 201, 465, 250), "기본 수단"),
+            ((78, 251, 265, 299), "약관 변경"),
+            ((285, 251, 465, 299), "앱 알림"),
+            ((467, 251, 649, 299), "전자우편"),
+            ((650, 251, 972, 299), "발송일·열람일"),
+        ]
+
+    이 함수는 표를 행·열 구조로 완성하지 않음. 같은 y 위치의 표 셀도 별도 줄로 저장될 수 있음.
+    이후 ``_row_text``가 가까운 y 좌표의 셀을 같은 행으로 묶고 x 좌표 순서로 정렬하여
+    ``약관 변경 | 앱 알림 | 전자우편 | 발송일·열람일``처럼 합침.
+    """
     result = []
     for block in page.get_text("dict")["blocks"]:
         for line in block.get("lines", []):
@@ -41,32 +116,86 @@ def _row_text(lines):
     return result
 
 
-def _metadata(text, filename):
-    effective = re.search(r"(?:effective_date\s*|시행일[: ]*)(\d{4})[-년 ]+(\d{1,2})[-월 ]+(\d{1,2})", text)
-    version = re.search(r"(?:version\s*|버전[: ]*)(\d+(?:\.\d+)+)", text)
-    created = re.search(r"(?:created_at|작성일)\s*[:：]?\s*(\d{4}-\d{2}-\d{2})", text)
-    # source: 원본 파일 이름.
-    # doc_type: 파일명 접두사(D1·D2)로 판별한 문서 종류.
-    # effective_date: 본문에서 추출해 YYYY-MM-DD 형식으로 정리한 시행일.
-    # version: 본문에서 추출한 문서 버전.
-    # created_at: 본문에서 추출한 작성일.
-    # supersedes: 이 문서가 대체하는 이전 문서 정보이며, 원문에 없으므로 비워 둠.
-    # owner_dept: 문서 담당 부서이며, 원문에 없으므로 비워 둠.
-    # access_level: 교육용 공개 등급 문구가 있으면 public으로 설정함.
-    # synthetic: 본문에 "합성"이라는 표시가 있는지 나타냄.
-    # metadata_origin: 메타데이터의 출처와 누락값 보완 방법을 기록함.
-    return {
+_D2_HEADING = re.compile(r"^D2-C\d{3}(?:-B\d+)?(?:\s*\||$)")
+_D2_TABLE_END = re.compile(
+    r"^(?:D2-C\d{3}(?:-B\d+)?(?:\s*\||$)|가상 시행일|연회비$|모든 명칭|일반 혜택|"
+    r"가족카드:|카드별 명칭|PDF 검색)"
+)
+_MARKDOWN_SEPARATOR = re.compile(r"^\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?$")
+
+
+def _normalize_d2_tables(text: str) -> tuple[str, int]:
+    """D2의 좌표 기반 표를 Markdown으로 바꾸고 새로 변환한 표 수를 반환함."""
+
+    lines = text.splitlines()
+    output, in_table, converted = [], False, 0
+    for index, line in enumerate(lines):
+        is_heading = bool(_D2_HEADING.match(line))
+        is_metadata = line.startswith("가상 시행일")
+        is_separator = bool(_MARKDOWN_SEPARATOR.match(line))
+        if is_separator and in_table:
+            output.append(line)
+            continue
+        if "|" in line and not is_heading and not is_metadata:
+            cells = line.strip().strip("|").strip()
+            output.append(f"| {cells} |")
+            if not in_table:
+                next_is_separator = index + 1 < len(lines) and bool(_MARKDOWN_SEPARATOR.match(lines[index + 1]))
+                if not next_is_separator:
+                    output.append("| " + " | ".join(["---"] * len(cells.split("|"))) + " |")
+                    converted += 1
+            in_table = True
+        elif in_table and line and not _D2_TABLE_END.match(line):
+            output[-1] = output[-1].rstrip("| ") + " " + line.strip() + " |"
+        else:
+            output.append(line)
+            in_table = False
+    return "\n".join(output), converted
+
+
+def _metadata_from_pages(page_lines, filename, pdf_creation_date=""):
+    """전체 문서 문자열을 만들지 않고 페이지별 메타데이터를 누적함."""
+
+    common = {"effective_date": None, "version": None, "created_at": None}
+    for lines in page_lines:
+        page_text = "\n".join(text for _, text in lines)
+        if common["effective_date"] is None:
+            effective = re.search(
+                r"(?:effective_date\s*|시행일[: ]*)(\d{4})[-년 ]+(\d{1,2})[-월 ]+(\d{1,2})",
+                page_text,
+            )
+            if effective:
+                common["effective_date"] = "-".join(
+                    (effective[1], effective[2].zfill(2), effective[3].zfill(2))
+                )
+        if common["version"] is None:
+            version = re.search(r"(?:version\s*|버전[: ]*)(\d+(?:\.\d+)+)", page_text)
+            if version:
+                common["version"] = version[1]
+        if common["created_at"] is None:
+            created = re.search(r"(?:created_at|작성일)\s*[:：]?\s*(\d{4}-\d{2}-\d{2})", page_text)
+            if created:
+                common["created_at"] = created[1]
+
+        if all(common[key] is not None for key in ("effective_date", "version", "created_at")):
+            break
+
+    # 파일명이나 문서 전체에서 한 번만 판단하면 되는 값은 페이지 루프 밖에서 설정함.
+    common.update({
         "source": filename,
         "doc_type": "regulation" if filename.startswith("D1") else "benefit_guide" if filename.startswith("D2") else "pdf",
-        "effective_date": "-".join((effective[1], effective[2].zfill(2), effective[3].zfill(2))) if effective else None,
-        "version": version[1] if version else None,
-        "created_at": created[1] if created else None,
         "supersedes": None,
         "owner_dept": None,
-        "access_level": "public" if "공개 등급: 교육용 공개" in text else None,
-        "synthetic": "합성" in text,
+        "synthetic": any("합성" in text for lines in page_lines for _, text in lines),
         "metadata_origin": "source_text; missing values require instructor configuration",
-    }
+    })
+
+    # 본문에 작성일이 없으면 PDF 파일의 생성일을 보조값으로 사용함.
+    creation = re.match(r"D:(\d{4})(\d{2})(\d{2})", pdf_creation_date)
+    if common["created_at"] is None and creation:
+        common["created_at"] = "-".join(creation.groups())
+        common["created_at_origin"] = "pdf_creationDate (file creation, not business publication)"
+    return common
 
 
 class PdfReader:
@@ -88,14 +217,14 @@ class PdfReader:
             # [3] 반복 머리말·꼬리말 수집
             #   ↓
             # [4] 공통 메타데이터 추출 및 누락 경고 기록
-            #   ├─ [4-1] 모든 페이지 텍스트 결합
-            #   ├─ [4-2] 파일명·본문에서 공통 메타데이터 추출
-            #   └─ [4-3] PDF 생성일 보완 및 누락값 경고 기록
+            #   ├─ [4-1] 페이지별 시행일·버전·작성일 추출
+            #   ├─ [4-2] 파일명·본문 메타데이터 통합 및 PDF 생성일 보완
+            #   └─ [4-3] 누락값 경고 기록
             #   ↓
             # [5] 각 페이지를 최종 Document로 변환
             #   ├─ [5-1] 여백·페이지 번호 줄 제거
             #   ├─ [5-2] 선이 있는 표를 Markdown 표로 변환
-            #   ├─ [5-3] 일반 텍스트와 표를 본문으로 결합
+            #   ├─ [5-3] 일반 텍스트와 표를 결합하고 D2 테두리 없는 표를 Markdown으로 변환
             #   └─ [5-4] 페이지 메타데이터 보강 및 Document 생성
             #   ↓
             # [6] 전체 페이지 수를 처리 보고서에 기록
@@ -112,7 +241,7 @@ class PdfReader:
             # ===== [3] 반복 머리말·꼬리말 수집 =====
             # 여러 페이지의 상·하단에 반복되는 줄을 찾아 머리말·꼬리말 제거 기준으로 사용함.
             repeated = Counter()
-            for page, lines in zip(pdf, page_lines):
+            for page, lines in zip(pdf, page_lines):  # zip: 1쪽 page와 1쪽 lines처럼 같은 순서끼리 한 쌍으로 묶음.
                 # 각 줄의 (좌표, 텍스트) 중 상·하단 여백의 텍스트만 집합으로 추림.
                 # 집합을 사용하므로 같은 페이지 안에서 같은 문구는 한 번만 셈.
                 # 예: 여백의 "회사명", 본문의 "상품 안내"가 있으면 {"회사명"}만 세어 반복 여부를 확인함.
@@ -126,20 +255,14 @@ class PdfReader:
                 # repeated.update(margin_texts)
 
             # ===== [4] 공통 메타데이터 추출 및 누락 경고 기록 =====
-            # ----- [4-1] 모든 페이지 텍스트 결합 -----
-            # 문서 전체 텍스트에서 공통 메타데이터를 추출하고, 없으면 PDF 생성일을 보조값으로 사용함.
-            # 예: "첫 번째 줄", "두 번째 줄", "세 번째 줄"은 줄바꿈으로 이어 하나의 문자열이 됨.
-            # 결과: "첫 번째 줄\n두 번째 줄\n세 번째 줄"
-            full_text = "\n".join(text for lines in page_lines for _, text in lines)
+            # ----- [4-1·2] 페이지별 값 추출, 공통값 설정, PDF 생성일 보완 -----
+            common = _metadata_from_pages(
+                page_lines,
+                path.name,
+                pdf.metadata.get("creationDate", ""),
+            )
 
-            # ----- [4-2] 파일명·본문에서 공통 메타데이터 추출 -----
-            common = _metadata(full_text, path.name)
-
-            # ----- [4-3] PDF 생성일 보완 및 누락값 경고 기록 -----
-            creation = re.match(r"D:(\d{4})(\d{2})(\d{2})", pdf.metadata.get("creationDate", ""))
-            if common["created_at"] is None and creation:
-                common["created_at"] = "-".join(creation.groups())
-                common["created_at_origin"] = "pdf_creationDate (file creation, not business publication)"
+            # ----- [4-3] 누락값 경고 기록 -----
             missing = [key for key, value in common.items() if value is None]
             if missing:
                 report["warnings"].append("Missing source metadata (configure explicitly): " + ", ".join(missing))
@@ -255,6 +378,11 @@ class PdfReader:
                 # for _, text in ordered_items:
                 #     content_lines.append(text)
                 # content = "\n".join(content_lines)
+                # D2의 테두리 없는 표는 좌표 정렬로 만든 "셀 | 셀" 행을 추출 단계에서 Markdown 표로 완성함.
+                borderless_tables = 0
+                if common["doc_type"] == "benefit_guide":
+                    content, borderless_tables = _normalize_d2_tables(content)
+                    report["tables"] += borderless_tables
                 if not content.strip():
                     report["warnings"].append(f"Page {page_number}: no text layer; OCR is not enabled")
 
@@ -280,7 +408,7 @@ class PdfReader:
                     metadata["product_id"] = product_ids[0]
                 elif product_ids:
                     metadata["product_ids"] = product_ids
-                metadata["table_count"] = len(replacements)
+                metadata["table_count"] = len(replacements) + borderless_tables
                 documents.append(Document(page_content=content, metadata=metadata))
                 report["clean_chars"] += len(content)
 

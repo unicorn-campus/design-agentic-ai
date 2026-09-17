@@ -41,13 +41,14 @@ class ChunkingTests(unittest.TestCase):
         with self.assertRaises(ChunkIntegrityError):
             assign_storage_ids([chunk, chunk])
 
-    def test_multiple_units_receive_global_d1_ids(self):
+    def test_multiple_units_return_chunks_before_global_id_assignment(self):
         units = [
             {"text": "제1조 (첫째)\n본문", "meta": {"doc_key": "D1"}, "key": "D1"},
             {"text": "제2조 (둘째)\n본문", "meta": {"doc_key": "D1"}, "key": "D1"},
         ]
-        chunks, reviews, _ = chunk_units(units)
-        self.assertEqual([item.id for item in chunks], ["D1_0000", "D1_0001"])
+        chunks, reviews = chunk_units(units)
+        self.assertTrue(all(isinstance(item, Chunk) for item in chunks))
+        self.assertEqual([item.chunk_id for item in chunks], ["D1_0000", "D1_0000"])
         self.assertEqual(reviews, [])
 
 
@@ -61,7 +62,7 @@ class MetadataTests(unittest.TestCase):
             sanitize_metadata({"doc_type": "regulation", "access_level": "secret"})
 
 
-class SmokeBackendTests(unittest.TestCase):
+class SmokeEmbeddingBackendTests(unittest.TestCase):
     def test_smoke_embedding_is_deterministic_and_normalized(self):
         embedder = SmokeEmbedder()
         first, second = embedder.embed(["같은 문장", "같은 문장"])

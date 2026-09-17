@@ -95,7 +95,7 @@ cd hybrid-ai-lab/vector/indexer
   --in ../../docs \
   --out data \
   --doc all \
-  --backend sentence-transformers \
+  --embedding-backend sentence-transformers \
   --full-reindex
 ```
 
@@ -147,7 +147,7 @@ cd hybrid-ai-lab/vector/indexer
   --in ../../docs \
   --out data \
   --doc all \
-  --backend sentence-transformers
+  --embedding-backend sentence-transformers
 ```
 
 현재 코드 수정 뒤 보존된 최종 증거는 `data/index_run6.json`임.

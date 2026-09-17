@@ -29,7 +29,11 @@ def main(reference: bool = False) -> int:
     parser.add_argument('--group', type=int, choices=range(1, 7), default=1)
     parser.add_argument('--db-path', type=Path, help='상대 경로는 s3.2 기준')
     parser.add_argument('--collection', default='card_docs_ref' if reference else 'card_docs')
-    parser.add_argument('--backend', choices=('sentence-transformers', 'smoke'), default='sentence-transformers')
+    parser.add_argument(
+        '--embedding-backend',
+        choices=('sentence-transformers', 'smoke'),
+        default='sentence-transformers',
+    )
     parser.add_argument('--model', help='EMBED_MODEL 덮어쓰기')
     parser.add_argument('--batch-size', type=int, default=32)
     parser.add_argument('--query')
@@ -46,10 +50,15 @@ def main(reference: bool = False) -> int:
         # smoke 저장소는 학습용 실제 모델 저장소와 기본 경로부터 분리함.
         db_path = args.db_path
         if db_path is None:
-            db_path = BASE / f'data/chroma_smoke/group{args.group}' if args.backend == 'smoke' else settings().db_path
-            if args.group != 1 and args.backend != 'smoke':
+            db_path = BASE / f'data/chroma_smoke/group{args.group}' if args.embedding_backend == 'smoke' else settings().db_path
+            if args.group != 1 and args.embedding_backend != 'smoke':
                 db_path = BASE / f'data/chroma/group{args.group}'
-        config = configure(db_path=db_path, collection=args.collection, backend=args.backend, model=args.model)
+        config = configure(
+            db_path=db_path,
+            collection=args.collection,
+            embedding_backend=args.embedding_backend,
+            model=args.model,
+        )
         suffix = '_ref' if reference else ''
         if args.action == 'check':
             value = summarize(load_chunks(args.input))
@@ -121,7 +130,7 @@ def main(reference: bool = False) -> int:
                     value['rendered_answer'] = render_answer(answer)
                     value['evidence_check'] = answer['verification']
         value['implementation'] = 'reference' if reference else 'student'
-        value['backend'] = config.backend
+        value['embedding_backend'] = config.embedding_backend
         value['model'] = config.model
         value['db_path'] = str(config.db_path)
         value['collection'] = config.collection
@@ -160,7 +169,7 @@ def check_prompt(prompt: str, empty_prompt: str, question: str, hits: list) -> d
 
 def run_variants(args, search_fn, filters) -> int:
     """슬라이드 15~16 공동 실습용. 기본 동작 검증에서는 호출하지 않음."""
-    if settings().backend == 'smoke':
+    if settings().embedding_backend == 'smoke':
         raise ValueError('표현 변형 비교에는 실제 임베딩 모델 필요; smoke 사용 불가')
     if args.questions is None:
         raise ValueError('질문·정답 청크 ID를 먼저 작성하고 --questions 지정 필요')

@@ -106,7 +106,7 @@ for hit in hits:
 
 ```powershell
 s3.2/.venv/Scripts/python.exe -X utf8 s3.2/smoke_test.py
-s3.2/.venv/Scripts/python.exe s3.2/run_lab_ref.py index --backend smoke
+s3.2/.venv/Scripts/python.exe s3.2/run_lab_ref.py index --embedding-backend smoke
 ```
 
 `smoke`는 모델 다운로드·외부 API 호출 없이 만든 테스트 벡터임. 의미 유사도와 검색 품질 판단에는 사용 불가함.  
@@ -129,7 +129,7 @@ s3.2/.venv/Scripts/python.exe s3.2/run_lab_ref.py variants --questions s3.2/temp
 ```
 
 출력: `s3.2/data/group1/w3_query_variants.md`. `--group`으로 조 번호 변경 가능함.  
-`variants`는 `--backend smoke` 사용을 거절하며 빈 질문·미지정 정답으로 실행하지 않음.
+`variants`는 `--embedding-backend smoke` 사용을 거절하며 빈 질문·미지정 정답으로 실행하지 않음.
 
 2026-09-10 검증 결과는 `data/slide15/results_kure_v12.md`에 저장함.  
 재현 질문은 `templates/group1_queries_v12.json`, 후보 24건의 순위 기록은  

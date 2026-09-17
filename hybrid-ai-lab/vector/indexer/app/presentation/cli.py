@@ -30,7 +30,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--full-reindex", action="store_true", help="전량 재적재")
     parser.add_argument("--dry-run", action="store_true", help="청킹까지만 실행")
     parser.add_argument(
-        "--backend",
+        "--embedding-backend",
         choices=("sentence-transformers", "smoke"),
         default="sentence-transformers",
         help="임베딩 백엔드",
@@ -62,7 +62,7 @@ def main(argv: list[str] | None = None) -> int:
             thread_id=thread_id,
             full_reindex=args.full_reindex,
             dry_run=args.dry_run,
-            backend=args.backend,
+            embedding_backend=args.embedding_backend,
         )
         result = run_indexing(request)
         _emit(result)

@@ -128,7 +128,7 @@ def _default_transform_cache_path() -> Path:
 _SPECS: dict[str, _Spec] = {
     "CHROMA_PATH": _Spec(_default_chroma_path, _path),
     "CHROMA_COLLECTION": _Spec("card_docs", _text),
-    "EMBED_MODEL": _Spec("nlpai-lab/KURE-v1", _text),
+    "EMBED_MODEL": _Spec("nlpai-lab/KURE-v2", _text),
     "RERANK_MODEL": _Spec("BAAI/bge-reranker-v2-m3", _text),
     "LLM_PROVIDER": _Spec("groq", _choice("groq", "claude", "openai")),
     "GROQ_API_KEY": _Spec(None, _text, True),

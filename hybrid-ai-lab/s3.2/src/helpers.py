@@ -17,7 +17,7 @@ _env = {**dotenv_values(BASE.parent / '.env'), **dotenv_values(BASE / '.env'), *
 class Settings:
     db_path: Path
     collection: str = 'card_docs'
-    backend: str = 'sentence-transformers'
+    embedding_backend: str = 'sentence-transformers'
     model: str = 'nlpai-lab/KURE-v1'
 
 
@@ -28,16 +28,16 @@ _settings = Settings(
 )
 
 
-def configure(*, db_path=None, collection=None, backend=None, model=None) -> Settings:
+def configure(*, db_path=None, collection=None, embedding_backend=None, model=None) -> Settings:
     """CLI에서 선택한 설정 공유. 상대 DB 경로는 s3.2 기준임."""
     global _settings
     path = Path(db_path) if db_path is not None else _settings.db_path
-    backend = backend or _settings.backend
-    if backend not in ('sentence-transformers', 'smoke'):
-        raise ValueError('backend는 sentence-transformers 또는 smoke임')
+    embedding_backend = embedding_backend or _settings.embedding_backend
+    if embedding_backend not in ('sentence-transformers', 'smoke'):
+        raise ValueError('embedding_backend는 sentence-transformers 또는 smoke임')
     _settings = Settings(
         (path if path.is_absolute() else BASE / path).resolve(),
-        collection or _settings.collection, backend, model or _settings.model,
+        collection or _settings.collection, embedding_backend, model or _settings.model,
     )
     return _settings
 
@@ -57,7 +57,7 @@ def get_collection(name: str = 'card_docs'):
     """코사인 컬렉션 열기. 모델이 달라지면 같은 저장소 재사용을 차단함."""
     config = settings()
     actual_name = config.collection if name == 'card_docs' else name
-    signature = ('smoke-sha256-bigram-v1' if config.backend == 'smoke'
+    signature = ('smoke-sha256-bigram-v1' if config.embedding_backend == 'smoke'
                  else f'sentence-transformers:{config.model}:prompt-policy-v2')
     col = _client(str(config.db_path)).get_or_create_collection(
         name=actual_name,
@@ -90,7 +90,7 @@ def embed_texts(texts: list[str], kind: str = 'passage') -> list[list[float]]:
     if not texts:
         return []
     config = settings()
-    if config.backend == 'smoke':
+    if config.embedding_backend == 'smoke':
         vectors = []
         for text in texts:
             vec = [0.0] * 384

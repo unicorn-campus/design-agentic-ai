@@ -31,7 +31,7 @@ class IndexerCliTest(unittest.TestCase):
                         directory,
                         "--out",
                         directory,
-                        "--backend",
+                        "--embedding-backend",
                         "smoke",
                         "--dry-run",
                         "--thread-id",
@@ -40,6 +40,7 @@ class IndexerCliTest(unittest.TestCase):
                 )
             self.assertEqual(0, code)
             self.assertEqual(1, run.call_count)
+            self.assertEqual("smoke", run.call_args.args[0].embedding_backend)
             self.assertIn('"status": "dry_run"', stdout.getvalue())
             self.assertIn("결과 저장:", stderr.getvalue())
             self.assertTrue((output / "index_run1.json").is_file())

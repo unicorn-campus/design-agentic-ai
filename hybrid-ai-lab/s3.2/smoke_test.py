@@ -18,7 +18,7 @@ from src.retrieval_ref import search
 
 def main() -> int:
     db_path = BASE / "data" / "smoke" / uuid4().hex
-    helpers.configure(backend="smoke", db_path=db_path, collection="card_docs")
+    helpers.configure(embedding_backend="smoke", db_path=db_path, collection="card_docs")
     chunks = [
         Chunk("연회비 청구 기준 안내", "D1_smoke_0000", {
             "access_level": "public", "doc_type": "regulation",

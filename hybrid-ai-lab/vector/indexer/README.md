@@ -2,24 +2,24 @@
 
 PDF 약관·혜택 문서와 상담 텍스트를 추출·가명화·청킹한 뒤  
 ChromaDB에 적재하는 로컬 앱임.
-LangGraph 9개 노드와 SQLite 체크포인트를 사용함.
+LangGraph 8개 노드와 SQLite 체크포인트를 사용함.
 
 ## 처리 흐름
 
 ```text
-원문 선택 → 추출 → 가명화 → 프로필 적용 → 메타데이터 검증
+원문 선택 → 추출(상담 분리·가명화) → 프로필 적용 → 메타데이터 검증
           → 청킹 → 임베딩 → ChromaDB 적재 → 건수 검증
 ```
 
-상담 문서는 항상 가명화됨. 가명화 전 본문은 출력 파일이나 로그에 저장하지 않음.
+상담 문서는 추출 중 항상 가명화·검증됨. 가명화 전 본문은 그래프 상태·출력 파일·로그에 저장하지 않음.
 
 ## 실행 전제
 
 - Python 3.12 권장
 - 원문 8건을 `hybrid-ai-lab/docs/`에 배치
-- 기본 임베딩 모델 `nlpai-lab/KURE-v1`
+- 기본 임베딩 모델 `nlpai-lab/KURE-v2`
 - 기본 컬렉션 `card_docs`, 거리 함수 `cosine`
-- 실모델 최초 실행 시 KURE-v1 약 2GB 다운로드와 충분한 디스크 공간 필요
+- 실모델 최초 실행 시 KURE-v2 다운로드와 충분한 디스크 공간 필요
 - 현재 구현의 임베딩 장치가 CPU로 고정되어 있으므로 GPU 자동 사용 없음
 
 기본 원문 구성은 PDF 2건과 상담 텍스트 6건임.
@@ -85,23 +85,23 @@ python run_indexer.py \
   --in ../../docs \
   --out data \
   --doc all \
-  --backend smoke \
+  --embedding-backend smoke \
   --full-reindex
 ```
 
 Smoke 컬렉션은 시험 전용임.  
-KURE-v1 서명이 필요한 Retriever의 실제 검색 인덱스로 사용할 수 없음.
+KURE-v2 서명이 필요한 Retriever의 실제 검색 인덱스로 사용할 수 없음.
 
 ## 실모델 적재
 
-현재 컬렉션을 비우고 KURE-v1로 전체 청크를 다시 적재하는 명령임.
+현재 컬렉션을 비우고 KURE-v2로 전체 청크를 다시 적재하는 명령임.
 
 ```bash
 python run_indexer.py \
   --in ../../docs \
   --out data \
   --doc all \
-  --backend sentence-transformers \
+  --embedding-backend sentence-transformers \
   --full-reindex
 ```
 
@@ -122,7 +122,7 @@ python run_indexer.py \
   --in ../../docs \
   --out data \
   --doc all \
-  --backend sentence-transformers
+  --embedding-backend sentence-transformers
 ```
 
 변경이 없었던 실측 결과는 신규 임베딩 0건, 해시 건너뜀 485건, 컬렉션 485건임.
@@ -152,7 +152,7 @@ python run_indexer.py \
 |---|---|---|
 | `--doc` | `D1`, `D2`, `D3`, `all` | 처리할 문서 그룹 선택 |
 | `--segment` | `1` ~ `6` | D3 상담 파일 번호 선택 |
-| `--backend` | `sentence-transformers`, `smoke` | 임베딩 구현 선택 |
+| `--embedding-backend` | `sentence-transformers`, `smoke` | 임베딩 구현 선택 |
 | `--dry-run` | 플래그 | 청킹 후 종료 |
 | `--full-reindex` | 플래그 | 컬렉션 초기화 후 전량 적재 |
 | `--thread-id` | 문자열 | 체크포인트 세션 키 |
@@ -179,7 +179,7 @@ python run_indexer.py --help
 | `data/chunk_report.json` | 입력 단위·청크·검토·예외 건수 |
 | `data/embeddings/<thread-id>.npy` | 이번 실행에서 만든 벡터 |
 | `data/index_manifest.json` | 증분 판정용 해시·모델 서명·건수 |
-| `data/chroma/` | KURE-v1 ChromaDB |
+| `data/chroma/` | KURE-v2 ChromaDB |
 | `data/chroma_smoke/` | Smoke ChromaDB |
 | `data/checkpoints/indexer.sqlite` | LangGraph 체크포인트 |
 | `data/logs/<thread-id>.jsonl` | 본문·비밀값을 제외한 노드 감사 로그 |
@@ -188,7 +188,7 @@ python run_indexer.py --help
 결과 JSON은 stdout에도 출력됨. 저장 경로 안내는 stderr에 출력됨.
 
 실측의 `exceptions.jsonl` 56건은 적재 실패가 아님.
-필수 문맥을 보존하느라 600자 상한을 넘었지만 KURE-v1 토큰 한도 안에 들어온 청크임.
+필수 문맥을 보존하느라 600자 상한을 넘었지만 KURE-v2 토큰 한도 안에 들어온 청크임.
 
 ## 종료 코드
 

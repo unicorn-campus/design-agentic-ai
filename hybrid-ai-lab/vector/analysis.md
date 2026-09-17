@@ -83,8 +83,8 @@
 |-----------|----------|-----------|
 | `models.py:5` | `Chunk(text: str, chunk_id: str, metadata: dict)` | 청크 데이터 모양 |
 | `models.py:12` | `Hit(text: str, score: float, metadata: dict, rerank_score: float \| None = None)` | 검색 결과 데이터 모양 |
-| `helpers.py:16` | `Settings(db_path, collection, backend, model)` | 실행 설정 묶음 |
-| `helpers.py:31` | `configure(*, db_path=None, collection=None, backend=None, model=None) -> Settings` | 전역 설정 교체 |
+| `helpers.py:16` | `Settings(db_path, collection, embedding_backend, model)` | 실행 설정 묶음 |
+| `helpers.py:31` | `configure(*, db_path=None, collection=None, embedding_backend=None, model=None) -> Settings` | 전역 설정 교체 |
 | `helpers.py:56` | `get_collection(name: str = 'card_docs')` | 코사인 컬렉션 열기 + 모델 서명 검사 |
 | `helpers.py:84` | `embed_texts(texts: list[str], kind: str = 'passage') -> list[list[float]]` | 접두어 처리·토큰 한도 검사·정규화 임베딩 |
 | `helpers.py:120` | `sanitize_metadata(metadata: dict) -> dict` | None 제거, 구조값 JSON 문자열화, 권한 키 강제 검사 |
@@ -602,7 +602,7 @@ Config 키 이름: `LLM_PROVIDER`(기본 `groq`), `GROQ_API_KEY`(LangChain 기�
 | Indexer | `--in`, `--out` | s2.3 `--in`/`--out`(`cli.py:23-24`), s3.1·s3.2 `--input`/`--output` | 승계(s3.1·s3.2는 이름 변경) |
 | Indexer | `--doc {D1,D2,D3,all}` | s3.1 `--doc` 기본 `D1`(`run_chunking.py:128`) | 승계. **새 앱 기본값은 `all`** |
 | Indexer | `--segment {1..6}` | s2.3·s3.1 동일 | 승계 |
-| Indexer | `--backend {sentence-transformers,smoke}` | s3.2 `--backend`(`lab_cli.py:32`) | 승계 |
+| Indexer | `--embedding-backend {sentence-transformers,smoke}` | s3.2 `--embedding-backend`(`lab_cli.py:32`) | 승계 |
 | Indexer | `--thread-id`, `--full-reindex`, `--dry-run` | 없음(전수 grep 0건) | 신설 |
 | Retriever | `--query`, `--role`(choices agent/auditor), `--prompt-only` | s3.2·s3.3 | 승계 |
 | Retriever | `--top-k` | s3.2 `--top-k`(5), s3.3 `--retrieve-k`(10)·`--judge-k`(3)·`--top-n`(5) | 이름 통합. **`--top-k` = 최종 건수, 후보 수 = Top-K × 4 고정** |
@@ -706,7 +706,7 @@ Indexer (9노드)
 | `chunk` | `prepare_units()` + `chunk_by_clause()`/`chunk_by_turn()` + `make_chunk()` + `enforce_token_limit()` + 조립 루프 — **함수 5개가 한 노드** | `s3.1/lab_io.py:85-174`, `chunking.py:290·329·27·197`, `run_chunking.py:38-81` | in `documents` → out `chunks`,`reviews`,`exceptions`,`skipped`(모두 누적) |
 | `embed` | `embed_texts(kind="passage")` — **`embed_and_upsert()`에서 분리 필요** | `helpers.py:84-117` | in `chunks` → out `vectors`(덮어쓰기, 배치 단위) |
 | `upsert` | `embed_and_upsert()` 배치 루프 + `sanitize_metadata()` + `get_collection()` | `indexing_ref.py:11-46`, `helpers.py:120-134, 56-72` | in `vectors`,`chunks` → out `ok_count`(누적), `failed_ids`(누적) |
-| `verify_count` | `lab_cli` 적재 결과 대조부 | `s3.2/lab_cli.py:60-65` | → out `count_before`,`count_after`,`accounting_ok`(덮어쓰기) |
+| `finalize_index` | `lab_cli` 적재 결과 대조부 | `s3.2/lab_cli.py:60-65` | → out `count_before`,`count_after`,`accounting_ok`(덮어쓰기) 및 manifest 저장 |
 
 Retriever (8노드)
 
@@ -777,13 +777,13 @@ Reducer 후보 — Indexer: `documents`·`reports`·`warnings`·`chunks`·`revie
 | `verify_evidence` | 없음 | — | 노드 재시도 아님 | 엣지 루프 `→ build_prompt` 상한 2회 |
 
 `recursion_limit` 25 수렴 계산  
-- Indexer: 직렬 9 + (`verify_count → embed` 루프 3 × 2회) = 15 ≤ 25  
+- Indexer: 직렬 9 + (`finalize_index → embed` 루프 3 × 2회) = 15 ≤ 25
 - Retriever: 직렬 8 + (`verify_evidence → build_prompt` 루프 3 × 2회) = 14 ≤ 25  
 - 두 그래프를 합치면 17 + 6 + 6 = 29 > 25 → **별개 StateGraph 2개 유지가 필수**  
 - 노드 재시도가 super-step을 소모하는 최악 가정에서도 19·18로 25 이내
 
 파일 I/O 담당 노드: `documents.jsonl`·`manifest.json`·`report.json`·`validation.json`은 `validate_metadata`,
-`chunks.jsonl`·`review.jsonl`·`exceptions.jsonl`·`report.json`은 `chunk`, 적재 결과는 `verify_count`.
+`chunks.jsonl`·`review.jsonl`·`exceptions.jsonl`·`report.json`은 `chunk`, 적재 결과는 `finalize_index`.
 Retriever 결과 JSON은 그래프 밖(CLI·API)이 저장. 저장은 mkstemp → `os.replace`로 멱등하게
 
 ---

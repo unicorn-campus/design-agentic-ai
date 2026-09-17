@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 
 from langchain_core.documents import Document
@@ -80,7 +81,19 @@ def _clean(text: str, intake: dict[str, str], identity: dict[str, str], member: 
     )
 
 
-def parse_consultations(text: str, source: str, *, pseudonymize: bool = True) -> list[Document]:
+def _assert_pseudonymized(content: str, metadata: dict[str, object]) -> None:
+    """가명화 직후 원본 식별 정보가 남지 않았는지 확인함."""
+
+    serialized = json.dumps({"page_content": content, "metadata": metadata}, ensure_ascii=False)
+    if (
+        metadata.get("pseudonymized") is not True
+        or "member_id" in metadata
+        or any(pattern.search(serialized) for pattern in (PHONE, EMAIL, PAN, MEMBER))
+    ):
+        raise PseudonymizeError("가명화 결과에 연락처·카드번호·원본 회원 ID가 남아 있음")
+
+
+def parse_consultations(text: str, source: str) -> list[Document]:
     """머리글을 정본 경계로 상담을 나누며 가명화를 항상 적용함."""
 
     
@@ -97,10 +110,26 @@ def parse_consultations(text: str, source: str, *, pseudonymize: bool = True) ->
     if not headers or len(headers) != len(re.findall(r"^\[상담ID\]", text, re.M)):
         raise ConsultationError("상담 머리글 형식 또는 분리 건수가 올바르지 않음")
     documents: list[Document] = []
+    # 이미 처리한 상담 ID를 중복 없이 저장하는 빈 집합임.
     seen: set[str] = set()
+
     for index, header in enumerate(headers):
         end = headers[index + 1].start() if index + 1 < len(headers) else len(text)
+
+        # 원본 D3_S01 상담 파일의 첫 block 앞부분 예임.
+        # [상담ID] C-20260314-001 | 2026-03-14 | 채널: 앱 채팅 | 회원번호: M-1001
+        # [기록정보] 문서종류: consult_log | 공개등급: restricted | 작성일: 2026-03-14 | 소관부서: customer_service | 버전: v2
+        # [접수정보] 고객명: 가상고객0001 | 전화: 010-0000-0001 | 이메일: customer0001@example.invalid | 상담사명: 가상상담사02
+        # [본인확인] 가상 카드번호: 0000-0000-0001-0017 | 끝 4자리: 0017 | 생년월일: 1991-01-02 | 나이: 만 35세
+        # [상담주제] 앱 인증 불편 완화
+        # 고객: 인증이 안 되면 제가 뭘 잘못했나 싶어서 불안해요. 제 이름은 가상고객0001입니다.
+        # 상담사: 어떤 단계에서 안내가 멈추나요?
+        # 현재 [상담ID] 줄부터 다음 [상담ID] 줄 직전까지 담으며, 그 사이의 빈 줄과 구분선(====)도 포함함.
+        # 마지막 상담은 다음 머리글이 없으므로 파일 끝까지 담음.
         block = text[header.start():end]
+
+        # HEADER 정규표현식의 (...) 괄호 4개가 상담 ID·날짜·채널·회원번호를 순서대로 기억함.
+        # groups()는 기억한 4개 값을 튜플로 꺼내고, 왼쪽의 변수들이 같은 순서로 하나씩 받음.
         record_id, consult_date, channel, member = header.groups()
         if record_id in seen:
             raise ConsultationError(f"중복 상담 ID: {record_id}")
@@ -120,7 +149,7 @@ def parse_consultations(text: str, source: str, *, pseudonymize: bool = True) ->
             **{key: identity.get(key) for key in ("가상 카드번호", "끝4자리", "생년월일", "나이")},
         }
         missing = [key for key, value in required.items() if not value]
-        if pseudonymize and (missing or not age_band):
+        if missing or not age_band:
             raise PseudonymizeError(f"가명화 필수 항목 누락: {record_id} ({', '.join(missing)})")
         topic_match = re.search(r"^\[상담주제\]\s*(.*)$", block, re.M)
         metadata = {
@@ -133,9 +162,10 @@ def parse_consultations(text: str, source: str, *, pseudonymize: bool = True) ->
             "version": info.get("버전", ""),
             "owner_dept": info.get("소관부서", ""),
             "access_level": info.get("공개등급", ""),
-            "pseudonymized": pseudonymize,
+            "pseudonymized": True,
             "topic": topic_match.group(1).strip() if topic_match else "",
         }
+
         lines: list[str] = []
         in_dialogue = False
         for line in block.splitlines()[1:]:
@@ -149,30 +179,13 @@ def parse_consultations(text: str, source: str, *, pseudonymize: bool = True) ->
         content = "\n".join(lines)
         if not content:
             raise ConsultationError(f"대화가 없는 상담: {record_id}")
-        if pseudonymize:
-            metadata.update(
-                member_pseudo_id=to_pseudo(member),
-                agent_pseudo_id=to_pseudo(intake["상담사명"], "a"),
-                age_band=age_band,
-            )
-            metadata["topic"] = _clean(metadata["topic"], intake, identity, member, age_band)
-            content = _clean(content, intake, identity, member, age_band)
-        else:
-            metadata["member_id"] = member
+        metadata.update(
+            member_pseudo_id=to_pseudo(member),
+            agent_pseudo_id=to_pseudo(intake["상담사명"], "a"),
+            age_band=age_band,
+        )
+        metadata["topic"] = _clean(metadata["topic"], intake, identity, member, age_band)
+        content = _clean(content, intake, identity, member, age_band)
+        _assert_pseudonymized(content, metadata)
         documents.append(Document(page_content=content, metadata=metadata))
     return documents
-
-
-def pseudonymize_documents(documents: list[Document]) -> list[Document]:
-    """이미 분리된 문서에서 원문 회원 ID가 남았으면 중단함."""
-
-    cleaned: list[Document] = []
-    for document in documents:
-        metadata = dict(document.metadata)
-        if metadata.get("doc_type") != "consult_log":
-            cleaned.append(document)
-            continue
-        if not metadata.get("pseudonymized") or "member_id" in metadata:
-            raise PseudonymizeError("상담 문서는 parse_consultations의 완전 가명화 결과여야 함")
-        cleaned.append(document)
-    return cleaned

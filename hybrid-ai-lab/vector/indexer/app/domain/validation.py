@@ -45,11 +45,36 @@ def apply_profile(document: Document, profile: dict[str, Any]) -> Document:
     forbidden = sorted(FORBIDDEN_PROFILE_KEYS.intersection(profile))
     if forbidden:
         raise ProfileOverrideError(f"프로필 금지 키 덮어쓰기: {', '.join(forbidden)}")
-    metadata = {**document.metadata, **profile}
+
+    # **사전은 사전 안의 key=value 항목을 새 중괄호 안으로 하나씩 펼치는 문법임.
+    # 먼저 document.metadata를 넣고, 이어서 profile을 넣음. 같은 key가 있으면 나중 profile 값이 남음.
+    # 예: metadata={"access_level": "restricted"}, profile={"access_level": "public", "owner_dept": "benefit_ops"}
+    # 결과: {"access_level": "public", "owner_dept": "benefit_ops"}. 단, 금지 key는 위에서 이미 막음.
+    metadata = {**document.metadata, **profile}  # { }는 두 사전의 항목을 담을 새 메타데이터 사전을 만듦.
     return Document(id=document.id, page_content=document.page_content, metadata=metadata)
 
 
 def validate_document(document: Document | dict, enum_overrides: dict | None = None) -> list[str]:
+    """문서 본문과 메타데이터를 검사하고 발견한 오류 메시지 목록을 반환함.
+
+    검사 목록:
+    - 입력값이 LangChain ``Document`` 또는 ``page_content``·``metadata``를 가진 사전인지 확인함.
+    - ``metadata``가 사전인지 확인함.
+    - ``source``, ``doc_type``, ``created_at``, ``version``, ``owner_dept``, ``access_level``이
+      필수 문자열로 들어 있는지 확인함.
+    - ``page_content``가 비어 있지 않은 문자열인지 확인함.
+    - ``doc_type``, ``access_level``, ``owner_dept``, ``channel``이 허용 목록의 값인지 확인함.
+      ``enum_overrides``가 전달되면 해당 항목의 허용 목록을 교체함.
+    - ``created_at``, ``effective_date``, ``consult_date``가 실제로 존재하는 ``YYYY-MM-DD`` 날짜인지 확인함.
+    - 규정·혜택 문서는 ``effective_date``, ``supersedes``, ``page`` 키가 있는지 확인하고,
+      ``page``가 1 이상의 정수인지 확인함.
+    - 상담 문서는 ``record_id``, ``consult_date``, ``channel`` 필수값과 상담 ID 형식을 확인함.
+    - 상담 문서의 작성일과 상담일이 같은지, 공개등급이 ``restricted``인지 확인함.
+    - 상담 문서가 가명화되었는지와 회원·상담사 가명 ID가 정해진 형식인지 확인함.
+    - 상담 본문과 메타데이터에 전화번호·이메일·카드번호·원본 회원 ID가 남았는지 확인함.
+
+    오류가 없으면 빈 목록을 반환하고, 오류가 있으면 모든 오류 메시지를 목록으로 반환함.
+    """
     if isinstance(document, Document):
         content, metadata = document.page_content, document.metadata
     elif isinstance(document, dict):
@@ -131,9 +156,11 @@ def sanitize_metadata(metadata: dict[str, Any]) -> dict[str, Any]:
         raise MetadataError("access_level 누락 또는 허용 밖 값")
     if metadata.get("doc_type") not in ALLOWED_DOC_TYPES:
         raise MetadataError("doc_type 누락 또는 허용 밖 값")
+
     result: dict[str, Any] = {}
     for key, value in metadata.items():
         if value is None:
             continue
         result[key] = value if isinstance(value, (str, int, float, bool)) else json.dumps(value, ensure_ascii=False, sort_keys=True)
+
     return result
