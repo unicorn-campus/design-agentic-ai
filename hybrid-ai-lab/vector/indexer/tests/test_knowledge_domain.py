@@ -30,6 +30,18 @@ class ChunkingTests(unittest.TestCase):
         docs = assign_storage_ids(chunks)
         self.assertTrue(docs[0].id.startswith("D1_"))
         self.assertEqual(docs[0].id, docs[0].metadata["chunk_id"])
+        self.assertEqual(docs[0].metadata["section_label"], docs[0].metadata["clause_no"])
+
+    def test_d2_uses_section_label_without_clause_no(self):
+        chunks = chunk_by_clause(
+            "## 한빛 모아생활 · D2-C001-B01 · 생활 포인트 적립\n혜택 본문",
+            {"doc_key": "D2", "clause_no": "제거할 구버전 값"},
+        )
+        self.assertEqual(
+            chunks[0].metadata["section_label"],
+            "한빛 모아생활 · D2-C001-B01 · 생활 포인트 적립",
+        )
+        self.assertNotIn("clause_no", chunks[0].metadata)
 
     def test_d3_id_preserves_record_id(self):
         metadata = {"doc_key": "D3", "record_id": "C-20260302-002"}

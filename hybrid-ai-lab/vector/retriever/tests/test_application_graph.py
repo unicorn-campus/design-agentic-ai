@@ -52,11 +52,41 @@ class FakeRetrieverResources:
         self.calls.append(name)
         if "max_attempts" in kwargs:
             self.attempt_budgets.append((name, int(kwargs["max_attempts"])))
-        if name == "check_query":
-            return {"index_info": {"collection": "card_docs", "count": 1, "dimension": 1024, "signature_ok": True}}
+        if name == "check_search_readiness":
+            return {
+                "index_info": {
+                    "collection": "card_docs",
+                    "count": 1,
+                    "dimension": 1024,
+                    "signature_ok": True,
+                },
+                "validation_errors": [],
+            }
         if name == "vector_search":
-            return {"vector_hits": [hit(vector_score=self.score)]}
-        if name == "route_query":
+            vector_hits = [hit(vector_score=self.score)]
+            update = {
+                "vector_hits": vector_hits,
+                "transform_gate_score": self.score,
+            }
+            if state.get("mode") == "vector":
+                update.update(baseline_hits=vector_hits, hits=vector_hits)
+            return update
+        if name == "assess_transform_gate":
+            if state.get("transform_mode") == "off":
+                return {
+                    "route_action": "off",
+                    "transform_review_required": False,
+                    "transformed_queries": [],
+                }
+            threshold = float(self.settings["TRANSFORM_GATE_THRESHOLD"])
+            if self.score >= threshold:
+                return {
+                    "route_action": "gate_pass",
+                    "transform_review_required": False,
+                    "transformed_queries": [],
+                }
+            return {"transform_review_required": True}
+        if name == "plan_query_transform":
             if self.transform:
                 return {
                     "route_action": "transform",
@@ -69,6 +99,13 @@ class FakeRetrieverResources:
             return {"bm25_scores": {"D1_0000": 1.0}}
         if name == "fuse_scores":
             return {"candidates": [hit(vector_score=self.score)], "baseline_hits": [hit(vector_score=self.score)]}
+        if name == "complete_original_results":
+            baseline = (
+                state.get("vector_hits", [])
+                if state.get("mode") == "vector"
+                else state.get("baseline_hits", state.get("candidates", []))
+            )
+            return {"baseline_hits": list(baseline), "hits": list(baseline)[: state["top_k"]]}
         if name == "search_transformed":
             return {"transformed_hit_groups": [[hit("D1_0001", self.score)]]}
         if name == "merge_queries":
@@ -147,28 +184,50 @@ def initial_state(**overrides: object) -> dict:
 
 
 class RetrieverGraphTest(unittest.TestCase):
-    def test_builder_has_exact_eleven_nodes(self) -> None:
+    def test_builder_has_exact_declared_nodes(self) -> None:
         graph = build_graph(FakeRetrieverResources())
         names = set(graph.get_graph().nodes) - {"__start__", "__end__"}
         self.assertEqual(set(RETRIEVER_NODE_NAMES), names)
 
+    def test_search_readiness_handler_validates_request_before_index_access(self) -> None:
+        resources = RetrieverResources(SimpleNamespace(), None, None, None, None, None, None)
+        result = build_graph(resources).invoke(
+            initial_state(query=" ", top_k=0, role="unknown", mode="unknown"),
+            execution_config("ret-invalid-query"),
+        )
+        self.assertEqual("error", result["status"])
+        self.assertEqual(1, result["exit_code"])
+        self.assertNotIn("index_info", result)
+
     def test_mode_paths_are_deterministic(self) -> None:
         expected = {
-            "vector": ["check_query", "vector_search", "build_prompt", "generate_answer", "verify_evidence"],
-            "hybrid": [
-                "check_query",
+            "vector": [
+                "check_search_readiness",
                 "vector_search",
+                "assess_transform_gate",
+                "complete_original_results",
+                "build_prompt",
+                "generate_answer",
+                "verify_evidence",
+            ],
+            "hybrid": [
+                "check_search_readiness",
+                "vector_search",
+                "assess_transform_gate",
                 "bm25_search",
                 "fuse_scores",
+                "complete_original_results",
                 "build_prompt",
                 "generate_answer",
                 "verify_evidence",
             ],
             "hybrid_rerank": [
-                "check_query",
+                "check_search_readiness",
                 "vector_search",
+                "assess_transform_gate",
                 "bm25_search",
                 "fuse_scores",
+                "complete_original_results",
                 "rerank",
                 "build_prompt",
                 "generate_answer",
@@ -209,7 +268,7 @@ class RetrieverGraphTest(unittest.TestCase):
         resources.settings = {**resources.settings, "TRANSFORM_GATE_THRESHOLD": 0.9}
         state = initial_state(transform_mode="auto", mode="vector", max_llm_calls=2)
         result = build_graph(resources).invoke(state, execution_config("ret-budget"))
-        self.assertEqual([("route_query", 2), ("generate_answer", 1)], resources.attempt_budgets)
+        self.assertEqual([("plan_query_transform", 2), ("generate_answer", 1)], resources.attempt_budgets)
         self.assertEqual(2, result["llm_calls"])
         self.assertEqual(0, remaining_llm_attempts(result))
 
@@ -245,12 +304,18 @@ class RetrieverGraphTest(unittest.TestCase):
                 for line in (resources.log_dir / "ret-resume.jsonl").read_text(encoding="utf-8").splitlines()
             ]
 
-        self.assertEqual(1, resources.calls.count("check_query"))
+        self.assertEqual(1, resources.calls.count("check_search_readiness"))
         self.assertEqual(1, resources.calls.count("build_prompt"))
         self.assertEqual(1, resources.calls.count("generate_answer"))
         self.assertEqual("ok", result["status"])
         self.assertEqual(1, sum(row["node"] == "generate_answer" and row["event"] == "failed" for row in rows))
-        self.assertEqual(1, sum(row["node"] == "check_query" and row["event"] == "completed" for row in rows))
+        self.assertEqual(
+            1,
+            sum(
+                row["node"] == "check_search_readiness" and row["event"] == "completed"
+                for row in rows
+            ),
+        )
         self.assertTrue(all("query" not in row and "text" not in row for row in rows))
 
     def test_vector_search_timeout_uses_setting(self) -> None:

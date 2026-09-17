@@ -232,7 +232,7 @@ class RetrieverApiTest(unittest.TestCase):
 
     def test_stream_event_order_and_single_final(self) -> None:
         nodes = [
-            "check_query",
+            "check_search_readiness",
             "vector_search",
             "route_query",
             "bm25_search",

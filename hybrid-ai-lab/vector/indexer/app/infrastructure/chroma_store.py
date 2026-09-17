@@ -16,11 +16,28 @@ class SignatureMismatchError(ValueError):
     pass
 
 
+def _resolve_location(metadata: dict[str, Any] | None) -> str:
+    values = dict(metadata or {})
+    for key in ("section_label", "clause_no"):
+        raw_value = values.get(key)
+        value = str(raw_value).strip() if raw_value is not None else ""
+        if value:
+            return value
+
+    raw_record_id = values.get("record_id")
+    raw_turn_range = values.get("turn_range")
+    record_id = str(raw_record_id).strip() if raw_record_id is not None else ""
+    turn_range = str(raw_turn_range).strip() if raw_turn_range is not None else ""
+    return " ".join(
+        part
+        for part in (record_id, f"턴 {turn_range}" if turn_range else "")
+        if part
+    )
+
+
 def _hit_payload(chunk_id: str, score: float, text: str, metadata: dict) -> dict[str, Any]:
     metadata = {**metadata, "chunk_id": chunk_id}
-    location = metadata.get("clause_no") or (
-        f"{metadata.get('record_id', '')} 턴 {metadata.get('turn_range', '')}".strip()
-    )
+    location = _resolve_location(metadata)
     return {
         "chunk_id": chunk_id,
         "score": round(score, 3),

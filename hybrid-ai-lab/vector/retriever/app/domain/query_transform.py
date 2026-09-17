@@ -16,24 +16,40 @@ multi는 서로 다른 표현 3개, decomposition은 서로 다른 답의 대상
 rewrite·hyde·stepback은 1개 질의를 생성함. 원 질문을 queries에 반복하지 않음."""
 
 
-def route_query(
-    query: str,
+def assess_transform_gate(
     *,
     transform_mode: str,
     gate_score: float | None,
     gate_threshold: float,
+) -> dict[str, Any]:
+    """질문 변환 계획을 실행할지 점수만으로 판정함."""
+
+    if transform_mode == "off":
+        return {
+            "route_action": "off",
+            "transform_review_required": False,
+            "transformed_queries": [],
+        }
+    if transform_mode != "auto":
+        raise ValueError("transform_mode는 off 또는 auto여야 함")
+    if gate_score is not None and gate_score >= gate_threshold:
+        return {
+            "route_action": "gate_pass",
+            "transform_review_required": False,
+            "transformed_queries": [],
+        }
+    return {"transform_review_required": True}
+
+
+def plan_query_transform(
+    query: str,
+    *,
     router=None,
     cache=None,
     max_tokens: int = 500,
 ) -> dict[str, Any]:
-    """off → 벡터 관문 → 캐시 → 구조화 라우터 순서로 판정함."""
+    """변환 검토가 필요하다고 판정된 질문의 계획을 캐시 또는 LLM으로 생성함."""
 
-    if transform_mode == "off":
-        return {"route_action": "off", "technique": None, "transformed_queries": [], "llm_calls": 0, "transform_cache_hit": False}
-    if transform_mode != "auto":
-        raise ValueError("transform_mode는 off 또는 auto여야 함")
-    if gate_score is not None and gate_score >= gate_threshold:
-        return {"route_action": "gate_pass", "technique": None, "transformed_queries": [], "llm_calls": 0, "transform_cache_hit": False}
     decision = cache.get(query) if cache is not None else None
     cache_hit = decision is not None
     calls = 0
@@ -65,6 +81,38 @@ def route_query(
         "transform_cache_hit": cache_hit,
         "route_error": "",
     }
+
+
+def route_query(
+    query: str,
+    *,
+    transform_mode: str,
+    gate_score: float | None,
+    gate_threshold: float,
+    router=None,
+    cache=None,
+    max_tokens: int = 500,
+) -> dict[str, Any]:
+    """기존 호출자를 위한 변환 관문·계획 결합 호환 함수임."""
+
+    gate = assess_transform_gate(
+        transform_mode=transform_mode,
+        gate_score=gate_score,
+        gate_threshold=gate_threshold,
+    )
+    if not gate.get("transform_review_required"):
+        return {
+            **gate,
+            "technique": None,
+            "llm_calls": 0,
+            "transform_cache_hit": False,
+        }
+    return plan_query_transform(
+        query,
+        router=router,
+        cache=cache,
+        max_tokens=max_tokens,
+    )
 
 
 def validate_route_decision(decision: RouteDecision | dict[str, Any], original_query: str) -> RouteDecision:

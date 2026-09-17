@@ -304,6 +304,16 @@ class IndexerResources:
           ▼
         END
 
+    각 노드의 목적:
+        1. select_sources: 요청한 문서 종류·구간에 맞는 원본 파일을 선택함.
+        2. extract: PDF와 상담 텍스트를 읽어 본문·메타데이터를 가진 Document로 변환함.
+        3. apply_profile: 원본별 담당 부서·공개 등급 등의 메타데이터 프로필을 적용함.
+        4. validate_metadata: 필수 메타데이터와 가명화 상태를 검사하고 검증 결과를 저장함.
+        5. chunk: 문서를 검색에 적합한 크기로 나누고 검토·예외 대상을 기록함.
+        6. embed: 변경된 청크만 골라 임베딩 벡터를 생성함.
+        7. upsert: 청크 본문·메타데이터·임베딩 벡터를 Chroma에 저장하거나 갱신함.
+        8. finalize_index: 저장 건수와 임베딩 정보를 검증하고 index_manifest.json을 저장함.
+
     종료 분기와 상태·종료 코드 판정은 각 `_run_*` 구현이 아닌 그래프 래퍼가 담당함.
     """
 

@@ -213,7 +213,7 @@ def chunk_by_clause(text: str, metadata: dict, *, max_chars: int = 600, overlap:
 
     for part, fresh in pieces:
         # 긴 조항이 여러 청크로 나뉘면 모두 같은 조 번호만 갖게 되므로, 각 청크가 어느 항인지 구분할 필요가 있음.
-        # 아래에서 항목 표식을 찾아 clause_no에 "제1항", "제2항"처럼 붙일 수 있도록 위치와 항 번호를 준비함.
+        # 아래에서 항목 표식을 찾아 section_label에 "제1항", "제2항"처럼 붙일 수 있도록 위치와 항 번호를 준비함.
         # 현재 조각에서 "(1)"과 "①" 같은 항목 표식을 찾아 (글 안의 위치, 항 번호)로 저장함.
         # 동그라미 숫자는 ①의 유니코드 번호를 기준으로 빼서 "①" -> "1", "②" -> "2"로 바꿈.
         numbered_markers = [
@@ -231,7 +231,21 @@ def chunk_by_clause(text: str, metadata: dict, *, max_chars: int = 600, overlap:
         # 두 종류의 항목 표식을 합친 뒤 본문에 나타난 위치가 빠른 순서로 정렬함.
         markers = sorted(numbered_markers + circled_markers)
         item = f" 제{markers[0][1]}항" if markers and markers[0][0] == 0 else active_item
-        chunks.append(_make(part, metadata, doc_key, len(chunks), clause_no=label + (item if len(pieces) > 1 else ""), **extras.get(part, {})))
+        section_label = label + (item if len(pieces) > 1 else "")
+        location_metadata = {
+            **extras.get(part, {}),
+            "section_label": section_label,
+        }
+        # clause_no는 약관의 조·항 위치라는 의미로만 유지함.
+        # 혜택 문서는 공통 표시 위치인 section_label만 저장함.
+        if doc_key == "D1":
+            location_metadata["clause_no"] = section_label
+        output_metadata = (
+            metadata
+            if doc_key == "D1"
+            else {key: value for key, value in metadata.items() if key != "clause_no"}
+        )
+        chunks.append(_make(part, output_metadata, doc_key, len(chunks), **location_metadata))
         if markers:
             active_item = f" 제{markers[-1][1]}항"
 

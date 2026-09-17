@@ -132,7 +132,6 @@ State 필드명 = 결과 JSON 키. 이름을 바꾸려면 세 곳을 함께 바�
 | `MAX_REPAIRS` | `2` | Retriever | `verify_evidence → build_prompt` 루프 상한 | 조정 | 프롬프트 확정값 |
 | **적재·청킹** | | | | | |
 | `EMBED_BATCH_SIZE` | `32` | Indexer | 임베딩·적재 배치 크기 | 고정 | `indexing_ref.py:11` |
-| `UPSERT_RETRY` | `1` | Indexer | 배치 재시도 횟수 | 고정 | `indexing_ref.py:26` |
 | `CHUNK_MAX_CHARS` | `600` | Indexer | 청크 글자 상한 | 고정 | `run_chunking.py:130` |
 | `CHUNK_OVERLAP` | `80` | Indexer | D1 중첩 | 고정 | `run_chunking.py:131` |
 | `CHUNK_D2_OVERLAP` | `0` | Indexer | D2 중첩 | 고정 | `run_chunking.py:132` |

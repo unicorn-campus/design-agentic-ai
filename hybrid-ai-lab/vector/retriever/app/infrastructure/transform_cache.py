@@ -25,6 +25,9 @@ class TransformCache:
         self.path = Path(path)
         self._lock = threading.RLock()
 
+    # 일반 메서드는 첫 번째 인자로 self를 받아 self.path처럼 객체에 저장된 값과 다른 메서드를 사용할 수 있음.
+    # @staticmethod 메서드는 self를 받지 않고, 전달받은 인자만으로 처리하는 클래스 내부의 독립 함수임.
+    # _query_key()는 객체 상태가 필요 없고 query 값만 검사·정리하므로 @staticmethod로 선언함.
     @staticmethod
     def _query_key(query: str) -> str:
         if not isinstance(query, str) or not query.strip():

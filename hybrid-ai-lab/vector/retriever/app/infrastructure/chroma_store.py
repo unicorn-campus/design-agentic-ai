@@ -8,13 +8,12 @@ from pathlib import Path
 from typing import Any
 
 from ..application.state import Hit
+from ..domain.location import resolve_location
 
 
 def _to_hit(chunk_id: str, score: float, text: str, metadata: dict) -> Hit:
     metadata = {**dict(metadata or {}), "chunk_id": chunk_id}
-    location = metadata.get("clause_no") or (
-        f"{metadata.get('record_id', '')} 턴 {metadata.get('turn_range', '')}".strip()
-    )
+    location = resolve_location(metadata)
     return Hit(
         chunk_id=chunk_id,
         score=round(score, 3),

@@ -51,15 +51,15 @@ def main(argv: list[str] | None = None) -> int:
         if not args.query.strip():
             raise ValueError("--query는 공백이 아닌 글자를 포함해야 함")
         request = RetrieverRequest(
-            query=args.query.strip(),
-            top_k=args.top_k,
-            mode=args.mode,
-            transform=args.transform,
-            role=args.role,
-            thread_id=thread_id,
-            dry_run=args.dry_run,
-            prompt_only=args.prompt_only,
-            max_llm_calls=args.max_llm_calls,
+            query=args.query.strip(),  # 검색할 질문의 앞뒤 공백을 제거한 문자열
+            top_k=args.top_k,  # 최종 결과로 받을 검색 문서의 최대 개수
+            mode=args.mode,  # 검색 방식: 벡터, 하이브리드 또는 하이브리드+리랭킹
+            transform=args.transform,  # 질문 변환 사용 여부: off 또는 auto
+            role=args.role,  # 검색 권한 역할: agent 또는 제한 문서도 보는 auditor
+            thread_id=thread_id,  # 체크포인트와 실행 로그에서 이번 요청을 구분하는 ID
+            dry_run=args.dry_run,  # True이면 인덱스 상태만 확인하고 실제 검색은 생략
+            prompt_only=args.prompt_only,  # True이면 답변용 프롬프트까지만 만들고 LLM 호출은 생략
+            max_llm_calls=args.max_llm_calls,  # 한 요청에서 허용할 최대 LLM 호출 횟수
         )
         result = answer_question(request)
         _emit(result)

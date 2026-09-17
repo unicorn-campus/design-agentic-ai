@@ -34,10 +34,34 @@ def settings_module(monkeypatch: pytest.MonkeyPatch, tmp_path: Path):
     return module
 
 
-def test_settings_files_are_byte_identical() -> None:
-    indexer = VECTOR_ROOT / "indexer/app/settings.py"
-    retriever = VECTOR_ROOT / "retriever/app/settings.py"
-    assert indexer.read_bytes() == retriever.read_bytes()
+def test_shared_settings_keep_the_same_contract() -> None:
+    indexer = _load(VECTOR_ROOT / "indexer/app/settings.py", "indexer_settings_contract")
+    retriever = _load(VECTOR_ROOT / "retriever/app/settings.py", "retriever_settings_shared_contract")
+    indexer_only = {
+        "EMBED_BATCH_SIZE",
+        "CHUNK_MAX_CHARS",
+        "CHUNK_OVERLAP",
+        "CHUNK_D2_OVERLAP",
+        "CHUNK_TURNS_PER_CHUNK",
+        "CHUNK_OVERLAP_TURNS",
+        "MAX_INPUT_TOKENS",
+        "TIMEOUT_PDF_PER_FILE",
+        "TIMEOUT_CHUNK_PER_DOC",
+        "TIMEOUT_EMBED_BATCH",
+    }
+
+    assert set(indexer._SPECS) == set(retriever._SPECS) | indexer_only
+    for name, retriever_spec in retriever._SPECS.items():
+        indexer_spec = indexer._SPECS[name]
+        indexer_default = indexer_spec.default
+        retriever_default = retriever_spec.default
+        if callable(indexer_default) and callable(retriever_default):
+            assert indexer_default.__name__ == retriever_default.__name__
+        else:
+            assert indexer_default == retriever_default
+        assert indexer_spec.parser.__name__ == retriever_spec.parser.__name__
+        assert indexer_spec.secret == retriever_spec.secret
+        assert indexer_spec.aliases == retriever_spec.aliases
 
 
 def test_precedence_and_blank_values(settings_module, monkeypatch: pytest.MonkeyPatch) -> None:

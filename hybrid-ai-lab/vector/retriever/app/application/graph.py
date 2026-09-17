@@ -1,4 +1,4 @@
-"""Retriever 11노드 StateGraph 조립과 응용 유스케이스의 경계."""
+"""Retriever 검색·질문 변환·답변 StateGraph 조립과 응용 유스케이스의 경계."""
 
 from __future__ import annotations
 
@@ -21,11 +21,13 @@ from .state import HealthResult, Hit, RetrieverRequest, RetrieverState, SearchRe
 # --- 그래프 조립(플로니) ---
 
 RETRIEVER_NODE_NAMES = (
-    "check_query",
+    "check_search_readiness",
     "vector_search",
-    "route_query",
+    "assess_transform_gate",
+    "plan_query_transform",
     "bm25_search",
     "fuse_scores",
+    "complete_original_results",
     "search_transformed",
     "merge_queries",
     "rerank",
@@ -181,105 +183,52 @@ def _finalize_hits(
     return update
 
 
-def _check_query(resources: Any, state: RetrieverState) -> dict[str, Any]:
+def _check_search_readiness(resources: Any, state: RetrieverState) -> dict[str, Any]:
     # 받은 것: query·role·mode·top_k·dry_run
     # 하는 일: 입력과 인덱스 상태를 확인함
     # 넘기는 것: index_info·status·exit_code
-    update = _run_node(resources, "check_query", state)
-    if not str(state.get("query", "")).strip() or int(state.get("top_k", 0)) <= 0:
-        update.update(status="error", exit_code=1)
-    if state.get("role") not in {"agent", "auditor"}:
-        update.update(status="error", exit_code=1)
-    if state.get("mode") not in {"vector", "hybrid", "hybrid_rerank"}:
+    update = _run_node(resources, "check_search_readiness", state)
+    if update.pop("validation_errors", []):
         update.update(status="error", exit_code=1)
     if state.get("dry_run") and update.get("status") != "error":
         update.update(status="dry_run", exit_code=0)
     return update
 
 
-def _vector_search(resources: Any, state: RetrieverState, answer_enabled: bool) -> dict[str, Any]:
+def _vector_search(resources: Any, state: RetrieverState) -> dict[str, Any]:
     # 받은 것: query·role·top_k
     # 하는 일: 원 질문 벡터 검색과 변환 관문 점수를 계산함
     # 넘기는 것: vector_hits·transform_gate_score·baseline_hits
-    update = _run_node(resources, "vector_search", state)
-    vector_hits = update.get("vector_hits", [])
-    update["transform_gate_score"] = _gate_score(vector_hits)
-    if state.get("mode") == "vector":
-        final_hits = list(vector_hits[: state.get("top_k", len(vector_hits))])
-        update.update(baseline_hits=final_hits, hits=final_hits)
-    return update
+    return _run_node(resources, "vector_search", state)
 
 
-def _route_query(resources: Any, state: RetrieverState, answer_enabled: bool) -> dict[str, Any]:
-    # 받은 것: query·transform_mode·transform_gate_score
-    # 하는 일: 변환 관문·캐시·라우터를 순서대로 판정함
+def _assess_transform_gate(resources: Any, state: RetrieverState) -> dict[str, Any]:
+    # 받은 것: transform_mode·transform_gate_score
+    # 하는 일: 캐시·LLM 호출 없이 질문 변환 검토 필요 여부만 판정함
+    # 넘기는 것: transform_review_required·route_action
+    return _run_node(resources, "assess_transform_gate", state)
+
+
+def _plan_query_transform(resources: Any, state: RetrieverState) -> dict[str, Any]:
+    # 받은 것: query·transform_review_required·llm_calls
+    # 하는 일: 검토가 필요할 때만 캐시 또는 LLM으로 변환 계획을 생성함
     # 넘기는 것: route_action·technique·transformed_queries·llm_calls
-    if state.get("force_fail_node") == "route_query":
-        raise ForcedNodeError("강제 중단 노드: route_query")
-    started = monotonic()
-    if state.get("transform_mode", "off") != "auto":
-        update = {
-            "route_action": "off",
-            "transformed_queries": [],
-            "timings": {"route_query": max(0, round((monotonic() - started) * 1000))},
-        }
-        if state.get("mode") == "vector":
-            update["hits"] = list(state.get("baseline_hits", []))
-            return _finalize_hits(resources, state, update, answer_enabled=answer_enabled)
-        return update
-    threshold = float(_setting(resources, "TRANSFORM_GATE_THRESHOLD", 0.70))
-    score = state.get("transform_gate_score")
-    if score is not None and float(score) >= threshold:
-        update = {
-            "route_action": "gate_pass",
-            "transformed_queries": [],
-            "timings": {"route_query": max(0, round((monotonic() - started) * 1000))},
-        }
-        if state.get("mode") == "vector":
-            update["hits"] = list(state.get("baseline_hits", []))
-            return _finalize_hits(resources, state, update, answer_enabled=answer_enabled)
-        return update
+    if state.get("force_fail_node") == "plan_query_transform":
+        raise ForcedNodeError("강제 중단 노드: plan_query_transform")
     if state.get("llm_calls", 0) >= state.get("max_llm_calls", 0):
-        update = {
+        return {
             "route_action": "keep",
             "route_error": "LLM 호출 상한에 도달함",
             "transformed_queries": [],
-            "timings": {"route_query": max(0, round((monotonic() - started) * 1000))},
+            "timings": {"plan_query_transform": 0},
         }
-        if state.get("mode") == "vector":
-            update["hits"] = list(state.get("baseline_hits", []))
-            return _finalize_hits(resources, state, update, answer_enabled=answer_enabled)
-        return update
 
     update = _run_node(
         resources,
-        "route_query",
+        "plan_query_transform",
         state,
         max_attempts=remaining_llm_attempts(state),
     )
-    action = update.get("route_action", update.get("action", "keep"))
-    technique = update.get("technique")
-    queries = list(update.get("transformed_queries", update.get("queries", [])))
-    valid_count = True
-    if action == "transform":
-        if technique == "multi":
-            valid_count = len(queries) == int(_setting(resources, "TRANSFORM_MULTI_COUNT", 3))
-        elif technique == "decomposition":
-            minimum = int(_setting(resources, "TRANSFORM_DECOMPOSITION_MIN", 2))
-            maximum = int(_setting(resources, "TRANSFORM_DECOMPOSITION_MAX", 4))
-            valid_count = minimum <= len(queries) <= maximum
-        else:
-            valid_count = technique in {"rewrite", "hyde", "stepback"} and len(queries) == 1
-    if action == "transform" and not valid_count:
-        action = "keep"
-        queries = []
-        update["route_error"] = "질문 변환 질의 개수 규칙을 위반함"
-    update.update(route_action=action, technique=technique, transformed_queries=queries)
-    update.pop("action", None)
-    update.pop("queries", None)
-    if state.get("mode") == "vector" and action != "transform":
-        update["hits"] = list(state.get("baseline_hits", []))
-        update = _finalize_hits(resources, state, update, answer_enabled=answer_enabled)
     return update
 
 
@@ -290,17 +239,29 @@ def _bm25_search(resources: Any, state: RetrieverState) -> dict[str, Any]:
     return _run_node(resources, "bm25_search", state)
 
 
-def _fuse_scores(resources: Any, state: RetrieverState, answer_enabled: bool) -> dict[str, Any]:
+def _fuse_scores(resources: Any, state: RetrieverState) -> dict[str, Any]:
     # 받은 것: vector_hits·bm25_scores·role·top_k
     # 하는 일: 정규화·가중치·권한 규칙으로 후보를 융합함
     # 넘기는 것: candidates·baseline_hits·hits
     update = _run_node(resources, "fuse_scores", state)
     baseline = update.get("baseline_hits", update.get("candidates", []))
     update.setdefault("baseline_hits", baseline)
-    if not state.get("transformed_queries"):
-        update.setdefault("hits", list(baseline[: state.get("top_k", len(baseline))]))
-        if state.get("mode") == "hybrid":
-            update = _finalize_hits(resources, state, update, answer_enabled=answer_enabled)
+    return update
+
+
+def _complete_original_results(
+    resources: Any,
+    state: RetrieverState,
+    answer_enabled: bool,
+) -> dict[str, Any]:
+    # 받은 것: 원 질문 vector_hits 또는 융합된 baseline_hits
+    # 하는 일: 원 질문 결과를 확정하고 변환 질문 검색 전 기준 결과를 보존함
+    # 넘기는 것: baseline_hits·hits·gate_score
+    update = _run_node(resources, "complete_original_results", state)
+    # hybrid_rerank는 원 질문 기준선도 리랭킹한 뒤 최종 답변 관문을 평가함.
+    # 여기서 먼저 확정하면 낮은 원 벡터 점수 때문에 rerank 노드를 건너뛸 수 있음.
+    if not state.get("transformed_queries") and state.get("mode") != "hybrid_rerank":
+        update = _finalize_hits(resources, state, update, answer_enabled=answer_enabled)
     return update
 
 
@@ -386,27 +347,31 @@ def _verify_evidence(resources: Any, state: RetrieverState) -> dict[str, Any]:
     return update
 
 
-def _after_check(state: RetrieverState) -> str:
+def _after_search_readiness(state: RetrieverState) -> str:
     return "end" if state.get("status") in {"error", "dry_run"} else "continue"
 
 
-def _after_route(state: RetrieverState) -> str:
-    if state.get("mode") != "vector":
-        return "hybrid"
-    if state.get("route_action") == "transform" and state.get("transformed_queries"):
-        return "transform"
+def _original_search_path(state: RetrieverState) -> str:
+    return "vector" if state.get("mode") == "vector" else "hybrid"
+
+
+def _after_transform_gate(state: RetrieverState) -> str:
+    if state.get("transform_review_required"):
+        return "review"
+    return _original_search_path(state)
+
+
+def _after_transform_plan(state: RetrieverState) -> str:
+    return _original_search_path(state)
+
+
+def _after_original_results(state: RetrieverState) -> str:
     if state.get("status") in {"error", "needs_check", "halted_by_limit"}:
         return "end"
-    return "complete"
-
-
-def _after_baseline(state: RetrieverState) -> str:
     if state.get("route_action") == "transform" and state.get("transformed_queries"):
         return "transform"
     if state.get("mode") == "hybrid_rerank":
         return "rerank"
-    if state.get("status") in {"error", "needs_check", "halted_by_limit"}:
-        return "end"
     return "complete"
 
 
@@ -439,15 +404,28 @@ def _after_verify(state: RetrieverState) -> str:
 
 
 def create_graph_builder(resources: Any, *, answer_enabled: bool = True) -> StateGraph:
-    """11개 노드·mode 분기·검증 루프를 가진 빌더를 만듦."""
+    """변환 검토와 원 질문 결과 완성을 분리한 검색 그래프 빌더를 만듦."""
 
     builder = StateGraph(RetrieverState)
+
+    # LangGraph는 노드를 실행할 때 현재 상태인 state 하나만 인자로 전달함.
+    # 그러나 실제 노드 함수는 공통 실행 객체인 resources와 일부 노드의 answer_enabled도 함께 받아야 함.
+    # lambda는 LangGraph가 요구하는 `state -> 결과 딕셔너리` 형태의 짧은 중간 함수를 만들어 이 차이를 맞춤.
+    # 예: `lambda state: _vector_search(resources, state, answer_enabled)`는 state를 새로 받고,
+    # 그래프 생성 시점의 resources와 answer_enabled를 기억했다가 _vector_search()에 함께 전달함.
+    # lambda는 이 딕셔너리를 만들 때 실행되지 않고, 해당 LangGraph 노드가 수행될 때 호출됨.
     nodes: dict[str, Callable[[RetrieverState], dict[str, Any]]] = {
-        "check_query": lambda state: _check_query(resources, state),
-        "vector_search": lambda state: _vector_search(resources, state, answer_enabled),
-        "route_query": lambda state: _route_query(resources, state, answer_enabled),
+        "check_search_readiness": lambda state: _check_search_readiness(resources, state),
+        "vector_search": lambda state: _vector_search(resources, state),
+        "assess_transform_gate": lambda state: _assess_transform_gate(resources, state),
+        "plan_query_transform": lambda state: _plan_query_transform(resources, state),
         "bm25_search": lambda state: _bm25_search(resources, state),
-        "fuse_scores": lambda state: _fuse_scores(resources, state, answer_enabled),
+        "fuse_scores": lambda state: _fuse_scores(resources, state),
+        "complete_original_results": lambda state: _complete_original_results(
+            resources,
+            state,
+            answer_enabled,
+        ),
         "search_transformed": lambda state: _search_transformed(resources, state),
         "merge_queries": lambda state: _merge_queries(resources, state, answer_enabled),
         "rerank": lambda state: _rerank(resources, state, answer_enabled),
@@ -455,33 +433,56 @@ def create_graph_builder(resources: Any, *, answer_enabled: bool = True) -> Stat
         "generate_answer": lambda state: _generate_answer(resources, state),
         "verify_evidence": lambda state: _verify_evidence(resources, state),
     }
+
+    # 노드별 재시도 정책을 준비함. 기본값 None은 실패할 때 이 노드 자체를 다시 실행하지 않는다는 뜻임.
     retry_attempts = {"vector_search": 3, "bm25_search": 2}
     for name, node in nodes.items():
         retry_policy = None
         if name in retry_attempts:
+            # max_attempts는 최초 실행을 포함한 최대 시도 횟수임: vector_search 3회, bm25_search 2회.
+            # retry_on은 발생한 예외를 _retryable()에 전달하고, True인 예외만 다시 시도하도록 결정함.
+            # node_name=name은 각 lambda가 현재 반복의 노드 이름을 기억하게 하여 마지막 이름으로 바뀌는 것을 막음.
+            # 대기 시간 관련 값을 생략했으므로 LangGraph 기본 지수 백오프와 임의 지연(jitter)을 사용함.
             retry_policy = RetryPolicy(
                 max_attempts=retry_attempts[name],
                 retry_on=lambda exc, node_name=name: _retryable(resources, node_name, exc),
             )
+
+        # add_node()의 첫 번째 인자 name은 그래프에서 노드를 식별할 이름임.
+        # 두 번째 인자는 해당 노드에 도착했을 때 실행할 함수이며, 여기서는 _audited_node()의 반환 함수임.
+        # _audited_node()는 그래프 생성 시 resources·name·node를 기억하는 audited(state) 함수를 만들어 반환함.
+        # 실행 시 audited()는 시작 시간 측정 → 원래 node(state) 호출 → 성공·실패 JSONL 로그 기록을 수행함.
+        # 실패하면 로그를 남긴 뒤 예외를 다시 발생시켜 LangGraph가 retry_policy 적용 여부를 판단하게 함.
+        # 세 번째 인자 retry_policy는 재시도 대상·최대 시도 횟수를 정하며, None이면 재시도 정책을 붙이지 않음.
         builder.add_node(name, _audited_node(resources, name, node), retry_policy=retry_policy)
 
-    builder.add_edge(START, "check_query")
-    builder.add_conditional_edges("check_query", _after_check, {"continue": "vector_search", "end": END})
-    builder.add_edge("vector_search", "route_query")
+    # Node 간 연결
+    builder.add_edge(START, "check_search_readiness")
     builder.add_conditional_edges(
-        "route_query",
-        _after_route,
+        "check_search_readiness",
+        _after_search_readiness,
+        {"continue": "vector_search", "end": END},
+    )
+    builder.add_edge("vector_search", "assess_transform_gate")
+    builder.add_conditional_edges(
+        "assess_transform_gate",
+        _after_transform_gate,
         {
+            "review": "plan_query_transform",
             "hybrid": "bm25_search",
-            "transform": "search_transformed",
-            "complete": "build_prompt" if answer_enabled else END,
-            "end": END,
+            "vector": "complete_original_results",
         },
     )
-    builder.add_edge("bm25_search", "fuse_scores")
     builder.add_conditional_edges(
-        "fuse_scores",
-        _after_baseline,
+        "plan_query_transform",
+        _after_transform_plan,
+        {"hybrid": "bm25_search", "vector": "complete_original_results"},
+    )
+    builder.add_edge("bm25_search", "fuse_scores")
+    builder.add_edge("fuse_scores", "complete_original_results")
+    builder.add_conditional_edges(
+        "complete_original_results",
+        _after_original_results,
         {
             "transform": "search_transformed",
             "rerank": "rerank",
@@ -594,9 +595,47 @@ class _BudgetedLLM:
         return self.client.complete_structured(*args, **kwargs)
 
 
+# @dataclass는 필드를 바탕으로 __init__(), __repr__(), __eq__() 같은 기본 메서드의 코드를 자동 생성함.
+# 객체 자체를 자동 생성하거나 의존성을 주입하지는 않으며, load_resources()가 RetrieverResources(...)를 직접 호출하여 생성함.
 @dataclass
 class RetrieverResources:
-    """Retriever 노드가 사용하는 구현체 묶음."""
+    """Retriever 노드가 사용하는 구현체 묶음.
+
+    그래프의 전체 흐름::
+
+        START → check_search_readiness → vector_search(원 질문 벡터 검색 1회)
+          → assess_transform_gate
+              ├─ off 또는 점수 >= 기준값: 변환 계획 생략
+              └─ 점수 < 기준값 또는 검색 결과 없음: plan_query_transform
+          → 원 질문 결과 완성
+              ├─ vector: 앞에서 얻은 vector_hits 재사용
+              └─ hybrid 계열: bm25_search → fuse_scores
+          → complete_original_results
+              ├─ 변환 질문 있음: search_transformed → merge_queries
+              ├─ 변환 질문 없음 + hybrid_rerank: rerank
+              └─ 변환 질문 없음 + 나머지 모드: 검색 완료
+
+        search_transformed의 모드별 내부 검색:
+              ├─ vector: 변환 질문 벡터 검색
+              └─ hybrid 계열: 변환 질문 벡터 검색 + BM25 검색 + 점수 융합
+
+        merge_queries
+              ├─ vector 또는 hybrid: 가중 RRF 병합 결과 확정
+              └─ hybrid_rerank: 원 질문·변환 질문 후보군별 rerank 후 병합
+
+        검색 완료 → build_prompt → generate_answer → verify_evidence
+                                                     ├─ repair → build_prompt
+                                                     └─ END
+
+    ``answer_enabled=False``인 검색 전용 실행은 검색 결과가 완성되면 build_prompt 대신 END로 이동함.
+
+    핵심 계약:
+        - vector_search는 원 질문에 대해 정확히 한 번만 실행함.
+        - 0.7 미만 점수는 변환 확정이 아니라 변환 계획 검토 조건임.
+        - 원 질문 결과를 완성한 뒤에만 변환 질문 검색을 실행함.
+        - 변환 질문이 없으면 search_transformed와 merge_queries를 실행하지 않음.
+        - answer_enabled=False이면 검색 결과 확정 후 답변 LLM 노드를 실행하지 않음.
+    """
 
     settings: Any
     embedder: Any
@@ -614,7 +653,27 @@ class RetrieverResources:
     ) -> dict[str, Any]:
         return getattr(self, f"_run_{name}")(state, **kwargs)
 
-    def _run_check_query(self, state: RetrieverState, **_kwargs: Any) -> dict[str, Any]:
+    def _run_check_search_readiness(
+        self,
+        state: RetrieverState,
+        **_kwargs: Any,
+    ) -> dict[str, Any]:
+        validation_errors = []
+        if not str(state.get("query", "")).strip():
+            validation_errors.append("query는 비어 있을 수 없음")
+        try:
+            top_k_valid = int(state.get("top_k", 0)) > 0
+        except (TypeError, ValueError):
+            top_k_valid = False
+        if not top_k_valid:
+            validation_errors.append("top_k는 양수여야 함")
+        if state.get("role") not in {"agent", "auditor"}:
+            validation_errors.append("지원하지 않는 role임")
+        if state.get("mode") not in {"vector", "hybrid", "hybrid_rerank"}:
+            validation_errors.append("지원하지 않는 mode임")
+        if validation_errors:
+            return {"validation_errors": validation_errors}
+
         count = self.vector_store.count()
         signature_ok = self.vector_store.check_signature(self.embedder.signature)
         dimension = int(getattr(self.embedder, "dimension", 0))
@@ -630,19 +689,21 @@ class RetrieverResources:
                 "count": count,
                 "dimension": dimension,
                 "signature_ok": signature_ok,
-            }
+            },
+            "validation_errors": [],
         }
 
     def _search_vector(self, query: str, role: str, raw_k: int) -> list[Hit]:
         from app.domain.access import build_where
 
+        # Embedding 모델 로딩
         loader = getattr(self.embedder, "_load", None)
         if callable(loader):
             loader()
 
         def search() -> list[Hit]:
-            embedding = self.embedder.embed_query(query)
-            return self.vector_store.search(embedding, raw_k, build_where(role))
+            embedding = self.embedder.embed_query(query)  # 질문 임베딩
+            return self.vector_store.search(embedding, raw_k, build_where(role))  # 벡터 검색
 
         return run_with_timeout(
             search,
@@ -652,22 +713,41 @@ class RetrieverResources:
 
     def _run_vector_search(self, state: RetrieverState, **_kwargs: Any) -> dict[str, Any]:
         sizes = self._candidate_sizes(state)
-        return {
-            "vector_hits": self._search_vector(
-                state["query"],
-                state["role"],
-                sizes.raw_k,
-            )
+        vector_hits = self._search_vector(
+            state["query"],
+            state["role"],
+            sizes.raw_k,
+        )
+        update: dict[str, Any] = {
+            "vector_hits": vector_hits,
+            "transform_gate_score": _gate_score(vector_hits),
         }
+        if state.get("mode") == "vector":
+            final_hits = list(vector_hits[: int(state.get("top_k", len(vector_hits)))])
+            update.update(baseline_hits=final_hits, hits=final_hits)
+        return update
 
-    def _run_route_query(
+    def _run_assess_transform_gate(
+        self,
+        state: RetrieverState,
+        **_kwargs: Any,
+    ) -> dict[str, Any]:
+        from app.domain.query_transform import assess_transform_gate
+
+        return assess_transform_gate(
+            transform_mode=state.get("transform_mode", "off"),
+            gate_score=state.get("transform_gate_score"),
+            gate_threshold=float(_setting(self, "TRANSFORM_GATE_THRESHOLD", 0.70)),
+        )
+
+    def _run_plan_query_transform(
         self,
         state: RetrieverState,
         *,
         max_attempts: int = 1,
         **_kwargs: Any,
     ) -> dict[str, Any]:
-        from app.domain.query_transform import route_query
+        from app.domain.query_transform import plan_query_transform
 
         api_deadline = None
         if str(state.get("thread_id", "")).startswith("api-"):
@@ -677,15 +757,42 @@ class RetrieverResources:
             max_attempts=max_attempts,
             deadline_seconds=api_deadline,
         )
-        return route_query(
+        update = plan_query_transform(
             state["query"],
-            transform_mode=state.get("transform_mode", "off"),
-            gate_score=state.get("transform_gate_score"),
-            gate_threshold=float(self.settings.TRANSFORM_GATE_THRESHOLD),
             router=router,
             cache=self.transform_cache,
             max_tokens=int(self.settings.LLM_MAX_TOKENS_ROUTER),
         )
+        action = update.get("route_action", update.get("action", "keep"))
+        technique = update.get("technique")
+        queries = list(update.get("transformed_queries", update.get("queries", [])))
+        valid_count = True
+        if action == "transform":
+            if technique == "multi":
+                valid_count = len(queries) == int(_setting(self, "TRANSFORM_MULTI_COUNT", 3))
+            elif technique == "decomposition":
+                minimum = int(_setting(self, "TRANSFORM_DECOMPOSITION_MIN", 2))
+                maximum = int(_setting(self, "TRANSFORM_DECOMPOSITION_MAX", 4))
+                valid_count = minimum <= len(queries) <= maximum
+            else:
+                valid_count = technique in {"rewrite", "hyde", "stepback"} and len(queries) == 1
+        if action == "transform" and not valid_count:
+            action = "keep"
+            queries = []
+            update["route_error"] = "질문 변환 질의 개수 규칙을 위반함"
+        update.update(route_action=action, technique=technique, transformed_queries=queries)
+        update.pop("action", None)
+        update.pop("queries", None)
+        return update
+
+    def _run_route_query(
+        self,
+        state: RetrieverState,
+        **kwargs: Any,
+    ) -> dict[str, Any]:
+        """기존 직접 호출자를 위한 노드명 호환 처리임."""
+
+        return self._run_plan_query_transform(state, **kwargs)
 
     def _run_bm25_search(self, state: RetrieverState, **_kwargs: Any) -> dict[str, Any]:
         scores = self.bm25.scores(state["query"])
@@ -729,6 +836,20 @@ class RetrieverResources:
             self._candidate_sizes(state).fused_k,
         )
         return {"candidates": hits, "baseline_hits": hits}
+
+    def _run_complete_original_results(
+        self,
+        state: RetrieverState,
+        **_kwargs: Any,
+    ) -> dict[str, Any]:
+        if state.get("mode") == "vector":
+            baseline = list(state.get("vector_hits", []))[: int(state.get("top_k", 0))]
+        else:
+            baseline = list(state.get("baseline_hits", state.get("candidates", [])))
+        return {
+            "baseline_hits": baseline,
+            "hits": list(baseline[: int(state.get("top_k", len(baseline)))]),
+        }
 
     def _search_one(self, query: str, state: RetrieverState) -> list[Hit]:
         sizes = self._candidate_sizes(state)
@@ -968,7 +1089,16 @@ def _initial_state(request: RetrieverRequest) -> RetrieverState:
 
 
 def _invoke(
+    # request: CLI·API에서 받은 검색 요청을 검증해 만든 RetrieverRequest 객체임.
+    # - query: 검색할 질문, top_k: 최종 문서 수, mode: vector·hybrid·hybrid_rerank 검색 방식
+    # - transform: 질문 변환 방식, role: 문서 접근 역할, thread_id: 실행·체크포인트 식별값
+    # - dry_run: 인덱스 확인만 할지 여부, prompt_only: LLM 호출 전 멈출지 여부
+    # - max_llm_calls: 이번 요청에서 허용할 최대 LLM 호출 횟수
     request: RetrieverRequest,
+    # resources: Retriever의 각 노드가 실제 작업에 사용하는 RetrieverResources 객체임.
+    # - settings: 설정값, embedder: 질문 벡터 변환기, vector_store: Chroma 검색·조회 객체
+    # - bm25: 키워드 검색기, reranker: 후보 재정렬기, llm: 질문 변환·답변 생성기
+    # - transform_cache: 같은 질문의 변환 결과를 저장·조회하는 캐시
     resources: Any,
     *,
     answer_enabled: bool,

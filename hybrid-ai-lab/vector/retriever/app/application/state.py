@@ -20,7 +20,15 @@ Status = Literal[
 
 
 def merge_timings(left: dict[str, int], right: dict[str, int]) -> dict[str, int]:
-    """루프로 반복된 노드의 실행 시간을 누적함."""
+    """기존 시간과 새 노드 실행 시간을 노드명별로 누적함.
+
+    Args:
+        left: 현재 State에 저장된 노드별 누적 실행 시간임.
+        right: 이번 노드 실행이 반환한 노드별 실행 시간임.
+
+    Returns:
+        같은 노드명의 시간은 더하고 서로 다른 노드명은 모두 보존한 새 딕셔너리임.
+    """
 
     merged = dict(left)
     for key, value in right.items():
@@ -108,46 +116,64 @@ class RouteDecision(BaseModel):
 
 
 class RetrieverState(TypedDict, total=False):
-    """11개 노드와 검증 루프 사이에 전달되는 Retriever State."""
+    """검색·질문 변환·검증 노드 사이에 전달되는 Retriever State."""
 
-    query: str
-    role: Role
-    mode: Mode
-    top_k: int
-    dry_run: bool
-    prompt_only: bool
-    max_llm_calls: int
-    thread_id: str
-    force_fail_node: str | None
-    index_info: dict[str, Any]
-    transform_mode: TransformMode
-    vector_hits: list[Hit]
-    bm25_scores: dict[str, float]
-    candidates: list[Hit]
-    baseline_hits: list[Hit]
-    hits: list[Hit]
-    gate_score: float | None
-    transform_gate_score: float | None
-    route_action: Literal["off", "gate_pass", "keep", "clarify", "transform"]
-    technique: str | None
-    transformed_queries: list[str]
-    transformed_hit_groups: list[list[Hit]]
-    merge_weights: dict[str, float]
-    coverage_applied: bool
-    route_reason: str
-    route_error: str
-    clarification: str
-    transform_cache_hit: bool
-    prompt: str
-    raw_answer: dict[str, Any]
-    answer: dict[str, Any]
-    repair_hints: Annotated[list[str], operator.add]
-    repair_count: Annotated[int, operator.add]
-    warnings: Annotated[list[str], operator.add]
-    llm_calls: Annotated[int, operator.add]
-    timings: Annotated[dict[str, int], merge_timings]
-    status: Status
-    exit_code: int
+    query: str  # 사용자가 입력한 원본 검색 질문
+    role: Role  # 문서 접근 범위를 결정하는 사용자 역할
+    mode: Mode  # vector·hybrid·hybrid_rerank 중 검색 방식
+    top_k: int  # 최종 결과로 반환할 최대 문서 수
+    dry_run: bool  # 검색 없이 요청과 인덱스 준비 상태만 확인할지 여부
+    prompt_only: bool  # 답변 LLM 호출 전 프롬프트 생성까지만 수행할지 여부
+    max_llm_calls: int  # 한 요청에서 허용하는 최대 LLM 호출 횟수
+    thread_id: str  # 체크포인트·로그·재개 실행을 연결하는 식별자
+    force_fail_node: str | None  # 테스트에서 강제로 실패시킬 노드 이름
+    index_info: dict[str, Any]  # 컬렉션명·저장 벡터 수·임베딩 차원·서명 확인 결과
+    transform_mode: TransformMode  # 질문 변환 사용 안 함(off) 또는 자동 판정(auto)
+    vector_hits: list[Hit]  # 원본 질문의 벡터 검색 결과
+    bm25_scores: dict[str, float]  # 원본 질문의 청크별 BM25 점수
+    candidates: list[Hit]  # 벡터와 BM25 점수를 합친 리랭킹 전 후보
+    baseline_hits: list[Hit]  # 변환 질문 결과와 비교할 원본 질문 기준 결과
+    hits: list[Hit]  # 답변 생성이나 최종 반환에 사용할 검색 결과
+    gate_score: float | None  # 최종 검색 결과의 신뢰 기준 판정에 사용하는 선두 결과의 벡터 점수
+    transform_gate_score: float | None  # 질문 변환 검토 여부를 판정하는 원본 검색 선두 결과의 벡터 점수
+    transform_review_required: bool  # 질문 변환 계획을 추가로 검토해야 하는지 여부
+    route_action: Literal["off", "gate_pass", "keep", "clarify", "transform"]  # 질문 변환 판정
+    technique: str | None  # 선택된 질문 변환 기법
+    transformed_queries: list[str]  # 원본 질문에서 생성한 변환 질문 목록
+    transformed_hit_groups: list[list[Hit]]  # 변환 질문별 검색 결과 목록
+    merge_weights: dict[str, float]  # 원본·변환 질문 결과 병합에 사용한 가중치
+    coverage_applied: bool  # 분해 질문별 결과 보장 규칙을 적용했는지 여부
+    route_reason: str  # 질문 변환 판정 사유
+    route_error: str  # 질문 변환 과정에서 발생한 오류 설명
+    clarification: str  # 사용자에게 추가로 확인할 질문
+    transform_cache_hit: bool  # 질문 변환 결과를 캐시에서 찾았는지 여부
+    prompt: str  # 검색 근거와 질문을 조립한 답변 생성용 프롬프트
+    raw_answer: dict[str, Any]  # LLM이 생성한 현재 검증 전 구조화 답변
+    answer: dict[str, Any]  # 인용·위치 검증 결과를 포함한 구조화 답변
+    repair_hints: Annotated[list[str], operator.add]  # 답변 재생성에 사용할 수정 지침
+    """검증 루프마다 생긴 수정 지침을 잃지 않도록 새 목록을 기존 목록 뒤에 이어 붙임."""
+    repair_count: Annotated[int, operator.add]  # 답변 검증에 실패한 누적 횟수
+    """검증 실패마다 반환한 1을 기존 값에 더해 수정 루프 상한을 판단하고 무한 반복을 막음."""
+    warnings: Annotated[list[str], operator.add]  # 여러 검색 단계에서 발생한 경고 목록
+    """앞 단계의 경고를 보존하도록 각 노드가 새로 반환한 경고 목록을 이어 붙임."""
+    llm_calls: Annotated[int, operator.add]  # 요청에서 실제로 사용한 LLM 호출 횟수
+    """질문 변환·답변 생성 노드가 반환한 이번 호출 증가분을 더해 요청 예산을 계산함."""
+    timings: Annotated[dict[str, int], merge_timings]  # 노드별 누적 실행 시간(ms)
+    """반복 실행된 같은 노드의 시간도 보존하도록 키별 밀리초를 더해 합침."""
+    """누적 필드 병합 원리.
+
+    노드는 State 전체가 아니라 변경할 key만 dict로 반환하며, 반환하지 않은 key의 기존 값은 유지됨.
+    `Annotated[T, reducer]`는 원래 자료형 `T`에 LangGraph 병합 함수 `reducer`를 붙이는 표시임.
+    `operator.add`는 list를 이어 붙이고 int를 더함. `merge_timings(left, right)`에서 `left`는
+    State의 기존 누적 시간이고 `right`는 이번 노드가 반환한 시간임. 같은 노드명의 시간은 더하고
+    한쪽에만 있는 노드명은 그대로 보존함.
+
+    일반 필드는 순차 실행에서 새 값으로 교체됨. 같은 실행 단계의 병렬 노드가 같은 일반 key를
+    동시에 반환하면 마지막 값을 고르는 대신 충돌 오류가 발생할 수 있음. `repair_count`와
+    `llm_calls`에는 누적 총합이 아니라 이번 노드의 증가분만 반환해야 이중 합산되지 않음.
+    """
+    status: Status  # 현재 실행 결과 상태
+    exit_code: int  # 그래프가 기록하는 숫자형 종료 상태로 오류는 1, 그 외는 0
 
 
 class RouteInfo(BaseModel):

@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .title{font:700 58px 'Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;fill:#0b2b63}
+      .node-title{font:700 30px 'Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;fill:#fff}
+      .node-body{font:600 25px 'Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;fill:#102a56}
+      .terminal{font:800 31px 'Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;fill:#102a56}
+      .branch{font:700 22px 'Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;fill:#c92b27}
+      .resource-title{font:800 32px 'Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;fill:#102a56}
+      .resource{font:700 23px 'Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;fill:#16467e}
+      .flow{fill:none;stroke:#52677f;stroke-width:7;stroke-linejoin:round;stroke-linecap:round;marker-end:url(#arrow)}
+      .error-flow{fill:none;stroke:#ef3f35;stroke-width:6;stroke-dasharray:12 9;stroke-linecap:round;marker-end:url(#arrow-red)}
+    </style>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#52677f"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="14" markerHeight="14" refX="11" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#ef3f35"/>
+    </marker>
+    <linearGradient id="blue" x1="0" x2="1">
+      <stop offset="0" stop-color="#07579f"/><stop offset="1" stop-color="#087ac7"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" x2="1">
+      <stop offset="0" stop-color="#08718e"/><stop offset="1" stop-color="#0c9a9b"/>
+    </linearGradient>
+    <linearGradient id="purple" x1="0" x2="1">
+      <stop offset="0" stop-color="#4f50ce"/><stop offset="1" stop-color="#675be8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#ffffff"/>
+  <text x="960" y="78" text-anchor="middle" class="title">IndexerResources 워크플로우</text>
+
+  <!-- Main flow arrows: row 1 -->
+  <path class="flow" d="M220 222 H270"/>
+  <path class="flow" d="M590 222 H630"/>
+  <path class="flow" d="M950 222 H990"/>
+  <path class="flow" d="M1340 222 H1380"/>
+
+  <!-- START -->
+  <rect x="40" y="172" width="180" height="100" rx="16" fill="#eef6ff" stroke="#0a5eaa" stroke-width="5"/>
+  <text x="130" y="234" text-anchor="middle" class="terminal">START</text>
+
+  <!-- Node 1 -->
+  <g>
+    <rect x="270" y="145" width="320" height="155" rx="17" fill="#edf6ff" stroke="#075fab" stroke-width="5"/>
+    <path d="M287 145 H573 A17 17 0 0 1 590 162 V220 H270 V162 A17 17 0 0 1 287 145Z" fill="url(#blue)"/>
+    <text x="430" y="193" text-anchor="middle" class="node-title">1. select_sources</text>
+    <text x="430" y="265" text-anchor="middle" class="node-body">원본 파일 선택</text>
+  </g>
+
+  <!-- Node 2 -->
+  <g>
+    <rect x="630" y="145" width="320" height="155" rx="17" fill="#edf6ff" stroke="#075fab" stroke-width="5"/>
+    <path d="M647 145 H933 A17 17 0 0 1 950 162 V220 H630 V162 A17 17 0 0 1 647 145Z" fill="url(#blue)"/>
+    <text x="790" y="193" text-anchor="middle" class="node-title">2. extract</text>
+    <text x="790" y="253" text-anchor="middle" class="node-body">
+      <tspan x="790" dy="0">PDF·상담 텍스트 →</tspan><tspan x="790" dy="31">Document</tspan>
+    </text>
+  </g>
+
+  <!-- Node 3 -->
+  <g>
+    <rect x="990" y="145" width="350" height="155" rx="17" fill="#edf6ff" stroke="#075fab" stroke-width="5"/>
+    <path d="M1007 145 H1323 A17 17 0 0 1 1340 162 V220 H990 V162 A17 17 0 0 1 1007 145Z" fill="url(#blue)"/>
+    <text x="1165" y="193" text-anchor="middle" class="node-title">3. apply_profile</text>
+    <text x="1165" y="265" text-anchor="middle" class="node-body">담당 부서·공개 등급 적용</text>
+  </g>
+
+  <!-- Node 4 -->
+  <g>
+    <rect x="1380" y="145" width="470" height="155" rx="17" fill="#edfafa" stroke="#079395" stroke-width="5"/>
+    <path d="M1397 145 H1833 A17 17 0 0 1 1850 162 V220 H1380 V162 A17 17 0 0 1 1397 145Z" fill="url(#teal)"/>
+    <text x="1615" y="193" text-anchor="middle" class="node-title">4. validate_metadata</text>
+    <text x="1615" y="265" text-anchor="middle" class="node-body">필수 메타데이터·가명화 검사</text>
+  </g>
+
+  <!-- Early exits -->
+  <path class="error-flow" d="M430 300 V355"/>
+  <rect x="270" y="355" width="320" height="74" rx="14" fill="#fff3f2" stroke="#ef3f35" stroke-width="4"/>
+  <text x="430" y="402" text-anchor="middle" class="branch">선택 결과 없음 → END(error)</text>
+
+  <path class="error-flow" d="M1615 300 V355"/>
+  <rect x="1430" y="355" width="370" height="74" rx="14" fill="#fff3f2" stroke="#ef3f35" stroke-width="4"/>
+  <text x="1615" y="402" text-anchor="middle" class="branch">유효하지 않은 문서 → END(error)</text>
+
+  <!-- Row transition and row 2 arrows -->
+  <path class="flow" d="M1850 222 H1870 V470 H205 V520"/>
+  <path class="flow" d="M370 595 H440"/>
+  <path class="flow" d="M770 595 H840"/>
+  <path class="flow" d="M1170 595 H1240"/>
+  <path class="flow" d="M1640 595 H1700"/>
+
+  <!-- Node 5 -->
+  <g>
+    <rect x="40" y="520" width="330" height="150" rx="17" fill="#edf6ff" stroke="#075fab" stroke-width="5"/>
+    <path d="M57 520 H353 A17 17 0 0 1 370 537 V590 H40 V537 A17 17 0 0 1 57 520Z" fill="url(#blue)"/>
+    <text x="205" y="566" text-anchor="middle" class="node-title">5. chunk</text>
+    <text x="205" y="635" text-anchor="middle" class="node-body">검색용 청크 분할</text>
+  </g>
+
+  <!-- Node 6 -->
+  <g>
+    <rect x="440" y="520" width="330" height="150" rx="17" fill="#edf6ff" stroke="#075fab" stroke-width="5"/>
+    <path d="M457 520 H753 A17 17 0 0 1 770 537 V590 H440 V537 A17 17 0 0 1 457 520Z" fill="url(#blue)"/>
+    <text x="605" y="566" text-anchor="middle" class="node-title">6. embed</text>
+    <text x="605" y="635" text-anchor="middle" class="node-body">변경 청크 임베딩</text>
+  </g>
+
+  <!-- Node 7 -->
+  <g>
+    <rect x="840" y="520" width="330" height="150" rx="17" fill="#f2f0ff" stroke="#554fcf" stroke-width="5"/>
+    <path d="M857 520 H1153 A17 17 0 0 1 1170 537 V590 H840 V537 A17 17 0 0 1 857 520Z" fill="url(#purple)"/>
+    <text x="1005" y="566" text-anchor="middle" class="node-title">7. upsert</text>
+    <text x="1005" y="635" text-anchor="middle" class="node-body">Chroma 저장·갱신</text>
+  </g>
+
+  <!-- Node 8 -->
+  <g>
+    <rect x="1240" y="520" width="400" height="150" rx="17" fill="#f2f0ff" stroke="#665de2" stroke-width="5"/>
+    <path d="M1257 520 H1623 A17 17 0 0 1 1640 537 V590 H1240 V537 A17 17 0 0 1 1257 520Z" fill="url(#purple)"/>
+    <text x="1440" y="566" text-anchor="middle" class="node-title">8. finalize_index</text>
+    <text x="1440" y="622" text-anchor="middle" class="node-body">
+      <tspan x="1440" dy="0">건수·임베딩 검증</tspan><tspan x="1440" dy="31">manifest 저장</tspan>
+    </text>
+  </g>
+
+  <!-- END -->
+  <rect x="1700" y="545" width="170" height="100" rx="16" fill="#eef6ff" stroke="#0a5eaa" stroke-width="5"/>
+  <text x="1785" y="607" text-anchor="middle" class="terminal">END</text>
+
+  <!-- chunk early exit -->
+  <path class="error-flow" d="M205 670 V720"/>
+  <rect x="45" y="720" width="320" height="72" rx="14" fill="#fff3f2" stroke="#ef3f35" stroke-width="4"/>
+  <text x="205" y="765" text-anchor="middle" class="branch">dry_run 또는 error → END</text>
+
+  <!-- Resource strip -->
+  <rect x="40" y="895" width="1840" height="130" rx="22" fill="#f2f5f8"/>
+  <text x="85" y="973" class="resource-title">사용 리소스</text>
+  <line x1="300" y1="925" x2="300" y2="995" stroke="#cbd5e1" stroke-width="4"/>
+  <g>
+    <rect x="350" y="920" width="300" height="80" rx="13" fill="#e7f7ff" stroke="#23aeda" stroke-width="3"/>
+    <text x="500" y="970" text-anchor="middle" class="resource">pdf_reader</text>
+    <rect x="700" y="920" width="300" height="80" rx="13" fill="#e7fbfa" stroke="#20a6a4" stroke-width="3"/>
+    <text x="850" y="970" text-anchor="middle" class="resource">file_store</text>
+    <rect x="1050" y="920" width="300" height="80" rx="13" fill="#e9f0ff" stroke="#4677e6" stroke-width="3"/>
+    <text x="1200" y="970" text-anchor="middle" class="resource">embedder</text>
+    <rect x="1400" y="920" width="410" height="80" rx="13" fill="#f0eaff" stroke="#7a5ee6" stroke-width="3"/>
+    <text x="1605" y="970" text-anchor="middle" class="resource">vector_store</text>
+  </g>
+</svg>

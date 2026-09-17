@@ -1,4 +1,4 @@
-"""Indexer와 Retriever가 바이트 단위로 공유하는 설정 로더."""
+"""Indexer 실행에 필요한 설정을 읽고 검증하는 로더."""
 
 from __future__ import annotations
 
@@ -126,58 +126,57 @@ def _default_transform_cache_path() -> Path:
 
 # 계획서 1-3절과 1-3-2절의 모든 키를 한 곳에서만 허용함.
 _SPECS: dict[str, _Spec] = {
-    "CHROMA_PATH": _Spec(_default_chroma_path, _path),
-    "CHROMA_COLLECTION": _Spec("card_docs", _text),
-    "EMBED_MODEL": _Spec("nlpai-lab/KURE-v2", _text),
-    "RERANK_MODEL": _Spec("BAAI/bge-reranker-v2-m3", _text),
-    "LLM_PROVIDER": _Spec("groq", _choice("groq", "claude", "openai")),
-    "GROQ_API_KEY": _Spec(None, _text, True),
-    "GROQ_MODEL": _Spec("openai/gpt-oss-120b", _text),
-    "CLAUDE_API_KEY": _Spec(None, _text, True, ("ANTHROPIC_API_KEY",)),
-    "CLAUDE_MODEL": _Spec("claude-opus-5", _text),
-    "OPENAI_API_KEY": _Spec(None, _text, True),
-    "OPENAI_MODEL": _Spec(None, _text),
-    "LLM_TIMEOUT_SECONDS": _Spec(60, _positive_float),
-    "LLM_MAX_TOKENS_ANSWER": _Spec(2000, _positive_int),
-    "MAX_LLM_CALLS_CLI": _Spec(8, _positive_int),
-    "MAX_LLM_CALLS_PER_REQUEST": _Spec(2, _positive_int),
-    "MAX_LLM_CALLS_TOTAL": _Spec(200, _positive_int),
-    "REQUEST_TIMEOUT_SECONDS": _Spec(120, _positive_float),
-    "API_HOST": _Spec("127.0.0.1", _text),
-    "API_PORT": _Spec(8001, _positive_int),
-    "TOP_K_DEFAULT": _Spec(5, _positive_int),
-    "CANDIDATE_MULTIPLIER": _Spec(4, _positive_int),
-    "HYBRID_WEIGHT_BM25": _Spec(0.4, _non_negative_float),
-    "HYBRID_WEIGHT_VECTOR": _Spec(0.6, _non_negative_float),
-    "ANSWER_GATE_THRESHOLD": _Spec(0.62, _unit_float),
-    "RERANK_MAX_LENGTH": _Spec(512, _positive_int),
-    "TRANSFORM_MODE": _Spec("off", _choice("off", "auto")),
-    "TRANSFORM_GATE_THRESHOLD": _Spec(0.70, _unit_float),
-    "TRANSFORM_RRF_K": _Spec(60, _positive_int),
-    "TRANSFORM_ORIGINAL_WEIGHT": _Spec(0.5, _unit_float),
-    "TRANSFORM_ORIGINAL_WEIGHT_DECOMPOSITION": _Spec(0.1, _unit_float),
-    "TRANSFORM_PER_QUERY_TOP_K": _Spec(3, _positive_int),
-    "TRANSFORM_MULTI_COUNT": _Spec(3, _positive_int),
-    "TRANSFORM_DECOMPOSITION_MIN": _Spec(2, _positive_int),
-    "TRANSFORM_DECOMPOSITION_MAX": _Spec(4, _positive_int),
-    "TRANSFORM_CACHE_PATH": _Spec(_default_transform_cache_path, _path),
-    "LLM_MAX_TOKENS_ROUTER": _Spec(500, _positive_int),
-    "RECURSION_LIMIT": _Spec(25, _positive_int),
+    "CHROMA_PATH": _Spec(_default_chroma_path, _path),  # Chroma 벡터 DB가 저장된 디렉터리
+    "CHROMA_COLLECTION": _Spec("card_docs", _text),  # 검색할 Chroma 컬렉션 이름
+    "EMBED_MODEL": _Spec("nlpai-lab/KURE-v2", _text),  # 질문을 벡터로 변환할 임베딩 모델
+    "RERANK_MODEL": _Spec("BAAI/bge-reranker-v2-m3", _text),  # 후보 문서 순위를 다시 매길 모델
+    "LLM_PROVIDER": _Spec("groq", _choice("groq", "claude", "openai")),  # 답변에 사용할 LLM 제공자
+    "GROQ_API_KEY": _Spec(None, _text, True),  # Groq 인증 키이며 로그에서 가리는 비밀값
+    "GROQ_MODEL": _Spec("openai/gpt-oss-120b", _text),  # Groq를 선택했을 때 호출할 모델
+    "CLAUDE_API_KEY": _Spec(None, _text, True, ("ANTHROPIC_API_KEY",)),  # Claude 인증 키와 대체 환경변수
+    "CLAUDE_MODEL": _Spec("claude-opus-5", _text),  # Claude를 선택했을 때 호출할 모델
+    "OPENAI_API_KEY": _Spec(None, _text, True),  # OpenAI 인증 키이며 로그에서 가리는 비밀값
+    "OPENAI_MODEL": _Spec(None, _text),  # OpenAI를 선택했을 때 호출할 모델
+    "LLM_TIMEOUT_SECONDS": _Spec(60, _positive_float),  # LLM 호출 한 번의 제한 시간(초)
+    "LLM_MAX_TOKENS_ANSWER": _Spec(2000, _positive_int),  # 최종 답변이 생성할 최대 토큰 수
+    "MAX_LLM_CALLS_CLI": _Spec(8, _positive_int),  # CLI 실행 한 번에 허용할 LLM 호출 상한
+    "MAX_LLM_CALLS_PER_REQUEST": _Spec(2, _positive_int),  # API 요청 한 건의 LLM 호출 상한
+    "MAX_LLM_CALLS_TOTAL": _Spec(200, _positive_int),  # 서버 프로세스 전체의 누적 LLM 호출 상한
+    "REQUEST_TIMEOUT_SECONDS": _Spec(120, _positive_float),  # Retriever 요청 전체의 제한 시간(초)
+    "API_HOST": _Spec("127.0.0.1", _text),  # API 서버가 접속을 받을 호스트 주소
+    "API_PORT": _Spec(8001, _positive_int),  # API 서버가 사용할 포트 번호
+    "TOP_K_DEFAULT": _Spec(5, _positive_int),  # 별도 지정이 없을 때 반환할 최종 문서 수
+    "CANDIDATE_MULTIPLIER": _Spec(4, _positive_int),  # 최종 문서 수 대비 먼저 가져올 후보 배수
+    "HYBRID_WEIGHT_BM25": _Spec(0.4, _non_negative_float),  # 하이브리드 검색의 BM25 점수 비중
+    "HYBRID_WEIGHT_VECTOR": _Spec(0.6, _non_negative_float),  # 하이브리드 검색의 벡터 점수 비중
+    "ANSWER_GATE_THRESHOLD": _Spec(0.62, _unit_float),  # 답변에 쓸 근거가 충분한지 판단할 점수 기준
+    "RERANK_MAX_LENGTH": _Spec(512, _positive_int),  # 리랭커에 넣을 질문·문서의 최대 토큰 길이
+    "TRANSFORM_MODE": _Spec("off", _choice("off", "auto")),  # 질문 변환 사용 여부
+    "TRANSFORM_GATE_THRESHOLD": _Spec(0.70, _unit_float),  # 이 점수보다 낮을 때 질문 변환을 검토
+    "TRANSFORM_RRF_K": _Spec(60, _positive_int),  # RRF 순위 병합에서 상위 편중을 조절하는 상수
+    "TRANSFORM_ORIGINAL_WEIGHT": _Spec(0.5, _unit_float),  # 변환 검색 병합 시 원 질문의 가중치
+    "TRANSFORM_ORIGINAL_WEIGHT_DECOMPOSITION": _Spec(0.1, _unit_float),  # 질문 분해 시 원 질문 가중치
+    "TRANSFORM_PER_QUERY_TOP_K": _Spec(3, _positive_int),  # 변환된 질문 하나당 가져올 문서 수
+    "TRANSFORM_MULTI_COUNT": _Spec(3, _positive_int),  # 다중 질문 변환으로 만들 질문 개수
+    "TRANSFORM_DECOMPOSITION_MIN": _Spec(2, _positive_int),  # 질문 분해 결과의 최소 하위 질문 수
+    "TRANSFORM_DECOMPOSITION_MAX": _Spec(4, _positive_int),  # 질문 분해 결과의 최대 하위 질문 수
+    "TRANSFORM_CACHE_PATH": _Spec(_default_transform_cache_path, _path),  # 질문 변환 결과 캐시 파일 경로
+    "LLM_MAX_TOKENS_ROUTER": _Spec(500, _positive_int),  # 질문 변환 라우터가 생성할 최대 토큰 수
+    "RECURSION_LIMIT": _Spec(25, _positive_int),  # LangGraph 한 실행에서 허용할 최대 진행 단계 수
     # 3 이상이면 Retriever 최악 경로가 recursion_limit 25를 넘음.
-    "MAX_REPAIRS": _Spec(2, _positive_int),
-    "EMBED_BATCH_SIZE": _Spec(32, _positive_int),
-    "UPSERT_RETRY": _Spec(1, _positive_int),
-    "CHUNK_MAX_CHARS": _Spec(600, _positive_int),
-    "CHUNK_OVERLAP": _Spec(80, _positive_int),
-    "CHUNK_D2_OVERLAP": _Spec(0, _non_negative_int),
-    "CHUNK_TURNS_PER_CHUNK": _Spec(4, _positive_int),
-    "CHUNK_OVERLAP_TURNS": _Spec(1, _positive_int),
-    "MAX_INPUT_TOKENS": _Spec(8192, _positive_int),
-    "TIMEOUT_PDF_PER_FILE": _Spec(60, _positive_float),
-    "TIMEOUT_CHUNK_PER_DOC": _Spec(30, _positive_float),
-    "TIMEOUT_EMBED_BATCH": _Spec(120, _positive_float),
-    "TIMEOUT_VECTOR_SEARCH": _Spec(10, _positive_float),
-    "TIMEOUT_RERANK": _Spec(60, _positive_float),
+    "MAX_REPAIRS": _Spec(2, _positive_int),  # 근거 검증 실패 후 답변을 다시 만드는 최대 횟수
+    "EMBED_BATCH_SIZE": _Spec(32, _positive_int),  # 임베딩·벡터 저장에서 한 번에 처리할 청크 수
+    "CHUNK_MAX_CHARS": _Spec(600, _positive_int),  # 청크 하나의 최대 글자 수
+    "CHUNK_OVERLAP": _Spec(80, _positive_int),  # 일반 청크 사이에 겹쳐 넣을 글자 수
+    "CHUNK_D2_OVERLAP": _Spec(0, _non_negative_int),  # D2 청크 사이에 겹쳐 넣을 글자 수
+    "CHUNK_TURNS_PER_CHUNK": _Spec(4, _positive_int),  # 상담 청크 하나에 넣을 대화 턴 수
+    "CHUNK_OVERLAP_TURNS": _Spec(1, _positive_int),  # 상담 청크 사이에 겹쳐 넣을 대화 턴 수
+    "MAX_INPUT_TOKENS": _Spec(8192, _positive_int),  # 청크 하나에 허용할 최대 입력 토큰 수
+    "TIMEOUT_PDF_PER_FILE": _Spec(60, _positive_float),  # PDF 파일 하나의 추출 제한 시간(초)
+    "TIMEOUT_CHUNK_PER_DOC": _Spec(30, _positive_float),  # 입력 문서 하나의 청킹 제한 시간(초)
+    "TIMEOUT_EMBED_BATCH": _Spec(120, _positive_float),  # 임베딩·벡터 저장 배치의 제한 시간(초)
+    "TIMEOUT_VECTOR_SEARCH": _Spec(10, _positive_float),  # 벡터 검색 한 번의 제한 시간(초)
+    "TIMEOUT_RERANK": _Spec(60, _positive_float),  # 후보 문서 리랭킹 한 번의 제한 시간(초)
 }
 
 

@@ -51,7 +51,7 @@ def _answer(request, _resources: FakeResources) -> SearchResult:
 
 async def _stream(request, _resources: FakeResources):
     nodes = (
-        "check_query",
+        "check_search_readiness",
         "vector_search",
         "route_query",
         "bm25_search",
