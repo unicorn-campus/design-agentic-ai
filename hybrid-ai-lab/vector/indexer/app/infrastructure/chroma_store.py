@@ -91,6 +91,17 @@ class MemoryVectorStore:
             "metadatas": [deepcopy(self._rows[item][2]) for item in ids],
         }
 
+    def list_ids(self) -> list[str]:
+        return sorted(self._rows)
+
+    def describe(self) -> dict[str, Any]:
+        first = next(iter(self._rows.values()), None)
+        return {
+            "count": len(self._rows),
+            "dimension": len(first[1]) if first else 0,
+            "signature": self.signature,
+        }
+
     def count(self) -> int:
         return len(self._rows)
 
@@ -174,6 +185,20 @@ class ChromaVectorStore:
     def get_all(self) -> dict:
         return self._collection.get(include=["documents", "metadatas", "embeddings"])
 
+    def list_ids(self) -> list[str]:
+        return [str(value) for value in self._collection.get(include=[]).get("ids", [])]
+
+    def describe(self) -> dict[str, Any]:
+        sample = self._collection.get(limit=1, include=["embeddings"])
+        embeddings = sample.get("embeddings")
+        dimension = len(embeddings[0]) if embeddings is not None and len(embeddings) else 0
+        metadata = self._collection.metadata or {}
+        return {
+            "count": int(self._collection.count()),
+            "dimension": dimension,
+            "signature": metadata.get("embedding_model_signature") or metadata.get("lab_embedding", ""),
+        }
+
     def count(self) -> int:
         return int(self._collection.count())
 
@@ -187,14 +212,20 @@ class ChromaVectorStore:
 
 def create_vector_store(
     *,
-    embedding_backend: str,
+    backend: str,
     path: Path,
     collection: str,
     signature: str,
     embedding_function=None,
 ):
-    if embedding_backend == "memory":
+    """설정된 벡터 저장소 어댑터를 생성함.
+
+    임베딩 구현과 저장소 구현은 서로 독립적인 선택임. 새 벡터 DB를 추가할 때는
+    이 팩터리에 어댑터만 등록하고 응용 그래프는 변경하지 않음.
+    """
+
+    if backend == "memory":
         return MemoryVectorStore(signature)
-    if embedding_backend not in {"smoke", "sentence-transformers"}:
-        raise ValueError(f"지원하지 않는 임베딩 백엔드: {embedding_backend}")
-    return ChromaVectorStore(path, collection, signature, embedding_function)
+    if backend == "chroma":
+        return ChromaVectorStore(path, collection, signature, embedding_function)
+    raise ValueError(f"지원하지 않는 벡터 저장소 백엔드: {backend}")

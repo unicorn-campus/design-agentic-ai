@@ -48,6 +48,8 @@ def test_shared_settings_keep_the_same_contract() -> None:
         "TIMEOUT_PDF_PER_FILE",
         "TIMEOUT_CHUNK_PER_DOC",
         "TIMEOUT_EMBED_BATCH",
+        "KOREAN_OOV_MIN_COUNT",
+        "KOREAN_OOV_MIN_SCORE",
     }
 
     assert set(indexer._SPECS) == set(retriever._SPECS) | indexer_only
@@ -87,12 +89,18 @@ def test_precedence_and_blank_values(settings_module, monkeypatch: pytest.Monkey
 
 def test_defaults_and_app_specific_chroma_path(settings_module) -> None:
     settings = settings_module.load_settings()
+    assert settings.VECTOR_STORE_BACKEND == "chroma"
     assert settings.CHROMA_COLLECTION == "card_docs"
     assert settings.API_HOST == "127.0.0.1"
     assert settings.CHROMA_PATH == settings_module.APP_DIR.parent / "indexer/data/chroma"
     assert settings.sources["CHROMA_COLLECTION"] == "default"
     with pytest.raises(TypeError):
         settings.values["CHROMA_COLLECTION"] = "changed"
+
+
+def test_vector_store_backend_rejects_unknown_value(settings_module) -> None:
+    with pytest.raises(settings_module.LLMConfigError):
+        settings_module.load_settings({"VECTOR_STORE_BACKEND": "unknown"})
 
 
 def test_secret_str_and_alias_source_do_not_expose_value(

@@ -271,7 +271,10 @@ class IndexerGraphTest(unittest.TestCase):
         settings = SimpleNamespace(CHROMA_COLLECTION="test", EMBED_MODEL="test-model")
         file_store = SimpleNamespace(save_json=lambda *_args: None)
         embedder = SimpleNamespace(signature="test-signature", dimension=384)
-        vector_store = SimpleNamespace(count=lambda: 9)
+        vector_store = SimpleNamespace(
+            count=lambda: 9,
+            describe=lambda: {"count": 9, "dimension": 384, "signature": "test-signature"},
+        )
         resources = IndexerResources(settings, None, file_store, embedder, vector_store)
 
         result = resources._run_finalize_index(

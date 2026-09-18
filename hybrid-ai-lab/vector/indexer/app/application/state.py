@@ -58,6 +58,7 @@ class IndexerState(TypedDict, total=False):
     count_after: int  # 저장 후 벡터 저장소의 문서 수
     accounting_ok: bool  # 예상한 문서 수와 실제 문서 수가 같은지 여부
     embedding_dimension: int  # 생성한 임베딩 벡터 하나의 숫자 개수
+    search_index: dict[str, Any] | None  # 검증 후 활성화한 corpus·BM25S 세대 포인터
     llm_calls: Annotated[int, operator.add]  # 노드별 LLM 호출 횟수를 더한 값
     timings: Annotated[dict[str, int], merge_timings]  # 노드별 실행 시간을 누적한 목록
     status: Literal["ok", "dry_run", "error"]  # 전체 실행의 현재 상태

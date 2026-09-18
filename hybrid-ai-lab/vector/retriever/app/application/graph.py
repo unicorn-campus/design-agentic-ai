@@ -14,6 +14,7 @@ from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 
+from .ports import VectorStorePort
 from .runtime import append_node_log, run_with_timeout
 from .state import HealthResult, Hit, RetrieverRequest, RetrieverState, SearchResult
 
@@ -639,7 +640,7 @@ class RetrieverResources:
 
     settings: Any
     embedder: Any
-    vector_store: Any
+    vector_store: VectorStorePort
     bm25: Any
     reranker: Any
     llm: Any
@@ -674,13 +675,10 @@ class RetrieverResources:
         if validation_errors:
             return {"validation_errors": validation_errors}
 
-        count = self.vector_store.count()
-        signature_ok = self.vector_store.check_signature(self.embedder.signature)
-        dimension = int(getattr(self.embedder, "dimension", 0))
-        if count:
-            sample = self.vector_store.get_all().get("embeddings")
-            if sample is not None and len(sample):
-                dimension = len(sample[0])
+        description = self.vector_store.describe()
+        count = int(description.get("count", 0))
+        signature_ok = description.get("signature") == self.embedder.signature
+        dimension = int(description.get("dimension") or getattr(self.embedder, "dimension", 0))
         if count <= 0 or not signature_ok:
             raise IndexUnavailableError("컬렉션이 비었거나 임베딩 서명이 일치하지 않음")
         return {
@@ -694,7 +692,7 @@ class RetrieverResources:
         }
 
     def _search_vector(self, query: str, role: str, raw_k: int) -> list[Hit]:
-        from app.domain.access import build_where
+        from app.domain.access import build_filter
 
         # Embedding 모델 로딩
         loader = getattr(self.embedder, "_load", None)
@@ -703,7 +701,7 @@ class RetrieverResources:
 
         def search() -> list[Hit]:
             embedding = self.embedder.embed_query(query)  # 질문 임베딩
-            return self.vector_store.search(embedding, raw_k, build_where(role))  # 벡터 검색
+            return self.vector_store.search(embedding, raw_k, build_filter(role))  # 벡터 검색
 
         return run_with_timeout(
             search,
@@ -795,10 +793,17 @@ class RetrieverResources:
         return self._run_plan_query_transform(state, **kwargs)
 
     def _run_bm25_search(self, state: RetrieverState, **_kwargs: Any) -> dict[str, Any]:
-        scores = self.bm25.scores(state["query"])
+        from app.domain.access import allowed_levels
+
+        sizes = self._candidate_sizes(state)
+        scores = self.bm25.scores(
+            state["query"],
+            allowed_access_levels=allowed_levels(state["role"]),
+            k=sizes.raw_k,
+        )
         return {
             "bm25_scores": scores,
-            "warnings": [] if scores else ["BM25 색인이 비어 있어 벡터 검색만 사용함"],
+            "warnings": [] if scores else ["BM25 양수 일치 결과가 없어 벡터 검색만 사용함"],
         }
 
     def _fuse(
@@ -852,13 +857,19 @@ class RetrieverResources:
         }
 
     def _search_one(self, query: str, state: RetrieverState) -> list[Hit]:
+        from app.domain.access import allowed_levels
+
         sizes = self._candidate_sizes(state)
         vector_hits = self._search_vector(query, state["role"], sizes.raw_k)
         if state["mode"] == "vector":
             return vector_hits[: state["top_k"]]
         return self._fuse(
             vector_hits,
-            self.bm25.scores(query),
+            self.bm25.scores(
+                query,
+                allowed_access_levels=allowed_levels(state["role"]),
+                k=sizes.raw_k,
+            ),
             state["role"],
             sizes.fused_k,
         )
@@ -1035,22 +1046,28 @@ def load_resources(
     """기본 구현체를 조립하되 시험에서는 모든 포트를 교체 가능하게 함."""
 
     from app.infrastructure.bm25_index import BM25Index
-    from app.infrastructure.chroma_store import ChromaVectorStore
+    from app.infrastructure.chroma_store import create_vector_store
+    from app.infrastructure.corpus_store import VersionedCorpusStore
     from app.infrastructure.llm_client import LangChainLLMClient
     from app.infrastructure.reranker import CrossEncoderReranker
     from app.infrastructure.transform_cache import TransformCache
+    from app.domain.korean_tokenizer import KoreanTokenizer
     from app.settings import load_settings
 
     loaded = settings or load_settings()
     actual_embedder = embedder or _LazyHuggingFaceEmbedder(loaded.EMBED_MODEL)
-    actual_store = vector_store or ChromaVectorStore(
-        Path(loaded.CHROMA_PATH),
-        loaded.CHROMA_COLLECTION,
-        actual_embedder.signature,
+    actual_store = vector_store or create_vector_store(
+        backend=getattr(loaded, "VECTOR_STORE_BACKEND", "chroma"),
+        path=Path(loaded.CHROMA_PATH),
+        collection=loaded.CHROMA_COLLECTION,
+        signature=actual_embedder.signature,
     )
     actual_bm25 = bm25 or BM25Index(
-        actual_store,
-        Path(__file__).resolve().parents[2] / "data" / "bm25_index.pkl",
+        VersionedCorpusStore(Path(loaded.SEARCH_INDEX_ROOT)),
+        KoreanTokenizer(
+            getattr(loaded, "KOREAN_USER_DICTIONARY", None),
+            num_workers=int(getattr(loaded, "KOREAN_TOKENIZER_WORKERS", 1)),
+        ),
     )
     if bm25 is None:
         actual_bm25.warm()
@@ -1195,13 +1212,10 @@ def check_health(resources: Any = None) -> HealthResult:
     """준비된 검색 자원의 상태를 확인함."""
 
     actual = resources or load_resources()
-    count = actual.vector_store.count()
-    signature_ok = actual.vector_store.check_signature(actual.embedder.signature)
-    dimension = int(getattr(actual.embedder, "dimension", 0))
-    if count:
-        embeddings = actual.vector_store.get_all().get("embeddings")
-        if embeddings is not None and len(embeddings):
-            dimension = len(embeddings[0])
+    description = actual.vector_store.describe()
+    count = int(description.get("count", 0))
+    signature_ok = description.get("signature") == actual.embedder.signature
+    dimension = int(description.get("dimension") or getattr(actual.embedder, "dimension", 0))
     return HealthResult(
         status="ok" if count > 0 and signature_ok else "error",
         index_connected=count > 0 and signature_ok,

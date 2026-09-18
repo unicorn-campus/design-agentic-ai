@@ -8,7 +8,7 @@ Vector, Hybrid, Hybrid + Rerank 세 경로와 선택적 질문 변환을 지원�
 ## 실행 전제
 
 - Python 3.12 권장
-- Indexer가 만든 `../indexer/data/chroma/` 필요
+- Indexer가 만든 `../indexer/data/chroma/`와 `../indexer/data/search_indexes/` 필요
 - 컬렉션 `card_docs`에 청크 1건 이상 필요
 - 임베딩 서명 `sentence-transformers:nlpai-lab/KURE-v1:prompt-policy-v2` 필요
 - 실제 동등성 평가 전제는 청크 485건과 임베딩 1,024차원임
@@ -41,6 +41,20 @@ python -m pip install -r requirements.txt
 cp .env.example .env
 ```
 
+`VECTOR_STORE_BACKEND` 기본값은 `chroma`임. `memory`는 자동화 시험용 비영속 저장소임.
+
+`SEARCH_INDEX_ROOT`는 Indexer가 발행한 `active_index.json`의 루트임.
+
+기본값은 `../indexer/data/search_indexes/`이며 custom `--out`을 사용한 경우 같은 경로로 설정해야 함.
+
+`KOREAN_USER_DICTIONARY`는 Indexer와 같은 파일을 지정해야 하며 파일 내용은 토크나이저 서명에 포함됨.
+
+`KOREAN_TOKENIZER_WORKERS`는 실시간 Kiwi 질의 분석 작업자 수이며 기본값은 1임.  
+BM25는 ACL 적용 후 Top-K만 조회하고 0점 후보를 제거함. 원 질의 결과가 없을 때만  
+Kiwi `basic` 오타 교정 질의를 한 번 사용하므로 상품 코드의 과도한 교정 가능성을 제한함.
+
+새 운영 벡터 DB는 DB 중립 필터를 변환하는 어댑터와 생성 팩터리에 등록함.
+
 ## CLI
 
 ### 인덱스 연결 확인
@@ -72,6 +86,12 @@ python run_retriever.py \
 `CANDIDATE_MULTIPLIER=4`는 질문별 검색·융합 목표 수에 적용됨.
 따라서 `hybrid_rerank`는 융합 목표 10건 × 4로 검색기별 원시 후보 40건을 수집함.
 질문 변환 시에도 원 질문과 각 변환 질문에 같은 후보 계약이 적용됨.
+
+BM25는 Vector DB의 전체 문서를 다시 읽지 않음.
+
+활성 세대의 `corpus.jsonl`과 BM25S 파일을 로딩하고, 질의에도 색인과 동일한 Kiwi 토크나이저를 적용함.
+
+NFKC·숫자 쉼표·영문 대소문자를 정규화하며 형태소와 복합어 원형을 함께 보존함.
 
 답변 LLM을 호출하지 않고 검색 결과와 프롬프트만 확인하는 예시임.
 
@@ -158,6 +178,10 @@ python run_retriever.py \
 |---|---|
 | `agent` | `public`, `internal` |
 | `auditor` | `public`, `internal`, `restricted` |
+
+BM25 권한 마스크는 점수 융합 전에 적용됨. 제한 문서가 후보 자리를 먼저 차지하지 않음.
+
+융합 뒤에도 동일한 권한 필터를 다시 적용하여 방어선을 유지함.
 
 HTTP 요청에는 `X-Role` 헤더가 필수임. 누락하거나 다른 값을 보내면 400 `invalid_role`임.
 
@@ -361,7 +385,7 @@ SSE 시작 전 발생한 400·503은 JSON 오류 응답임.
 
 | 경로 | 내용 |
 |---|---|
-| `data/bm25_index.pkl` | Chroma 문서로 만든 BM25 색인 캐시 |
+| `../indexer/data/search_indexes/` | Indexer가 발행한 버전형 corpus와 BM25S 색인 |
 | `data/transform_cache.json` | 질문별 변환 결정 캐시 |
 | `data/checkpoints/retriever.sqlite` | CLI·POST 체크포인트 |
 | `data/logs/<thread-id>.jsonl` | 본문·비밀값을 제외한 노드 감사 로그 |

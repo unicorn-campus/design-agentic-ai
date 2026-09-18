@@ -12,5 +12,7 @@ python-dotenv==1.2.3
 pydantic==2.13.5
 PyMuPDF==1.28.2
 PyYAML==6.0.3
+bm25s==0.3.11
+kiwipiepy==0.23.2
 
 # KURE-v2 최초 실행 시 모델 다운로드가 발생하므로 충분한 디스크 공간 필요

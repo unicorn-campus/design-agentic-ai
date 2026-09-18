@@ -13,6 +13,7 @@ from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 
+from .ports import VectorStorePort
 from .runtime import append_node_log, run_with_timeout
 from .state import IndexerState, IndexRequest, IndexResult
 
@@ -198,7 +199,9 @@ def _finalize_index(resources: Any, state: IndexerState) -> dict[str, Any]:
     update = _run_node(resources, "finalize_index", state)
     failed = [*state.get("failed", []), *update.get("failed", [])]
     reviews = [*state.get("reviews", []), *update.get("reviews", [])]
-    if failed:
+    if not bool(update.get("accounting_ok", False)):
+        update.update(status="error", exit_code=1)
+    elif failed:
         update.update(status="ok", exit_code=3)
     elif reviews:
         update.update(status="ok", exit_code=2)
@@ -321,7 +324,7 @@ class IndexerResources:
     pdf_reader: Any
     file_store: Any
     embedder: Any
-    vector_store: Any
+    vector_store: VectorStorePort
     _runs: dict[str, dict[str, Any]] = field(default_factory=dict)
 
     def run_node(self, name: str, state: IndexerState) -> dict[str, Any]:
@@ -657,7 +660,7 @@ class IndexerResources:
         count_before = self.vector_store.count()
 
         # 기존 청크 ID를 set으로 만들어 새 ID 추가와 기존 ID 갱신을 구분할 때 빠르게 확인함.
-        existing_ids = set(self.vector_store.get_all().get("ids", []))
+        existing_ids = set(self.vector_store.list_ids())
 
         # embed 노드가 새 벡터를 만든 청크 ID만 이번 저장 대상으로 가져옴.
         pending_ids = state.get("pending_ids", [])
@@ -718,10 +721,11 @@ class IndexerResources:
         run = self._runs.get(state["thread_id"], {})
         plan = run.get("plan", {})
 
-        count_after = self.vector_store.count()
+        description = self.vector_store.describe()
+        count_after = int(description.get("count", self.vector_store.count()))
         expected = int(run.get("expected_count", state.get("count_before", 0)))
-
-        dimension = int(getattr(self.embedder, "dimension", 0))
+        accounting_ok = count_after == expected
+        dimension = int(description.get("dimension") or getattr(self.embedder, "dimension", 0))
 
         # 다음 실행에서 증분 색인 여부를 판단하고 현재 색인 구성을 확인할 수 있도록 실행 정보를 저장함.
         # - format_version: 이 manifest 파일 구조의 버전
@@ -735,7 +739,7 @@ class IndexerResources:
         # - chunks: 청크별 본문·메타데이터 해시로, 다시 임베딩할 청크를 판정하는 값
         # - counts: collection은 저장소의 전체 건수, indexed는 이번 실행에서 저장에 성공한 건수
         manifest = {
-            "format_version": 1,
+            "format_version": 2,
             "collection": self.settings.CHROMA_COLLECTION,
             "embedding_backend": state["embedding_backend"],
             "embed_model": self.settings.EMBED_MODEL,
@@ -746,11 +750,98 @@ class IndexerResources:
             "chunks": plan.get("hashes", {}),
             "counts": {"collection": count_after, "indexed": len(state.get("ok_ids", []))},
         }
-        self.file_store.save_json(Path(state["output_path"]) / "index_manifest.json", manifest)
+
+        search_index = None
+        if accounting_ok and not state.get("failed", []):
+            from app.infrastructure.lexical_index import publish_search_index
+
+            vector_ids = self.vector_store.list_ids()
+            if len(vector_ids) != count_after:
+                raise ValueError("Vector DB count와 ID 목록 길이가 일치하지 않음")
+
+            # 목적:
+            # - Chroma Vector DB와 별도로, BM25 키워드 검색에 필요한 파일 묶음을 완성된 버전 단위로 게시함.
+            # - 게시에 성공할 때마다 SEARCH_INDEX_ROOT/generations/gen-... 아래에 새 버전 폴더를 만듦.
+            # - Chroma 벡터 색인과는 별도로 관리되며, 벡터 DB 증분 실행 시에도 전체 인덱스를 만듦
+            #   (인덱스 데이터 크기가 크지 않아 확실하게 인덱싱하기 위함)
+            # - 한국어 전용 토큰 라이브러리인 kiwipiepy를 사용함
+            # 수행 작업:
+            # 1. 전체 재색인은 이번 청크로 검색 대상 원문 목록(corpus)을 새로 구성함.
+            # 2. 증분 색인은 현재 사용 중인 원문 목록에 이번 청크를 합치지만, BM25는 합친 전체 문서로 다시 만듦.
+            # 3. 완성된 원문 목록의 청크 ID가 Vector DB의 전체 청크 ID와 정확히 일치하는지 검사함.
+            # 4. 아래 카드 사용자 사전을 먼저 적용한 뒤 전체 문서를 한국어로 토큰화함.
+            # 5. 사전에 없는 말 후보(OOV: Out Of Vocabulary)를 추출해 검토용 JSON에만 저장함.
+            #    OOV 후보는 자동 사전에 넣거나 현재 BM25 색인에 다시 적용하지 않음.
+            # 6. 원문·BM25S·card_names.dict·OOV 후보·설정 및 해시 요약(manifest)을 새 버전 폴더에 저장함.
+            # 7. 모든 파일 저장이 끝난 뒤 현재 사용할 버전 표시 파일(active_index.json)을 마지막에 교체함.
+            # 8. 게시 중 실패하면 기존 활성 버전을 유지하며, 기존 버전 폴더는 자동으로 삭제하지 않음.
+            # 카드 사용자 사전 작업:
+            # 1. 최종 원문 중 D2이고 card_id·card_name이 모두 있는 청크에서 카드 정보를 수집함.
+            #    같은 card_id에 정규화한 카드명이 둘 이상이면 잘못된 데이터로 보고 게시를 중단함.
+            # 2. 카드명의 검색 표기를 정규화하고 공백을 정리한 뒤 중복을 제거하고 이름순으로 정렬함.
+            # 3. 각 카드명을 고유명사(NNP), 점수 0.0으로 Kiwi에 추가하고 card_names.dict로 저장함.
+            # 4. 운영자가 관리하는 외부 KOREAN_USER_DICTIONARY는 수정하지 않고 카드명 사전과 함께 적용함.
+            # 5. 카드명 사전의 경로·해시·항목 수를 manifest와 active_index.json에 기록함.
+            #    카드명 출처·품사·점수 정책은 manifest에 기록함.
+            # 6. Retriever는 같은 버전의 카드명 사전 해시와 토크나이저 설정을 검증한 뒤 질의 토큰화에 사용함.
+            search_index = publish_search_index(
+                index_root=Path(self.settings.SEARCH_INDEX_ROOT),  # 키워드 검색 버전 폴더와 현재 버전 표시 파일의 루트 경로
+                documents=state.get("chunks", []),  # 이번 실행에서 처리한 청크 목록
+                vector_ids=vector_ids,  # 최종 Vector DB에 저장된 전체 청크 ID
+                full_snapshot=bool(state.get("full_reindex", False)),  # 전체 스냅샷을 새로 구성할지 여부
+                file_store=self.file_store,  # JSON·JSONL 파일을 원자적으로 저장하는 객체
+
+                # user_dictionary
+                # 목적: 운영자가 직접 관리하는 상품명·업무 용어를 원하는 단위로 분석하고 원문 형태를 보존함.
+                # 사용: KoreanTokenizer가 이 경로의 사전을 Kiwi에 로드하며 토크나이저 설정 식별값에도 반영함.
+                # 주의: 이 파일은 수정하지 않음. 카드명은 D2 메타데이터에서 별도 자동 사전을 만들고 함께 적용함.
+                #       추출한 미등록어 후보는 자동으로 추가하지 않음.
+                user_dictionary=getattr(
+                    self.settings,
+                    "KOREAN_USER_DICTIONARY",
+                    None,
+                ),
+                # tokenizer_workers
+                # 목적: 전체 문서의 한국어 형태소 분석을 여러 작업으로 나누어 처리함.
+                # 사용: KoreanTokenizer를 거쳐 Kiwi(num_workers=...)에 전달되는 병렬 작업자 수임.
+                # 주의: BM25 검색을 동시에 처리하는 작업자 수가 아님.
+                tokenizer_workers=int(
+                    getattr(self.settings, "KOREAN_TOKENIZER_WORKERS", 1)
+                ),
+                # oov_min_count
+                # 목적: 적게 등장한 문자열을 미등록어 후보에서 제외함.
+                # 사용: Kiwi의 단어 후보 추출 시 extract_words(min_cnt=...)의 최소 출현 횟수로 전달함.
+                # 주의: BM25 색인에 포함할 토큰의 최소 빈도 기준이 아님.
+                oov_min_count=int(
+                    getattr(self.settings, "KOREAN_OOV_MIN_COUNT", 10)
+                ),
+                # oov_min_score
+                # 목적: 품질 점수가 낮은 문자열을 미등록어 후보에서 제외함.
+                # 사용: Kiwi의 단어 후보 추출 시 extract_words(min_score=...)의 최소 품질 점수로 전달함.
+                # 주의: 후보는 검토용 JSON에만 저장하며 자동 등록하거나 현재 BM25 색인에 다시 적용하지 않음.
+                oov_min_score=float(
+                    getattr(self.settings, "KOREAN_OOV_MIN_SCORE", 0.25)
+                ),
+                # k1
+                # 목적: 한 문서에서 같은 검색어가 반복될 때 점수 증가가 포화되는 정도를 조절함.
+                # 사용: bm25s.BM25(k1=..., method="lucene")에 전달하며, 값이 클수록 반복 출현의 추가 기여가 오래 유지됨.
+                k1=float(getattr(self.settings, "BM25_K1", 1.5)),
+                # b
+                # 목적: 문서 길이에 따른 BM25 점수 보정 정도를 조절함.
+                # 사용: bm25s.BM25(b=..., method="lucene")에 전달함. 0이면 보정하지 않고 값이 클수록 길게 쓴 문서를 더 보정함.
+                b=float(getattr(self.settings, "BM25_B", 0.75)),
+
+                vector_collection=str(self.settings.CHROMA_COLLECTION),  # 연결 대상 Vector DB 컬렉션 이름
+                embedding_signature=str(self.embedder.signature),  # 연결 대상 임베딩 설정의 고유 식별값
+            )
+            manifest["search_index"] = search_index
+            # 증분 판정에 쓰는 manifest는 Vector와 BM25가 함께 게시된 성공 실행만 교체함.
+            self.file_store.save_json(Path(state["output_path"]) / "index_manifest.json", manifest)
         return {
             "count_after": count_after,
-            "accounting_ok": count_after == expected,
+            "accounting_ok": accounting_ok,
             "embedding_dimension": dimension,
+            "search_index": search_index,
         }
 
 
@@ -785,7 +876,7 @@ def load_resources(
     if request.embedding_backend == "smoke":
         path = Path(request.output_path) / "chroma_smoke"
     actual_store = vector_store or create_vector_store(
-        embedding_backend=request.embedding_backend,
+        backend=getattr(loaded, "VECTOR_STORE_BACKEND", "chroma"),
         path=path,
         collection=loaded.CHROMA_COLLECTION,
         signature=actual_embedder.signature,

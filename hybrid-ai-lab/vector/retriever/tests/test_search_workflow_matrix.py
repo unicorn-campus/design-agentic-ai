@@ -9,6 +9,7 @@ from types import SimpleNamespace
 
 from app.application.graph import RetrieverResources, build_graph, execution_config
 from app.application.state import Hit, RouteDecision
+from app.domain.search_filter import MetadataFilter
 
 
 ORIGINAL_QUERY = "원 질문"
@@ -50,13 +51,18 @@ class RecordingVectorStore:
     def count(self) -> int:
         return 8
 
+    def describe(self) -> dict:
+        return {"count": 8, "dimension": 4, "signature": "test-signature"}
+
     def check_signature(self, signature: str) -> bool:
         return signature == "test-signature"
 
-    def get_all(self) -> dict[str, list[list[float]]]:
-        return {"embeddings": [[0.0, 0.0, 0.0, 0.0]]}
-
-    def search(self, _embedding: list[float], size: int, _where: dict) -> list[Hit]:
+    def search(
+        self,
+        _embedding: list[float],
+        size: int,
+        _metadata_filter: MetadataFilter,
+    ) -> list[Hit]:
         self.search_calls.append(size)
         top_score = self.original_score if len(self.search_calls) == 1 else 0.88
         return [_hit(index, max(0.01, top_score - index * 0.01)) for index in range(min(size, 8))]
@@ -68,10 +74,21 @@ class RecordingBm25:
         self.queries: list[str] = []
         self._chunks = {hit.chunk_id: hit for hit in [_hit(index, 0.8 - index * 0.01) for index in range(8)]}
 
-    def scores(self, query: str) -> dict[str, float]:
+    def scores(
+        self,
+        query: str,
+        *,
+        allowed_access_levels=None,
+        k: int = 10,
+    ) -> dict[str, float]:
+        del allowed_access_levels
         self.queries.append(query)
         self.events.append(f"bm25:{query}")
-        return {chunk_id: float(len(self._chunks) - index) for index, chunk_id in enumerate(self._chunks)}
+        return {
+            chunk_id: float(len(self._chunks) - index)
+            for index, chunk_id in enumerate(self._chunks)
+            if index < k
+        }
 
     def chunks(self) -> dict[str, Hit]:
         return self._chunks

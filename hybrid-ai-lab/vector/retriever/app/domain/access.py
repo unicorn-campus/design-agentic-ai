@@ -5,6 +5,8 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import Any
 
+from .search_filter import MetadataFilter, MetadataValue
+
 
 ROLE_ACCESS = {
     "agent": frozenset({"public", "internal"}),
@@ -23,12 +25,14 @@ def allowed_levels(role: str) -> frozenset[str]:
         raise ValueError(f"알 수 없는 role: {role}") from error
 
 
-def build_where(role: str, filters: dict[str, Any] | None = None) -> dict[str, Any]:
-    clauses: list[dict[str, Any]] = [
-        {"access_level": {"$in": sorted(allowed_levels(role))}}
-    ]
-    clauses.extend({key: value} for key, value in (filters or {}).items())
-    return clauses[0] if len(clauses) == 1 else {"$and": clauses}
+def build_filter(
+    role: str,
+    filters: dict[str, MetadataValue] | None = None,
+) -> MetadataFilter:
+    return MetadataFilter.from_parts(
+        allowed_values={"access_level": allowed_levels(role)},
+        equalities=filters,
+    )
 
 
 def _metadata(candidate: Any) -> dict:

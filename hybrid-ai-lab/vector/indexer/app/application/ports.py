@@ -39,10 +39,10 @@ class EmbedderPort(Protocol):
     def embed_query(self, text: str) -> list[float]: ...
 
 
-class VectorStorePort(Protocol):
-    def reset(self) -> None: ...
+class VectorWritePort(Protocol):
+    """인덱싱 과정이 벡터 저장소에 요구하는 쓰기 계약."""
 
-    def search(self, query_embedding: list[float], k: int, where: dict) -> list[Any]: ...
+    def reset(self) -> None: ...
 
     def upsert(
         self,
@@ -52,8 +52,21 @@ class VectorStorePort(Protocol):
         metadatas: list[dict],
     ) -> None: ...
 
-    def get_all(self) -> dict: ...
+
+class VectorCatalogPort(Protocol):
+    """증분 인덱싱과 완료 검증에 필요한 컬렉션 조회 계약."""
+
+    def list_ids(self) -> list[str]: ...
+
+    def describe(self) -> dict[str, Any]: ...
 
     def count(self) -> int: ...
 
     def check_signature(self, expected: str) -> bool: ...
+
+
+class VectorStorePort(VectorWritePort, VectorCatalogPort, Protocol):
+    """Indexer 전용 저장소 계약.
+
+    검색은 Retriever의 책임이므로 이 계약에 포함하지 않음.
+    """

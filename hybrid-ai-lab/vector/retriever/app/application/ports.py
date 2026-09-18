@@ -4,6 +4,8 @@ from typing import Any, Protocol, TypeVar
 
 from pydantic import BaseModel
 
+from ..domain.corpus import CorpusSnapshot
+from ..domain.search_filter import MetadataFilter
 from .state import Hit, RouteDecision
 
 
@@ -16,26 +18,43 @@ class EmbedderPort(Protocol):
     def embed_query(self, text: str) -> list[float]: ...
 
 
-class VectorStorePort(Protocol):
-    def search(self, query_embedding: list[float], k: int, where: dict) -> list[Hit]: ...
+class VectorSearchPort(Protocol):
+    """질의 임베딩으로 근거 후보를 찾는 계약."""
 
-    def upsert(
+    def search(
         self,
-        ids: list[str],
-        texts: list[str],
-        embeddings: list[list[float]],
-        metadatas: list[dict],
-    ) -> None: ...
+        query_embedding: list[float],
+        k: int,
+        metadata_filter: MetadataFilter,
+    ) -> list[Hit]: ...
 
-    def get_all(self) -> dict: ...
 
-    def count(self) -> int: ...
+class VectorCatalogPort(Protocol):
+    """검색 준비 상태를 전체 레코드 조회 없이 확인하는 계약."""
 
-    def check_signature(self, expected: str) -> bool: ...
+    def describe(self) -> dict[str, Any]: ...
+
+
+class VectorStorePort(VectorSearchPort, VectorCatalogPort, Protocol):
+    """Retriever가 사용하는 검색·카탈로그 계약."""
+
+
+class CorpusPort(Protocol):
+    """Retriever가 활성 corpus 세대에 요구하는 읽기 계약."""
+
+    def active_generation(self) -> str | None: ...
+
+    def load_active(self) -> CorpusSnapshot | None: ...
 
 
 class BM25Port(Protocol):
-    def scores(self, query: str) -> dict[str, float]: ...
+    def scores(
+        self,
+        query: str,
+        *,
+        allowed_access_levels: frozenset[str] | None = None,
+        k: int,
+    ) -> dict[str, float]: ...
 
     def chunks(self) -> dict[str, Hit]: ...
 

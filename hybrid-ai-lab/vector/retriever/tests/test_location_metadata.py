@@ -2,20 +2,26 @@
 
 from __future__ import annotations
 
+import tempfile
+from pathlib import Path
+
+import bm25s
+
+from app.domain.corpus import CorpusSnapshot
+from app.domain.korean_tokenizer import KoreanTokenizer
 from app.domain.location import resolve_location
 from app.infrastructure.bm25_index import BM25Index
 
 
-class StaticStore:
-    def __init__(self, rows: list[tuple[str, str, dict]]):
-        self.rows = rows
+class StaticCorpusStore:
+    def __init__(self, snapshot: CorpusSnapshot):
+        self.snapshot = snapshot
 
-    def get_all(self) -> dict:
-        return {
-            "ids": [row[0] for row in self.rows],
-            "documents": [row[1] for row in self.rows],
-            "metadatas": [row[2] for row in self.rows],
-        }
+    def active_generation(self) -> str:
+        return self.snapshot.generation
+
+    def load_active(self) -> CorpusSnapshot:
+        return self.snapshot
 
 
 def test_resolve_location_supports_d1_d2_d3_and_legacy_metadata():
@@ -39,20 +45,34 @@ def test_resolve_location_does_not_create_empty_turn_label():
 
 
 def test_bm25_uses_common_location_resolution():
-    index = BM25Index(
-        StaticStore(
-            [
-                (
-                    "D2_0000",
-                    "혜택 본문",
-                    {
-                        "section_label": "한빛 모아생활 · 생활 포인트 적립",
-                        "clause_no": "사용하면 안 되는 구버전 값",
-                        "access_level": "public",
-                    },
-                )
-            ]
-        )
+    tokenizer = KoreanTokenizer()
+    records = (
+        {
+            "chunk_id": "D2_0000",
+            "text": "혜택 본문",
+            "metadata": {
+                "section_label": "한빛 모아생활 · 생활 포인트 적립",
+                "clause_no": "사용하면 안 되는 구버전 값",
+                "access_level": "public",
+            },
+        },
     )
+    with tempfile.TemporaryDirectory() as directory:
+        bm25_path = Path(directory) / "bm25"
+        retriever = bm25s.BM25()
+        retriever.index(tokenizer.tokenize_many(["혜택 본문"]), show_progress=False)
+        retriever.save(bm25_path, show_progress=False)
+        snapshot = CorpusSnapshot(
+            generation="test",
+            corpus_sha256="hash",
+            records=records,
+            bm25_path=bm25_path,
+            manifest={
+                "generation": "test",
+                "corpus_sha256": "hash",
+                "tokenizer_signature": tokenizer.signature,
+            },
+        )
+        index = BM25Index(StaticCorpusStore(snapshot), tokenizer)
 
-    assert index.chunks()["D2_0000"].location == "한빛 모아생활 · 생활 포인트 적립"
+        assert index.chunks()["D2_0000"].location == "한빛 모아생활 · 생활 포인트 적립"

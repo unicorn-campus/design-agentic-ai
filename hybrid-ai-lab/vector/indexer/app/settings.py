@@ -124,11 +124,25 @@ def _default_transform_cache_path() -> Path:
     return APP_DIR / "data" / "transform_cache.json"
 
 
+def _default_search_index_root() -> Path:
+    if APP_DIR.name == "indexer":
+        return APP_DIR / "data" / "search_indexes"
+    return APP_DIR.parent / "indexer" / "data" / "search_indexes"
+
+
 # 계획서 1-3절과 1-3-2절의 모든 키를 한 곳에서만 허용함.
 _SPECS: dict[str, _Spec] = {
+    "VECTOR_STORE_BACKEND": _Spec("chroma", _choice("chroma", "memory")),  # 벡터 저장소 어댑터
     "CHROMA_PATH": _Spec(_default_chroma_path, _path),  # Chroma 벡터 DB가 저장된 디렉터리
     "CHROMA_COLLECTION": _Spec("card_docs", _text),  # 검색할 Chroma 컬렉션 이름
     "EMBED_MODEL": _Spec("nlpai-lab/KURE-v2", _text),  # 질문을 벡터로 변환할 임베딩 모델
+    "SEARCH_INDEX_ROOT": _Spec(_default_search_index_root, _path),  # 활성 corpus·BM25S 세대 루트
+    "KOREAN_USER_DICTIONARY": _Spec(None, _path),  # 카드명·상품명 한국어 사용자 사전
+    "KOREAN_TOKENIZER_WORKERS": _Spec(1, _positive_int),  # Kiwi 색인 배치 작업자 수
+    "KOREAN_OOV_MIN_COUNT": _Spec(10, _positive_int),  # 사용자 사전 후보의 최소 corpus 빈도
+    "KOREAN_OOV_MIN_SCORE": _Spec(0.25, _non_negative_float),  # 사용자 사전 후보의 최소 Kiwi 점수
+    "BM25_K1": _Spec(1.5, _positive_float),  # BM25 단어 빈도 포화 계수
+    "BM25_B": _Spec(0.75, _unit_float),  # BM25 문서 길이 보정 계수
     "RERANK_MODEL": _Spec("BAAI/bge-reranker-v2-m3", _text),  # 후보 문서 순위를 다시 매길 모델
     "LLM_PROVIDER": _Spec("groq", _choice("groq", "claude", "openai")),  # 답변에 사용할 LLM 제공자
     "GROQ_API_KEY": _Spec(None, _text, True),  # Groq 인증 키이며 로그에서 가리는 비밀값

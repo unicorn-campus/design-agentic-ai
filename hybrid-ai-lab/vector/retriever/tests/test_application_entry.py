@@ -53,15 +53,14 @@ class FakeStreamGraph:
 
 
 class FakeVectorStore:
+    def describe(self):
+        return {"count": self.count(), "dimension": 4, "signature": "signature"}
+
     def count(self):
         return 1
 
     def check_signature(self, _signature):
         return True
-
-    def get_all(self):
-        return {"embeddings": [[0.0] * 4]}
-
 
 def candidate_hit(index: int) -> Hit:
     return Hit(
@@ -84,13 +83,15 @@ class CandidateVectorStore(FakeVectorStore):
     def count(self):
         return len(self.hits)
 
-    def search(self, _embedding, size, _where):
+    def search(self, _embedding, size, _metadata_filter):
         self.requested_sizes.append(size)
         return self.hits[:size]
 
 
 class CandidateBm25:
-    def scores(self, _query):
+    def scores(self, _query, *, allowed_access_levels=None, k=10):
+        del allowed_access_levels
+        del k
         return {}
 
     def chunks(self):

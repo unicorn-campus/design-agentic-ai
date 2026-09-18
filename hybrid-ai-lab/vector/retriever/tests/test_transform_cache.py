@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import stat
 from pathlib import Path
 
@@ -35,7 +36,8 @@ def test_round_trip_and_overwrite_leave_no_temporary_file(tmp_path: Path) -> Non
     cache.put("질문", changed)
     assert cache.get("질문") == changed
     assert list(path.parent.glob(f".{path.name}.*.tmp")) == []
-    assert stat.S_IMODE(path.stat().st_mode) == 0o600
+    if os.name != "nt":
+        assert stat.S_IMODE(path.stat().st_mode) == 0o600
     assert json.loads(path.read_text(encoding="utf-8"))["질문"]["reason"] == "새 결정"
 
 

@@ -6,7 +6,7 @@ from dataclasses import dataclass
 import unittest
 
 from app.application.state import AnswerDraft, EvidenceDraft, Hit, RouteDecision
-from app.domain.access import build_where, filter_candidates
+from app.domain.access import build_filter, filter_candidates
 from app.domain.query_transform import (
     ensure_decomposition_coverage,
     merge_query_groups,
@@ -35,7 +35,11 @@ class AccessAndScoringTests(unittest.TestCase):
     def test_agent_cannot_read_restricted(self):
         rows = [hit("P", 1.0), hit("R", 0.9, access="restricted")]
         self.assertEqual([item.chunk_id for item in filter_candidates(rows, "agent")], ["P"])
-        self.assertIn("$in", build_where("agent")["access_level"])
+        metadata_filter = build_filter("agent")
+        self.assertEqual(
+            (("access_level", ("internal", "public")),),
+            metadata_filter.allowed_values,
+        )
 
     def test_auditor_reads_restricted(self):
         rows = [hit("R", 1.0, access="restricted")]
@@ -43,7 +47,7 @@ class AccessAndScoringTests(unittest.TestCase):
 
     def test_unknown_role_fails_closed(self):
         with self.assertRaises(ValueError):
-            build_where("admin")
+            build_filter("admin")
 
     def test_fusion_preserves_vector_score_and_bm25_only_none(self):
         vector = [hit("V", 0.8, vector_score=0.8)]

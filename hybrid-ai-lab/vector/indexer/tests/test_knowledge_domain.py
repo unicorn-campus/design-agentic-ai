@@ -13,7 +13,7 @@ from app.domain.chunking import Chunk, ChunkIntegrityError, assign_storage_ids, 
 from app.domain.validation import MetadataError, ProfileOverrideError, apply_profile, sanitize_metadata
 from app.application.graph import IndexerResources
 from app.infrastructure.embedder import SmokeEmbedder, plan_incremental
-from app.infrastructure.chroma_store import ChromaVectorStore, MemoryVectorStore
+from app.infrastructure.chroma_store import ChromaVectorStore, MemoryVectorStore, create_vector_store
 
 
 def document(chunk_id: str, text: str, access: str = "public") -> Document:
@@ -75,6 +75,23 @@ class MetadataTests(unittest.TestCase):
 
 
 class SmokeEmbeddingBackendTests(unittest.TestCase):
+    def test_vector_store_factory_selects_backend_independently_from_embedder(self):
+        store = create_vector_store(
+            backend="memory",
+            path=Path("unused"),
+            collection="unused",
+            signature="test-signature",
+        )
+        self.assertIsInstance(store, MemoryVectorStore)
+
+        with self.assertRaisesRegex(ValueError, "벡터 저장소 백엔드"):
+            create_vector_store(
+                backend="unsupported",
+                path=Path("unused"),
+                collection="unused",
+                signature="test-signature",
+            )
+
     def test_smoke_embedding_is_deterministic_and_normalized(self):
         embedder = SmokeEmbedder()
         first, second = embedder.embed(["같은 문장", "같은 문장"])
@@ -241,6 +258,9 @@ class SmokeEmbeddingBackendTests(unittest.TestCase):
                 [row.metadata for row in rows],
             )
             self.assertEqual(set(store.get_all()["ids"]), {"D1_0000", "D1_0001"})
+            # Windows에서는 Chroma의 Rust HNSW 파일 핸들이 프로세스 종료 전까지
+            # 유지되므로 임시 디렉터리 정리 전에 시험용 client를 명시적으로 중지함.
+            store._store._client._system.stop()
 
 
 if __name__ == "__main__":

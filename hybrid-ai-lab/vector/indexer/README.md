@@ -60,6 +60,10 @@ cp .env.example .env
 
 상대 경로 설정값은 현재 셸 위치가 아니라 `vector/indexer/` 기준으로 해석됨.
 
+`VECTOR_STORE_BACKEND` 기본값은 `chroma`임. `memory`는 자동화 시험용 비영속 저장소임.
+
+새 운영 벡터 DB는 저장소 포트의 어댑터와 생성 팩터리에 등록하여 그래프 변경 없이 연결함.
+
 ## 빠른 확인
 
 ### Dry-run
@@ -179,6 +183,10 @@ python run_indexer.py --help
 | `data/chunk_report.json` | 입력 단위·청크·검토·예외 건수 |
 | `data/embeddings/<thread-id>.npy` | 이번 실행에서 만든 벡터 |
 | `data/index_manifest.json` | 증분 판정용 해시·모델 서명·건수 |
+| `data/search_indexes/active_index.json` | 검증을 통과한 활성 검색 세대 포인터 |
+| `data/search_indexes/generations/<generation>/corpus.jsonl` | Vector DB와 독립적인 기준 청크 스냅샷 |
+| `data/search_indexes/generations/<generation>/bm25/` | Kiwi 토큰으로 만든 BM25S 색인 |
+| `data/search_indexes/generations/<generation>/manifest.json` | corpus 해시·토크나이저·BM25·벡터 서명 |
 | `data/chroma/` | KURE-v2 ChromaDB |
 | `data/chroma_smoke/` | Smoke ChromaDB |
 | `data/checkpoints/indexer.sqlite` | LangGraph 체크포인트 |
@@ -186,6 +194,26 @@ python run_indexer.py --help
 | `data/index_run<N>.json` | 자동 번호가 붙은 실행 결과 |
 
 결과 JSON은 stdout에도 출력됨. 저장 경로 안내는 stderr에 출력됨.
+
+`chunks.jsonl`은 청킹 직후의 중간 산출물이며 검색기가 직접 읽는 원천은 아님.
+
+Vector 저장 건수, 청크 ID, upsert 실패 여부 검증이 모두 성공한 뒤에만 새 검색 세대가 발행됨.
+
+`active_index.json`은 마지막에 원자적으로 교체되므로 색인 생성 실패 시 이전 세대가 계속 활성 상태로 유지됨.
+
+최초 전환은 전체 청크와 Vector DB의 ID를 맞추기 위하여 다음 명령 사용을 권장함.
+
+```bash
+python run_indexer.py \
+  --in ../../docs \
+  --out data \
+  --doc all \
+  --full-reindex
+```
+
+부분 인덱싱은 기존 활성 corpus와 현재 청크를 ID 기준으로 병합함.
+
+병합 결과와 Vector DB의 ID 집합이 다르면 새 세대를 발행하지 않으며 전체 재색인이 필요함.
 
 실측의 `exceptions.jsonl` 56건은 적재 실패가 아님.
 필수 문맥을 보존하느라 600자 상한을 넘었지만 KURE-v2 토큰 한도 안에 들어온 청크임.
@@ -229,4 +257,11 @@ python run_indexer.py --help
 - 상담 분리 건수와 `[상담ID]` 머리글 수가 다르면 중단됨.
 - 프로필이 출처·식별 키를 덮어쓰려 하면 중단됨.
 - `--full-reindex`와 일부 문서 선택을 함께 쓰면 컬렉션도 해당 선택 결과만 남게 됨.
+- Kiwi 또는 BM25S가 없으면 검색 세대를 발행할 수 없으므로 `requirements.txt` 전체 설치 필요함.
+- `KOREAN_USER_DICTIONARY`를 바꾸면 토크나이저 서명이 달라지므로 Indexer와 Retriever에 같은 파일 지정 필요함.
+- 사용자 사전은 Kiwi 공식 형식으로 로딩하며 품사·점수·이형태·기분석 형태 보존 가능함.
+- `KOREAN_TOKENIZER_WORKERS`는 corpus 배치 토큰화 작업자 수이며 기본값은 1임.
+- 각 세대의 `oov_candidates.json`은 검토용 미등록어 후보이며 자동 사전 등록 대상이 아님.
+- `KOREAN_OOV_MIN_COUNT`와 `KOREAN_OOV_MIN_SCORE`로 후보 추출 기준 조정 가능함.
+- BM25S 디렉터리에는 역색인만 저장하며 canonical 본문은 세대별 `corpus.jsonl` 한 곳에서 관리함.
 - 실제 검증 범위와 미검증 항목은 `../verify-report.md`에서 확인 가능함.
