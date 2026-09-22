@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+<rect width="1600" height="1080" fill="#F5F7FB"/>
+<rect x="48" y="38" width="74" height="60" rx="16" fill="#18263D" stroke="#18263D" stroke-width="2"/>
+<text x="85" y="80.47999999999999" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">02</text>
+<text x="145" y="86.08" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="38" font-weight="700" fill="#18263D">이벤트를 시간순으로 놓기</text>
+<text x="148" y="127.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#5D6C83">이번 단계의 결과: 사건의 순서 · 선행 조건 · 반복 조회 구간</text>
+<polyline points="48,155 1552,155" fill="none" stroke="#B9C6D7" stroke-width="1" stroke-dasharray="none" stroke-linejoin="round"/>
+<text x="50" y="1046.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이탈 위험 방지 · Event Modeling 작성 예시</text>
+<text x="1550" y="1046.04" text-anchor="end" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">가상 데이터 · 설계 제안</text>
+<rect x="410" y="198" width="340" height="145" rx="18" fill="#E0F3E9" stroke="#36865B" stroke-width="2"/>
+<text x="432" y="233.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#36865B">사전 흐름</text>
+<text x="432" y="276.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">I-1  색인 발행</text>
+<text x="432" y="315.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">상담과 별도 주기로 실행</text>
+<polyline points="580,343 580,395" fill="none" stroke="#36865B" stroke-width="3" stroke-dasharray="9 7" stroke-linejoin="round"/>
+<polygon points="580,395 573.4755169883315,381.49329346470984 586.5244830116685,381.49329346470984" fill="#36865B"/>
+<text x="765" y="270.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#36865B">근거 선정에 사용할 색인이 먼저 준비됨</text>
+<rect x="50" y="400" width="228" height="156" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="72" y="435.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-1</text>
+<text x="72" y="478.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">상담 시작</text>
+<text x="72" y="517.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">순서 1</text>
+<polyline points="279,480 296,480" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="296,480 282.49329346470984,486.52448301166845 282.49329346470984,473.47551698833155" fill="#5D6C83"/>
+<rect x="303" y="400" width="228" height="156" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="325" y="435.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-2</text>
+<text x="325" y="478.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">현황 확보</text>
+<text x="325" y="517.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">순서 2</text>
+<polyline points="532,480 549,480" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="549,480 535.4932934647098,486.52448301166845 535.4932934647098,473.47551698833155" fill="#5D6C83"/>
+<rect x="556" y="400" width="228" height="156" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="578" y="435.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-3</text>
+<text x="578" y="478.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">근거 선정</text>
+<text x="578" y="517.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">순서 3</text>
+<polyline points="785,480 802,480" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="802,480 788.4932934647098,486.52448301166845 788.4932934647098,473.47551698833155" fill="#5D6C83"/>
+<rect x="809" y="400" width="228" height="156" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="831" y="435.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-4</text>
+<text x="831" y="478.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">초안 작성</text>
+<text x="831" y="517.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">순서 4</text>
+<polyline points="1038,480 1055,480" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1055,480 1041.49329346471,486.52448301166845 1041.49329346471,473.47551698833155" fill="#5D6C83"/>
+<rect x="1062" y="400" width="228" height="156" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="1084" y="435.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-8</text>
+<text x="1084" y="478.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">초안 반환</text>
+<text x="1084" y="517.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">순서 5</text>
+<polyline points="1291,480 1308,480" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1308,480 1294.49329346471,486.52448301166845 1294.49329346471,473.47551698833155" fill="#5D6C83"/>
+<rect x="1315" y="400" width="228" height="156" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="1337" y="435.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-9</text>
+<text x="1337" y="478.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">확인 기록</text>
+<text x="1337" y="517.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">순서 6</text>
+<polyline points="1226,557 1226,626 1106,626 1106,558" fill="none" stroke="#3674CE" stroke-width="3" stroke-dasharray="9 7" stroke-linejoin="round"/>
+<polygon points="1106,558 1112.5244830116685,571.5067065352902 1099.4755169883315,571.5067065352902" fill="#3674CE"/>
+<text x="1035" y="673.68" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#3674CE">다시 조회하면 E-8만 추가 가능</text>
+<text x="1035" y="709.36" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">E-4를 새로 만들 필요 없음</text>
+<rect x="50" y="755" width="1500" height="105" rx="18" fill="#E9EDF3" stroke="#E9EDF3" stroke-width="2"/>
+<text x="78" y="794.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">확장 가정</text>
+<text x="320" y="815.16" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">E-5 제안 확정     →     E-6 실제 안내     →     E-7 반응 기록</text>
+<rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
+<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">ID는 발생 순서 번호가 아님</text>
+<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">E-8·E-9는 추가된 이력 ID임. 상담 흐름에서는 확장 구간 E-5보다 먼저 발생할 수 있음.</text>
+</svg>

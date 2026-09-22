@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+<rect width="1600" height="1080" fill="#F5F7FB"/>
+<rect x="48" y="38" width="74" height="60" rx="16" fill="#18263D" stroke="#18263D" stroke-width="2"/>
+<text x="85" y="80.47999999999999" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">04</text>
+<text x="145" y="86.08" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="38" font-weight="700" fill="#18263D">요청과 처리 결과 연결하기</text>
+<text x="148" y="127.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#5D6C83">이번 단계의 결과: 트리거 → 커맨드 → 이벤트로 이어지는 세 가지 변경 슬라이스</text>
+<polyline points="48,155 1552,155" fill="none" stroke="#B9C6D7" stroke-width="1" stroke-dasharray="none" stroke-linejoin="round"/>
+<text x="50" y="1046.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이탈 위험 방지 · Event Modeling 작성 예시</text>
+<text x="1550" y="1046.04" text-anchor="end" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">가상 데이터 · 설계 제안</text>
+<text x="50" y="277.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">화면/자동화</text>
+<text x="50" y="510.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">커맨드</text>
+<text x="50" y="755.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">이벤트</text>
+<polyline points="430,375 430,438" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="430,438 423.47551698833155,424.49329346470984 436.52448301166845,424.49329346470984" fill="#5D6C83"/>
+<polyline points="430,617 430,681" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="430,681 423.47551698833155,667.4932934647098 436.52448301166845,667.4932934647098" fill="#5D6C83"/>
+<rect x="240" y="210" width="380" height="166" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<text x="262" y="245.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#5D6C83">U-1 · Human</text>
+<text x="262" y="286.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">시작 버튼 선택</text>
+<text x="262" y="326.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">문의 접수</text>
+<rect x="240" y="444" width="380" height="174" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="262" y="479.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#3674CE">C-1 · 규칙 기반 코드</text>
+<text x="262" y="520.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">상담을 시작하라</text>
+<text x="262" y="560.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">M-204 + 문의 내용</text>
+<rect x="240" y="686" width="380" height="163" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="262" y="721.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-1</text>
+<text x="262" y="761.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">상담이 시작되었음</text>
+<text x="262" y="800.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">S-104 + 문의 + 발생 시각</text>
+<polyline points="870,375 870,438" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="870,438 863.4755169883315,424.49329346470984 876.5244830116685,424.49329346470984" fill="#5D6C83"/>
+<polyline points="870,617 870,681" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="870,681 863.4755169883315,667.4932934647098 876.5244830116685,667.4932934647098" fill="#5D6C83"/>
+<rect x="680" y="210" width="380" height="166" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<text x="702" y="245.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#5D6C83">A-3 · 규칙 기반 코드</text>
+<text x="702" y="286.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">초안 작성 조건 충족</text>
+<text x="702" y="326.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">현황·근거 있음 / 초안 없음</text>
+<rect x="680" y="444" width="380" height="174" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="702" y="479.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#3674CE">C-4 · 생성형 AI + 코드</text>
+<text x="702" y="520.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">초안을 작성하라</text>
+<text x="702" y="560.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">현황 + R-01 + 미연결 상태</text>
+<rect x="680" y="686" width="380" height="163" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="702" y="721.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-4</text>
+<text x="702" y="761.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">초안이 작성되었음</text>
+<text x="702" y="800.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">초안 내용 + 근거 + 버전</text>
+<polyline points="1310,375 1310,438" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1310,438 1303.4755169883315,424.49329346470984 1316.5244830116685,424.49329346470984" fill="#5D6C83"/>
+<polyline points="1310,617 1310,681" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1310,681 1303.4755169883315,667.4932934647098 1316.5244830116685,667.4932934647098" fill="#5D6C83"/>
+<rect x="1120" y="210" width="380" height="166" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<text x="1142" y="245.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#5D6C83">U-3 · Human</text>
+<text x="1142" y="286.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">확인 버튼 선택</text>
+<text x="1142" y="326.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">DRAFT-01 / v1</text>
+<rect x="1120" y="444" width="380" height="174" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="1142" y="479.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#3674CE">C-6 · 규칙 기반 코드</text>
+<text x="1142" y="520.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">초안 확인을 기록하라</text>
+<text x="1142" y="560.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">A-07 + DRAFT-01/v1</text>
+<rect x="1120" y="686" width="380" height="163" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="1142" y="721.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-9</text>
+<text x="1142" y="761.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">초안 확인이 기록되었음</text>
+<text x="1142" y="800.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">확인자 + 초안 버전 + 시각</text>
+<rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
+<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">담당자 유형은 필요한 위치에만 표시</text>
+<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">규칙 기반 코드 · 생성형 AI · Human을 요청에 배정함. 예측형 AI는 미연결 상태를 유지함.</text>
+</svg>

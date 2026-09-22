@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+<rect width="1600" height="1080" fill="#F5F7FB"/>
+<rect x="48" y="38" width="74" height="60" rx="16" fill="#18263D" stroke="#18263D" stroke-width="2"/>
+<text x="85" y="80.47999999999999" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">01</text>
+<text x="145" y="86.08" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="38" font-weight="700" fill="#18263D">기록할 사실 모으기</text>
+<text x="148" y="127.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#5D6C83">이번 단계의 결과: 순서나 담당자를 정하기 전의 이벤트 후보 카드</text>
+<polyline points="48,155 1552,155" fill="none" stroke="#B9C6D7" stroke-width="1" stroke-dasharray="none" stroke-linejoin="round"/>
+<text x="50" y="1046.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이탈 위험 방지 · Event Modeling 작성 예시</text>
+<text x="1550" y="1046.04" text-anchor="end" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">가상 데이터 · 설계 제안</text>
+<rect x="50" y="191" width="236.5" height="34" rx="10" fill="#FFF0D9" stroke="#FFF0D9" stroke-width="2"/>
+<text x="63" y="213.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#18263D">채택 · 나중에 추적할 사실</text>
+<rect x="50" y="246" width="330" height="208" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="72" y="281.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-4</text>
+<text x="72" y="324.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">초안이</text>
+<text x="72" y="361.5" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">작성되었음</text>
+<text x="72" y="401.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">어떤 초안을 채택했는가</text>
+<rect x="405" y="246" width="330" height="208" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="427" y="281.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-1</text>
+<text x="427" y="324.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">상담이</text>
+<text x="427" y="361.5" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">시작되었음</text>
+<text x="427" y="401.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">어떤 문의가 접수되었는가</text>
+<rect x="760" y="246" width="330" height="208" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="782" y="281.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-8</text>
+<text x="782" y="324.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">초안 데이터가</text>
+<text x="782" y="361.5" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">반환되었음</text>
+<text x="782" y="401.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">누구에게 어떤 버전을</text>
+<text x="782" y="432.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">반환했는가</text>
+<rect x="50" y="484" width="330" height="208" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="72" y="519.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-3</text>
+<text x="72" y="562.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">근거가</text>
+<text x="72" y="599.5" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">선정되었음</text>
+<text x="72" y="639.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">어떤 출처를 채택했는가</text>
+<rect x="405" y="484" width="330" height="208" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="427" y="519.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-9</text>
+<text x="427" y="562.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">초안 확인이</text>
+<text x="427" y="599.5" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">기록되었음</text>
+<text x="427" y="639.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">누가 어떤 버전을 확인했는가</text>
+<rect x="760" y="484" width="330" height="208" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="782" y="519.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-2</text>
+<text x="782" y="562.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">고객 현황이</text>
+<text x="782" y="599.5" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">확보되었음</text>
+<text x="782" y="639.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">당시 어떤 현황을 사용했는가</text>
+<rect x="50" y="735" width="1040" height="128" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="72" y="770.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">별도 사전 작업의 사실</text>
+<text x="72" y="813.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">I-1  색인이 발행되었음</text>
+<text x="72" y="852.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">사용 가능한 색인 버전을 남김</text>
+<rect x="1140" y="246" width="410" height="244" rx="18" fill="#E9EDF3" stroke="#B9C6D7" stroke-width="2"/>
+<text x="1162" y="281.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#5D6C83">보류 · 기록 목적 먼저 확인</text>
+<text x="1162" y="326.32" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="27" font-weight="700" fill="#18263D">화면 새로고침</text>
+<text x="1162" y="366.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">업무 추적에 필요한가?</text>
+<text x="1162" y="398.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">모든 기술 동작을 넣지는 않음</text>
+<rect x="1140" y="528" width="410" height="276" rx="18" fill="#FCE9E7" stroke="#B9544C" stroke-width="2"/>
+<text x="1162" y="563.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#B9544C">제외 · 발생하지 않은 사실</text>
+<text x="1162" y="606.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">위험도가 산출되었음</text>
+<text x="1162" y="645.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">예측 모델이 미연결이므로</text>
+<text x="1162" y="677.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">산출 이벤트를 만들 수 없음</text>
+<rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
+<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">반환도 이벤트 후보</text>
+<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">초안 내용이 같아도 반환 이력은 새로 남길 수 있음. 저장 위치보다 기록 목적이 기준임.</text>
+</svg>

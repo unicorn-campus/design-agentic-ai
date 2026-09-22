@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+<rect width="1600" height="1080" fill="#F5F7FB"/>
+<rect x="48" y="38" width="74" height="60" rx="16" fill="#18263D" stroke="#18263D" stroke-width="2"/>
+<text x="85" y="80.47999999999999" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">05</text>
+<text x="145" y="86.08" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="38" font-weight="700" fill="#18263D">저장된 사실을 화면 정보로 바꾸기</text>
+<text x="148" y="127.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#5D6C83">이번 단계의 결과: 정보의 원천 → 읽기 모델 → 화면, 그리고 별도로 남기는 반환 이력</text>
+<polyline points="48,155 1552,155" fill="none" stroke="#B9C6D7" stroke-width="1" stroke-dasharray="none" stroke-linejoin="round"/>
+<text x="50" y="1046.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이탈 위험 방지 · Event Modeling 작성 예시</text>
+<text x="1550" y="1046.04" text-anchor="end" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">가상 데이터 · 설계 제안</text>
+<rect x="50" y="210" width="365" height="181" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="72" y="245.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-3 · 선정 기록</text>
+<text x="72" y="289.15999999999997" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">근거와 출처</text>
+<text x="72" y="329.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">R-01</text>
+<text x="72" y="360.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">D2-DEMO / 데모 2절</text>
+<rect x="50" y="421" width="365" height="190" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="72" y="456.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-4 · 작성 기록</text>
+<text x="72" y="500.15999999999997" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">저장된 초안 v1</text>
+<text x="72" y="540.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">DRAFT-01 + 내용 + R-01</text>
+<text x="72" y="571.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">예측 미연결 사유</text>
+<polyline points="415,296 480,296 480,390 559,390" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="559,390 545.4932934647098,396.52448301166845 545.4932934647098,383.47551698833155" fill="#5D6C83"/>
+<polyline points="415,509 480,509 480,438 559,438" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="559,438 545.4932934647098,444.52448301166845 545.4932934647098,431.47551698833155" fill="#5D6C83"/>
+<rect x="565" y="313" width="440" height="224" rx="18" fill="#E0F3E9" stroke="#36865B" stroke-width="2"/>
+<text x="587" y="348.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#36865B">V-3 · 읽기 모델</text>
+<text x="587" y="394.48" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#18263D">제안 초안 조회</text>
+<text x="587" y="435.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">내용과 근거를 연결</text>
+<text x="587" y="466.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">새 초안을 생성하지 않음</text>
+<polyline points="1005,425 1114,425" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1114,425 1100.49329346471,431.52448301166845 1100.49329346471,418.47551698833155" fill="#5D6C83"/>
+<rect x="1120" y="258" width="430" height="350" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<text x="1142" y="293.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#5D6C83">U-3 · 화면</text>
+<text x="1142" y="337.15999999999997" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">상담사가 볼 정보</text>
+<text x="1142" y="377.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">결론 / 근거 / 출처</text>
+<text x="1142" y="408.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">예측값: 확인 필요</text>
+<text x="1142" y="440.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">주의사항</text>
+<text x="1142" y="471.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">DRAFT-01 / v1</text>
+<text x="52" y="691.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">데이터 조회와 반환·확인 기록은 별개의 동작</text>
+<rect x="50" y="720" width="280" height="155" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<text x="72" y="755.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#5D6C83">관측</text>
+<text x="72" y="795.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">서버 반환 완료</text>
+<text x="72" y="834.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">Q-301</text>
+<polyline points="330,797 348,797" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="348,797 334.49329346470984,803.5244830116685 334.49329346470984,790.4755169883315" fill="#5D6C83"/>
+<rect x="354" y="720" width="280" height="155" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="376" y="755.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#3674CE">C-5</text>
+<text x="376" y="795.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">반환 이력 기록</text>
+<text x="376" y="834.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">요청자 + 버전</text>
+<polyline points="634,797 652,797" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="652,797 638.4932934647098,803.5244830116685 638.4932934647098,790.4755169883315" fill="#5D6C83"/>
+<rect x="658" y="720" width="280" height="155" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="680" y="755.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-8</text>
+<text x="680" y="795.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">반환되었음</text>
+<text x="680" y="834.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">내용은 그대로</text>
+<polyline points="938,797 956,797" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="9 7" stroke-linejoin="round"/>
+<polygon points="956,797 942.4932934647098,803.5244830116685 942.4932934647098,790.4755169883315" fill="#5D6C83"/>
+<rect x="962" y="720" width="280" height="155" rx="18" fill="#F0E8FF" stroke="#8058B2" stroke-width="2"/>
+<text x="984" y="755.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#8058B2">Human → C-6</text>
+<text x="984" y="795.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">명시적 확인</text>
+<text x="984" y="834.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">확인 버튼 선택</text>
+<polyline points="1242,797 1260,797" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1260,797 1246.49329346471,803.5244830116685 1246.49329346471,790.4755169883315" fill="#5D6C83"/>
+<rect x="1266" y="720" width="280" height="155" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="1288" y="755.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#D88A24">E-9</text>
+<text x="1288" y="795.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">확인 기록</text>
+<text x="1288" y="834.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">사용자 + 버전</text>
+<rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
+<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">반환되었다고 확인한 것은 아님</text>
+<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">점선 이후에는 별도 Human 입력이 필요함. 캐시에서 읽어도 선택한 반환 이력은 기록할 수 있음.</text>
+</svg>

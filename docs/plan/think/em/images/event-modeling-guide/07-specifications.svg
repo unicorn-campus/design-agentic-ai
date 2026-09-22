@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+<rect width="1600" height="1080" fill="#F5F7FB"/>
+<rect x="48" y="38" width="74" height="60" rx="16" fill="#18263D" stroke="#18263D" stroke-width="2"/>
+<text x="85" y="80.47999999999999" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">07</text>
+<text x="145" y="86.08" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="38" font-weight="700" fill="#18263D">구체적인 예시로 사양 붙이기</text>
+<text x="148" y="127.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#5D6C83">이번 단계의 결과: 커맨드 또는 읽기 모델 한 개에 연결된 검사 기준</text>
+<polyline points="48,155 1552,155" fill="none" stroke="#B9C6D7" stroke-width="1" stroke-dasharray="none" stroke-linejoin="round"/>
+<text x="50" y="1046.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이탈 위험 방지 · Event Modeling 작성 예시</text>
+<text x="1550" y="1046.04" text-anchor="end" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">가상 데이터 · 설계 제안</text>
+<rect x="50" y="215" width="470" height="626" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<rect x="73" y="236" width="201.0" height="34" rx="10" fill="#E5EFFF" stroke="#E5EFFF" stroke-width="2"/>
+<text x="86" y="258.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#18263D">C-4  초안을 작성하라</text>
+<text x="74" y="327.64" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="29" font-weight="700" fill="#18263D">초안 작성 성공</text>
+<text x="75" y="391.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="700" fill="#8058B2">GIVEN</text>
+<text x="75" y="433.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">현황 E-2 + 근거 R-01</text>
+<text x="75" y="469.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">예측 모델 미연결</text>
+<text x="75" y="536.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="700" fill="#8058B2">WHEN</text>
+<text x="75" y="578.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">S-104의 초안 작성 요청</text>
+<text x="75" y="681.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="700" fill="#8058B2">THEN</text>
+<text x="75" y="723.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">E-4에 초안·근거 저장</text>
+<text x="75" y="759.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">예측 수치 없음 / 확인 필요</text>
+<rect x="565" y="215" width="470" height="626" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<rect x="588" y="236" width="243.5" height="34" rx="10" fill="#E5EFFF" stroke="#E5EFFF" stroke-width="2"/>
+<text x="601" y="258.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#18263D">C-5  반환 이력을 기록하라</text>
+<text x="589" y="327.64" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="29" font-weight="700" fill="#18263D">같은 기록 재시도</text>
+<text x="590" y="391.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="700" fill="#8058B2">GIVEN</text>
+<text x="590" y="433.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">Q-301 반환 완료</text>
+<text x="590" y="469.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">E-8이 이미 1건 기록됨</text>
+<text x="590" y="536.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="700" fill="#8058B2">WHEN</text>
+<text x="590" y="578.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">Q-301 이력 기록 재시도</text>
+<text x="590" y="681.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="700" fill="#8058B2">THEN</text>
+<text x="590" y="723.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">E-8은 여전히 1건</text>
+<text x="590" y="759.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">새 E-4를 만들지 않음</text>
+<rect x="1080" y="215" width="470" height="626" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<rect x="1103" y="236" width="190.0" height="34" rx="10" fill="#E0F3E9" stroke="#E0F3E9" stroke-width="2"/>
+<text x="1116" y="258.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#18263D">V-4  초안 제공 이력</text>
+<text x="1104" y="327.64" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="29" font-weight="700" fill="#18263D">반환과 확인 구별</text>
+<text x="1105" y="391.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="700" fill="#8058B2">GIVEN</text>
+<text x="1105" y="433.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">E-8 반환 기록 존재</text>
+<text x="1105" y="469.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">E-9 확인 기록 없음</text>
+<text x="1105" y="536.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="700" fill="#8058B2">THEN</text>
+<text x="1105" y="578.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">반환 기록: 있음</text>
+<text x="1105" y="614.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="400" fill="#18263D">명시적 확인 기록: 없음</text>
+<rect x="1104" y="697" width="422" height="99" rx="18" fill="#F0E8FF" stroke="#F0E8FF" stroke-width="2"/>
+<text x="1123" y="740.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#8058B2">읽기 모델은 Given → Then</text>
+<text x="1123" y="773.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#8058B2">형식으로도 정의 가능</text>
+<rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
+<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">기대 결과까지 구체적으로 적기</text>
+<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">성공 여부만 쓰지 않고 이벤트 개수·버전·표시 값을 적음. 여기의 사양은 시험 실행 결과가 아님.</text>
+</svg>

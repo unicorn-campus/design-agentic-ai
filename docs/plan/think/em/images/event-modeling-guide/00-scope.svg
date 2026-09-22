@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+<rect width="1600" height="1080" fill="#F5F7FB"/>
+<rect x="48" y="38" width="74" height="60" rx="16" fill="#18263D" stroke="#18263D" stroke-width="2"/>
+<text x="85" y="80.47999999999999" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">00</text>
+<text x="145" y="86.08" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="38" font-weight="700" fill="#18263D">범위부터 정하기</text>
+<text x="148" y="127.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#5D6C83">이번 단계의 결과: 기본 흐름 · 사전 준비 · 확장 가정의 경계</text>
+<polyline points="48,155 1552,155" fill="none" stroke="#B9C6D7" stroke-width="1" stroke-dasharray="none" stroke-linejoin="round"/>
+<text x="50" y="1046.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이탈 위험 방지 · Event Modeling 작성 예시</text>
+<text x="1550" y="1046.04" text-anchor="end" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">가상 데이터 · 설계 제안</text>
+<rect x="50" y="202" width="1500" height="374" rx="18" fill="#FFFFFF" stroke="#3674CE" stroke-width="2"/>
+<rect x="80" y="222" width="207.5" height="34" rx="10" fill="#E5EFFF" stroke="#E5EFFF" stroke-width="2"/>
+<text x="93" y="244.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#18263D">이번 모델의 기본 범위</text>
+<rect x="85" y="304" width="330" height="190" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="107" y="339.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#3674CE">시작</text>
+<text x="107" y="383.15999999999997" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">해지 문의 접수</text>
+<text x="107" y="423.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">상담사 A-07 / 회원 M-204</text>
+<polyline points="415,398 443,398" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="443,398 429.49329346470984,404.52448301166845 429.49329346470984,391.47551698833155" fill="#5D6C83"/>
+<rect x="450" y="304" width="330" height="190" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="472" y="339.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#3674CE">진행</text>
+<text x="472" y="383.15999999999997" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">현황·근거 확보</text>
+<text x="472" y="423.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">상담 S-104의 판단 자료</text>
+<polyline points="780,398 808,398" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="808,398 794.4932934647098,404.52448301166845 794.4932934647098,391.47551698833155" fill="#5D6C83"/>
+<rect x="815" y="304" width="330" height="190" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="837" y="339.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#3674CE">진행</text>
+<text x="837" y="383.15999999999997" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">제안 초안 작성</text>
+<text x="837" y="423.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">DRAFT-01 / v1</text>
+<polyline points="1145,398 1173,398" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1173,398 1159.49329346471,404.52448301166845 1159.49329346471,391.47551698833155" fill="#5D6C83"/>
+<rect x="1180" y="304" width="330" height="190" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="1202" y="339.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#3674CE">끝</text>
+<text x="1202" y="383.15999999999997" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">상담사 확인</text>
+<text x="1202" y="423.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">명시적 확인 입력까지</text>
+<rect x="50" y="615" width="480" height="223" rx="18" fill="#E0F3E9" stroke="#36865B" stroke-width="2"/>
+<text x="72" y="650.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#36865B">별도 사전 흐름</text>
+<text x="72" y="694.16" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">색인 배치</text>
+<text x="72" y="734.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">D1·D2·합성 D3 준비</text>
+<text x="72" y="765.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">상담마다 실행하지 않음</text>
+<rect x="560" y="615" width="480" height="223" rx="18" fill="#E9EDF3" stroke="#B9C6D7" stroke-width="2"/>
+<text x="582" y="650.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#5D6C83">기본 범위 이후 · 가정</text>
+<text x="582" y="694.16" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">제안 확정 → 안내 → 반응</text>
+<text x="582" y="734.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">실제 고객 안내와 CRM 기록은</text>
+<text x="582" y="765.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">확장 설계로 분리</text>
+<rect x="1070" y="615" width="480" height="223" rx="18" fill="#FCE9E7" stroke="#B9544C" stroke-width="2"/>
+<text x="1092" y="650.88" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="18" font-weight="700" fill="#B9544C">현재 미연결</text>
+<text x="1092" y="694.16" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">예측형 AI</text>
+<text x="1092" y="734.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">위험 확률·등급을 만들지 않음</text>
+<text x="1092" y="765.86" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">예측값: 확인 필요</text>
+<rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
+<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">먼저 결정할 것</text>
+<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">한 상담의 시작과 끝을 정한 뒤, 사전 작업과 없는 기능을 분리함.</text>
+</svg>
