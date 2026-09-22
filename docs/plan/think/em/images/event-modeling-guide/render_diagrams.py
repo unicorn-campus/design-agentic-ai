@@ -20,18 +20,19 @@ C = dict(bg='#F5F7FB', ink='#18263D', muted='#5D6C83', line='#B9C6D7',
 
 
 class Board:
-    def __init__(self, num, title, subtitle):
-        self.im = Image.new('RGB', (W*SCALE, H*SCALE), C['bg'])
+    def __init__(self, num, title, subtitle, width=W, height=H):
+        self.width, self.height = width, height
+        self.im = Image.new('RGB', (width*SCALE, height*SCALE), C['bg'])
         self.d = ImageDraw.Draw(self.im)
-        self.svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
-                    f'<rect width="{W}" height="{H}" fill="{C["bg"]}"/>']
+        self.svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
+                    f'<rect width="{width}" height="{height}" fill="{C["bg"]}"/>']
         self.rect(48, 38, 74, 60, C['ink'], radius=16)
         self.text(85, 48, num, 28, C['white'], True, 'center')
         self.text(145, 42, title, 38, bold=True)
         self.text(148, 101, subtitle, 23, C['muted'])
-        self.line([(48, 155), (1552, 155)], C['line'], 1)
-        self.text(50, 1024, '이탈 위험 방지 · Event Modeling 작성 예시', 19, C['muted'])
-        self.text(1550, 1024, '가상 데이터 · 설계 제안', 19, C['muted'], anchor='right')
+        self.line([(48, 155), (width-48, 155)], C['line'], 1)
+        self.text(50, height-56, '이탈 위험 방지 · Event Modeling 작성 예시', 19, C['muted'])
+        self.text(width-50, height-56, '가상 데이터 · 설계 제안', 19, C['muted'], anchor='right')
 
     def text(self, x, y, value, size=24, color=None, bold=False, anchor='left'):
         color = color or C['ink']
@@ -41,7 +42,7 @@ class Board:
             yy = y + n * size * 1.5
             width = self.d.textlength(part, font=font)/SCALE
             xx = x - (width/2 if anchor == 'center' else width if anchor == 'right' else 0)
-            if xx < 0 or xx+width > W or yy+size*1.5 > H:
+            if xx < 0 or xx+width > self.width or yy+size*1.5 > self.height:
                 raise ValueError(f'Text outside canvas: {part}')
             self.d.text((xx*SCALE, yy*SCALE), part, font=font, fill=color)
             self.svg.append(f'<text x="{x}" y="{yy+size*1.16}" text-anchor="{svg_anchor}" '
@@ -91,13 +92,13 @@ class Board:
             self.text(x+22,ny,body,21,C['muted'])
 
     def note(self, title, body):
-        self.rect(50,903,1500,87,C['white'])
-        self.text(75,916,title,22,bold=True)
-        self.text(75,951,body,21,C['muted'])
+        self.rect(50,self.height-177,self.width-100,87,C['white'])
+        self.text(75,self.height-164,title,22,bold=True)
+        self.text(75,self.height-129,body,21,C['muted'])
 
     def save(self,name):
         (ROOT/f'{name}.svg').write_text('\n'.join(self.svg+['</svg>']),encoding='utf-8')
-        self.im.resize((W,H),Image.Resampling.LANCZOS).save(ROOT/f'{name}.png')
+        self.im.resize((self.width,self.height),Image.Resampling.LANCZOS).save(ROOT/f'{name}.png')
 
 
 def scope():

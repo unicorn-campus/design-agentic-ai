@@ -221,33 +221,69 @@ def merge():
 
 
 def boundaries():
-    b = Board('06', '레이어와 스웜레인으로 정리하기', '이번 결과: 업무영역별로 정돈한 대표 슬라이스와 담당자 유형')
-    xs = [245, 565, 885, 1205]
-    lanes = ['문의 접수', '고객 정보', '지식·관계', '상담 판단']
-    for x, lane in zip(xs, lanes):
-        b.text(x + 150, 200, lane, 24, bold=True, anchor='center')
-    rows = [
-        ('화면/자동화', ['U-1 시작 버튼', '현황 조회 조건', '문서 검색 조건', '근거 준비 자동화']),
-        ('커맨드/읽기 모델', ['C-1 문의 접수', 'C-3 현황 확보', 'C-4 문서 후보 확보', 'C-8 초안 작성']),
-        ('이벤트', ['E-1 문의 접수', 'E-3 현황 확보', 'E-4 문서 후보 확보', 'E-8 초안 작성']),
-        ('사양', ['인증된 상담사', '집계 기준·기간', '원문·권한·버전', '근거·고객 제약 반영']),
+    b = Board('06', '업무영역을 따라 전체 흐름 정리하기',
+              '행 = 스웜레인(업무영역) / 열 = 업무 진행 단계 / 카드 색 = 레이어 / 카드 위 = 담당자 유형',
+              width=2920, height=1740)
+    legends = [('화면/자동화', 'white'), ('커맨드/읽기 모델', 'blue'),
+               ('이벤트', 'orange'), ('사양', 'purple')]
+    for i, (label, tone) in enumerate(legends):
+        x = 300 + i * 410
+        b.rect(x, 180, 30, 30, C[tone], C.get(tone + '_s', C['line']), 6)
+        b.text(x + 42, 180, label, 22, bold=True)
+    b.text(2860, 182, '업무 진행 →', 22, C['muted'], True, 'right')
+    columns = ['문의 접수', '라우팅', '현황·문서 확보', '관계·예측',
+               '결과 취합', '초안 작성', '결과 반환', '상담사 확인']
+    b.text(65, 240, '스웜레인 ↓', 24, bold=True)
+    for j, title in enumerate(columns):
+        x = 300 + j * 320
+        b.rect(x, 235, 304, 47, C['ink'], radius=8)
+        b.text(x + 152, 243, title, 24, C['white'], True, 'center')
+    lanes = ['문의·결과 제공', '고객 정보', '지식·관계', '상담 판단']
+    for i, lane in enumerate(lanes):
+        y = 300 + i * 300
+        b.rect(50, y, 2820, 290, C['white'], C['line'], 10)
+        b.rect(50, y, 225, 290, C['gray'], C['line'], 10)
+        b.text(162, y + 117, lane, 24, bold=True, anchor='center')
+        for j in range(1, 8):
+            x = 292 + j * 320
+            b.line([(x, y + 8), (x, y + 280)], C['line'], 1, dashed=True)
+    # Only actual slices are shown; empty intersections contain no invented cards.
+    slices = [
+        (0, 0, 'Human → 규칙 기반 코드',
+         ['U-1 문의 입력·시작', 'C-1 문의 접수', 'E-1 문의가 접수되었음', '회원·상담사 권한 확인']),
+        (3, 1, '생성형 AI + 규칙 기반 코드',
+         ['E-1 접수 후 자동화', 'C-2 실행 경로 결정', 'E-2 실행 경로가 정해졌음', '선택 이유·필수 여부 저장']),
+        (1, 2, '규칙 기반 코드',
+         ['현황 경로 선택·권한 확인', 'C-3 현황·예측 특징 확보', 'E-3 고객 현황이 확보되었음', '정확 집계·기준시점 보존']),
+        (2, 2, '규칙 기반 코드',
+         ['문서 경로 선택·질의 준비', 'C-4 문서 후보 확보', 'E-4 문서 후보가 확보되었음', '원문 위치·버전·권한 보존']),
+        (2, 3, '규칙 기반 코드',
+         ['관계 선택 + C-3 ID 준비', 'C-5 관계 경로 확보', 'E-5 관계 경로가 확보되었음', '연결별 원천·상품 일치 확인']),
+        (3, 3, '예측형 AI + 규칙 기반 코드',
+         ['예측 선택 + C-3 특징 준비', 'C-6 이탈 위험 예측', 'E-6 이탈 위험이 예측되었음', '예측 기간·모델 버전 보존']),
+        (3, 4, '규칙 기반 코드',
+         ['선택 경로 취합 조건 충족', 'C-7 결과 취합·근거 선정', 'E-7 근거 묶음이 선정되었음', '필수 근거 검사·R-01 저장']),
+        (3, 5, '생성형 AI + 규칙 기반 코드',
+         ['E-7 근거 선정 후 자동화', 'C-8 초안 작성·검사·저장', 'E-8 초안이 작성되었음', '문장별 출처·고객 제약 검사']),
+        (0, 6, '규칙 기반 코드 → Human',
+         ['U-3에 초안 데이터 반환', 'V-3 화면용 데이터 구성\nC-9 반환 이력 기록',
+          'E-9 초안 데이터가\n반환되었음', '반환 요청별 중복 기록 방지']),
+        (0, 7, 'Human → 규칙 기반 코드',
+         ['U-3 확인 버튼 클릭', 'C-10 상담사 확인 기록', 'E-10 초안 확인이\n기록되었음', '반환과 Human 확인 구분']),
     ]
-    for j, (layer, titles) in enumerate(rows):
-        y = 265 + j * 150
-        b.text(50, y + 30, layer, 20, bold=True)
-        for i, title in enumerate(titles):
-            tone = ['white', 'blue', 'orange', 'purple'][j]
-            b.rect(xs[i], y, 300, 110, C[tone], C['line'], 12)
-            b.text(xs[i] + 150, y + 20, title, 21, bold=True, anchor='center')
-            if j == 0:
-                b.text(xs[i] + 150, y + 61, 'Human' if i == 0 else '규칙 기반 코드',
-                       17, C['muted'], anchor='center')
-            if j == 1:
-                b.text(xs[i] + 150, y + 61, '생성형 AI + 코드' if i == 3 else '규칙 기반 코드',
-                       17, C['muted'], anchor='center')
-            if j < 2:
-                b.line([(xs[i] + 150, y + 111), (xs[i] + 150, y + 145)], arrow=True)
-    b.note('스웜레인 = 업무영역', '레이어는 요소 종류, 담당자 유형은 수행 방식. 예측 C-6과 조회 V-3 등은 같은 원칙으로 배치.')
+    for lane, col, performer, cards in slices:
+        x, y = 300 + col * 320, 300 + lane * 300
+        b.text(x + 12, y + 8, performer, 18, C['muted'], True)
+        for j, (value, (_, tone)) in enumerate(zip(cards, legends)):
+            yy = y + 42 + j * 58
+            b.rect(x + 6, yy, 292, 54, C[tone], C.get(tone + '_s', C['line']), 8)
+            font = ImageFont.truetype(REG, 18 * SCALE)
+            assert all(b.d.textlength(line, font=font) / SCALE <= 270 for line in value.split('\n')), value
+            b.text(x + 17, yy + (2 if '\n' in value else 12), value, 18)
+    b.text(65, 1512, '같은 열의 작업은 병렬 실행 가능 · 다음 열도 필요한 입력이 준비되면 시작 · 정확한 시작·취합 조건은 4~5단계 참조',
+           22, C['muted'])
+    b.note('정상 시나리오의 C-1~C-10과 E-1~E-10을 모두 배치',
+           '라우팅은 경로 결정 E-2로, 결과 취합은 근거 묶음 선정 E-7로 기록. 예측 보류·필수 자료 실패는 7단계의 대안 시나리오로 연결.')
     b.save('node-06-boundaries')
 
 
