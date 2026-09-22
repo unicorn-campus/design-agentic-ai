@@ -1,0 +1,271 @@
+{
+  "slideCount": 58,
+  "protectedImages": {
+    "4": [
+      "04f10d50805df0d819499c1364a83995383d94a4a427a5fa5ee679b6b3e4e098"
+    ],
+    "24": [
+      "5a99a4cb9a562a0fc62e7fcbe5505264183387d45c620dc8f4b71bb9321ed79e"
+    ]
+  },
+  "codeChecks": [
+    {
+      "page": 9,
+      "file": "indexer/app/infrastructure/pdf_reader.py",
+      "ranges": [
+        [
+          11,
+          11
+        ],
+        [
+          87,
+          93
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 10,
+      "file": "indexer/app/infrastructure/pdf_reader.py",
+      "ranges": [
+        [
+          96,
+          99
+        ],
+        [
+          243,
+          249
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 13,
+      "file": "indexer/app/domain/consultations.py",
+      "ranges": [
+        [
+          71,
+          81
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 15,
+      "file": "indexer/app/application/graph.py",
+      "ranges": [
+        [
+          404,
+          409
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 19,
+      "file": "indexer/app/infrastructure/embedder.py",
+      "ranges": [
+        [
+          54,
+          54
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 19,
+      "file": "indexer/app/infrastructure/embedder.py",
+      "ranges": [
+        [
+          70,
+          79
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 21,
+      "file": "indexer/app/infrastructure/chroma_store.py",
+      "ranges": [
+        [
+          138,
+          147
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 22,
+      "file": "indexer/app/infrastructure/chroma_store.py",
+      "ranges": [
+        [
+          150,
+          168
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 27,
+      "file": "retriever/app/infrastructure/chroma_store.py",
+      "ranges": [
+        [
+          139,
+          144
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 29,
+      "file": "retriever/app/domain/query_transform.py",
+      "ranges": [
+        [
+          65,
+          79
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 33,
+      "file": "retriever/app/infrastructure/bm25_index.py",
+      "ranges": [
+        [
+          210,
+          215
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 34,
+      "file": "retriever/app/domain/scoring.py",
+      "ranges": [
+        [
+          65,
+          80
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 37,
+      "file": "retriever/app/application/graph.py",
+      "ranges": [
+        [
+          995,
+          1003
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 39,
+      "file": "retriever/app/application/graph.py",
+      "ranges": [
+        [
+          1028,
+          1036
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 40,
+      "file": "retriever/app/application/graph.py",
+      "ranges": [
+        [
+          1010,
+          1024
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 41,
+      "file": "retriever/app/domain/query_transform.py",
+      "ranges": [
+        [
+          187,
+          206
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 48,
+      "file": "retriever/app/application/graph.py",
+      "ranges": [
+        [
+          1224,
+          1235
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 51,
+      "file": "retriever/app/domain/scoring.py",
+      "ranges": [
+        [
+          170,
+          172
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 51,
+      "file": "retriever/app/domain/scoring.py",
+      "ranges": [
+        [
+          229,
+          229
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    },
+    {
+      "page": 55,
+      "file": "retriever/app/application/graph.py",
+      "ranges": [
+        [
+          1237,
+          1250
+        ]
+      ],
+      "syntax": "pass",
+      "transcription": "pass"
+    }
+  ],
+  "tests": {
+    "indexer": "32 passed",
+    "retriever": "42 passed, 4 subtests passed"
+  },
+  "limitations": [
+    "External LLM and live PowerPoint app not exercised",
+    "Empty caution prompt/validator mismatch documented; production code unchanged"
+  ],
+  "originalWorkflowImagePreservation": "pass: original pages 4 and 9",
+  "page46Arithmetic": "pass"
+}

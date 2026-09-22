@@ -166,7 +166,7 @@ _SPECS: dict[str, _Spec] = {
     "ANSWER_GATE_THRESHOLD": _Spec(0.62, _unit_float),  # 답변에 쓸 근거가 충분한지 판단할 점수 기준
     "RERANK_MAX_LENGTH": _Spec(512, _positive_int),  # 리랭커에 넣을 질문·문서의 최대 토큰 길이
     "TRANSFORM_MODE": _Spec("off", _choice("off", "auto")),  # 질문 변환 사용 여부
-    "TRANSFORM_GATE_THRESHOLD": _Spec(0.70, _unit_float),  # 이 점수보다 낮을 때 질문 변환을 검토
+    "TRANSFORM_GATE_THRESHOLD": _Spec(0.86, _unit_float),  # 이 점수보다 낮을 때 질문 변환을 검토
     "TRANSFORM_RRF_K": _Spec(60, _positive_int),  # RRF 순위 병합에서 상위 편중을 조절하는 상수
     "TRANSFORM_ORIGINAL_WEIGHT": _Spec(0.5, _unit_float),  # 변환 검색 병합 시 원 질문의 가중치
     "TRANSFORM_ORIGINAL_WEIGHT_DECOMPOSITION": _Spec(0.1, _unit_float),  # 질문 분해 시 원 질문 가중치

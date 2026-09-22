@@ -1,0 +1,3714 @@
+[
+  {
+    "page": 1,
+    "shapes": [
+      {
+        "id": "2",
+        "name": "텍스트 개체 틀 1",
+        "text": "하이브리드 AI"
+      },
+      {
+        "id": "3",
+        "name": "텍스트 개체 틀 2",
+        "text": "이해경"
+      },
+      {
+        "id": "5",
+        "name": "슬라이드 번호 개체 틀 4",
+        "text": "1"
+      }
+    ],
+    "tables": [],
+    "notes": "\n"
+  },
+  {
+    "page": 2,
+    "shapes": [
+      {
+        "id": "2",
+        "name": "Shape 0",
+        "text": ""
+      },
+      {
+        "id": "3",
+        "name": "Shape 1",
+        "text": ""
+      },
+      {
+        "id": "4",
+        "name": "Text 2",
+        "text": "목차"
+      },
+      {
+        "id": "5",
+        "name": "Text 3",
+        "text": "하이브리드 AI"
+      },
+      {
+        "id": "6",
+        "name": "Shape 4",
+        "text": ""
+      },
+      {
+        "id": "7",
+        "name": "Shape 5",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "Shape 6",
+        "text": ""
+      },
+      {
+        "id": "9",
+        "name": "Text 7",
+        "text": "강의 목표"
+      },
+      {
+        "id": "10",
+        "name": "Shape 8",
+        "text": ""
+      },
+      {
+        "id": "11",
+        "name": "Shape 9",
+        "text": ""
+      },
+      {
+        "id": "12",
+        "name": "Text 10",
+        "text": "기획자"
+      },
+      {
+        "id": "13",
+        "name": "Text 11",
+        "text": "자연어로 AI를 본인 업무에 \n적용하는 역량 함양"
+      },
+      {
+        "id": "14",
+        "name": "Shape 12",
+        "text": ""
+      },
+      {
+        "id": "15",
+        "name": "Shape 13",
+        "text": ""
+      },
+      {
+        "id": "16",
+        "name": "Text 14",
+        "text": "IT 개발자"
+      },
+      {
+        "id": "17",
+        "name": "Text 15",
+        "text": "AI를 업무 시스템에 적용할 수 있는\nFDE(Forward Deployed Engineer) 역량 기반 구축"
+      },
+      {
+        "id": "18",
+        "name": "Shape 16",
+        "text": ""
+      },
+      {
+        "id": "19",
+        "name": "Text 17",
+        "text": "커리큘럼"
+      },
+      {
+        "id": "20",
+        "name": "Shape 18",
+        "text": ""
+      },
+      {
+        "id": "21",
+        "name": "Shape 19",
+        "text": ""
+      },
+      {
+        "id": "22",
+        "name": "Text 20",
+        "text": "01"
+      },
+      {
+        "id": "23",
+        "name": "Shape 21",
+        "text": ""
+      },
+      {
+        "id": "24",
+        "name": "Text 22",
+        "text": "Claude Code 입문 및 프롬프트 기초"
+      },
+      {
+        "id": "25",
+        "name": "Shape 23",
+        "text": ""
+      },
+      {
+        "id": "26",
+        "name": "Shape 24",
+        "text": ""
+      },
+      {
+        "id": "27",
+        "name": "Text 25",
+        "text": "02"
+      },
+      {
+        "id": "28",
+        "name": "Shape 26",
+        "text": ""
+      },
+      {
+        "id": "29",
+        "name": "Text 27",
+        "text": "커넥터/루틴/컴퓨터 유즈"
+      },
+      {
+        "id": "30",
+        "name": "Shape 28",
+        "text": ""
+      },
+      {
+        "id": "31",
+        "name": "Shape 29",
+        "text": ""
+      },
+      {
+        "id": "32",
+        "name": "Text 30",
+        "text": "03"
+      },
+      {
+        "id": "33",
+        "name": "Shape 31",
+        "text": ""
+      },
+      {
+        "id": "34",
+        "name": "Text 32",
+        "text": "스킬 개발 기초"
+      },
+      {
+        "id": "35",
+        "name": "Shape 33",
+        "text": ""
+      },
+      {
+        "id": "36",
+        "name": "Shape 34",
+        "text": ""
+      },
+      {
+        "id": "37",
+        "name": "Text 35",
+        "text": "04"
+      },
+      {
+        "id": "38",
+        "name": "Shape 36",
+        "text": ""
+      },
+      {
+        "id": "39",
+        "name": "Text 37",
+        "text": "스킬 개발 심화/웹 MCP/MCP 개발"
+      },
+      {
+        "id": "41",
+        "name": "Shape 28",
+        "text": ""
+      },
+      {
+        "id": "42",
+        "name": "Shape 29",
+        "text": ""
+      },
+      {
+        "id": "43",
+        "name": "Text 30",
+        "text": "05"
+      },
+      {
+        "id": "44",
+        "name": "Shape 31",
+        "text": ""
+      },
+      {
+        "id": "45",
+        "name": "Text 32",
+        "text": "에이젼트 개발 "
+      },
+      {
+        "id": "47",
+        "name": "Shape 33",
+        "text": ""
+      },
+      {
+        "id": "48",
+        "name": "Shape 34",
+        "text": ""
+      },
+      {
+        "id": "49",
+        "name": "Text 35",
+        "text": "06"
+      },
+      {
+        "id": "50",
+        "name": "Shape 36",
+        "text": ""
+      },
+      {
+        "id": "51",
+        "name": "Text 37",
+        "text": "플러그인 개발 및 배포"
+      }
+    ],
+    "tables": [],
+    "notes": "\n"
+  },
+  {
+    "page": 3,
+    "shapes": [
+      {
+        "id": "2",
+        "name": "텍스트 개체 틀 1",
+        "text": "RAG"
+      },
+      {
+        "id": "3",
+        "name": "텍스트 개체 틀 2",
+        "text": "하이브리드 AI"
+      }
+    ],
+    "tables": [],
+    "notes": "\n"
+  },
+  {
+    "page": 4,
+    "shapes": [
+      {
+        "id": "2",
+        "name": "제목 1",
+        "text": "Indexing (1/3)"
+      },
+      {
+        "id": "25",
+        "name": "Slide Number Placeholder 0",
+        "text": "4"
+      }
+    ],
+    "tables": [],
+    "notes": "핵심 메시지: 자동화의 목적은 '사람 대체'가 아니라 '사람이 더 중요한 일에 집중'.\n\n[발표] 골든서클 WHY. 청중에게 '내 업무 중 매번 반복하는 일'을 떠올리게 함(2주 과제 복선). 자동화는 일자리 위협이 아니라 단순 반복에서 벗어나 판단·창의에 집중하는 도구. 보안 IC 기업 특성상 '사람 최종 승인'이 기본 전제임을 미리 암시. 출처: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\n"
+  },
+  {
+    "page": 5,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-1",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-2",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-3",
+        "text": "select_sources  :  원문 파일 선택"
+      },
+      {
+        "id": "4",
+        "name": "v2-4",
+        "text": "입력 경로에서 요청한 문서 종류와 상담 세그먼트에 해당하는 파일만 선택"
+      },
+      {
+        "id": "5",
+        "name": "v2-5",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-6",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-7",
+        "text": "입력"
+      },
+      {
+        "id": "8",
+        "name": "v2-8",
+        "text": "핵심 처리"
+      },
+      {
+        "id": "9",
+        "name": "v2-9",
+        "text": "출력"
+      },
+      {
+        "id": "12",
+        "name": "v2-10",
+        "text": "input_path\n원문 경로\n\ndoc\nD1 / D2 / D3 / all\n\nsegment\n상담 세그먼트"
+      },
+      {
+        "id": "13",
+        "name": "v2-11",
+        "text": "1  파일이면 해당 파일, 폴더이면 파일 목록 확인\n\n2  D1·D2 PDF와 D3 상담 파일 이름 검사\n\n3  문서 종류·세그먼트 조건으로 필터링"
+      },
+      {
+        "id": "14",
+        "name": "v2-12",
+        "text": "sources\n선택한 절대 경로 목록"
+      },
+      {
+        "id": "15",
+        "name": "v2-13",
+        "text": "다음: 선택 결과가 있으면 extract  /  없으면 오류 종료"
+      },
+      {
+        "id": "16",
+        "name": "v2-465",
+        "text": "05"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: select_sources\n원문 파일 선택\n\nINDEXER  /  노드 상세\nselect_sources  :  원문 파일 선택\n입력 경로에서 요청한 문서 종류와 상담 세그먼트에 해당하는 파일만 선택\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\ninput_path\n원문 경로\n\ndoc\nD1 / D2 / D3 / all\n\nsegment\n상담 세그먼트\n1  파일이면 해당 파일, 폴더이면 파일 목록 확인\n\n2  D1·D2 PDF와 D3 상담 파일 이름 검사\n\n3  문서 종류·세그먼트 조건으로 필터링\nsources\n선택한 절대 경로 목록\n다음: 선택 결과가 있으면 extract  /  없으면 오류 종료\n05\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n\n"
+  },
+  {
+    "page": 6,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-14",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-15",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-16",
+        "text": "select_sources  :  선택 결과와 Document 배열"
+      },
+      {
+        "id": "4",
+        "name": "v2-17",
+        "text": "원본 자료의 배열 예시를 유지하고, 실제 State 이름과 연결"
+      },
+      {
+        "id": "5",
+        "name": "v2-18",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-19",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-20",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-21",
+        "text": "selected = [\n    {약관 파일 경로},\n    {혜택 파일 경로},\n    {상담 파일 경로}\n]\n\ndocuments 배열 생성\ndocuments = [\n  {Document 객체},\n  …\n]"
+      },
+      {
+        "id": "9",
+        "name": "v2-22",
+        "text": "원본 selected 예시는 현재 State의 sources에 해당  /  {…}는 설명용 자리표시자"
+      },
+      {
+        "id": "10",
+        "name": "v2-466",
+        "text": "06"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: select_sources\n선택 결과와 Document 배열\n\nINDEXER  /  노드 상세\nselect_sources  :  선택 결과와 Document 배열\n원본 자료의 배열 예시를 유지하고, 실제 State 이름과 연결\n하이브리드 AI  ·  Workflow 노드 해설\nselected = [\n    {약관 파일 경로},\n    {혜택 파일 경로},\n    {상담 파일 경로}\n]\n\ndocuments 배열 생성\ndocuments = [\n  {Document 객체},\n  …\n]\n원본 selected 예시는 현재 State의 sources에 해당  /  {…}는 설명용 자리표시자\n06\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n원본 핵심 코드 출처: 5페이지\n"
+  },
+  {
+    "page": 7,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-23",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-24",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-25",
+        "text": "extract  :  파일을 Document로 변환"
+      },
+      {
+        "id": "4",
+        "name": "v2-26",
+        "text": "파일 형식에 맞는 추출기를 호출하고 본문·메타데이터·추적 정보를 수집"
+      },
+      {
+        "id": "5",
+        "name": "v2-27",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-28",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-29",
+        "text": "입력"
+      },
+      {
+        "id": "8",
+        "name": "v2-30",
+        "text": "핵심 처리"
+      },
+      {
+        "id": "9",
+        "name": "v2-31",
+        "text": "출력"
+      },
+      {
+        "id": "12",
+        "name": "v2-32",
+        "text": "sources\n선택한 원문 파일\n\nD1·D2 PDF\nD3 상담 TXT"
+      },
+      {
+        "id": "13",
+        "name": "v2-33",
+        "text": "1  원문 파일별 SHA-256 해시 계산\n\n2  PDF는 페이지별, 상담은 상담 1건별 추출\n\n3  본문과 메타데이터를 Document로 묶음"
+      },
+      {
+        "id": "14",
+        "name": "v2-34",
+        "text": "documents\n본문 + metadata\n\nreports\n처리 결과·경고\n\nfingerprints\n원문 해시"
+      },
+      {
+        "id": "15",
+        "name": "v2-35",
+        "text": "다음: apply_profile  /  문서 유형 doc_type은 metadata 안의 값"
+      },
+      {
+        "id": "16",
+        "name": "v2-467",
+        "text": "07"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: extract\n파일을 Document로 변환\n\nINDEXER  /  노드 상세\nextract  :  파일을 Document로 변환\n파일 형식에 맞는 추출기를 호출하고 본문·메타데이터·추적 정보를 수집\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nsources\n선택한 원문 파일\n\nD1·D2 PDF\nD3 상담 TXT\n1  원문 파일별 SHA-256 해시 계산\n\n2  PDF는 페이지별, 상담은 상담 1건별 추출\n\n3  본문과 메타데이터를 Document로 묶음\ndocuments\n본문 + metadata\n\nreports\n처리 결과·경고\n\nfingerprints\n원문 해시\n다음: apply_profile  /  문서 유형 doc_type은 metadata 안의 값\n07\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n\n"
+  },
+  {
+    "page": 8,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-36",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-37",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-38",
+        "text": "extract  :  PDF 좌표와 글자 구조"
+      },
+      {
+        "id": "4",
+        "name": "v2-39",
+        "text": "PyMuPDF의 block·line·span을 따라 글자와 위치를 함께 읽음"
+      },
+      {
+        "id": "5",
+        "name": "v2-40",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-41",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-42",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-43",
+        "text": "block = {\n               \"type\": 0,\n               \"bbox\": (28, 15, 230, 48),\n               \"lines\": [\n                   {\n                       \"bbox\": (28, 15, 230, 48),\n                       \"spans\": [\n                           {\"text\": \"제5조\"},\n                           {\"text\": \"(통지 방법)\"},\n                       ],\n                   }\n               ],\n           }"
+      },
+      {
+        "id": "9",
+        "name": "v2-44",
+        "text": "bbox는 글자 영역의 좌표  /  spans의 글자를 합치면 같은 줄의 텍스트가 됨"
+      },
+      {
+        "id": "10",
+        "name": "v2-468",
+        "text": "08"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: extract\nPDF 좌표와 글자 구조\n\nINDEXER  /  노드 상세\nextract  :  PDF 좌표와 글자 구조\nPyMuPDF의 block·line·span을 따라 글자와 위치를 함께 읽음\n하이브리드 AI  ·  Workflow 노드 해설\nblock = {\n               \"type\": 0,\n               \"bbox\": (28, 15, 230, 48),\n               \"lines\": [\n                   {\n                       \"bbox\": (28, 15, 230, 48),\n                       \"spans\": [\n                           {\"text\": \"제5조\"},\n                           {\"text\": \"(통지 방법)\"},\n                       ],\n                   }\n               ],\n           }\nbbox는 글자 영역의 좌표  /  spans의 글자를 합치면 같은 줄의 텍스트가 됨\n08\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/pdf_reader.py\n원본 핵심 코드 출처: 6페이지\n"
+  },
+  {
+    "page": 9,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-45",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-46",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-47",
+        "text": "extract  :  PDF 한 줄씩 추출"
+      },
+      {
+        "id": "4",
+        "name": "v2-48",
+        "text": "원본 코드의 반복문이 좌표와 문장을 한 쌍으로 수집"
+      },
+      {
+        "id": "5",
+        "name": "v2-49",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-50",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-51",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-52",
+        "text": "result = []\n    for block in page.get_text(\"dict\")[\"blocks\"]:\n        for line in block.get(\"lines\", []):\n            text = \"\".join(span[\"text\"] for span in line[\"spans\"]).strip()\n            if text:\n                result.append((tuple(line[\"bbox\"]), text))\n    return result\n\n# 결과 예시\n[ \n((28, 15, 230, 48), \"제5조(통지 방법)\")\n]"
+      },
+      {
+        "id": "9",
+        "name": "v2-53",
+        "text": "get_text(\"dict\")로 구조를 읽고, 빈 줄을 제외한 (bbox, text) 목록 반환"
+      },
+      {
+        "id": "10",
+        "name": "v2-469",
+        "text": "09"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: extract\nPDF 한 줄씩 추출\n\nINDEXER  /  노드 상세\nextract  :  PDF 한 줄씩 추출\n원본 코드의 반복문이 좌표와 문장을 한 쌍으로 수집\n하이브리드 AI  ·  Workflow 노드 해설\nresult = []\n    for block in page.get_text(\"dict\")[\"blocks\"]:\n        for line in block.get(\"lines\", []):\n            text = \"\".join(span[\"text\"] for span in line[\"spans\"]).strip()\n            if text:\n                result.append((tuple(line[\"bbox\"]), text))\n    return result\n\n# 결과 예시\n[ \n((28, 15, 230, 48), \"제5조(통지 방법)\")\n]\nget_text(\"dict\")로 구조를 읽고, 빈 줄을 제외한 (bbox, text) 목록 반환\n09\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/pdf_reader.py\n원본 핵심 코드 출처: 6페이지\n"
+  },
+  {
+    "page": 10,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-54",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-55",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-56",
+        "text": "extract  :  반복 머리말·꼬리말 찾기"
+      },
+      {
+        "id": "4",
+        "name": "v2-57",
+        "text": "페이지의 위·아래 영역에서 반복되는 문구를 모아 본문에서 제거"
+      },
+      {
+        "id": "5",
+        "name": "v2-58",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-59",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-60",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-61",
+        "text": "for page, lines in zip(pdf, page_lines):\n    margin_texts = set()\n    for rectangle, text in lines:\n        if rectangle[3] < page.rect.height * 0.055 or rectangle[1] > page.rect.height * 0.95\n               margin_texts.add(text)\n    repeated.update(margin_texts)"
+      },
+      {
+        "id": "9",
+        "name": "v2-62",
+        "text": "원본 코드 유지: if 줄 끝의 콜론 생략에 유의  /  상단 5.5%, 하단 5%를 검사"
+      },
+      {
+        "id": "10",
+        "name": "v2-470",
+        "text": "10"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: extract\n반복 머리말·꼬리말 찾기\n\nINDEXER  /  노드 상세\nextract  :  반복 머리말·꼬리말 찾기\n페이지의 위·아래 영역에서 반복되는 문구를 모아 본문에서 제거\n하이브리드 AI  ·  Workflow 노드 해설\nfor page, lines in zip(pdf, page_lines):\n    margin_texts = set()\n    for rectangle, text in lines:\n        if rectangle[3] < page.rect.height * 0.055 or rectangle[1] > page.rect.height * 0.95\n               margin_texts.add(text)\n    repeated.update(margin_texts)\n원본 코드 유지: if 줄 끝의 콜론 생략에 유의  /  상단 5.5%, 하단 5%를 검사\n10\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/pdf_reader.py\n원본 핵심 코드 출처: 6페이지\n"
+  },
+  {
+    "page": 11,
+    "shapes": [
+      {
+        "id": "15",
+        "name": "v2-63",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-64",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-65",
+        "text": "extract  :  PDF 표와 읽기 순서"
+      },
+      {
+        "id": "4",
+        "name": "v2-66",
+        "text": "표는 행·열 관계를 보존하고, 같은 글자가 본문에 중복되지 않도록 처리"
+      },
+      {
+        "id": "5",
+        "name": "v2-67",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-68",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-69",
+        "text": "좌표와 텍스트 수집"
+      },
+      {
+        "id": "8",
+        "name": "v2-70",
+        "text": "표 감지·글자 비교"
+      },
+      {
+        "id": "9",
+        "name": "v2-71",
+        "text": "본문과 표 순서 복원"
+      },
+      {
+        "id": "13",
+        "name": "v2-72",
+        "text": "스캔 PDF의 OCR은 미구현  /  텍스트 계층이 없으면 경고  /  암호화 PDF는 처리 중단"
+      },
+      {
+        "id": "14",
+        "name": "v2-471",
+        "text": "11"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "판정",
+          "표 처리",
+          "본문 처리"
+        ],
+        [
+          "표 셀과 원문 글자 일치",
+          "Markdown 표로 변환",
+          "해당 표 영역의 중복 글자 제거"
+        ],
+        [
+          "글자 불일치",
+          "표 변환 보류·경고",
+          "기존 위치 기반 텍스트 유지"
+        ],
+        [
+          "D2 테두리 없는 표",
+          "좌표 기반 행 추가 정규화",
+          "읽기 순서에 맞게 합침"
+        ]
+      ]
+    ],
+    "notes": "노드: extract\nPDF 표와 읽기 순서\n\nINDEXER  /  노드 상세\nextract  :  PDF 표와 읽기 순서\n표는 행·열 관계를 보존하고, 같은 글자가 본문에 중복되지 않도록 처리\n하이브리드 AI  ·  Workflow 노드 해설\n좌표와 텍스트 수집\n표 감지·글자 비교\n본문과 표 순서 복원\n스캔 PDF의 OCR은 미구현  /  텍스트 계층이 없으면 경고  /  암호화 PDF는 처리 중단\n11\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/pdf_reader.py\n\n"
+  },
+  {
+    "page": 12,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-73",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-74",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-75",
+        "text": "extract  :  상담 분리와 가명화"
+      },
+      {
+        "id": "4",
+        "name": "v2-76",
+        "text": "상담ID 머리글로 상담을 나눈 뒤 개인정보가 남지 않도록 처리"
+      },
+      {
+        "id": "5",
+        "name": "v2-77",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-78",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-79",
+        "text": "상담ID 기준 분리"
+      },
+      {
+        "id": "8",
+        "name": "v2-80",
+        "text": "개인정보 처리"
+      },
+      {
+        "id": "9",
+        "name": "v2-81",
+        "text": "잔존 검사"
+      },
+      {
+        "id": "10",
+        "name": "v2-82",
+        "text": "Document 생성"
+      },
+      {
+        "id": "15",
+        "name": "v2-83",
+        "text": "원본 식별정보 잔존 시 중단  /  상담의 공개 등급은 restricted"
+      },
+      {
+        "id": "16",
+        "name": "v2-472",
+        "text": "12"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "방법",
+          "대상",
+          "저장 결과"
+        ],
+        [
+          "삭제",
+          "이름·전화·이메일·카드번호·끝 4자리",
+          "[삭제]"
+        ],
+        [
+          "일반화",
+          "생년월일·나이",
+          "연령대"
+        ],
+        [
+          "가명화",
+          "회원 ID·상담사 ID",
+          "해시 기반 가명 ID"
+        ]
+      ]
+    ],
+    "notes": "노드: extract\n상담 분리와 가명화\n\nINDEXER  /  노드 상세\nextract  :  상담 분리와 가명화\n상담ID 머리글로 상담을 나눈 뒤 개인정보가 남지 않도록 처리\n하이브리드 AI  ·  Workflow 노드 해설\n상담ID 기준 분리\n개인정보 처리\n잔존 검사\nDocument 생성\n원본 식별정보 잔존 시 중단  /  상담의 공개 등급은 restricted\n12\n\n소스: hybrid-ai-lab/vector/indexer/app/domain/consultations.py\n\n"
+  },
+  {
+    "page": 13,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-84",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-85",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-86",
+        "text": "extract  :  상담 개인정보 처리 코드"
+      },
+      {
+        "id": "4",
+        "name": "v2-87",
+        "text": "원본 자료의 정규식 치환과 가명화 코드 보존"
+      },
+      {
+        "id": "5",
+        "name": "v2-88",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-89",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-90",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-91",
+        "text": "text = PHONE.sub(\"[삭제]\", text)\n   text = EMAIL.sub(\"[삭제]\", text)\n   text = PAN.sub(\"[삭제]\", text)\n   text = re.sub(r\"(?:끝\\s*4자리|끝\\s*네\\s*자리|마지막\\s*4자리)\\s*(?:는|가|:)?\\s*\\d{4}\", \"끝4자리 [삭제]\", text)\n   text = re.sub(r\"가상고객\\d+|가상상담사\\d+\", \"[삭제]\", text)\n   text = MEMBER.sub(lambda match: to_pseudo(match.group(0)), text)\n   return re.sub(\n        r\"(?<!\\d)(?:만\\s*)?(\\d{1,3})\\s*세\",\n        lambda match: \"60대 이상\" if int(match.group(1)) >= 60 else f\"{int(match.group(1)) // 10 * 10}대\",\n        text,\n   )"
+      },
+      {
+        "id": "9",
+        "name": "v2-92",
+        "text": "sub는 패턴에 맞는 내용을 치환하는 함수  /  가명화 후 별도 잔존 검사 수행"
+      },
+      {
+        "id": "10",
+        "name": "v2-473",
+        "text": "13"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: extract\n상담 개인정보 처리 코드\n\nINDEXER  /  노드 상세\nextract  :  상담 개인정보 처리 코드\n원본 자료의 정규식 치환과 가명화 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\ntext = PHONE.sub(\"[삭제]\", text)\n   text = EMAIL.sub(\"[삭제]\", text)\n   text = PAN.sub(\"[삭제]\", text)\n   text = re.sub(r\"(?:끝\\s*4자리|끝\\s*네\\s*자리|마지막\\s*4자리)\\s*(?:는|가|:)?\\s*\\d{4}\", \"끝4자리 [삭제]\", text)\n   text = re.sub(r\"가상고객\\d+|가상상담사\\d+\", \"[삭제]\", text)\n   text = MEMBER.sub(lambda match: to_pseudo(match.group(0)), text)\n   return re.sub(\n        r\"(?<!\\d)(?:만\\s*)?(\\d{1,3})\\s*세\",\n        lambda match: \"60대 이상\" if int(match.group(1)) >= 60 else f\"{int(match.group(1)) // 10 * 10}대\",\n        text,\n   )\nsub는 패턴에 맞는 내용을 치환하는 함수  /  가명화 후 별도 잔존 검사 수행\n13\n\n소스: hybrid-ai-lab/vector/indexer/app/domain/consultations.py\n원본 핵심 코드 출처: 7페이지\n"
+  },
+  {
+    "page": 14,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-93",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-94",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-95",
+        "text": "apply_profile  :  문서별 관리 정보 적용"
+      },
+      {
+        "id": "4",
+        "name": "v2-96",
+        "text": "source 파일명에 대응하는 프로필을 찾아 메타데이터에 반영"
+      },
+      {
+        "id": "5",
+        "name": "v2-97",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-98",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-99",
+        "text": "입력"
+      },
+      {
+        "id": "8",
+        "name": "v2-100",
+        "text": "핵심 처리"
+      },
+      {
+        "id": "9",
+        "name": "v2-101",
+        "text": "출력"
+      },
+      {
+        "id": "12",
+        "name": "v2-102",
+        "text": "documents\n추출된 문서\n\nprofiles\n파일별 관리 규칙"
+      },
+      {
+        "id": "13",
+        "name": "v2-103",
+        "text": "1  문서 metadata에서 source 파일명 확인\n\n2  해당 파일의 프로필 선택\n\n3  owner·access_level 등의 값을 적용"
+      },
+      {
+        "id": "14",
+        "name": "v2-104",
+        "text": "documents\n프로필이 반영된\n문서 목록"
+      },
+      {
+        "id": "15",
+        "name": "v2-105",
+        "text": "다음: validate_metadata  /  파일별 고정 관리 정보로 메타데이터를 일관되게 유지"
+      },
+      {
+        "id": "16",
+        "name": "v2-474",
+        "text": "14"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: apply_profile\n문서별 관리 정보 적용\n\nINDEXER  /  노드 상세\napply_profile  :  문서별 관리 정보 적용\nsource 파일명에 대응하는 프로필을 찾아 메타데이터에 반영\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\ndocuments\n추출된 문서\n\nprofiles\n파일별 관리 규칙\n1  문서 metadata에서 source 파일명 확인\n\n2  해당 파일의 프로필 선택\n\n3  owner·access_level 등의 값을 적용\ndocuments\n프로필이 반영된\n문서 목록\n다음: validate_metadata  /  파일별 고정 관리 정보로 메타데이터를 일관되게 유지\n14\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n\n"
+  },
+  {
+    "page": 15,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-106",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-107",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-108",
+        "text": "apply_profile  :  프로필 선택과 적용 코드"
+      },
+      {
+        "id": "4",
+        "name": "v2-109",
+        "text": "현재 소스에서 추가한 핵심 코드"
+      },
+      {
+        "id": "5",
+        "name": "v2-110",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-111",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-112",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-113",
+        "text": "profiles = state.get(\"profiles\", {})\ndocuments = [\n    apply_profile(\n        document,\n        profiles.get(document.metadata.get(\"source\", \"\"), {}),\n    )\n    for document in state[\"documents\"]\n]\nreturn {\"documents\": documents}"
+      },
+      {
+        "id": "9",
+        "name": "v2-114",
+        "text": "같은 source에서 나온 모든 Document에 같은 프로필 적용"
+      },
+      {
+        "id": "10",
+        "name": "v2-475",
+        "text": "15"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: apply_profile\n프로필 선택과 적용 코드\n\nINDEXER  /  노드 상세\napply_profile  :  프로필 선택과 적용 코드\n현재 소스에서 추가한 핵심 코드\n하이브리드 AI  ·  Workflow 노드 해설\nprofiles = state.get(\"profiles\", {})\ndocuments = [\n    apply_profile(\n        document,\n        profiles.get(document.metadata.get(\"source\", \"\"), {}),\n    )\n    for document in state[\"documents\"]\n]\nreturn {\"documents\": documents}\n같은 source에서 나온 모든 Document에 같은 프로필 적용\n15\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n원본 핵심 코드 출처: 페이지\n"
+  },
+  {
+    "page": 16,
+    "shapes": [
+      {
+        "id": "15",
+        "name": "v2-115",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-116",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-117",
+        "text": "validate_metadata  :  필수값 검증과 결과 저장"
+      },
+      {
+        "id": "4",
+        "name": "v2-118",
+        "text": "저장 위치·메타데이터·상담 가명화 상태를 검사하고 중간 결과를 기록"
+      },
+      {
+        "id": "5",
+        "name": "v2-119",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-120",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-121",
+        "text": "입력 문서 + schema"
+      },
+      {
+        "id": "8",
+        "name": "v2-122",
+        "text": "필수값·허용값 검사"
+      },
+      {
+        "id": "9",
+        "name": "v2-123",
+        "text": "validation 결과"
+      },
+      {
+        "id": "13",
+        "name": "v2-124",
+        "text": "통과 시 chunk, 실패 시 종료  /  출력 폴더는 원문 폴더와 분리  /  현재 파일명은 documents.jsonl"
+      },
+      {
+        "id": "14",
+        "name": "v2-476",
+        "text": "16"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "파일",
+          "저장 내용"
+        ],
+        [
+          "documents.jsonl",
+          "추출·가명화·프로필 적용을 마친 문서"
+        ],
+        [
+          "manifest.json",
+          "원문 파일 해시와 문서 수"
+        ],
+        [
+          "report.json",
+          "PDF·상담 추출 결과와 경고"
+        ],
+        [
+          "validation.json",
+          "검증 건수와 문서별 오류"
+        ]
+      ]
+    ],
+    "notes": "노드: validate_metadata\n필수값 검증과 결과 저장\n\nINDEXER  /  노드 상세\nvalidate_metadata  :  필수값 검증과 결과 저장\n저장 위치·메타데이터·상담 가명화 상태를 검사하고 중간 결과를 기록\n하이브리드 AI  ·  Workflow 노드 해설\n입력 문서 + schema\n필수값·허용값 검사\nvalidation 결과\n통과 시 chunk, 실패 시 종료  /  출력 폴더는 원문 폴더와 분리  /  현재 파일명은 documents.jsonl\n16\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n\n"
+  },
+  {
+    "page": 17,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-125",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-126",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-127",
+        "text": "chunk  :  문서 유형별 의미 단위 분할"
+      },
+      {
+        "id": "4",
+        "name": "v2-128",
+        "text": "Document를 검색 결과로 사용할 작은 근거 조각으로 변환"
+      },
+      {
+        "id": "5",
+        "name": "v2-129",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-130",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "8",
+        "name": "v2-131",
+        "text": "출력: chunks와 청킹 보고서"
+      },
+      {
+        "id": "9",
+        "name": "v2-132",
+        "text": "다음: embed  /  dry-run·청킹 오류 시 종료  /  긴 속성표는 행을 자르지 않고 예외로 보존"
+      },
+      {
+        "id": "10",
+        "name": "v2-477",
+        "text": "17"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "입력",
+          "분할 기준",
+          "기본 크기"
+        ],
+        [
+          "D1 약관",
+          "조·항 경계 보존, 이어진 조항 결합",
+          "600자 기준 / 80자 중첩"
+        ],
+        [
+          "D2 카드 혜택",
+          "카드·혜택·연회비·표 단위",
+          "600자 기준 / 중첩 없음"
+        ],
+        [
+          "D3 상담",
+          "고객·상담사의 대화 턴 단위",
+          "4턴 / 1턴 중첩"
+        ]
+      ]
+    ],
+    "notes": "노드: chunk\n문서 유형별 의미 단위 분할\n\nINDEXER  /  노드 상세\nchunk  :  문서 유형별 의미 단위 분할\nDocument를 검색 결과로 사용할 작은 근거 조각으로 변환\n하이브리드 AI  ·  Workflow 노드 해설\n출력: chunks와 청킹 보고서\n다음: embed  /  dry-run·청킹 오류 시 종료  /  긴 속성표는 행을 자르지 않고 예외로 보존\n17\n\n소스: hybrid-ai-lab/vector/indexer/app/domain/chunking.py\n\n"
+  },
+  {
+    "page": 18,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-133",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-134",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-135",
+        "text": "embed  :  변경 청크의 벡터 생성"
+      },
+      {
+        "id": "4",
+        "name": "v2-136",
+        "text": "본문과 메타데이터의 해시를 이전 실행과 비교해 임베딩 대상을 결정"
+      },
+      {
+        "id": "5",
+        "name": "v2-137",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-138",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-139",
+        "text": "입력"
+      },
+      {
+        "id": "8",
+        "name": "v2-140",
+        "text": "핵심 처리"
+      },
+      {
+        "id": "9",
+        "name": "v2-141",
+        "text": "출력"
+      },
+      {
+        "id": "12",
+        "name": "v2-142",
+        "text": "chunks\n현재 청크\n\nindex_manifest\n이전 해시·설정"
+      },
+      {
+        "id": "13",
+        "name": "v2-143",
+        "text": "1  해시가 같은 청크는 생략\n\n2  추가·변경 청크를 배치로 임베딩\n\n3  모델·청킹 설정 변경 시 전체 재임베딩"
+      },
+      {
+        "id": "14",
+        "name": "v2-144",
+        "text": "pending_ids\n처리한 청크 ID\n\nvectors_path\n벡터 파일 경로\n\nfailed\n실패 목록"
+      },
+      {
+        "id": "15",
+        "name": "v2-145",
+        "text": "다음: upsert  /  현재 기본 모델 KURE-v2, 실제 저장 벡터 768차원"
+      },
+      {
+        "id": "16",
+        "name": "v2-478",
+        "text": "18"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: embed\n변경 청크의 벡터 생성\n\nINDEXER  /  노드 상세\nembed  :  변경 청크의 벡터 생성\n본문과 메타데이터의 해시를 이전 실행과 비교해 임베딩 대상을 결정\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nchunks\n현재 청크\n\nindex_manifest\n이전 해시·설정\n1  해시가 같은 청크는 생략\n\n2  추가·변경 청크를 배치로 임베딩\n\n3  모델·청킹 설정 변경 시 전체 재임베딩\npending_ids\n처리한 청크 ID\n\nvectors_path\n벡터 파일 경로\n\nfailed\n실패 목록\n다음: upsert  /  현재 기본 모델 KURE-v2, 실제 저장 벡터 768차원\n18\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n\n"
+  },
+  {
+    "page": 19,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-146",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-147",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-148",
+        "text": "embed  :  모델 적재와 배치 인코딩"
+      },
+      {
+        "id": "4",
+        "name": "v2-149",
+        "text": "원본 자료의 SentenceTransformer·encode 핵심 코드 보존"
+      },
+      {
+        "id": "5",
+        "name": "v2-150",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-151",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-152",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-153",
+        "text": "self._model = SentenceTransformer(self.model_name, device=self.device)\n\ndef embed(self, texts: list[str], *, kind: Literal[\"passage\", \"query\"] = \"passage\") -> list[list[float]]:\n\n        model = self._load()\n        values = model.encode(texts, batch_size=self.batch_size, normalize_embeddings=True)\n        return values.tolist() if hasattr(values, \"tolist\") else [list(row) for row in values]"
+      },
+      {
+        "id": "9",
+        "name": "v2-154",
+        "text": "normalize_embeddings=True로 벡터 정규화  /  kind 인자는 현재 구현에서 query·passage를 구분하지 않음"
+      },
+      {
+        "id": "10",
+        "name": "v2-479",
+        "text": "19"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: embed\n모델 적재와 배치 인코딩\n\nINDEXER  /  노드 상세\nembed  :  모델 적재와 배치 인코딩\n원본 자료의 SentenceTransformer·encode 핵심 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\nself._model = SentenceTransformer(self.model_name, device=self.device)\n\ndef embed(self, texts: list[str], *, kind: Literal[\"passage\", \"query\"] = \"passage\") -> list[list[float]]:\n\n        model = self._load()\n        values = model.encode(texts, batch_size=self.batch_size, normalize_embeddings=True)\n        return values.tolist() if hasattr(values, \"tolist\") else [list(row) for row in values]\nnormalize_embeddings=True로 벡터 정규화  /  kind 인자는 현재 구현에서 query·passage를 구분하지 않음\n19\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/embedder.py\n원본 핵심 코드 출처: 8페이지\n"
+  },
+  {
+    "page": 20,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-155",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-156",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-157",
+        "text": "upsert  :  ChromaDB 저장·갱신"
+      },
+      {
+        "id": "4",
+        "name": "v2-158",
+        "text": "임베딩에 성공한 청크의 ID·본문·벡터·메타데이터를 함께 저장"
+      },
+      {
+        "id": "5",
+        "name": "v2-159",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-160",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-161",
+        "text": "입력"
+      },
+      {
+        "id": "8",
+        "name": "v2-162",
+        "text": "핵심 처리"
+      },
+      {
+        "id": "9",
+        "name": "v2-163",
+        "text": "출력"
+      },
+      {
+        "id": "12",
+        "name": "v2-164",
+        "text": "pending_ids\n저장 대상 ID\n\nvectors_path\n임베딩 벡터\n\nchunks\n본문·metadata"
+      },
+      {
+        "id": "13",
+        "name": "v2-165",
+        "text": "1  ID에 맞는 본문과 벡터를 연결\n\n2  메타데이터를 Chroma 허용 형식으로 정리\n\n3  같은 ID는 갱신, 새 ID는 추가"
+      },
+      {
+        "id": "14",
+        "name": "v2-166",
+        "text": "ok_ids\n저장 성공 ID\n\nfailed\n실패 목록\n\ncount_before\n저장 전 건수"
+      },
+      {
+        "id": "15",
+        "name": "v2-167",
+        "text": "다음: finalize_index  /  원문에서 사라진 청크의 자동 삭제는 현재 미구현"
+      },
+      {
+        "id": "16",
+        "name": "v2-480",
+        "text": "20"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: upsert\nChromaDB 저장·갱신\n\nINDEXER  /  노드 상세\nupsert  :  ChromaDB 저장·갱신\n임베딩에 성공한 청크의 ID·본문·벡터·메타데이터를 함께 저장\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\npending_ids\n저장 대상 ID\n\nvectors_path\n임베딩 벡터\n\nchunks\n본문·metadata\n1  ID에 맞는 본문과 벡터를 연결\n\n2  메타데이터를 Chroma 허용 형식으로 정리\n\n3  같은 ID는 갱신, 새 ID는 추가\nok_ids\n저장 성공 ID\n\nfailed\n실패 목록\n\ncount_before\n저장 전 건수\n다음: finalize_index  /  원문에서 사라진 청크의 자동 삭제는 현재 미구현\n20\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n\n"
+  },
+  {
+    "page": 21,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-168",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-169",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-170",
+        "text": "upsert  :  Chroma 컬렉션 구성"
+      },
+      {
+        "id": "4",
+        "name": "v2-171",
+        "text": "원본 자료의 저장소 초기화 코드 보존"
+      },
+      {
+        "id": "5",
+        "name": "v2-172",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-173",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-174",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-175",
+        "text": "self._store = Chroma(\n    collection_name=collection,\n    embedding_function=embedding_function,\n    persist_directory=str(path),\n    collection_configuration={\"hnsw\": {\"space\": \"cosine\"}},\n    collection_metadata={\"embedding_model_signature\": signature, \"hnsw:space\": \"cosine\"}\n)"
+      },
+      {
+        "id": "9",
+        "name": "v2-176",
+        "text": "persist_directory는 저장 경로  /  cosine은 벡터 유사도 비교 방식  /  signature는 모델 일치 검사에 사용"
+      },
+      {
+        "id": "10",
+        "name": "v2-481",
+        "text": "21"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: upsert\nChroma 컬렉션 구성\n\nINDEXER  /  노드 상세\nupsert  :  Chroma 컬렉션 구성\n원본 자료의 저장소 초기화 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\nself._store = Chroma(\n    collection_name=collection,\n    embedding_function=embedding_function,\n    persist_directory=str(path),\n    collection_configuration={\"hnsw\": {\"space\": \"cosine\"}},\n    collection_metadata={\"embedding_model_signature\": signature, \"hnsw:space\": \"cosine\"}\n)\npersist_directory는 저장 경로  /  cosine은 벡터 유사도 비교 방식  /  signature는 모델 일치 검사에 사용\n21\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/chroma_store.py\n원본 핵심 코드 출처: 8페이지\n"
+  },
+  {
+    "page": 22,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-177",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-178",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-179",
+        "text": "upsert  :  청크 저장 코드"
+      },
+      {
+        "id": "4",
+        "name": "v2-180",
+        "text": "원본 자료의 메타데이터 정리와 upsert 호출 보존"
+      },
+      {
+        "id": "5",
+        "name": "v2-181",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-182",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-183",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-184",
+        "text": "def upsert(self, ids, texts, embeddings, metadatas) -> None:\n    clean = []\n    for chunk_id, metadata in zip(ids, metadatas):\n          metadata_with_id = {**metadata, \"chunk_id\": chunk_id}\n          clean_metadata = sanitize_metadata(metadata_with_id)\n          clean.append(clean_metadata)\n\n    self._collection.upsert(ids=ids, documents=texts, embeddings=embeddings, metadatas=clean)"
+      },
+      {
+        "id": "9",
+        "name": "v2-185",
+        "text": "IDs·documents·embeddings·metadatas 배열은 같은 순서로 대응해야 함"
+      },
+      {
+        "id": "10",
+        "name": "v2-482",
+        "text": "22"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: upsert\n청크 저장 코드\n\nINDEXER  /  노드 상세\nupsert  :  청크 저장 코드\n원본 자료의 메타데이터 정리와 upsert 호출 보존\n하이브리드 AI  ·  Workflow 노드 해설\ndef upsert(self, ids, texts, embeddings, metadatas) -> None:\n    clean = []\n    for chunk_id, metadata in zip(ids, metadatas):\n          metadata_with_id = {**metadata, \"chunk_id\": chunk_id}\n          clean_metadata = sanitize_metadata(metadata_with_id)\n          clean.append(clean_metadata)\n\n    self._collection.upsert(ids=ids, documents=texts, embeddings=embeddings, metadatas=clean)\nIDs·documents·embeddings·metadatas 배열은 같은 순서로 대응해야 함\n22\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/chroma_store.py\n원본 핵심 코드 출처: 8페이지\n"
+  },
+  {
+    "page": 23,
+    "shapes": [
+      {
+        "id": "21",
+        "name": "v2-186",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-187",
+        "text": "INDEXER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-188",
+        "text": "finalize_index  :  검증과 검색 세대 발행"
+      },
+      {
+        "id": "4",
+        "name": "v2-189",
+        "text": "벡터 저장 결과를 확인한 뒤 키워드 검색 인덱스를 완성"
+      },
+      {
+        "id": "5",
+        "name": "v2-190",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-191",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-192",
+        "text": "벡터 건수·ID 검증"
+      },
+      {
+        "id": "8",
+        "name": "v2-193",
+        "text": "전체 corpus 구성"
+      },
+      {
+        "id": "9",
+        "name": "v2-194",
+        "text": "Kiwi 단어 분리"
+      },
+      {
+        "id": "10",
+        "name": "v2-195",
+        "text": "BM25S 재생성"
+      },
+      {
+        "id": "14",
+        "name": "v2-196",
+        "text": "새 generation 폴더\ncorpus + BM25 + 카드명 사전"
+      },
+      {
+        "id": "15",
+        "name": "v2-197",
+        "text": "active_index.json 전환\n완성된 검색 세대 활성화"
+      },
+      {
+        "id": "18",
+        "name": "v2-198",
+        "text": "카드명 64개 사전 등록  /  OOV 후보는 검토 파일로만 저장"
+      },
+      {
+        "id": "19",
+        "name": "v2-199",
+        "text": "다음: END  /  현재 485청크: D1 53 + D2 336 + D3 96  /  2026.09.20 확인"
+      },
+      {
+        "id": "20",
+        "name": "v2-483",
+        "text": "23"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: finalize_index\n검증과 검색 세대 발행\n\nINDEXER  /  노드 상세\nfinalize_index  :  검증과 검색 세대 발행\n벡터 저장 결과를 확인한 뒤 키워드 검색 인덱스를 완성\n하이브리드 AI  ·  Workflow 노드 해설\n벡터 건수·ID 검증\n전체 corpus 구성\nKiwi 단어 분리\nBM25S 재생성\n새 generation 폴더\ncorpus + BM25 + 카드명 사전\nactive_index.json 전환\n완성된 검색 세대 활성화\n카드명 64개 사전 등록  /  OOV 후보는 검토 파일로만 저장\n다음: END  /  현재 485청크: D1 53 + D2 336 + D3 96  /  2026.09.20 확인\n23\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n\n"
+  },
+  {
+    "page": 24,
+    "shapes": [
+      {
+        "id": "2",
+        "name": "제목 1",
+        "text": "Retrieving (1/5)"
+      },
+      {
+        "id": "25",
+        "name": "Slide Number Placeholder 0",
+        "text": "9"
+      }
+    ],
+    "tables": [],
+    "notes": "핵심 메시지: 자동화의 목적은 '사람 대체'가 아니라 '사람이 더 중요한 일에 집중'.\n\n[발표] 골든서클 WHY. 청중에게 '내 업무 중 매번 반복하는 일'을 떠올리게 함(2주 과제 복선). 자동화는 일자리 위협이 아니라 단순 반복에서 벗어나 판단·창의에 집중하는 도구. 보안 IC 기업 특성상 '사람 최종 승인'이 기본 전제임을 미리 암시. 출처: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\n"
+  },
+  {
+    "page": 25,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-200",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-201",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-202",
+        "text": "check_search_readiness  :  검색 준비 확인"
+      },
+      {
+        "id": "4",
+        "name": "v2-203",
+        "text": "원본 workflow 이미지의 check_query에 대응하는 실제 노드"
+      },
+      {
+        "id": "5",
+        "name": "v2-204",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-205",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "8",
+        "name": "v2-206",
+        "text": "출력: index_info 또는 validation_errors"
+      },
+      {
+        "id": "9",
+        "name": "v2-207",
+        "text": "다음: vector_search  /  오류 시 종료  /  원본 이미지의 관문 0.70은 과거 값이며 현재는 0.86"
+      },
+      {
+        "id": "10",
+        "name": "v2-484",
+        "text": "25"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "입력·대상",
+          "검사 내용"
+        ],
+        [
+          "query·top_k",
+          "질문이 비어 있지 않은지, top_k가 양수인지"
+        ],
+        [
+          "role·mode",
+          "agent / auditor, 네 검색 모드 중 하나인지"
+        ],
+        [
+          "저장 인덱스",
+          "컬렉션이 비어 있지 않은지"
+        ],
+        [
+          "임베딩 서명",
+          "검색 모델과 저장 모델의 서명이 같은지"
+        ]
+      ]
+    ],
+    "notes": "노드: check_search_readiness\n검색 준비 확인\n\nRETRIEVER  /  노드 상세\ncheck_search_readiness  :  검색 준비 확인\n원본 workflow 이미지의 check_query에 대응하는 실제 노드\n하이브리드 AI  ·  Workflow 노드 해설\n출력: index_info 또는 validation_errors\n다음: vector_search  /  오류 시 종료  /  원본 이미지의 관문 0.70은 과거 값이며 현재는 0.86\n25\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n\n"
+  },
+  {
+    "page": 26,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-208",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-209",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-210",
+        "text": "vector_search  :  원 질문 벡터 검색"
+      },
+      {
+        "id": "4",
+        "name": "v2-211",
+        "text": "원 질문의 의미와 가까운 문서를 찾고, 질문 변환 판정용 점수를 기록"
+      },
+      {
+        "id": "5",
+        "name": "v2-212",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-213",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-214",
+        "text": "입력"
+      },
+      {
+        "id": "8",
+        "name": "v2-215",
+        "text": "핵심 처리"
+      },
+      {
+        "id": "9",
+        "name": "v2-216",
+        "text": "출력"
+      },
+      {
+        "id": "12",
+        "name": "v2-217",
+        "text": "query\n원 질문\n\nrole·mode\n접근 역할·검색 모드\n\ntop_k\n최종 결과 수"
+      },
+      {
+        "id": "13",
+        "name": "v2-218",
+        "text": "1  질문을 임베딩하고 권한 필터 구성\n\n2  similarity 또는 MMR 전략으로 검색\n\n3  vector_hits와 변환 관문 점수 보존"
+      },
+      {
+        "id": "14",
+        "name": "v2-219",
+        "text": "vector_hits\n원 질문 후보\n\ntransform_gate_\nvector_score\n첫 후보 Vector 점수"
+      },
+      {
+        "id": "15",
+        "name": "v2-220",
+        "text": "다음: assess_transform_gate  /  MMR은 관련성과 후보 다양성을 함께 고려"
+      },
+      {
+        "id": "16",
+        "name": "v2-485",
+        "text": "26"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: vector_search\n원 질문 벡터 검색\n\nRETRIEVER  /  노드 상세\nvector_search  :  원 질문 벡터 검색\n원 질문의 의미와 가까운 문서를 찾고, 질문 변환 판정용 점수를 기록\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nquery\n원 질문\n\nrole·mode\n접근 역할·검색 모드\n\ntop_k\n최종 결과 수\n1  질문을 임베딩하고 권한 필터 구성\n\n2  similarity 또는 MMR 전략으로 검색\n\n3  vector_hits와 변환 관문 점수 보존\nvector_hits\n원 질문 후보\n\ntransform_gate_\nvector_score\n첫 후보 Vector 점수\n다음: assess_transform_gate  /  MMR은 관련성과 후보 다양성을 함께 고려\n26\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n\n"
+  },
+  {
+    "page": 27,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-221",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-222",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-223",
+        "text": "vector_search  :  Chroma 검색 코드"
+      },
+      {
+        "id": "4",
+        "name": "v2-224",
+        "text": "원본 자료의 query 호출 보존"
+      },
+      {
+        "id": "5",
+        "name": "v2-225",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-226",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-227",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-228",
+        "text": "result = self._collection.query(\n    query_embeddings=[query_embedding],\n    n_results=options.fetch_k(k),\n    where=where or None,\n    include=include\n   )\n\nwhere: 검색 필터링 조건\nInclude: 결과에 포함할 객체"
+      },
+      {
+        "id": "9",
+        "name": "v2-229",
+        "text": "query_embeddings는 질문 벡터  /  where는 권한 필터  /  include는 결과에 포함할 정보"
+      },
+      {
+        "id": "10",
+        "name": "v2-486",
+        "text": "27"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: vector_search\nChroma 검색 코드\n\nRETRIEVER  /  노드 상세\nvector_search  :  Chroma 검색 코드\n원본 자료의 query 호출 보존\n하이브리드 AI  ·  Workflow 노드 해설\nresult = self._collection.query(\n    query_embeddings=[query_embedding],\n    n_results=options.fetch_k(k),\n    where=where or None,\n    include=include\n   )\n\nwhere: 검색 필터링 조건\nInclude: 결과에 포함할 객체\nquery_embeddings는 질문 벡터  /  where는 권한 필터  /  include는 결과에 포함할 정보\n27\n\n소스: hybrid-ai-lab/vector/retriever/app/infrastructure/chroma_store.py\n원본 핵심 코드 출처: 10페이지\n"
+  },
+  {
+    "page": 28,
+    "shapes": [
+      {
+        "id": "10",
+        "name": "v2-230",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-231",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-232",
+        "text": "vector_search  :  네 검색 모드의 후보 수"
+      },
+      {
+        "id": "4",
+        "name": "v2-233",
+        "text": "기본 top_k=5일 때, 리랭크 모드는 재평가 후보를 넉넉하게 확보"
+      },
+      {
+        "id": "5",
+        "name": "v2-234",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-235",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "8",
+        "name": "v2-236",
+        "text": "raw_k = fused_k × 4  /  fused_k는 일반 모드 top_k, 리랭크 모드 top_k × 2"
+      },
+      {
+        "id": "9",
+        "name": "v2-487",
+        "text": "28"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "모드",
+          "원시 후보",
+          "중간 후보",
+          "최종"
+        ],
+        [
+          "vector",
+          "Vector 20개",
+          "상위 5개",
+          "5개"
+        ],
+        [
+          "vector_rerank",
+          "Vector 40개",
+          "재정렬 대상 10개",
+          "5개"
+        ],
+        [
+          "hybrid",
+          "Vector 20 + BM25 20",
+          "점수 결합 상위 5개",
+          "5개"
+        ],
+        [
+          "hybrid_rerank",
+          "Vector 40 + BM25 40",
+          "결합·재정렬 대상 10개",
+          "5개"
+        ]
+      ]
+    ],
+    "notes": "노드: vector_search\n네 검색 모드의 후보 수\n\nRETRIEVER  /  노드 상세\nvector_search  :  네 검색 모드의 후보 수\n기본 top_k=5일 때, 리랭크 모드는 재평가 후보를 넉넉하게 확보\n하이브리드 AI  ·  Workflow 노드 해설\nraw_k = fused_k × 4  /  fused_k는 일반 모드 top_k, 리랭크 모드 top_k × 2\n28\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n\n"
+  },
+  {
+    "page": 29,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-237",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-238",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-239",
+        "text": "assess_transform_gate  :  질문 변환 검토 관문"
+      },
+      {
+        "id": "4",
+        "name": "v2-240",
+        "text": "transform=auto일 때 최초 원 질문 Vector Top-1과 0.86을 비교"
+      },
+      {
+        "id": "5",
+        "name": "v2-241",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-242",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-243",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-244",
+        "text": "if top_vector_score is not None and top_vector_score >= gate_threshold:\n    return {\n         \"route_action\": \"gate_pass\",\n         \"transform_review_required\": False,\n         \"transformed_queries\": [],\n    }\n\nreturn {\"transform_review_required\": True}"
+      },
+      {
+        "id": "9",
+        "name": "v2-245",
+        "text": "기본 transform=off는 검토 생략  /  gate_threshold=0.86  /  미달이면 plan_query_transform"
+      },
+      {
+        "id": "10",
+        "name": "v2-488",
+        "text": "29"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: assess_transform_gate\n질문 변환 검토 관문\n\nRETRIEVER  /  노드 상세\nassess_transform_gate  :  질문 변환 검토 관문\ntransform=auto일 때 최초 원 질문 Vector Top-1과 0.86을 비교\n하이브리드 AI  ·  Workflow 노드 해설\nif top_vector_score is not None and top_vector_score >= gate_threshold:\n    return {\n         \"route_action\": \"gate_pass\",\n         \"transform_review_required\": False,\n         \"transformed_queries\": [],\n    }\n\nreturn {\"transform_review_required\": True}\n기본 transform=off는 검토 생략  /  gate_threshold=0.86  /  미달이면 plan_query_transform\n29\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py\n원본 핵심 코드 출처: 10페이지\n"
+  },
+  {
+    "page": 30,
+    "shapes": [
+      {
+        "id": "15",
+        "name": "v2-246",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-247",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-248",
+        "text": "plan_query_transform  :  변환 계획 수립"
+      },
+      {
+        "id": "4",
+        "name": "v2-249",
+        "text": "관문 미달 시 캐시 또는 Router LLM으로 변환 필요성과 기법 결정"
+      },
+      {
+        "id": "5",
+        "name": "v2-250",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-251",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-252",
+        "text": "질문 + 후보 정보"
+      },
+      {
+        "id": "8",
+        "name": "v2-253",
+        "text": "캐시 확인 / Router LLM"
+      },
+      {
+        "id": "9",
+        "name": "v2-254",
+        "text": "keep·clarify·transform"
+      },
+      {
+        "id": "13",
+        "name": "v2-255",
+        "text": "출력: route_action·technique·transformed_queries  /  형식 오류 시 keep으로 대체"
+      },
+      {
+        "id": "14",
+        "name": "v2-489",
+        "text": "30"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "행동",
+          "결과",
+          "이후 처리"
+        ],
+        [
+          "keep",
+          "원 질문 유지",
+          "원 질문 결과 완성"
+        ],
+        [
+          "clarify",
+          "추가 확인 필요",
+          "답변 경로에서 needs_check"
+        ],
+        [
+          "transform",
+          "변환 질문 목록 생성",
+          "원 질문 결과 완성 후 추가 검색"
+        ]
+      ]
+    ],
+    "notes": "노드: plan_query_transform\n변환 계획 수립\n\nRETRIEVER  /  노드 상세\nplan_query_transform  :  변환 계획 수립\n관문 미달 시 캐시 또는 Router LLM으로 변환 필요성과 기법 결정\n하이브리드 AI  ·  Workflow 노드 해설\n질문 + 후보 정보\n캐시 확인 / Router LLM\nkeep·clarify·transform\n출력: route_action·technique·transformed_queries  /  형식 오류 시 keep으로 대체\n30\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n\n"
+  },
+  {
+    "page": 31,
+    "shapes": [
+      {
+        "id": "10",
+        "name": "v2-256",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-257",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-258",
+        "text": "plan_query_transform  :  다섯 가지 변환 기법"
+      },
+      {
+        "id": "4",
+        "name": "v2-259",
+        "text": "질문의 어려운 부분에 맞춰 검색 표현을 바꾸거나 복합 질문을 분리"
+      },
+      {
+        "id": "5",
+        "name": "v2-260",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-261",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "8",
+        "name": "v2-262",
+        "text": "캐시 적중 시 LLM 호출 생략  /  HyDE가 만든 문장은 검색용이며 원문 근거로 사용하지 않음"
+      },
+      {
+        "id": "9",
+        "name": "v2-490",
+        "text": "31"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "기법",
+          "변환 방식",
+          "질문 수"
+        ],
+        [
+          "rewrite",
+          "검색에 맞는 한 문장으로 다시 쓰기",
+          "1"
+        ],
+        [
+          "multi",
+          "같은 의도를 다른 표현으로 확장",
+          "3"
+        ],
+        [
+          "hyde",
+          "답변 문서에 있을 법한 표현 생성",
+          "1"
+        ],
+        [
+          "stepback",
+          "상위 개념으로 넓혀 찾기",
+          "1"
+        ],
+        [
+          "decomposition",
+          "복합 질문을 독립 질문으로 분리",
+          "2 ~ 4"
+        ]
+      ]
+    ],
+    "notes": "노드: plan_query_transform\n다섯 가지 변환 기법\n\nRETRIEVER  /  노드 상세\nplan_query_transform  :  다섯 가지 변환 기법\n질문의 어려운 부분에 맞춰 검색 표현을 바꾸거나 복합 질문을 분리\n하이브리드 AI  ·  Workflow 노드 해설\n캐시 적중 시 LLM 호출 생략  /  HyDE가 만든 문장은 검색용이며 원문 근거로 사용하지 않음\n31\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py\n\n"
+  },
+  {
+    "page": 32,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-263",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-264",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-265",
+        "text": "bm25_search  :  원 질문 키워드 검색"
+      },
+      {
+        "id": "4",
+        "name": "v2-266",
+        "text": "hybrid 계열에서 원 질문의 단어와 맞는 청크를 검색"
+      },
+      {
+        "id": "5",
+        "name": "v2-267",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-268",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-269",
+        "text": "입력"
+      },
+      {
+        "id": "8",
+        "name": "v2-270",
+        "text": "핵심 처리"
+      },
+      {
+        "id": "9",
+        "name": "v2-271",
+        "text": "출력"
+      },
+      {
+        "id": "12",
+        "name": "v2-272",
+        "text": "query\n원 질문\n\nrole\n접근 역할\n\n활성 BM25 인덱스"
+      },
+      {
+        "id": "13",
+        "name": "v2-273",
+        "text": "1  카드명 사전을 적용한 Kiwi 토큰 분리\n\n2  역색인에서 단어가 맞는 후보 점수화\n\n3  접근 가능한 문서로 결과 제한"
+      },
+      {
+        "id": "14",
+        "name": "v2-274",
+        "text": "청크 ID별\n키워드 점수\n\nwarnings\n검색 경고"
+      },
+      {
+        "id": "15",
+        "name": "v2-275",
+        "text": "다음: fuse_scores  /  vector 계열은 이 노드를 건너뜀"
+      },
+      {
+        "id": "16",
+        "name": "v2-491",
+        "text": "32"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: bm25_search\n원 질문 키워드 검색\n\nRETRIEVER  /  노드 상세\nbm25_search  :  원 질문 키워드 검색\nhybrid 계열에서 원 질문의 단어와 맞는 청크를 검색\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nquery\n원 질문\n\nrole\n접근 역할\n\n활성 BM25 인덱스\n1  카드명 사전을 적용한 Kiwi 토큰 분리\n\n2  역색인에서 단어가 맞는 후보 점수화\n\n3  접근 가능한 문서로 결과 제한\n청크 ID별\n키워드 점수\n\nwarnings\n검색 경고\n다음: fuse_scores  /  vector 계열은 이 노드를 건너뜀\n32\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n\n"
+  },
+  {
+    "page": 33,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-276",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-277",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-278",
+        "text": "bm25_search  :  BM25S 호출 코드"
+      },
+      {
+        "id": "4",
+        "name": "v2-279",
+        "text": "원본 자료의 retrieve·weight_mask 코드 보존"
+      },
+      {
+        "id": "5",
+        "name": "v2-280",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-281",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-282",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-283",
+        "text": "result = retriever.retrieve(\n    [terms],  \n     k=k,  \n     weight_mask=mask,  \n     show_progress=False\n)\n\n# weight_mask: mask가 0인 문서의 점수를 0으로 만들어 검색 결과 순위에서 밀리게 함"
+      },
+      {
+        "id": "9",
+        "name": "v2-284",
+        "text": "권한 마스크로 허용되지 않은 문서의 점수를 0으로 처리하고, 반환 후보도 권한 기준으로 제한"
+      },
+      {
+        "id": "10",
+        "name": "v2-492",
+        "text": "33"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: bm25_search\nBM25S 호출 코드\n\nRETRIEVER  /  노드 상세\nbm25_search  :  BM25S 호출 코드\n원본 자료의 retrieve·weight_mask 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\nresult = retriever.retrieve(\n    [terms],  \n     k=k,  \n     weight_mask=mask,  \n     show_progress=False\n)\n\n# weight_mask: mask가 0인 문서의 점수를 0으로 만들어 검색 결과 순위에서 밀리게 함\n권한 마스크로 허용되지 않은 문서의 점수를 0으로 처리하고, 반환 후보도 권한 기준으로 제한\n33\n\n소스: hybrid-ai-lab/vector/retriever/app/infrastructure/bm25_index.py\n원본 핵심 코드 출처: 11페이지\n"
+  },
+  {
+    "page": 34,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-285",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-286",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-287",
+        "text": "fuse_scores  :  Vector·BM25 점수 결합"
+      },
+      {
+        "id": "4",
+        "name": "v2-288",
+        "text": "청크 ID 합집합을 만든 뒤 점수를 각각 0 ~ 1로 맞추어 가중합"
+      },
+      {
+        "id": "5",
+        "name": "v2-289",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-290",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-291",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-292",
+        "text": "normalized_vector = normalize(vector_by_id, candidate_ids)  # 0~1 사이로 정규화\n\nnormalized_bm25 = normalize(bm25_scores, candidate_ids)     # 0~1 사이로 정규화\n\nscore = weight_bm25 * normalized_bm25[chunk_id] + weight_vector * normalized_vector[chunk_id]"
+      },
+      {
+        "id": "9",
+        "name": "v2-293",
+        "text": "Vector 가중치 0.6, BM25 가중치 0.4  /  다음: complete_original_results"
+      },
+      {
+        "id": "10",
+        "name": "v2-493",
+        "text": "34"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: fuse_scores\nVector·BM25 점수 결합\n\nRETRIEVER  /  노드 상세\nfuse_scores  :  Vector·BM25 점수 결합\n청크 ID 합집합을 만든 뒤 점수를 각각 0 ~ 1로 맞추어 가중합\n하이브리드 AI  ·  Workflow 노드 해설\nnormalized_vector = normalize(vector_by_id, candidate_ids)  # 0~1 사이로 정규화\n\nnormalized_bm25 = normalize(bm25_scores, candidate_ids)     # 0~1 사이로 정규화\n\nscore = weight_bm25 * normalized_bm25[chunk_id] + weight_vector * normalized_vector[chunk_id]\nVector 가중치 0.6, BM25 가중치 0.4  /  다음: complete_original_results\n34\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/scoring.py\n원본 핵심 코드 출처: 11페이지\n"
+  },
+  {
+    "page": 35,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-294",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-295",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-296",
+        "text": "fuse_scores  :  정규화 계산 예시"
+      },
+      {
+        "id": "4",
+        "name": "v2-297",
+        "text": "한쪽 검색에 없는 후보는 해당 원점수를 0으로 포함해 정규화"
+      },
+      {
+        "id": "5",
+        "name": "v2-298",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-299",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-300",
+        "text": "Hybrid = Vector 정규화 점수 × 0.6 + BM25 정규화 점수 × 0.4"
+      },
+      {
+        "id": "9",
+        "name": "v2-301",
+        "text": "정규화 = (점수 − 최솟값) ÷ (최댓값 − 최솟값)  /  모든 값이 같으면 해당 신호를 0으로 처리"
+      },
+      {
+        "id": "10",
+        "name": "v2-494",
+        "text": "35"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "청크",
+          "Vector",
+          "BM25",
+          "정규화 V",
+          "정규화 B",
+          "최종 점수"
+        ],
+        [
+          "A",
+          "0.9",
+          "2",
+          "1.000",
+          "0.000",
+          "0.600"
+        ],
+        [
+          "B",
+          "0.8",
+          "8",
+          "0.889",
+          "1.000",
+          "0.933"
+        ],
+        [
+          "C",
+          "없음",
+          "5",
+          "0.000",
+          "0.500",
+          "0.200"
+        ]
+      ]
+    ],
+    "notes": "노드: fuse_scores\n정규화 계산 예시\n\nRETRIEVER  /  노드 상세\nfuse_scores  :  정규화 계산 예시\n한쪽 검색에 없는 후보는 해당 원점수를 0으로 포함해 정규화\n하이브리드 AI  ·  Workflow 노드 해설\nHybrid = Vector 정규화 점수 × 0.6 + BM25 정규화 점수 × 0.4\n정규화 = (점수 − 최솟값) ÷ (최댓값 − 최솟값)  /  모든 값이 같으면 해당 신호를 0으로 처리\n35\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/scoring.py\n\n"
+  },
+  {
+    "page": 36,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-302",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-303",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-304",
+        "text": "complete_original_results  :  원 질문 후보 확정"
+      },
+      {
+        "id": "4",
+        "name": "v2-305",
+        "text": "변환 질문 검색 전에 원 질문의 기준 결과를 따로 보존"
+      },
+      {
+        "id": "5",
+        "name": "v2-306",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-307",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-308",
+        "text": "입력"
+      },
+      {
+        "id": "8",
+        "name": "v2-309",
+        "text": "핵심 처리"
+      },
+      {
+        "id": "9",
+        "name": "v2-310",
+        "text": "출력"
+      },
+      {
+        "id": "12",
+        "name": "v2-311",
+        "text": "vector_hits\n또는 융합 후보\n\nmode·top_k"
+      },
+      {
+        "id": "13",
+        "name": "v2-312",
+        "text": "1  vector 계열이면 Vector 후보 재사용\n\n2  hybrid 계열이면 융합 후보 재사용\n\n3  baseline_hits와 현재 hits 분리 보관"
+      },
+      {
+        "id": "14",
+        "name": "v2-313",
+        "text": "baseline_hits\n원 질문 후보\n\nhits\n현재 상위 결과"
+      },
+      {
+        "id": "15",
+        "name": "v2-314",
+        "text": "분기: 변환 질문 있음 → search_transformed  /  변환 없음·리랭크 모드 → rerank  /  그 외 검색 완료"
+      },
+      {
+        "id": "16",
+        "name": "v2-495",
+        "text": "36"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: complete_original_results\n원 질문 후보 확정\n\nRETRIEVER  /  노드 상세\ncomplete_original_results  :  원 질문 후보 확정\n변환 질문 검색 전에 원 질문의 기준 결과를 따로 보존\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nvector_hits\n또는 융합 후보\n\nmode·top_k\n1  vector 계열이면 Vector 후보 재사용\n\n2  hybrid 계열이면 융합 후보 재사용\n\n3  baseline_hits와 현재 hits 분리 보관\nbaseline_hits\n원 질문 후보\n\nhits\n현재 상위 결과\n분기: 변환 질문 있음 → search_transformed  /  변환 없음·리랭크 모드 → rerank  /  그 외 검색 완료\n36\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n\n"
+  },
+  {
+    "page": 37,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-315",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-316",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-317",
+        "text": "complete_original_results  :  기준 후보 보존 코드"
+      },
+      {
+        "id": "4",
+        "name": "v2-318",
+        "text": "현재 구현은 리랭크 입력 후보 수와 최종 출력 수를 구분"
+      },
+      {
+        "id": "5",
+        "name": "v2-319",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-320",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-321",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-322",
+        "text": "if _uses_vector_only(state.get(\"mode\")):\n    baseline = list(state.get(\"vector_hits\", []))[: self._candidate_sizes(state).fused_k]\nelse:\n    baseline = list(state.get(\"baseline_hits\", state.get(\"candidates\", [])))\nreturn {\n    \"baseline_hits\": baseline,\n    \"hits\": list(baseline[: int(state.get(\"top_k\", len(baseline)))]),\n}"
+      },
+      {
+        "id": "9",
+        "name": "v2-323",
+        "text": "top_k=5인 리랭크 모드: baseline_hits에 10개, hits에 5개를 보관"
+      },
+      {
+        "id": "10",
+        "name": "v2-496",
+        "text": "37"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: complete_original_results\n기준 후보 보존 코드\n\nRETRIEVER  /  노드 상세\ncomplete_original_results  :  기준 후보 보존 코드\n현재 구현은 리랭크 입력 후보 수와 최종 출력 수를 구분\n하이브리드 AI  ·  Workflow 노드 해설\nif _uses_vector_only(state.get(\"mode\")):\n    baseline = list(state.get(\"vector_hits\", []))[: self._candidate_sizes(state).fused_k]\nelse:\n    baseline = list(state.get(\"baseline_hits\", state.get(\"candidates\", [])))\nreturn {\n    \"baseline_hits\": baseline,\n    \"hits\": list(baseline[: int(state.get(\"top_k\", len(baseline)))]),\n}\ntop_k=5인 리랭크 모드: baseline_hits에 10개, hits에 5개를 보관\n37\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n원본 핵심 코드 출처: 페이지\n"
+  },
+  {
+    "page": 38,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-324",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-325",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-326",
+        "text": "search_transformed  :  변환 질문별 추가 검색"
+      },
+      {
+        "id": "4",
+        "name": "v2-327",
+        "text": "원 질문의 후보를 유지한 채 변환 질문마다 독립된 후보 그룹 생성"
+      },
+      {
+        "id": "5",
+        "name": "v2-328",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-329",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-330",
+        "text": "입력"
+      },
+      {
+        "id": "8",
+        "name": "v2-331",
+        "text": "핵심 처리"
+      },
+      {
+        "id": "9",
+        "name": "v2-332",
+        "text": "출력"
+      },
+      {
+        "id": "12",
+        "name": "v2-333",
+        "text": "transformed_queries\n변환 질문 목록\n\nmode·role·top_k"
+      },
+      {
+        "id": "13",
+        "name": "v2-334",
+        "text": "1  변환 질문을 하나씩 같은 모드로 검색\n\n2  질문별 결과를 같은 순서로 저장\n\n3  실패 그룹은 빈 목록과 경고로 남김"
+      },
+      {
+        "id": "14",
+        "name": "v2-335",
+        "text": "transformed_\nhit_groups\n질문별 후보 묶음\n\nwarnings"
+      },
+      {
+        "id": "15",
+        "name": "v2-336",
+        "text": "다음: vector·hybrid는 merge_queries  /  리랭크 모드는 사전 RRF 없이 rerank"
+      },
+      {
+        "id": "16",
+        "name": "v2-497",
+        "text": "38"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: search_transformed\n변환 질문별 추가 검색\n\nRETRIEVER  /  노드 상세\nsearch_transformed  :  변환 질문별 추가 검색\n원 질문의 후보를 유지한 채 변환 질문마다 독립된 후보 그룹 생성\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\ntransformed_queries\n변환 질문 목록\n\nmode·role·top_k\n1  변환 질문을 하나씩 같은 모드로 검색\n\n2  질문별 결과를 같은 순서로 저장\n\n3  실패 그룹은 빈 목록과 경고로 남김\ntransformed_\nhit_groups\n질문별 후보 묶음\n\nwarnings\n다음: vector·hybrid는 merge_queries  /  리랭크 모드는 사전 RRF 없이 rerank\n38\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n\n"
+  },
+  {
+    "page": 39,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-337",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-338",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-339",
+        "text": "search_transformed  :  변환 질문 검색 실행 코드"
+      },
+      {
+        "id": "4",
+        "name": "v2-340",
+        "text": "변환 질문을 순서대로 검색하고, 질문별 결과와 실패 경고를 반환"
+      },
+      {
+        "id": "5",
+        "name": "v2-341",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-342",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-343",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-344",
+        "text": "def _run_search_transformed(self, state: RetrieverState, **_kwargs: Any) -> dict[str, Any]:\n    groups, warnings = [], []\n    for query in state.get(\"transformed_queries\", []):\n        try:\n            groups.append(self._search_one(query, state))\n        except Exception as error:\n            groups.append([])\n            warnings.append(f\"변환 질의 검색 실패: {type(error).__name__}\")\n    return {\"transformed_hit_groups\": groups, \"warnings\": warnings}"
+      },
+      {
+        "id": "9",
+        "name": "v2-345",
+        "text": "실패한 질문은 빈 목록으로 위치 유지  /  warnings에 예외 종류 기록  /  단일 질문 검색은 다음 페이지"
+      },
+      {
+        "id": "10",
+        "name": "v2-498",
+        "text": "39"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: search_transformed\n함수: _run_search_transformed\n변환 질문을 입력 순서대로 하나씩 _search_one에 전달함. 성공 결과는 groups에 추가함. 실패 시 빈 목록으로 질문과 결과의 위치 대응을 유지하며 예외 클래스명을 warnings에 기록함. 실패 후에도 다음 질문을 처리함. 결과는 transformed_hit_groups와 warnings로 반환함.\n단일 질문의 검색 방식은 다음 페이지 _search_one에서 설명함.\n출처: 사용자 제공 코드 및 hybrid-ai-lab/vector/retriever/app/application/graph.py\n\ndef _run_search_transformed(self, state: RetrieverState, **_kwargs: Any) -> dict[str, Any]:\n    groups, warnings = [], []\n    for query in state.get(\"transformed_queries\", []):\n        try:\n            groups.append(self._search_one(query, state))\n        except Exception as error:\n            groups.append([])\n            warnings.append(f\"변환 질의 검색 실패: {type(error).__name__}\")\n    return {\"transformed_hit_groups\": groups, \"warnings\": warnings}\n"
+  },
+  {
+    "page": 40,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-346",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-347",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-348",
+        "text": "search_transformed  :  현재 구현의 검색 분기"
+      },
+      {
+        "id": "4",
+        "name": "v2-349",
+        "text": "현재 소스의 _search_one 핵심 코드"
+      },
+      {
+        "id": "5",
+        "name": "v2-350",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-351",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-352",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-353",
+        "text": "sizes = self._candidate_sizes(state)\nvector_hits = self._search_vector(query, state[\"role\"], sizes.raw_k)\nif _uses_vector_only(state[\"mode\"]):\n    return vector_hits[: sizes.fused_k]\nreturn self._fuse(\n    vector_hits,\n    self.bm25.keyword_search(\n        query,\n        allowed_access_levels=allowed_levels(state[\"role\"]),\n        k=sizes.raw_k,\n    ),\n    state[\"role\"],\n    sizes.fused_k,\n)"
+      },
+      {
+        "id": "9",
+        "name": "v2-354",
+        "text": "_uses_vector_only는 vector와 vector_rerank를 모두 포함"
+      },
+      {
+        "id": "10",
+        "name": "v2-499",
+        "text": "40"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: search_transformed\n현재 구현의 검색 분기\n\nRETRIEVER  /  노드 상세\nsearch_transformed  :  현재 구현의 검색 분기\n현재 소스의 _search_one 핵심 코드\n하이브리드 AI  ·  Workflow 노드 해설\nsizes = self._candidate_sizes(state)\nvector_hits = self._search_vector(query, state[\"role\"], sizes.raw_k)\nif _uses_vector_only(state[\"mode\"]):\n    return vector_hits[: sizes.fused_k]\nreturn self._fuse(\n    vector_hits,\n    self.bm25.keyword_search(\n        query,\n        allowed_access_levels=allowed_levels(state[\"role\"]),\n        k=sizes.raw_k,\n    ),\n    state[\"role\"],\n    sizes.fused_k,\n)\n_uses_vector_only는 vector와 vector_rerank를 모두 포함\n40\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n원본 핵심 코드 출처: 페이지\n"
+  },
+  {
+    "page": 41,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-355",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-356",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-357",
+        "text": "merge_queries  :  가중 RRF 순위 병합"
+      },
+      {
+        "id": "4",
+        "name": "v2-358",
+        "text": "질문별 후보 목록을 chunk_id로 묶고 그룹 가중치와 순위를 누적"
+      },
+      {
+        "id": "5",
+        "name": "v2-359",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-360",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-361",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-362",
+        "text": "merged: dict[str, dict[str, Any]] = {}\nfor label, hits, weight in ranked_lists:\n    # 검색결과가 유사도 점수 순으로 정렬되어 있으므로 position은 랭킹값임\n    for position, hit in enumerate(hits, start=1):\n        item = merged.setdefault(hit.chunk_id, {\"hit\": hit, \"rrf_score\": 0.0, \"source_ranks\": {}})\n        # RRF score: 가중치 / (RRF 상수 + 랭킹)\n        item[\"rrf_score\"] += weight / (rrf_k + position)"
+      },
+      {
+        "id": "9",
+        "name": "v2-363",
+        "text": "기본 rrf_k=60  /  일반 변환: 원 질문 0.5, 변환 질문 전체 0.5  /  다음: 검색 완료"
+      },
+      {
+        "id": "10",
+        "name": "v2-500",
+        "text": "41"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: merge_queries\n가중 RRF 순위 병합\n\nRETRIEVER  /  노드 상세\nmerge_queries  :  가중 RRF 순위 병합\n질문별 후보 목록을 chunk_id로 묶고 그룹 가중치와 순위를 누적\n하이브리드 AI  ·  Workflow 노드 해설\nmerged: dict[str, dict[str, Any]] = {}\nfor label, hits, weight in ranked_lists:\n    # 검색결과가 유사도 점수 순으로 정렬되어 있으므로 position은 랭킹값임\n    for position, hit in enumerate(hits, start=1):\n        item = merged.setdefault(hit.chunk_id, {\"hit\": hit, \"rrf_score\": 0.0, \"source_ranks\": {}})\n        # RRF score: 가중치 / (RRF 상수 + 랭킹)\n        item[\"rrf_score\"] += weight / (rrf_k + position)\n기본 rrf_k=60  /  일반 변환: 원 질문 0.5, 변환 질문 전체 0.5  /  다음: 검색 완료\n41\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py\n원본 핵심 코드 출처: 12페이지\n"
+  },
+  {
+    "page": 42,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-364",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-365",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-366",
+        "text": "merge_queries  :  분해 질문의 근거 확보"
+      },
+      {
+        "id": "4",
+        "name": "v2-367",
+        "text": "리랭크 없는 decomposition은 하위 질문의 대표 근거를 먼저 확보"
+      },
+      {
+        "id": "5",
+        "name": "v2-368",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-369",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-370",
+        "text": "원 질문 + 하위 질문 그룹"
+      },
+      {
+        "id": "8",
+        "name": "v2-371",
+        "text": "가중 RRF 계산"
+      },
+      {
+        "id": "9",
+        "name": "v2-372",
+        "text": "하위 Top-1 우선 확보"
+      },
+      {
+        "id": "10",
+        "name": "v2-373",
+        "text": "나머지 순위 채우기"
+      },
+      {
+        "id": "15",
+        "name": "v2-374",
+        "text": "변환 결과가 비어 있으면 원 질문 결과 사용  /  최종 결과가 정해지면 답변 관문 판정"
+      },
+      {
+        "id": "16",
+        "name": "v2-501",
+        "text": "42"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "변환 기법",
+          "원 질문 가중치",
+          "변환 질문 전체",
+          "결합 방식"
+        ],
+        [
+          "일반 변환",
+          "0.5",
+          "0.5",
+          "RRF 순위"
+        ],
+        [
+          "decomposition",
+          "0.1",
+          "0.9",
+          "각 하위 Top-1 확보 후 RRF"
+        ]
+      ]
+    ],
+    "notes": "노드: merge_queries\n분해 질문의 근거 확보\n\nRETRIEVER  /  노드 상세\nmerge_queries  :  분해 질문의 근거 확보\n리랭크 없는 decomposition은 하위 질문의 대표 근거를 먼저 확보\n하이브리드 AI  ·  Workflow 노드 해설\n원 질문 + 하위 질문 그룹\n가중 RRF 계산\n하위 Top-1 우선 확보\n나머지 순위 채우기\n변환 결과가 비어 있으면 원 질문 결과 사용  /  최종 결과가 정해지면 답변 관문 판정\n42\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py\n\n"
+  },
+  {
+    "page": 43,
+    "shapes": [
+      {
+        "id": "17",
+        "name": "v2-375",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-376",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-377",
+        "text": "rerank  :  질문별 후보 재평가"
+      },
+      {
+        "id": "4",
+        "name": "v2-378",
+        "text": "Cross-Encoder가 질문과 후보 본문을 함께 읽어 관련성을 다시 평가"
+      },
+      {
+        "id": "5",
+        "name": "v2-379",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-380",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-381",
+        "text": "입력"
+      },
+      {
+        "id": "8",
+        "name": "v2-382",
+        "text": "핵심 처리"
+      },
+      {
+        "id": "9",
+        "name": "v2-383",
+        "text": "출력"
+      },
+      {
+        "id": "12",
+        "name": "v2-384",
+        "text": "baseline_hits\n원 질문 후보\n\ntransformed_\nhit_groups\n변환 질문별 후보"
+      },
+      {
+        "id": "13",
+        "name": "v2-385",
+        "text": "1  각 후보 그룹을 해당 질문으로 평가\n\n2  그룹 내부 순위를 새로 정렬\n\n3  변환 기법별 결합 규칙으로 최종 선택"
+      },
+      {
+        "id": "14",
+        "name": "v2-386",
+        "text": "hits\n최종 상위 결과\n\nrerank 점수\n경고·실패 정보"
+      },
+      {
+        "id": "15",
+        "name": "v2-387",
+        "text": "일반 변환: 재정렬 후 RRF  /  decomposition: 하위 최고점 중심 결합  /  실패 시 원 결과 또는 RRF"
+      },
+      {
+        "id": "16",
+        "name": "v2-502",
+        "text": "43"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: rerank\n질문별 후보 재평가\n\nRETRIEVER  /  노드 상세\nrerank  :  질문별 후보 재평가\nCross-Encoder가 질문과 후보 본문을 함께 읽어 관련성을 다시 평가\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nbaseline_hits\n원 질문 후보\n\ntransformed_\nhit_groups\n변환 질문별 후보\n1  각 후보 그룹을 해당 질문으로 평가\n\n2  그룹 내부 순위를 새로 정렬\n\n3  변환 기법별 결합 규칙으로 최종 선택\nhits\n최종 상위 결과\n\nrerank 점수\n경고·실패 정보\n일반 변환: 재정렬 후 RRF  /  decomposition: 하위 최고점 중심 결합  /  실패 시 원 결과 또는 RRF\n43\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n\n"
+  },
+  {
+    "page": 44,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-388",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-389",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-390",
+        "text": "rerank  :  Cross-Encoder 호출 코드"
+      },
+      {
+        "id": "4",
+        "name": "v2-391",
+        "text": "원본 자료의 모델 적재와 predict 핵심 코드 보존"
+      },
+      {
+        "id": "5",
+        "name": "v2-392",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-393",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-394",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-395",
+        "text": "self._model = CrossEncoder(self.model_name, max_length=self.max_length)\n\nraw = model.predict(\n    [(query, text) for text in texts],\n    activation_fn=torch.nn.Sigmoid(),\n    show_progress_bar=False,\n)"
+      },
+      {
+        "id": "9",
+        "name": "v2-396",
+        "text": "질문과 각 후보 본문을 한 쌍으로 평가  /  일반 변환은 서로 다른 그룹의 원점수를 직접 합산하지 않음"
+      },
+      {
+        "id": "10",
+        "name": "v2-503",
+        "text": "44"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: rerank\nCross-Encoder 호출 코드\n\nRETRIEVER  /  노드 상세\nrerank  :  Cross-Encoder 호출 코드\n원본 자료의 모델 적재와 predict 핵심 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\nself._model = CrossEncoder(self.model_name, max_length=self.max_length)\n\nraw = model.predict(\n    [(query, text) for text in texts],\n    activation_fn=torch.nn.Sigmoid(),\n    show_progress_bar=False,\n)\n질문과 각 후보 본문을 한 쌍으로 평가  /  일반 변환은 서로 다른 그룹의 원점수를 직접 합산하지 않음\n44\n\n소스: hybrid-ai-lab/vector/retriever/app/infrastructure/reranker.py\n원본 핵심 코드 출처: 12페이지\n"
+  },
+  {
+    "page": 45,
+    "shapes": [
+      {
+        "id": "15",
+        "name": "v2-397",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-398",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-399",
+        "text": "rerank  :  decomposition 점수 결합"
+      },
+      {
+        "id": "4",
+        "name": "v2-400",
+        "text": "각 하위 질문의 상위 3개 후보를 확보하고 중복 청크는 최고 점수 채택"
+      },
+      {
+        "id": "5",
+        "name": "v2-401",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-402",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-403",
+        "text": "하위 질문별 Top-3\n중복 청크의 최고 점수"
+      },
+      {
+        "id": "8",
+        "name": "v2-404",
+        "text": "원 질문으로 평가한\n같은 청크의 점수"
+      },
+      {
+        "id": "9",
+        "name": "v2-405",
+        "text": "최종 = 하위 질문 최고점 × 0.9 + 원 질문 점수 × 0.1"
+      },
+      {
+        "id": "12",
+        "name": "v2-406",
+        "text": "예시: 하위 최고 0.90, 원 질문 0.80인 청크의 최종 점수는 0.89"
+      },
+      {
+        "id": "13",
+        "name": "v2-407",
+        "text": "하위 질문별 가중치를 나누어 더하지 않고 최고점에 0.9 적용  /  일반 변환은 RRF 사용"
+      },
+      {
+        "id": "14",
+        "name": "v2-504",
+        "text": "45"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: rerank\ndecomposition 점수 결합\n\nRETRIEVER  /  노드 상세\nrerank  :  decomposition 점수 결합\n각 하위 질문의 상위 3개 후보를 확보하고 중복 청크는 최고 점수 채택\n하이브리드 AI  ·  Workflow 노드 해설\n하위 질문별 Top-3\n중복 청크의 최고 점수\n원 질문으로 평가한\n같은 청크의 점수\n최종 = 하위 질문 최고점 × 0.9 + 원 질문 점수 × 0.1\n예시: 하위 최고 0.90, 원 질문 0.80인 청크의 최종 점수는 0.89\n하위 질문별 가중치를 나누어 더하지 않고 최고점에 0.9 적용  /  일반 변환은 RRF 사용\n45\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py\n\n"
+  },
+  {
+    "page": 46,
+    "shapes": [
+      {
+        "id": "2",
+        "name": "제목 1",
+        "text": "rerank : 처리 예시"
+      },
+      {
+        "id": "25",
+        "name": "Slide Number Placeholder 0",
+        "text": "13"
+      }
+    ],
+    "tables": [],
+    "notes": "핵심 메시지: 자동화의 목적은 '사람 대체'가 아니라 '사람이 더 중요한 일에 집중'.\n\n[발표] 골든서클 WHY. 청중에게 '내 업무 중 매번 반복하는 일'을 떠올리게 함(2주 과제 복선). 자동화는 일자리 위협이 아니라 단순 반복에서 벗어나 판단·창의에 집중하는 도구. 보안 IC 기업 특성상 '사람 최종 승인'이 기본 전제임을 미리 암시. 출처: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\n"
+  },
+  {
+    "page": 47,
+    "shapes": [
+      {
+        "id": "15",
+        "name": "v2-408",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-409",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-410",
+        "text": "build_prompt  :  시스템·사용자 프롬프트 구성"
+      },
+      {
+        "id": "4",
+        "name": "v2-411",
+        "text": "원 질문·검색 근거·수정 지침을 답변 LLM의 입력으로 조립"
+      },
+      {
+        "id": "5",
+        "name": "v2-412",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-413",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-414",
+        "text": "입력\nquery · hits · repair_hints"
+      },
+      {
+        "id": "8",
+        "name": "v2-415",
+        "text": "_run_build_prompt\n시스템 지시문 + 사용자 입력 조립"
+      },
+      {
+        "id": "9",
+        "name": "v2-416",
+        "text": "출력\nsystem_prompt · user_prompt · prompt"
+      },
+      {
+        "id": "13",
+        "name": "v2-417",
+        "text": "답변 관문은 진입 전 _finalize_hits에서 판정. 이 노드에서는 LLM 호출 없음\nprompt_only=True이면 END, 아니면 generate_answer. 검증 실패 시 수정 지침과 함께 재진입"
+      },
+      {
+        "id": "14",
+        "name": "v2-505",
+        "text": "47"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "반환 필드",
+          "구성 내용"
+        ],
+        [
+          "system_prompt",
+          "8개 섹션의 고정 지시문\n공식 기준과 개별 상담 사례를 구분하는 답변 규칙"
+        ],
+        [
+          "user_prompt",
+          "검색결과목록·사용자질문·수정지침 XML\n입력 escape 처리, 수정 지침의 중복 제거"
+        ],
+        [
+          "prompt",
+          "기존 API·CLI 호환용 필드\nuser_prompt와 동일한 값"
+        ]
+      ]
+    ],
+    "notes": "노드: build_prompt\n실행 함수: _run_build_prompt\n입력: query, hits, repair_hints. 모든 hits를 1부터 순번 매겨 청크 ID, 문서 유형, 원본문서, 위치, 본문을 XML로 조립함. query는 원 질문이며 transformed_queries를 대신 넣지 않음. 문자열을 escape 처리하고 누적 repair_hints는 dict.fromkeys로 중복 제거함. 근거 또는 지침이 없으면 '해당 없음'을 사용함.\n시스템 프롬프트는 목표·역할·맥락·입력·처리·출력·제약조건·예시의 8개 섹션임. 공식 정책은 약관과 혜택 안내를 우선하며 상담 기록은 개별 사례로 구분하도록 지시함.\n반환값: system_prompt, user_prompt, prompt. prompt는 user_prompt와 동일한 호환용 필드임.\n이 노드는 LLM 호출과 답변 관문 판정을 수행하지 않음. _finalize_hits가 앞선 결과 확정 시 answer_enabled=True인 경우 clarify, 점수 없음, 최종 첫 결과의 vector_score가 ANSWER_GATE_THRESHOLD 기본값 0.62 미만이면 needs_check로 설정함. 검색 전용 경로는 build_prompt에 진입하지 않음.\nprompt_only=True이면 래퍼가 status='prompt_only', exit_code=0을 설정하고 END로 이동함. 그 외에는 generate_answer로 이동함. verify_evidence 실패 시 repair_hints를 받아 다시 조립함.\n근거: hybrid-ai-lab/vector/retriever/app/application/graph.py:195-214,333-340,437-438,561-563,1166-1256\n"
+  },
+  {
+    "page": 48,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-418",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-419",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-420",
+        "text": "build_prompt  :  XML 근거 구성 코드"
+      },
+      {
+        "id": "4",
+        "name": "v2-421",
+        "text": "원본 자료의 검색결과·질문·수정 지침 구성 코드 보존"
+      },
+      {
+        "id": "5",
+        "name": "v2-422",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-423",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-424",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-425",
+        "text": "user prompt 구성: \n<검색결과 목록>{evidence}</검색결과 목록>\n<사용자질문>{질문}</사용자질문>\n<수정지침>{hints}</수정지침>\n\n{evidence} 구성 방법: \nfor index, hit in enumerate(state.get(\"hits\", []), start=1):\n    blocks.append(\n        f'<검색결과 순번=\"{index}\">\\n＇\n        f\"<청크ID>{escape(str(hit.chunk_id))}</청크ID>\\n\"\n        f\"<문서유형>{escape(str(hit.metadata.get('doc_type', 'unknown')))}</문서유형>\\n\"\n        f\"<원본문서>{escape(str(hit.source))}</원본문서>\\n\"\n        f\"<위치>{escape(str(hit.location))}</위치>\\n\"\n        f\"<본문>{escape(str(hit.text))}</본문>\\n\"\n         \"</검색결과>\"\n    )"
+      },
+      {
+        "id": "9",
+        "name": "v2-426",
+        "text": "원본 코드의 따옴표·태그 공백은 강의 표기  /  실제 소스는 escape로 본문을 XML 안전 문자열로 변환"
+      },
+      {
+        "id": "10",
+        "name": "v2-506",
+        "text": "48"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: build_prompt\nXML 근거 구성 코드\n\nRETRIEVER  /  노드 상세\nbuild_prompt  :  XML 근거 구성 코드\n원본 자료의 검색결과·질문·수정 지침 구성 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\nuser prompt 구성: \n<검색결과 목록>{evidence}</검색결과 목록>\n<사용자질문>{질문}</사용자질문>\n<수정지침>{hints}</수정지침>\n\n{evidence} 구성 방법: \nfor index, hit in enumerate(state.get(\"hits\", []), start=1):\n    blocks.append(\n        f'<검색결과 순번=\"{index}\">\\n＇\n        f\"<청크ID>{escape(str(hit.chunk_id))}</청크ID>\\n\"\n        f\"<문서유형>{escape(str(hit.metadata.get('doc_type', 'unknown')))}</문서유형>\\n\"\n        f\"<원본문서>{escape(str(hit.source))}</원본문서>\\n\"\n        f\"<위치>{escape(str(hit.location))}</위치>\\n\"\n        f\"<본문>{escape(str(hit.text))}</본문>\\n\"\n         \"</검색결과>\"\n    )\n원본 코드의 따옴표·태그 공백은 강의 표기  /  실제 소스는 escape로 본문을 XML 안전 문자열로 변환\n48\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n원본 핵심 코드 출처: 14페이지\n"
+  },
+  {
+    "page": 49,
+    "shapes": [
+      {
+        "id": "13",
+        "name": "v2-427",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-428",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-429",
+        "text": "generate_answer  :  구조화 답변 생성"
+      },
+      {
+        "id": "4",
+        "name": "v2-430",
+        "text": "system·user 프롬프트로 LLM을 호출하고 정해진 답변 필드만 수신"
+      },
+      {
+        "id": "5",
+        "name": "v2-431",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-432",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-433",
+        "text": "입력: prompt  +  남은 LLM 호출 예산"
+      },
+      {
+        "id": "8",
+        "name": "v2-434",
+        "text": ""
+      },
+      {
+        "id": "9",
+        "name": "v2-435",
+        "text": "runnable = model.with_structured_output(schema, **kwargs)\n\noutput = runnable.invoke([(\"system\", system), (\"human\", user)])"
+      },
+      {
+        "id": "11",
+        "name": "v2-436",
+        "text": "원본 14페이지의 핵심 호출 코드 보존  /  다음: verify_evidence  /  예산 소진 시 중단"
+      },
+      {
+        "id": "12",
+        "name": "v2-507",
+        "text": "49"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "출력 필드",
+          "의미"
+        ],
+        [
+          "conclusion / caution",
+          "결론 / 주의사항"
+        ],
+        [
+          "evidence[{ref, quote}]",
+          "근거 순번과 원문 인용"
+        ]
+      ]
+    ],
+    "notes": "노드: generate_answer\n구조화 답변 생성\n\nRETRIEVER  /  노드 상세\ngenerate_answer  :  구조화 답변 생성\nsystem·user 프롬프트로 LLM을 호출하고 정해진 답변 필드만 수신\n하이브리드 AI  ·  Workflow 노드 해설\n입력: prompt  +  남은 LLM 호출 예산\nrunnable = model.with_structured_output(schema, **kwargs)\n\noutput = runnable.invoke([(\"system\", system), (\"human\", user)])\n원본 14페이지의 핵심 호출 코드 보존  /  다음: verify_evidence  /  예산 소진 시 중단\n49\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n원본 핵심 코드 출처: 14페이지\n"
+  },
+  {
+    "page": 50,
+    "shapes": [
+      {
+        "id": "10",
+        "name": "v2-437",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-438",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-439",
+        "text": "verify_evidence  :  답변 구조와 인용 검증"
+      },
+      {
+        "id": "4",
+        "name": "v2-440",
+        "text": "그럴듯함을 판단하는 대신, 답변이 가리키는 인용이 검색 청크에 있는지 확인"
+      },
+      {
+        "id": "5",
+        "name": "v2-441",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-442",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "8",
+        "name": "v2-443",
+        "text": "출력: Answer + Verification  /  통과 시 END, 실패 시 build_prompt로 수정 요청  /  의미의 정확성은 별도 검토"
+      },
+      {
+        "id": "9",
+        "name": "v2-508",
+        "text": "50"
+      }
+    ],
+    "tables": [
+      [
+        [
+          "검증",
+          "확인 내용",
+          "오류 코드"
+        ],
+        [
+          "ref",
+          "검색 결과 1 ~ N 범위인지",
+          "INVALID_REF"
+        ],
+        [
+          "quote",
+          "공백·바깥 따옴표 정규화 후 원문에 포함되는지",
+          "QUOTE_NOT_FOUND"
+        ],
+        [
+          "location",
+          "위치 문자열이 비어 있지 않은지",
+          "LOCATION_MISSING"
+        ],
+        [
+          "답변 구조",
+          "결론·주의사항·필요한 근거가 있는지",
+          "SCHEMA_ERROR"
+        ]
+      ]
+    ],
+    "notes": "노드: verify_evidence\n답변 구조와 인용 검증\n\nRETRIEVER  /  노드 상세\nverify_evidence  :  답변 구조와 인용 검증\n그럴듯함을 판단하는 대신, 답변이 가리키는 인용이 검색 청크에 있는지 확인\n하이브리드 AI  ·  Workflow 노드 해설\n출력: Answer + Verification  /  통과 시 END, 실패 시 build_prompt로 수정 요청  /  의미의 정확성은 별도 검토\n50\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/scoring.py\n\n"
+  },
+  {
+    "page": 51,
+    "shapes": [
+      {
+        "id": "11",
+        "name": "v2-444",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-445",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-446",
+        "text": "verify_evidence  :  근거 대조 핵심 코드"
+      },
+      {
+        "id": "4",
+        "name": "v2-447",
+        "text": "현재 소스에서 추가한 근거 검증 코드"
+      },
+      {
+        "id": "5",
+        "name": "v2-448",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-449",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-450",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "v2-451",
+        "text": "hit = hits[ref - 1]\nquote_ok = isinstance(quote, str) and verify_quote(quote, hit.text)\nlocation_ok = bool(hit.location)\n\n# 오류 목록이 모두 비었을 때만 자동 검증 통과\nautomatic_valid = not (\n    schema_errors or invalid_refs or quote_failures or location_failures\n)"
+      },
+      {
+        "id": "9",
+        "name": "v2-452",
+        "text": "location_ok는 위치 정보의 존재 검사  /  원문 파일을 다시 열어 위치의 정확성까지 대조하지 않음"
+      },
+      {
+        "id": "10",
+        "name": "v2-509",
+        "text": "51"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: verify_evidence\n근거 대조 핵심 코드\n\nRETRIEVER  /  노드 상세\nverify_evidence  :  근거 대조 핵심 코드\n현재 소스에서 추가한 근거 검증 코드\n하이브리드 AI  ·  Workflow 노드 해설\nhit = hits[ref - 1]\nquote_ok = isinstance(quote, str) and verify_quote(quote, hit.text)\nlocation_ok = bool(hit.location)\n\n# 오류 목록이 모두 비었을 때만 자동 검증 통과\nautomatic_valid = not (\n    schema_errors or invalid_refs or quote_failures or location_failures\n)\nlocation_ok는 위치 정보의 존재 검사  /  원문 파일을 다시 열어 위치의 정확성까지 대조하지 않음\n51\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/scoring.py\n원본 핵심 코드 출처: 페이지\n"
+  },
+  {
+    "page": 52,
+    "shapes": [
+      {
+        "id": "18",
+        "name": "v2-453",
+        "text": ""
+      },
+      {
+        "id": "2",
+        "name": "v2-454",
+        "text": "RETRIEVER  /  노드 상세"
+      },
+      {
+        "id": "3",
+        "name": "v2-455",
+        "text": "verify_evidence  :  실패 수정과 종료 조건"
+      },
+      {
+        "id": "4",
+        "name": "v2-456",
+        "text": "오류별 수정 지침을 build_prompt에 전달하고 정해진 상한 안에서 재생성"
+      },
+      {
+        "id": "5",
+        "name": "v2-457",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "v2-458",
+        "text": "하이브리드 AI  ·  Workflow 노드 해설"
+      },
+      {
+        "id": "7",
+        "name": "v2-459",
+        "text": "generate_answer\n답변 생성"
+      },
+      {
+        "id": "8",
+        "name": "v2-460",
+        "text": "verify_evidence\n인용·구조 검사"
+      },
+      {
+        "id": "9",
+        "name": "v2-461",
+        "text": "검증 통과\nEND"
+      },
+      {
+        "id": "12",
+        "name": "v2-462",
+        "text": "검증 실패\nbuild_prompt + repair_hints"
+      },
+      {
+        "id": "15",
+        "name": "v2-463",
+        "text": "MAX_REPAIRS=2  /  API 기본 LLM 예산 총 2회  /  CLI 기본 총 8회"
+      },
+      {
+        "id": "16",
+        "name": "v2-464",
+        "text": "질문 변환 호출도 같은 예산 사용  /  횟수·예산 소진 시 halted_by_limit"
+      },
+      {
+        "id": "17",
+        "name": "v2-510",
+        "text": "52"
+      }
+    ],
+    "tables": [],
+    "notes": "노드: verify_evidence\n실패 수정과 종료 조건\n\nRETRIEVER  /  노드 상세\nverify_evidence  :  실패 수정과 종료 조건\n오류별 수정 지침을 build_prompt에 전달하고 정해진 상한 안에서 재생성\n하이브리드 AI  ·  Workflow 노드 해설\ngenerate_answer\n답변 생성\nverify_evidence\n인용·구조 검사\n검증 통과\nEND\n검증 실패\nbuild_prompt + repair_hints\nMAX_REPAIRS=2  /  API 기본 LLM 예산 총 2회  /  CLI 기본 총 8회\n질문 변환 호출도 같은 예산 사용  /  횟수·예산 소진 시 halted_by_limit\n52\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n\n"
+  },
+  {
+    "page": 53,
+    "shapes": [
+      {
+        "id": "4",
+        "name": "Text 2",
+        "text": "반복 작업은 AI에게, 사람은 판단에 집중"
+      },
+      {
+        "id": "5",
+        "name": "Shape 3",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "Text 4",
+        "text": "반복 작업이 하루를 갉아먹습니다. AI에게 맡기고, 사람은 판단에 집중합니다."
+      },
+      {
+        "id": "7",
+        "name": "Shape 5",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "Shape 6",
+        "text": ""
+      },
+      {
+        "id": "9",
+        "name": "Text 7",
+        "text": "매일 반복되는 일"
+      },
+      {
+        "id": "10",
+        "name": "Text 8",
+        "text": "긴 자료를 읽고 핵심만 추리기\n회의 메모를 보고서 형식으로 정리하기\n같은 형식의 문서를 매번 새로 작성하기"
+      },
+      {
+        "id": "11",
+        "name": "Text 9",
+        "text": "▶"
+      },
+      {
+        "id": "12",
+        "name": "Shape 10",
+        "text": ""
+      },
+      {
+        "id": "13",
+        "name": "Shape 11",
+        "text": ""
+      },
+      {
+        "id": "14",
+        "name": "Text 12",
+        "text": "Claude Code에게 자연어로 요청"
+      },
+      {
+        "id": "15",
+        "name": "Text 13",
+        "text": "사람: \"무엇을·왜\"를 정함 (판단)\nAI: \"어떻게\"를 빠르게 실행 (작업)\n사람: 결과를 최종 확인·승인 (게이트)"
+      },
+      {
+        "id": "17",
+        "name": "Shape 14",
+        "text": ""
+      },
+      {
+        "id": "18",
+        "name": "Text 15",
+        "text": "자동화의 목적은 \"사람을 대체\"가 아니라 \"사람이 더 중요한 일에 집중\"하게 만드는 것입니다."
+      },
+      {
+        "id": "2",
+        "name": "제목 1",
+        "text": "WHY — 왜 업무 자동화인가"
+      },
+      {
+        "id": "25",
+        "name": "Slide Number Placeholder 0",
+        "text": "15"
+      }
+    ],
+    "tables": [],
+    "notes": "핵심 메시지: 자동화의 목적은 '사람 대체'가 아니라 '사람이 더 중요한 일에 집중'.\n\n[발표] 골든서클 WHY. 청중에게 '내 업무 중 매번 반복하는 일'을 떠올리게 함(2주 과제 복선). 자동화는 일자리 위협이 아니라 단순 반복에서 벗어나 판단·창의에 집중하는 도구. 보안 IC 기업 특성상 '사람 최종 승인'이 기본 전제임을 미리 암시. 출처: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices\n"
+  },
+  {
+    "page": 54,
+    "shapes": [
+      {
+        "id": "4",
+        "name": "Text 2",
+        "text": "내 컴퓨터에서 일하는 AI 작업 도우미 (에이전틱 코딩 도구)"
+      },
+      {
+        "id": "5",
+        "name": "Shape 3",
+        "text": ""
+      },
+      {
+        "id": "6",
+        "name": "Text 4",
+        "text": "공식 정의  코드베이스를 읽고, 파일을 편집하고, 명령을 실행하며, 개발 도구와 통합되는 도구.\n쉽게 말하면  →  \"내 폴더의 파일을 읽고 정리해 주는, 대화로 일 시키는 AI 비서\""
+      },
+      {
+        "id": "7",
+        "name": "Shape 5",
+        "text": ""
+      },
+      {
+        "id": "8",
+        "name": "Text 6",
+        "text": "오늘 우리가 쓰는 것 — Claude Code 데스크톱 앱 (GUI)"
+      },
+      {
+        "id": "9",
+        "name": "Shape 7",
+        "text": ""
+      },
+      {
+        "id": "10",
+        "name": "Text 8",
+        "text": "Claude 앱을 설치하고 상단의 \"Code\" 탭을 켜서 사용. 검은 명령창 없이 화면으로 클릭·입력하는 가장 친숙한 방식입니다."
+      },
+      {
+        "id": "11",
+        "name": "Shape 9",
+        "text": ""
+      },
+      {
+        "id": "12",
+        "name": "Text 10",
+        "text": "이런 것도 있어요 (나중에)"
+      },
+      {
+        "id": "13",
+        "name": "Text 11",
+        "text": "터미널(명령창), VS Code 같은 편집기 안(IDE)에서도 \n같은 Claude Code를 쓸 수 있습니다. \n모두 같은 엔진을 공유하므로, 오늘은 '데스크톱 앱' 하나만 익히면 충분합니다."
+      },
+      {
+        "id": "14",
+        "name": "Shape 12",
+        "text": ""
+      },
+      {
+        "id": "15",
+        "name": "Text 13",
+        "text": "용어 — 데스크톱 앱이란?"
+      },
+      {
+        "id": "16",
+        "name": "Text 14",
+        "text": "Anthropic이 제공하는 Claude 프로그램. \n대화용 Chat · 내 PC의 격리된 가상 환경에서 수행되는 Cowork · \n내 PC에서 직접 수행되는 Code 3개 탭으로 구성되며, \n이 \"Code\" 탭이 곧 Claude Code입니다."
+      },
+      {
+        "id": "2",
+        "name": "제목 1",
+        "text": "Claude Code란? — HOW"
+      },
+      {
+        "id": "25",
+        "name": "Slide Number Placeholder 0",
+        "text": "16"
+      }
+    ],
+    "tables": [],
+    "notes": "[발표] '에이전틱(agentic) = 스스로 파일을 찾고 작업을 단계별로 수행'을 한 줄로 풀어준다. 비개발자가 겁먹지 않도록 '코드를 몰라도 자연어로 시키면 된다' + '검은 명령창이 아니라 친숙한 GUI'를 반복 강조. 데스크톱 앱은 별도 빌드가 아니라 Claude 앱(Chat·Cowork·Code)의 Code 탭이며 CLI와 동일 엔진·설정(CLAUDE.md·MCP·skills) 공유. 출처: https://code.claude.com/docs/en/overview, https://code.claude.com/docs/en/desktop-quickstart\n"
+  },
+  {
+    "page": 55,
+    "shapes": [
+      {
+        "id": "4",
+        "name": "Text 1",
+        "text": "Q&A"
+      }
+    ],
+    "tables": [],
+    "notes": "\n"
+  }
+]

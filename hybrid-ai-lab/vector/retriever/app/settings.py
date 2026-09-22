@@ -98,6 +98,13 @@ def _unit_float(name: str, value: Any) -> float:
     return parsed
 
 
+def _closed_unit_float(name: str, value: Any) -> float:
+    parsed = _non_negative_float(name, value)
+    if parsed > 1:
+        raise LLMConfigError(f"{name}은 0 이상 1 이하여야 함")
+    return parsed
+
+
 def _path(name: str, value: Any) -> Path:
     del name
     path = Path(str(value).strip()).expanduser()
@@ -159,12 +166,15 @@ _SPECS: dict[str, _Spec] = {
     "API_PORT": _Spec(8001, _positive_int),  # API 서버가 사용할 포트 번호
     "TOP_K_DEFAULT": _Spec(5, _positive_int),  # 별도 지정이 없을 때 반환할 최종 문서 수
     "CANDIDATE_MULTIPLIER": _Spec(4, _positive_int),  # 최종 문서 수 대비 먼저 가져올 후보 배수
+    "VECTOR_SEARCH_STRATEGY": _Spec("similarity", _choice("similarity", "mmr")),  # 벡터 후보 선택 방식
+    "MMR_FETCH_MULTIPLIER": _Spec(2, _positive_int),  # MMR 반환 수 대비 Chroma에서 먼저 조회할 후보 배수
+    "MMR_LAMBDA_MULT": _Spec(0.5, _closed_unit_float),  # 1은 질의 유사도, 0은 후보 다양성을 우선함
     "HYBRID_WEIGHT_BM25": _Spec(0.4, _non_negative_float),  # 하이브리드 검색의 BM25 점수 비중
     "HYBRID_WEIGHT_VECTOR": _Spec(0.6, _non_negative_float),  # 하이브리드 검색의 벡터 점수 비중
     "ANSWER_GATE_THRESHOLD": _Spec(0.62, _unit_float),  # 답변에 쓸 근거가 충분한지 판단할 점수 기준
     "RERANK_MAX_LENGTH": _Spec(512, _positive_int),  # 리랭커에 넣을 질문·문서의 최대 토큰 길이
     "TRANSFORM_MODE": _Spec("off", _choice("off", "auto")),  # 질문 변환 사용 여부
-    "TRANSFORM_GATE_THRESHOLD": _Spec(0.70, _unit_float),  # 이 점수보다 낮을 때 질문 변환을 검토
+    "TRANSFORM_GATE_THRESHOLD": _Spec(0.86, _unit_float),  # 이 점수보다 낮을 때 질문 변환을 검토
     "TRANSFORM_RRF_K": _Spec(60, _positive_int),  # RRF 순위 병합에서 상위 편중을 조절하는 상수
     "TRANSFORM_ORIGINAL_WEIGHT": _Spec(0.5, _unit_float),  # 변환 검색 병합 시 원 질문의 가중치
     "TRANSFORM_ORIGINAL_WEIGHT_DECOMPOSITION": _Spec(0.1, _unit_float),  # 질문 분해 시 원 질문 가중치

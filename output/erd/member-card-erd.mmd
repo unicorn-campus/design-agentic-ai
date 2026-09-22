@@ -1,0 +1,84 @@
+---
+config:
+  theme: base
+  themeVariables:
+    fontFamily: "Malgun Gothic, Noto Sans CJK KR, Arial, sans-serif"
+    primaryColor: "#EAF2FF"
+    primaryBorderColor: "#4773B8"
+    primaryTextColor: "#152238"
+    lineColor: "#53677F"
+    tertiaryColor: "#F7FAFF"
+---
+erDiagram
+    member {
+        text member_id PK
+        smallint segment_id
+        date join_date
+        text age_band
+    }
+
+    product {
+        text product_id PK
+        text product_name
+        date effective_date
+        boolean family_card_available
+        text family_card_rule
+    }
+
+    product_annual_fee {
+        text product_id PK,FK
+        text brand PK
+        integer base_fee
+        integer service_fee
+        integer total_fee
+    }
+
+    card {
+        text card_id PK
+        text member_id FK
+        text product_id FK
+        text brand FK
+        date issue_date
+        text status
+    }
+
+    merchant {
+        text merchant_id PK
+        text merchant_name
+        text category
+    }
+
+    card_txn {
+        text txn_id PK
+        text card_id FK
+        text merchant_id FK
+        date txn_date
+        integer amount
+        text approval_code
+    }
+
+    delinquency {
+        text member_id PK,FK
+        char7 base_month PK
+        integer overdue_days
+        integer overdue_count_12m
+        integer overdue_amount
+    }
+
+    private_member_id_map {
+        char8 source_member_no PK
+        text member_id FK,UK
+    }
+
+    lab_metadata {
+        text key PK
+        text value
+    }
+
+    member ||--o{ card : "보유"
+    product ||--o{ product_annual_fee : "브랜드별 연회비"
+    product_annual_fee ||--o{ card : "발급 상품·브랜드"
+    card ||--o{ card_txn : "결제"
+    merchant ||--o{ card_txn : "거래 발생"
+    member ||--o{ delinquency : "월별 연체"
+    member ||--o| private_member_id_map : "재식별 대응"

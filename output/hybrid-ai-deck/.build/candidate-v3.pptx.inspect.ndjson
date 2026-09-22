@@ -1,0 +1,788 @@
+{"kind":"deck","id":"pr/zfo4b5","name":"Deck"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"레슨명","placeholders":[{"name":"body","type":"body","textPreview":"레슨 명"},{"name":"body","type":"body","textPreview":"강의명"},{"name":"body","type":"body","textPreview":"SECTION 명"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout2.xml","name":"BLANK"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout3.xml","name":"타이틀(한 줄 입력)","placeholders":[{"name":"body","type":"body","textPreview":"강의명 (한 줄 입력)"},{"name":"body","type":"body","textPreview":"강사명"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout4.xml","name":"DEFAULT"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster2.xml","name":"","type":"master","placeholders":[{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout5.xml","name":"내용_단쪽","placeholders":[{"name":"title","type":"title","textPreview":"파트별 소제목"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout6.xml","name":"MASTER","placeholders":[{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster3.xml","name":"","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout7.xml","name":"Section명_한 줄 입력","placeholders":[{"name":"body","type":"body","textPreview":"SECTION명 (한 줄 입력)"},{"name":"body","type":"body","textPreview":"강의명"}]}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster4.xml","name":"","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout8.xml","name":"타이틀(한 줄 입력)","placeholders":[{"name":"body","type":"body","textPreview":"강의명 (한 줄 입력)"},{"name":"body","type":"body","textPreview":"강사명"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout9.xml","name":"1_타이틀(한 줄 입력)","placeholders":[{"name":"body","type":"body","textPreview":"강의명 (한 줄 입력)"},{"name":"body","type":"body","textPreview":"강사명"}]}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"하이브리드 AI","textShapes":3}
+{"kind":"textbox","id":"sh/547294r6","slide":1,"name":"텍스트 개체 틀 1","placeholder":"body","text":"하이브리드 AI","textPreview":"하이브리드 AI","textChars":8,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/k3yl0zql","slide":1,"name":"텍스트 개체 틀 2","placeholder":"body","text":"이해경","textPreview":"이해경","textChars":3,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/65g3298r","slide":1,"name":"슬라이드 번호 개체 틀 4","placeholder":"slideNumber","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/y90nupkv","slide":1,"text":""}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"목차","textShapes":20}
+{"kind":"shape","id":"sh/9072xkry","slide":2,"name":"Shape 0","bbox":[0,0,7.68,864]}
+{"kind":"shape","id":"sh/ozy1ofad","slide":2,"name":"Shape 1","bbox":[53.76,45.36,110.59,43.01]}
+{"kind":"textbox","id":"sh/b29kza94","slide":2,"name":"Text 2","text":"목차","textPreview":"목차","textChars":2,"textLines":1,"bbox":[53.76,45.36,110.59,43.01]}
+{"kind":"textbox","id":"sh/a10jqpsj","slide":2,"name":"Text 3","text":"하이브리드 AI","textPreview":"하이브리드 AI","textChars":8,"textLines":1,"bbox":[181.25,26.11,1228.8,82.94]}
+{"kind":"shape","id":"sh/x4r21kru","slide":2,"name":"Shape 4","bbox":[53.76,130.56,1428.48,0]}
+{"kind":"shape","id":"sh/w3i1sfa9","slide":2,"name":"Shape 5","bbox":[709.63,148.99,0,652.8]}
+{"kind":"shape","id":"sh/r65knqtk","slide":2,"name":"Shape 6","bbox":[53.76,148.99,7.68,46.08]}
+{"kind":"textbox","id":"sh/q5wjelsz","slide":2,"name":"Text 7","text":"강의 목표","textPreview":"강의 목표","textChars":5,"textLines":1,"bbox":[72.19,148.99,307.2,46.08]}
+{"kind":"shape","id":"sh/ove9o7yd","slide":2,"name":"Shape 8","bbox":[53.76,215.04,632.83,282.62]}
+{"kind":"shape","id":"sh/9wnqhczy","slide":2,"name":"Shape 9","bbox":[81.41,239.62,230.4,46.08]}
+{"kind":"textbox","id":"sh/mtwrmxg7","slide":2,"name":"Text 10","text":"기획자","textPreview":"기획자","textChars":3,"textLines":1,"bbox":[81.41,239.62,230.4,46.08]}
+{"kind":"textbox","id":"sh/nu58f2hs","slide":2,"name":"Text 11","text":"자연어로 AI를 본인 업무에 \n적용하는 역량 함양","textPreview":"자연어로 AI를 본인 업무에  | 적용하는 역량 함양","textChars":27,"textLines":2,"bbox":[81.41,301.06,577.54,181.25]}
+{"kind":"shape","id":"sh/wjy9sry9","slide":2,"name":"Shape 12","bbox":[53.76,516.1,632.83,282.62]}
+{"kind":"shape","id":"sh/xk7qlczu","slide":2,"name":"Shape 13","bbox":[81.41,540.67,184.32,46.08]}
+{"kind":"textbox","id":"sh/ahwrqhgj","slide":2,"name":"Text 14","text":"IT 개발자","textPreview":"IT 개발자","textChars":6,"textLines":1,"bbox":[81.41,540.67,184.32,46.08]}
+{"kind":"textbox","id":"sh/bip8jmho","slide":2,"name":"Text 15","text":"AI를 업무 시스템에 적용할 수 있는\nFDE(Forward Deployed Engineer) 역량 기반 구축","textPreview":"AI를 업무 시스템에 적용할 수 있는 | FDE(Forward Deployed Engineer) 역량 기반 구축","textChars":60,"textLines":2,"bbox":[81.41,602.11,577.54,181.25]}
+{"kind":"shape","id":"sh/cnupgny5","slide":2,"name":"Shape 16","bbox":[734.21,148.99,7.68,46.08]}
+{"kind":"textbox","id":"sh/do3q9szq","slide":2,"name":"Text 17","text":"커리큘럼","textPreview":"커리큘럼","textChars":4,"textLines":1,"bbox":[752.64,148.99,307.2,46.08]}
+{"kind":"shape","id":"sh/t8byxkn2","slide":2,"name":"Shape 18","bbox":[734.21,215.04,748.03,75.59]}
+{"kind":"shape","id":"sh/s72xofmh","slide":2,"name":"Shape 19","bbox":[755.71,230.16,61.44,45.35]}
+{"kind":"textbox","id":"sh/76twva5c","slide":2,"name":"Text 20","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[755.71,230.16,61.44,45.35]}
+{"kind":"shape","id":"sh/65kfmpor","slide":2,"name":"Shape 21","bbox":[835.58,252.84,0,0]}
+{"kind":"textbox","id":"sh/hcvy14ne","slide":2,"name":"Text 22","text":"Claude Code 입문 및 프롬프트 기초","textPreview":"Claude Code 입문 및 프롬프트 기초","textChars":24,"textLines":1,"bbox":[835.58,218.06,622.08,69.54]}
+{"kind":"shape","id":"sh/gbmxszmt","slide":2,"name":"Shape 23","bbox":[734.21,312.19,748.03,75.59]}
+{"kind":"shape","id":"sh/fadgzu58","slide":2,"name":"Shape 24","bbox":[755.71,327.31,61.44,45.35]}
+{"kind":"textbox","id":"sh/u94fqp4n","slide":2,"name":"Text 25","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[755.71,327.31,61.44,45.35]}
+{"kind":"shape","id":"sh/p0vy54na","slide":2,"name":"Shape 26","bbox":[835.58,349.98,0,0]}
+{"kind":"textbox","id":"sh/4zmxwzmp","slide":2,"name":"Text 27","text":"커넥터/루틴/컴퓨터 유즈","textPreview":"커넥터/루틴/컴퓨터 유즈","textChars":13,"textLines":1,"bbox":[835.58,315.21,622.08,69.54]}
+{"kind":"shape","id":"sh/mlgvq147","slide":2,"name":"Shape 28","bbox":[734.21,409.34,748.03,75.59]}
+{"kind":"shape","id":"sh/nmpcj6ls","slide":2,"name":"Shape 29","bbox":[755.71,424.46,61.44,45.35]}
+{"kind":"textbox","id":"sh/onydsbmd","slide":2,"name":"Text 30","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[755.71,424.46,61.44,45.35]}
+{"kind":"shape","id":"sh/9o7ulg3y","slide":2,"name":"Shape 31","bbox":[835.58,447.13,0,0]}
+{"kind":"textbox","id":"sh/a9gvulkj","slide":2,"name":"Text 32","text":"스킬 개발 기초","textPreview":"스킬 개발 기초","textChars":8,"textLines":1,"bbox":[835.58,412.36,622.08,69.54]}
+{"kind":"shape","id":"sh/ba9cn6l4","slide":2,"name":"Shape 33","bbox":[734.21,506.49,748.03,75.59]}
+{"kind":"shape","id":"sh/wbidwb29","slide":2,"name":"Shape 34","bbox":[755.71,521.61,61.44,45.35]}
+{"kind":"textbox","id":"sh/xcrupg3u","slide":2,"name":"Text 35","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[755.71,521.61,61.44,45.35]}
+{"kind":"shape","id":"sh/id0vylkf","slide":2,"name":"Shape 36","bbox":[835.58,544.28,0,0]}
+{"kind":"textbox","id":"sh/je9crql0","slide":2,"name":"Text 37","text":"스킬 개발 심화/웹 MCP/MCP 개발","textPreview":"스킬 개발 심화/웹 MCP/MCP 개발","textChars":21,"textLines":1,"bbox":[835.58,509.51,622.08,69.54]}
+{"kind":"shape","id":"sh/69wbilcj","slide":2,"name":"Shape 28","bbox":[734.21,603.64,748.03,75.59]}
+{"kind":"shape","id":"sh/tw7ud0va","slide":2,"name":"Shape 29","bbox":[755.71,618.76,61.44,45.35]}
+{"kind":"textbox","id":"sh/svedkvup","slide":2,"name":"Text 30","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[755.71,618.76,61.44,45.35]}
+{"kind":"shape","id":"sh/fypcfqdg","slide":2,"name":"Shape 31","bbox":[835.58,641.43,0,0]}
+{"kind":"textbox","id":"sh/exgvmlcv","slide":2,"name":"Text 32","text":"에이젼트 개발 ","textPreview":"에이젼트 개발","textChars":8,"textLines":1,"bbox":[835.58,606.66,622.08,69.54]}
+{"kind":"shape","id":"sh/gzydovul","slide":2,"name":"Shape 33","bbox":[734.21,700.79,748.03,75.59]}
+{"kind":"shape","id":"sh/v2lc36dw","slide":2,"name":"Shape 34","bbox":[755.71,715.91,61.44,45.35]}
+{"kind":"textbox","id":"sh/a1cba1wb","slide":2,"name":"Text 35","text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[755.71,715.91,61.44,45.35]}
+{"kind":"shape","id":"sh/0vq1o36x","slide":2,"name":"Shape 36","bbox":[835.58,738.58,0,0]}
+{"kind":"textbox","id":"sh/1wzix87i","slide":2,"name":"Text 37","text":"플러그인 개발 및 배포","textPreview":"플러그인 개발 및 배포","textChars":12,"textLines":1,"bbox":[835.58,703.81,622.08,69.54]}
+{"kind":"notes","id":"nt/hwbqtkby","slide":2,"text":""}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"RAG","textShapes":2}
+{"kind":"textbox","id":"sh/cza94vmx","slide":3,"name":"텍스트 개체 틀 1","placeholder":"body","text":"RAG","textPreview":"RAG","textChars":3,"textLines":1,"bbox":[168.4,384.02,1198.4,81.13]}
+{"kind":"textbox","id":"sh/d0jax03i","slide":3,"name":"텍스트 개체 틀 2","placeholder":"body","text":"하이브리드 AI","textPreview":"하이브리드 AI","textChars":8,"textLines":1,"bbox":[169.2,345.24,1198.4,34.9]}
+{"kind":"notes","id":"nt/ofy9wn61","slide":3,"text":""}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"Indexing (1/3)","textShapes":2}
+{"kind":"textbox","id":"sh/1cj2d8b6","slide":4,"name":"제목 1","placeholder":"title","text":"Indexing (1/3)","textPreview":"Indexing (1/3)","textChars":14,"textLines":1,"bbox":[53.5,10.42,1442.4,84.69]}
+{"kind":"textbox","id":"sh/gv29g7q5","slide":4,"name":"Slide Number Placeholder 0","placeholder":"slideNumber","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"image","id":"im/w7u9kj25","slide":4,"name":"그림 68","bbox":[129.56,108,1289.37,725.27]}
+{"kind":"notes","id":"nt/jyx0ra1s","slide":4,"text":"핵심 메시지: 자동화의 목적은 '사람 대체'가 아니라 '사람이 더 중요한 일에 집중'.\n\n[발표] 골든서클 WHY. 청중에게 '내 업무 중 매번 반복하는 일'을 떠올리게 함(2주 과제 복선). 자동화는 일자리 위협이 아니라 단순 반복에서 벗어나 판단·창의에 집중하는 도구. 보안 IC 기업 특성상 '사람 최종 승인'이 기본 전제임을 미리 암시. 출처: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"INDEXER  /  노드 상세","textShapes":12}
+{"kind":"shape","id":"sh/j6dwfqds","slide":5,"name":"v2-1","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/dgbulwnm","slide":5,"name":"v2-2","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/cf2tcr61","slide":5,"name":"v2-3","text":"select_sources  :  원문 파일 선택","textPreview":"select_sources  :  원문 파일 선택","textChars":27,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/z2tcnm5s","slide":5,"name":"v2-4","text":"입력 경로에서 요청한 문서 종류와 상담 세그먼트에 해당하는 파일만 선택","textPreview":"입력 경로에서 요청한 문서 종류와 상담 세그먼트에 해당하는 파일만 선택","textChars":39,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/yhkbe1o7","slide":5,"name":"v2-5","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/l4bupwny","slide":5,"name":"v2-6","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/032tgr6d","slide":5,"name":"v2-7","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[72,264,330,64]}
+{"kind":"textbox","id":"sh/n6dcr65o","slide":5,"name":"v2-8","text":"핵심 처리","textPreview":"핵심 처리","textChars":5,"textLines":1,"bbox":[466,264,604,64]}
+{"kind":"textbox","id":"sh/m5kbi1oj","slide":5,"name":"v2-9","text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[1134,264,330,64]}
+{"kind":"shape","id":"sh/3i94r61s","slide":5,"bbox":[402,296,64,0]}
+{"kind":"shape","id":"sh/2h0ni107","slide":5,"bbox":[1070,296,64,0]}
+{"kind":"textbox","id":"sh/ahkvi1cb","slide":5,"name":"v2-10","text":"input_path\n원문 경로\n\ndoc\nD1 / D2 / D3 / all\n\nsegment\n상담 세그먼트","textPreview":"input_path | 원문 경로 |  | doc | D1 / D2 / D3 / all |  | segment | 상담 세그먼트","textChars":57,"textLines":8,"bbox":[72,349,330,260]}
+{"kind":"textbox","id":"sh/v2twb6dw","slide":5,"name":"v2-11","text":"1  파일이면 해당 파일, 폴더이면 파일 목록 확인\n\n2  D1·D2 PDF와 D3 상담 파일 이름 검사\n\n3  문서 종류·세그먼트 조건으로 필터링","textPreview":"1  파일이면 해당 파일, 폴더이면 파일 목록 확인 |  | 2  D1·D2 PDF와 D3 상담 파일 이름 검사 |  | 3  문서 종류·세그먼트 조건으로 필터링","textChars":82,"textLines":5,"bbox":[466,349,604,310]}
+{"kind":"textbox","id":"sh/k7mxovud","slide":5,"name":"v2-12","text":"sources\n선택한 절대 경로 목록","textPreview":"sources | 선택한 절대 경로 목록","textChars":20,"textLines":2,"bbox":[1134,349,330,260]}
+{"kind":"textbox","id":"sh/58vehgvy","slide":5,"name":"v2-13","text":"다음: 선택 결과가 있으면 extract  /  없으면 오류 종료","textPreview":"다음: 선택 결과가 있으면 extract  /  없으면 오류 종료","textChars":36,"textLines":1,"bbox":[72,719,1392,62]}
+{"kind":"textbox","id":"sh/i54fmlc7","slide":5,"name":"v2-465","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/i107q5of","slide":5,"text":"노드: select_sources\n원문 파일 선택\n\nINDEXER  /  노드 상세\nselect_sources  :  원문 파일 선택\n입력 경로에서 요청한 문서 종류와 상담 세그먼트에 해당하는 파일만 선택\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\ninput_path\n원문 경로\n\ndoc\nD1 / D2 / D3 / all\n\nsegment\n상담 세그먼트\n1  파일이면 해당 파일, 폴더이면 파일 목록 확인\n\n2  D1·D2 PDF와 D3 상담 파일 이름 검사\n\n3  문서 종류·세그먼트 조건으로 필터링\nsources\n선택한 절대 경로 목록\n다음: 선택 결과가 있으면 extract  /  없으면 오류 종료\n05\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/x8f69ofe","slide":6,"title":"INDEXER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/w32twb6l","slide":6,"name":"v2-14","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/yhg7epsj","slide":6,"name":"v2-15","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/zi98nu94","slide":6,"name":"v2-16","text":"select_sources  :  선택 결과와 Document 배열","textPreview":"select_sources  :  선택 결과와 Document 배열","textChars":37,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/87ipkzal","slide":6,"name":"v2-17","text":"원본 자료의 배열 예시를 유지하고, 실제 State 이름과 연결","textPreview":"원본 자료의 배열 예시를 유지하고, 실제 State 이름과 연결","textChars":35,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/98rqt4r6","slide":6,"name":"v2-18","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/ml07i9sv","slide":6,"name":"v2-19","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/7m98ru9g","slide":6,"name":"v2-20","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/oryp8fah","slide":6,"name":"v2-21","text":"selected = [\n    {약관 파일 경로},\n    {혜택 파일 경로},\n    {상담 파일 경로}\n]\n\ndocuments 배열 생성\ndocuments = [\n  {Document 객체},\n  …\n]","textPreview":"selected = [ |     {약관 파일 경로}, |     {혜택 파일 경로}, |     {상담 파일 경로} | ] |  | documents 배열 생성 | documents = [ |   {Document 객체}, |   … | ]","textChars":115,"textLines":11,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/pc76hkr2","slide":6,"name":"v2-22","text":"원본 selected 예시는 현재 State의 sources에 해당  /  {…}는 설명용 자리표시자","textPreview":"원본 selected 예시는 현재 State의 sources에 해당  /  {…}는 설명용 자리표시자","textChars":56,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/h4bupgn6","slide":6,"name":"v2-466","text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/x8f69ofe","slide":6,"text":"노드: select_sources\n선택 결과와 Document 배열\n\nINDEXER  /  노드 상세\nselect_sources  :  선택 결과와 Document 배열\n원본 자료의 배열 예시를 유지하고, 실제 State 이름과 연결\n하이브리드 AI  ·  Workflow 노드 해설\nselected = [\n    {약관 파일 경로},\n    {혜택 파일 경로},\n    {상담 파일 경로}\n]\n\ndocuments 배열 생성\ndocuments = [\n  {Document 객체},\n  …\n]\n원본 selected 예시는 현재 State의 sources에 해당  /  {…}는 설명용 자리표시자\n06\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n원본 핵심 코드 출처: 5페이지"}
+{"kind":"slide","id":"sl/gnmp4jqx","slide":7,"title":"INDEXER  /  노드 상세","textShapes":12}
+{"kind":"shape","id":"sh/o761ov2t","slide":7,"name":"v2-23","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/cb2tkvap","slide":7,"name":"v2-24","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/dcbud0ra","slide":7,"name":"v2-25","text":"extract  :  파일을 Document로 변환","textPreview":"extract  :  파일을 Document로 변환","textChars":28,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/ydkbm5sv","slide":7,"name":"v2-26","text":"파일 형식에 맞는 추출기를 호출하고 본문·메타데이터·추적 정보를 수집","textPreview":"파일 형식에 맞는 추출기를 호출하고 본문·메타데이터·추적 정보를 수집","textChars":38,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/zedcfa9g","slide":7,"name":"v2-27","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/kzmdova1","slide":7,"name":"v2-28","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/l0vuh0rm","slide":7,"name":"v2-29","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[72,264,330,64]}
+{"kind":"textbox","id":"sh/eh0ba1sr","slide":7,"name":"v2-30","text":"핵심 처리","textPreview":"핵심 처리","textChars":5,"textLines":1,"bbox":[466,264,604,64]}
+{"kind":"textbox","id":"sh/fi9c369c","slide":7,"name":"v2-31","text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[1134,264,330,64]}
+{"kind":"shape","id":"sh/s3ml0v61","slide":7,"bbox":[402,296,64,0]}
+{"kind":"shape","id":"sh/d4f2t0nm","slide":7,"bbox":[1070,296,64,0]}
+{"kind":"textbox","id":"sh/xcz2l03q","slide":7,"name":"v2-32","text":"sources\n선택한 원문 파일\n\nD1·D2 PDF\nD3 상담 TXT","textPreview":"sources | 선택한 원문 파일 |  | D1·D2 PDF | D3 상담 TXT","textChars":38,"textLines":5,"bbox":[72,349,330,260]}
+{"kind":"textbox","id":"sh/cbq1sv25","slide":7,"name":"v2-33","text":"1  원문 파일별 SHA-256 해시 계산\n\n2  PDF는 페이지별, 상담은 상담 1건별 추출\n\n3  본문과 메타데이터를 Document로 묶음","textPreview":"1  원문 파일별 SHA-256 해시 계산 |  | 2  PDF는 페이지별, 상담은 상담 1건별 추출 |  | 3  본문과 메타데이터를 Document로 묶음","textChars":80,"textLines":5,"bbox":[466,349,604,310]}
+{"kind":"textbox","id":"sh/n6x0fqlo","slide":7,"name":"v2-34","text":"documents\n본문 + metadata\n\nreports\n처리 결과·경고\n\nfingerprints\n원문 해시","textPreview":"documents | 본문 + metadata |  | reports | 처리 결과·경고 |  | fingerprints | 원문 해시","textChars":61,"textLines":8,"bbox":[1134,349,330,260]}
+{"kind":"textbox","id":"sh/25ojml43","slide":7,"name":"v2-35","text":"다음: apply_profile  /  문서 유형 doc_type은 metadata 안의 값","textPreview":"다음: apply_profile  /  문서 유형 doc_type은 metadata 안의 값","textChars":51,"textLines":1,"bbox":[72,719,1392,62]}
+{"kind":"textbox","id":"sh/p8fih03e","slide":7,"name":"v2-467","text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/gnmp4jqx","slide":7,"text":"노드: extract\n파일을 Document로 변환\n\nINDEXER  /  노드 상세\nextract  :  파일을 Document로 변환\n파일 형식에 맞는 추출기를 호출하고 본문·메타데이터·추적 정보를 수집\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nsources\n선택한 원문 파일\n\nD1·D2 PDF\nD3 상담 TXT\n1  원문 파일별 SHA-256 해시 계산\n\n2  PDF는 페이지별, 상담은 상담 1건별 추출\n\n3  본문과 메타데이터를 Document로 묶음\ndocuments\n본문 + metadata\n\nreports\n처리 결과·경고\n\nfingerprints\n원문 해시\n다음: apply_profile  /  문서 유형 doc_type은 metadata 안의 값\n07\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/fu1gfa1s","slide":8,"title":"INDEXER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/98rehwve","slide":8,"name":"v2-36","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/18byd4zy","slide":8,"name":"v2-37","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/g72x4zyd","slide":8,"name":"v2-38","text":"extract  :  PDF 좌표와 글자 구조","textPreview":"extract  :  PDF 좌표와 글자 구조","textChars":25,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/ri9g7uhw","slide":8,"name":"v2-39","text":"PyMuPDF의 block·line·span을 따라 글자와 위치를 함께 읽음","textPreview":"PyMuPDF의 block·line·span을 따라 글자와 위치를 함께 읽음","textChars":42,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/6h0fypgb","slide":8,"name":"v2-40","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/tkby9kzm","slide":8,"name":"v2-41","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/sjix0zy1","slide":8,"name":"v2-42","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/je9g3ahk","slide":8,"name":"v2-43","text":"block = {\n               \"type\": 0,\n               \"bbox\": (28, 15, 230, 48),\n               \"lines\": [\n                   {\n                       \"bbox\": (28, 15, 230, 48),\n                       \"spans\": [\n                           {\"text\": \"제5조\"},\n                           {\"text\": \"(통지 방법)\"},\n                       ],\n                   }\n               ],\n           }","textPreview":"block = { |                \"type\": 0, |                \"bbox\": (28, 15, 230, 48), |                \"lines\": [ |                    { |   ...","textChars":378,"textLines":13,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/id0fu50z","slide":8,"name":"v2-44","text":"bbox는 글자 영역의 좌표  /  spans의 글자를 합치면 같은 줄의 텍스트가 됨","textPreview":"bbox는 글자 영역의 좌표  /  spans의 글자를 합치면 같은 줄의 텍스트가 됨","textChars":47,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/o7ydoret","slide":8,"name":"v2-468","text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/fu1gfa1s","slide":8,"text":"노드: extract\nPDF 좌표와 글자 구조\n\nINDEXER  /  노드 상세\nextract  :  PDF 좌표와 글자 구조\nPyMuPDF의 block·line·span을 따라 글자와 위치를 함께 읽음\n하이브리드 AI  ·  Workflow 노드 해설\nblock = {\n               \"type\": 0,\n               \"bbox\": (28, 15, 230, 48),\n               \"lines\": [\n                   {\n                       \"bbox\": (28, 15, 230, 48),\n                       \"spans\": [\n                           {\"text\": \"제5조\"},\n                           {\"text\": \"(통지 방법)\"},\n                       ],\n                   }\n               ],\n           }\nbbox는 글자 영역의 좌표  /  spans의 글자를 합치면 같은 줄의 텍스트가 됨\n08\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/pdf_reader.py\n원본 핵심 코드 출처: 6페이지"}
+{"kind":"slide","id":"sl/udsvah03","slide":9,"title":"INDEXER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/p0ji9kf2","slide":9,"name":"v2-45","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/1cfmhgne","slide":9,"name":"v2-46","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/0b65obm9","slide":9,"name":"v2-47","text":"extract  :  PDF 한 줄씩 추출","textPreview":"extract  :  PDF 한 줄씩 추출","textChars":23,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/nex4jq5k","slide":9,"name":"v2-48","text":"원본 코드의 반복문이 좌표와 문장을 한 쌍으로 수집","textPreview":"원본 코드의 반복문이 좌표와 문장을 한 쌍으로 수집","textChars":28,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/mdonql4z","slide":9,"name":"v2-49","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/9gzml0nq","slide":9,"name":"v2-50","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/ofq5svm5","slide":9,"name":"v2-51","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/bih4na5w","slide":9,"name":"v2-52","text":"result = []\n    for block in page.get_text(\"dict\")[\"blocks\"]:\n        for line in block.get(\"lines\", []):\n            text = \"\".join(span[\"text\"] for span in line[\"spans\"]).strip()\n            if text:\n                result.append((tuple(line[\"bbox\"]), text))\n    return result\n\n# 결과 예시\n[ \n((28, 15, 230, 48), \"제5조(통지 방법)\")\n]","textPreview":"result = [] |     for block in page.get_text(\"dict\")[\"blocks\"]: |         for line in block.get(\"lines\", []): |             text = \"\".joi...","textChars":326,"textLines":12,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/ah8nu54b","slide":9,"name":"v2-53","text":"get_text(\"dict\")로 구조를 읽고, 빈 줄을 제외한 (bbox, text) 목록 반환","textPreview":"get_text(\"dict\")로 구조를 읽고, 빈 줄을 제외한 (bbox, text) 목록 반환","textChars":53,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/oza1gfyh","slide":9,"name":"v2-469","text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/udsvah03","slide":9,"text":"노드: extract\nPDF 한 줄씩 추출\n\nINDEXER  /  노드 상세\nextract  :  PDF 한 줄씩 추출\n원본 코드의 반복문이 좌표와 문장을 한 쌍으로 수집\n하이브리드 AI  ·  Workflow 노드 해설\nresult = []\n    for block in page.get_text(\"dict\")[\"blocks\"]:\n        for line in block.get(\"lines\", []):\n            text = \"\".join(span[\"text\"] for span in line[\"spans\"]).strip()\n            if text:\n                result.append((tuple(line[\"bbox\"]), text))\n    return result\n\n# 결과 예시\n[ \n((28, 15, 230, 48), \"제5조(통지 방법)\")\n]\nget_text(\"dict\")로 구조를 읽고, 빈 줄을 제외한 (bbox, text) 목록 반환\n09\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/pdf_reader.py\n원본 핵심 코드 출처: 6페이지"}
+{"kind":"slide","id":"sl/m90b6t0r","slide":10,"title":"INDEXER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/d87uxg3m","slide":10,"name":"v2-54","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/xc3mho32","slide":10,"name":"v2-55","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/cbu58j2h","slide":10,"name":"v2-56","text":"extract  :  반복 머리말·꼬리말 찾기","textPreview":"extract  :  반복 머리말·꼬리말 찾기","textChars":25,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/zelojyl8","slide":10,"name":"v2-57","text":"페이지의 위·아래 영역에서 반복되는 문구를 모아 본문에서 제거","textPreview":"페이지의 위·아래 영역에서 반복되는 문구를 모아 본문에서 제거","textChars":34,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/ydcnatkn","slide":10,"name":"v2-58","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/l036l83y","slide":10,"name":"v2-59","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/kzu5c32t","slide":10,"name":"v2-60","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/725onyl4","slide":10,"name":"v2-61","text":"for page, lines in zip(pdf, page_lines):\n    margin_texts = set()\n    for rectangle, text in lines:\n        if rectangle[3] < page.rect.height * 0.055 or rectangle[1] > page.rect.height * 0.95\n               margin_texts.add(text)\n    repeated.update(margin_texts)","textPreview":"for page, lines in zip(pdf, page_lines): |     margin_texts = set() |     for rectangle, text in lines: |         if rectangle[3] < page....","textChars":264,"textLines":6,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/m1cnetkj","slide":10,"name":"v2-62","text":"원본 코드 유지: if 줄 끝의 콜론 생략에 유의  /  상단 5.5%, 하단 5%를 검사","textPreview":"원본 코드 유지: if 줄 끝의 콜론 생략에 유의  /  상단 5.5%, 하단 5%를 검사","textChars":50,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/s7yt4b21","slide":10,"name":"v2-470","text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/m90b6t0r","slide":10,"text":"노드: extract\n반복 머리말·꼬리말 찾기\n\nINDEXER  /  노드 상세\nextract  :  반복 머리말·꼬리말 찾기\n페이지의 위·아래 영역에서 반복되는 문구를 모아 본문에서 제거\n하이브리드 AI  ·  Workflow 노드 해설\nfor page, lines in zip(pdf, page_lines):\n    margin_texts = set()\n    for rectangle, text in lines:\n        if rectangle[3] < page.rect.height * 0.055 or rectangle[1] > page.rect.height * 0.95\n               margin_texts.add(text)\n    repeated.update(margin_texts)\n원본 코드 유지: if 줄 끝의 콜론 생략에 유의  /  상단 5.5%, 하단 5%를 검사\n10\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/pdf_reader.py\n원본 핵심 코드 출처: 6페이지"}
+{"kind":"slide","id":"sl/jetc3ut0","slide":11,"title":"INDEXER  /  노드 상세","textShapes":9}
+{"kind":"shape","id":"sh/1cfa58zi","slide":11,"name":"v2-63","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/xcryxg7y","slide":11,"name":"v2-64","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/wbih4b6d","slide":11,"name":"v2-65","text":"extract  :  PDF 표와 읽기 순서","textPreview":"extract  :  PDF 표와 읽기 순서","textChars":24,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/n69grmpw","slide":11,"name":"v2-66","text":"표는 행·열 관계를 보존하고, 같은 글자가 본문에 중복되지 않도록 처리","textPreview":"표는 행·열 관계를 보존하고, 같은 글자가 본문에 중복되지 않도록 처리","textChars":39,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/250zy18b","slide":11,"name":"v2-67","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/98rytw72","slide":11,"name":"v2-68","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/o7ih0r6h","slide":11,"name":"v2-69","text":"좌표와 텍스트 수집","textPreview":"좌표와 텍스트 수집","textChars":10,"textLines":1,"bbox":[72,258,428,103]}
+{"kind":"textbox","id":"sh/72t03qp0","slide":11,"name":"v2-70","text":"표 감지·글자 비교","textPreview":"표 감지·글자 비교","textChars":10,"textLines":1,"bbox":[554,258,428,103]}
+{"kind":"textbox","id":"sh/61kzalof","slide":11,"name":"v2-71","text":"본문과 표 순서 복원","textPreview":"본문과 표 순서 복원","textChars":11,"textLines":1,"bbox":[1036,258,428,103]}
+{"kind":"shape","id":"sh/l43ilgn2","slide":11,"bbox":[500,309.5,54,0]}
+{"kind":"shape","id":"sh/k3uhcb6h","slide":11,"bbox":[982,309.5,54,0]}
+{"kind":"textbox","id":"sh/nehs7iho","slide":11,"name":"v2-72","text":"스캔 PDF의 OCR은 미구현  /  텍스트 계층이 없으면 경고  /  암호화 PDF는 처리 중단","textPreview":"스캔 PDF의 OCR은 미구현  /  텍스트 계층이 없으면 경고  /  암호화 PDF는 처리 중단","textChars":54,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/0b6tc3yx","slide":11,"name":"v2-471","text":"11","textPreview":"11","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/87mlwnyl","slide":11,"name":"","rows":4,"cols":3,"preview":"판정 | 표 처리 | 본문 처리","bbox":[72,416,1392,268]}
+{"kind":"notes","id":"nt/jetc3ut0","slide":11,"text":"노드: extract\nPDF 표와 읽기 순서\n\nINDEXER  /  노드 상세\nextract  :  PDF 표와 읽기 순서\n표는 행·열 관계를 보존하고, 같은 글자가 본문에 중복되지 않도록 처리\n하이브리드 AI  ·  Workflow 노드 해설\n좌표와 텍스트 수집\n표 감지·글자 비교\n본문과 표 순서 복원\n스캔 PDF의 OCR은 미구현  /  텍스트 계층이 없으면 경고  /  암호화 PDF는 처리 중단\n11\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/pdf_reader.py\n"}
+{"kind":"slide","id":"sl/8f2psfyx","slide":12,"title":"INDEXER  /  노드 상세","textShapes":10}
+{"kind":"shape","id":"sh/nq1o3a5w","slide":12,"name":"v2-73","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/1gbm9s3a","slide":12,"name":"v2-74","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/0f2lgnmp","slide":12,"name":"v2-75","text":"extract  :  상담 분리와 가명화","textPreview":"extract  :  상담 분리와 가명화","textChars":22,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/ra943il8","slide":12,"name":"v2-76","text":"상담ID 머리글로 상담을 나눈 뒤 개인정보가 남지 않도록 처리","textPreview":"상담ID 머리글로 상담을 나눈 뒤 개인정보가 남지 않도록 처리","textChars":34,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/q903ad4n","slide":12,"name":"v2-77","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/dcbm583y","slide":12,"name":"v2-78","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/sb2lcnmd","slide":12,"name":"v2-79","text":"상담ID 기준 분리","textPreview":"상담ID 기준 분리","textChars":10,"textLines":1,"bbox":[72,258,307.5,100]}
+{"kind":"textbox","id":"sh/b6d4f2lc","slide":12,"name":"v2-80","text":"개인정보 처리","textPreview":"개인정보 처리","textChars":7,"textLines":1,"bbox":[433.5,258,307.5,100]}
+{"kind":"textbox","id":"sh/a543mx4r","slide":12,"name":"v2-81","text":"잔존 검사","textPreview":"잔존 검사","textChars":5,"textLines":1,"bbox":[795,258,307.5,100]}
+{"kind":"textbox","id":"sh/wvupgz6t","slide":12,"name":"v2-82","text":"Document 생성","textPreview":"Document 생성","textChars":11,"textLines":1,"bbox":[1156.5,258,307.5,100]}
+{"kind":"shape","id":"sh/6t0n6hg7","slide":12,"bbox":[379.5,308,54,0]}
+{"kind":"shape","id":"sh/dcv6dgz2","slide":12,"bbox":[741,308,54,0]}
+{"kind":"shape","id":"sh/cbm5kbyh","slide":12,"bbox":[1102.5,308,54,0]}
+{"kind":"textbox","id":"sh/9sj65kn2","slide":12,"name":"v2-83","text":"원본 식별정보 잔존 시 중단  /  상담의 공개 등급은 restricted","textPreview":"원본 식별정보 잔존 시 중단  /  상담의 공개 등급은 restricted","textChars":41,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/mps7a5or","slide":12,"name":"v2-472","text":"12","textPreview":"12","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/14fetk3e","slide":12,"name":"","rows":4,"cols":3,"preview":"방법 | 대상 | 저장 결과","bbox":[72,414,1392,260]}
+{"kind":"notes","id":"nt/8f2psfyx","slide":12,"text":"노드: extract\n상담 분리와 가명화\n\nINDEXER  /  노드 상세\nextract  :  상담 분리와 가명화\n상담ID 머리글로 상담을 나눈 뒤 개인정보가 남지 않도록 처리\n하이브리드 AI  ·  Workflow 노드 해설\n상담ID 기준 분리\n개인정보 처리\n잔존 검사\nDocument 생성\n원본 식별정보 잔존 시 중단  /  상담의 공개 등급은 restricted\n12\n\n소스: hybrid-ai-lab/vector/indexer/app/domain/consultations.py\n"}
+{"kind":"slide","id":"sl/hgzapcr6","slide":13,"title":"INDEXER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/gb6x0zm9","slide":13,"name":"v2-84","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/q50nydsj","slide":13,"name":"v2-85","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/bq9orito","slide":13,"name":"v2-86","text":"extract  :  상담 개인정보 처리 코드","textPreview":"extract  :  상담 개인정보 처리 코드","textChars":25,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/o3i5w3ad","slide":13,"name":"v2-87","text":"원본 자료의 정규식 치환과 가명화 코드 보존","textPreview":"원본 자료의 정규식 치환과 가명화 코드 보존","textChars":24,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/p4r6p8by","slide":13,"name":"v2-88","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/21gnuts7","slide":13,"name":"v2-89","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/32ponyts","slide":13,"name":"v2-90","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/gzy5s3a1","slide":13,"name":"v2-91","text":"text = PHONE.sub(\"[삭제]\", text)\n   text = EMAIL.sub(\"[삭제]\", text)\n   text = PAN.sub(\"[삭제]\", text)\n   text = re.sub(r\"(?:끝\\s*4자리|끝\\s*네\\s*자리|마지막\\s*4자리)\\s*(?:는|가|:)?\\s*\\d{4}\", \"끝4자리 [삭제]\", text)\n   text = re.sub(r\"가상고객\\d+|가상상담사\\d+\", \"[삭제]\", text)\n   text = MEMBER.sub(lambda match: to_pseudo(match.group(0)), text)\n   return re.sub(\n        r\"(?<!\\d)(?:만\\s*)?(\\d{1,3})\\s*세\",\n        lambda match: \"60대 이상\" if int(match.group(1)) >= 60 else f\"{int(match.group(1)) // 10 * 10}대\",\n        text,\n   )","textPreview":"text = PHONE.sub(\"[삭제]\", text) |    text = EMAIL.sub(\"[삭제]\", text) |    text = PAN.sub(\"[삭제]\", text) |    text = re.sub(r\"(?:끝\\s*4자리|끝\\s*...","textChars":492,"textLines":11,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/1076lobm","slide":13,"name":"v2-92","text":"sub는 패턴에 맞는 내용을 치환하는 함수  /  가명화 후 별도 잔존 검사 수행","textPreview":"sub는 패턴에 맞는 내용을 치환하는 함수  /  가명화 후 별도 잔존 검사 수행","textChars":45,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/hcfy9k3u","slide":13,"name":"v2-473","text":"13","textPreview":"13","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/hgzapcr6","slide":13,"text":"노드: extract\n상담 개인정보 처리 코드\n\nINDEXER  /  노드 상세\nextract  :  상담 개인정보 처리 코드\n원본 자료의 정규식 치환과 가명화 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\ntext = PHONE.sub(\"[삭제]\", text)\n   text = EMAIL.sub(\"[삭제]\", text)\n   text = PAN.sub(\"[삭제]\", text)\n   text = re.sub(r\"(?:끝\\s*4자리|끝\\s*네\\s*자리|마지막\\s*4자리)\\s*(?:는|가|:)?\\s*\\d{4}\", \"끝4자리 [삭제]\", text)\n   text = re.sub(r\"가상고객\\d+|가상상담사\\d+\", \"[삭제]\", text)\n   text = MEMBER.sub(lambda match: to_pseudo(match.group(0)), text)\n   return re.sub(\n        r\"(?<!\\d)(?:만\\s*)?(\\d{1,3})\\s*세\",\n        lambda match: \"60대 이상\" if int(match.group(1)) >= 60 else f\"{int(match.group(1)) // 10 * 10}대\",\n        text,\n   )\nsub는 패턴에 맞는 내용을 치환하는 함수  /  가명화 후 별도 잔존 검사 수행\n13\n\n소스: hybrid-ai-lab/vector/indexer/app/domain/consultations.py\n원본 핵심 코드 출처: 7페이지"}
+{"kind":"slide","id":"sl/6lsnupw7","slide":14,"title":"INDEXER  /  노드 상세","textShapes":12}
+{"kind":"shape","id":"sh/z650byxo","slide":14,"name":"v2-93","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/xc7eds76","slide":14,"name":"v2-94","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/wbydknq1","slide":14,"name":"v2-95","text":"apply_profile  :  문서별 관리 정보 적용","textPreview":"apply_profile  :  문서별 관리 정보 적용","textChars":30,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/jepwf2pc","slide":14,"name":"v2-96","text":"source 파일명에 대응하는 프로필을 찾아 메타데이터에 반영","textPreview":"source 파일명에 대응하는 프로필을 찾아 메타데이터에 반영","textChars":34,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/idgvmx8r","slide":14,"name":"v2-97","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/5grehs7i","slide":14,"name":"v2-98","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/kfidonqx","slide":14,"name":"v2-99","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[72,264,330,64]}
+{"kind":"textbox","id":"sh/zi5c3y98","slide":14,"name":"v2-100","text":"핵심 처리","textPreview":"핵심 처리","textChars":5,"textLines":1,"bbox":[466,264,604,64]}
+{"kind":"textbox","id":"sh/ehwvat8n","slide":14,"name":"v2-101","text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[1134,264,330,64]}
+{"kind":"shape","id":"sh/3udg7q9k","slide":14,"bbox":[402,296,64,0]}
+{"kind":"shape","id":"sh/2t4fyl8z","slide":14,"bbox":[1070,296,64,0]}
+{"kind":"textbox","id":"sh/a1wze9g7","slide":14,"name":"v2-102","text":"documents\n추출된 문서\n\nprofiles\n파일별 관리 규칙","textPreview":"documents | 추출된 문서 |  | profiles | 파일별 관리 규칙","textChars":36,"textLines":5,"bbox":[72,349,330,260]}
+{"kind":"textbox","id":"sh/b2507exs","slide":14,"name":"v2-103","text":"1  문서 metadata에서 source 파일명 확인\n\n2  해당 파일의 프로필 선택\n\n3  owner·access_level 등의 값을 적용","textPreview":"1  문서 metadata에서 source 파일명 확인 |  | 2  해당 파일의 프로필 선택 |  | 3  owner·access_level 등의 값을 적용","textChars":80,"textLines":5,"bbox":[466,349,604,310]}
+{"kind":"textbox","id":"sh/kre1k3y9","slide":14,"name":"v2-104","text":"documents\n프로필이 반영된\n문서 목록","textPreview":"documents | 프로필이 반영된 | 문서 목록","textChars":24,"textLines":3,"bbox":[1134,349,330,260]}
+{"kind":"textbox","id":"sh/ls7idofu","slide":14,"name":"v2-105","text":"다음: validate_metadata  /  파일별 고정 관리 정보로 메타데이터를 일관되게 유지","textPreview":"다음: validate_metadata  /  파일별 고정 관리 정보로 메타데이터를 일관되게 유지","textChars":54,"textLines":1,"bbox":[72,719,1392,62]}
+{"kind":"textbox","id":"sh/y5wjitgj","slide":14,"name":"v2-474","text":"14","textPreview":"14","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/6lsnupw7","slide":14,"text":"노드: apply_profile\n문서별 관리 정보 적용\n\nINDEXER  /  노드 상세\napply_profile  :  문서별 관리 정보 적용\nsource 파일명에 대응하는 프로필을 찾아 메타데이터에 반영\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\ndocuments\n추출된 문서\n\nprofiles\n파일별 관리 규칙\n1  문서 metadata에서 source 파일명 확인\n\n2  해당 파일의 프로필 선택\n\n3  owner·access_level 등의 값을 적용\ndocuments\n프로필이 반영된\n문서 목록\n다음: validate_metadata  /  파일별 고정 관리 정보로 메타데이터를 일관되게 유지\n14\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/vaxsvy10","slide":15,"title":"INDEXER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/hsvat0fa","slide":15,"name":"v2-106","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/547mhg3m","slide":15,"name":"v2-107","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/k3y5ov21","slide":15,"name":"v2-108","text":"apply_profile  :  프로필 선택과 적용 코드","textPreview":"apply_profile  :  프로필 선택과 적용 코드","textChars":31,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/76p4jqls","slide":15,"name":"v2-109","text":"현재 소스에서 추가한 핵심 코드","textPreview":"현재 소스에서 추가한 핵심 코드","textChars":17,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/65gnqlk7","slide":15,"name":"v2-110","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/t87ml0ji","slide":15,"name":"v2-111","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/s7y5sv2x","slide":15,"name":"v2-112","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/na5476l8","slide":15,"name":"v2-113","text":"profiles = state.get(\"profiles\", {})\ndocuments = [\n    apply_profile(\n        document,\n        profiles.get(document.metadata.get(\"source\", \"\"), {}),\n    )\n    for document in state[\"documents\"]\n]\nreturn {\"documents\": documents}","textPreview":"profiles = state.get(\"profiles\", {}) | documents = [ |     apply_profile( |         document, |         profiles.get(document.metadata.ge...","textChars":229,"textLines":9,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/m9c3e1kn","slide":15,"name":"v2-114","text":"같은 source에서 나온 모든 Document에 같은 프로필 적용","textPreview":"같은 source에서 나온 모든 Document에 같은 프로필 적용","textChars":37,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/wrm9kvep","slide":15,"name":"v2-475","text":"15","textPreview":"15","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/vaxsvy10","slide":15,"text":"노드: apply_profile\n프로필 선택과 적용 코드\n\nINDEXER  /  노드 상세\napply_profile  :  프로필 선택과 적용 코드\n현재 소스에서 추가한 핵심 코드\n하이브리드 AI  ·  Workflow 노드 해설\nprofiles = state.get(\"profiles\", {})\ndocuments = [\n    apply_profile(\n        document,\n        profiles.get(document.metadata.get(\"source\", \"\"), {}),\n    )\n    for document in state[\"documents\"]\n]\nreturn {\"documents\": documents}\n같은 source에서 나온 모든 Document에 같은 프로필 적용\n15\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n원본 핵심 코드 출처: 페이지"}
+{"kind":"slide","id":"sl/gny5sjyp","slide":16,"title":"INDEXER  /  노드 상세","textShapes":9}
+{"kind":"shape","id":"sh/2pcfa5oz","slide":16,"name":"v2-115","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/8z2h8bq1","slide":16,"name":"v2-116","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/9kby1g7m","slide":16,"name":"v2-117","text":"validate_metadata  :  필수값 검증과 결과 저장","textPreview":"validate_metadata  :  필수값 검증과 결과 저장","textChars":35,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/ytkf2h8j","slide":16,"name":"v2-118","text":"저장 위치·메타데이터·상담 가명화 상태를 검사하고 중간 결과를 기록","textPreview":"저장 위치·메타데이터·상담 가명화 상태를 검사하고 중간 결과를 기록","textChars":37,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/zutgvm94","slide":16,"name":"v2-119","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/kv2h4rqp","slide":16,"name":"v2-120","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/lwbyxwra","slide":16,"name":"v2-121","text":"입력 문서 + schema","textPreview":"입력 문서 + schema","textChars":14,"textLines":1,"bbox":[72,258,428,100]}
+{"kind":"textbox","id":"sh/ip4zel83","slide":16,"name":"v2-122","text":"필수값·허용값 검사","textPreview":"필수값·허용값 검사","textChars":10,"textLines":1,"bbox":[554,258,428,100]}
+{"kind":"textbox","id":"sh/3qdg7qpo","slide":16,"name":"v2-123","text":"validation 결과","textPreview":"validation 결과","textChars":13,"textLines":1,"bbox":[1036,258,428,100]}
+{"kind":"shape","id":"sh/ylwj2987","slide":16,"bbox":[500,308,54,0]}
+{"kind":"shape","id":"sh/zm50veps","slide":16,"bbox":[982,308,54,0]}
+{"kind":"textbox","id":"sh/gnax8v6t","slide":16,"name":"v2-124","text":"통과 시 chunk, 실패 시 종료  /  출력 폴더는 원문 폴더와 분리  /  현재 파일명은 documents.jsonl","textPreview":"통과 시 chunk, 실패 시 종료  /  출력 폴더는 원문 폴더와 분리  /  현재 파일명은 documents.jsonl","textChars":68,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/nqlg3a5k","slide":16,"name":"v2-476","text":"16","textPreview":"16","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/jitkvmts","slide":16,"name":"","rows":5,"cols":2,"preview":"파일 | 저장 내용","bbox":[72,409,1392,280]}
+{"kind":"notes","id":"nt/gny5sjyp","slide":16,"text":"노드: validate_metadata\n필수값 검증과 결과 저장\n\nINDEXER  /  노드 상세\nvalidate_metadata  :  필수값 검증과 결과 저장\n저장 위치·메타데이터·상담 가명화 상태를 검사하고 중간 결과를 기록\n하이브리드 AI  ·  Workflow 노드 해설\n입력 문서 + schema\n필수값·허용값 검사\nvalidation 결과\n통과 시 chunk, 실패 시 종료  /  출력 폴더는 원문 폴더와 분리  /  현재 파일명은 documents.jsonl\n16\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/14bup87q","slide":17,"title":"INDEXER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/pc7qhwn6","slide":17,"name":"v2-125","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/1c7e50ni","slide":17,"name":"v2-126","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/gbedwfmx","slide":17,"name":"v2-127","text":"chunk  :  문서 유형별 의미 단위 분할","textPreview":"chunk  :  문서 유형별 의미 단위 분할","textChars":25,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/rm5czq50","slide":17,"name":"v2-128","text":"Document를 검색 결과로 사용할 작은 근거 조각으로 변환","textPreview":"Document를 검색 결과로 사용할 작은 근거 조각으로 변환","textChars":34,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/6lwvql4v","slide":17,"name":"v2-129","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/t8ne10n6","slide":17,"name":"v2-130","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/jilcvq54","slide":17,"name":"v2-131","text":"출력: chunks와 청킹 보고서","textPreview":"출력: chunks와 청킹 보고서","textChars":18,"textLines":1,"bbox":[72,633,1392,62]}
+{"kind":"textbox","id":"sh/ihcvml4j","slide":17,"name":"v2-132","text":"다음: embed  /  dry-run·청킹 오류 시 종료  /  긴 속성표는 행을 자르지 않고 예외로 보존","textPreview":"다음: embed  /  dry-run·청킹 오류 시 종료  /  긴 속성표는 행을 자르지 않고 예외로 보존","textChars":60,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/4by9or6l","slide":17,"name":"v2-477","text":"17","textPreview":"17","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/5gbixsnq","slide":17,"name":"","rows":4,"cols":3,"preview":"입력 | 분할 기준 | 기본 크기","bbox":[72,267,1392,332]}
+{"kind":"notes","id":"nt/14bup87q","slide":17,"text":"노드: chunk\n문서 유형별 의미 단위 분할\n\nINDEXER  /  노드 상세\nchunk  :  문서 유형별 의미 단위 분할\nDocument를 검색 결과로 사용할 작은 근거 조각으로 변환\n하이브리드 AI  ·  Workflow 노드 해설\n출력: chunks와 청킹 보고서\n다음: embed  /  dry-run·청킹 오류 시 종료  /  긴 속성표는 행을 자르지 않고 예외로 보존\n17\n\n소스: hybrid-ai-lab/vector/indexer/app/domain/chunking.py\n"}
+{"kind":"slide","id":"sl/y5wne50z","slide":18,"title":"INDEXER  /  노드 상세","textShapes":12}
+{"kind":"shape","id":"sh/snylgrql","slide":18,"name":"v2-133","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/wrelszu9","slide":18,"name":"v2-134","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/hsn2l4bu","slide":18,"name":"v2-135","text":"embed  :  변경 청크의 벡터 생성","textPreview":"embed  :  변경 청크의 벡터 생성","textChars":22,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/itw3upcf","slide":18,"name":"v2-136","text":"본문과 메타데이터의 해시를 이전 실행과 비교해 임베딩 대상을 결정","textPreview":"본문과 메타데이터의 해시를 이전 실행과 비교해 임베딩 대상을 결정","textChars":36,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/je5knut0","slide":18,"name":"v2-137","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/4felwzu5","slide":18,"name":"v2-138","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/5gnmp4bq","slide":18,"name":"v2-139","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[72,264,330,64]}
+{"kind":"textbox","id":"sh/6hw3y9sb","slide":18,"name":"v2-140","text":"핵심 처리","textPreview":"핵심 처리","textChars":5,"textLines":1,"bbox":[466,264,604,64]}
+{"kind":"textbox","id":"sh/rip4retw","slide":18,"name":"v2-141","text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[1134,264,330,64]}
+{"kind":"shape","id":"sh/w36poza9","slide":18,"bbox":[402,296,64,0]}
+{"kind":"shape","id":"sh/x4f6x4re","slide":18,"bbox":[1070,296,64,0]}
+{"kind":"textbox","id":"sh/1cr2tg72","slide":18,"name":"v2-142","text":"chunks\n현재 청크\n\nindex_manifest\n이전 해시·설정","textPreview":"chunks | 현재 청크 |  | index_manifest | 이전 해시·설정","textChars":37,"textLines":5,"bbox":[72,349,330,260]}
+{"kind":"textbox","id":"sh/gbylkbqh","slide":18,"name":"v2-143","text":"1  해시가 같은 청크는 생략\n\n2  추가·변경 청크를 배치로 임베딩\n\n3  모델·청킹 설정 변경 시 전체 재임베딩","textPreview":"1  해시가 같은 청크는 생략 |  | 2  추가·변경 청크를 배치로 임베딩 |  | 3  모델·청킹 설정 변경 시 전체 재임베딩","textChars":64,"textLines":5,"bbox":[466,349,604,310]}
+{"kind":"textbox","id":"sh/7mpknmp0","slide":18,"name":"v2-144","text":"pending_ids\n처리한 청크 ID\n\nvectors_path\n벡터 파일 경로\n\nfailed\n실패 목록","textPreview":"pending_ids | 처리한 청크 ID |  | vectors_path | 벡터 파일 경로 |  | failed | 실패 목록","textChars":58,"textLines":8,"bbox":[1134,349,330,260]}
+{"kind":"textbox","id":"sh/6lg3e18f","slide":18,"name":"v2-145","text":"다음: upsert  /  현재 기본 모델 KURE-v2, 실제 저장 벡터 768차원","textPreview":"다음: upsert  /  현재 기본 모델 KURE-v2, 실제 저장 벡터 768차원","textChars":47,"textLines":1,"bbox":[72,719,1392,62]}
+{"kind":"textbox","id":"sh/to72pw76","slide":18,"name":"v2-478","text":"18","textPreview":"18","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/y5wne50z","slide":18,"text":"노드: embed\n변경 청크의 벡터 생성\n\nINDEXER  /  노드 상세\nembed  :  변경 청크의 벡터 생성\n본문과 메타데이터의 해시를 이전 실행과 비교해 임베딩 대상을 결정\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nchunks\n현재 청크\n\nindex_manifest\n이전 해시·설정\n1  해시가 같은 청크는 생략\n\n2  추가·변경 청크를 배치로 임베딩\n\n3  모델·청킹 설정 변경 시 전체 재임베딩\npending_ids\n처리한 청크 ID\n\nvectors_path\n벡터 파일 경로\n\nfailed\n실패 목록\n다음: upsert  /  현재 기본 모델 KURE-v2, 실제 저장 벡터 768차원\n18\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/nid43ytk","slide":19,"title":"INDEXER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/dsri9sr6","slide":19,"name":"v2-146","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/9gb6xgbi","slide":19,"name":"v2-147","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/8v2pobax","slide":19,"name":"v2-148","text":"embed  :  모델 적재와 배치 인코딩","textPreview":"embed  :  모델 적재와 배치 인코딩","textChars":23,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/vitozqt8","slide":19,"name":"v2-149","text":"원본 자료의 SentenceTransformer·encode 핵심 코드 보존","textPreview":"원본 자료의 SentenceTransformer·encode 핵심 코드 보존","textChars":42,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/ahk7qls3","slide":19,"name":"v2-150","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/xkbq10be","slide":19,"name":"v2-151","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/wj2psvat","slide":19,"name":"v2-152","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/jmd83atk","slide":19,"name":"v2-153","text":"self._model = SentenceTransformer(self.model_name, device=self.device)\n\ndef embed(self, texts: list[str], *, kind: Literal[\"passage\", \"query\"] = \"passage\") -> list[list[float]]:\n\n        model = self._load()\n        values = model.encode(texts, batch_size=self.batch_size, normalize_embeddings=True)\n        return values.tolist() if hasattr(values, \"tolist\") else [list(row) for row in values]","textPreview":"self._model = SentenceTransformer(self.model_name, device=self.device) |  | def embed(self, texts: list[str], *, kind: Literal[\"passage\",...","textChars":394,"textLines":7,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/il47u5sz","slide":19,"name":"v2-154","text":"normalize_embeddings=True로 벡터 정규화  /  kind 인자는 현재 구현에서 query·passage를 구분하지 않음","textPreview":"normalize_embeddings=True로 벡터 정규화  /  kind 인자는 현재 구현에서 query·passage를 구분하지 않음","textChars":77,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/cri1gnql","slide":19,"name":"v2-479","text":"19","textPreview":"19","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/nid43ytk","slide":19,"text":"노드: embed\n모델 적재와 배치 인코딩\n\nINDEXER  /  노드 상세\nembed  :  모델 적재와 배치 인코딩\n원본 자료의 SentenceTransformer·encode 핵심 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\nself._model = SentenceTransformer(self.model_name, device=self.device)\n\ndef embed(self, texts: list[str], *, kind: Literal[\"passage\", \"query\"] = \"passage\") -> list[list[float]]:\n\n        model = self._load()\n        values = model.encode(texts, batch_size=self.batch_size, normalize_embeddings=True)\n        return values.tolist() if hasattr(values, \"tolist\") else [list(row) for row in values]\nnormalize_embeddings=True로 벡터 정규화  /  kind 인자는 현재 구현에서 query·passage를 구분하지 않음\n19\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/embedder.py\n원본 핵심 코드 출처: 8페이지"}
+{"kind":"slide","id":"sl/zyxsni5k","slide":20,"title":"INDEXER  /  노드 상세","textShapes":12}
+{"kind":"shape","id":"sh/2t4nqpgb","slide":20,"name":"v2-155","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/qpwjmh8n","slide":20,"name":"v2-156","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/rq50vmp8","slide":20,"name":"v2-157","text":"upsert  :  ChromaDB 저장·갱신","textPreview":"upsert  :  ChromaDB 저장·갱신","textChars":25,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/4nu1krqh","slide":20,"name":"v2-158","text":"임베딩에 성공한 청크의 ID·본문·벡터·메타데이터를 함께 저장","textPreview":"임베딩에 성공한 청크의 ID·본문·벡터·메타데이터를 함께 저장","textChars":34,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/po3itc72","slide":20,"name":"v2-159","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/2lczih8r","slide":20,"name":"v2-160","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/3ml0rmpw","slide":20,"name":"v2-161","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[72,264,330,64]}
+{"kind":"textbox","id":"sh/gjuhg7ql","slide":20,"name":"v2-162","text":"핵심 처리","textPreview":"핵심 처리","textChars":5,"textLines":1,"bbox":[466,264,604,64]}
+{"kind":"textbox","id":"sh/hk3ipcr6","slide":20,"name":"v2-163","text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[1134,264,330,64]}
+{"kind":"shape","id":"sh/y5ony58z","slide":20,"bbox":[402,296,64,0]}
+{"kind":"shape","id":"sh/j6x47ap4","slide":20,"bbox":[1070,296,64,0]}
+{"kind":"textbox","id":"sh/rid4nuhs","slide":20,"name":"v2-164","text":"pending_ids\n저장 대상 ID\n\nvectors_path\n임베딩 벡터\n\nchunks\n본문·metadata","textPreview":"pending_ids | 저장 대상 ID |  | vectors_path | 임베딩 벡터 |  | chunks | 본문·metadata","textChars":61,"textLines":8,"bbox":[72,349,330,260]}
+{"kind":"textbox","id":"sh/qh4nupg7","slide":20,"name":"v2-165","text":"1  ID에 맞는 본문과 벡터를 연결\n\n2  메타데이터를 Chroma 허용 형식으로 정리\n\n3  같은 ID는 갱신, 새 ID는 추가","textPreview":"1  ID에 맞는 본문과 벡터를 연결 |  | 2  메타데이터를 Chroma 허용 형식으로 정리 |  | 3  같은 ID는 갱신, 새 ID는 추가","textChars":73,"textLines":5,"bbox":[466,349,604,310]}
+{"kind":"textbox","id":"sh/pwvmlkzm","slide":20,"name":"v2-166","text":"ok_ids\n저장 성공 ID\n\nfailed\n실패 목록\n\ncount_before\n저장 전 건수","textPreview":"ok_ids | 저장 성공 ID |  | failed | 실패 목록 |  | count_before | 저장 전 건수","textChars":51,"textLines":8,"bbox":[1134,349,330,260]}
+{"kind":"textbox","id":"sh/4vm5sfy1","slide":20,"name":"v2-167","text":"다음: finalize_index  /  원문에서 사라진 청크의 자동 삭제는 현재 미구현","textPreview":"다음: finalize_index  /  원문에서 사라진 청크의 자동 삭제는 현재 미구현","textChars":49,"textLines":1,"bbox":[72,719,1392,62]}
+{"kind":"textbox","id":"sh/3ud4juhg","slide":20,"name":"v2-480","text":"20","textPreview":"20","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/zyxsni5k","slide":20,"text":"노드: upsert\nChromaDB 저장·갱신\n\nINDEXER  /  노드 상세\nupsert  :  ChromaDB 저장·갱신\n임베딩에 성공한 청크의 ID·본문·벡터·메타데이터를 함께 저장\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\npending_ids\n저장 대상 ID\n\nvectors_path\n임베딩 벡터\n\nchunks\n본문·metadata\n1  ID에 맞는 본문과 벡터를 연결\n\n2  메타데이터를 Chroma 허용 형식으로 정리\n\n3  같은 ID는 갱신, 새 ID는 추가\nok_ids\n저장 성공 ID\n\nfailed\n실패 목록\n\ncount_before\n저장 전 건수\n다음: finalize_index  /  원문에서 사라진 청크의 자동 삭제는 현재 미구현\n20\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/m1wvqtk3","slide":21,"title":"INDEXER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/5kjydsri","slide":21,"name":"v2-168","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/1gbmxs7a","slide":21,"name":"v2-169","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/0f2lon6p","slide":21,"name":"v2-170","text":"upsert  :  Chroma 컬렉션 구성","textPreview":"upsert  :  Chroma 컬렉션 구성","textChars":24,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/ra9kryp8","slide":21,"name":"v2-171","text":"원본 자료의 저장소 초기화 코드 보존","textPreview":"원본 자료의 저장소 초기화 코드 보존","textChars":20,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/qp03yt8n","slide":21,"name":"v2-172","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/dcb2t87y","slide":21,"name":"v2-173","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/sb2lk36t","slide":21,"name":"v2-174","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/b6d432pc","slide":21,"name":"v2-175","text":"self._store = Chroma(\n    collection_name=collection,\n    embedding_function=embedding_function,\n    persist_directory=str(path),\n    collection_configuration={\"hnsw\": {\"space\": \"cosine\"}},\n    collection_metadata={\"embedding_model_signature\": signature, \"hnsw:space\": \"cosine\"}\n)","textPreview":"self._store = Chroma( |     collection_name=collection, |     embedding_function=embedding_function, |     persist_directory=str(path), |...","textChars":280,"textLines":7,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/al43uxor","slide":21,"name":"v2-176","text":"persist_directory는 저장 경로  /  cosine은 벡터 유사도 비교 방식  /  signature는 모델 일치 검사에 사용","textPreview":"persist_directory는 저장 경로  /  cosine은 벡터 유사도 비교 방식  /  signature는 모델 일치 검사에 사용","textChars":77,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/4jax4nqd","slide":21,"name":"v2-481","text":"21","textPreview":"21","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/m1wvqtk3","slide":21,"text":"노드: upsert\nChroma 컬렉션 구성\n\nINDEXER  /  노드 상세\nupsert  :  Chroma 컬렉션 구성\n원본 자료의 저장소 초기화 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\nself._store = Chroma(\n    collection_name=collection,\n    embedding_function=embedding_function,\n    persist_directory=str(path),\n    collection_configuration={\"hnsw\": {\"space\": \"cosine\"}},\n    collection_metadata={\"embedding_model_signature\": signature, \"hnsw:space\": \"cosine\"}\n)\npersist_directory는 저장 경로  /  cosine은 벡터 유사도 비교 방식  /  signature는 모델 일치 검사에 사용\n21\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/chroma_store.py\n원본 핵심 코드 출처: 8페이지"}
+{"kind":"slide","id":"sl/5onypobq","slide":22,"title":"INDEXER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/436507qx","slide":22,"name":"v2-177","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/6987itcr","slide":22,"name":"v2-178","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/7a18rydc","slide":22,"name":"v2-179","text":"upsert  :  청크 저장 코드","textPreview":"upsert  :  청크 저장 코드","textChars":19,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/k7qpgjul","slide":22,"name":"v2-180","text":"원본 자료의 메타데이터 정리와 upsert 호출 보존","textPreview":"원본 자료의 메타데이터 정리와 upsert 호출 보존","textChars":29,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/58zqpov6","slide":22,"name":"v2-181","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/il87etcv","slide":22,"name":"v2-182","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/jmh8nyd0","slide":22,"name":"v2-183","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/43u9snu5","slide":22,"name":"v2-184","text":"def upsert(self, ids, texts, embeddings, metadatas) -> None:\n    clean = []\n    for chunk_id, metadata in zip(ids, metadatas):\n          metadata_with_id = {**metadata, \"chunk_id\": chunk_id}\n          clean_metadata = sanitize_metadata(metadata_with_id)\n          clean.append(clean_metadata)\n\n    self._collection.upsert(ids=ids, documents=texts, embeddings=embeddings, metadatas=clean)","textPreview":"def upsert(self, ids, texts, embeddings, metadatas) -> None: |     clean = [] |     for chunk_id, metadata in zip(ids, metadatas): |     ...","textChars":387,"textLines":8,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/p43q1sva","slide":22,"name":"v2-185","text":"IDs·documents·embeddings·metadatas 배열은 같은 순서로 대응해야 함","textPreview":"IDs·documents·embeddings·metadatas 배열은 같은 순서로 대응해야 함","textChars":52,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/p4z6tcri","slide":22,"name":"v2-482","text":"22","textPreview":"22","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/5onypobq","slide":22,"text":"노드: upsert\n청크 저장 코드\n\nINDEXER  /  노드 상세\nupsert  :  청크 저장 코드\n원본 자료의 메타데이터 정리와 upsert 호출 보존\n하이브리드 AI  ·  Workflow 노드 해설\ndef upsert(self, ids, texts, embeddings, metadatas) -> None:\n    clean = []\n    for chunk_id, metadata in zip(ids, metadatas):\n          metadata_with_id = {**metadata, \"chunk_id\": chunk_id}\n          clean_metadata = sanitize_metadata(metadata_with_id)\n          clean.append(clean_metadata)\n\n    self._collection.upsert(ids=ids, documents=texts, embeddings=embeddings, metadatas=clean)\nIDs·documents·embeddings·metadatas 배열은 같은 순서로 대응해야 함\n22\n\n소스: hybrid-ai-lab/vector/indexer/app/infrastructure/chroma_store.py\n원본 핵심 코드 출처: 8페이지"}
+{"kind":"slide","id":"sl/c7uhcr6t","slide":23,"title":"INDEXER  /  노드 상세","textShapes":13}
+{"kind":"shape","id":"sh/wze9cjud","slide":23,"name":"v2-186","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/90vqdczq","slide":23,"name":"v2-187","text":"INDEXER  /  노드 상세","textPreview":"INDEXER  /  노드 상세","textChars":17,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/8zm9k7y5","slide":23,"name":"v2-188","text":"finalize_index  :  검증과 검색 세대 발행","textPreview":"finalize_index  :  검증과 검색 세대 발행","textChars":31,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/v2d8fmhw","slide":23,"name":"v2-189","text":"벡터 저장 결과를 확인한 뒤 키워드 검색 인덱스를 완성","textPreview":"벡터 저장 결과를 확인한 뒤 키워드 검색 인덱스를 완성","textChars":30,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/a14rmhgb","slide":23,"name":"v2-190","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/xovqhcz2","slide":23,"name":"v2-191","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/w3m9o7yh","slide":23,"name":"v2-192","text":"벡터 건수·ID 검증","textPreview":"벡터 건수·ID 검증","textChars":11,"textLines":1,"bbox":[72,258,307.5,106]}
+{"kind":"textbox","id":"sh/jqd8jmhs","slide":23,"name":"v2-193","text":"전체 corpus 구성","textPreview":"전체 corpus 구성","textChars":12,"textLines":1,"bbox":[433.5,258,307.5,106]}
+{"kind":"textbox","id":"sh/ip4rqhgn","slide":23,"name":"v2-194","text":"Kiwi 단어 분리","textPreview":"Kiwi 단어 분리","textChars":10,"textLines":1,"bbox":[795,258,307.5,106]}
+{"kind":"textbox","id":"sh/sby90zm1","slide":23,"name":"v2-195","text":"BM25S 재생성","textPreview":"BM25S 재생성","textChars":9,"textLines":1,"bbox":[1156.5,258,307.5,106]}
+{"kind":"shape","id":"sh/re1onat8","slide":23,"bbox":[379.5,311,54,0]}
+{"kind":"shape","id":"sh/szapgfat","slide":23,"bbox":[741,311,54,0]}
+{"kind":"shape","id":"sh/d0j6pkbe","slide":23,"bbox":[1102.5,311,54,0]}
+{"kind":"textbox","id":"sh/0fi94jmx","slide":23,"name":"v2-196","text":"새 generation 폴더\ncorpus + BM25 + 카드명 사전","textPreview":"새 generation 폴더 | corpus + BM25 + 카드명 사전","textChars":38,"textLines":2,"bbox":[72,467,610,117]}
+{"kind":"textbox","id":"sh/1graxo3i","slide":23,"name":"v2-197","text":"active_index.json 전환\n완성된 검색 세대 활성화","textPreview":"active_index.json 전환 | 완성된 검색 세대 활성화","textChars":34,"textLines":2,"bbox":[848,467,616,117]}
+{"kind":"shape","id":"sh/03upkfa5","slide":23,"bbox":[377,364,933.25,103]}
+{"kind":"shape","id":"sh/1436tkba","slide":23,"bbox":[682,525.5,166,0]}
+{"kind":"textbox","id":"sh/oji9832t","slide":23,"name":"v2-198","text":"카드명 64개 사전 등록  /  OOV 후보는 검토 파일로만 저장","textPreview":"카드명 64개 사전 등록  /  OOV 후보는 검토 파일로만 저장","textChars":36,"textLines":1,"bbox":[72,631,1392,57]}
+{"kind":"textbox","id":"sh/p4ra1o3e","slide":23,"name":"v2-199","text":"다음: END  /  현재 485청크: D1 53 + D2 336 + D3 96  /  2026.09.20 확인","textPreview":"다음: END  /  현재 485청크: D1 53 + D2 336 + D3 96  /  2026.09.20 확인","textChars":62,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/x0nalovi","slide":23,"name":"v2-483","text":"23","textPreview":"23","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/c7uhcr6t","slide":23,"text":"노드: finalize_index\n검증과 검색 세대 발행\n\nINDEXER  /  노드 상세\nfinalize_index  :  검증과 검색 세대 발행\n벡터 저장 결과를 확인한 뒤 키워드 검색 인덱스를 완성\n하이브리드 AI  ·  Workflow 노드 해설\n벡터 건수·ID 검증\n전체 corpus 구성\nKiwi 단어 분리\nBM25S 재생성\n새 generation 폴더\ncorpus + BM25 + 카드명 사전\nactive_index.json 전환\n완성된 검색 세대 활성화\n카드명 64개 사전 등록  /  OOV 후보는 검토 파일로만 저장\n다음: END  /  현재 485청크: D1 53 + D2 336 + D3 96  /  2026.09.20 확인\n23\n\n소스: hybrid-ai-lab/vector/indexer/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/7qto7e10","slide":24,"title":"Retrieving (1/5)","textShapes":2}
+{"kind":"textbox","id":"sh/1sfqxsv6","slide":24,"name":"제목 1","placeholder":"title","text":"Retrieving (1/5)","textPreview":"Retrieving (1/5)","textChars":16,"textLines":1,"bbox":[53.5,10.42,1442.4,84.69]}
+{"kind":"textbox","id":"sh/gbmpcz61","slide":24,"name":"Slide Number Placeholder 0","placeholder":"slideNumber","text":"9","textPreview":"9","textChars":1,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"image","id":"im/gnml436l","slide":24,"name":"그림 16","bbox":[86.63,106.93,1362.73,757.07]}
+{"kind":"notes","id":"nt/7qto7e10","slide":24,"text":"핵심 메시지: 자동화의 목적은 '사람 대체'가 아니라 '사람이 더 중요한 일에 집중'.\n\n[발표] 골든서클 WHY. 청중에게 '내 업무 중 매번 반복하는 일'을 떠올리게 함(2주 과제 복선). 자동화는 일자리 위협이 아니라 단순 반복에서 벗어나 판단·창의에 집중하는 도구. 보안 IC 기업 특성상 '사람 최종 승인'이 기본 전제임을 미리 암시. 출처: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"}
+{"kind":"slide","id":"sl/69wfm9o7","slide":25,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/h0jalgra","slide":25,"name":"v2-200","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/xg7axgf2","slide":25,"name":"v2-201","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/cfyt4beh","slide":25,"name":"v2-202","text":"check_search_readiness  :  검색 준비 확인","textPreview":"check_search_readiness  :  검색 준비 확인","textChars":35,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/napsr6x0","slide":25,"name":"v2-203","text":"원본 workflow 이미지의 check_query에 대응하는 실제 노드","textPreview":"원본 workflow 이미지의 check_query에 대응하는 실제 노드","textChars":40,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/29wby1wf","slide":25,"name":"v2-204","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/pc7atgf6","slide":25,"name":"v2-205","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/fm5snmx4","slide":25,"name":"v2-206","text":"출력: index_info 또는 validation_errors","textPreview":"출력: index_info 또는 validation_errors","textChars":35,"textLines":1,"bbox":[72,627,1392,54]}
+{"kind":"textbox","id":"sh/elwbu1wj","slide":25,"name":"v2-207","text":"다음: vector_search  /  오류 시 종료  /  원본 이미지의 관문 0.70은 과거 값이며 현재는 0.86","textPreview":"다음: vector_search  /  오류 시 종료  /  원본 이미지의 관문 0.70은 과거 값이며 현재는 0.86","textChars":66,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/wza9cbqp","slide":25,"name":"v2-484","text":"25","textPreview":"25","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/lovel0ny","slide":25,"name":"","rows":5,"cols":2,"preview":"입력·대상 | 검사 내용","bbox":[72,270,1392,328]}
+{"kind":"notes","id":"nt/69wfm9o7","slide":25,"text":"노드: check_search_readiness\n검색 준비 확인\n\nRETRIEVER  /  노드 상세\ncheck_search_readiness  :  검색 준비 확인\n원본 workflow 이미지의 check_query에 대응하는 실제 노드\n하이브리드 AI  ·  Workflow 노드 해설\n출력: index_info 또는 validation_errors\n다음: vector_search  /  오류 시 종료  /  원본 이미지의 관문 0.70은 과거 값이며 현재는 0.86\n25\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/l0bepsfm","slide":26,"title":"RETRIEVER  /  노드 상세","textShapes":12}
+{"kind":"shape","id":"sh/a18r2pkv","slide":26,"name":"v2-208","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/uhk36lk7","slide":26,"name":"v2-209","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/vitkzqlc","slide":26,"name":"v2-210","text":"vector_search  :  원 질문 벡터 검색","textPreview":"vector_search  :  원 질문 벡터 검색","textChars":28,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/8fil4b21","slide":26,"name":"v2-211","text":"원 질문의 의미와 가까운 문서를 찾고, 질문 변환 판정용 점수를 기록","textPreview":"원 질문의 의미와 가까운 문서를 찾고, 질문 변환 판정용 점수를 기록","textChars":38,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/tgr2xg3m","slide":26,"name":"v2-212","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/md0321kv","slide":26,"name":"v2-213","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/7e9kv6lg","slide":26,"name":"v2-214","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[72,264,330,64]}
+{"kind":"textbox","id":"sh/kbil0r2p","slide":26,"name":"v2-215","text":"핵심 처리","textPreview":"핵심 처리","textChars":5,"textLines":1,"bbox":[466,264,604,64]}
+{"kind":"textbox","id":"sh/lcr2tw3a","slide":26,"name":"v2-216","text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[1134,264,330,64]}
+{"kind":"shape","id":"sh/qpcjq9wv","slide":26,"bbox":[402,296,64,0]}
+{"kind":"shape","id":"sh/rql0zex0","slide":26,"bbox":[1070,296,64,0]}
+{"kind":"textbox","id":"sh/z61szulc","slide":26,"name":"v2-217","text":"query\n원 질문\n\nrole·mode\n접근 역할·검색 모드\n\ntop_k\n최종 결과 수","textPreview":"query | 원 질문 |  | role·mode | 접근 역할·검색 모드 |  | top_k | 최종 결과 수","textChars":48,"textLines":8,"bbox":[72,349,330,260]}
+{"kind":"textbox","id":"sh/y5sr69kr","slide":26,"name":"v2-218","text":"1  질문을 임베딩하고 권한 필터 구성\n\n2  similarity 또는 MMR 전략으로 검색\n\n3  vector_hits와 변환 관문 점수 보존","textPreview":"1  질문을 임베딩하고 권한 필터 구성 |  | 2  similarity 또는 MMR 전략으로 검색 |  | 3  vector_hits와 변환 관문 점수 보존","textChars":80,"textLines":5,"bbox":[466,349,604,310]}
+{"kind":"textbox","id":"sh/x4jax436","slide":26,"name":"v2-219","text":"vector_hits\n원 질문 후보\n\ntransform_gate_\nvector_score\n첫 후보 Vector 점수","textPreview":"vector_hits | 원 질문 후보 |  | transform_gate_ | vector_score | 첫 후보 Vector 점수","textChars":64,"textLines":6,"bbox":[1134,349,330,260]}
+{"kind":"textbox","id":"sh/c3a94z21","slide":26,"name":"v2-220","text":"다음: assess_transform_gate  /  MMR은 관련성과 후보 다양성을 함께 고려","textPreview":"다음: assess_transform_gate  /  MMR은 관련성과 후보 다양성을 함께 고려","textChars":53,"textLines":1,"bbox":[72,719,1392,62]}
+{"kind":"textbox","id":"sh/b21svulg","slide":26,"name":"v2-485","text":"26","textPreview":"26","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/l0bepsfm","slide":26,"text":"노드: vector_search\n원 질문 벡터 검색\n\nRETRIEVER  /  노드 상세\nvector_search  :  원 질문 벡터 검색\n원 질문의 의미와 가까운 문서를 찾고, 질문 변환 판정용 점수를 기록\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nquery\n원 질문\n\nrole·mode\n접근 역할·검색 모드\n\ntop_k\n최종 결과 수\n1  질문을 임베딩하고 권한 필터 구성\n\n2  similarity 또는 MMR 전략으로 검색\n\n3  vector_hits와 변환 관문 점수 보존\nvector_hits\n원 질문 후보\n\ntransform_gate_\nvector_score\n첫 후보 Vector 점수\n다음: assess_transform_gate  /  MMR은 관련성과 후보 다양성을 함께 고려\n26\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/4vyxknqp","slide":27,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/ytwfmx8j","slide":27,"name":"v2-221","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/kn694nmx","slide":27,"name":"v2-222","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/lofadsni","slide":27,"name":"v2-223","text":"vector_search  :  Chroma 검색 코드","textPreview":"vector_search  :  Chroma 검색 코드","textChars":30,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/mpor6x43","slide":27,"name":"v2-224","text":"원본 자료의 query 호출 보존","textPreview":"원본 자료의 query 호출 보존","textChars":18,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/7qxsfi5o","slide":27,"name":"v2-225","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/8r698nm9","slide":27,"name":"v2-226","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/9sfahsnu","slide":27,"name":"v2-227","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/utobax4f","slide":27,"name":"v2-228","text":"result = self._collection.query(\n    query_embeddings=[query_embedding],\n    n_results=options.fetch_k(k),\n    where=where or None,\n    include=include\n   )\n\nwhere: 검색 필터링 조건\nInclude: 결과에 포함할 객체","textPreview":"result = self._collection.query( |     query_embeddings=[query_embedding], |     n_results=options.fetch_k(k), |     where=where or None,...","textChars":194,"textLines":9,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/vuxsj250","slide":27,"name":"v2-229","text":"query_embeddings는 질문 벡터  /  where는 권한 필터  /  include는 결과에 포함할 정보","textPreview":"query_embeddings는 질문 벡터  /  where는 권한 필터  /  include는 결과에 포함할 정보","textChars":64,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/ju5gv294","slide":27,"name":"v2-486","text":"27","textPreview":"27","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/4vyxknqp","slide":27,"text":"노드: vector_search\nChroma 검색 코드\n\nRETRIEVER  /  노드 상세\nvector_search  :  Chroma 검색 코드\n원본 자료의 query 호출 보존\n하이브리드 AI  ·  Workflow 노드 해설\nresult = self._collection.query(\n    query_embeddings=[query_embedding],\n    n_results=options.fetch_k(k),\n    where=where or None,\n    include=include\n   )\n\nwhere: 검색 필터링 조건\nInclude: 결과에 포함할 객체\nquery_embeddings는 질문 벡터  /  where는 권한 필터  /  include는 결과에 포함할 정보\n27\n\n소스: hybrid-ai-lab/vector/retriever/app/infrastructure/chroma_store.py\n원본 핵심 코드 출처: 10페이지"}
+{"kind":"slide","id":"sl/3mdove10","slide":28,"title":"RETRIEVER  /  노드 상세","textShapes":6}
+{"kind":"shape","id":"sh/lg3690fq","slide":28,"name":"v2-230","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/q9cz6xkv","slide":28,"name":"v2-231","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/ralgf21g","slide":28,"name":"v2-232","text":"vector_search  :  네 검색 모드의 후보 수","textPreview":"vector_search  :  네 검색 모드의 후보 수","textChars":31,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/0zehcr2x","slide":28,"name":"v2-233","text":"기본 top_k=5일 때, 리랭크 모드는 재평가 후보를 넉넉하게 확보","textPreview":"기본 top_k=5일 때, 리랭크 모드는 재평가 후보를 넉넉하게 확보","textChars":38,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/10nylwji","slide":28,"name":"v2-234","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/exwzahkr","slide":28,"name":"v2-235","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/o3ehgr29","slide":28,"name":"v2-236","text":"raw_k = fused_k × 4  /  fused_k는 일반 모드 top_k, 리랭크 모드 top_k × 2","textPreview":"raw_k = fused_k × 4  /  fused_k는 일반 모드 top_k, 리랭크 모드 top_k × 2","textChars":62,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/947ipwje","slide":28,"name":"v2-487","text":"28","textPreview":"28","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/36h83m9s","slide":28,"name":"","rows":5,"cols":4,"preview":"모드 | 원시 후보 | 중간 후보 | 최종","bbox":[72,274,1392,370]}
+{"kind":"notes","id":"nt/3mdove10","slide":28,"text":"노드: vector_search\n네 검색 모드의 후보 수\n\nRETRIEVER  /  노드 상세\nvector_search  :  네 검색 모드의 후보 수\n기본 top_k=5일 때, 리랭크 모드는 재평가 후보를 넉넉하게 확보\n하이브리드 AI  ·  Workflow 노드 해설\nraw_k = fused_k × 4  /  fused_k는 일반 모드 top_k, 리랭크 모드 top_k × 2\n28\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/i5o3q10v","slide":29,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/5gbupcrm","slide":29,"name":"v2-237","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/tk36hwby","slide":29,"name":"v2-238","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/8jup8rad","slide":29,"name":"v2-239","text":"assess_transform_gate  :  질문 변환 검토 관문","textPreview":"assess_transform_gate  :  질문 변환 검토 관문","textChars":37,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/vmlojmto","slide":29,"name":"v2-240","text":"transform=auto일 때 최초 원 질문 Vector Top-1과 0.86을 비교","textPreview":"transform=auto일 때 최초 원 질문 Vector Top-1과 0.86을 비교","textChars":48,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/ulc7a1s3","slide":29,"name":"v2-241","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/h8n6lwbu","slide":29,"name":"v2-242","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/g7upcra9","slide":29,"name":"v2-243","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/bq1o72tk","slide":29,"name":"v2-244","text":"if top_vector_score is not None and top_vector_score >= gate_threshold:\n    return {\n         \"route_action\": \"gate_pass\",\n         \"transform_review_required\": False,\n         \"transformed_queries\": [],\n    }\n\nreturn {\"transform_review_required\": True}","textPreview":"if top_vector_score is not None and top_vector_score >= gate_threshold: |     return { |          \"route_action\": \"gate_pass\", |         ...","textChars":253,"textLines":8,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/apsnyxcz","slide":29,"name":"v2-245","text":"기본 transform=off는 검토 생략  /  gate_threshold=0.86  /  미달이면 plan_query_transform","textPreview":"기본 transform=off는 검토 생략  /  gate_threshold=0.86  /  미달이면 plan_query_transform","textChars":77,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/kf2tw7a1","slide":29,"name":"v2-488","text":"29","textPreview":"29","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/i5o3q10v","slide":29,"text":"노드: assess_transform_gate\n질문 변환 검토 관문\n\nRETRIEVER  /  노드 상세\nassess_transform_gate  :  질문 변환 검토 관문\ntransform=auto일 때 최초 원 질문 Vector Top-1과 0.86을 비교\n하이브리드 AI  ·  Workflow 노드 해설\nif top_vector_score is not None and top_vector_score >= gate_threshold:\n    return {\n         \"route_action\": \"gate_pass\",\n         \"transform_review_required\": False,\n         \"transformed_queries\": [],\n    }\n\nreturn {\"transform_review_required\": True}\n기본 transform=off는 검토 생략  /  gate_threshold=0.86  /  미달이면 plan_query_transform\n29\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py\n원본 핵심 코드 출처: 10페이지"}
+{"kind":"slide","id":"sl/wnqh07ex","slide":30,"title":"RETRIEVER  /  노드 상세","textShapes":9}
+{"kind":"shape","id":"sh/dcje54ze","slide":30,"name":"v2-246","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/po72d8nm","slide":30,"name":"v2-247","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/o3yl4361","slide":30,"name":"v2-248","text":"plan_query_transform  :  변환 계획 수립","textPreview":"plan_query_transform  :  변환 계획 수립","textChars":33,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/bqpkfy5s","slide":30,"name":"v2-249","text":"관문 미달 시 캐시 또는 Router LLM으로 변환 필요성과 기법 결정","textPreview":"관문 미달 시 캐시 또는 Router LLM으로 변환 필요성과 기법 결정","textChars":40,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/apg36do7","slide":30,"name":"v2-250","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/xsr2h8ni","slide":30,"name":"v2-251","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/cril836d","slide":30,"name":"v2-252","text":"질문 + 후보 정보","textPreview":"질문 + 후보 정보","textChars":10,"textLines":1,"bbox":[72,258,428,105]}
+{"kind":"textbox","id":"sh/ru5k3ep8","slide":30,"name":"v2-253","text":"캐시 확인 / Router LLM","textPreview":"캐시 확인 / Router LLM","textChars":18,"textLines":1,"bbox":[554,258,428,105]}
+{"kind":"textbox","id":"sh/6twju9o3","slide":30,"name":"v2-254","text":"keep·clarify·transform","textPreview":"keep·clarify·transform","textChars":22,"textLines":1,"bbox":[1036,258,428,105]}
+{"kind":"shape","id":"sh/h47mlc7y","slide":30,"bbox":[500,310.5,54,0]}
+{"kind":"shape","id":"sh/w3ylc76d","slide":30,"bbox":[982,310.5,54,0]}
+{"kind":"textbox","id":"sh/3mhwzu1c","slide":30,"name":"v2-255","text":"출력: route_action·technique·transformed_queries  /  형식 오류 시 keep으로 대체","textPreview":"출력: route_action·technique·transformed_queries  /  형식 오류 시 keep으로 대체","textChars":68,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/cbaxczit","slide":30,"name":"v2-489","text":"30","textPreview":"30","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/83uxs3e1","slide":30,"name":"","rows":4,"cols":3,"preview":"행동 | 결과 | 이후 처리","bbox":[72,427,1392,258]}
+{"kind":"notes","id":"nt/wnqh07ex","slide":30,"text":"노드: plan_query_transform\n변환 계획 수립\n\nRETRIEVER  /  노드 상세\nplan_query_transform  :  변환 계획 수립\n관문 미달 시 캐시 또는 Router LLM으로 변환 필요성과 기법 결정\n하이브리드 AI  ·  Workflow 노드 해설\n질문 + 후보 정보\n캐시 확인 / Router LLM\nkeep·clarify·transform\n출력: route_action·technique·transformed_queries  /  형식 오류 시 keep으로 대체\n30\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/lcn6tkb6","slide":31,"title":"RETRIEVER  /  노드 상세","textShapes":6}
+{"kind":"shape","id":"sh/4vm5g7al","slide":31,"name":"v2-256","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/dgja98fe","slide":31,"name":"v2-257","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/cfa903yt","slide":31,"name":"v2-258","text":"plan_query_transform  :  다섯 가지 변환 기법","textPreview":"plan_query_transform  :  다섯 가지 변환 기법","textChars":36,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/zilsbyx4","slide":31,"name":"v2-259","text":"질문의 어려운 부분에 맞춰 검색 표현을 바꾸거나 복합 질문을 분리","textPreview":"질문의 어려운 부분에 맞춰 검색 표현을 바꾸거나 복합 질문을 분리","textChars":36,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/ehsr2dgz","slide":31,"name":"v2-260","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/1k3ad8fa","slide":31,"name":"v2-261","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/fmhszex0","slide":31,"name":"v2-262","text":"캐시 적중 시 LLM 호출 생략  /  HyDE가 만든 문장은 검색용이며 원문 근거로 사용하지 않음","textPreview":"캐시 적중 시 LLM 호출 생략  /  HyDE가 만든 문장은 검색용이며 원문 근거로 사용하지 않음","textChars":55,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/ul8rq9gf","slide":31,"name":"v2-490","text":"31","textPreview":"31","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/ulgr29cb","slide":31,"name":"","rows":6,"cols":3,"preview":"기법 | 변환 방식 | 질문 수","bbox":[72,258,1392,420]}
+{"kind":"notes","id":"nt/lcn6tkb6","slide":31,"text":"노드: plan_query_transform\n다섯 가지 변환 기법\n\nRETRIEVER  /  노드 상세\nplan_query_transform  :  다섯 가지 변환 기법\n질문의 어려운 부분에 맞춰 검색 표현을 바꾸거나 복합 질문을 분리\n하이브리드 AI  ·  Workflow 노드 해설\n캐시 적중 시 LLM 호출 생략  /  HyDE가 만든 문장은 검색용이며 원문 근거로 사용하지 않음\n31\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py\n"}
+{"kind":"slide","id":"sl/6l0j294r","slide":32,"title":"RETRIEVER  /  노드 상세","textShapes":12}
+{"kind":"shape","id":"sh/4bilonq5","slide":32,"name":"v2-263","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/kr61sfy1","slide":32,"name":"v2-264","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/lszilkfm","slide":32,"name":"v2-265","text":"bm25_search  :  원 질문 키워드 검색","textPreview":"bm25_search  :  원 질문 키워드 검색","textChars":27,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/6t8jupg7","slide":32,"name":"v2-266","text":"hybrid 계열에서 원 질문의 단어와 맞는 청크를 검색","textPreview":"hybrid 계열에서 원 질문의 단어와 맞는 청크를 검색","textChars":31,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/7uh0nuxs","slide":32,"name":"v2-267","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/8vq1wzyd","slide":32,"name":"v2-268","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/twzipkfy","slide":32,"name":"v2-269","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[72,264,330,64]}
+{"kind":"textbox","id":"sh/mx4zilg3","slide":32,"name":"v2-270","text":"핵심 처리","textPreview":"핵심 처리","textChars":5,"textLines":1,"bbox":[466,264,604,64]}
+{"kind":"textbox","id":"sh/nyd0bqxo","slide":32,"name":"v2-271","text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[1134,264,330,64]}
+{"kind":"shape","id":"sh/87y5gnax","slide":32,"bbox":[402,296,64,0]}
+{"kind":"shape","id":"sh/t8769sbi","slide":32,"bbox":[1070,296,64,0]}
+{"kind":"textbox","id":"sh/d0bm1c7m","slide":32,"name":"v2-272","text":"query\n원 질문\n\nrole\n접근 역할\n\n활성 BM25 인덱스","textPreview":"query | 원 질문 |  | role | 접근 역할 |  | 활성 BM25 인덱스","textChars":35,"textLines":7,"bbox":[72,349,330,260]}
+{"kind":"textbox","id":"sh/szi5s7qh","slide":32,"name":"v2-273","text":"1  카드명 사전을 적용한 Kiwi 토큰 분리\n\n2  역색인에서 단어가 맞는 후보 점수화\n\n3  접근 가능한 문서로 결과 제한","textPreview":"1  카드명 사전을 적용한 Kiwi 토큰 분리 |  | 2  역색인에서 단어가 맞는 후보 점수화 |  | 3  접근 가능한 문서로 결과 제한","textChars":70,"textLines":5,"bbox":[466,349,604,310]}
+{"kind":"textbox","id":"sh/3a94vi9k","slide":32,"name":"v2-274","text":"청크 ID별\n키워드 점수\n\nwarnings\n검색 경고","textPreview":"청크 ID별 | 키워드 점수 |  | warnings | 검색 경고","textChars":29,"textLines":5,"bbox":[1134,349,330,260]}
+{"kind":"textbox","id":"sh/i903mx8z","slide":32,"name":"v2-275","text":"다음: fuse_scores  /  vector 계열은 이 노드를 건너뜀","textPreview":"다음: fuse_scores  /  vector 계열은 이 노드를 건너뜀","textChars":40,"textLines":1,"bbox":[72,719,1392,62]}
+{"kind":"textbox","id":"sh/5crmxsrq","slide":32,"name":"v2-491","text":"32","textPreview":"32","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/6l0j294r","slide":32,"text":"노드: bm25_search\n원 질문 키워드 검색\n\nRETRIEVER  /  노드 상세\nbm25_search  :  원 질문 키워드 검색\nhybrid 계열에서 원 질문의 단어와 맞는 청크를 검색\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nquery\n원 질문\n\nrole\n접근 역할\n\n활성 BM25 인덱스\n1  카드명 사전을 적용한 Kiwi 토큰 분리\n\n2  역색인에서 단어가 맞는 후보 점수화\n\n3  접근 가능한 문서로 결과 제한\n청크 ID별\n키워드 점수\n\nwarnings\n검색 경고\n다음: fuse_scores  /  vector 계열은 이 노드를 건너뜀\n32\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/nax4b2dk","slide":33,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/hsjuhkb2","slide":33,"name":"v2-276","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/lk3m50nq","slide":33,"name":"v2-277","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/0jalwfm5","slide":33,"name":"v2-278","text":"bm25_search  :  BM25S 호출 코드","textPreview":"bm25_search  :  BM25S 호출 코드","textChars":27,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/nml47a5w","slide":33,"name":"v2-279","text":"원본 자료의 retrieve·weight_mask 코드 보존","textPreview":"원본 자료의 retrieve·weight_mask 코드 보존","textChars":33,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/mlc3y54b","slide":33,"name":"v2-280","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/9o3m9knm","slide":33,"name":"v2-281","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/8nul0fmh","slide":33,"name":"v2-282","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/vql4bu5s","slide":33,"name":"v2-283","text":"result = retriever.retrieve(\n    [terms],  \n     k=k,  \n     weight_mask=mask,  \n     show_progress=False\n)\n\n# weight_mask: mask가 0인 문서의 점수를 0으로 만들어 검색 결과 순위에서 밀리게 함","textPreview":"result = retriever.retrieve( |     [terms],   |      k=k,   |      weight_mask=mask,   |      show_progress=False | ) |  | # weight_mask:...","textChars":165,"textLines":8,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/apc32p47","slide":33,"name":"v2-284","text":"권한 마스크로 허용되지 않은 문서의 점수를 0으로 처리하고, 반환 후보도 권한 기준으로 제한","textPreview":"권한 마스크로 허용되지 않은 문서의 점수를 0으로 처리하고, 반환 후보도 권한 기준으로 제한","textChars":51,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/grad8zah","slide":33,"name":"v2-492","text":"33","textPreview":"33","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/nax4b2dk","slide":33,"text":"노드: bm25_search\nBM25S 호출 코드\n\nRETRIEVER  /  노드 상세\nbm25_search  :  BM25S 호출 코드\n원본 자료의 retrieve·weight_mask 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\nresult = retriever.retrieve(\n    [terms],  \n     k=k,  \n     weight_mask=mask,  \n     show_progress=False\n)\n\n# weight_mask: mask가 0인 문서의 점수를 0으로 만들어 검색 결과 순위에서 밀리게 함\n권한 마스크로 허용되지 않은 문서의 점수를 0으로 처리하고, 반환 후보도 권한 기준으로 제한\n33\n\n소스: hybrid-ai-lab/vector/retriever/app/infrastructure/bm25_index.py\n원본 핵심 코드 출처: 11페이지"}
+{"kind":"slide","id":"sl/ofu103u5","slide":34,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/1wredkbq","slide":34,"name":"v2-285","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/pwzm1kbm","slide":34,"name":"v2-286","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/ovq58fu1","slide":34,"name":"v2-287","text":"fuse_scores  :  Vector·BM25 점수 결합","textPreview":"fuse_scores  :  Vector·BM25 점수 결합","textChars":33,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/byh43utc","slide":34,"name":"v2-288","text":"청크 ID 합집합을 만든 뒤 점수를 각각 0 ~ 1로 맞추어 가중합","textPreview":"청크 ID 합집합을 만든 뒤 점수를 각각 0 ~ 1로 맞추어 가중합","textChars":37,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/qx8napc7","slide":34,"name":"v2-289","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/d0zm54bi","slide":34,"name":"v2-290","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/czq5czux","slide":34,"name":"v2-291","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/z2147eto","slide":34,"name":"v2-292","text":"normalized_vector = normalize(vector_by_id, candidate_ids)  # 0~1 사이로 정규화\n\nnormalized_bm25 = normalize(bm25_scores, candidate_ids)     # 0~1 사이로 정규화\n\nscore = weight_bm25 * normalized_bm25[chunk_id] + weight_vector * normalized_vector[chunk_id]","textPreview":"normalized_vector = normalize(vector_by_id, candidate_ids)  # 0~1 사이로 정규화 |  | normalized_bm25 = normalize(bm25_scores, candidate_ids)   ...","textChars":243,"textLines":5,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/y18ne9c3","slide":34,"name":"v2-293","text":"Vector 가중치 0.6, BM25 가중치 0.4  /  다음: complete_original_results","textPreview":"Vector 가중치 0.6, BM25 가중치 0.4  /  다음: complete_original_results","textChars":62,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/0vidkfu5","slide":34,"name":"v2-493","text":"34","textPreview":"34","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/ofu103u5","slide":34,"text":"노드: fuse_scores\nVector·BM25 점수 결합\n\nRETRIEVER  /  노드 상세\nfuse_scores  :  Vector·BM25 점수 결합\n청크 ID 합집합을 만든 뒤 점수를 각각 0 ~ 1로 맞추어 가중합\n하이브리드 AI  ·  Workflow 노드 해설\nnormalized_vector = normalize(vector_by_id, candidate_ids)  # 0~1 사이로 정규화\n\nnormalized_bm25 = normalize(bm25_scores, candidate_ids)     # 0~1 사이로 정규화\n\nscore = weight_bm25 * normalized_bm25[chunk_id] + weight_vector * normalized_vector[chunk_id]\nVector 가중치 0.6, BM25 가중치 0.4  /  다음: complete_original_results\n34\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/scoring.py\n원본 핵심 코드 출처: 11페이지"}
+{"kind":"slide","id":"sl/1obmtofm","slide":35,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/4n65o7ax","slide":35,"name":"v2-294","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/idonexon","slide":35,"name":"v2-295","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/3ex47ip8","slide":35,"name":"v2-296","text":"fuse_scores  :  정규화 계산 예시","textPreview":"fuse_scores  :  정규화 계산 예시","textChars":25,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/gb6lcn6x","slide":35,"name":"v2-297","text":"한쪽 검색에 없는 후보는 해당 원점수를 0으로 포함해 정규화","textPreview":"한쪽 검색에 없는 후보는 해당 원점수를 0으로 포함해 정규화","textChars":33,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/hcfm5s72","slide":35,"name":"v2-298","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/u943ador","slide":35,"name":"v2-299","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/vad43ipc","slide":35,"name":"v2-300","text":"Hybrid = Vector 정규화 점수 × 0.6 + BM25 정규화 점수 × 0.4","textPreview":"Hybrid = Vector 정규화 점수 × 0.6 + BM25 정규화 점수 × 0.4","textChars":48,"textLines":1,"bbox":[72,255,1392,85]}
+{"kind":"textbox","id":"sh/t8vm1876","slide":35,"name":"v2-301","text":"정규화 = (점수 − 최솟값) ÷ (최댓값 − 최솟값)  /  모든 값이 같으면 해당 신호를 0으로 처리","textPreview":"정규화 = (점수 − 최솟값) ÷ (최댓값 − 최솟값)  /  모든 값이 같으면 해당 신호를 0으로 처리","textChars":58,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/5of6xcbi","slide":35,"name":"v2-494","text":"35","textPreview":"35","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/wbadsji9","slide":35,"name":"","rows":4,"cols":6,"preview":"청크 | Vector | BM25 | 정규화 V | 정규화 B | 최종 점수","bbox":[72,405,1392,259]}
+{"kind":"notes","id":"nt/1obmtofm","slide":35,"text":"노드: fuse_scores\n정규화 계산 예시\n\nRETRIEVER  /  노드 상세\nfuse_scores  :  정규화 계산 예시\n한쪽 검색에 없는 후보는 해당 원점수를 0으로 포함해 정규화\n하이브리드 AI  ·  Workflow 노드 해설\nHybrid = Vector 정규화 점수 × 0.6 + BM25 정규화 점수 × 0.4\n정규화 = (점수 − 최솟값) ÷ (최댓값 − 최솟값)  /  모든 값이 같으면 해당 신호를 0으로 처리\n35\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/scoring.py\n"}
+{"kind":"slide","id":"sl/m9s3ehgf","slide":36,"title":"RETRIEVER  /  노드 상세","textShapes":12}
+{"kind":"shape","id":"sh/729oz2lw","slide":36,"name":"v2-302","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/5s3atkbq","slide":36,"name":"v2-303","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/4rut0fa5","slide":36,"name":"v2-304","text":"complete_original_results  :  원 질문 후보 확정","textPreview":"complete_original_results  :  원 질문 후보 확정","textChars":40,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/rulsvutw","slide":36,"name":"v2-305","text":"변환 질문 검색 전에 원 질문의 기준 결과를 따로 보존","textPreview":"변환 질문 검색 전에 원 질문의 기준 결과를 따로 보존","textChars":30,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/qtcb2psb","slide":36,"name":"v2-306","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/dwnax4bm","slide":36,"name":"v2-307","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/svet4zah","slide":36,"name":"v2-308","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[72,264,330,64]}
+{"kind":"textbox","id":"sh/fy5szuts","slide":36,"name":"v2-309","text":"핵심 처리","textPreview":"핵심 처리","textChars":5,"textLines":1,"bbox":[466,264,604,64]}
+{"kind":"textbox","id":"sh/exwb69s7","slide":36,"name":"v2-310","text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[1134,264,330,64]}
+{"kind":"shape","id":"sh/rqpormt8","slide":36,"bbox":[402,296,64,0]}
+{"kind":"shape","id":"sh/qpgnyhc3","slide":36,"bbox":[1070,296,64,0]}
+{"kind":"textbox","id":"sh/ydgn2xkf","slide":36,"name":"v2-311","text":"vector_hits\n또는 융합 후보\n\nmode·top_k","textPreview":"vector_hits | 또는 융합 후보 |  | mode·top_k","textChars":32,"textLines":4,"bbox":[72,349,330,260]}
+{"kind":"textbox","id":"sh/zepovil0","slide":36,"name":"v2-312","text":"1  vector 계열이면 Vector 후보 재사용\n\n2  hybrid 계열이면 융합 후보 재사용\n\n3  baseline_hits와 현재 hits 분리 보관","textPreview":"1  vector 계열이면 Vector 후보 재사용 |  | 2  hybrid 계열이면 융합 후보 재사용 |  | 3  baseline_hits와 현재 hits 분리 보관","textChars":87,"textLines":5,"bbox":[466,349,604,310]}
+{"kind":"textbox","id":"sh/83i5872h","slide":36,"name":"v2-313","text":"baseline_hits\n원 질문 후보\n\nhits\n현재 상위 결과","textPreview":"baseline_hits | 원 질문 후보 |  | hits | 현재 상위 결과","textChars":36,"textLines":5,"bbox":[1134,349,330,260]}
+{"kind":"textbox","id":"sh/94r61c32","slide":36,"name":"v2-314","text":"분기: 변환 질문 있음 → search_transformed  /  변환 없음·리랭크 모드 → rerank  /  그 외 검색 완료","textPreview":"분기: 변환 질문 있음 → search_transformed  /  변환 없음·리랭크 모드 → rerank  /  그 외 검색 완료","textChars":73,"textLines":1,"bbox":[72,719,1392,62]}
+{"kind":"textbox","id":"sh/m10n6xkr","slide":36,"name":"v2-495","text":"36","textPreview":"36","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/m9s3ehgf","slide":36,"text":"노드: complete_original_results\n원 질문 후보 확정\n\nRETRIEVER  /  노드 상세\ncomplete_original_results  :  원 질문 후보 확정\n변환 질문 검색 전에 원 질문의 기준 결과를 따로 보존\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nvector_hits\n또는 융합 후보\n\nmode·top_k\n1  vector 계열이면 Vector 후보 재사용\n\n2  hybrid 계열이면 융합 후보 재사용\n\n3  baseline_hits와 현재 hits 분리 보관\nbaseline_hits\n원 질문 후보\n\nhits\n현재 상위 결과\n분기: 변환 질문 있음 → search_transformed  /  변환 없음·리랭크 모드 → rerank  /  그 외 검색 완료\n36\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/jyhsreh4","slide":37,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/8b69gbqd","slide":37,"name":"v2-315","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/61c7md0r","slide":37,"name":"v2-316","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/7m58vyhw","slide":37,"name":"v2-317","text":"complete_original_results  :  기준 후보 보존 코드","textPreview":"complete_original_results  :  기준 후보 보존 코드","textChars":41,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/kzupk3il","slide":37,"name":"v2-318","text":"현재 구현은 리랭크 입력 후보 수와 최종 출력 수를 구분","textPreview":"현재 구현은 리랭크 입력 후보 수와 최종 출력 수를 구분","textChars":31,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/503qt8z6","slide":37,"name":"v2-319","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/ixc7it0f","slide":37,"name":"v2-320","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/jyl8ryh0","slide":37,"name":"v2-321","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/4vy9wnyp","slide":37,"name":"v2-322","text":"if _uses_vector_only(state.get(\"mode\")):\n    baseline = list(state.get(\"vector_hits\", []))[: self._candidate_sizes(state).fused_k]\nelse:\n    baseline = list(state.get(\"baseline_hits\", state.get(\"candidates\", [])))\nreturn {\n    \"baseline_hits\": baseline,\n    \"hits\": list(baseline[: int(state.get(\"top_k\", len(baseline)))]),\n}","textPreview":"if _uses_vector_only(state.get(\"mode\")): |     baseline = list(state.get(\"vector_hits\", []))[: self._candidate_sizes(state).fused_k] | el...","textChars":325,"textLines":8,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/pw7q5sza","slide":37,"name":"v2-323","text":"top_k=5인 리랭크 모드: baseline_hits에 10개, hits에 5개를 보관","textPreview":"top_k=5인 리랭크 모드: baseline_hits에 10개, hits에 5개를 보관","textChars":49,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/9cfa9gry","slide":37,"name":"v2-496","text":"37","textPreview":"37","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/jyhsreh4","slide":37,"text":"노드: complete_original_results\n기준 후보 보존 코드\n\nRETRIEVER  /  노드 상세\ncomplete_original_results  :  기준 후보 보존 코드\n현재 구현은 리랭크 입력 후보 수와 최종 출력 수를 구분\n하이브리드 AI  ·  Workflow 노드 해설\nif _uses_vector_only(state.get(\"mode\")):\n    baseline = list(state.get(\"vector_hits\", []))[: self._candidate_sizes(state).fused_k]\nelse:\n    baseline = list(state.get(\"baseline_hits\", state.get(\"candidates\", [])))\nreturn {\n    \"baseline_hits\": baseline,\n    \"hits\": list(baseline[: int(state.get(\"top_k\", len(baseline)))]),\n}\ntop_k=5인 리랭크 모드: baseline_hits에 10개, hits에 5개를 보관\n37\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n원본 핵심 코드 출처: 페이지"}
+{"kind":"slide","id":"sl/ofahkri5","slide":38,"title":"RETRIEVER  /  노드 상세","textShapes":12}
+{"kind":"shape","id":"sh/gfihon6d","slide":38,"name":"v2-324","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/kvy1kbep","slide":38,"name":"v2-325","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/lw7idgva","slide":38,"name":"v2-326","text":"search_transformed  :  변환 질문별 추가 검색","textPreview":"search_transformed  :  변환 질문별 추가 검색","textChars":35,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/mxgjmlwv","slide":38,"name":"v2-327","text":"원 질문의 후보를 유지한 채 변환 질문마다 독립된 후보 그룹 생성","textPreview":"원 질문의 후보를 유지한 채 변환 질문마다 독립된 후보 그룹 생성","textChars":36,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/7yp0f6dg","slide":38,"name":"v2-328","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/8zi1obe1","slide":38,"name":"v2-329","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/90rihgv6","slide":38,"name":"v2-330","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[72,264,330,64]}
+{"kind":"textbox","id":"sh/u10jqlwr","slide":38,"name":"v2-331","text":"핵심 처리","textPreview":"핵심 처리","textChars":5,"textLines":1,"bbox":[466,264,604,64]}
+{"kind":"textbox","id":"sh/v290jqdc","slide":38,"name":"v2-332","text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[1134,264,330,64]}
+{"kind":"shape","id":"sh/kbqlwv61","slide":38,"bbox":[402,296,64,0]}
+{"kind":"shape","id":"sh/lczmp07m","slide":38,"bbox":[1070,296,64,0]}
+{"kind":"textbox","id":"sh/5kbilcnu","slide":38,"name":"v2-333","text":"transformed_queries\n변환 질문 목록\n\nmode·role·top_k","textPreview":"transformed_queries | 변환 질문 목록 |  | mode·role·top_k","textChars":45,"textLines":4,"bbox":[72,349,330,260]}
+{"kind":"textbox","id":"sh/4j2hs7m9","slide":38,"name":"v2-334","text":"1  변환 질문을 하나씩 같은 모드로 검색\n\n2  질문별 결과를 같은 순서로 저장\n\n3  실패 그룹은 빈 목록과 경고로 남김","textPreview":"1  변환 질문을 하나씩 같은 모드로 검색 |  | 2  질문별 결과를 같은 순서로 저장 |  | 3  실패 그룹은 빈 목록과 경고로 남김","textChars":69,"textLines":5,"bbox":[466,349,604,310]}
+{"kind":"textbox","id":"sh/ve90f25s","slide":38,"name":"v2-335","text":"transformed_\nhit_groups\n질문별 후보 묶음\n\nwarnings","textPreview":"transformed_ | hit_groups | 질문별 후보 묶음 |  | warnings","textChars":43,"textLines":5,"bbox":[1134,349,330,260]}
+{"kind":"textbox","id":"sh/ud0zmxo7","slide":38,"name":"v2-336","text":"다음: vector·hybrid는 merge_queries  /  리랭크 모드는 사전 RRF 없이 rerank","textPreview":"다음: vector·hybrid는 merge_queries  /  리랭크 모드는 사전 RRF 없이 rerank","textChars":61,"textLines":1,"bbox":[72,719,1392,62]}
+{"kind":"textbox","id":"sh/hgrihsny","slide":38,"name":"v2-497","text":"38","textPreview":"38","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/ofahkri5","slide":38,"text":"노드: search_transformed\n변환 질문별 추가 검색\n\nRETRIEVER  /  노드 상세\nsearch_transformed  :  변환 질문별 추가 검색\n원 질문의 후보를 유지한 채 변환 질문마다 독립된 후보 그룹 생성\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\ntransformed_queries\n변환 질문 목록\n\nmode·role·top_k\n1  변환 질문을 하나씩 같은 모드로 검색\n\n2  질문별 결과를 같은 순서로 저장\n\n3  실패 그룹은 빈 목록과 경고로 남김\ntransformed_\nhit_groups\n질문별 후보 묶음\n\nwarnings\n다음: vector·hybrid는 merge_queries  /  리랭크 모드는 사전 RRF 없이 rerank\n38\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/twb2lg7e","slide":39,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/dkvqxsji","slide":39,"name":"v2-337","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/50769kvu","slide":39,"name":"v2-338","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/4ze50fu9","slide":39,"name":"v2-339","text":"search_transformed  :  변환 질문 검색 실행 코드","textPreview":"search_transformed  :  변환 질문 검색 실행 코드","textChars":37,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/r2pobudk","slide":39,"name":"v2-340","text":"변환 질문을 순서대로 검색하고, 질문별 결과와 실패 경고를 반환","textPreview":"변환 질문을 순서대로 검색하고, 질문별 결과와 실패 경고를 반환","textChars":35,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/q1gn2pcf","slide":39,"name":"v2-341","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/do76d4vq","slide":39,"name":"v2-342","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/snyp4zu5","slide":39,"name":"v2-343","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/76lozqdg","slide":39,"name":"v2-344","text":"def _run_search_transformed(self, state: RetrieverState, **_kwargs: Any) -> dict[str, Any]:\n    groups, warnings = [], []\n    for query in state.get(\"transformed_queries\", []):\n        try:\n            groups.append(self._search_one(query, state))\n        except Exception as error:\n            groups.append([])\n            warnings.append(f\"변환 질의 검색 실패: {type(error).__name__}\")\n    return {\"transformed_hit_groups\": groups, \"warnings\": warnings}","textPreview":"def _run_search_transformed(self, state: RetrieverState, **_kwargs: Any) -> dict[str, Any]: |     groups, warnings = [], [] |     for que...","textChars":448,"textLines":9,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/65cnq5cv","slide":39,"name":"v2-345","text":"실패한 질문은 빈 목록으로 위치 유지  /  warnings에 예외 종류 기록  /  단일 질문 검색은 다음 페이지","textPreview":"실패한 질문은 빈 목록으로 위치 유지  /  warnings에 예외 종류 기록  /  단일 질문 검색은 다음 페이지","textChars":64,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/sjmpon2x","slide":39,"name":"v2-498","text":"39","textPreview":"39","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/twb2lg7e","slide":39,"text":"노드: search_transformed\n함수: _run_search_transformed\n변환 질문을 입력 순서대로 하나씩 _search_one에 전달함. 성공 결과는 groups에 추가함. 실패 시 빈 목록으로 질문과 결과의 위치 대응을 유지하며 예외 클래스명을 warnings에 기록함. 실패 후에도 다음 질문을 처리함. 결과는 transformed_hit_groups와 warnings로 반환함.\n단일 질문의 검색 방식은 다음 페이지 _search_one에서 설명함.\n출처: 사용자 제공 코드 및 hybrid-ai-lab/vector/retriever/app/application/graph.py\n\ndef _run_search_transformed(self, state: RetrieverState, **_kwargs: Any) -> dict[str, Any]:\n    groups, warnings = [], []\n    for query in state.get(\"transformed_queries\", []):\n        try:\n            groups.append(self._search_one(query, state))\n        except Exception as error:\n            groups.append([])\n            warnings.append(f\"변환 질의 검색 실패: {type(error).__name__}\")\n    return {\"transformed_hit_groups\": groups, \"warnings\": warnings}"}
+{"kind":"slide","id":"sl/5ojatgfe","slide":40,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/gvel4ze5","slide":40,"name":"v2-346","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/y9gzu50n","slide":40,"name":"v2-347","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/zapg3qh8","slide":40,"name":"v2-348","text":"search_transformed  :  현재 구현의 검색 분기","textPreview":"search_transformed  :  현재 구현의 검색 분기","textChars":35,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/cnexsvih","slide":40,"name":"v2-349","text":"현재 소스의 _search_one 핵심 코드","textPreview":"현재 소스의 _search_one 핵심 코드","textChars":24,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/x8ny10z2","slide":40,"name":"v2-350","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/alwfql0r","slide":40,"name":"v2-351","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/bm5gzqhw","slide":40,"name":"v2-352","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/ojexobil","slide":40,"name":"v2-353","text":"sizes = self._candidate_sizes(state)\nvector_hits = self._search_vector(query, state[\"role\"], sizes.raw_k)\nif _uses_vector_only(state[\"mode\"]):\n    return vector_hits[: sizes.fused_k]\nreturn self._fuse(\n    vector_hits,\n    self.bm25.keyword_search(\n        query,\n        allowed_access_levels=allowed_levels(state[\"role\"]),\n        k=sizes.raw_k,\n    ),\n    state[\"role\"],\n    sizes.fused_k,\n)","textPreview":"sizes = self._candidate_sizes(state) | vector_hits = self._search_vector(query, state[\"role\"], sizes.raw_k) | if _uses_vector_only(state[...","textChars":394,"textLines":14,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/pknyxgz6","slide":40,"name":"v2-354","text":"_uses_vector_only는 vector와 vector_rerank를 모두 포함","textPreview":"_uses_vector_only는 vector와 vector_rerank를 모두 포함","textChars":47,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/1wnmx4vq","slide":40,"name":"v2-499","text":"40","textPreview":"40","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/5ojatgfe","slide":40,"text":"노드: search_transformed\n현재 구현의 검색 분기\n\nRETRIEVER  /  노드 상세\nsearch_transformed  :  현재 구현의 검색 분기\n현재 소스의 _search_one 핵심 코드\n하이브리드 AI  ·  Workflow 노드 해설\nsizes = self._candidate_sizes(state)\nvector_hits = self._search_vector(query, state[\"role\"], sizes.raw_k)\nif _uses_vector_only(state[\"mode\"]):\n    return vector_hits[: sizes.fused_k]\nreturn self._fuse(\n    vector_hits,\n    self.bm25.keyword_search(\n        query,\n        allowed_access_levels=allowed_levels(state[\"role\"]),\n        k=sizes.raw_k,\n    ),\n    state[\"role\"],\n    sizes.fused_k,\n)\n_uses_vector_only는 vector와 vector_rerank를 모두 포함\n40\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n원본 핵심 코드 출처: 페이지"}
+{"kind":"slide","id":"sl/cnmpwjmp","slide":41,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/dwjqd8r2","slide":41,"name":"v2-355","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/t0rqhkju","slide":41,"name":"v2-356","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/szi98fi9","slide":41,"name":"v2-357","text":"merge_queries  :  가중 RRF 순위 병합","textPreview":"merge_queries  :  가중 RRF 순위 병합","textChars":30,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/f298ju10","slide":41,"name":"v2-358","text":"질문별 후보 목록을 chunk_id로 묶고 그룹 가중치와 순위를 누적","textPreview":"질문별 후보 목록을 chunk_id로 묶고 그룹 가중치와 순위를 누적","textChars":38,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/u10rap0f","slide":41,"name":"v2-359","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/h4bqlkj6","slide":41,"name":"v2-360","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/g3i9czil","slide":41,"name":"v2-361","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/36t8nu1w","slide":41,"name":"v2-362","text":"merged: dict[str, dict[str, Any]] = {}\nfor label, hits, weight in ranked_lists:\n    # 검색결과가 유사도 점수 순으로 정렬되어 있으므로 position은 랭킹값임\n    for position, hit in enumerate(hits, start=1):\n        item = merged.setdefault(hit.chunk_id, {\"hit\": hit, \"rrf_score\": 0.0, \"source_ranks\": {}})\n        # RRF score: 가중치 / (RRF 상수 + 랭킹)\n        item[\"rrf_score\"] += weight / (rrf_k + position)","textPreview":"merged: dict[str, dict[str, Any]] = {} | for label, hits, weight in ranked_lists: |     # 검색결과가 유사도 점수 순으로 정렬되어 있으므로 position은 랭킹값임 |    ...","textChars":375,"textLines":7,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/25krep0r","slide":41,"name":"v2-363","text":"기본 rrf_k=60  /  일반 변환: 원 질문 0.5, 변환 질문 전체 0.5  /  다음: 검색 완료","textPreview":"기본 rrf_k=60  /  일반 변환: 원 질문 0.5, 변환 질문 전체 0.5  /  다음: 검색 완료","textChars":59,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/cvqp43qh","slide":41,"name":"v2-500","text":"41","textPreview":"41","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/cnmpwjmp","slide":41,"text":"노드: merge_queries\n가중 RRF 순위 병합\n\nRETRIEVER  /  노드 상세\nmerge_queries  :  가중 RRF 순위 병합\n질문별 후보 목록을 chunk_id로 묶고 그룹 가중치와 순위를 누적\n하이브리드 AI  ·  Workflow 노드 해설\nmerged: dict[str, dict[str, Any]] = {}\nfor label, hits, weight in ranked_lists:\n    # 검색결과가 유사도 점수 순으로 정렬되어 있으므로 position은 랭킹값임\n    for position, hit in enumerate(hits, start=1):\n        item = merged.setdefault(hit.chunk_id, {\"hit\": hit, \"rrf_score\": 0.0, \"source_ranks\": {}})\n        # RRF score: 가중치 / (RRF 상수 + 랭킹)\n        item[\"rrf_score\"] += weight / (rrf_k + position)\n기본 rrf_k=60  /  일반 변환: 원 질문 0.5, 변환 질문 전체 0.5  /  다음: 검색 완료\n41\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py\n원본 핵심 코드 출처: 12페이지"}
+{"kind":"slide","id":"sl/7mdw7yh8","slide":42,"title":"RETRIEVER  /  노드 상세","textShapes":10}
+{"kind":"shape","id":"sh/upsrql0f","slide":42,"name":"v2-364","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/mlovmtcr","slide":42,"name":"v2-365","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/nmxwfetc","slide":42,"name":"v2-366","text":"merge_queries  :  분해 질문의 근거 확보","textPreview":"merge_queries  :  분해 질문의 근거 확보","textChars":30,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/0j6dkjul","slide":42,"name":"v2-367","text":"리랭크 없는 decomposition은 하위 질문의 대표 근거를 먼저 확보","textPreview":"리랭크 없는 decomposition은 하위 질문의 대표 근거를 먼저 확보","textChars":41,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/lkfedov6","slide":42,"name":"v2-368","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/yh4vi9cv","slide":42,"name":"v2-369","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/zixcbedg","slide":42,"name":"v2-370","text":"원 질문 + 하위 질문 그룹","textPreview":"원 질문 + 하위 질문 그룹","textChars":15,"textLines":1,"bbox":[72,274,307.5,124]}
+{"kind":"textbox","id":"sh/cfmdgzup","slide":42,"name":"v2-371","text":"가중 RRF 계산","textPreview":"가중 RRF 계산","textChars":9,"textLines":1,"bbox":[433.5,274,307.5,124]}
+{"kind":"textbox","id":"sh/dgvu94va","slide":42,"name":"v2-372","text":"하위 Top-1 우선 확보","textPreview":"하위 Top-1 우선 확보","textChars":14,"textLines":1,"bbox":[795,274,307.5,124]}
+{"kind":"textbox","id":"sh/5w3qp0z2","slide":42,"name":"v2-373","text":"나머지 순위 채우기","textPreview":"나머지 순위 채우기","textChars":10,"textLines":1,"bbox":[1156.5,274,307.5,124]}
+{"kind":"shape","id":"sh/bil87698","slide":42,"bbox":[379.5,336,54,0]}
+{"kind":"shape","id":"sh/wfy9cfqd","slide":42,"bbox":[741,336,54,0]}
+{"kind":"shape","id":"sh/x07alk7y","slide":42,"bbox":[1102.5,336,54,0]}
+{"kind":"textbox","id":"sh/wra9svi5","slide":42,"name":"v2-374","text":"변환 결과가 비어 있으면 원 질문 결과 사용  /  최종 결과가 정해지면 답변 관문 판정","textPreview":"변환 결과가 비어 있으면 원 질문 결과 사용  /  최종 결과가 정해지면 답변 관문 판정","textChars":49,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/vq18zqhk","slide":42,"name":"v2-501","text":"42","textPreview":"42","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/8z29orml","slide":42,"name":"","rows":3,"cols":4,"preview":"변환 기법 | 원 질문 가중치 | 변환 질문 전체 | 결합 방식","bbox":[72,470,1392,201]}
+{"kind":"notes","id":"nt/7mdw7yh8","slide":42,"text":"노드: merge_queries\n분해 질문의 근거 확보\n\nRETRIEVER  /  노드 상세\nmerge_queries  :  분해 질문의 근거 확보\n리랭크 없는 decomposition은 하위 질문의 대표 근거를 먼저 확보\n하이브리드 AI  ·  Workflow 노드 해설\n원 질문 + 하위 질문 그룹\n가중 RRF 계산\n하위 Top-1 우선 확보\n나머지 순위 채우기\n변환 결과가 비어 있으면 원 질문 결과 사용  /  최종 결과가 정해지면 답변 관문 판정\n42\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py\n"}
+{"kind":"slide","id":"sl/qhkbqxoz","slide":43,"title":"RETRIEVER  /  노드 상세","textShapes":12}
+{"kind":"shape","id":"sh/rmx0nal8","slide":43,"name":"v2-375","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/5ojy5gr2","slide":43,"name":"v2-376","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/43axcvqx","slide":43,"name":"v2-377","text":"rerank  :  질문별 후보 재평가","textPreview":"rerank  :  질문별 후보 재평가","textChars":21,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/vyhgz690","slide":43,"name":"v2-378","text":"Cross-Encoder가 질문과 후보 본문을 함께 읽어 관련성을 다시 평가","textPreview":"Cross-Encoder가 질문과 후보 본문을 함께 읽어 관련성을 다시 평가","textChars":42,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/ux8f618f","slide":43,"name":"v2-379","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/h0jy1gr6","slide":43,"name":"v2-380","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/wzax8bql","slide":43,"name":"v2-381","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[72,264,330,64]}
+{"kind":"textbox","id":"sh/fulgba9k","slide":43,"name":"v2-382","text":"핵심 처리","textPreview":"핵심 처리","textChars":5,"textLines":1,"bbox":[466,264,604,64]}
+{"kind":"textbox","id":"sh/etczi58z","slide":43,"name":"v2-383","text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[1134,264,330,64]}
+{"kind":"shape","id":"sh/bq5gjmdo","slide":43,"bbox":[402,296,64,0]}
+{"kind":"shape","id":"sh/apwfqhw3","slide":43,"bbox":[1070,296,64,0]}
+{"kind":"textbox","id":"sh/epojyp4j","slide":43,"name":"v2-384","text":"baseline_hits\n원 질문 후보\n\ntransformed_\nhit_groups\n변환 질문별 후보","textPreview":"baseline_hits | 원 질문 후보 |  | transformed_ | hit_groups | 변환 질문별 후보","textChars":56,"textLines":6,"bbox":[72,349,330,260]}
+{"kind":"textbox","id":"sh/fqh0rul4","slide":43,"name":"v2-385","text":"1  각 후보 그룹을 해당 질문으로 평가\n\n2  그룹 내부 순위를 새로 정렬\n\n3  변환 기법별 결합 규칙으로 최종 선택","textPreview":"1  각 후보 그룹을 해당 질문으로 평가 |  | 2  그룹 내부 순위를 새로 정렬 |  | 3  변환 기법별 결합 규칙으로 최종 선택","textChars":67,"textLines":5,"bbox":[466,349,604,310]}
+{"kind":"textbox","id":"sh/sn61wfmt","slide":43,"name":"v2-386","text":"hits\n최종 상위 결과\n\nrerank 점수\n경고·실패 정보","textPreview":"hits | 최종 상위 결과 |  | rerank 점수 | 경고·실패 정보","textChars":33,"textLines":5,"bbox":[1134,349,330,260]}
+{"kind":"textbox","id":"sh/tofipk3y","slide":43,"name":"v2-387","text":"일반 변환: 재정렬 후 RRF  /  decomposition: 하위 최고점 중심 결합  /  실패 시 원 결과 또는 RRF","textPreview":"일반 변환: 재정렬 후 RRF  /  decomposition: 하위 최고점 중심 결합  /  실패 시 원 결과 또는 RRF","textChars":69,"textLines":1,"bbox":[72,719,1392,62]}
+{"kind":"textbox","id":"sh/6loju54n","slide":43,"name":"v2-502","text":"43","textPreview":"43","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/qhkbqxoz","slide":43,"text":"노드: rerank\n질문별 후보 재평가\n\nRETRIEVER  /  노드 상세\nrerank  :  질문별 후보 재평가\nCross-Encoder가 질문과 후보 본문을 함께 읽어 관련성을 다시 평가\n하이브리드 AI  ·  Workflow 노드 해설\n입력\n핵심 처리\n출력\nbaseline_hits\n원 질문 후보\n\ntransformed_\nhit_groups\n변환 질문별 후보\n1  각 후보 그룹을 해당 질문으로 평가\n\n2  그룹 내부 순위를 새로 정렬\n\n3  변환 기법별 결합 규칙으로 최종 선택\nhits\n최종 상위 결과\n\nrerank 점수\n경고·실패 정보\n일반 변환: 재정렬 후 RRF  /  decomposition: 하위 최고점 중심 결합  /  실패 시 원 결과 또는 RRF\n43\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/pcvutcvy","slide":44,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/tszihov6","slide":44,"name":"v2-388","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/tozulw3e","slide":44,"name":"v2-389","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/s3qdcr2t","slide":44,"name":"v2-390","text":"rerank  :  Cross-Encoder 호출 코드","textPreview":"rerank  :  Cross-Encoder 호출 코드","textChars":30,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/fqhcn6lk","slide":44,"name":"v2-391","text":"원본 자료의 모델 적재와 predict 핵심 코드 보존","textPreview":"원본 자료의 모델 적재와 predict 핵심 코드 보존","textChars":30,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/ep8ve1kz","slide":44,"name":"v2-392","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/1szepg3q","slide":44,"name":"v2-393","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/grqdgb25","slide":44,"name":"v2-394","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/vuxcb2lg","slide":44,"name":"v2-395","text":"self._model = CrossEncoder(self.model_name, max_length=self.max_length)\n\nraw = model.predict(\n    [(query, text) for text in texts],\n    activation_fn=torch.nn.Sigmoid(),\n    show_progress_bar=False,\n)","textPreview":"self._model = CrossEncoder(self.model_name, max_length=self.max_length) |  | raw = model.predict( |     [(query, text) for text in texts]...","textChars":201,"textLines":7,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/ut4b2xkv","slide":44,"name":"v2-396","text":"질문과 각 후보 본문을 한 쌍으로 평가  /  일반 변환은 서로 다른 그룹의 원점수를 직접 합산하지 않음","textPreview":"질문과 각 후보 본문을 한 쌍으로 평가  /  일반 변환은 서로 다른 그룹의 원점수를 직접 합산하지 않음","textChars":58,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/8rqh8jul","slide":44,"name":"v2-503","text":"44","textPreview":"44","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/pcvutcvy","slide":44,"text":"노드: rerank\nCross-Encoder 호출 코드\n\nRETRIEVER  /  노드 상세\nrerank  :  Cross-Encoder 호출 코드\n원본 자료의 모델 적재와 predict 핵심 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\nself._model = CrossEncoder(self.model_name, max_length=self.max_length)\n\nraw = model.predict(\n    [(query, text) for text in texts],\n    activation_fn=torch.nn.Sigmoid(),\n    show_progress_bar=False,\n)\n질문과 각 후보 본문을 한 쌍으로 평가  /  일반 변환은 서로 다른 그룹의 원점수를 직접 합산하지 않음\n44\n\n소스: hybrid-ai-lab/vector/retriever/app/infrastructure/reranker.py\n원본 핵심 코드 출처: 12페이지"}
+{"kind":"slide","id":"sl/kvipwnmh","slide":45,"title":"RETRIEVER  /  노드 상세","textShapes":10}
+{"kind":"shape","id":"sh/pkna58bu","slide":45,"name":"v2-397","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/lsz2dofy","slide":45,"name":"v2-398","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/0rq1kjed","slide":45,"name":"v2-399","text":"rerank  :  decomposition 점수 결합","textPreview":"rerank  :  decomposition 점수 결합","textChars":30,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/ne1kfydo","slide":45,"name":"v2-400","text":"각 하위 질문의 상위 3개 후보를 확보하고 중복 청크는 최고 점수 채택","textPreview":"각 하위 질문의 상위 3개 후보를 확보하고 중복 청크는 최고 점수 채택","textChars":39,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/mtsjmtw3","slide":45,"name":"v2-401","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/9gj2hovu","slide":45,"name":"v2-402","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/8fa1oje9","slide":45,"name":"v2-403","text":"하위 질문별 Top-3\n중복 청크의 최고 점수","textPreview":"하위 질문별 Top-3 | 중복 청크의 최고 점수","textChars":25,"textLines":2,"bbox":[72,270,623,118]}
+{"kind":"textbox","id":"sh/vi1kjyd0","slide":45,"name":"v2-404","text":"원 질문으로 평가한\n같은 청크의 점수","textPreview":"원 질문으로 평가한 | 같은 청크의 점수","textChars":20,"textLines":2,"bbox":[841,270,623,118]}
+{"kind":"textbox","id":"sh/ahs3qtwf","slide":45,"name":"v2-405","text":"최종 = 하위 질문 최고점 × 0.9 + 원 질문 점수 × 0.1","textPreview":"최종 = 하위 질문 최고점 × 0.9 + 원 질문 점수 × 0.1","textChars":36,"textLines":1,"bbox":[72,487,1392,99]}
+{"kind":"shape","id":"sh/9wj21ozu","slide":45,"bbox":[383.5,388,384.5,99]}
+{"kind":"shape","id":"sh/ova18jip","slide":45,"bbox":[768,388,384.5,99]}
+{"kind":"textbox","id":"sh/utcrqtc7","slide":45,"name":"v2-406","text":"예시: 하위 최고 0.90, 원 질문 0.80인 청크의 최종 점수는 0.89","textPreview":"예시: 하위 최고 0.90, 원 질문 0.80인 청크의 최종 점수는 0.89","textChars":42,"textLines":1,"bbox":[72,634,1392,58]}
+{"kind":"textbox","id":"sh/fulszyts","slide":45,"name":"v2-407","text":"하위 질문별 가중치를 나누어 더하지 않고 최고점에 0.9 적용  /  일반 변환은 RRF 사용","textPreview":"하위 질문별 가중치를 나누어 더하지 않고 최고점에 0.9 적용  /  일반 변환은 RRF 사용","textChars":52,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/4zetw3u9","slide":45,"name":"v2-504","text":"45","textPreview":"45","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/kvipwnmh","slide":45,"text":"노드: rerank\ndecomposition 점수 결합\n\nRETRIEVER  /  노드 상세\nrerank  :  decomposition 점수 결합\n각 하위 질문의 상위 3개 후보를 확보하고 중복 청크는 최고 점수 채택\n하이브리드 AI  ·  Workflow 노드 해설\n하위 질문별 Top-3\n중복 청크의 최고 점수\n원 질문으로 평가한\n같은 청크의 점수\n최종 = 하위 질문 최고점 × 0.9 + 원 질문 점수 × 0.1\n예시: 하위 최고 0.90, 원 질문 0.80인 청크의 최종 점수는 0.89\n하위 질문별 가중치를 나누어 더하지 않고 최고점에 0.9 적용  /  일반 변환은 RRF 사용\n45\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py\n"}
+{"kind":"slide","id":"sl/zixsf2ps","slide":46,"title":"rerank : 처리 예시","textShapes":2}
+{"kind":"textbox","id":"sh/a9s3uhcv","slide":46,"name":"제목 1","placeholder":"title","text":"rerank : 처리 예시","textPreview":"rerank : 처리 예시","textChars":14,"textLines":1,"bbox":[53.5,10.42,1442.4,84.69]}
+{"kind":"textbox","id":"sh/pgbmdcze","slide":46,"name":"Slide Number Placeholder 0","placeholder":"slideNumber","text":"13","textPreview":"13","textChars":2,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"image","id":"im/lof25ozq","slide":46,"name":"그림 17","bbox":[118.45,98.45,1299.1,731.13]}
+{"kind":"notes","id":"nt/zixsf2ps","slide":46,"text":"핵심 메시지: 자동화의 목적은 '사람 대체'가 아니라 '사람이 더 중요한 일에 집중'.\n\n[발표] 골든서클 WHY. 청중에게 '내 업무 중 매번 반복하는 일'을 떠올리게 함(2주 과제 복선). 자동화는 일자리 위협이 아니라 단순 반복에서 벗어나 판단·창의에 집중하는 도구. 보안 IC 기업 특성상 '사람 최종 승인'이 기본 전제임을 미리 암시. 출처: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"}
+{"kind":"slide","id":"sl/atcnytkf","slide":47,"title":"RETRIEVER  /  노드 상세","textShapes":9}
+{"kind":"shape","id":"sh/14rmtgvy","slide":47,"name":"v2-408","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/503e9ora","slide":47,"name":"v2-409","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/4zadgjap","slide":47,"name":"v2-410","text":"build_prompt  :  답변 관문과 근거 입력","textPreview":"build_prompt  :  답변 관문과 근거 입력","textChars":29,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/rmlwby90","slide":47,"name":"v2-411","text":"검색 결과가 확정되면 답변 가능 여부를 확인한 뒤 프롬프트 구성","textPreview":"검색 결과가 확정되면 답변 가능 여부를 확인한 뒤 프롬프트 구성","textChars":35,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/6lcvitsf","slide":47,"name":"v2-412","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/do3edor6","slide":47,"name":"v2-413","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/snudk3al","slide":47,"name":"v2-414","text":"최종 검색 결과","textPreview":"최종 검색 결과","textChars":8,"textLines":1,"bbox":[72,268,428,119]}
+{"kind":"textbox","id":"sh/7qhczu9w","slide":47,"name":"v2-415","text":"최종 1위 vector_score ≥ 0.62","textPreview":"최종 1위 vector_score ≥ 0.62","textChars":25,"textLines":1,"bbox":[554,268,428,119]}
+{"kind":"textbox","id":"sh/mp8v6psb","slide":47,"name":"v2-416","text":"근거 XML 구성","textPreview":"근거 XML 구성","textChars":9,"textLines":1,"bbox":[1036,268,428,119]}
+{"kind":"shape","id":"sh/5sf2psnu","slide":47,"bbox":[500,327.5,54,0]}
+{"kind":"shape","id":"sh/kr6lwn69","slide":47,"bbox":[982,327.5,54,0]}
+{"kind":"textbox","id":"sh/ryp4n6dw","slide":47,"name":"v2-417","text":"0.62 판정은 앞선 검색 완료 처리에서 수행  /  미달이면 needs_check  /  다음: generate_answer","textPreview":"0.62 판정은 앞선 검색 완료 처리에서 수행  /  미달이면 needs_check  /  다음: generate_answer","textChars":70,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/03y50ved","slide":47,"name":"v2-505","text":"47","textPreview":"47","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/8v65wb21","slide":47,"name":"","rows":4,"cols":2,"preview":"입력 | 프롬프트 구성","bbox":[72,445,1392,234]}
+{"kind":"notes","id":"nt/atcnytkf","slide":47,"text":"노드: build_prompt\n답변 관문과 근거 입력\n\nRETRIEVER  /  노드 상세\nbuild_prompt  :  답변 관문과 근거 입력\n검색 결과가 확정되면 답변 가능 여부를 확인한 뒤 프롬프트 구성\n하이브리드 AI  ·  Workflow 노드 해설\n최종 검색 결과\n최종 1위 vector_score ≥ 0.62\n근거 XML 구성\n0.62 판정은 앞선 검색 완료 처리에서 수행  /  미달이면 needs_check  /  다음: generate_answer\n47\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/pwb6x4jy","slide":48,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/dw7etgzq","slide":48,"name":"v2-418","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/94va1sf2","slide":48,"name":"v2-419","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/83m9snyx","slide":48,"name":"v2-420","text":"build_prompt  :  XML 근거 구성 코드","textPreview":"build_prompt  :  XML 근거 구성 코드","textChars":29,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/zyt8vix0","slide":48,"name":"v2-421","text":"원본 자료의 검색결과·질문·수정 지침 구성 코드 보존","textPreview":"원본 자료의 검색결과·질문·수정 지침 구성 코드 보존","textChars":29,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/yxkrmdgf","slide":48,"name":"v2-422","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/l0vaxsf6","slide":48,"name":"v2-423","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/kzm9onyl","slide":48,"name":"v2-424","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/juxs7mxk","slide":48,"name":"v2-425","text":"user prompt 구성: \n<검색결과 목록>{evidence}</검색결과 목록>\n<사용자질문>{질문}</사용자질문>\n<수정지침>{hints}</수정지침>\n\n{evidence} 구성 방법: \nfor index, hit in enumerate(state.get(\"hits\", []), start=1):\n    blocks.append(\n        f'<검색결과 순번=\"{index}\">\\n＇\n        f\"<청크ID>{escape(str(hit.chunk_id))}</청크ID>\\n\"\n        f\"<문서유형>{escape(str(hit.metadata.get('doc_type', 'unknown')))}</문서유형>\\n\"\n        f\"<원본문서>{escape(str(hit.source))}</원본문서>\\n\"\n        f\"<위치>{escape(str(hit.location))}</위치>\\n\"\n        f\"<본문>{escape(str(hit.text))}</본문>\\n\"\n         \"</검색결과>\"\n    )","textPreview":"user prompt 구성:  | <검색결과 목록>{evidence}</검색결과 목록> | <사용자질문>{질문}</사용자질문> | <수정지침>{hints}</수정지침> |  | {evidence} 구성 방법:  | for index, hit in...","textChars":528,"textLines":16,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/itoryhgz","slide":48,"name":"v2-426","text":"원본 코드의 따옴표·태그 공백은 강의 표기  /  실제 소스는 escape로 본문을 XML 안전 문자열로 변환","textPreview":"원본 코드의 따옴표·태그 공백은 강의 표기  /  실제 소스는 escape로 본문을 XML 안전 문자열로 변환","textChars":61,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/cvyxkbi5","slide":48,"name":"v2-506","text":"48","textPreview":"48","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/pwb6x4jy","slide":48,"text":"노드: build_prompt\nXML 근거 구성 코드\n\nRETRIEVER  /  노드 상세\nbuild_prompt  :  XML 근거 구성 코드\n원본 자료의 검색결과·질문·수정 지침 구성 코드 보존\n하이브리드 AI  ·  Workflow 노드 해설\nuser prompt 구성: \n<검색결과 목록>{evidence}</검색결과 목록>\n<사용자질문>{질문}</사용자질문>\n<수정지침>{hints}</수정지침>\n\n{evidence} 구성 방법: \nfor index, hit in enumerate(state.get(\"hits\", []), start=1):\n    blocks.append(\n        f'<검색결과 순번=\"{index}\">\\n＇\n        f\"<청크ID>{escape(str(hit.chunk_id))}</청크ID>\\n\"\n        f\"<문서유형>{escape(str(hit.metadata.get('doc_type', 'unknown')))}</문서유형>\\n\"\n        f\"<원본문서>{escape(str(hit.source))}</원본문서>\\n\"\n        f\"<위치>{escape(str(hit.location))}</위치>\\n\"\n        f\"<본문>{escape(str(hit.text))}</본문>\\n\"\n         \"</검색결과>\"\n    )\n원본 코드의 따옴표·태그 공백은 강의 표기  /  실제 소스는 escape로 본문을 XML 안전 문자열로 변환\n48\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n원본 핵심 코드 출처: 14페이지"}
+{"kind":"slide","id":"sl/oz2xg3q1","slide":49,"title":"RETRIEVER  /  노드 상세","textShapes":8}
+{"kind":"shape","id":"sh/kz6tcbad","slide":49,"name":"v2-427","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/0ra1w7al","slide":49,"name":"v2-428","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/1sj2psbq","slide":49,"name":"v2-429","text":"generate_answer  :  구조화 답변 생성","textPreview":"generate_answer  :  구조화 답변 생성","textChars":29,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/ql8jqdc3","slide":49,"name":"v2-430","text":"system·user 프롬프트로 LLM을 호출하고 정해진 답변 필드만 수신","textPreview":"system·user 프롬프트로 LLM을 호출하고 정해진 답변 필드만 수신","textChars":41,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/rmhkjito","slide":49,"name":"v2-431","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/cnq1snu9","slide":49,"name":"v2-432","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/doz2lsbu","slide":49,"name":"v2-433","text":"입력: prompt  +  남은 LLM 호출 예산","textPreview":"입력: prompt  +  남은 LLM 호출 예산","textChars":27,"textLines":1,"bbox":[72,258,1392,73]}
+{"kind":"shape","id":"sh/ahc3mhsn","slide":49,"name":"v2-434","bbox":[72,369,1392,145]}
+{"kind":"textbox","id":"sh/vilkvmt8","slide":49,"name":"v2-435","text":"runnable = model.with_structured_output(schema, **kwargs)\n\noutput = runnable.invoke([(\"system\", system), (\"human\", user)])","textPreview":"runnable = model.with_structured_output(schema, **kwargs) |  | output = runnable.invoke([(\"system\", system), (\"human\", user)])","textChars":122,"textLines":3,"bbox":[97,389,1342,105]}
+{"kind":"textbox","id":"sh/ixoba1c7","slide":49,"name":"v2-436","text":"원본 14페이지의 핵심 호출 코드 보존  /  다음: verify_evidence  /  예산 소진 시 중단","textPreview":"원본 14페이지의 핵심 호출 코드 보존  /  다음: verify_evidence  /  예산 소진 시 중단","textChars":60,"textLines":1,"bbox":[72,741,1392,62]}
+{"kind":"textbox","id":"sh/50fulgbi","slide":49,"name":"v2-507","text":"49","textPreview":"49","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/wn2x0b6h","slide":49,"name":"","rows":3,"cols":2,"preview":"출력 필드 | 의미","bbox":[72,562,1392,155]}
+{"kind":"notes","id":"nt/oz2xg3q1","slide":49,"text":"노드: generate_answer\n구조화 답변 생성\n\nRETRIEVER  /  노드 상세\ngenerate_answer  :  구조화 답변 생성\nsystem·user 프롬프트로 LLM을 호출하고 정해진 답변 필드만 수신\n하이브리드 AI  ·  Workflow 노드 해설\n입력: prompt  +  남은 LLM 호출 예산\nrunnable = model.with_structured_output(schema, **kwargs)\n\noutput = runnable.invoke([(\"system\", system), (\"human\", user)])\n원본 14페이지의 핵심 호출 코드 보존  /  다음: verify_evidence  /  예산 소진 시 중단\n49\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n원본 핵심 코드 출처: 14페이지"}
+{"kind":"slide","id":"sl/a9gvuxsb","slide":50,"title":"RETRIEVER  /  노드 상세","textShapes":6}
+{"kind":"shape","id":"sh/r2tobip8","slide":50,"name":"v2-437","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/ofq943e5","slide":50,"name":"v2-438","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/pgzax8vq","slide":50,"name":"v2-439","text":"verify_evidence  :  답변 구조와 인용 검증","textPreview":"verify_evidence  :  답변 구조와 인용 검증","textChars":32,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/eporytw3","slide":50,"name":"v2-440","text":"그럴듯함을 판단하는 대신, 답변이 가리키는 인용이 검색 청크에 있는지 확인","textPreview":"그럴듯함을 판단하는 대신, 답변이 가리키는 인용이 검색 청크에 있는지 확인","textChars":41,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/fqhsrydo","slide":50,"name":"v2-441","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/gbq90jet","slide":50,"name":"v2-442","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/6loru9wr","slide":50,"name":"v2-443","text":"출력: Answer + Verification  /  통과 시 END, 실패 시 build_prompt로 수정 요청  /  의미의 정확성은 별도 검토","textPreview":"출력: Answer + Verification  /  통과 시 END, 실패 시 build_prompt로 수정 요청  /  의미의 정확성은 별도 검토","textChars":83,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/rmx8nedc","slide":50,"name":"v2-508","text":"50","textPreview":"50","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"table","id":"tb/d47mdsnq","slide":50,"name":"","rows":5,"cols":3,"preview":"검증 | 확인 내용 | 오류 코드","bbox":[72,260,1392,381]}
+{"kind":"notes","id":"nt/a9gvuxsb","slide":50,"text":"노드: verify_evidence\n답변 구조와 인용 검증\n\nRETRIEVER  /  노드 상세\nverify_evidence  :  답변 구조와 인용 검증\n그럴듯함을 판단하는 대신, 답변이 가리키는 인용이 검색 청크에 있는지 확인\n하이브리드 AI  ·  Workflow 노드 해설\n출력: Answer + Verification  /  통과 시 END, 실패 시 build_prompt로 수정 요청  /  의미의 정확성은 별도 검토\n50\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/scoring.py\n"}
+{"kind":"slide","id":"sl/36hsrmts","slide":51,"title":"RETRIEVER  /  노드 상세","textShapes":7}
+{"kind":"shape","id":"sh/54ju10vm","slide":51,"name":"v2-444","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/l8rat03a","slide":51,"name":"v2-445","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/07yt0vmp","slide":51,"name":"v2-446","text":"verify_evidence  :  근거 대조 핵심 코드","textPreview":"verify_evidence  :  근거 대조 핵심 코드","textChars":31,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/na9sval0","slide":51,"name":"v2-447","text":"현재 소스에서 추가한 근거 검증 코드","textPreview":"현재 소스에서 추가한 근거 검증 코드","textChars":20,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/m90b254v","slide":51,"name":"v2-448","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/9craxk36","slide":51,"name":"v2-449","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"shape","id":"sh/8bit4fml","slide":51,"name":"v2-450","bbox":[72,258,1392,432]}
+{"kind":"textbox","id":"sh/3e5sj65w","slide":51,"name":"v2-451","text":"hit = hits[ref - 1]\nquote_ok = isinstance(quote, str) and verify_quote(quote, hit.text)\nlocation_ok = bool(hit.location)\n\n# 오류 목록이 모두 비었을 때만 자동 검증 통과\nautomatic_valid = not (\n    schema_errors or invalid_refs or quote_failures or location_failures\n)","textPreview":"hit = hits[ref - 1] | quote_ok = isinstance(quote, str) and verify_quote(quote, hit.text) | location_ok = bool(hit.location) |  | # 오류 목록...","textChars":248,"textLines":8,"bbox":[96,275,1344,404]}
+{"kind":"textbox","id":"sh/2dwrql4b","slide":51,"name":"v2-452","text":"location_ok는 위치 정보의 존재 검사  /  원문 파일을 다시 열어 위치의 정확성까지 대조하지 않음","textPreview":"location_ok는 위치 정보의 존재 검사  /  원문 파일을 다시 열어 위치의 정확성까지 대조하지 않음","textChars":60,"textLines":1,"bbox":[72,712,1392,62]}
+{"kind":"textbox","id":"sh/43ad8ve1","slide":51,"name":"v2-509","text":"51","textPreview":"51","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/36hsrmts","slide":51,"text":"노드: verify_evidence\n근거 대조 핵심 코드\n\nRETRIEVER  /  노드 상세\nverify_evidence  :  근거 대조 핵심 코드\n현재 소스에서 추가한 근거 검증 코드\n하이브리드 AI  ·  Workflow 노드 해설\nhit = hits[ref - 1]\nquote_ok = isinstance(quote, str) and verify_quote(quote, hit.text)\nlocation_ok = bool(hit.location)\n\n# 오류 목록이 모두 비었을 때만 자동 검증 통과\nautomatic_valid = not (\n    schema_errors or invalid_refs or quote_failures or location_failures\n)\nlocation_ok는 위치 정보의 존재 검사  /  원문 파일을 다시 열어 위치의 정확성까지 대조하지 않음\n51\n\n소스: hybrid-ai-lab/vector/retriever/app/domain/scoring.py\n원본 핵심 코드 출처: 페이지"}
+{"kind":"slide","id":"sl/gfe1wbu1","slide":52,"title":"RETRIEVER  /  노드 상세","textShapes":11}
+{"kind":"shape","id":"sh/k3qtcz6t","slide":52,"name":"v2-453","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/hozadsnm","slide":52,"name":"v2-454","text":"RETRIEVER  /  노드 상세","textPreview":"RETRIEVER  /  노드 상세","textChars":19,"textLines":1,"bbox":[72,28,1392,36]}
+{"kind":"textbox","id":"sh/gnq94n61","slide":52,"name":"v2-455","text":"verify_evidence  :  실패 수정과 종료 조건","textPreview":"verify_evidence  :  실패 수정과 종료 조건","textChars":32,"textLines":1,"bbox":[72,82,1392,84]}
+{"kind":"textbox","id":"sh/3q1sf25s","slide":52,"name":"v2-456","text":"오류별 수정 지침을 build_prompt에 전달하고 정해진 상한 안에서 재생성","textPreview":"오류별 수정 지침을 build_prompt에 전달하고 정해진 상한 안에서 재생성","textChars":44,"textLines":1,"bbox":[72,176,1392,50]}
+{"kind":"shape","id":"sh/2psr6xo7","slide":52,"name":"v2-457","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/psjahcny","slide":52,"name":"v2-458","text":"하이브리드 AI  ·  Workflow 노드 해설","textPreview":"하이브리드 AI  ·  Workflow 노드 해설","textChars":27,"textLines":1,"bbox":[72,819,1190,32]}
+{"kind":"textbox","id":"sh/4ra987md","slide":52,"name":"v2-459","text":"generate_answer\n답변 생성","textPreview":"generate_answer | 답변 생성","textChars":21,"textLines":2,"bbox":[72,272,349,116]}
+{"kind":"textbox","id":"sh/bu1sj254","slide":52,"name":"v2-460","text":"verify_evidence\n인용·구조 검사","textPreview":"verify_evidence | 인용·구조 검사","textChars":24,"textLines":2,"bbox":[581,272,375,116]}
+{"kind":"textbox","id":"sh/qtsbah4j","slide":52,"name":"v2-461","text":"검증 통과\nEND","textPreview":"검증 통과 | END","textChars":9,"textLines":2,"bbox":[1116,272,348,116]}
+{"kind":"shape","id":"sh/u94325cr","slide":52,"bbox":[421,330,160,0]}
+{"kind":"shape","id":"sh/dgb21gvy","slide":52,"bbox":[956,330,160,0]}
+{"kind":"textbox","id":"sh/29ob258v","slide":52,"name":"v2-462","text":"검증 실패\nbuild_prompt + repair_hints","textPreview":"검증 실패 | build_prompt + repair_hints","textChars":33,"textLines":2,"bbox":[487,498,563,116]}
+{"kind":"shape","id":"sh/2lgz2hsb","slide":52,"bbox":[768.5,388,0,110]}
+{"kind":"shape","id":"sh/3mp0bmtw","slide":52,"bbox":[246.5,388,240.5,168]}
+{"kind":"textbox","id":"sh/d0zu1k7i","slide":52,"name":"v2-463","text":"MAX_REPAIRS=2  /  API 기본 LLM 예산 총 2회  /  CLI 기본 총 8회","textPreview":"MAX_REPAIRS=2  /  API 기본 LLM 예산 총 2회  /  CLI 기본 총 8회","textChars":52,"textLines":1,"bbox":[72,665,1392,56]}
+{"kind":"textbox","id":"sh/qdob6por","slide":52,"name":"v2-464","text":"질문 변환 호출도 같은 예산 사용  /  횟수·예산 소진 시 halted_by_limit","textPreview":"질문 변환 호출도 같은 예산 사용  /  횟수·예산 소진 시 halted_by_limit","textChars":49,"textLines":1,"bbox":[72,729,1392,62]}
+{"kind":"textbox","id":"sh/byhczapc","slide":52,"name":"v2-510","text":"52","textPreview":"52","textChars":2,"textLines":1,"bbox":[1350,818,114,32]}
+{"kind":"notes","id":"nt/gfe1wbu1","slide":52,"text":"노드: verify_evidence\n실패 수정과 종료 조건\n\nRETRIEVER  /  노드 상세\nverify_evidence  :  실패 수정과 종료 조건\n오류별 수정 지침을 build_prompt에 전달하고 정해진 상한 안에서 재생성\n하이브리드 AI  ·  Workflow 노드 해설\ngenerate_answer\n답변 생성\nverify_evidence\n인용·구조 검사\n검증 통과\nEND\n검증 실패\nbuild_prompt + repair_hints\nMAX_REPAIRS=2  /  API 기본 LLM 예산 총 2회  /  CLI 기본 총 8회\n질문 변환 호출도 같은 예산 사용  /  횟수·예산 소진 시 halted_by_limit\n52\n\n소스: hybrid-ai-lab/vector/retriever/app/application/graph.py\n"}
+{"kind":"slide","id":"sl/9w7yt8zy","slide":53,"title":"반복 작업은 AI에게, 사람은 판단에 집중","textShapes":10}
+{"kind":"textbox","id":"sh/0n2xon6x","slide":53,"name":"Text 2","text":"반복 작업은 AI에게, 사람은 판단에 집중","textPreview":"반복 작업은 AI에게, 사람은 판단에 집중","textChars":23,"textLines":1,"bbox":[48,112.32,1440,38.4]}
+{"kind":"shape","id":"sh/1obexs7i","slide":53,"name":"Shape 3","bbox":[48,158.4,1440,57.6]}
+{"kind":"textbox","id":"sh/elkfmx87","slide":53,"name":"Text 4","text":"반복 작업이 하루를 갉아먹습니다. AI에게 맡기고, 사람은 판단에 집중합니다.","textPreview":"반복 작업이 하루를 갉아먹습니다. AI에게 맡기고, 사람은 판단에 집중합니다.","textChars":43,"textLines":1,"bbox":[67.2,158.4,1401.6,57.6]}
+{"kind":"shape","id":"sh/zmtwv2ps","slide":53,"name":"Shape 5","bbox":[48,240,441.6,345.6]}
+{"kind":"shape","id":"sh/cjixknq1","slide":53,"name":"Shape 6","bbox":[72,259.2,230.4,43.2]}
+{"kind":"textbox","id":"sh/dkbets7m","slide":53,"name":"Text 7","text":"매일 반복되는 일","textPreview":"매일 반복되는 일","textChars":9,"textLines":1,"bbox":[72,259.2,230.4,43.2]}
+{"kind":"textbox","id":"sh/98vu5grq","slide":53,"name":"Text 8","text":"긴 자료를 읽고 핵심만 추리기\n회의 메모를 보고서 형식으로 정리하기\n같은 형식의 문서를 매번 새로 작성하기","textPreview":"긴 자료를 읽고 핵심만 추리기 | 회의 메모를 보고서 형식으로 정리하기 | 같은 형식의 문서를 매번 새로 작성하기","textChars":59,"textLines":3,"bbox":[76.8,321.6,393.6,249.6]}
+{"kind":"textbox","id":"sh/o7mdwbq5","slide":53,"name":"Text 9","text":"▶","textPreview":"▶","textChars":1,"textLines":1,"bbox":[499.2,384,57.6,57.6]}
+{"kind":"shape","id":"sh/n6dc369k","slide":53,"name":"Shape 10","bbox":[566.4,240,412.8,345.6]}
+{"kind":"shape","id":"sh/m54vu18f","slide":53,"name":"Shape 11","bbox":[590.4,259.2,326.4,43.2]}
+{"kind":"textbox","id":"sh/1kvu1wru","slide":53,"name":"Text 12","text":"Claude Code에게 자연어로 요청","textPreview":"Claude Code에게 자연어로 요청","textChars":21,"textLines":1,"bbox":[590.4,259.2,326.4,43.2]}
+{"kind":"textbox","id":"sh/0j2tsrq9","slide":53,"name":"Text 13","text":"사람: \"무엇을·왜\"를 정함 (판단)\nAI: \"어떻게\"를 빠르게 실행 (작업)\n사람: 결과를 최종 확인·승인 (게이트)","textPreview":"사람: \"무엇을·왜\"를 정함 (판단) | AI: \"어떻게\"를 빠르게 실행 (작업) | 사람: 결과를 최종 확인·승인 (게이트)","textChars":66,"textLines":3,"bbox":[595.2,321.6,364.8,249.6]}
+{"kind":"shape","id":"sh/ehkbq183","slide":53,"name":"Shape 14","bbox":[48,614.4,1440,67.2]}
+{"kind":"textbox","id":"sh/dgbuxwri","slide":53,"name":"Text 15","text":"자동화의 목적은 \"사람을 대체\"가 아니라 \"사람이 더 중요한 일에 집중\"하게 만드는 것입니다.","textPreview":"자동화의 목적은 \"사람을 대체\"가 아니라 \"사람이 더 중요한 일에 집중\"하게 만드는 것입니다.","textChars":52,"textLines":1,"bbox":[67.2,614.4,1401.6,67.2]}
+{"kind":"textbox","id":"sh/m9kfqxo3","slide":53,"name":"제목 1","placeholder":"title","text":"WHY — 왜 업무 자동화인가","textPreview":"WHY — 왜 업무 자동화인가","textChars":16,"textLines":1,"bbox":[53.5,10.42,1442.4,84.69]}
+{"kind":"textbox","id":"sh/hwvu9czi","slide":53,"name":"Slide Number Placeholder 0","placeholder":"slideNumber","text":"15","textPreview":"15","textChars":2,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"image","id":"im/done90ny","slide":53,"name":"Image 0","bbox":[1008,240,480,321.6]}
+{"kind":"notes","id":"nt/9w7yt8zy","slide":53,"text":"핵심 메시지: 자동화의 목적은 '사람 대체'가 아니라 '사람이 더 중요한 일에 집중'.\n\n[발표] 골든서클 WHY. 청중에게 '내 업무 중 매번 반복하는 일'을 떠올리게 함(2주 과제 복선). 자동화는 일자리 위협이 아니라 단순 반복에서 벗어나 판단·창의에 집중하는 도구. 보안 IC 기업 특성상 '사람 최종 승인'이 기본 전제임을 미리 암시. 출처: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"}
+{"kind":"slide","id":"sl/uhgfqdcf","slide":54,"title":"내 컴퓨터에서 일하는 AI 작업 도우미 (에이전틱 코딩 도구)","textShapes":10}
+{"kind":"textbox","id":"sh/b6hgju9o","slide":54,"name":"Text 2","text":"내 컴퓨터에서 일하는 AI 작업 도우미 (에이전틱 코딩 도구)","textPreview":"내 컴퓨터에서 일하는 AI 작업 도우미 (에이전틱 코딩 도구)","textChars":34,"textLines":1,"bbox":[48,112.32,1440,38.4]}
+{"kind":"shape","id":"sh/q58faps3","slide":54,"name":"Shape 3","bbox":[48,168,1440,120]}
+{"kind":"textbox","id":"sh/dszyl4ru","slide":54,"name":"Text 4","text":"공식 정의  코드베이스를 읽고, 파일을 편집하고, 명령을 실행하며, 개발 도구와 통합되는 도구.\n쉽게 말하면  →  \"내 폴더의 파일을 읽고 정리해 주는, 대화로 일 시키는 AI 비서\"","textPreview":"공식 정의  코드베이스를 읽고, 파일을 편집하고, 명령을 실행하며, 개발 도구와 통합되는 도구. | 쉽게 말하면  →  \"내 폴더의 파일을 읽고 정리해 주는, 대화로 일 시키는 AI 비서\"","textChars":103,"textLines":2,"bbox":[72,187.2,1392,86.4]}
+{"kind":"shape","id":"sh/c7qxcza9","slide":54,"name":"Shape 5","bbox":[48,312,614.4,48]}
+{"kind":"textbox","id":"sh/v21gvy9s","slide":54,"name":"Text 6","text":"오늘 우리가 쓰는 것 — Claude Code 데스크톱 앱 (GUI)","textPreview":"오늘 우리가 쓰는 것 — Claude Code 데스크톱 앱 (GUI)","textChars":38,"textLines":1,"bbox":[48,312,614.4,48]}
+{"kind":"shape","id":"sh/a1szmtsn","slide":54,"name":"Shape 7","bbox":[48,379.2,1440,96]}
+{"kind":"textbox","id":"sh/8nq9cj6t","slide":54,"name":"Text 8","text":"Claude 앱을 설치하고 상단의 \"Code\" 탭을 켜서 사용. 검은 명령창 없이 화면으로 클릭·입력하는 가장 친숙한 방식입니다.","textPreview":"Claude 앱을 설치하고 상단의 \"Code\" 탭을 켜서 사용. 검은 명령창 없이 화면으로 클릭·입력하는 가장 친숙한 방식입니다.","textChars":72,"textLines":1,"bbox":[72,388.8,1392,76.8]}
+{"kind":"shape","id":"sh/9ozq54ne","slide":54,"name":"Shape 9","bbox":[48,499.2,710.4,196.8]}
+{"kind":"textbox","id":"sh/mlo7a9o3","slide":54,"name":"Text 10","text":"이런 것도 있어요 (나중에)","textPreview":"이런 것도 있어요 (나중에)","textChars":15,"textLines":1,"bbox":[72,513.6,662.4,38.4]}
+{"kind":"textbox","id":"sh/nmh83e58","slide":54,"name":"Text 11","text":"터미널(명령창), VS Code 같은 편집기 안(IDE)에서도 \n같은 Claude Code를 쓸 수 있습니다. \n모두 같은 엔진을 공유하므로, 오늘은 '데스크톱 앱' 하나만 익히면 충분합니다.","textPreview":"터미널(명령창), VS Code 같은 편집기 안(IDE)에서도  | 같은 Claude Code를 쓸 수 있습니다.  | 모두 같은 엔진을 공유하므로, 오늘은 '데스크톱 앱' 하나만 익히면 충분합니다.","textChars":107,"textLines":3,"bbox":[72,556.8,662.4,129.6]}
+{"kind":"shape","id":"sh/0z6p8z6x","slide":54,"name":"Shape 12","bbox":[777.6,499.2,710.4,196.8]}
+{"kind":"textbox","id":"sh/lkfq14ni","slide":54,"name":"Text 13","text":"용어 — 데스크톱 앱이란?","textPreview":"용어 — 데스크톱 앱이란?","textChars":14,"textLines":1,"bbox":[801.6,513.6,662.4,38.4]}
+{"kind":"textbox","id":"sh/yxo76por","slide":54,"name":"Text 14","text":"Anthropic이 제공하는 Claude 프로그램. \n대화용 Chat · 내 PC의 격리된 가상 환경에서 수행되는 Cowork · \n내 PC에서 직접 수행되는 Code 3개 탭으로 구성되며, \n이 \"Code\" 탭이 곧 Claude Code입니다.","textPreview":"Anthropic이 제공하는 Claude 프로그램.  | 대화용 Chat · 내 PC의 격리된 가상 환경에서 수행되는 Cowork ·  | 내 PC에서 직접 수행되는 Code 3개 탭으로 구성되며,  | 이 \"Code\" 탭이 곧 Claude Co...","textChars":137,"textLines":4,"bbox":[801.6,556.8,662.4,129.6]}
+{"kind":"textbox","id":"sh/lwjyporq","slide":54,"name":"제목 1","placeholder":"title","text":"Claude Code란? — HOW","textPreview":"Claude Code란? — HOW","textChars":19,"textLines":1,"bbox":[53.5,10.42,1442.4,84.69]}
+{"kind":"textbox","id":"sh/4ne5obyd","slide":54,"name":"Slide Number Placeholder 0","placeholder":"slideNumber","text":"16","textPreview":"16","textChars":2,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/uhgfqdcf","slide":54,"text":"[발표] '에이전틱(agentic) = 스스로 파일을 찾고 작업을 단계별로 수행'을 한 줄로 풀어준다. 비개발자가 겁먹지 않도록 '코드를 몰라도 자연어로 시키면 된다' + '검은 명령창이 아니라 친숙한 GUI'를 반복 강조. 데스크톱 앱은 별도 빌드가 아니라 Claude 앱(Chat·Cowork·Code)의 Code 탭이며 CLI와 동일 엔진·설정(CLAUDE.md·MCP·skills) 공유. 출처: https://code.claude.com/docs/en/overview, https://code.claude.com/docs/en/desktop-quickstart"}
+{"kind":"slide","id":"sl/vyd8bips","slide":55,"title":"Q&A","textShapes":1}
+{"kind":"textbox","id":"sh/0rqtcfqt","slide":55,"name":"Text 1","text":"Q&A","textPreview":"Q&A","textChars":3,"textLines":1,"bbox":[58.94,293.62,1369.33,223.25]}
+{"kind":"image","id":"im/03ado3ux","slide":55,"name":"Image 0","bbox":[0,0,1536,864]}
+{"kind":"notes","id":"nt/vyd8bips","slide":55,"text":""}

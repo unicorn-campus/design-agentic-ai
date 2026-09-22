@@ -67,11 +67,12 @@ python run_retriever.py \
   --dry-run
 ```
 
-### 세 가지 검색 모드
+### 네 가지 검색 모드
 
 | 모드 | 처리 | 최종 결과 |
 |---|---|---|
 | `vector` | KURE-v1 의미 검색 | Vector Top-K |
+| `vector_rerank` | Vector 후보를 Cross-Encoder로 재정렬 | Rerank Top-K |
 | `hybrid` | Vector 0.6 + BM25 0.4 | 융합 Top-K |
 | `hybrid_rerank` | Hybrid 후보를 Cross-Encoder로 재정렬 | Rerank Top-K |
 
@@ -80,12 +81,19 @@ python run_retriever.py \
 | 모드 | 검색기별 원시 후보 | 질문별 융합 후보 | 최종 결과 |
 |---|---:|---:|---:|
 | `vector` | 20건 | 해당 없음 | 5건 |
+| `vector_rerank` | 40건 | Vector 10건 | Rerank 5건 |
 | `hybrid` | 20건 | 5건 | 5건 |
 | `hybrid_rerank` | 40건 | 10건 | Rerank 5건 |
 
 `CANDIDATE_MULTIPLIER=4`는 질문별 검색·융합 목표 수에 적용됨.
-따라서 `hybrid_rerank`는 융합 목표 10건 × 4로 검색기별 원시 후보 40건을 수집함.
+따라서 `vector_rerank`와 `hybrid_rerank`는 리랭크 목표 10건 × 4로 검색기별 원시 후보 40건을 수집함.
 질문 변환 시에도 원 질문과 각 변환 질문에 같은 후보 계약이 적용됨.
+
+벡터 후보 선택은 기본적으로 `VECTOR_SEARCH_STRATEGY=similarity`를 사용하므로 기존 cosine 유사도 순서를 유지함.
+`VECTOR_SEARCH_STRATEGY=mmr`로 설정하면 유사 후보를 넓게 조회한 뒤 관련성과 문서 간 다양성을 함께 고려해 후보를 선택함.
+`MMR_FETCH_MULTIPLIER=2`는 MMR 반환 목표 수보다 몇 배 많은 유사 후보를 먼저 조회할지 지정함.
+`MMR_LAMBDA_MULT=0.5`는 0 이상 1 이하이며, 1에 가까울수록 질의 유사도, 0에 가까울수록 후보 다양성을 우선함.
+MMR을 사용해도 결과의 `score`와 `vector_score`에는 MMR 합성값이 아니라 원래 질의 cosine 유사도를 유지함.
 
 BM25는 Vector DB의 전체 문서를 다시 읽지 않음.
 
@@ -99,6 +107,15 @@ NFKC·숫자 쉼표·영문 대소문자를 정규화하며 형태소와 복합�
 python run_retriever.py \
   --query "연회비 면제 조건은?" \
   --mode vector \
+  --transform off \
+  --top-k 5 \
+  --prompt-only
+```
+
+```bash
+python run_retriever.py \
+  --query "연회비 면제 조건은?" \
+  --mode vector_rerank \
   --transform off \
   --top-k 5 \
   --prompt-only
@@ -127,7 +144,7 @@ python run_retriever.py \
 
 ### 질문 변환
 
-`--transform auto`는 원 질문 Vector Top-1 코사인 유사도가 0.70 미만일 때만 라우팅함.
+`--transform auto`는 원 질문 Vector Top-1 코사인 유사도가 0.86 미만일 때만 라우팅함.
 가능한 기법은 rewrite, multi, HyDE, step-back, decomposition임.
 
 ```bash
@@ -148,7 +165,7 @@ python run_retriever.py \
 |---|---|---|
 | `--query` | 필수 | 공백이 아닌 질문 |
 | `--top-k` | `5` | 최종 검색 결과 건수 |
-| `--mode` | `hybrid_rerank` | 세 검색 경로 중 하나 |
+| `--mode` | `hybrid_rerank` | 네 검색 경로 중 하나 |
 | `--transform` | `off` | `off` 또는 `auto` |
 | `--role` | `agent` | `agent` 또는 `auditor` |
 | `--thread-id` | 자동 생성 | 체크포인트 세션 키 |

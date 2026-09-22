@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import math
 
+from ..application.ports import RerankerPort
 
-class CrossEncoderReranker:
+
+class CrossEncoderReranker(RerankerPort):
     def __init__(self, model_name: str, *, max_length: int = 512, predictor=None) -> None:
         self.model_name = model_name
         self.max_length = max_length

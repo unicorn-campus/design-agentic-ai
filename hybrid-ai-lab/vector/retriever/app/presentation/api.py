@@ -22,7 +22,7 @@ from app.application.graph import (
     search_documents,
     stream_answer,
 )
-from app.application.state import HealthResult, RetrieverRequest, SearchResult
+from app.application.state import HealthResult, Mode, RetrieverRequest, SearchResult
 from app.domain.access import is_known_role
 from app.infrastructure.llm_client import (
     LLMAuthError,
@@ -37,7 +37,7 @@ from app.settings import LLMConfigError
 class SearchRequest(BaseModel):
     query: str = Field(min_length=1)
     top_k: int = Field(default=5, ge=1, le=50)
-    mode: Literal["vector", "hybrid", "hybrid_rerank"] = "hybrid_rerank"
+    mode: Mode = "hybrid_rerank"
     transform: Literal["off", "auto"] = "off"
 
 
@@ -307,7 +307,7 @@ async def answer_stream(
     health_fn: Annotated[Callable[..., HealthResult], Depends(get_health_fn)],
     top_k: Annotated[int, Query(ge=1, le=50)] = 5,
     mode: Annotated[
-        Literal["vector", "hybrid", "hybrid_rerank"],
+        Mode,
         Query(),
     ] = "hybrid_rerank",
     transform: Annotated[Literal["off", "auto"], Query()] = "off",

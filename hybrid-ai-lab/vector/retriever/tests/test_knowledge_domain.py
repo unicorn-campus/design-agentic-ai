@@ -8,6 +8,8 @@ import unittest
 from app.application.state import AnswerDraft, EvidenceDraft, Hit, RouteDecision
 from app.domain.access import build_filter, filter_candidates
 from app.domain.query_transform import (
+    ROUTER_SYSTEM_PROMPT,
+    ROUTER_USER_PROMPT,
     ensure_decomposition_coverage,
     merge_query_groups,
     route_query,
@@ -15,7 +17,7 @@ from app.domain.query_transform import (
     validate_route_decision,
     weighted_rrf,
 )
-from app.domain.scoring import build_answer, fuse, gate_score, passes_gate
+from app.domain.scoring import build_answer, fuse, passes_gate, top_vector_score
 
 
 def hit(chunk_id: str, score: float, *, vector_score=None, access="public", text="근거 원문") -> Hit:
@@ -71,17 +73,41 @@ class AccessAndScoringTests(unittest.TestCase):
 
     def test_gate_uses_final_first_hit_only(self):
         rows = [hit("A", 1.0, vector_score=0.61), hit("B", 0.9, vector_score=0.90)]
-        self.assertEqual(gate_score(rows), 0.61)
+        self.assertEqual(top_vector_score(rows), 0.61)
         self.assertFalse(passes_gate(rows, 0.62))
 
 
 class QueryTransformTests(unittest.TestCase):
+    def test_router_prompts_define_sections_and_preservation_rules(self):
+        for section in ("[목표]", "[역할]", "[맥락]", "[처리]", "[출력]", "[제약조건]"):
+            self.assertIn(section, ROUTER_SYSTEM_PROMPT)
+        for field in ("action", "technique", "queries", "reason", "clarification"):
+            self.assertIn(field, ROUTER_SYSTEM_PROMPT)
+        for value in ("상품명", "기간", "금액", "수치", "조건", "의도", "새로운 사실"):
+            self.assertIn(value, ROUTER_SYSTEM_PROMPT)
+
+        user_prompt = ROUTER_USER_PROMPT.format(query="테스트 카드의 지난달 실적 조건은?")
+        self.assertIn("[입력]", user_prompt)
+        self.assertIn("<원질문>\n테스트 카드의 지난달 실적 조건은?\n</원질문>", user_prompt)
+        self.assertIn("multi는 서로 다른 표현 3개", user_prompt)
+        self.assertIn("decomposition은 서로 다른 답의 대상별 질의 2~4개", user_prompt)
+
     def test_route_query_off_skips_router(self):
-        result = route_query("질문", transform_mode="off", gate_score=0.1, gate_threshold=0.7)
+        result = route_query(
+            "질문",
+            transform_mode="off",
+            transform_gate_vector_score=0.1,
+            gate_threshold=0.7,
+        )
         self.assertEqual((result["route_action"], result["llm_calls"]), ("off", 0))
 
     def test_route_query_gate_pass_skips_router(self):
-        result = route_query("질문", transform_mode="auto", gate_score=0.71, gate_threshold=0.7)
+        result = route_query(
+            "질문",
+            transform_mode="auto",
+            transform_gate_vector_score=0.71,
+            gate_threshold=0.7,
+        )
         self.assertEqual((result["route_action"], result["llm_calls"]), ("gate_pass", 0))
 
     def test_route_query_calls_router_below_gate(self):
@@ -95,7 +121,13 @@ class QueryTransformTests(unittest.TestCase):
                     RouteDecision(action="keep", technique=None, queries=[], reason="유지", clarification=""),
                     attempts=3,
                 )
-        result = route_query("질문", transform_mode="auto", gate_score=0.69, gate_threshold=0.7, router=Router())
+        result = route_query(
+            "질문",
+            transform_mode="auto",
+            transform_gate_vector_score=0.69,
+            gate_threshold=0.7,
+            router=Router(),
+        )
         self.assertEqual(result["llm_calls"], 3)
 
     def test_route_query_cache_hit_skips_router(self):
@@ -104,7 +136,13 @@ class QueryTransformTests(unittest.TestCase):
                 return RouteDecision(action="keep", technique=None, queries=[], reason="캐시", clarification="")
             def put(self, query, decision):
                 raise AssertionError("캐시 적중 때 쓰면 안 됨")
-        result = route_query("질문", transform_mode="auto", gate_score=0.69, gate_threshold=0.7, cache=Cache())
+        result = route_query(
+            "질문",
+            transform_mode="auto",
+            transform_gate_vector_score=0.69,
+            gate_threshold=0.7,
+            cache=Cache(),
+        )
         self.assertTrue(result["transform_cache_hit"])
         self.assertEqual(result["llm_calls"], 0)
 
@@ -112,7 +150,13 @@ class QueryTransformTests(unittest.TestCase):
         class Router:
             def complete_structured(self, *args, **kwargs):
                 return RouteDecision(action="transform", technique="multi", queries=["a", "b"], reason="", clarification="")
-        result = route_query("원본", transform_mode="auto", gate_score=0.1, gate_threshold=0.7, router=Router())
+        result = route_query(
+            "원본",
+            transform_mode="auto",
+            transform_gate_vector_score=0.1,
+            gate_threshold=0.7,
+            router=Router(),
+        )
         self.assertEqual(result["route_action"], "keep")
         self.assertIn("정확히 3개", result["route_error"])
 
@@ -121,30 +165,42 @@ class QueryTransformTests(unittest.TestCase):
             def __init__(self, queries): self.queries = queries
             def complete_structured(self, *args, **kwargs):
                 return RouteDecision(action="transform", technique="decomposition", queries=self.queries, reason="", clarification="")
-        invalid = route_query("원본", transform_mode="auto", gate_score=0.1, gate_threshold=0.7, router=Router(list("abcde")))
-        valid = route_query("원본", transform_mode="auto", gate_score=0.1, gate_threshold=0.7, router=Router(["a", "b", "c"]))
+        invalid = route_query(
+            "원본",
+            transform_mode="auto",
+            transform_gate_vector_score=0.1,
+            gate_threshold=0.7,
+            router=Router(list("abcde")),
+        )
+        valid = route_query(
+            "원본",
+            transform_mode="auto",
+            transform_gate_vector_score=0.1,
+            gate_threshold=0.7,
+            router=Router(["a", "b", "c"]),
+        )
         self.assertEqual(invalid["route_action"], "keep")
         self.assertEqual(valid["transformed_queries"], ["a", "b", "c"])
 
     def test_merge_rewrite_uses_original_weight_point_five(self):
-        rows, weights, coverage = merge_query_groups(
+        rows, weights, decomposition_coverage_applied = merge_query_groups(
             [hit("A", 1.0)], [[hit("B", 1.0)]], technique="rewrite", rrf_k=60,
             original_weight=0.5, decomposition_original_weight=0.1,
             decomposition_per_query_top_k=3, top_k=5,
         )
         self.assertEqual(weights, {"original": 0.5, "transformed_each": 0.5})
-        self.assertFalse(coverage)
+        self.assertFalse(decomposition_coverage_applied)
         self.assertEqual(len(rows), 2)
 
     def test_merge_decomposition_uses_point_one_and_coverage(self):
         groups = [[hit(f"Q{group}-{index}", 1 - index / 10) for index in range(3)] for group in range(3)]
-        rows, weights, coverage = merge_query_groups(
+        rows, weights, decomposition_coverage_applied = merge_query_groups(
             [hit("O", 1.0)], groups, technique="decomposition", rrf_k=60,
             original_weight=0.5, decomposition_original_weight=0.1,
             decomposition_per_query_top_k=3, top_k=10,
         )
         self.assertEqual(weights, {"original": 0.1, "transformed_each": 0.3})
-        self.assertTrue(coverage)
+        self.assertTrue(decomposition_coverage_applied)
         self.assertTrue({item.chunk_id for item in rows}.issuperset({item.chunk_id for group in groups for item in group}))
 
     def test_weighted_rrf_is_deterministic(self):
@@ -212,6 +268,25 @@ class RerankAndEvidenceTests(unittest.TestCase):
             [hit("A", 1.0)],
         )
         self.assertFalse(answer.verification.automatic_valid)
+        failure = answer.verification.quote_failures[0]
+        self.assertEqual("QUOTE_NOT_FOUND", failure["code"])
+        self.assertEqual(1, failure["evidence_index"])
+        self.assertEqual(1, failure["ref"])
+        self.assertEqual("A", failure["chunk_id"])
+        self.assertEqual("없는 문장", failure["submitted_quote"])
+        self.assertNotIn("근거 원문", failure["repair_hint"])
+
+    def test_invalid_evidence_ref_reports_index_and_valid_range(self):
+        answer = build_answer(
+            AnswerDraft(conclusion="결론", caution="주의", evidence=[EvidenceDraft(ref=3, quote="근거")]),
+            [hit("A", 1.0)],
+        )
+
+        failure = answer.verification.invalid_refs[0]
+        self.assertEqual("INVALID_REF", failure["code"])
+        self.assertEqual(1, failure["evidence_index"])
+        self.assertEqual(3, failure["ref"])
+        self.assertEqual("1~1", failure["valid_ref_range"])
 
 
 if __name__ == "__main__":

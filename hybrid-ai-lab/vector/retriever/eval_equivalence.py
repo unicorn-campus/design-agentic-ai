@@ -118,8 +118,8 @@ def make_row(case: dict[str, Any], result: Any, elapsed_ms: float) -> dict[str, 
         "route": result.route.model_dump(mode="json"),
         "llm_calls": result.llm_calls,
         "status": result.status,
-        "new_vector_transform_gate_score": None,
-        "legacy_hybrid_transform_gate_score": None,
+        "new_vector_transform_gate_vector_score": None,
+        "legacy_hybrid_transform_gate_fused_score": None,
         "timing_ms": {
             "hybrid_search": round(max(0.0, elapsed_ms - rerank_ms), 1),
             "rerank": round(rerank_ms, 1),
@@ -188,8 +188,8 @@ def run(
 
     run_id = uuid4().hex[:12]
     methods: dict[str, Any] = {}
-    vector_gate_scores: dict[str, float | None] = {}
-    hybrid_gate_scores: dict[str, float | None] = {}
+    transform_vector_scores: dict[str, float | None] = {}
+    legacy_transform_fused_scores: dict[str, float | None] = {}
     total_llm_calls = 0
 
     for method_name, mode, transform, baseline_passed, baseline_rank in METHODS:
@@ -225,11 +225,11 @@ def run(
             rows.append(row)
             total_llm_calls += result.llm_calls
             if method_name == "vector_top5":
-                vector_gate_scores[case["id"]] = (
+                transform_vector_scores[case["id"]] = (
                     result.hits[0].vector_score if result.hits else None
                 )
             elif method_name == "hybrid_top5":
-                hybrid_gate_scores[case["id"]] = (
+                legacy_transform_fused_scores[case["id"]] = (
                     result.hits[0].score if result.hits else None
                 )
             print(
@@ -254,8 +254,12 @@ def run(
 
     for method in methods.values():
         for row in method["rows"]:
-            row["new_vector_transform_gate_score"] = vector_gate_scores.get(row["id"])
-            row["legacy_hybrid_transform_gate_score"] = hybrid_gate_scores.get(row["id"])
+            row["new_vector_transform_gate_vector_score"] = transform_vector_scores.get(
+                row["id"]
+            )
+            row["legacy_hybrid_transform_gate_fused_score"] = (
+                legacy_transform_fused_scores.get(row["id"])
+            )
 
     output = {
         "experiment": "vector_final_equivalence_actual",

@@ -1,0 +1,68 @@
+{
+  "description": "D1 약관, D2 혜택 안내, D3 상담 이력을 모두 포함하는 Retriever 검색 질문 10건",
+  "top_k": 5,
+  "role": "auditor",
+  "transform": "off",
+  "cases": [
+    {
+      "id": "q01",
+      "question": "직전 12개월 동안 얼마를 사용하고 어떤 조건을 만족해야 다음 연도 기본 연회비가 면제되나요?",
+      "source_group": "D1",
+      "expected_chunk_ids": ["D1_0010"]
+    },
+    {
+      "id": "q02",
+      "question": "카드를 분실하거나 도난당한 사실을 알게 되면 어떻게 신고해야 하나요?",
+      "source_group": "D1",
+      "expected_chunk_ids": ["D1_0013"]
+    },
+    {
+      "id": "q03",
+      "question": "할부 거래를 철회하려면 언제까지 어떤 정보를 제출해야 하나요?",
+      "source_group": "D1",
+      "expected_chunk_ids": ["D1_0020"]
+    },
+    {
+      "id": "q04",
+      "question": "한빛 모아생활 카드의 생활 포인트 적립률, 전월 실적 조건, 월 적립 한도는 얼마인가요?",
+      "source_group": "D2",
+      "expected_chunk_ids": ["D2_0003"]
+    },
+    {
+      "id": "q05",
+      "question": "한빛 대중교통 카드의 시내버스와 도시철도 할인율 및 월 한도는 얼마인가요?",
+      "source_group": "D2",
+      "expected_chunk_ids": ["D2_0053"]
+    },
+    {
+      "id": "q06",
+      "question": "한빛 반려동행 카드로 동물병원 대면 진료비를 결제하면 어떤 할인과 한도가 적용되나요?",
+      "source_group": "D2",
+      "expected_chunk_ids": ["D2_0297"]
+    },
+    {
+      "id": "q07",
+      "question": "명세서 수령 주소 변경을 문의한 고객의 2026년 2월 승인 거래 건수와 합계 금액은 얼마였나요?",
+      "source_group": "D3",
+      "expected_chunk_ids": ["D3_C-20260310-018_0000"]
+    },
+    {
+      "id": "q08",
+      "question": "혜택 신청 메뉴와 매달 알림 설정을 번거롭게 여긴 고객의 2026년 2월 이용 실적은 얼마였나요?",
+      "source_group": "D3",
+      "expected_chunk_ids": ["D3_C-20260310-008_0000"]
+    },
+    {
+      "id": "q09",
+      "question": "역할이 겹치는 카드 한 장만 해지하려던 고객의 2026년 2월 승인 거래 건수와 합계는 얼마였나요?",
+      "source_group": "D3",
+      "expected_chunk_ids": ["D3_C-20260314-024_0000"]
+    },
+    {
+      "id": "q10",
+      "question": "다음 연도 기본 연회비 면제 기준과 한빛 모아생활 생활 포인트 적립을 위한 전월 최소 이용액을 함께 알려주세요.",
+      "source_group": "D1+D2",
+      "expected_chunk_ids": ["D1_0010", "D2_0003"]
+    }
+  ]
+}

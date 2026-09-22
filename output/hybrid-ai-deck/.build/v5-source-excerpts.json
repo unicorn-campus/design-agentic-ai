@@ -1,0 +1,270 @@
+[
+  {
+    "page": 9,
+    "file": "indexer/app/infrastructure/pdf_reader.py",
+    "ranges": [
+      [
+        11,
+        11
+      ],
+      [
+        87,
+        93
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "f569273e23247d8166a30b840dc05b3a31050242401e52a1db295fb3dc437217",
+    "code": "def _lines(page):\n    result = []\n    for block in page.get_text(\"dict\")[\"blocks\"]:\n        for line in block.get(\"lines\", []):\n            text = \"\".join(span[\"text\"] for span in line[\"spans\"]).strip()\n            if text:\n                result.append((tuple(line[\"bbox\"]), text))\n    return result"
+  },
+  {
+    "page": 10,
+    "file": "indexer/app/infrastructure/pdf_reader.py",
+    "ranges": [
+      [
+        96,
+        99
+      ],
+      [
+        243,
+        249
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "f569273e23247d8166a30b840dc05b3a31050242401e52a1db295fb3dc437217",
+    "code": "def _margin(rectangle, height):\n    return rectangle[3] < height * 0.055 or rectangle[1] > height * 0.95\n\nrepeated = Counter()\nfor page, lines in zip(pdf, page_lines):\n    repeated.update({text for rectangle, text in lines if _margin(rectangle, page.rect.height)})"
+  },
+  {
+    "page": 13,
+    "file": "indexer/app/domain/consultations.py",
+    "ranges": [
+      [
+        71,
+        81
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "aed6c39e0187f45cf00f641fb61802bf9caa2f1e0fafd880932b0b7c999e4746",
+    "code": "text = PHONE.sub(\"[삭제]\", text)\ntext = EMAIL.sub(\"[삭제]\", text)\ntext = PAN.sub(\"[삭제]\", text)\ntext = re.sub(r\"(?:끝\\s*4자리|끝\\s*네\\s*자리|마지막\\s*4자리)\\s*(?:는|가|:)?\\s*\\d{4}\", \"끝4자리 [삭제]\", text)\ntext = re.sub(r\"가상고객\\d+|가상상담사\\d+\", \"[삭제]\", text)\ntext = MEMBER.sub(lambda match: to_pseudo(match.group(0)), text)\nreturn re.sub(\n    r\"(?<!\\d)(?:만\\s*)?(\\d{1,3})\\s*세\",\n    lambda match: \"60대 이상\" if int(match.group(1)) >= 60 else f\"{int(match.group(1)) // 10 * 10}대\",\n    text,\n)"
+  },
+  {
+    "page": 15,
+    "file": "indexer/app/application/graph.py",
+    "ranges": [
+      [
+        404,
+        409
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "f5cd45a94af7d55a198a613d4d4896275da9b4512a4a188ce35264e75360cb33",
+    "code": "profiles = state.get(\"profiles\", {})\ndocuments = [\n    apply_profile(document, profiles.get(document.metadata.get(\"source\", \"\"), {}))\n    for document in state[\"documents\"]\n]\nreturn {\"documents\": documents}"
+  },
+  {
+    "page": 19,
+    "file": "indexer/app/infrastructure/embedder.py",
+    "ranges": [
+      [
+        54,
+        54
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "df20f51e997ceb5da9d7151d4e6705a531f4c36ff953c52bcc0a1823f1070972",
+    "code": "self._model = SentenceTransformer(self.model_name, device=self.device)"
+  },
+  {
+    "page": 19,
+    "file": "indexer/app/infrastructure/embedder.py",
+    "ranges": [
+      [
+        70,
+        79
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "df20f51e997ceb5da9d7151d4e6705a531f4c36ff953c52bcc0a1823f1070972",
+    "code": "def embed(self, texts: list[str], *, kind: Literal[\"passage\", \"query\"] = \"passage\") -> list[list[float]]:\n    del kind\n    model = self._load()\n    values = model.encode(texts, batch_size=self.batch_size, normalize_embeddings=True)\n    return values.tolist() if hasattr(values, \"tolist\") else [list(row) for row in values]"
+  },
+  {
+    "page": 21,
+    "file": "indexer/app/infrastructure/chroma_store.py",
+    "ranges": [
+      [
+        138,
+        147
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "4fc9e6eca8ca04cf7ad62b925ef33c8d56f182d09fc3cc64790ad77f09a57849",
+    "code": "self._store = Chroma(\n    collection_name=collection,\n    embedding_function=embedding_function,\n    persist_directory=str(path),\n    collection_configuration={\"hnsw\": {\"space\": \"cosine\"}},\n    collection_metadata={\"embedding_model_signature\": signature, \"hnsw:space\": \"cosine\"},\n)"
+  },
+  {
+    "page": 22,
+    "file": "indexer/app/infrastructure/chroma_store.py",
+    "ranges": [
+      [
+        150,
+        168
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "4fc9e6eca8ca04cf7ad62b925ef33c8d56f182d09fc3cc64790ad77f09a57849",
+    "code": "def upsert(self, ids, texts, embeddings, metadatas) -> None:\n    clean = []\n    for chunk_id, metadata in zip(ids, metadatas):\n        metadata_with_id = {**metadata, \"chunk_id\": chunk_id}\n        clean_metadata = sanitize_metadata(metadata_with_id)\n        clean.append(clean_metadata)\n    self._collection.upsert(ids=ids, documents=texts, embeddings=embeddings, metadatas=clean)"
+  },
+  {
+    "page": 27,
+    "file": "retriever/app/infrastructure/chroma_store.py",
+    "ranges": [
+      [
+        139,
+        144
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "41749df7059ae652f756efa7503e6c6bd6cc856da5b463939c2baa0450aaf86a",
+    "code": "result = self._collection.query(\n    query_embeddings=[query_embedding],\n    n_results=options.fetch_k(k),\n    where=where or None,\n    include=include,\n)"
+  },
+  {
+    "page": 29,
+    "file": "retriever/app/domain/query_transform.py",
+    "ranges": [
+      [
+        65,
+        79
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "5e62a0bd92973801376d9941d1b542b9dd7b198da4df55a7704774ce8c97fe4c",
+    "code": "if transform_mode == \"off\":\n    return {\n        \"route_action\": \"off\",\n        \"transform_review_required\": False,\n        \"transformed_queries\": [],\n    }\nif transform_mode != \"auto\":\n    raise ValueError(\"transform_mode는 off 또는 auto여야 함\")\nif top_vector_score is not None and top_vector_score >= gate_threshold:\n    return {\n        \"route_action\": \"gate_pass\",\n        \"transform_review_required\": False,\n        \"transformed_queries\": [],\n    }\nreturn {\"transform_review_required\": True}"
+  },
+  {
+    "page": 33,
+    "file": "retriever/app/infrastructure/bm25_index.py",
+    "ranges": [
+      [
+        210,
+        215
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "ac6ce5775b034845289c31dd9910975624dc911f2d281d6dec35de0fc345a30c",
+    "code": "result = retriever.retrieve(\n    [terms],\n    k=k,\n    weight_mask=mask,\n    show_progress=False,\n)"
+  },
+  {
+    "page": 34,
+    "file": "retriever/app/domain/scoring.py",
+    "ranges": [
+      [
+        65,
+        80
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "36dde1f29ccf55f71bed1300822a6fd543aa3eba8daec152226aec50ee2af755",
+    "code": "candidate_ids = set(vector_by_id) | bm25_candidate_ids\nnormalized_vector = normalize(vector_by_id, candidate_ids)\nnormalized_bm25 = normalize(bm25_scores, candidate_ids)\nvector_objects = {hit.chunk_id: hit for hit in vector_hits}\noutput = []\nfor chunk_id in candidate_ids:\n    base = vector_objects.get(chunk_id) or chunks.get(chunk_id)\n    if base is None:\n        continue\n    score = weight_bm25 * normalized_bm25[chunk_id] + weight_vector * normalized_vector[chunk_id]"
+  },
+  {
+    "page": 37,
+    "file": "retriever/app/application/graph.py",
+    "ranges": [
+      [
+        995,
+        1003
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "3624585b57282f71bfe1947fe7bec0bdea2fb2e22f2b801eca55a86c61d61154",
+    "code": "if _uses_vector_only(state.get(\"mode\")):\n    baseline = list(state.get(\"vector_hits\", []))[: self._candidate_sizes(state).fused_k]\nelse:\n    baseline = list(state.get(\"baseline_hits\", state.get(\"candidates\", [])))\nreturn {\n    \"baseline_hits\": baseline,\n    \"hits\": list(baseline[: int(state.get(\"top_k\", len(baseline)))]),\n}"
+  },
+  {
+    "page": 39,
+    "file": "retriever/app/application/graph.py",
+    "ranges": [
+      [
+        1028,
+        1036
+      ]
+    ],
+    "stripComments": false,
+    "sourceSha256": "3624585b57282f71bfe1947fe7bec0bdea2fb2e22f2b801eca55a86c61d61154",
+    "code": "def _run_search_transformed(self, state: RetrieverState, **_kwargs: Any) -> dict[str, Any]:\n    groups, warnings = [], []\n    for query in state.get(\"transformed_queries\", []):\n        try:\n            groups.append(self._search_one(query, state))\n        except Exception as error:\n            groups.append([])\n            warnings.append(f\"변환 질의 검색 실패: {type(error).__name__}\")\n    return {\"transformed_hit_groups\": groups, \"warnings\": warnings}"
+  },
+  {
+    "page": 40,
+    "file": "retriever/app/application/graph.py",
+    "ranges": [
+      [
+        1010,
+        1024
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "3624585b57282f71bfe1947fe7bec0bdea2fb2e22f2b801eca55a86c61d61154",
+    "code": "sizes = self._candidate_sizes(state)\nvector_hits = self._search_vector(query, state[\"role\"], sizes.raw_k)\nif _uses_vector_only(state[\"mode\"]):\n    return vector_hits[: sizes.fused_k]\nreturn self._fuse(\n    vector_hits,\n    self.bm25.keyword_search(\n        query,\n        allowed_access_levels=allowed_levels(state[\"role\"]),\n        k=sizes.raw_k,\n    ),\n    state[\"role\"],\n    sizes.fused_k,\n)"
+  },
+  {
+    "page": 41,
+    "file": "retriever/app/domain/query_transform.py",
+    "ranges": [
+      [
+        187,
+        206
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "5e62a0bd92973801376d9941d1b542b9dd7b198da4df55a7704774ce8c97fe4c",
+    "code": "merged: dict[str, dict[str, Any]] = {}\nfor label, hits, weight in ranked_lists:\n    if weight <= 0:\n        raise ValueError(\"RRF 가중치는 양수여야 함\")\n    for position, hit in enumerate(hits, start=1):\n        item = merged.setdefault(\n            hit.chunk_id,\n            {\"hit\": hit, \"rrf_score\": 0.0, \"source_ranks\": {}},\n        )\n        item[\"rrf_score\"] += weight / (rrf_k + position)\n        item[\"source_ranks\"][label] = position"
+  },
+  {
+    "page": 48,
+    "file": "retriever/app/application/graph.py",
+    "ranges": [
+      [
+        1224,
+        1235
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "3624585b57282f71bfe1947fe7bec0bdea2fb2e22f2b801eca55a86c61d61154",
+    "code": "blocks = []\nfor index, hit in enumerate(state.get(\"hits\", []), start=1):\n    blocks.append(\n        f'<검색결과 순번=\"{index}\">\\n'\n        f\"<청크ID>{escape(str(hit.chunk_id))}</청크ID>\\n\"\n        f\"<문서유형>{escape(str(hit.metadata.get('doc_type', 'unknown')))}</문서유형>\\n\"\n        f\"<원본문서>{escape(str(hit.source))}</원본문서>\\n\"\n        f\"<위치>{escape(str(hit.location))}</위치>\\n\"\n        f\"<본문>{escape(str(hit.text))}</본문>\\n\"\n        \"</검색결과>\"\n    )\nevidence = \"\\n\\n\".join(blocks) or \"해당 없음\""
+  },
+  {
+    "page": 51,
+    "file": "retriever/app/domain/scoring.py",
+    "ranges": [
+      [
+        170,
+        172
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "36dde1f29ccf55f71bed1300822a6fd543aa3eba8daec152226aec50ee2af755",
+    "code": "hit = hits[ref - 1]\nquote_ok = isinstance(quote, str) and verify_quote(quote, hit.text)\nlocation_ok = bool(hit.location)"
+  },
+  {
+    "page": 51,
+    "file": "retriever/app/domain/scoring.py",
+    "ranges": [
+      [
+        229,
+        229
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "36dde1f29ccf55f71bed1300822a6fd543aa3eba8daec152226aec50ee2af755",
+    "code": "automatic_valid = not (schema_errors or invalid_refs or quote_failures or location_failures)"
+  },
+  {
+    "page": 55,
+    "file": "retriever/app/application/graph.py",
+    "ranges": [
+      [
+        1237,
+        1250
+      ]
+    ],
+    "stripComments": true,
+    "sourceSha256": "3624585b57282f71bfe1947fe7bec0bdea2fb2e22f2b801eca55a86c61d61154",
+    "code": "unique_hints = dict.fromkeys(escape(str(item)) for item in state.get(\"repair_hints\", []))\nhints = \"\\n\".join(unique_hints) or \"해당 없음\"\nuser_prompt = (\n    \"[입력]\\n\"\n    \"<검색결과목록>\\n\"\n    f\"{evidence}\\n\"\n    \"</검색결과목록>\\n\\n\"\n    \"<사용자질문>\\n\"\n    f\"{escape(str(state['query']))}\\n\"\n    \"</사용자질문>\\n\\n\"\n    \"<수정지침>\\n\"\n    f\"{hints}\\n\"\n    \"</수정지침>\"\n)"
+  }
+]

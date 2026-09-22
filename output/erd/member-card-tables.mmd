@@ -1,0 +1,35 @@
+---
+config:
+  theme: base
+  themeVariables:
+    fontFamily: "Malgun Gothic, Arial, sans-serif"
+    primaryColor: "#EAF2FF"
+    primaryBorderColor: "#4773B8"
+    primaryTextColor: "#152238"
+    lineColor: "#53677F"
+---
+erDiagram
+    product["product(상품)"] {
+    }
+    product_annual_fee["product_annual_fee(연회비)"] {
+    }
+    member["member(멤버)"] {
+    }
+    card["card(카드)"] {
+    }
+    delinquency["delinquency(연체)"] {
+    }
+    private_member_id_map["private_member_id_map(회원번호 대응표)"] {
+    }
+    merchant["merchant(가맹점)"] {
+    }
+    card_txn["card_txn(거래)"] {
+    }
+
+    product ||--o{ product_annual_fee : "연회비 책정"
+    product_annual_fee ||--o{ card : "상품·브랜드 적용"
+    member ||--o{ card : "카드 보유"
+    card ||--o{ card_txn : "카드 결제"
+    merchant ||--o{ card_txn : "거래 발생"
+    member ||--o{ delinquency : "연체 기록"
+    member ||--o| private_member_id_map : "회원번호 연결"

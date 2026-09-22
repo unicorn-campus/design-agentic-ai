@@ -112,6 +112,25 @@ class RetrieverApiTest(unittest.TestCase):
         self.assertEqual(32, len(body["request_id"]))
         self.assertEqual(9, len(body["hits"][0]))
 
+    def test_search_accepts_and_forwards_vector_rerank_mode(self) -> None:
+        received_modes: list[str] = []
+
+        def fake_search(request, _resources):
+            received_modes.append(request.mode)
+            return make_result().model_copy(update={"mode": request.mode})
+
+        api.app.dependency_overrides[api.get_search_fn] = lambda: fake_search
+        with self.client() as client:
+            response = client.post(
+                "/search",
+                headers={"X-Role": "agent"},
+                json={"query": "연회비 면제 조건은?", "mode": "vector_rerank"},
+            )
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(["vector_rerank"], received_modes)
+        self.assertEqual("vector_rerank", response.json()["mode"])
+
     def test_answer_ok(self) -> None:
         api.app.dependency_overrides[api.get_answer_fn] = lambda: (
             lambda _request, _resources: make_result(with_answer=True, llm_calls=1)
@@ -153,8 +172,15 @@ class RetrieverApiTest(unittest.TestCase):
     def test_openapi_exposes_four_routes(self) -> None:
         with self.client() as client:
             self.assertEqual(200, client.get("/docs").status_code)
-            paths = client.get("/openapi.json").json()["paths"]
+            schema = client.get("/openapi.json").json()
+            paths = schema["paths"]
         self.assertEqual({"/health", "/search", "/answer", "/answer/stream"}, set(paths))
+        request_modes = schema["components"]["schemas"]["SearchRequest"]["properties"]["mode"]["enum"]
+        self.assertIn("vector_rerank", request_modes)
+
+        stream_parameters = paths["/answer/stream"]["get"]["parameters"]
+        stream_mode = next(parameter for parameter in stream_parameters if parameter["name"] == "mode")
+        self.assertIn("vector_rerank", stream_mode["schema"]["enum"])
 
     def test_llm_call_limit_429(self) -> None:
         api.app.dependency_overrides[api.get_answer_fn] = lambda: (

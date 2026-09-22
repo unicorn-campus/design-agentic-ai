@@ -1,0 +1,9 @@
+def _run_search_transformed(self, state: RetrieverState, **_kwargs: Any) -> dict[str, Any]:
+    groups, warnings = [], []
+    for query in state.get("transformed_queries", []):
+        try:
+            groups.append(self._search_one(query, state))
+        except Exception as error:
+            groups.append([])
+            warnings.append(f"변환 질의 검색 실패: {type(error).__name__}")
+    return {"transformed_hit_groups": groups, "warnings": warnings}

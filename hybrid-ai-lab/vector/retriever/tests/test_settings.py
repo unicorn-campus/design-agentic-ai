@@ -51,9 +51,15 @@ def test_shared_settings_keep_the_same_contract() -> None:
         "KOREAN_OOV_MIN_COUNT",
         "KOREAN_OOV_MIN_SCORE",
     }
+    retriever_only = {
+        "VECTOR_SEARCH_STRATEGY",
+        "MMR_FETCH_MULTIPLIER",
+        "MMR_LAMBDA_MULT",
+    }
 
-    assert set(indexer._SPECS) == set(retriever._SPECS) | indexer_only
-    for name, retriever_spec in retriever._SPECS.items():
+    assert set(indexer._SPECS) | retriever_only == set(retriever._SPECS) | indexer_only
+    for name in set(retriever._SPECS) - retriever_only:
+        retriever_spec = retriever._SPECS[name]
         indexer_spec = indexer._SPECS[name]
         indexer_default = indexer_spec.default
         retriever_default = retriever_spec.default
@@ -91,6 +97,10 @@ def test_defaults_and_app_specific_chroma_path(settings_module) -> None:
     settings = settings_module.load_settings()
     assert settings.VECTOR_STORE_BACKEND == "chroma"
     assert settings.CHROMA_COLLECTION == "card_docs"
+    assert settings.VECTOR_SEARCH_STRATEGY == "similarity"
+    assert settings.MMR_FETCH_MULTIPLIER == 2
+    assert settings.MMR_LAMBDA_MULT == 0.5
+    assert settings.TRANSFORM_GATE_THRESHOLD == 0.86
     assert settings.API_HOST == "127.0.0.1"
     assert settings.CHROMA_PATH == settings_module.APP_DIR.parent / "indexer/data/chroma"
     assert settings.sources["CHROMA_COLLECTION"] == "default"
@@ -101,6 +111,34 @@ def test_defaults_and_app_specific_chroma_path(settings_module) -> None:
 def test_vector_store_backend_rejects_unknown_value(settings_module) -> None:
     with pytest.raises(settings_module.LLMConfigError):
         settings_module.load_settings({"VECTOR_STORE_BACKEND": "unknown"})
+
+
+def test_mmr_settings_accept_supported_boundaries(settings_module) -> None:
+    settings = settings_module.load_settings(
+        {
+            "VECTOR_SEARCH_STRATEGY": "mmr",
+            "MMR_FETCH_MULTIPLIER": "3",
+            "MMR_LAMBDA_MULT": "0",
+        }
+    )
+
+    assert settings.VECTOR_SEARCH_STRATEGY == "mmr"
+    assert settings.MMR_FETCH_MULTIPLIER == 3
+    assert settings.MMR_LAMBDA_MULT == 0.0
+
+
+@pytest.mark.parametrize(
+    ("name", "value"),
+    [
+        ("VECTOR_SEARCH_STRATEGY", "unknown"),
+        ("MMR_FETCH_MULTIPLIER", "0"),
+        ("MMR_LAMBDA_MULT", "-0.1"),
+        ("MMR_LAMBDA_MULT", "1.1"),
+    ],
+)
+def test_mmr_settings_reject_invalid_values(settings_module, name: str, value: str) -> None:
+    with pytest.raises(settings_module.LLMConfigError):
+        settings_module.load_settings({name: value})
 
 
 def test_secret_str_and_alias_source_do_not_expose_value(

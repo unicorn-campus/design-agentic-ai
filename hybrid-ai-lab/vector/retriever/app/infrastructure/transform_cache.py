@@ -11,6 +11,7 @@ from typing import Any
 
 from pydantic import ValidationError
 
+from app.application.ports import TransformCachePort
 from app.application.state import RouteDecision
 
 
@@ -18,7 +19,7 @@ class TransformCacheError(RuntimeError):
     """캐시 파일을 안전하게 읽거나 쓸 수 없는 오류."""
 
 
-class TransformCache:
+class TransformCache(TransformCachePort):
     """주입된 파일 경로 하나에 질문별 RouteDecision을 저장함."""
 
     def __init__(self, path: str | Path):

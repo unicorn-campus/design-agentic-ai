@@ -83,13 +83,13 @@ class CandidateVectorStore(FakeVectorStore):
     def count(self):
         return len(self.hits)
 
-    def search(self, _embedding, size, _metadata_filter):
+    def search(self, _embedding, size, _metadata_filter, _options=None):
         self.requested_sizes.append(size)
         return self.hits[:size]
 
 
 class CandidateBm25:
-    def scores(self, _query, *, allowed_access_levels=None, k=10):
+    def keyword_search(self, _query, *, allowed_access_levels=None, k=10):
         del allowed_access_levels
         del k
         return {}
@@ -148,6 +148,34 @@ def candidate_state(mode: str) -> dict:
 
 
 class RetrieverApplicationEntryTest(unittest.TestCase):
+    def test_vector_rerank_expands_vector_candidates_before_reranking(self) -> None:
+        resources = candidate_resources()
+        result = build_graph(resources, None, answer_enabled=False).invoke(
+            candidate_state("vector_rerank"),
+            execution_config("ret-candidate-vector-rerank"),
+        )
+        self.assertEqual([40], resources.vector_store.requested_sizes)
+        self.assertEqual([10], resources.reranker.batch_sizes)
+        self.assertEqual(5, len(result["hits"]))
+
+    def test_vector_rerank_failure_keeps_vector_top_k(self) -> None:
+        class FailingReranker:
+            @staticmethod
+            def score(_query, _texts):
+                raise RuntimeError("리랭크 실패")
+
+        resources = candidate_resources()
+        resources.reranker = FailingReranker()
+        result = build_graph(resources, None, answer_enabled=False).invoke(
+            candidate_state("vector_rerank"),
+            execution_config("ret-candidate-vector-rerank-fallback"),
+        )
+        self.assertEqual(
+            [f"D1_{index:04d}" for index in range(5)],
+            [hit.chunk_id for hit in result["hits"]],
+        )
+        self.assertIn("리랭킹 실패로 직전 결과 사용", result["warnings"][-1])
+
     def test_hybrid_rerank_restores_baseline_candidate_contract(self) -> None:
         resources = candidate_resources()
         result = build_graph(resources, None, answer_enabled=False).invoke(

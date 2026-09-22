@@ -31,7 +31,7 @@
 | G1-4 | 공통 설정 모듈 배치 | 출력 파일 목록에 공통 모듈 자리가 없음. 두 앱은 독립 실행 예제임 | `app/settings.py`를 두 앱에 **동일 파일**로 배치(diff 0을 시험으로 보장). LLM 어댑터는 Retriever에만 둠(Indexer는 LLM 0회) | `vector/common/` 패키지 공유(앱이 독립 실행 예제가 아니게 됨) |
 | G1-5 | 검색 후보 수 옵션 | 기존은 `--retrieve-k`(10)·`--judge-k`(3)·`--top-n`(5) 3개 이름. 목표 소유표는 `--top-k` 하나 | **A안 승인·적용.** `vector`·`hybrid`는 질문별 목표 5건에서 검색기별 원시 후보 20건을 수집함. `hybrid_rerank`는 질문별 융합 목표 10건에서 검색기별 원시 후보 40건을 수집하고 Rerank 후 최종 5건을 반환함 | 옵션 추가(소유표 위반) |
 | G1-6 | `verify_evidence` 실패 시 루프 상한 `MAX_REPAIRS` | 프롬프트: 루프 상한 2회, 초과 시 `halted_by_limit`. 기존 s3.3은 1회 재호출. 재시도가 super-step을 소모하는 최악 가정에서도 2회면 23/25(플로니 계산) | `MAX_REPAIRS=2`(프롬프트 상한 그대로). 실제 재호출 횟수는 LLM 호출 예산(CLI 8회·API 요청당 2회)이 추가로 제한함 → API에서는 사실상 1회. 각 재호출은 `llm_calls`에 집계 | `MAX_REPAIRS=1`(기존 s3.3 동작과 동일) |
-| G1-10 | 관문 0.62를 hybrid·hybrid_rerank의 융합 점수에 그대로 쓰면 작동하지 않음 | 기존 0.62는 코사인 유사도(`round(1-distance,3)`) 기준이고, 융합 점수는 후보 집합 최소-최대 정규화 후 가중합이라 1등이 거의 항상 0.6 이상. s3.3에는 관문 자체가 없음(플로니 소스 확인) | `Hit`에 `vector_score`(코사인 유사도)를 보존하고, 모든 mode에서 **최종 1위 `hits[0]`의 `vector_score`**를 `gate_score`로 사용하여 0.62 적용. 최종 1위가 BM25 전용이라 `vector_score=None`이면 관문 미달 | 관문을 `vector` mode에만 적용(hybrid 경로는 근거 없는 답변을 막지 못함) |
+| G1-10 | 관문 0.62를 hybrid·hybrid_rerank의 융합 점수에 그대로 쓰면 작동하지 않음 | 기존 0.62는 코사인 유사도(`round(1-distance,3)`) 기준이고, 융합 점수는 후보 집합 최소-최대 정규화 후 가중합이라 1등이 거의 항상 0.6 이상. s3.3에는 관문 자체가 없음(플로니 소스 확인) | `Hit`에 `vector_score`(코사인 유사도)를 보존하고, 모든 mode에서 **최종 1위 `hits[0]`의 `vector_score`**를 `answer_gate_vector_score`로 사용하여 0.62 적용. 최종 1위가 BM25 전용이라 `vector_score=None`이면 관문 미달 | 관문을 `vector` mode에만 적용(hybrid 경로는 근거 없는 답변을 막지 못함) |
 | G1-11 | 오류 종료(exit 1) 시 `status` 값 | 5종(`ok`·`needs_check`·`halted_by_limit`·`dry_run`·`prompt_only`)에 오류용 값이 없어 `ok`로 보고하면 정직한 보고 위반 | `status` 값에 **`error`** 1종 추가(6종). `needs_check`는 유사도 관문 미달 전용 | `needs_check` 재사용(exit_code로만 구분) |
 | G1-12 | `hybrid_rerank` 동등성 합격 기준 | **해소됨.** 사용자 지시로 질문 변환이 범위에 들어오면서 기존 실측 4종이 모두 기준선이 됨(`vector` 6/7·2.125, `hybrid` 6/7·2.375, `transform+hybrid` 7/7·1.125, `transform+hybrid_rerank` 7/7·1.375) | 조합별 기준선과 나란히 비교(5-5절 표). 네 조합 모두 포함률 ≥ 기준선, 평균 순위 ≤ 기준선이면 통과 | — |
 | G1-13 | 질문 변환 범위 편입 (사용자 지시) | 원 프롬프트는 "s3.3의 적응형 검색·질문 변환·LLM 라우팅 제외"였으나 사용자가 워크플로우에 명시하도록 지시함 | Retriever 노드 8 → **11**(`route_query`·`search_transformed`·`merge_queries` 추가). `--transform {off,auto}` 신설, 기본 `off`. 기법 5종(rewrite·multi·hyde·stepback·decomposition)과 가중 RRF 병합·decomposition 커버리지 이식. `rerank_each_query_and_merge()`도 함께 이식(원 프롬프트의 이식 제외 지시를 사용자 지시가 덮음) | — |
@@ -118,7 +118,7 @@ State 필드명 = 결과 JSON 키. 이름을 바꾸려면 세 곳을 함께 바�
 | `RERANK_MAX_LENGTH` | `512` | Retriever | CrossEncoder 입력 길이 | 고정 | `s3.3/src/rerank.py:16` |
 | **질문 변환** | | | | | |
 | `TRANSFORM_MODE` | `off` | Retriever | `off`(변환 안 함) \| `auto`(관문 미달 시에만 변환) | 조정 | `--transform` 신설 |
-| `TRANSFORM_GATE_THRESHOLD` | `0.70` | Retriever | **변환 판단 관문.** 원 질문 **벡터 검색** Top-1 코사인 유사도가 이 값 이상이면 변환하지 않음 | 고정 | `adaptive_search.py:227` |
+| `TRANSFORM_GATE_THRESHOLD` | `0.86` | Retriever | **변환 판단 관문.** 원 질문 **벡터 검색** Top-1 코사인 유사도가 이 값 이상이면 변환하지 않음 | 조정 | 기존 10문항 검색 점수 분포 기반 사용자 결정 |
 | `TRANSFORM_RRF_K` | `60` | Retriever | 가중 RRF의 k. 순위 1위 점수 = 가중치/(k+1) | 고정 | `adaptive_search.py:179` |
 | `TRANSFORM_ORIGINAL_WEIGHT` | `0.5` | Retriever | 일반 기법(rewrite·multi·hyde·stepback)의 원 질문 가중치 | 고정 | `run_rerank.py:139`, `adaptive_search.py:281` |
 | `TRANSFORM_ORIGINAL_WEIGHT_DECOMPOSITION` | `0.1` | Retriever | **decomposition의 원 질문 가중치.** 하위 질문이 각 답을 대표하므로 원 질문은 보조 역할만 | 고정 | `run_rerank.py:142`, `rerank.py:18` |
@@ -411,7 +411,7 @@ group vector_search (10초, 재시도 2회)
   G -> CH : embed_query(원 질문) 후 similarity_search_with_score(k = top_k x 4)
   CH --> G : vector_hits, score = 1 - distance
   note right of G #LightYellow
-    transform_gate_score = Top-1 코사인 유사도
+    transform_gate_vector_score = Top-1 코사인 유사도
     변환 판단은 이 절대 점수로만 함
     하이브리드 융합 점수는 후보 안 상대 점수라 쓰지 않음
   end note
@@ -419,9 +419,9 @@ end
 
 == 3. 질문 변환 판단 ==
 group route_query
-  alt TRANSFORM_MODE 가 off 이거나 transform_gate_score 가 0.70 이상
+  alt TRANSFORM_MODE 가 off 이거나 transform_gate_vector_score 가 0.86 이상
     note right of G : 변환하지 않음\nroute_action = off 또는 gate_pass\n라우터 LLM 0회
-  else transform_gate_score 가 0.70 미만
+  else transform_gate_vector_score 가 0.86 미만
     G -> TC : get(원 질문)
     alt 캐시 적중
       TC --> G : RouteDecision, 라우터 LLM 0회
@@ -500,7 +500,7 @@ end
 
 == 7. 답변 관문 ==
 G -> D : passes_gate(hits, ANSWER_GATE_THRESHOLD=0.62)
-note right of D : gate_score = 최종 1위 hits[0] 의 vector_score
+note right of D : answer_gate_vector_score = 최종 1위 hits[0] 의 vector_score
 alt 관문 미달
   D --> G : 통과 못 함
   G --> P : status=needs_check, 답변 LLM 0회
@@ -541,8 +541,8 @@ P --> U : stdout JSON · HTTP 200 · SSE final 이벤트
 
 흐름 요약(순서가 중요함)
 
-1. **원 질문을 벡터로만 검색**(`vector_search`)하여 Top-1 코사인 유사도를 얻음 → `transform_gate_score`
-2. 그 값이 `TRANSFORM_GATE_THRESHOLD`(0.70) **미만이면** 질문 변환을 검토함(`route_query`)
+1. **원 질문을 벡터로만 검색**(`vector_search`)하여 Top-1 코사인 유사도를 얻음 → `transform_gate_vector_score`
+2. 그 값이 `TRANSFORM_GATE_THRESHOLD`(0.86) **미만이면** 질문 변환을 검토함(`route_query`)
 3. 원 질문은 하이브리드로 다시 검색함(`bm25_search` → `fuse_scores`)
 4. **변환된 질의도 같은 하이브리드 경로로 검색**함(`search_transformed`)
 5. 원 질문 결과와 변환 결과를 가중 RRF로 병합함(`merge_queries`)
@@ -554,11 +554,11 @@ P --> U : stdout JSON · HTTP 200 · SSE final 이벤트
 
 | 관문 | 위치 | 기준값 Config | 보는 점수 | 점수의 성격 | 미달 시 |
 |---|---|---|---|---|---|
-| **변환 판단 관문** | `route_query` 안 | `TRANSFORM_GATE_THRESHOLD` 0.70 | `transform_gate_score` = **`vector_search`가 낸 원 질문 Top-1 코사인 유사도** | 절대 점수 | 질문을 변환해 하이브리드로 다시 검색함(라우터 LLM 최대 1회) |
-| **답변 관문** | `generate_answer` 진입 전 | `ANSWER_GATE_THRESHOLD` 0.62 | `gate_score` = 최종 1위 `hits[0]`의 `vector_score` | 절대 점수 | 답변 LLM을 부르지 않고 `needs_check`로 종료 |
+| **변환 판단 관문** | `route_query` 안 | `TRANSFORM_GATE_THRESHOLD` 0.86 | `transform_gate_vector_score` = **`vector_search`가 낸 원 질문 Top-1 코사인 유사도** | 절대 점수 | 질문을 변환해 하이브리드로 다시 검색함(라우터 LLM 최대 1회) |
+| **답변 관문** | `generate_answer` 진입 전 | `ANSWER_GATE_THRESHOLD` 0.62 | `answer_gate_vector_score` = 최종 1위 `hits[0]`의 `vector_score` | 절대 점수 | 답변 LLM을 부르지 않고 `needs_check`로 종료 |
 
 두 관문 모두 **코사인 유사도**를 보므로 세 mode에서 같은 뜻을 가짐. 경계값에서는 변환하지 않음
-(`transform_gate_score >= 0.70`이면 통과 — 기존 `adaptive_search.py:245`의 `>=` 판정 승계).
+(`transform_gate_vector_score >= 0.86`이면 통과 — 기존 `adaptive_search.py:245`의 `>=` 판정 승계).
 
 #### 답변 관문이 `score`가 아니라 `vector_score`를 보는 이유 (G1-10)
 
@@ -581,7 +581,7 @@ P --> U : stdout JSON · HTTP 200 · SSE final 이벤트
 **계약**: `Hit`에 코사인 유사도를 `vector_score`로 따로 보존하고, 관문은 모든 mode에서 다음과 같이 판정함.
 
 ```python
-gate_score = (
+answer_gate_vector_score = (
     hits[0].vector_score
     if hits and hits[0].vector_score is not None
     else None
@@ -604,7 +604,7 @@ gate_score = (
 | 순서 | 검사 | 예 | 아니오 |
 |:--:|---|---|---|
 | 1 | `TRANSFORM_MODE` 가 `auto` 인가 | 2번으로 | 변환 안 함 (`route_action=off`) |
-| 2 | `transform_gate_score` 가 `TRANSFORM_GATE_THRESHOLD`(0.70) 미만인가 | 3번으로 | 변환 안 함 (`route_action=gate_pass`) |
+| 2 | `transform_gate_vector_score` 가 `TRANSFORM_GATE_THRESHOLD`(0.86) 미만인가 | 3번으로 | 변환 안 함 (`route_action=gate_pass`) |
 | 3 | 변환 캐시에 이 질문의 결정이 있는가 | 5번으로 (라우터 LLM 0회) | 4번으로 |
 | 4 | 라우터 LLM 1회 호출 | 5번으로 | — |
 | 5 | 판정이 `transform` 이고 질의 개수 규칙을 지켰는가 | 변환 질의 확보 (`route_action=transform`) | 변환 안 함 (`keep`·`clarify`·`route_error`) |
@@ -726,9 +726,9 @@ class RetrieverState(TypedDict, total=False):
     vector_hits: list[Hit]; bm25_scores: dict[str, float]; candidates: list[Hit]
     baseline_hits: list[Hit]                             # 원 질문 검색 결과(변환 병합의 기준 목록)
     hits: list[Hit]                                      # 최종 Top-K(R1: mode별 마지막 검색 노드가 씀)
-    gate_score: float | None                             # 답변 관문용. 최종 1위 hits[0]의 vector_score
+    answer_gate_vector_score: float | None               # 답변 관문용. 최종 1위 hits[0]의 vector_score
     # 질문 변환 3노드
-    transform_gate_score: float | None                   # 변환 판단용. vector_search 가 낸 원 질문 Top-1 코사인 유사도
+    transform_gate_vector_score: float | None            # 변환 판단용. vector_search 가 낸 원 질문 Top-1 코사인 유사도
     route_action: Literal["off", "gate_pass", "keep", "clarify", "transform"]
     technique: str | None                                # rewrite/multi/hyde/stepback/decomposition
     transformed_queries: list[str]
@@ -795,13 +795,13 @@ verify_evidence`) + `total_ms`. 1-2절의 `embed_query_ms`·`search_ms` 등 축�
 | 노드 | 입력 State | 출력 State(Reducer) | 실패 시 동작 | 타임아웃 | 재시도 | 컴포넌트 | 검증(정상/실패 시험) |
 |---|---|---|---|---|---|---|---|
 | `check_query` | `query, role, mode, top_k, dry_run` | `index_info·status·exit_code`(덮), `timings` | 빈 질문·`top_k<=0`·모르는 role/mode → `status=error, exit 1`(HTTP 400). 컬렉션 0건·서명 불일치 → `exit 1` + `index_info.signature_ok=False`(HTTP 503) | 10초 | 0 | Pydantic 입력 검증, `VectorStorePort.count/check_signature` | `test_check_query_ok_sets_index_info` / `test_check_query_unknown_role_exit1` |
-| `vector_search` | `query, role, mode, top_k` | `vector_hits`(덮), **`transform_gate_score`(덮) = Top-1 코사인 유사도**, mode=vector면 `baseline_hits`(덮), `timings` | Chroma 오류 재시도 후 `RetrievalError` 중단. 빈 컬렉션은 빈 목록 → 두 관문 모두 차단 | 10초 | `RetryPolicy(max_attempts=3, retry_on=RetrievalRetryableError)` | `candidate_sizes()`가 `raw_k`·`fused_k` 계산. `hybrid_rerank`는 `fused_k=top_k*HYBRID_RERANK_FUSION_MULTIPLIER`, 그 외는 `fused_k=top_k`. `raw_k=fused_k*CANDIDATE_MULTIPLIER` | `test_vector_search_returns_top_k` / `test_vector_search_sets_transform_gate_score` |
-| `route_query` | `query, transform_mode, transform_gate_score` | `route_action·technique·transformed_queries·route_reason·route_error·clarification·transform_cache_hit`(덮), `llm_calls`(+), `timings` | `TRANSFORM_MODE=off` 또는 `transform_gate_score >= 0.70` → `route_action`만 채우고 통과(LLM 0회). 라우터 실패·질의 개수 규칙 위반 → `keep`으로 격하하고 `route_error`에 사유 기록(중단 아님). 호출 상한 도달 시 호출 없이 `keep` | 60초/시도, 총 180초 마감 | 어댑터 내부 2회 | `LLMPort.complete_structured(system, user, RouteDecision, max_tokens=LLM_MAX_TOKENS_ROUTER)`. 캐시 적중 시 호출 없음 | `test_route_query_skips_when_gate_passes` / `test_route_query_invalid_query_count_falls_back_to_keep` |
+| `vector_search` | `query, role, mode, top_k` | `vector_hits`(덮), **`transform_gate_vector_score`(덮) = Top-1 코사인 유사도**, mode=vector면 `baseline_hits`(덮), `timings` | Chroma 오류 재시도 후 `RetrievalError` 중단. 빈 컬렉션은 빈 목록 → 두 관문 모두 차단 | 10초 | `RetryPolicy(max_attempts=3, retry_on=RetrievalRetryableError)` | `candidate_sizes()`가 `raw_k`·`fused_k` 계산. `hybrid_rerank`는 `fused_k=top_k*HYBRID_RERANK_FUSION_MULTIPLIER`, 그 외는 `fused_k=top_k`. `raw_k=fused_k*CANDIDATE_MULTIPLIER` | `test_vector_search_returns_top_k` / `test_vector_search_sets_transform_gate_vector_score` |
+| `route_query` | `query, transform_mode, transform_gate_vector_score` | `route_action·technique·transformed_queries·route_reason·route_error·clarification·transform_cache_hit`(덮), `llm_calls`(+), `timings` | `TRANSFORM_MODE=off` 또는 `transform_gate_vector_score >= 0.86` → `route_action`만 채우고 통과(LLM 0회). 라우터 실패·질의 개수 규칙 위반 → `keep`으로 격하하고 `route_error`에 사유 기록(중단 아님). 호출 상한 도달 시 호출 없이 `keep` | 60초/시도, 총 180초 마감 | 어댑터 내부 2회 | `LLMPort.complete_structured(system, user, RouteDecision, max_tokens=LLM_MAX_TOKENS_ROUTER)`. 캐시 적중 시 호출 없음 | `test_route_query_skips_when_gate_passes` / `test_route_query_invalid_query_count_falls_back_to_keep` |
 | `bm25_search` | `query, top_k` | `bm25_scores`(덮), `warnings`, `timings` | 색인 없음 → 빈 사전 + 경고 후 계속(승계). `mode=vector`면 건너뜀 | 10초(색인은 기동 시 워밍업) | 1 | `rank_bm25.BM25Okapi`(`split()` 토큰화), `data/bm25_index.pkl` 캐시 | `test_bm25_scores_nonempty` / `test_bm25_missing_index_returns_empty_and_warns` |
-| `fuse_scores` | `vector_hits, bm25_scores, role, top_k` | `candidates·baseline_hits`(덮), 변환 질의가 없으면 `hits·gate_score`(덮), `timings` | 가중치 음수·합 0 → `ConfigError` 중단. BM25 신규 후보 권한 재검사 미충족은 제외. **`transform_gate_score`를 건드리지 않음**(변환 판단은 벡터 유사도로만 함) | 10초 | 0 | `domain/scoring.normalize/fuse/rank` + `domain/access.filter_candidates` | `test_fuse_matches_baseline_ranking` / `test_fuse_does_not_touch_transform_gate_score` |
+| `fuse_scores` | `vector_hits, bm25_scores, role, top_k` | `candidates·baseline_hits`(덮), 변환 질의가 없으면 `hits·answer_gate_vector_score`(덮), `timings` | 가중치 음수·합 0 → `ConfigError` 중단. BM25 신규 후보 권한 재검사 미충족은 제외. **`transform_gate_vector_score`를 건드리지 않음**(변환 판단은 벡터 유사도로만 함) | 10초 | 0 | `domain/scoring.normalize/fuse/rank` + `domain/access.filter_candidates` | `test_fuse_matches_baseline_ranking` / `test_fuse_does_not_touch_transform_gate_vector_score` |
 | `search_transformed` | `transformed_queries, mode, role, top_k` | `transformed_hit_groups`(덮), `warnings`, `timings` | 질의 1건 검색 실패 → 그 질의만 빈 결과로 두고 경고 후 계속. 전부 실패 → 원 질문 결과 유지. 변환 질의가 없으면 건너뜀 | 10초 × 질의 수(노드 안 순차 루프) | 질의별 1 | 원 질문과 같은 경로 재사용 — hybrid 모드면 질의마다 `VectorStorePort.search` + `BM25Port.scores` + `domain/scoring.fuse` | `test_search_transformed_uses_hybrid_path` / `test_search_transformed_partial_failure_warns` |
-| `merge_queries` | `baseline_hits, transformed_hit_groups, technique, top_k` | `hits`(덮), `gate_score`(덮), `merge_weights·coverage_applied`(덮), `timings` | 병합 결과 0건 → `baseline_hits`를 그대로 씀 + 경고. 변환 질의가 없으면 건너뜀 | 10초 | 0 | `domain/query_transform.weighted_rrf`·`ensure_decomposition_coverage`(`adaptive_search.py:176-220` 이식, 가중치는 settings 주입) | `test_merge_uses_weight_05_for_rewrite` / `test_merge_uses_weight_01_and_coverage_for_decomposition` |
-| `rerank` | `query, baseline_hits, transformed_hit_groups, technique, top_k` | `hits·gate_score`(덮), `warnings`, `timings` | 타임아웃·모델 로드 실패 → `merge_queries`가 낸 `hits`를 그대로 통과(폴백) + 경고, `rerank_score=None` | 60초 | 0(폴백) | `sentence_transformers.CrossEncoder(RERANK_MODEL, max_length=512)` 지연 로드 + Sigmoid + `domain/query_transform.rerank_each_query_and_merge`(`s3.3/src/rerank.py:49-121` 이식) | `test_rerank_scores_each_group_with_own_query` / `test_rerank_timeout_falls_back` |
+| `merge_queries` | `baseline_hits, transformed_hit_groups, technique, top_k` | `hits`(덮), `answer_gate_vector_score`(덮), `merge_weights·coverage_applied`(덮), `timings` | 병합 결과 0건 → `baseline_hits`를 그대로 씀 + 경고. 변환 질의가 없으면 건너뜀 | 10초 | 0 | `domain/query_transform.weighted_rrf`·`ensure_decomposition_coverage`(`adaptive_search.py:176-220` 이식, 가중치는 settings 주입) | `test_merge_uses_weight_05_for_rewrite` / `test_merge_uses_weight_01_and_coverage_for_decomposition` |
+| `rerank` | `query, baseline_hits, transformed_hit_groups, technique, top_k` | `hits·answer_gate_vector_score`(덮), `warnings`, `timings` | 타임아웃·모델 로드 실패 → `merge_queries`가 낸 `hits`를 그대로 통과(폴백) + 경고, `rerank_score=None` | 60초 | 0(폴백) | `sentence_transformers.CrossEncoder(RERANK_MODEL, max_length=512)` 지연 로드 + Sigmoid + `domain/query_transform.rerank_each_query_and_merge`(`s3.3/src/rerank.py:49-121` 이식) | `test_rerank_scores_each_group_with_own_query` / `test_rerank_timeout_falls_back` |
 | `build_prompt` | `query, hits, repair_hints, prompt_only` | `prompt`(덮), `status·exit_code`(prompt_only 시), `timings` | 프롬프트 길이 초과 → 근거를 뒤에서부터 줄임 + 경고. 1건까지 줄여도 초과 → `PromptTooLongError` 중단 | 10초 | 0 | `langchain_core.prompts.ChatPromptTemplate`(system·user 분리) | `test_build_prompt_includes_chunk_ids` / `test_build_prompt_shrinks_on_overflow` |
 | `generate_answer` | `prompt, max_llm_calls, llm_calls` | `raw_answer`(덮), `llm_calls`(+전송 시도 수), `status·exit_code`(소진 시), `timings` | 진입 전 `llm_calls >= max_llm_calls` → 호출 없이 `halted_by_limit`. 429·5xx·연결 재시도 소진 → `halted_by_limit`. `LLMAuthError`·`LLMRequestError` → 중단 exit 1. 파싱 실패는 `raw_answer.parsing_error`로 넘김 | 60초/시도, 총 180초 마감(G1-7) | 어댑터 내부 2회(백오프 1초·×2·±20%) | `LLMPort.complete_structured(system, user, AnswerDraft, max_tokens=2000)` ← `ChatGroq/ChatAnthropic/ChatOpenAI.with_structured_output(method="json_schema", include_raw=True)` | `test_generate_answer_returns_structured` / `test_generate_answer_blocked_at_call_limit` |
 | `verify_evidence` | `raw_answer, hits, repair_count` | `answer`(덮), `repair_hints`(add), `repair_count`(+1), `status·exit_code`, `timings` | 대조 실패 & `repair_count < 2` → `build_prompt`로 엣지 복귀. 상한 → `halted_by_limit`(exit 0). LLM 0회 | 10초 | 0(엣지 루프) | `domain/scoring.build_answer/verify_quote`(`evidence.py` 이식) | `test_verify_evidence_accepts_exact_quote` / `test_verify_evidence_loops_back_on_mismatch` |
@@ -1001,7 +1001,7 @@ Retriever (`vector/retriever/`)
 | `--query` | str | 필수 | — | 빈 문자열 → 종료 코드 1 |
 | `--top-k` | int | 5 | — | 최종 건수. Rerank 모드는 융합 10건·원시 40건, 그 외는 원시 20건 |
 | `--mode` | str | `hybrid_rerank` | vector·hybrid·hybrid_rerank | 검색 경로 |
-| `--transform` | str | `off` | off·auto | 질문 변환. `auto`는 원 질문 Top-1이 `TRANSFORM_GATE_THRESHOLD`(0.70) 미만일 때만 변환 |
+| `--transform` | str | `off` | off·auto | 질문 변환. `auto`는 원 질문 Top-1이 `TRANSFORM_GATE_THRESHOLD`(0.86) 미만일 때만 변환 |
 | `--role` | str | `agent` | agent·auditor | 모르는 값은 argparse가 차단 |
 | `--thread-id` | str | `ret-` + UUID 8자리 | — | 체크포인트 세션 키 |
 | `--dry-run` | flag | False | — | check_query까지, 인덱스 연결·건수만 |
@@ -1099,15 +1099,15 @@ Pydantic(표현 계층 `api.py`): `SearchRequest(query: str(min 1), top_k: int(1
 | Retriever | 노드 11개 정상·실패 각 1건(22) + 권한 필터 3건·답변 관문 0.62 경계와 최종 1위 사용 4건·정규화·융합·정렬·근거 대조 + **질문 변환 8건**(아래) + API 라우트 10건(`TestClient`, `dependency_overrides`로 모델 미적재) + LLM 계약 시험 18건(키 없이 통과) + `settings.py` diff 0 | 22(API 6 포함) | 60 이상 | 지식니 F-2 · 스택니 F-2 · 커넥니 F |
 
 답변 관문의 최종 1위 사용 시험: `hits[0].vector_score=0.61`, `hits[1].vector_score=0.90`을 주입해도
-`gate_score=0.61`, `status="needs_check"`, 답변 LLM 호출 0회여야 함.
+`answer_gate_vector_score=0.61`, `status="needs_check"`, 답변 LLM 호출 0회여야 함.
 
 질문 변환 시험 8건(LLM 없이, 라우터 응답을 가짜로 주입)
 
 | # | 이름 | 기대값 |
 |---|---|---|
 | 1 | `test_route_query_off_skips_router` | `TRANSFORM_MODE=off` → 라우터 호출 0회, `route_action="off"` |
-| 2 | `test_route_query_gate_pass_skips_router` | 원 질문 **벡터** Top-1 `0.71` ≥ 0.70 → 호출 0회, `route_action="gate_pass"` |
-| 3 | `test_route_query_calls_router_below_gate` | 벡터 Top-1 `0.69` → 라우터 1회, `llm_calls` +1 |
+| 2 | `test_route_query_gate_pass_skips_router` | 원 질문 **벡터** Top-1 `0.86` ≥ 0.86 → 호출 0회, `route_action="gate_pass"` |
+| 3 | `test_route_query_calls_router_below_gate` | 벡터 Top-1 `0.85` → 라우터 1회, `llm_calls` +1 |
 | 4 | `test_route_query_cache_hit_skips_router` | 캐시에 같은 질문 결정 존재 → 호출 0회, `transform_cache_hit=True` |
 | 5 | `test_route_query_multi_requires_exact_3` | multi인데 질의 2개 → `keep`으로 격하, `route_error`에 사유 기록 |
 | 6 | `test_route_query_decomposition_range_2_to_4` | 하위 질문 5개 → `keep` 격하 / 3개 → 통과 |
@@ -1148,7 +1148,7 @@ Pydantic(표현 계층 `api.py`): `SearchRequest(query: str(min 1), top_k: int(1
 | CLI 옵션 | `--mode`만 | `--transform {off,auto}` 추가(기본 `off`) |
 | API 요청 | `{query, top_k, mode}` | `{query, top_k, mode, transform}` |
 | API 응답 | `hits`·`answer`·`timings`·`llm_calls`·`status` | `route{action, technique, transformed_queries, merge_weights, coverage_applied, gate_score, reason, error, clarification, cache_hit}` 추가 |
-| 관문 | 답변 관문 0.62 1개 | 답변 관문 0.62 + **변환 판단 관문 0.70** 2개(2-2절 표로 구분). 둘 다 코사인 유사도를 봄 |
+| 관문 | 답변 관문 0.62 1개 | 답변 관문 0.62 + **변환 판단 관문 0.86** 2개(2-2절 표로 구분). 둘 다 코사인 유사도를 봄 |
 | 노드 순서 | — | `vector_search` → `route_query` → `bm25_search` → `fuse_scores` → `search_transformed` → `merge_queries`. 변환 판단이 하이브리드 검색보다 **앞**에 옴 |
 | LLM 호출 지점 | `generate_answer` 1곳 | `generate_answer` + `route_query` 2곳(둘 다 `llm_calls`에 집계, 상한 공유) |
 | 이식 제외 | `rerank_each_query_and_merge()`·`adaptive_search` 의존 제외 | **이식함**(가중 RRF·decomposition 커버리지 포함). 제외로 남는 것은 없음 |
@@ -1160,7 +1160,7 @@ Pydantic(표현 계층 `api.py`): `SearchRequest(query: str(min 1), top_k: int(1
 
 | Config 키 | 값 | 근거 |
 |---|---|---|
-| `TRANSFORM_GATE_THRESHOLD` | 0.70 | `s3.3/src/adaptive_search.py:227` `threshold: float = 0.70` |
+| `TRANSFORM_GATE_THRESHOLD` | 0.86 | 기존 0.70에서 10문항 검색 점수 분포를 바탕으로 사용자 조정 |
 | `TRANSFORM_RRF_K` | 60 | `adaptive_search.py:179` `rrf_k: int = 60` |
 | `TRANSFORM_ORIGINAL_WEIGHT` | 0.5 | `adaptive_search.py:281`, `s3.3/run_rerank.py:139` |
 | `TRANSFORM_ORIGINAL_WEIGHT_DECOMPOSITION` | 0.1 | `s3.3/src/rerank.py:18` `DECOMPOSITION_ORIGINAL_WEIGHT = 0.1`, `run_rerank.py:142` |
@@ -1221,7 +1221,7 @@ Pydantic(표현 계층 `api.py`): `SearchRequest(query: str(min 1), top_k: int(1
 | 노드 순서 | 하이브리드 검색 → 판단 | **벡터 검색 → 판단 → 하이브리드 검색** |
 | 변환 질의 검색 | 하이브리드 | 하이브리드 (같음) |
 
-이 변경으로 동등성 실측값이 기존과 달라질 수 있음. `equivalence_run1.json`에 두 방식의 `transform_gate_score`를
+이 변경으로 동등성 실측값이 기존과 달라질 수 있음. `equivalence_run1.json`에 두 방식의 변환 관문 점수를
 함께 기록하고 `COMPARISON.md`에 차이를 명시함. 기존 방식으로 되돌리려면 `TRANSFORM_GATE_SOURCE` 키를 두면 되나,
 현재는 Config 키를 늘리지 않고 새 방식으로 고정함.
 

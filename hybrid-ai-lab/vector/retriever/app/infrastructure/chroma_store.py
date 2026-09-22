@@ -6,9 +6,15 @@ import math
 from pathlib import Path
 from typing import Any
 
+from ..application.ports import VectorStorePort
 from ..application.state import Hit
 from ..domain.location import resolve_location
 from ..domain.search_filter import MetadataFilter
+from ..domain.vector_search import (
+    DEFAULT_VECTOR_SEARCH_OPTIONS,
+    VectorSearchOptions,
+    maximal_marginal_relevance_indices,
+)
 
 
 def _to_hit(chunk_id: str, score: float, text: str, metadata: dict) -> Hit:
@@ -47,7 +53,7 @@ def _to_chroma_where(metadata_filter: MetadataFilter) -> dict[str, Any]:
     return clauses[0] if len(clauses) == 1 else {"$and": clauses}
 
 
-class MemoryVectorStore:
+class MemoryVectorStore(VectorStorePort):
     def __init__(self, signature: str = "smoke-sha256-bigram-v1") -> None:
         self.signature = signature
         self._rows: dict[str, tuple[str, list[float], dict]] = {}
@@ -63,15 +69,32 @@ class MemoryVectorStore:
         query_embedding: list[float],
         k: int,
         metadata_filter: MetadataFilter,
+        options: VectorSearchOptions = DEFAULT_VECTOR_SEARCH_OPTIONS,
     ) -> list[Hit]:
-        rows = []
+        if k <= 0:
+            return []
+        rows: list[tuple[Hit, list[float]]] = []
         for chunk_id, (text, embedding, metadata) in self._rows.items():
             if not _matches(metadata, metadata_filter):
                 continue
             dot = sum(left * right for left, right in zip(query_embedding, embedding))
-            denominator = math.sqrt(sum(value * value for value in query_embedding) * sum(value * value for value in embedding)) or 1.0
-            rows.append(_to_hit(chunk_id, dot / denominator, text, metadata))
-        return sorted(rows, key=lambda hit: (-hit.score, hit.chunk_id))[:k]
+            denominator = math.sqrt(
+                sum(value * value for value in query_embedding)
+                * sum(value * value for value in embedding)
+            ) or 1.0
+            rows.append((_to_hit(chunk_id, dot / denominator, text, metadata), embedding))
+        rows.sort(key=lambda row: (-row[0].score, row[0].chunk_id))
+        if options.strategy == "similarity":
+            return [hit for hit, _embedding in rows[:k]]
+
+        candidates = rows[: options.fetch_k(k)]
+        selected = maximal_marginal_relevance_indices(
+            query_embedding,
+            [embedding for _hit, embedding in candidates],
+            k=k,
+            lambda_mult=options.lambda_mult,
+        )
+        return [candidates[index][0] for index in selected]
 
     def describe(self) -> dict[str, Any]:
         first = next(iter(self._rows.values()), None)
@@ -88,7 +111,7 @@ class MemoryVectorStore:
         return self.signature == expected
 
 
-class ChromaVectorStore:
+class ChromaVectorStore(VectorStorePort):
     def __init__(self, path: Path, collection: str, signature: str) -> None:
         import chromadb
 
@@ -105,20 +128,44 @@ class ChromaVectorStore:
         query_embedding: list[float],
         k: int,
         metadata_filter: MetadataFilter,
+        options: VectorSearchOptions = DEFAULT_VECTOR_SEARCH_OPTIONS,
     ) -> list[Hit]:
+        if k <= 0:
+            return []
         where = _to_chroma_where(metadata_filter)
+        include = ["documents", "metadatas", "distances"]
+        if options.strategy == "mmr":
+            include.append("embeddings")
         result = self._collection.query(
             query_embeddings=[query_embedding],
-            n_results=k,
-            where=where or None,
-            include=["documents", "metadatas", "distances"],
+            n_results=options.fetch_k(k),
+            where=where or None,  # Chroma 메타데이터 조건으로 검색 문서를 제한하며, 빈 조건은 None으로 보내 필터를 적용하지 않음
+            include=include,  # MMR은 후보끼리의 유사도 계산을 위해 임베딩도 함께 조회함
         )
-        return [
+        candidates = [
             _to_hit(chunk_id, 1.0 - float(distance), text, metadata)
             for chunk_id, text, metadata, distance in zip(
                 result["ids"][0], result["documents"][0], result["metadatas"][0], result["distances"][0]
             )
         ]
+        if options.strategy == "similarity":
+            return candidates
+        if not candidates:
+            return []
+
+        embedding_rows = result.get("embeddings")
+        if embedding_rows is None or len(embedding_rows) == 0:
+            raise RuntimeError("Chroma MMR 검색 결과에 후보 임베딩이 없음")
+        candidate_embeddings = embedding_rows[0]
+        if len(candidate_embeddings) != len(candidates):
+            raise RuntimeError("Chroma MMR 후보와 임베딩 수가 일치하지 않음")
+        selected = maximal_marginal_relevance_indices(
+            query_embedding,
+            candidate_embeddings,
+            k=k,
+            lambda_mult=options.lambda_mult,
+        )
+        return [candidates[index] for index in selected]
 
     def upsert(self, ids, texts, embeddings, metadatas) -> None:
         self._collection.upsert(ids=ids, documents=texts, embeddings=embeddings, metadatas=metadatas)
@@ -149,7 +196,7 @@ def create_vector_store(
     path: Path,
     collection: str,
     signature: str,
-):
+) -> VectorStorePort:
     """저장소 이름을 프로젝트 포트의 구현체로 변환함."""
 
     if backend == "memory":

@@ -89,6 +89,52 @@ def _write_generation(
     return pointer
 
 
+@pytest.mark.parametrize(
+    ("query", "expected_chunk_id", "expected_terms"),
+    [
+        ("배달 음식점 할인 혜택", "dining-benefit", ("음식점", "배달앱", "할인")),
+        ("공항 라운지 항공권 혜택", "travel-benefit", ("공항", "라운지", "항공권")),
+        ("버스 지하철 교통비 할인", "transit-benefit", ("버스", "지하철", "교통비")),
+    ],
+)
+def test_keyword_search_returns_expected_top_chunk(
+    tmp_path: Path,
+    query: str,
+    expected_chunk_id: str,
+    expected_terms: tuple[str, ...],
+) -> None:
+    records = [
+        {
+            "chunk_id": "dining-benefit",
+            "text": "음식점 외식 배달앱 점심 저녁 할인 혜택 안내",
+            "metadata": {"access_level": "public"},
+        },
+        {
+            "chunk_id": "travel-benefit",
+            "text": "공항 라운지 항공권 해외여행 호텔 할인 혜택 안내",
+            "metadata": {"access_level": "public"},
+        },
+        {
+            "chunk_id": "transit-benefit",
+            "text": "대중교통 버스 지하철 택시 교통비 할인 혜택 안내",
+            "metadata": {"access_level": "public"},
+        },
+    ]
+    _write_generation(tmp_path, records)
+    index = BM25Index(VersionedCorpusStore(tmp_path), KoreanTokenizer())
+
+    keyword_search_scores_by_chunk_id = index.keyword_search(query, k=2)
+
+    assert keyword_search_scores_by_chunk_id
+    top_chunk_id = next(iter(keyword_search_scores_by_chunk_id))
+    assert top_chunk_id == expected_chunk_id
+    top_hit = index.chunks()[top_chunk_id]
+    missing_terms = [term for term in expected_terms if term not in top_hit.text]
+    assert not missing_terms, f"1위 청크 본문에 핵심어가 없음: {missing_terms}"
+    assert len(keyword_search_scores_by_chunk_id) <= 2
+    assert all(score > 0 for score in keyword_search_scores_by_chunk_id.values())
+
+
 def test_korean_query_and_acl_are_applied_before_score_fusion() -> None:
     records = [
         {
@@ -107,12 +153,12 @@ def test_korean_query_and_acl_are_applied_before_score_fusion() -> None:
         _write_generation(root, records)
         index = BM25Index(VersionedCorpusStore(root), KoreanTokenizer())
 
-        agent_scores = index.scores(
+        agent_scores = index.keyword_search(
             "전월실적 30만원 제외",
             allowed_access_levels=frozenset({"public", "internal"}),
             k=10,
         )
-        auditor_scores = index.scores(
+        auditor_scores = index.keyword_search(
             "전월실적 30만원 제외",
             allowed_access_levels=frozenset({"public", "internal", "restricted"}),
             k=10,
@@ -142,13 +188,13 @@ def test_top_k_zero_score_filter_and_query_only_typo_fallback() -> None:
         _write_generation(root, records)
         index = BM25Index(VersionedCorpusStore(root), KoreanTokenizer())
 
-        assert index.scores("완전미등록질의", k=2) == {}
+        assert index.keyword_search("완전미등록질의", k=2) == {}
 
-        corrected = index.scores("혜텍", k=1)
+        corrected = index.keyword_search("혜텍", k=1)
         assert list(corrected) == ["benefit"]
         assert corrected["benefit"] > 0
 
-        limited = index.scores("카드 안내", k=1)
+        limited = index.keyword_search("카드 안내", k=1)
         assert len(limited) == 1
 
 
@@ -195,9 +241,75 @@ def test_active_card_dictionary_is_loaded_for_query_tokenization() -> None:
             VersionedCorpusStore(root),
             KoreanTokenizer(user_dictionary),
         )
-        assert index.scores("한빛 모아생활", k=1)["card"] > 0
+        assert index.keyword_search("한빛 모아생활", k=1)["card"] > 0
         assert "한빛모아생활" in index.tokenizer.tokenize("한빛 모아생활")
         assert "기본카드" in index.tokenizer.tokenize("기본카드")
+
+
+@pytest.mark.parametrize(
+    (
+        "query",
+        "expected_card_token",
+        "other_card_token",
+        "expected_chunk_id",
+        "expected_text_terms",
+    ),
+    [
+        (
+            "한빛 모아생활 카드의 마트 적립 혜택은?",
+            "한빛모아생활",
+            "블루문트래블",
+            "hanbit-benefit",
+            ("한빛 모아생활", "마트", "적립"),
+        ),
+        (
+            "블루문 트래블 카드 공항 라운지 혜택 알려줘",
+            "블루문트래블",
+            "한빛모아생활",
+            "bluemoon-benefit",
+            ("블루문 트래블", "공항", "라운지"),
+        ),
+    ],
+)
+def test_card_dictionary_preserves_card_name_and_finds_expected_chunk(
+    tmp_path: Path,
+    query: str,
+    expected_card_token: str,
+    other_card_token: str,
+    expected_chunk_id: str,
+    expected_text_terms: tuple[str, ...],
+) -> None:
+    records = [
+        {
+            "chunk_id": "hanbit-benefit",
+            "text": "한빛 모아생활 카드의 생활비 적립과 마트 할인 혜택",
+            "metadata": {"access_level": "public"},
+        },
+        {
+            "chunk_id": "bluemoon-benefit",
+            "text": "블루문 트래블 카드의 공항 라운지와 해외 결제 혜택",
+            "metadata": {"access_level": "public"},
+        },
+    ]
+    card_words = (
+        ("한빛 모아생활", "NNP", 0.0),
+        ("블루문 트래블", "NNP", 0.0),
+    )
+    _write_generation(tmp_path, records, card_words=card_words)
+    index = BM25Index(VersionedCorpusStore(tmp_path), KoreanTokenizer())
+
+    index.warm()
+    query_tokens = index.tokenizer.tokenize(query)
+    keyword_search_scores_by_chunk_id = index.keyword_search(query, k=2)
+
+    assert expected_card_token in query_tokens
+    assert other_card_token not in query_tokens
+    assert keyword_search_scores_by_chunk_id
+    top_chunk_id = next(iter(keyword_search_scores_by_chunk_id))
+    assert top_chunk_id == expected_chunk_id
+    top_hit = index.chunks()[top_chunk_id]
+    missing_terms = [term for term in expected_text_terms if term not in top_hit.text]
+    assert not missing_terms, f"1위 청크 본문에 핵심어가 없음: {missing_terms}"
 
 
 def test_card_dictionary_tampering_is_rejected() -> None:
@@ -290,7 +402,7 @@ def test_tokenizer_signature_mismatch_keeps_previous_active_bundle() -> None:
             card_words=(("블루문카드", "NNP", 0.0),),
         )
         index = BM25Index(VersionedCorpusStore(root), KoreanTokenizer())
-        assert index.scores("블루문카드", k=1)["first"] > 0
+        assert index.keyword_search("블루문카드", k=1)["first"] > 0
         first_signature = index.tokenizer.signature
 
         pointer = _write_generation(
@@ -339,7 +451,7 @@ def test_active_generation_switches_bm25_corpus_and_tokenizer_together() -> None
         # 다른 요청이 새 버전을 준비하는 동안에는 완성된 기존 묶음으로 검색함.
         index._warm_lock.acquire()
         try:
-            assert index.scores("블루문카드", k=1)["first"] > 0
+            assert index.keyword_search("블루문카드", k=1)["first"] > 0
             assert index._generation == "gen-first"
             assert index.tokenizer.signature == first_signature
         finally:

@@ -1,0 +1,168 @@
+[
+  {
+    "source": 1,
+    "edited": false
+  },
+  {
+    "source": 2,
+    "edited": false
+  },
+  {
+    "source": 3,
+    "edited": false
+  },
+  {
+    "source": 4,
+    "edited": true,
+    "title": "Indexer 전체 흐름",
+    "sourceRef": "indexer/app/application/graph.py:222-258"
+  },
+  {
+    "source": 5,
+    "edited": true,
+    "title": "원문 3종을 같은 Document 구조로 정리",
+    "sourceRef": "indexer/app/application/graph.py"
+  },
+  {
+    "source": 5,
+    "edited": true,
+    "title": "메타데이터는 근거를 되찾는 주소",
+    "sourceRef": "indexer/app/application/graph.py; indexer/app/domain/validation.py"
+  },
+  {
+    "source": 6,
+    "edited": true,
+    "title": "PDF 텍스트 추출과 반복 요소 제거",
+    "sourceRef": "indexer/app/infrastructure/pdf_reader.py:96-153,277-365"
+  },
+  {
+    "source": 6,
+    "edited": true,
+    "title": "표는 행과 열의 관계를 보존",
+    "sourceRef": "indexer/app/infrastructure/pdf_reader.py:201-268,381-412"
+  },
+  {
+    "source": 7,
+    "edited": true,
+    "title": "상담 내용의 개인정보 처리",
+    "sourceRef": "indexer/app/domain/consultations.py:52-190"
+  },
+  {
+    "source": 7,
+    "edited": true,
+    "title": "청킹은 문서의 의미 단위에 맞춰 분할",
+    "sourceRef": "indexer/app/domain/chunking.py:93-519; indexer/app/application/graph.py:455-540"
+  },
+  {
+    "source": 8,
+    "edited": true,
+    "title": "변경된 청크만 임베딩하고 저장",
+    "sourceRef": "indexer/app/application/graph.py:556-639; indexer/app/infrastructure/embedder.py:39-160"
+  },
+  {
+    "source": 8,
+    "edited": true,
+    "title": "키워드 인덱스와 활성 검색 세대 발행",
+    "sourceRef": "indexer/app/application/graph.py:754-839; indexer/app/infrastructure/lexical_index.py"
+  },
+  {
+    "source": 9,
+    "edited": true,
+    "title": "Retriever 검색 흐름",
+    "sourceRef": "retriever/app/application/graph.py:455-563"
+  },
+  {
+    "source": 9,
+    "edited": true,
+    "title": "검색 결과를 근거 있는 답변으로 연결",
+    "sourceRef": "retriever/app/application/graph.py:181-214,319-330,669-709"
+  },
+  {
+    "source": 10,
+    "edited": true,
+    "title": "네 가지 검색 모드",
+    "sourceRef": "retriever/app/application/graph.py:579-598,818-833,917-1023"
+  },
+  {
+    "source": 10,
+    "edited": true,
+    "title": "질문 변환 관문 0.86",
+    "sourceRef": "retriever/app/application/graph.py:838-911; retriever/app/settings.py:177"
+  },
+  {
+    "source": 10,
+    "edited": true,
+    "title": "질문 변환 기법",
+    "sourceRef": "retriever/app/domain/query_transform.py:10-176"
+  },
+  {
+    "source": 11,
+    "edited": true,
+    "title": "Hybrid 점수 결합",
+    "sourceRef": "retriever/app/domain/scoring.py:11-95"
+  },
+  {
+    "source": 11,
+    "edited": true,
+    "title": "원 질문과 변환 질문의 후보 그룹",
+    "sourceRef": "retriever/app/application/graph.py:990-1070"
+  },
+  {
+    "source": 12,
+    "edited": true,
+    "title": "RRF는 여러 순위표를 하나로 합치는 방법",
+    "sourceRef": "retriever/app/domain/query_transform.py:182-294"
+  },
+  {
+    "source": 12,
+    "edited": true,
+    "title": "Rerank는 후보를 다시 읽어 순위를 조정",
+    "sourceRef": "retriever/app/application/graph.py:1075-1164"
+  },
+  {
+    "source": 12,
+    "edited": true,
+    "title": "분해 질문의 재정렬 결과 결합",
+    "sourceRef": "retriever/app/domain/query_transform.py:297-427"
+  },
+  {
+    "source": 13,
+    "edited": false
+  },
+  {
+    "source": 14,
+    "edited": true,
+    "title": "질문 변환 관문과 답변 생성 관문",
+    "sourceRef": "retriever/app/application/graph.py:181-214,838-911"
+  },
+  {
+    "source": 14,
+    "edited": true,
+    "title": "검색 근거와 질문을 나누어 답변 요청",
+    "sourceRef": "retriever/app/application/graph.py:1169-1250"
+  },
+  {
+    "source": 14,
+    "edited": true,
+    "title": "인용이 검색 근거에 실제로 있는지 확인",
+    "sourceRef": "retriever/app/domain/scoring.py:117-245; retriever/app/domain/location.py:8-26"
+  },
+  {
+    "source": 14,
+    "edited": true,
+    "title": "검증 실패 시 수정 루프와 호출 예산",
+    "sourceRef": "retriever/app/application/graph.py:188-192,343-382,561-563; retriever/app/settings.py:159-191"
+  },
+  {
+    "source": 15,
+    "edited": false
+  },
+  {
+    "source": 16,
+    "edited": false
+  },
+  {
+    "source": 17,
+    "edited": false
+  }
+]

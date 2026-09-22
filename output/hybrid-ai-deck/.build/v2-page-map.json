@@ -1,0 +1,482 @@
+[
+  {
+    "original": 1,
+    "kind": "preserved"
+  },
+  {
+    "original": 2,
+    "kind": "preserved"
+  },
+  {
+    "original": 3,
+    "kind": "preserved"
+  },
+  {
+    "original": 4,
+    "kind": "preserved"
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "select_sources",
+    "topic": "원문 파일 선택",
+    "title": "select_sources  :  원문 파일 선택",
+    "source": "indexer/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "select_sources",
+    "topic": "선택 결과와 Document 배열",
+    "title": "select_sources  :  선택 결과와 Document 배열",
+    "source": "indexer/app/application/graph.py",
+    "code": true,
+    "originalCodePages": [
+      5
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "extract",
+    "topic": "파일을 Document로 변환",
+    "title": "extract  :  파일을 Document로 변환",
+    "source": "indexer/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "extract",
+    "topic": "PDF 좌표와 글자 구조",
+    "title": "extract  :  PDF 좌표와 글자 구조",
+    "source": "indexer/app/infrastructure/pdf_reader.py",
+    "code": true,
+    "originalCodePages": [
+      6
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "extract",
+    "topic": "PDF 한 줄씩 추출",
+    "title": "extract  :  PDF 한 줄씩 추출",
+    "source": "indexer/app/infrastructure/pdf_reader.py",
+    "code": true,
+    "originalCodePages": [
+      6
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "extract",
+    "topic": "반복 머리말·꼬리말 찾기",
+    "title": "extract  :  반복 머리말·꼬리말 찾기",
+    "source": "indexer/app/infrastructure/pdf_reader.py",
+    "code": true,
+    "originalCodePages": [
+      6
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "extract",
+    "topic": "PDF 표와 읽기 순서",
+    "title": "extract  :  PDF 표와 읽기 순서",
+    "source": "indexer/app/infrastructure/pdf_reader.py"
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "extract",
+    "topic": "상담 분리와 가명화",
+    "title": "extract  :  상담 분리와 가명화",
+    "source": "indexer/app/domain/consultations.py"
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "extract",
+    "topic": "상담 개인정보 처리 코드",
+    "title": "extract  :  상담 개인정보 처리 코드",
+    "source": "indexer/app/domain/consultations.py",
+    "code": true,
+    "originalCodePages": [
+      7
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "apply_profile",
+    "topic": "문서별 관리 정보 적용",
+    "title": "apply_profile  :  문서별 관리 정보 적용",
+    "source": "indexer/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "apply_profile",
+    "topic": "프로필 선택과 적용 코드",
+    "title": "apply_profile  :  프로필 선택과 적용 코드",
+    "source": "indexer/app/application/graph.py",
+    "code": true,
+    "originalCodePages": []
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "validate_metadata",
+    "topic": "필수값 검증과 결과 저장",
+    "title": "validate_metadata  :  필수값 검증과 결과 저장",
+    "source": "indexer/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "chunk",
+    "topic": "문서 유형별 의미 단위 분할",
+    "title": "chunk  :  문서 유형별 의미 단위 분할",
+    "source": "indexer/app/domain/chunking.py"
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "embed",
+    "topic": "변경 청크의 벡터 생성",
+    "title": "embed  :  변경 청크의 벡터 생성",
+    "source": "indexer/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "embed",
+    "topic": "모델 적재와 배치 인코딩",
+    "title": "embed  :  모델 적재와 배치 인코딩",
+    "source": "indexer/app/infrastructure/embedder.py",
+    "code": true,
+    "originalCodePages": [
+      8
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "upsert",
+    "topic": "ChromaDB 저장·갱신",
+    "title": "upsert  :  ChromaDB 저장·갱신",
+    "source": "indexer/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "upsert",
+    "topic": "Chroma 컬렉션 구성",
+    "title": "upsert  :  Chroma 컬렉션 구성",
+    "source": "indexer/app/infrastructure/chroma_store.py",
+    "code": true,
+    "originalCodePages": [
+      8
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "upsert",
+    "topic": "청크 저장 코드",
+    "title": "upsert  :  청크 저장 코드",
+    "source": "indexer/app/infrastructure/chroma_store.py",
+    "code": true,
+    "originalCodePages": [
+      8
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "indexer",
+    "node": "finalize_index",
+    "topic": "검증과 검색 세대 발행",
+    "title": "finalize_index  :  검증과 검색 세대 발행",
+    "source": "indexer/app/application/graph.py"
+  },
+  {
+    "original": 9,
+    "kind": "preserved"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "check_search_readiness",
+    "topic": "검색 준비 확인",
+    "title": "check_search_readiness  :  검색 준비 확인",
+    "source": "retriever/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "vector_search",
+    "topic": "원 질문 벡터 검색",
+    "title": "vector_search  :  원 질문 벡터 검색",
+    "source": "retriever/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "vector_search",
+    "topic": "Chroma 검색 코드",
+    "title": "vector_search  :  Chroma 검색 코드",
+    "source": "retriever/app/infrastructure/chroma_store.py",
+    "code": true,
+    "originalCodePages": [
+      10
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "vector_search",
+    "topic": "네 검색 모드의 후보 수",
+    "title": "vector_search  :  네 검색 모드의 후보 수",
+    "source": "retriever/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "assess_transform_gate",
+    "topic": "질문 변환 검토 관문",
+    "title": "assess_transform_gate  :  질문 변환 검토 관문",
+    "source": "retriever/app/domain/query_transform.py",
+    "code": true,
+    "originalCodePages": [
+      10
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "plan_query_transform",
+    "topic": "변환 계획 수립",
+    "title": "plan_query_transform  :  변환 계획 수립",
+    "source": "retriever/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "plan_query_transform",
+    "topic": "다섯 가지 변환 기법",
+    "title": "plan_query_transform  :  다섯 가지 변환 기법",
+    "source": "retriever/app/domain/query_transform.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "bm25_search",
+    "topic": "원 질문 키워드 검색",
+    "title": "bm25_search  :  원 질문 키워드 검색",
+    "source": "retriever/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "bm25_search",
+    "topic": "BM25S 호출 코드",
+    "title": "bm25_search  :  BM25S 호출 코드",
+    "source": "retriever/app/infrastructure/bm25_index.py",
+    "code": true,
+    "originalCodePages": [
+      11
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "fuse_scores",
+    "topic": "Vector·BM25 점수 결합",
+    "title": "fuse_scores  :  Vector·BM25 점수 결합",
+    "source": "retriever/app/domain/scoring.py",
+    "code": true,
+    "originalCodePages": [
+      11
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "fuse_scores",
+    "topic": "정규화 계산 예시",
+    "title": "fuse_scores  :  정규화 계산 예시",
+    "source": "retriever/app/domain/scoring.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "complete_original_results",
+    "topic": "원 질문 후보 확정",
+    "title": "complete_original_results  :  원 질문 후보 확정",
+    "source": "retriever/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "complete_original_results",
+    "topic": "기준 후보 보존 코드",
+    "title": "complete_original_results  :  기준 후보 보존 코드",
+    "source": "retriever/app/application/graph.py",
+    "code": true,
+    "originalCodePages": []
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "search_transformed",
+    "topic": "변환 질문별 추가 검색",
+    "title": "search_transformed  :  변환 질문별 추가 검색",
+    "source": "retriever/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "search_transformed",
+    "topic": "원본 자료의 검색 코드",
+    "title": "search_transformed  :  원본 자료의 검색 코드",
+    "source": "retriever/app/application/graph.py",
+    "code": true,
+    "originalCodePages": [
+      11
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "search_transformed",
+    "topic": "현재 구현의 검색 분기",
+    "title": "search_transformed  :  현재 구현의 검색 분기",
+    "source": "retriever/app/application/graph.py",
+    "code": true,
+    "originalCodePages": []
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "merge_queries",
+    "topic": "가중 RRF 순위 병합",
+    "title": "merge_queries  :  가중 RRF 순위 병합",
+    "source": "retriever/app/domain/query_transform.py",
+    "code": true,
+    "originalCodePages": [
+      12
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "merge_queries",
+    "topic": "분해 질문의 근거 확보",
+    "title": "merge_queries  :  분해 질문의 근거 확보",
+    "source": "retriever/app/domain/query_transform.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "rerank",
+    "topic": "질문별 후보 재평가",
+    "title": "rerank  :  질문별 후보 재평가",
+    "source": "retriever/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "rerank",
+    "topic": "Cross-Encoder 호출 코드",
+    "title": "rerank  :  Cross-Encoder 호출 코드",
+    "source": "retriever/app/infrastructure/reranker.py",
+    "code": true,
+    "originalCodePages": [
+      12
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "rerank",
+    "topic": "decomposition 점수 결합",
+    "title": "rerank  :  decomposition 점수 결합",
+    "source": "retriever/app/domain/query_transform.py"
+  },
+  {
+    "original": 13,
+    "kind": "preserved"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "build_prompt",
+    "topic": "답변 관문과 근거 입력",
+    "title": "build_prompt  :  답변 관문과 근거 입력",
+    "source": "retriever/app/application/graph.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "build_prompt",
+    "topic": "XML 근거 구성 코드",
+    "title": "build_prompt  :  XML 근거 구성 코드",
+    "source": "retriever/app/application/graph.py",
+    "code": true,
+    "originalCodePages": [
+      14
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "generate_answer",
+    "topic": "구조화 답변 생성",
+    "title": "generate_answer  :  구조화 답변 생성",
+    "source": "retriever/app/application/graph.py",
+    "code": true,
+    "originalCodePages": [
+      14
+    ]
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "verify_evidence",
+    "topic": "답변 구조와 인용 검증",
+    "title": "verify_evidence  :  답변 구조와 인용 검증",
+    "source": "retriever/app/domain/scoring.py"
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "verify_evidence",
+    "topic": "근거 대조 핵심 코드",
+    "title": "verify_evidence  :  근거 대조 핵심 코드",
+    "source": "retriever/app/domain/scoring.py",
+    "code": true,
+    "originalCodePages": []
+  },
+  {
+    "kind": "detail",
+    "part": "retriever",
+    "node": "verify_evidence",
+    "topic": "실패 수정과 종료 조건",
+    "title": "verify_evidence  :  실패 수정과 종료 조건",
+    "source": "retriever/app/application/graph.py"
+  },
+  {
+    "original": 15,
+    "kind": "preserved"
+  },
+  {
+    "original": 16,
+    "kind": "preserved"
+  },
+  {
+    "original": 17,
+    "kind": "preserved"
+  }
+]

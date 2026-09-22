@@ -1,0 +1,33 @@
+{
+  "slide_count": 55,
+  "workflow_images": [
+    {
+      "original": 4,
+      "revised": 4,
+      "image_sha256_match": true
+    },
+    {
+      "original": 9,
+      "revised": 24,
+      "image_sha256_match": true
+    }
+  ],
+  "original_complete_code_blocks": 16,
+  "additional_core_snippets": 8,
+  "native_table_slides": [
+    11,
+    12,
+    16,
+    17,
+    25,
+    28,
+    30,
+    31,
+    35,
+    42,
+    47,
+    49,
+    50
+  ],
+  "node_count": 21
+}

@@ -1,0 +1,513 @@
+{"kind":"deck","id":"pr/y1a7uu","name":"Deck"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"레슨명","placeholders":[{"name":"body","type":"body","textPreview":"레슨 명"},{"name":"body","type":"body","textPreview":"강의명"},{"name":"body","type":"body","textPreview":"SECTION 명"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout2.xml","name":"BLANK"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout3.xml","name":"타이틀(한 줄 입력)","placeholders":[{"name":"body","type":"body","textPreview":"강의명 (한 줄 입력)"},{"name":"body","type":"body","textPreview":"강사명"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout4.xml","name":"DEFAULT"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster2.xml","name":"","type":"master","placeholders":[{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout5.xml","name":"내용_단쪽","placeholders":[{"name":"title","type":"title","textPreview":"파트별 소제목"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout6.xml","name":"MASTER","placeholders":[{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster3.xml","name":"","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout7.xml","name":"Section명_한 줄 입력","placeholders":[{"name":"body","type":"body","textPreview":"SECTION명 (한 줄 입력)"},{"name":"body","type":"body","textPreview":"강의명"}]}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster4.xml","name":"","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout8.xml","name":"타이틀(한 줄 입력)","placeholders":[{"name":"body","type":"body","textPreview":"강의명 (한 줄 입력)"},{"name":"body","type":"body","textPreview":"강사명"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout9.xml","name":"1_타이틀(한 줄 입력)","placeholders":[{"name":"body","type":"body","textPreview":"강의명 (한 줄 입력)"},{"name":"body","type":"body","textPreview":"강사명"}]}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"하이브리드 AI","textShapes":3}
+{"kind":"textbox","id":"sh/547294r6","slide":1,"name":"텍스트 개체 틀 1","placeholder":"body","text":"하이브리드 AI","textPreview":"하이브리드 AI","textChars":8,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/k3yl0zql","slide":1,"name":"텍스트 개체 틀 2","placeholder":"body","text":"이해경","textPreview":"이해경","textChars":3,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/65g3298r","slide":1,"name":"슬라이드 번호 개체 틀 4","placeholder":"slideNumber","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/y90nupkv","slide":1,"text":""}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"목차","textShapes":20}
+{"kind":"shape","id":"sh/9072xkry","slide":2,"name":"Shape 0","bbox":[0,0,7.68,864]}
+{"kind":"shape","id":"sh/ozy1ofad","slide":2,"name":"Shape 1","bbox":[53.76,45.36,110.59,43.01]}
+{"kind":"textbox","id":"sh/b29kza94","slide":2,"name":"Text 2","text":"목차","textPreview":"목차","textChars":2,"textLines":1,"bbox":[53.76,45.36,110.59,43.01]}
+{"kind":"textbox","id":"sh/a10jqpsj","slide":2,"name":"Text 3","text":"하이브리드 AI","textPreview":"하이브리드 AI","textChars":8,"textLines":1,"bbox":[181.25,26.11,1228.8,82.94]}
+{"kind":"shape","id":"sh/x4r21kru","slide":2,"name":"Shape 4","bbox":[53.76,130.56,1428.48,0]}
+{"kind":"shape","id":"sh/w3i1sfa9","slide":2,"name":"Shape 5","bbox":[709.63,148.99,0,652.8]}
+{"kind":"shape","id":"sh/r65knqtk","slide":2,"name":"Shape 6","bbox":[53.76,148.99,7.68,46.08]}
+{"kind":"textbox","id":"sh/q5wjelsz","slide":2,"name":"Text 7","text":"강의 목표","textPreview":"강의 목표","textChars":5,"textLines":1,"bbox":[72.19,148.99,307.2,46.08]}
+{"kind":"shape","id":"sh/ove9o7yd","slide":2,"name":"Shape 8","bbox":[53.76,215.04,632.83,282.62]}
+{"kind":"shape","id":"sh/9wnqhczy","slide":2,"name":"Shape 9","bbox":[81.41,239.62,230.4,46.08]}
+{"kind":"textbox","id":"sh/mtwrmxg7","slide":2,"name":"Text 10","text":"기획자","textPreview":"기획자","textChars":3,"textLines":1,"bbox":[81.41,239.62,230.4,46.08]}
+{"kind":"textbox","id":"sh/nu58f2hs","slide":2,"name":"Text 11","text":"자연어로 AI를 본인 업무에 \n적용하는 역량 함양","textPreview":"자연어로 AI를 본인 업무에  | 적용하는 역량 함양","textChars":27,"textLines":2,"bbox":[81.41,301.06,577.54,181.25]}
+{"kind":"shape","id":"sh/wjy9sry9","slide":2,"name":"Shape 12","bbox":[53.76,516.1,632.83,282.62]}
+{"kind":"shape","id":"sh/xk7qlczu","slide":2,"name":"Shape 13","bbox":[81.41,540.67,184.32,46.08]}
+{"kind":"textbox","id":"sh/ahwrqhgj","slide":2,"name":"Text 14","text":"IT 개발자","textPreview":"IT 개발자","textChars":6,"textLines":1,"bbox":[81.41,540.67,184.32,46.08]}
+{"kind":"textbox","id":"sh/bip8jmho","slide":2,"name":"Text 15","text":"AI를 업무 시스템에 적용할 수 있는\nFDE(Forward Deployed Engineer) 역량 기반 구축","textPreview":"AI를 업무 시스템에 적용할 수 있는 | FDE(Forward Deployed Engineer) 역량 기반 구축","textChars":60,"textLines":2,"bbox":[81.41,602.11,577.54,181.25]}
+{"kind":"shape","id":"sh/cnupgny5","slide":2,"name":"Shape 16","bbox":[734.21,148.99,7.68,46.08]}
+{"kind":"textbox","id":"sh/do3q9szq","slide":2,"name":"Text 17","text":"커리큘럼","textPreview":"커리큘럼","textChars":4,"textLines":1,"bbox":[752.64,148.99,307.2,46.08]}
+{"kind":"shape","id":"sh/t8byxkn2","slide":2,"name":"Shape 18","bbox":[734.21,215.04,748.03,75.59]}
+{"kind":"shape","id":"sh/s72xofmh","slide":2,"name":"Shape 19","bbox":[755.71,230.16,61.44,45.35]}
+{"kind":"textbox","id":"sh/76twva5c","slide":2,"name":"Text 20","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[755.71,230.16,61.44,45.35]}
+{"kind":"shape","id":"sh/65kfmpor","slide":2,"name":"Shape 21","bbox":[835.58,252.84,0,0]}
+{"kind":"textbox","id":"sh/hcvy14ne","slide":2,"name":"Text 22","text":"Claude Code 입문 및 프롬프트 기초","textPreview":"Claude Code 입문 및 프롬프트 기초","textChars":24,"textLines":1,"bbox":[835.58,218.06,622.08,69.54]}
+{"kind":"shape","id":"sh/gbmxszmt","slide":2,"name":"Shape 23","bbox":[734.21,312.19,748.03,75.59]}
+{"kind":"shape","id":"sh/fadgzu58","slide":2,"name":"Shape 24","bbox":[755.71,327.31,61.44,45.35]}
+{"kind":"textbox","id":"sh/u94fqp4n","slide":2,"name":"Text 25","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[755.71,327.31,61.44,45.35]}
+{"kind":"shape","id":"sh/p0vy54na","slide":2,"name":"Shape 26","bbox":[835.58,349.98,0,0]}
+{"kind":"textbox","id":"sh/4zmxwzmp","slide":2,"name":"Text 27","text":"커넥터/루틴/컴퓨터 유즈","textPreview":"커넥터/루틴/컴퓨터 유즈","textChars":13,"textLines":1,"bbox":[835.58,315.21,622.08,69.54]}
+{"kind":"shape","id":"sh/mlgvq147","slide":2,"name":"Shape 28","bbox":[734.21,409.34,748.03,75.59]}
+{"kind":"shape","id":"sh/nmpcj6ls","slide":2,"name":"Shape 29","bbox":[755.71,424.46,61.44,45.35]}
+{"kind":"textbox","id":"sh/onydsbmd","slide":2,"name":"Text 30","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[755.71,424.46,61.44,45.35]}
+{"kind":"shape","id":"sh/9o7ulg3y","slide":2,"name":"Shape 31","bbox":[835.58,447.13,0,0]}
+{"kind":"textbox","id":"sh/a9gvulkj","slide":2,"name":"Text 32","text":"스킬 개발 기초","textPreview":"스킬 개발 기초","textChars":8,"textLines":1,"bbox":[835.58,412.36,622.08,69.54]}
+{"kind":"shape","id":"sh/ba9cn6l4","slide":2,"name":"Shape 33","bbox":[734.21,506.49,748.03,75.59]}
+{"kind":"shape","id":"sh/wbidwb29","slide":2,"name":"Shape 34","bbox":[755.71,521.61,61.44,45.35]}
+{"kind":"textbox","id":"sh/xcrupg3u","slide":2,"name":"Text 35","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[755.71,521.61,61.44,45.35]}
+{"kind":"shape","id":"sh/id0vylkf","slide":2,"name":"Shape 36","bbox":[835.58,544.28,0,0]}
+{"kind":"textbox","id":"sh/je9crql0","slide":2,"name":"Text 37","text":"스킬 개발 심화/웹 MCP/MCP 개발","textPreview":"스킬 개발 심화/웹 MCP/MCP 개발","textChars":21,"textLines":1,"bbox":[835.58,509.51,622.08,69.54]}
+{"kind":"shape","id":"sh/69wbilcj","slide":2,"name":"Shape 28","bbox":[734.21,603.64,748.03,75.59]}
+{"kind":"shape","id":"sh/tw7ud0va","slide":2,"name":"Shape 29","bbox":[755.71,618.76,61.44,45.35]}
+{"kind":"textbox","id":"sh/svedkvup","slide":2,"name":"Text 30","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[755.71,618.76,61.44,45.35]}
+{"kind":"shape","id":"sh/fypcfqdg","slide":2,"name":"Shape 31","bbox":[835.58,641.43,0,0]}
+{"kind":"textbox","id":"sh/exgvmlcv","slide":2,"name":"Text 32","text":"에이젼트 개발 ","textPreview":"에이젼트 개발","textChars":8,"textLines":1,"bbox":[835.58,606.66,622.08,69.54]}
+{"kind":"shape","id":"sh/gzydovul","slide":2,"name":"Shape 33","bbox":[734.21,700.79,748.03,75.59]}
+{"kind":"shape","id":"sh/v2lc36dw","slide":2,"name":"Shape 34","bbox":[755.71,715.91,61.44,45.35]}
+{"kind":"textbox","id":"sh/a1cba1wb","slide":2,"name":"Text 35","text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[755.71,715.91,61.44,45.35]}
+{"kind":"shape","id":"sh/0vq1o36x","slide":2,"name":"Shape 36","bbox":[835.58,738.58,0,0]}
+{"kind":"textbox","id":"sh/1wzix87i","slide":2,"name":"Text 37","text":"플러그인 개발 및 배포","textPreview":"플러그인 개발 및 배포","textChars":12,"textLines":1,"bbox":[835.58,703.81,622.08,69.54]}
+{"kind":"notes","id":"nt/hwbqtkby","slide":2,"text":""}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"RAG","textShapes":2}
+{"kind":"textbox","id":"sh/cza94vmx","slide":3,"name":"텍스트 개체 틀 1","placeholder":"body","text":"RAG","textPreview":"RAG","textChars":3,"textLines":1,"bbox":[168.4,384.02,1198.4,81.13]}
+{"kind":"textbox","id":"sh/d0jax03i","slide":3,"name":"텍스트 개체 틀 2","placeholder":"body","text":"하이브리드 AI","textPreview":"하이브리드 AI","textChars":8,"textLines":1,"bbox":[169.2,345.24,1198.4,34.9]}
+{"kind":"notes","id":"nt/ofy9wn61","slide":3,"text":""}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"INDEXER  /  전체 구조","textShapes":15}
+{"kind":"shape","id":"sh/e9sj2tsv","slide":4,"name":"native-1","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/1cj2d8b6","slide":4,"name":"native-2","text":"INDEXER  /  전체 구조","textPreview":"INDEXER  /  전체 구조","textChars":17,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/0ba143al","slide":4,"name":"native-3","text":"Indexer 전체 흐름","textPreview":"Indexer 전체 흐름","textChars":13,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/rm1k7yt4","slide":4,"name":"native-4","text":"원문을 검색 가능한 작은 근거로 바꾸어 저장하는 사전 준비 과정","textPreview":"원문을 검색 가능한 작은 근거로 바꾸어 저장하는 사전 준비 과정","textChars":35,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/ql8jytsj","slide":4,"name":"native-5","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/doj29oba","slide":4,"name":"native-6","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/sna103ap","slide":4,"name":"native-7","text":"1  원문 선택\nselect_sources","textPreview":"1  원문 선택 | select_sources","textChars":23,"textLines":2,"bbox":[72,278,315,128]}
+{"kind":"textbox","id":"sh/3ihk3et8","slide":4,"name":"native-8","text":"2  내용 추출\nextract","textPreview":"2  내용 추출 | extract","textChars":16,"textLines":2,"bbox":[431,278,315,128]}
+{"kind":"textbox","id":"sh/ih8ju9sn","slide":4,"name":"native-9","text":"3  프로필 적용\napply_profile","textPreview":"3  프로필 적용 | apply_profile","textChars":23,"textLines":2,"bbox":[790,278,315,128]}
+{"kind":"textbox","id":"sh/kbm987y5","slide":4,"name":"native-10","text":"4  필수값 검증\nvalidate_metadata","textPreview":"4  필수값 검증 | validate_metadata","textChars":27,"textLines":2,"bbox":[1149,278,315,128]}
+{"kind":"shape","id":"sh/5cva1cfq","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/i94r6xgz","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/jadsz2xk","slide":4,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/w72947yt","slide":4,"name":"native-11","text":"5  의미 단위 분할\nchunk","textPreview":"5  의미 단위 분할 | chunk","textChars":17,"textLines":2,"bbox":[72,485,315,128]}
+{"kind":"textbox","id":"sh/x8vaxsfe","slide":4,"name":"native-12","text":"6  벡터 생성\nembed","textPreview":"6  벡터 생성 | embed","textChars":14,"textLines":2,"bbox":[431,485,315,128]}
+{"kind":"textbox","id":"sh/a5kr2xg3","slide":4,"name":"native-13","text":"7  Chroma 저장\nupsert","textPreview":"7  Chroma 저장 | upsert","textChars":19,"textLines":2,"bbox":[790,485,315,128]}
+{"kind":"textbox","id":"sh/v6tsv2xo","slide":4,"name":"native-14","text":"8  검색 세대 발행\nfinalize_index","textPreview":"8  검색 세대 발행 | finalize_index","textChars":26,"textLines":2,"bbox":[1149,485,315,128]}
+{"kind":"shape","id":"sh/g36tgryd","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/h4fa9wfy","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/p0batw72","slide":4,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/oz29krqh","slide":4,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/3ytsrmpw","slide":4,"name":"native-15","text":"원문 없음 또는 메타데이터 오류 시 종료","textPreview":"원문 없음 또는 메타데이터 오류 시 종료","textChars":22,"textLines":1,"bbox":[72,650,1030,42]}
+{"kind":"textbox","id":"sh/2xkrih8b","slide":4,"name":"native-16","text":"dry-run은 청킹까지 실행  /  저장 완료 후 BM25와 활성 인덱스 정보 발행","textPreview":"dry-run은 청킹까지 실행  /  저장 완료 후 BM25와 활성 인덱스 정보 발행","textChars":47,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/1wbapc7q","slide":4,"name":"native-262","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/jyx0ra1s","slide":4,"text":"Indexer는 파일을 바로 벡터 DB에 넣지 않습니다. 먼저 원문을 고르고, 내용을 추출하고, 메타데이터와 개인정보를 검사한 뒤 청크와 임베딩을 만듭니다. 마지막에는 벡터 저장 건수와 BM25 색인 발행 결과까지 확인합니다.\n\n소스 근거: hybrid-ai-lab/vector/indexer/app/application/graph.py:222-258"}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"INDEXER  /  입력","textShapes":12}
+{"kind":"shape","id":"sh/qd0bahob","slide":5,"name":"native-17","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/dgbulwnm","slide":5,"name":"native-18","text":"INDEXER  /  입력","textPreview":"INDEXER  /  입력","textChars":14,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/cf2tcr61","slide":5,"name":"native-19","text":"원문 3종을 같은 Document 구조로 정리","textPreview":"원문 3종을 같은 Document 구조로 정리","textChars":25,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/z2tcnm5s","slide":5,"name":"native-20","text":"파일 형식은 달라도 본문과 메타데이터를 함께 전달","textPreview":"파일 형식은 달라도 본문과 메타데이터를 함께 전달","textChars":27,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/yhkbe1o7","slide":5,"name":"native-21","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/l4bupwny","slide":5,"name":"native-22","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/032tgr6d","slide":5,"name":"native-23","text":"D1  약관 PDF\n1개 파일","textPreview":"D1  약관 PDF | 1개 파일","textChars":16,"textLines":2,"bbox":[72,266,305,104]}
+{"kind":"textbox","id":"sh/n6dcr65o","slide":5,"name":"native-24","text":"D2  카드 혜택 PDF\n1개 파일","textPreview":"D2  카드 혜택 PDF | 1개 파일","textChars":19,"textLines":2,"bbox":[72,412,305,104]}
+{"kind":"textbox","id":"sh/m5kbi1oj","slide":5,"name":"native-25","text":"D3  상담 TXT\n6개 파일","textPreview":"D3  상담 TXT | 6개 파일","textChars":16,"textLines":2,"bbox":[72,558,305,104]}
+{"kind":"textbox","id":"sh/w32dkbuh","slide":5,"name":"native-26","text":"Document","textPreview":"Document","textChars":8,"textLines":1,"bbox":[515,310,875,72]}
+{"kind":"shape","id":"sh/x4vedgvm","slide":5,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/ahkvi1cb","slide":5,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/v2twb6dw","slide":5,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/k7mxovud","slide":5,"name":"native-27","text":"page_content\n검색할 본문","textPreview":"page_content | 검색할 본문","textChars":19,"textLines":2,"bbox":[515,402,875,94]}
+{"kind":"textbox","id":"sh/58vehgvy","slide":5,"name":"native-28","text":"metadata\n문서 유형 · 출처 · 위치 · 공개 등급","textPreview":"metadata | 문서 유형 · 출처 · 위치 · 공개 등급","textChars":32,"textLines":2,"bbox":[515,516,875,112]}
+{"kind":"textbox","id":"sh/i54fmlc7","slide":5,"name":"native-29","text":"PDF는 페이지별, 상담은 상담 1건별 Document 생성  /  중간 저장: documents.jsonl","textPreview":"PDF는 페이지별, 상담은 상담 1건별 Document 생성  /  중간 저장: documents.jsonl","textChars":60,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/j6dwfqds","slide":5,"name":"native-263","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/i107q5of","slide":5,"text":"입력은 약관 PDF인 D1, 혜택 PDF인 D2, 상담 텍스트인 D3로 서로 다릅니다. 추출 단계가 각 형식을 읽은 뒤 본문은 `page_content`, 검색과 추적에 필요한 정보는 `metadata`에 담습니다. 이후 단계는 원래 파일 형식 대신 같은 Document 계약만 다루면 됩니다.\n\n소스 근거: hybrid-ai-lab/vector/indexer/app/application/graph.py"}
+{"kind":"slide","id":"sl/teisae","slide":6,"title":"INDEXER  /  프로필과 검증","textShapes":9}
+{"kind":"shape","id":"sh/9crihkru","slide":6,"name":"native-30","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/m90z6ps3","slide":6,"name":"native-31","text":"INDEXER  /  프로필과 검증","textPreview":"INDEXER  /  프로필과 검증","textChars":19,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/7a90fu9o","slide":6,"name":"native-32","text":"메타데이터는 근거를 되찾는 주소","textPreview":"메타데이터는 근거를 되찾는 주소","textChars":17,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/wz2hcza5","slide":6,"name":"native-33","text":"본문만 저장하면 답변의 출처와 원문 위치를 설명하기 어려움","textPreview":"본문만 저장하면 답변의 출처와 원문 위치를 설명하기 어려움","textChars":32,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/h0bil4rq","slide":6,"name":"native-34","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/udkzapsf","slide":6,"name":"native-35","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/vet0ju90","slide":6,"name":"native-36","text":"추출 결과\n본문 + 출처 정보","textPreview":"추출 결과 | 본문 + 출처 정보","textChars":16,"textLines":2,"bbox":[72,255,434.67,128]}
+{"kind":"textbox","id":"sh/4321gjqh","slide":6,"name":"native-37","text":"프로필 적용\nowner · access_level","textPreview":"프로필 적용 | owner · access_level","textChars":27,"textLines":2,"bbox":[550.67,255,434.67,128]}
+{"kind":"textbox","id":"sh/54bip4r2","slide":6,"name":"native-38","text":"필수값 검증\n누락 · 형식 검사","textPreview":"필수값 검증 | 누락 · 형식 검사","textChars":17,"textLines":2,"bbox":[1029.33,255,434.67,128]}
+{"kind":"shape","id":"sh/to7uh87e","slide":6,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/snyt8369","slide":6,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/6lwb6to3","slide":6,"name":"native-39","text":"검증 실패 시 청킹과 저장을 진행하지 않음","textPreview":"검증 실패 시 청킹과 저장을 진행하지 않음","textChars":23,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/hs7ul87q","slide":6,"name":"native-264","text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"table","id":"tb/8ze94ji1","slide":6,"name":"","rows":4,"cols":2,"preview":"정보 | 예시 역할","bbox":[72,440,1392,238]}
+{"kind":"notes","id":"nt/teisae","slide":6,"text":"`apply_profile`은 파일별 관리 규칙을 찾아 담당 부서와 공개 등급 같은 값을 적용합니다. 이어서 `validate_metadata`가 공통 필수값, 문서 유형별 필수값, 허용값, 본문 존재 여부, 상담 가명화 상태를 검사합니다. 오류가 있으면 색인으로 넘어가지 않고 종료합니다.\n\n소스 근거: hybrid-ai-lab/vector/indexer/app/application/graph.py; indexer/app/domain/validation.py"}
+{"kind":"slide","id":"sl/x8f69ofe","slide":7,"title":"INDEXER  /  PDF 추출","textShapes":12}
+{"kind":"shape","id":"sh/lkrqp4ra","slide":7,"name":"native-40","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/yhg7epsj","slide":7,"name":"native-41","text":"INDEXER  /  PDF 추출","textPreview":"INDEXER  /  PDF 추출","textChars":18,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/zi98nu94","slide":7,"name":"native-42","text":"PDF 텍스트 추출과 반복 요소 제거","textPreview":"PDF 텍스트 추출과 반복 요소 제거","textChars":20,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/87ipkzal","slide":7,"name":"native-43","text":"글자와 좌표를 함께 읽어 페이지의 읽기 순서 복원","textPreview":"글자와 좌표를 함께 읽어 페이지의 읽기 순서 복원","textChars":27,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/98rqt4r6","slide":7,"name":"native-44","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/ml07i9sv","slide":7,"name":"native-45","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"shape","id":"sh/7m98ru9g","slide":7,"name":"native-46","bbox":[90,259,416,421]}
+{"kind":"textbox","id":"sh/oryp8fah","slide":7,"name":"native-47","text":"반복 머리말  ·  상단 5.5%","textPreview":"반복 머리말  ·  상단 5.5%","textChars":18,"textLines":1,"bbox":[114,277,368,57]}
+{"kind":"textbox","id":"sh/pc76hkr2","slide":7,"name":"native-48","text":"제12조  이용 조건\n\n① 본문 내용 추출\n② 문단과 좌표 수집\n③ 표 영역 확인","textPreview":"제12조  이용 조건 |  | ① 본문 내용 추출 | ② 문단과 좌표 수집 | ③ 표 영역 확인","textChars":45,"textLines":5,"bbox":[125,354,340,220]}
+{"kind":"textbox","id":"sh/h4bupgn6","slide":7,"name":"native-49","text":"반복 꼬리말  ·  하단 5%","textPreview":"반복 꼬리말  ·  하단 5%","textChars":16,"textLines":1,"bbox":[114,606,368,57]}
+{"kind":"textbox","id":"sh/w32twb6l","slide":7,"name":"native-50","text":"PyMuPDF\n텍스트 + bbox 좌표","textPreview":"PyMuPDF | 텍스트 + bbox 좌표","textChars":21,"textLines":2,"bbox":[650,280,720,100]}
+{"kind":"shape","id":"sh/v2tcn650","slide":7,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/u1kbu1ov","slide":7,"name":"native-51","text":"반복 문구·페이지 번호 제거","textPreview":"반복 문구·페이지 번호 제거","textChars":15,"textLines":1,"bbox":[650,440,720,90]}
+{"kind":"shape","id":"sh/5svutgni","slide":7,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/47mt0b6x","slide":7,"name":"native-52","text":"페이지별 본문과 위치 정보 생성","textPreview":"페이지별 본문과 위치 정보 생성","textChars":17,"textLines":1,"bbox":[650,590,720,90]}
+{"kind":"shape","id":"sh/j6dcr65c","slide":7,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/i54bylor","slide":7,"name":"native-53","text":"텍스트 계층이 없는 스캔 PDF는 OCR 처리 없이 경고 기록  /  암호화 PDF는 처리 중단","textPreview":"텍스트 계층이 없는 스캔 PDF는 OCR 처리 없이 경고 기록  /  암호화 PDF는 처리 중단","textChars":53,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/twfux0ne","slide":7,"name":"native-265","text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/x8f69ofe","slide":7,"text":"PDF의 한 줄마다 글자와 사각형 좌표를 함께 수집합니다. 페이지 높이의 상단 5.5%와 하단 5% 영역에서 두 페이지 이상 반복되는 문구나 페이지 번호를 제거합니다. 시행일·버전·작성일 같은 정보는 메타데이터로 남깁니다.\n\n소스 근거: hybrid-ai-lab/vector/indexer/app/infrastructure/pdf_reader.py:96-153,277-365"}
+{"kind":"slide","id":"sl/8teojd","slide":8,"title":"INDEXER  /  표 추출","textShapes":11}
+{"kind":"shape","id":"sh/8n65gjad","slide":8,"name":"native-54","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/nmxo7e9s","slide":8,"name":"native-55","text":"INDEXER  /  표 추출","textPreview":"INDEXER  /  표 추출","textChars":16,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/mlone9s7","slide":8,"name":"native-56","text":"표는 행과 열의 관계를 보존","textPreview":"표는 행과 열의 관계를 보존","textChars":15,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/lkf654rm","slide":8,"name":"native-57","text":"표 변환으로 원문 글자가 빠지지 않는지 확인 후 Markdown으로 저장","textPreview":"표 변환으로 원문 글자가 빠지지 않는지 확인 후 Markdown으로 저장","textChars":40,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/0j65cza1","slide":8,"name":"native-58","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/zixo3u9g","slide":8,"name":"native-59","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/5gz6h8rq","slide":8,"name":"native-60","text":"설명용 가상 표","textPreview":"설명용 가상 표","textChars":8,"textLines":1,"bbox":[72,548,510,40]}
+{"kind":"textbox","id":"sh/kfq5o3al","slide":8,"name":"native-61","text":"원문과\n글자 일치?","textPreview":"원문과 | 글자 일치?","textChars":10,"textLines":2,"bbox":[671,322,300,164]}
+{"kind":"textbox","id":"sh/axovmd4b","slide":8,"name":"native-62","text":"일치\nMarkdown 표 저장","textPreview":"일치 | Markdown 표 저장","textChars":16,"textLines":2,"bbox":[1090,263,360,108]}
+{"kind":"textbox","id":"sh/byxcvylw","slide":8,"name":"native-63","text":"불일치\n원래 텍스트 + 경고","textPreview":"불일치 | 원래 텍스트 + 경고","textChars":15,"textLines":2,"bbox":[1090,456,360,108]}
+{"kind":"textbox","id":"sh/wzqdo3mh","slide":8,"name":"native-64","text":"표 영역","textPreview":"표 영역","textChars":4,"textLines":1,"bbox":[239,591,250,57]}
+{"kind":"shape","id":"sh/x0zux832","slide":8,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/m9obit4f","slide":8,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/naxcryl0","slide":8,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/ov6dk3m5","slide":8,"name":"native-65","text":"D2의 테두리 없는 표는 좌표 기반 행을 추가 정규화하여 표로 구성","textPreview":"D2의 테두리 없는 표는 좌표 기반 행을 추가 정규화하여 표로 구성","textChars":37,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/9wfut83q","slide":8,"name":"native-266","text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"table","id":"tb/f6p0n6do","slide":8,"name":"","rows":3,"cols":2,"preview":"구분 | 연회비","bbox":[72,288,510,252]}
+{"kind":"notes","id":"nt/8teojd","slide":8,"text":"표가 감지되면 행과 열을 마크다운 표로 바꾸고, 같은 영역의 일반 텍스트는 본문에서 제거합니다. 원문 글자와 추출한 표의 글자가 맞지 않으면 변환을 강행하지 않고 위치 기반 텍스트를 유지합니다. 마지막에는 본문과 표를 페이지의 읽기 순서에 맞게 다시 합칩니다.\n\n소스 근거: hybrid-ai-lab/vector/indexer/app/infrastructure/pdf_reader.py:201-268,381-412"}
+{"kind":"slide","id":"sl/gnmp4jqx","slide":9,"title":"INDEXER  /  상담 추출","textShapes":10}
+{"kind":"shape","id":"sh/batcbq94","slide":9,"name":"native-66","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/cb2tkvap","slide":9,"name":"native-67","text":"INDEXER  /  상담 추출","textPreview":"INDEXER  /  상담 추출","textChars":17,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/dcbud0ra","slide":9,"name":"native-68","text":"상담 내용의 개인정보 처리","textPreview":"상담 내용의 개인정보 처리","textChars":14,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/ydkbm5sv","slide":9,"name":"native-69","text":"상담을 나누고 가명화한 뒤, 개인정보 잔존 여부를 한 번 더 검사","textPreview":"상담을 나누고 가명화한 뒤, 개인정보 잔존 여부를 한 번 더 검사","textChars":36,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/zedcfa9g","slide":9,"name":"native-70","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/kzmdova1","slide":9,"name":"native-71","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/l0vuh0rm","slide":9,"name":"native-72","text":"상담ID 기준 분리","textPreview":"상담ID 기준 분리","textChars":10,"textLines":1,"bbox":[72,260,315,115]}
+{"kind":"textbox","id":"sh/eh0ba1sr","slide":9,"name":"native-73","text":"삭제·일반화·가명화","textPreview":"삭제·일반화·가명화","textChars":10,"textLines":1,"bbox":[431,260,315,115]}
+{"kind":"textbox","id":"sh/fi9c369c","slide":9,"name":"native-74","text":"잔존 검사","textPreview":"잔존 검사","textChars":5,"textLines":1,"bbox":[790,260,315,115]}
+{"kind":"textbox","id":"sh/baxkjqlk","slide":9,"name":"native-75","text":"Document 생성","textPreview":"Document 생성","textChars":11,"textLines":1,"bbox":[1149,260,315,115]}
+{"kind":"shape","id":"sh/a9ojq5kz","slide":9,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/xcz2l03q","slide":9,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/cbq1sv25","slide":9,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/25ojml43","slide":9,"name":"native-76","text":"개인정보 잔존 시 즉시 중단  /  상담의 공개 등급은 restricted","textPreview":"개인정보 잔존 시 즉시 중단  /  상담의 공개 등급은 restricted","textChars":41,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/p8fih03e","slide":9,"name":"native-267","text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"table","id":"tb/cbu5sby9","slide":9,"name":"","rows":4,"cols":3,"preview":"처리 방식 | 대상 | 결과","bbox":[72,439,1392,244]}
+{"kind":"notes","id":"nt/gnmp4jqx","slide":9,"text":"`[상담ID]` 머리글을 기준으로 상담 한 건씩 나눕니다. 고객명·상담사명·전화·이메일·카드번호는 제거하고, 회원번호와 상담사는 해시 기반 가명 ID로 바꾸며 나이는 연령대로 일반화합니다. 처리 후에도 원본 회원 ID나 연락처 패턴이 남아 있으면 전체 레코드를 오류로 중단합니다.\n\n소스 근거: hybrid-ai-lab/vector/indexer/app/domain/consultations.py:52-190"}
+{"kind":"slide","id":"sl/hnob8h","slide":10,"title":"INDEXER  /  청킹","textShapes":6}
+{"kind":"shape","id":"sh/nmpwjadk","slide":10,"name":"native-77","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/8nydsve5","slide":10,"name":"native-78","text":"INDEXER  /  청킹","textPreview":"INDEXER  /  청킹","textChars":14,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/9orel0vq","slide":10,"name":"native-79","text":"청킹은 문서의 의미 단위에 맞춰 분할","textPreview":"청킹은 문서의 의미 단위에 맞춰 분할","textChars":20,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/ap0vu5wb","slide":10,"name":"native-80","text":"청크는 검색 결과로 꺼내 쓰는 작은 근거 조각","textPreview":"청크는 검색 결과로 꺼내 쓰는 작은 근거 조각","textChars":25,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/vq9wnadg","slide":10,"name":"native-81","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/wbidwfe1","slide":10,"name":"native-82","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/qtwvilwr","slide":10,"name":"native-83","text":"긴 속성표는 행을 자르지 않고 예외로 보존  /  600자 초과 청크는 별도 점검 대상","textPreview":"긴 속성표는 행을 자르지 않고 예외로 보존  /  600자 초과 청크는 별도 점검 대상","textChars":48,"textLines":1,"bbox":[72,711,1392,64]}
+{"kind":"textbox","id":"sh/bu5cbqdc","slide":10,"name":"native-268","text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"table","id":"tb/wjmd83m9","slide":10,"name":"","rows":4,"cols":3,"preview":"문서 | 분할 기준 | 크기와 중첩","bbox":[72,256,1392,388]}
+{"kind":"notes","id":"nt/hnob8h","slide":10,"text":"D1 약관은 조항 단위, D2 혜택은 카드·혜택 단위, D3 상담은 대화 턴 단위로 먼저 묶습니다. 길이가 큰 D1·D2는 문장이나 표의 행 경계를 따라 나누고, D3는 기본 4개 대화 턴씩 나누며 1턴을 겹칩니다. 이 방식은 검색 결과만 보고도 조항·혜택·상담 흐름을 이해하기 쉽게 만듭니다.\n\n소스 근거: hybrid-ai-lab/vector/indexer/app/domain/chunking.py:93-519; indexer/app/application/graph.py:455-540"}
+{"kind":"slide","id":"sl/fu1gfa1s","slide":11,"title":"INDEXER  /  벡터 저장","textShapes":14}
+{"kind":"shape","id":"sh/elkf2pg7","slide":11,"name":"native-84","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/18byd4zy","slide":11,"name":"native-85","text":"INDEXER  /  벡터 저장","textPreview":"INDEXER  /  벡터 저장","textChars":17,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/g72x4zyd","slide":11,"name":"native-86","text":"변경된 청크만 임베딩하고 저장","textPreview":"변경된 청크만 임베딩하고 저장","textChars":16,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/ri9g7uhw","slide":11,"name":"native-87","text":"임베딩은 텍스트의 의미를 숫자 벡터로 표현하는 과정","textPreview":"임베딩은 텍스트의 의미를 숫자 벡터로 표현하는 과정","textChars":28,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/6h0fypgb","slide":11,"name":"native-88","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/tkby9kzm","slide":11,"name":"native-89","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/sjix0zy1","slide":11,"name":"native-90","text":"본문·메타데이터\n해시 비교","textPreview":"본문·메타데이터 | 해시 비교","textChars":14,"textLines":2,"bbox":[72,276,360,132]}
+{"kind":"textbox","id":"sh/je9g3ahk","slide":11,"name":"native-91","text":"추가 또는 변경\nKURE-v2 임베딩","textPreview":"추가 또는 변경 | KURE-v2 임베딩","textChars":20,"textLines":2,"bbox":[580,276,380,132]}
+{"kind":"textbox","id":"sh/id0fu50z","slide":11,"name":"native-92","text":"ChromaDB\ncard_docs에 upsert","textPreview":"ChromaDB | card_docs에 upsert","textChars":26,"textLines":2,"bbox":[1108,276,356,132]}
+{"kind":"shape","id":"sh/o7ydoret","slide":11,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/98rehwve","slide":11,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/m5gvmhwn","slide":11,"name":"native-93","text":"둘 다 동일하면 생략","textPreview":"둘 다 동일하면 생략","textChars":11,"textLines":1,"bbox":[72,491,360,86]}
+{"kind":"textbox","id":"sh/n6pwfmd8","slide":11,"name":"native-94","text":"현재 모델","textPreview":"현재 모델","textChars":5,"textLines":1,"bbox":[590,486,370,40]}
+{"kind":"textbox","id":"sh/0jydkreh","slide":11,"name":"native-95","text":"KURE-v2","textPreview":"KURE-v2","textChars":7,"textLines":1,"bbox":[590,532,440,66]}
+{"kind":"textbox","id":"sh/1k7edwv2","slide":11,"name":"native-96","text":"현재 벡터 차원","textPreview":"현재 벡터 차원","textChars":8,"textLines":1,"bbox":[1118,486,346,40]}
+{"kind":"textbox","id":"sh/ehgvihwr","slide":11,"name":"native-97","text":"768","textPreview":"768","textChars":3,"textLines":1,"bbox":[1118,532,346,66]}
+{"kind":"textbox","id":"sh/zipwbmdc","slide":11,"name":"native-98","text":"모델 서명·청킹 설정 변경 시 전체 재임베딩  /  사라진 청크의 자동 삭제는 현재 미구현","textPreview":"모델 서명·청킹 설정 변경 시 전체 재임베딩  /  사라진 청크의 자동 삭제는 현재 미구현","textChars":50,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/kfixwbe1","slide":11,"name":"native-269","text":"11","textPreview":"11","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/fu1gfa1s","slide":11,"text":"청크별로 본문 SHA-256과 메타데이터 SHA-256을 이전 manifest와 비교합니다. 둘 다 같으면 임베딩을 건너뛰고, 하나라도 달라지면 새 벡터를 만듭니다. 메타데이터 변경도 권한 필터 결과에 영향을 주므로 재임베딩 대상입니다. 임베딩은 정규화된 벡터로 만들고 Chroma에 본문·메타데이터와 함께 upsert합니다.\n\n소스 근거: hybrid-ai-lab/vector/indexer/app/application/graph.py:556-639; indexer/app/infrastructure/embedder.py:39-160"}
+{"kind":"slide","id":"sl/d1uxea","slide":12,"title":"INDEXER  /  검색 준비 완료","textShapes":13}
+{"kind":"shape","id":"sh/q94nqlsz","slide":12,"name":"native-99","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/dcvml0rq","slide":12,"name":"native-100","text":"INDEXER  /  검색 준비 완료","textPreview":"INDEXER  /  검색 준비 완료","textChars":20,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/cbm5sva5","slide":12,"name":"native-101","text":"키워드 인덱스와 활성 검색 세대 발행","textPreview":"키워드 인덱스와 활성 검색 세대 발행","textChars":20,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/36t4f6to","slide":12,"name":"native-102","text":"Vector는 의미를, BM25는 단어의 일치를 찾아주는 검색 경로","textPreview":"Vector는 의미를, BM25는 단어의 일치를 찾아주는 검색 경로","textChars":37,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/25knm1s3","slide":12,"name":"native-103","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/p8vmhgre","slide":12,"name":"native-104","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/o7m5oba9","slide":12,"name":"native-105","text":"Chroma 건수·ID 확인","textPreview":"Chroma 건수·ID 확인","textChars":15,"textLines":1,"bbox":[72,268,315,112]}
+{"kind":"textbox","id":"sh/f2t4b6tc","slide":12,"name":"native-106","text":"전체 corpus 구성","textPreview":"전체 corpus 구성","textChars":12,"textLines":1,"bbox":[431,268,315,112]}
+{"kind":"textbox","id":"sh/ehk3i1sr","slide":12,"name":"native-107","text":"Kiwi 단어 분리","textPreview":"Kiwi 단어 분리","textChars":10,"textLines":1,"bbox":[790,268,315,112]}
+{"kind":"textbox","id":"sh/crq5czyl","slide":12,"name":"native-108","text":"BM25S 인덱스 생성","textPreview":"BM25S 인덱스 생성","textChars":12,"textLines":1,"bbox":[1149,268,315,112]}
+{"kind":"shape","id":"sh/dcz6lkz6","slide":12,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/qponapgf","slide":12,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/rqh4juh0","slide":12,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/4n658fy9","slide":12,"name":"native-109","text":"새 generation 폴더\ncorpus + BM25 + 카드명 사전","textPreview":"새 generation 폴더 | corpus + BM25 + 카드명 사전","textChars":38,"textLines":2,"bbox":[72,475,605,126]}
+{"kind":"textbox","id":"sh/pofmhkzu","slide":12,"name":"native-110","text":"active_index.json\n새 검색 세대 가리키기","textPreview":"active_index.json | 새 검색 세대 가리키기","textChars":30,"textLines":2,"bbox":[828,475,636,126]}
+{"kind":"shape","id":"sh/2lon65gj","slide":12,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/3mx4fah4","slide":12,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/oja5kjyt","slide":12,"name":"native-111","text":"카드명 64개를 사용자 사전으로 생성","textPreview":"카드명 64개를 사용자 사전으로 생성","textChars":20,"textLines":1,"bbox":[72,633,800,45]}
+{"kind":"textbox","id":"sh/9kj6t4ze","slide":12,"name":"native-112","text":"현재 저장 청크 485개  =  D1 53개 + D2 336개 + D3 96개  /  2026.09.20 확인","textPreview":"현재 저장 청크 485개  =  D1 53개 + D2 336개 + D3 96개  /  2026.09.20 확인","textChars":61,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/x0fmd4ri","slide":12,"name":"native-270","text":"12","textPreview":"12","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/d1uxea","slide":12,"text":"검증된 전체 청크를 Kiwi로 토큰화하고 BM25S 역색인을 새 세대 폴더에 만듭니다. D2 메타데이터의 카드명은 자동 사전에 추가하지만, OOV 후보는 검토 파일에만 저장하고 자동 등록하지 않습니다. 모든 파일 저장이 끝난 뒤 `active_index.json`을 마지막에 바꿔 새 세대를 활성화합니다.\n\n소스 근거: hybrid-ai-lab/vector/indexer/app/application/graph.py:754-839; indexer/app/infrastructure/lexical_index.py"}
+{"kind":"slide","id":"sl/udsvah03","slide":13,"title":"RETRIEVER  /  전체 구조 1","textShapes":12}
+{"kind":"shape","id":"sh/eponml43","slide":13,"name":"native-113","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/1cfmhgne","slide":13,"name":"native-114","text":"RETRIEVER  /  전체 구조 1","textPreview":"RETRIEVER  /  전체 구조 1","textChars":21,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/0b65obm9","slide":13,"name":"native-115","text":"Retriever 검색 흐름","textPreview":"Retriever 검색 흐름","textChars":15,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/nex4jq5k","slide":13,"name":"native-116","text":"원 질문 검색을 출발점으로, 필요할 때 질문을 바꾸고 후보를 다시 정렬","textPreview":"원 질문 검색을 출발점으로, 필요할 때 질문을 바꾸고 후보를 다시 정렬","textChars":39,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/mdonql4z","slide":13,"name":"native-117","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/9gzml0nq","slide":13,"name":"native-118","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/ofq5svm5","slide":13,"name":"native-119","text":"1  요청·인덱스 확인","textPreview":"1  요청·인덱스 확인","textChars":12,"textLines":1,"bbox":[72,267,434.67,117]}
+{"kind":"textbox","id":"sh/bih4na5w","slide":13,"name":"native-120","text":"2  원 질문 Vector 검색","textPreview":"2  원 질문 Vector 검색","textChars":17,"textLines":1,"bbox":[550.67,267,434.67,117]}
+{"kind":"textbox","id":"sh/ah8nu54b","slide":13,"name":"native-121","text":"3  질문 변환 여부 판단","textPreview":"3  질문 변환 여부 판단","textChars":14,"textLines":1,"bbox":[1029.33,267,434.67,117]}
+{"kind":"shape","id":"sh/oza1gfyh","slide":13,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/p0ji9kf2","slide":13,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/2xsjepgb","slide":13,"name":"native-122","text":"4  원 질문 결과 완성\n모드에 따라 BM25 추가","textPreview":"4  원 질문 결과 완성 | 모드에 따라 BM25 추가","textChars":28,"textLines":2,"bbox":[72,491,434.67,139]}
+{"kind":"textbox","id":"sh/3y107axw","slide":13,"name":"native-123","text":"5  변환 질문별 검색\n변환 질문이 있을 때","textPreview":"5  변환 질문별 검색 | 변환 질문이 있을 때","textChars":24,"textLines":2,"bbox":[550.67,491,434.67,139]}
+{"kind":"textbox","id":"sh/cnu1kzyd","slide":13,"name":"native-124","text":"6  결과 병합·재정렬\n검색 모드에 따라 처리","textPreview":"6  결과 병합·재정렬 | 검색 모드에 따라 처리","textChars":25,"textLines":2,"bbox":[1029.33,491,434.67,139]}
+{"kind":"shape","id":"sh/do3id4fy","slide":13,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/qlcjipgn","slide":13,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/bml0buxs","slide":13,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/0ru1ozyp","slide":13,"name":"native-125","text":"vector·hybrid 계열을 구분하고, rerank 옵션은 후보를 다시 읽어 순위를 조정","textPreview":"vector·hybrid 계열을 구분하고, rerank 옵션은 후보를 다시 읽어 순위를 조정","textChars":51,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/lsn2h4fa","slide":13,"name":"native-271","text":"13","textPreview":"13","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/udsvah03","slide":13,"text":"먼저 입력과 색인을 확인하고 원 질문 벡터 검색을 정확히 한 번 실행합니다. 그 점수로 질문 변환 검토 여부를 판단한 다음, 원 질문 결과를 완성하고 변환 질문이 있으면 별도로 검색합니다. 마지막 정리는 RRF 또는 리랭커가 맡습니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/application/graph.py:455-563"}
+{"kind":"slide","id":"sl/bj1i1b","slide":14,"title":"RETRIEVER  /  전체 구조 2","textShapes":14}
+{"kind":"shape","id":"sh/tw7ax07u","slide":14,"name":"native-126","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/6twrm5o3","slide":14,"name":"native-127","text":"RETRIEVER  /  전체 구조 2","textPreview":"RETRIEVER  /  전체 구조 2","textChars":21,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/7u5svqpo","slide":14,"name":"native-128","text":"검색 결과를 근거 있는 답변으로 연결","textPreview":"검색 결과를 근거 있는 답변으로 연결","textChars":20,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/kre9kv6x","slide":14,"name":"native-129","text":"검색만 요청하면 결과를 반환하고, 답변 요청이면 생성·검증까지 진행","textPreview":"검색만 요청하면 결과를 반환하고, 답변 요청이면 생성·검증까지 진행","textChars":37,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/5snat07i","slide":14,"name":"native-130","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/ipwrilo7","slide":14,"name":"native-131","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/jq5srqpc","slide":14,"name":"native-132","text":"최종 검색 결과","textPreview":"최종 검색 결과","textChars":8,"textLines":1,"bbox":[72,270,315,131]}
+{"kind":"textbox","id":"sh/4nytwf6h","slide":14,"name":"native-133","text":"답변 관문 0.62","textPreview":"답변 관문 0.62","textChars":10,"textLines":1,"bbox":[431,270,315,131]}
+{"kind":"textbox","id":"sh/pora5knm","slide":14,"name":"native-134","text":"근거 프롬프트 구성","textPreview":"근거 프롬프트 구성","textChars":10,"textLines":1,"bbox":[790,270,315,131]}
+{"kind":"textbox","id":"sh/do7mdcz2","slide":14,"name":"native-135","text":"답변 생성·인용 검증","textPreview":"답변 생성·인용 검증","textChars":11,"textLines":1,"bbox":[1149,270,315,131]}
+{"kind":"shape","id":"sh/cnyl47ih","slide":14,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/bmp4b2hw","slide":14,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/qlg32x0r","slide":14,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/pk729sz6","slide":14,"name":"native-136","text":"/search","textPreview":"/search","textChars":7,"textLines":1,"bbox":[72,480,410,57]}
+{"kind":"textbox","id":"sh/ojel0nil","slide":14,"name":"native-137","text":"순위와 근거 청크 반환","textPreview":"순위와 근거 청크 반환","textChars":12,"textLines":1,"bbox":[72,549,520,90]}
+{"kind":"textbox","id":"sh/3i5k7ih0","slide":14,"name":"native-138","text":"/answer 또는 /answer/stream","textPreview":"/answer 또는 /answer/stream","textChars":25,"textLines":1,"bbox":[650,480,814,57]}
+{"kind":"textbox","id":"sh/2hw3yx0f","slide":14,"name":"native-139","text":"관문 미달이면 needs_check\n검증 오류는 정해진 상한 안에서 수정","textPreview":"관문 미달이면 needs_check | 검증 오류는 정해진 상한 안에서 수정","textChars":40,"textLines":2,"bbox":[650,549,814,110]}
+{"kind":"textbox","id":"sh/9grmlwza","slide":14,"name":"native-140","text":"최종 1위 문서의 vector_score로 답변 생성 여부 판단  /  융합·리랭크 점수는 사용하지 않음","textPreview":"최종 1위 문서의 vector_score로 답변 생성 여부 판단  /  융합·리랭크 점수는 사용하지 않음","textChars":58,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/8filcrip","slide":14,"name":"native-272","text":"14","textPreview":"14","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/bj1i1b","slide":14,"text":"최종 검색 1위의 원 벡터 점수가 0.62보다 낮거나 없으면 `needs_check`로 종료합니다. 통과하면 검색 근거를 XML 데이터로 감싼 프롬프트를 만들고 구조화 답변을 생성합니다. 인용 검증에 실패하면 수정 지침을 넣어 다시 생성하며, 허용 횟수를 넘으면 멈춥니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/application/graph.py:181-214,319-330,669-709"}
+{"kind":"slide","id":"sl/m90b6t0r","slide":15,"title":"RETRIEVER  /  검색 방식","textShapes":6}
+{"kind":"shape","id":"sh/q9sn69kb","slide":15,"name":"native-141","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/xc3mho32","slide":15,"name":"native-142","text":"RETRIEVER  /  검색 방식","textPreview":"RETRIEVER  /  검색 방식","textChars":19,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/cbu58j2h","slide":15,"name":"native-143","text":"네 가지 검색 모드","textPreview":"네 가지 검색 모드","textChars":10,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/zelojyl8","slide":15,"name":"native-144","text":"기본 top_k=5일 때, 재정렬 모드는 후보를 더 넉넉하게 확보","textPreview":"기본 top_k=5일 때, 재정렬 모드는 후보를 더 넉넉하게 확보","textChars":36,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/ydcnatkn","slide":15,"name":"native-145","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/l036l83y","slide":15,"name":"native-146","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/725onyl4","slide":15,"name":"native-147","text":"Vector: 의미 유사도  /  BM25: 키워드 일치  /  Rerank: 질문과 문서를 함께 읽어 재정렬","textPreview":"Vector: 의미 유사도  /  BM25: 키워드 일치  /  Rerank: 질문과 문서를 함께 읽어 재정렬","textChars":61,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/m1cnetkj","slide":15,"name":"native-273","text":"15","textPreview":"15","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"table","id":"tb/9k7u5sni","slide":15,"name":"","rows":5,"cols":4,"preview":"모드 | 원시 후보 검색 | 중간 처리 | 최종 결과","bbox":[72,268,1392,374]}
+{"kind":"notes","id":"nt/m90b6t0r","slide":15,"text":"`vector`는 의미 유사도만, `vector_rerank`는 의미 후보를 리랭커가 다시 정렬합니다. `hybrid`는 벡터와 BM25 점수를 합치고, `hybrid_rerank`는 그 후보를 다시 정렬합니다. 기본 `top_k=5`일 때 일반 모드는 원시 후보 20개에서 최종 5개를, 리랭크 모드는 원시 후보 40개에서 질문별 10개를 유지한 뒤 최종 5개를 만듭니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/application/graph.py:579-598,818-833,917-1023"}
+{"kind":"slide","id":"sl/gtoyy4","slide":16,"title":"RETRIEVER  /  질문 변환","textShapes":12}
+{"kind":"shape","id":"sh/c3al4bul","slide":16,"name":"native-148","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/b21kv6d0","slide":16,"name":"native-149","text":"RETRIEVER  /  질문 변환","textPreview":"RETRIEVER  /  질문 변환","textChars":19,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/q1s321cf","slide":16,"name":"native-150","text":"질문 변환 관문 0.86","textPreview":"질문 변환 관문 0.86","textChars":13,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/p0j2twvu","slide":16,"name":"native-151","text":"transform=auto일 때 최초 원 질문 Vector Top-1 점수로 검토 여부 결정","textPreview":"transform=auto일 때 최초 원 질문 Vector Top-1 점수로 검토 여부 결정","textChars":51,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/ozal0ru9","slide":16,"name":"native-152","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/3y1kr6do","slide":16,"name":"native-153","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/2x83y1cj","slide":16,"name":"native-154","text":"원 질문\nVector Top-1","textPreview":"원 질문 | Vector Top-1","textChars":17,"textLines":2,"bbox":[72,287,300,126]}
+{"kind":"textbox","id":"sh/9w3m50be","slide":16,"name":"native-155","text":"점수 ≥ 0.86?","textPreview":"점수 ≥ 0.86?","textChars":10,"textLines":1,"bbox":[490,264,330,174]}
+{"kind":"shape","id":"sh/8vulcvut","slide":16,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/etwne58b","slide":16,"name":"native-156","text":"통과\n원 질문 유지","textPreview":"통과 | 원 질문 유지","textChars":10,"textLines":2,"bbox":[976,251,460,105]}
+{"kind":"textbox","id":"sh/fe547apw","slide":16,"name":"native-157","text":"미달 또는 결과 없음\n캐시 또는 Router LLM 검토","textPreview":"미달 또는 결과 없음 | 캐시 또는 Router LLM 검토","textChars":31,"textLines":2,"bbox":[976,439,460,126]}
+{"kind":"shape","id":"sh/0fe5gfqh","slide":16,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/1gnm9k72","slide":16,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/qpc3a58f","slide":16,"name":"native-158","text":"Router 판단","textPreview":"Router 판단","textChars":9,"textLines":1,"bbox":[72,553,350,52]}
+{"kind":"textbox","id":"sh/rql43ap0","slide":16,"name":"native-159","text":"keep  원 질문 유지     clarify  추가 확인 필요     transform  질문 변환","textPreview":"keep  원 질문 유지     clarify  추가 확인 필요     transform  질문 변환","textChars":56,"textLines":1,"bbox":[72,618,1392,64]}
+{"kind":"textbox","id":"sh/sru5cvql","slide":16,"name":"native-160","text":"기본값은 transform=off  /  0.86 미만이어도 Router가 keep으로 판단할 수 있음","textPreview":"기본값은 transform=off  /  0.86 미만이어도 Router가 keep으로 판단할 수 있음","textChars":57,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/ds3m507q","slide":16,"name":"native-274","text":"16","textPreview":"16","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/gtoyy4","slide":16,"text":"질문 변환 기본값은 `off`이므로 평소에는 이 관문을 사용하지 않습니다. `auto`일 때 원 질문 벡터 검색의 최고 점수가 0.86 이상이면 그대로 진행하고, 0.86 미만이거나 결과가 없으면 라우터에게 판단을 요청합니다. 낮은 점수는 변환 확정이 아니라 `keep`, `clarify`, `transform` 중 무엇이 나은지 검토하는 조건입니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/application/graph.py:838-911; retriever/app/settings.py:177"}
+{"kind":"slide","id":"sl/p8chkw","slide":17,"title":"RETRIEVER  /  질문 변환","textShapes":6}
+{"kind":"shape","id":"sh/9sbu14re","slide":17,"name":"native-161","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/mp0b6psn","slide":17,"name":"native-162","text":"RETRIEVER  /  질문 변환","textPreview":"RETRIEVER  /  질문 변환","textChars":19,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/nq9czut8","slide":17,"name":"native-163","text":"질문 변환 기법","textPreview":"질문 변환 기법","textChars":8,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/wf2tczap","slide":17,"name":"native-164","text":"같은 의도를 검색하기 좋은 표현으로 바꾸거나, 복합 질문을 나누는 방법","textPreview":"같은 의도를 검색하기 좋은 표현으로 바꾸거나, 복합 질문을 나누는 방법","textChars":39,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/xgbu54ra","slide":17,"name":"native-165","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/atkbapsz","slide":17,"name":"native-166","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/cjyt0fal","slide":17,"name":"native-167","text":"변환 결과의 형식·개수 규칙 위반 시 keep으로 대체  /  HyDE 문장은 실제 근거로 사용하지 않음","textPreview":"변환 결과의 형식·개수 규칙 위반 시 keep으로 대체  /  HyDE 문장은 실제 근거로 사용하지 않음","textChars":58,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/dkrut0b6","slide":17,"name":"native-275","text":"17","textPreview":"17","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"table","id":"tb/ip83qlgz","slide":17,"name":"","rows":6,"cols":3,"preview":"기법 | 변환 방식 | 질문 수","bbox":[72,247,1392,426]}
+{"kind":"notes","id":"nt/p8chkw","slide":17,"text":"`rewrite`는 검색하기 좋은 한 문장으로 다듬고, `multi`는 같은 의도를 다른 표현 3개로 만듭니다. `hyde`는 문서에 나올 법한 표현을 만들며, `stepback`은 너무 구체적인 질문을 상위 원칙으로 넓힙니다. `decomposition`은 비교 대상이나 조건을 2 ~ 4개의 독립 질문으로 나눕니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py:10-176"}
+{"kind":"slide","id":"sl/jetc3ut0","slide":18,"title":"RETRIEVER  /  의미 + 키워드","textShapes":7}
+{"kind":"shape","id":"sh/a90z21on","slide":18,"name":"native-168","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/xcryxg7y","slide":18,"name":"native-169","text":"RETRIEVER  /  의미 + 키워드","textPreview":"RETRIEVER  /  의미 + 키워드","textChars":22,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/wbih4b6d","slide":18,"name":"native-170","text":"Hybrid 점수 결합","textPreview":"Hybrid 점수 결합","textChars":12,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/n69grmpw","slide":18,"name":"native-171","text":"서로 다른 점수 범위를 0 ~ 1로 맞춘 뒤 가중합 계산","textPreview":"서로 다른 점수 범위를 0 ~ 1로 맞춘 뒤 가중합 계산","textChars":31,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/250zy18b","slide":18,"name":"native-172","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/98rytw72","slide":18,"name":"native-173","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/o7ih0r6h","slide":18,"name":"native-174","text":"Hybrid = 정규화 Vector × 0.6 + 정규화 BM25 × 0.4","textPreview":"Hybrid = 정규화 Vector × 0.6 + 정규화 BM25 × 0.4","textChars":42,"textLines":1,"bbox":[72,245,1392,93]}
+{"kind":"textbox","id":"sh/61kzalof","slide":18,"name":"native-175","text":"계산 예시  /  정규화 = (점수 − 최솟값) ÷ (최댓값 − 최솟값)  /  없는 검색 점수는 0","textPreview":"계산 예시  /  정규화 = (점수 − 최솟값) ÷ (최댓값 − 최솟값)  /  없는 검색 점수는 0","textChars":56,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/ofqtgnyt","slide":18,"name":"native-276","text":"18","textPreview":"18","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"table","id":"tb/at0za9w7","slide":18,"name":"","rows":4,"cols":6,"preview":"후보 | Vector 원점수 | BM25 원점수 | 정규화 V | 정규화 B | Hybrid","bbox":[72,381,1392,250]}
+{"kind":"notes","id":"nt/jetc3ut0","slide":18,"text":"벡터 후보와 BM25 상위 후보를 청크 ID로 합쳐 전체 후보 집합을 만듭니다. 한쪽 검색에 없는 후보는 그쪽 원점수를 0으로 넣은 뒤, 양쪽 점수를 각각 최소-최대 정규화합니다. 최종 점수는 `0.6 × vector_norm + 0.4 × bm25_norm`입니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/domain/scoring.py:11-95"}
+{"kind":"slide","id":"sl/1sbldt","slide":19,"title":"RETRIEVER  /  변환 후 추가 검색","textShapes":15}
+{"kind":"shape","id":"sh/wvyh4r6h","slide":19,"name":"native-176","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/vupgv65w","slide":19,"name":"native-177","text":"RETRIEVER  /  변환 후 추가 검색","textPreview":"RETRIEVER  /  변환 후 추가 검색","textChars":24,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/utgf21ob","slide":19,"name":"native-178","text":"원 질문과 변환 질문의 후보 그룹","textPreview":"원 질문과 변환 질문의 후보 그룹","textChars":18,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/50ry1gny","slide":19,"name":"native-179","text":"질문마다 같은 검색 모드를 적용하고, 청크 ID 기준으로 중복을 묶음","textPreview":"질문마다 같은 검색 모드를 적용하고, 청크 ID 기준으로 중복을 묶음","textChars":38,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/4zih8b6t","slide":19,"name":"native-180","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/jy9gz658","slide":19,"name":"native-181","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/ixgz61on","slide":19,"name":"native-182","text":"원 질문","textPreview":"원 질문","textChars":4,"textLines":1,"bbox":[72,270,278,86]}
+{"kind":"textbox","id":"sh/l4nypc7u","slide":19,"name":"native-183","text":"같은 모드로 검색","textPreview":"같은 모드로 검색","textChars":9,"textLines":1,"bbox":[472,270,410,86]}
+{"kind":"textbox","id":"sh/k3exw769","slide":19,"name":"native-184","text":"후보 그룹 1","textPreview":"후보 그룹 1","textChars":7,"textLines":1,"bbox":[1004,270,460,86]}
+{"kind":"shape","id":"sh/6l8fupwj","slide":19,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/7mhwnuxo","slide":19,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/snqxwze9","slide":19,"name":"native-185","text":"변환 질문 1","textPreview":"변환 질문 1","textChars":7,"textLines":1,"bbox":[72,408,278,86]}
+{"kind":"textbox","id":"sh/tozep4fu","slide":19,"name":"native-186","text":"같은 모드로 검색","textPreview":"같은 모드로 검색","textChars":9,"textLines":1,"bbox":[472,408,410,86]}
+{"kind":"textbox","id":"sh/upsfy9wf","slide":19,"name":"native-187","text":"후보 그룹 2","textPreview":"후보 그룹 2","textChars":7,"textLines":1,"bbox":[1004,408,460,86]}
+{"kind":"shape","id":"sh/fq1wrex0","slide":19,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/grax0zel","slide":19,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/hcjet4f6","slide":19,"name":"native-188","text":"변환 질문 2","textPreview":"변환 질문 2","textChars":7,"textLines":1,"bbox":[72,546,278,86]}
+{"kind":"textbox","id":"sh/2dsf29wb","slide":19,"name":"native-189","text":"같은 모드로 검색","textPreview":"같은 모드로 검색","textChars":9,"textLines":1,"bbox":[472,546,410,86]}
+{"kind":"textbox","id":"sh/3e1wvexw","slide":19,"name":"native-190","text":"후보 그룹 3","textPreview":"후보 그룹 3","textChars":7,"textLines":1,"bbox":[1004,546,460,86]}
+{"kind":"shape","id":"sh/zilwjet4","slide":19,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/ehcva9cj","slide":19,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/1k3eloba","slide":19,"name":"native-191","text":"vector 계열은 Vector만 검색  /  hybrid 계열은 Vector와 BM25 결합  /  재정렬은 다음 단계","textPreview":"vector 계열은 Vector만 검색  /  hybrid 계열은 Vector와 BM25 결합  /  재정렬은 다음 단계","textChars":67,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/0judcjup","slide":19,"name":"native-277","text":"19","textPreview":"19","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/1sbldt","slide":19,"text":"원 질문 결과는 `baseline_hits`로 보존합니다. 변환 질문은 각각 vector 계열이면 벡터만, hybrid 계열이면 벡터와 BM25를 합친 후보군을 따로 만듭니다. 이 그룹들은 일반 모드에서는 RRF의 입력이 되고, 리랭크 모드에서는 각 질문과 해당 후보를 짝지어 재평가하는 입력이 됩니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/application/graph.py:990-1070"}
+{"kind":"slide","id":"sl/8f2psfyx","slide":20,"title":"RETRIEVER  /  순위 병합","textShapes":7}
+{"kind":"shape","id":"sh/edk3ed4j","slide":20,"name":"native-192","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/1gbm9s3a","slide":20,"name":"native-193","text":"RETRIEVER  /  순위 병합","textPreview":"RETRIEVER  /  순위 병합","textChars":19,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/0f2lgnmp","slide":20,"name":"native-194","text":"RRF는 여러 순위표를 하나로 합치는 방법","textPreview":"RRF는 여러 순위표를 하나로 합치는 방법","textChars":23,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/ra943il8","slide":20,"name":"native-195","text":"질문마다 점수 척도가 달라도 순위를 이용해 비교 가능","textPreview":"질문마다 점수 척도가 달라도 순위를 이용해 비교 가능","textChars":29,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/q903ad4n","slide":20,"name":"native-196","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/dcbm583y","slide":20,"name":"native-197","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/sb2lcnmd","slide":20,"name":"native-198","text":"문서의 RRF 점수 = Σ [그룹 가중치 ÷ (60 + 그룹 내 순위)]","textPreview":"문서의 RRF 점수 = Σ [그룹 가중치 ÷ (60 + 그룹 내 순위)]","textChars":40,"textLines":1,"bbox":[72,245,1392,94]}
+{"kind":"textbox","id":"sh/a543mx4r","slide":20,"name":"native-199","text":"분해 검색은 원 질문 0.1, 하위 질문 전체 0.9  /  재정렬이 없으면 하위 질문 Top-1 먼저 확보","textPreview":"분해 검색은 원 질문 0.1, 하위 질문 전체 0.9  /  재정렬이 없으면 하위 질문 Top-1 먼저 확보","textChars":60,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/wvupgz6t","slide":20,"name":"native-278","text":"20","textPreview":"20","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"table","id":"tb/2xsfqlcz","slide":20,"name":"","rows":4,"cols":4,"preview":"그룹 | 일반 변환 가중치 | 문서 A의 순위 | 기여도","bbox":[72,387,1392,248]}
+{"kind":"notes","id":"nt/8f2psfyx","slide":20,"text":"벡터 점수와 질문별 검색 점수는 크기를 직접 비교하기 어렵습니다. 그래서 각 후보가 원 질문과 변환 질문에서 몇 위였는지를 사용하고, `가중치 ÷ (60 + 순위)`를 모두 더합니다. 일반 변환에서는 원 질문 가중치가 0.5이고, 나머지 0.5를 변환 질문 수로 나눕니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py:182-294"}
+{"kind":"slide","id":"sl/5ieigf","slide":21,"title":"RETRIEVER  /  재정렬","textShapes":9}
+{"kind":"shape","id":"sh/98j2pwf2","slide":21,"name":"native-200","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/m5sje1wb","slide":21,"name":"native-201","text":"RETRIEVER  /  재정렬","textPreview":"RETRIEVER  /  재정렬","textChars":17,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/761kn6xw","slide":21,"name":"native-202","text":"Rerank는 후보를 다시 읽어 순위를 조정","textPreview":"Rerank는 후보를 다시 읽어 순위를 조정","textChars":24,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/wva1kbet","slide":21,"name":"native-203","text":"Cross-Encoder가 질문과 후보 문서를 함께 입력받아 관련성을 평가","textPreview":"Cross-Encoder가 질문과 후보 문서를 함께 입력받아 관련성을 평가","textChars":41,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/hw32tgfy","slide":21,"name":"native-204","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/u9sji1wn","slide":21,"name":"native-205","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/va1kr6x8","slide":21,"name":"native-206","text":"질문별 후보 10개","textPreview":"질문별 후보 10개","textChars":10,"textLines":1,"bbox":[72,268,434.67,131]}
+{"kind":"textbox","id":"sh/cfq187y9","slide":21,"name":"native-207","text":"해당 질문으로\nCross-Encoder 평가","textPreview":"해당 질문으로 | Cross-Encoder 평가","textChars":24,"textLines":2,"bbox":[550.67,268,434.67,131]}
+{"kind":"textbox","id":"sh/x0zihcfu","slide":21,"name":"native-208","text":"질문별 새 순위","textPreview":"질문별 새 순위","textChars":8,"textLines":1,"bbox":[1029.33,268,434.67,131]}
+{"kind":"shape","id":"sh/tojq5sr6","slide":21,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/snqpwnal","slide":21,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/6187udsv","slide":21,"name":"native-209","text":"변환 질문이 있으면 사전 RRF 없이 질문별 재정렬부터 수행  /  실패 시 이전 결과 또는 RRF 사용","textPreview":"변환 질문이 있으면 사전 RRF 없이 질문별 재정렬부터 수행  /  실패 시 이전 결과 또는 RRF 사용","textChars":58,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/1sjq9sri","slide":21,"name":"native-279","text":"21","textPreview":"21","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"table","id":"tb/03udc329","slide":21,"name":"","rows":4,"cols":2,"preview":"변환 질문 유무 | 최종 결과 구성","bbox":[72,457,1392,225]}
+{"kind":"notes","id":"nt/5ieigf","slide":21,"text":"질문 변환이 없으면 원 질문 후보만 Cross-Encoder로 점수화하고 상위 결과를 고릅니다. 변환 질문이 있으면 원 질문과 각 변환 질문의 후보군을 따로 리랭킹합니다. 일반 변환 기법은 각 그룹 안의 새 순위를 가중 RRF로 합치며, 리랭커 점수 자체를 서로 더하지 않습니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/application/graph.py:1075-1164"}
+{"kind":"slide","id":"sl/it58kh","slide":22,"title":"RETRIEVER  /  DECOMPOSITION","textShapes":11}
+{"kind":"shape","id":"sh/ra1sn6p0","slide":22,"name":"native-210","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/cbu9gbql","slide":22,"name":"native-211","text":"RETRIEVER  /  DECOMPOSITION","textPreview":"RETRIEVER  /  DECOMPOSITION","textChars":27,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/dc3apg76","slide":22,"name":"native-212","text":"분해 질문의 재정렬 결과 결합","textPreview":"분해 질문의 재정렬 결과 결합","textChars":16,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/25sra18j","slide":22,"name":"native-213","text":"복합 질문의 각 부분을 잘 설명하는 근거를 함께 확보","textPreview":"복합 질문의 각 부분을 잘 설명하는 근거를 함께 확보","textChars":29,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/361sj6p4","slide":22,"name":"native-214","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/47a9cbqp","slide":22,"name":"native-215","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/p8jalg7a","slide":22,"name":"native-216","text":"하위 질문별 Top-3\n같은 문서는 최고 점수 채택","textPreview":"하위 질문별 Top-3 | 같은 문서는 최고 점수 채택","textChars":28,"textLines":2,"bbox":[72,268,630,116]}
+{"kind":"textbox","id":"sh/m1cbml8n","slide":22,"name":"native-217","text":"원 질문의\n재정렬 점수","textPreview":"원 질문의 | 재정렬 점수","textChars":12,"textLines":2,"bbox":[834,268,630,116]}
+{"kind":"textbox","id":"sh/n25svqp8","slide":22,"name":"native-218","text":"최종 점수 = 하위 질문 최고점 × 0.9 + 원 질문 점수 × 0.1","textPreview":"최종 점수 = 하위 질문 최고점 × 0.9 + 원 질문 점수 × 0.1","textChars":39,"textLines":1,"bbox":[72,481,1392,105]}
+{"kind":"shape","id":"sh/zepwvmx4","slide":22,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/edgf21wj","slide":22,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/107yxwfa","slide":22,"name":"native-219","text":"계산 예시","textPreview":"계산 예시","textChars":5,"textLines":1,"bbox":[72,629,240,52]}
+{"kind":"textbox","id":"sh/0zyxorep","slide":22,"name":"native-220","text":"하위 최고 0.90, 원 질문 0.80인 문서의 최종 점수 = 0.89","textPreview":"하위 최고 0.90, 원 질문 0.80인 문서의 최종 점수 = 0.89","textChars":39,"textLines":1,"bbox":[326,629,1138,52]}
+{"kind":"textbox","id":"sh/n2pgz6xg","slide":22,"name":"native-221","text":"이 점수식은 decomposition + rerank 전용  /  일반 변환은 재정렬 후에도 RRF 사용","textPreview":"이 점수식은 decomposition + rerank 전용  /  일반 변환은 재정렬 후에도 RRF 사용","textChars":58,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/m1gfq1wv","slide":22,"name":"native-280","text":"22","textPreview":"22","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/it58kh","slide":22,"text":"각 하위 질문에서 리랭킹 상위 3개를 후보로 가져오고, 같은 청크가 여러 하위 질문에 있으면 가장 높은 점수를 사용합니다. 최종 점수는 `0.9 × 최고 하위 질문 점수 + 0.1 × 원 질문 점수`입니다. 원 질문에만 있던 후보는 `0.1 × 원 질문 점수`로 남아 복합 질문의 각 부분과 전체 맥락을 함께 반영합니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/domain/query_transform.py:297-427"}
+{"kind":"slide","id":"sl/hgzapcr6","slide":23,"title":"[참고] 리랭킹 처리 예시","textShapes":2}
+{"kind":"textbox","id":"sh/q50nydsj","slide":23,"name":"제목 1","placeholder":"title","text":"[참고] 리랭킹 처리 예시","textPreview":"[참고] 리랭킹 처리 예시","textChars":14,"textLines":1,"bbox":[53.5,10.42,1442.4,84.69]}
+{"kind":"textbox","id":"sh/p0zyd0b6","slide":23,"name":"Slide Number Placeholder 0","placeholder":"slideNumber","text":"13","textPreview":"13","textChars":2,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"image","id":"im/dgfy5wry","slide":23,"name":"그림 17","bbox":[118.45,98.45,1299.1,731.13]}
+{"kind":"notes","id":"nt/hgzapcr6","slide":23,"text":"핵심 메시지: 자동화의 목적은 '사람 대체'가 아니라 '사람이 더 중요한 일에 집중'.\n\n[발표] 골든서클 WHY. 청중에게 '내 업무 중 매번 반복하는 일'을 떠올리게 함(2주 과제 복선). 자동화는 일자리 위협이 아니라 단순 반복에서 벗어나 판단·창의에 집중하는 도구. 보안 IC 기업 특성상 '사람 최종 승인'이 기본 전제임을 미리 암시. 출처: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"}
+{"kind":"slide","id":"sl/6lsnupw7","slide":24,"title":"RETRIEVER  /  답변 준비","textShapes":6}
+{"kind":"shape","id":"sh/a9gvid8v","slide":24,"name":"native-222","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/xc7eds76","slide":24,"name":"native-223","text":"RETRIEVER  /  답변 준비","textPreview":"RETRIEVER  /  답변 준비","textChars":19,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/wbydknq1","slide":24,"name":"native-224","text":"질문 변환 관문과 답변 생성 관문","textPreview":"질문 변환 관문과 답변 생성 관문","textChars":18,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/jepwf2pc","slide":24,"name":"native-225","text":"두 관문은 Vector 점수를 보지만, 판단 시점과 목적이 다름","textPreview":"두 관문은 Vector 점수를 보지만, 판단 시점과 목적이 다름","textChars":35,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/idgvmx8r","slide":24,"name":"native-226","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/5grehs7i","slide":24,"name":"native-227","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/zi5c3y98","slide":24,"name":"native-228","text":"BM25에만 있는 문서가 최종 1위이면 Vector 점수가 없어 답변 관문에서 멈춤","textPreview":"BM25에만 있는 문서가 최종 1위이면 Vector 점수가 없어 답변 관문에서 멈춤","textChars":46,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/ehwvat8n","slide":24,"name":"native-281","text":"24","textPreview":"24","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"table","id":"tb/tsv61g7q","slide":24,"name":"","rows":6,"cols":3,"preview":"구분 | 변환 관문 | 답변 관문","bbox":[72,249,1392,429]}
+{"kind":"notes","id":"nt/6lsnupw7","slide":24,"text":"Transform gate는 원 질문의 첫 벡터 검색 Top1만 보고 질문 변환 검토 여부를 정합니다. Answer gate는 RRF나 리랭킹까지 끝난 최종 1위의 원 `vector_score`를 보고 답변 생성 가능 여부를 정합니다. BM25에만 잡힌 후보처럼 원 벡터 점수가 없으면 답변 관문을 통과하지 못합니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/application/graph.py:181-214,838-911"}
+{"kind":"slide","id":"sl/uq7pql","slide":25,"title":"RETRIEVER  /  프롬프트와 출력","textShapes":10}
+{"kind":"shape","id":"sh/a1gryd87","slide":25,"name":"native-229","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/x47qts7y","slide":25,"name":"native-230","text":"RETRIEVER  /  프롬프트와 출력","textPreview":"RETRIEVER  /  프롬프트와 출력","textChars":22,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/w3y90nqd","slide":25,"name":"native-231","text":"검색 근거와 질문을 나누어 답변 요청","textPreview":"검색 근거와 질문을 나누어 답변 요청","textChars":20,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/jq98v2po","slide":25,"name":"native-232","text":"검색 청크의 출처와 본문을 XML로 구분하고, 정해진 구조로 답변 생성","textPreview":"검색 청크의 출처와 본문을 XML로 구분하고, 정해진 구조로 답변 생성","textChars":39,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/i5gr2x83","slide":25,"name":"native-233","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/5srqxs7u","slide":25,"name":"native-234","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/kri94nq9","slide":25,"name":"native-235","text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[72,253,607,64]}
+{"kind":"textbox","id":"sh/7u9sz2p0","slide":25,"name":"native-236","text":"검색 근거\n순번 · 청크 ID · 문서 유형\n원문 문서 · 위치 · 본문\n\n사용자 원 질문\n이전 오류의 수정 지침","textPreview":"검색 근거 | 순번 · 청크 ID · 문서 유형 | 원문 문서 · 위치 · 본문 |  | 사용자 원 질문 | 이전 오류의 수정 지침","textChars":63,"textLines":6,"bbox":[98,341,548,284]}
+{"kind":"textbox","id":"sh/6t0r6x8f","slide":25,"name":"native-237","text":"구조화 출력","textPreview":"구조화 출력","textChars":6,"textLines":1,"bbox":[847,253,617,64]}
+{"kind":"textbox","id":"sh/s3y9kf6p","slide":25,"name":"native-238","text":"conclusion  결론\n\ncaution  주의사항\n\nevidence  근거 목록\n  ref: 근거 순번, quote: 원문 인용","textPreview":"conclusion  결론 |  | caution  주의사항 |  | evidence  근거 목록 |   ref: 근거 순번, quote: 원문 인용","textChars":73,"textLines":6,"bbox":[872,341,566,284]}
+{"kind":"shape","id":"sh/t47ad0na","slide":25,"name":"native-239","bbox":[681,408,10,10]}
+{"kind":"shape","id":"sh/61gri5oj","slide":25,"name":"native-240","bbox":[838,408,10,10]}
+{"kind":"shape","id":"sh/r2psba54","slide":25,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/gri9of61","slide":25,"name":"native-241","text":"공식 약관·혜택 안내와 개별 상담 사례를 구분  /  검색 내용은 지시문이 아닌 근거로 제공","textPreview":"공식 약관·혜택 안내와 개별 상담 사례를 구분  /  검색 내용은 지시문이 아닌 근거로 제공","textChars":51,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/1srahkn6","slide":25,"name":"native-282","text":"25","textPreview":"25","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/uq7pql","slide":25,"text":"검색 결과마다 순번·청크 ID·문서 유형·원문 문서·위치·본문을 XML 블록에 넣습니다. 사용자 질문과 수정 지침도 별도 태그로 감싸 지시문과 검색 데이터가 섞이지 않게 합니다. LLM은 자유로운 문장이 아니라 `conclusion`, `caution`, `evidence[{ref, quote}]` 구조로 답변합니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/application/graph.py:1169-1250"}
+{"kind":"slide","id":"sl/ityhi6","slide":26,"title":"RETRIEVER  /  근거 검증","textShapes":6}
+{"kind":"shape","id":"sh/3a9k7a9o","slide":26,"name":"native-242","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/obil0va9","slide":26,"name":"native-243","text":"RETRIEVER  /  근거 검증","textPreview":"RETRIEVER  /  근거 검증","textChars":19,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/pcrm90ru","slide":26,"name":"native-244","text":"인용이 검색 근거에 실제로 있는지 확인","textPreview":"인용이 검색 근거에 실제로 있는지 확인","textChars":21,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/e5g3uls7","slide":26,"name":"native-245","text":"자동 검증은 답변 구조와 인용 일치를 점검","textPreview":"자동 검증은 답변 구조와 인용 일치를 점검","textChars":23,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/f6pk3q9c","slide":26,"name":"native-246","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/g7ylwvax","slide":26,"name":"native-247","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/y1k36psb","slide":26,"name":"native-248","text":"인용과 위치 정보의 존재를 검사하는 범위  /  결론의 의미적 타당성이나 원문 위치의 정확성까지 보증하지 않음","textPreview":"인용과 위치 정보의 존재를 검사하는 범위  /  결론의 의미적 타당성이나 원문 위치의 정확성까지 보증하지 않음","textChars":61,"textLines":1,"bbox":[72,718,1392,64]}
+{"kind":"textbox","id":"sh/z2t4fu9w","slide":26,"name":"native-283","text":"26","textPreview":"26","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"table","id":"tb/07ehgbmx","slide":26,"name":"","rows":5,"cols":3,"preview":"검증 항목 | 확인 내용 | 오류 예시","bbox":[72,263,1392,376]}
+{"kind":"notes","id":"nt/ityhi6","slide":26,"text":"`ref`가 검색 결과 범위 안인지 먼저 확인합니다. 인용문은 공백과 따옴표 차이만 정규화한 뒤 해당 청크 본문에 연속된 원문으로 존재하는지 검사합니다. 위치 정보가 비어 있지 않은지도 확인하고, 실패 원인별 수정 지침을 만듭니다. 의미가 올바른지는 별도 사람 검토가 필요하다는 표시를 남깁니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/domain/scoring.py:117-245; retriever/app/domain/location.py:8-26"}
+{"kind":"slide","id":"sl/udtbcn","slide":27,"title":"RETRIEVER  /  답변 수정","textShapes":12}
+{"kind":"shape","id":"sh/knetorq1","slide":27,"name":"native-249","bbox":[0,0,1536,864]}
+{"kind":"textbox","id":"sh/zm5cfm9g","slide":27,"name":"native-250","text":"RETRIEVER  /  답변 수정","textPreview":"RETRIEVER  /  답변 수정","textChars":19,"textLines":1,"bbox":[72,35,1392,36]}
+{"kind":"textbox","id":"sh/ylwbmh8v","slide":27,"name":"native-251","text":"검증 실패 시 수정 루프와 호출 예산","textPreview":"검증 실패 시 수정 루프와 호출 예산","textChars":20,"textLines":1,"bbox":[72,83,1392,79]}
+{"kind":"textbox","id":"sh/tc7ulwri","slide":27,"name":"native-252","text":"오류별 수정 지침을 추가하되, 무한 반복 없이 정해진 상한에서 종료","textPreview":"오류별 수정 지침을 추가하되, 무한 반복 없이 정해진 상한에서 종료","textChars":37,"textLines":1,"bbox":[72,170,1392,49]}
+{"kind":"shape","id":"sh/8bytsrqx","slide":27,"name":"native-253","bbox":[72,810,1392,1.5]}
+{"kind":"textbox","id":"sh/7a5cj69s","slide":27,"name":"native-254","text":"하이브리드 AI  ·  RAG 실습","textPreview":"하이브리드 AI  ·  RAG 실습","textChars":19,"textLines":1,"bbox":[72,818,1150,30]}
+{"kind":"textbox","id":"sh/69wbq187","slide":27,"name":"native-255","text":"답변 생성","textPreview":"답변 생성","textChars":5,"textLines":1,"bbox":[72,274,326,112]}
+{"kind":"textbox","id":"sh/pg3u9cre","slide":27,"name":"native-256","text":"구조·인용 검증","textPreview":"구조·인용 검증","textChars":8,"textLines":1,"bbox":[553,274,370,112]}
+{"kind":"textbox","id":"sh/ofutg7qt","slide":27,"name":"native-257","text":"통과\n최종 답변","textPreview":"통과 | 최종 답변","textChars":8,"textLines":2,"bbox":[1088,274,376,112]}
+{"kind":"shape","id":"sh/mdk7atof","slide":27,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/netojy50","slide":27,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/8f2pc36l","slide":27,"name":"native-258","text":"실패\n오류별 수정 지침 추가","textPreview":"실패 | 오류별 수정 지침 추가","textChars":15,"textLines":2,"bbox":[553,477,370,112]}
+{"kind":"shape","id":"sh/9gbql8n6","slide":27,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/ahk7edor","slide":27,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/vit8ni5c","slide":27,"name":"native-259","text":"MAX_REPAIRS = 2\n초기 생성 뒤 최대 2회 수정","textPreview":"MAX_REPAIRS = 2 | 초기 생성 뒤 최대 2회 수정","textChars":32,"textLines":2,"bbox":[72,633,630,72]}
+{"kind":"textbox","id":"sh/wjmpg36x","slide":27,"name":"native-260","text":"API 기본 LLM 예산 = 총 2회\n질문 변환 호출도 같은 예산 사용","textPreview":"API 기본 LLM 예산 = 총 2회 | 질문 변환 호출도 같은 예산 사용","textChars":39,"textLines":2,"bbox":[834,633,630,72]}
+{"kind":"textbox","id":"sh/xkvqp8n2","slide":27,"name":"native-261","text":"횟수 또는 예산 소진 시 halted_by_limit  /  CLI 기본 LLM 예산은 8회","textPreview":"횟수 또는 예산 소진 시 halted_by_limit  /  CLI 기본 LLM 예산은 8회","textChars":51,"textLines":1,"bbox":[72,740,1392,64]}
+{"kind":"textbox","id":"sh/il47idon","slide":27,"name":"native-284","text":"27","textPreview":"27","textChars":2,"textLines":1,"bbox":[1330,816,134,34]}
+{"kind":"notes","id":"nt/udtbcn","slide":27,"text":"검증 실패 사유를 `<수정지침>`으로 넣어 `build_prompt`부터 다시 실행합니다. `MAX_REPAIRS=2`이므로 근거 검증 실패 후 답변을 다시 만드는 횟수는 최대 2회입니다. LLM 호출 예산은 API 요청당 기본 2회, CLI 실행당 기본 8회이며, 어느 제한이 먼저 닿든 `halted_by_limit`로 멈춥니다.\n\n소스 근거: hybrid-ai-lab/vector/retriever/app/application/graph.py:188-192,343-382,561-563; retriever/app/settings.py:159-191"}
+{"kind":"slide","id":"sl/vaxsvy10","slide":28,"title":"반복 작업은 AI에게, 사람은 판단에 집중","textShapes":10}
+{"kind":"textbox","id":"sh/76p4jqls","slide":28,"name":"Text 2","text":"반복 작업은 AI에게, 사람은 판단에 집중","textPreview":"반복 작업은 AI에게, 사람은 판단에 집중","textChars":23,"textLines":1,"bbox":[48,112.32,1440,38.4]}
+{"kind":"shape","id":"sh/65gnqlk7","slide":28,"name":"Shape 3","bbox":[48,158.4,1440,57.6]}
+{"kind":"textbox","id":"sh/t87ml0ji","slide":28,"name":"Text 4","text":"반복 작업이 하루를 갉아먹습니다. AI에게 맡기고, 사람은 판단에 집중합니다.","textPreview":"반복 작업이 하루를 갉아먹습니다. AI에게 맡기고, 사람은 판단에 집중합니다.","textChars":43,"textLines":1,"bbox":[67.2,158.4,1401.6,57.6]}
+{"kind":"shape","id":"sh/s7y5sv2x","slide":28,"name":"Shape 5","bbox":[48,240,441.6,345.6]}
+{"kind":"shape","id":"sh/na5476l8","slide":28,"name":"Shape 6","bbox":[72,259.2,230.4,43.2]}
+{"kind":"textbox","id":"sh/m9c3e1kn","slide":28,"name":"Text 7","text":"매일 반복되는 일","textPreview":"매일 반복되는 일","textChars":9,"textLines":1,"bbox":[72,259.2,230.4,43.2]}
+{"kind":"textbox","id":"sh/wrm9kvep","slide":28,"name":"Text 8","text":"긴 자료를 읽고 핵심만 추리기\n회의 메모를 보고서 형식으로 정리하기\n같은 형식의 문서를 매번 새로 작성하기","textPreview":"긴 자료를 읽고 핵심만 추리기 | 회의 메모를 보고서 형식으로 정리하기 | 같은 형식의 문서를 매번 새로 작성하기","textChars":59,"textLines":3,"bbox":[76.8,321.6,393.6,249.6]}
+{"kind":"textbox","id":"sh/hsvat0fa","slide":28,"name":"Text 9","text":"▶","textPreview":"▶","textChars":1,"textLines":1,"bbox":[499.2,384,57.6,57.6]}
+{"kind":"shape","id":"sh/upkrilwj","slide":28,"name":"Shape 10","bbox":[566.4,240,412.8,345.6]}
+{"kind":"shape","id":"sh/vqdsrqx4","slide":28,"name":"Shape 11","bbox":[590.4,259.2,326.4,43.2]}
+{"kind":"textbox","id":"sh/4vm9ovel","slide":28,"name":"Text 12","text":"Claude Code에게 자연어로 요청","textPreview":"Claude Code에게 자연어로 요청","textChars":21,"textLines":1,"bbox":[590.4,259.2,326.4,43.2]}
+{"kind":"textbox","id":"sh/5wvax0f6","slide":28,"name":"Text 13","text":"사람: \"무엇을·왜\"를 정함 (판단)\nAI: \"어떻게\"를 빠르게 실행 (작업)\n사람: 결과를 최종 확인·승인 (게이트)","textPreview":"사람: \"무엇을·왜\"를 정함 (판단) | AI: \"어떻게\"를 빠르게 실행 (작업) | 사람: 결과를 최종 확인·승인 (게이트)","textChars":66,"textLines":3,"bbox":[595.2,321.6,364.8,249.6]}
+{"kind":"shape","id":"sh/judsvqxg","slide":28,"name":"Shape 14","bbox":[48,614.4,1440,67.2]}
+{"kind":"textbox","id":"sh/0z29cbyh","slide":28,"name":"Text 15","text":"자동화의 목적은 \"사람을 대체\"가 아니라 \"사람이 더 중요한 일에 집중\"하게 만드는 것입니다.","textPreview":"자동화의 목적은 \"사람을 대체\"가 아니라 \"사람이 더 중요한 일에 집중\"하게 만드는 것입니다.","textChars":52,"textLines":1,"bbox":[67.2,614.4,1401.6,67.2]}
+{"kind":"textbox","id":"sh/547mhg3m","slide":28,"name":"제목 1","placeholder":"title","text":"WHY — 왜 업무 자동화인가","textPreview":"WHY — 왜 업무 자동화인가","textChars":16,"textLines":1,"bbox":[53.5,10.42,1442.4,84.69]}
+{"kind":"textbox","id":"sh/o7ah4nm5","slide":28,"name":"Slide Number Placeholder 0","placeholder":"slideNumber","text":"15","textPreview":"15","textChars":2,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"image","id":"im/gve5crul","slide":28,"name":"Image 0","bbox":[1008,240,480,321.6]}
+{"kind":"notes","id":"nt/vaxsvy10","slide":28,"text":"핵심 메시지: 자동화의 목적은 '사람 대체'가 아니라 '사람이 더 중요한 일에 집중'.\n\n[발표] 골든서클 WHY. 청중에게 '내 업무 중 매번 반복하는 일'을 떠올리게 함(2주 과제 복선). 자동화는 일자리 위협이 아니라 단순 반복에서 벗어나 판단·창의에 집중하는 도구. 보안 IC 기업 특성상 '사람 최종 승인'이 기본 전제임을 미리 암시. 출처: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"}
+{"kind":"slide","id":"sl/gny5sjyp","slide":29,"title":"내 컴퓨터에서 일하는 AI 작업 도우미 (에이전틱 코딩 도구)","textShapes":10}
+{"kind":"textbox","id":"sh/ytkf2h8j","slide":29,"name":"Text 2","text":"내 컴퓨터에서 일하는 AI 작업 도우미 (에이전틱 코딩 도구)","textPreview":"내 컴퓨터에서 일하는 AI 작업 도우미 (에이전틱 코딩 도구)","textChars":34,"textLines":1,"bbox":[48,112.32,1440,38.4]}
+{"kind":"shape","id":"sh/zutgvm94","slide":29,"name":"Shape 3","bbox":[48,168,1440,120]}
+{"kind":"textbox","id":"sh/kv2h4rqp","slide":29,"name":"Text 4","text":"공식 정의  코드베이스를 읽고, 파일을 편집하고, 명령을 실행하며, 개발 도구와 통합되는 도구.\n쉽게 말하면  →  \"내 폴더의 파일을 읽고 정리해 주는, 대화로 일 시키는 AI 비서\"","textPreview":"공식 정의  코드베이스를 읽고, 파일을 편집하고, 명령을 실행하며, 개발 도구와 통합되는 도구. | 쉽게 말하면  →  \"내 폴더의 파일을 읽고 정리해 주는, 대화로 일 시키는 AI 비서\"","textChars":103,"textLines":2,"bbox":[72,187.2,1392,86.4]}
+{"kind":"shape","id":"sh/lwbyxwra","slide":29,"name":"Shape 5","bbox":[48,312,614.4,48]}
+{"kind":"textbox","id":"sh/ip4zel83","slide":29,"name":"Text 6","text":"오늘 우리가 쓰는 것 — Claude Code 데스크톱 앱 (GUI)","textPreview":"오늘 우리가 쓰는 것 — Claude Code 데스크톱 앱 (GUI)","textChars":38,"textLines":1,"bbox":[48,312,614.4,48]}
+{"kind":"shape","id":"sh/3qdg7qpo","slide":29,"name":"Shape 7","bbox":[48,379.2,1440,96]}
+{"kind":"textbox","id":"sh/fm1gzq5o","slide":29,"name":"Text 8","text":"Claude 앱을 설치하고 상단의 \"Code\" 탭을 켜서 사용. 검은 명령창 없이 화면으로 클릭·입력하는 가장 친숙한 방식입니다.","textPreview":"Claude 앱을 설치하고 상단의 \"Code\" 탭을 켜서 사용. 검은 명령창 없이 화면으로 클릭·입력하는 가장 친숙한 방식입니다.","textChars":72,"textLines":1,"bbox":[72,388.8,1392,76.8]}
+{"kind":"shape","id":"sh/e1sf65o3","slide":29,"name":"Shape 9","bbox":[48,499.2,710.4,196.8]}
+{"kind":"textbox","id":"sh/1ojy10ne","slide":29,"name":"Text 10","text":"이런 것도 있어요 (나중에)","textPreview":"이런 것도 있어요 (나중에)","textChars":15,"textLines":1,"bbox":[72,513.6,662.4,38.4]}
+{"kind":"textbox","id":"sh/gnax8v6t","slide":29,"name":"Text 11","text":"터미널(명령창), VS Code 같은 편집기 안(IDE)에서도 \n같은 Claude Code를 쓸 수 있습니다. \n모두 같은 엔진을 공유하므로, 오늘은 '데스크톱 앱' 하나만 익히면 충분합니다.","textPreview":"터미널(명령창), VS Code 같은 편집기 안(IDE)에서도  | 같은 Claude Code를 쓸 수 있습니다.  | 모두 같은 엔진을 공유하므로, 오늘은 '데스크톱 앱' 하나만 익히면 충분합니다.","textChars":107,"textLines":3,"bbox":[72,556.8,662.4,129.6]}
+{"kind":"shape","id":"sh/nqlg3a5k","slide":29,"name":"Shape 12","bbox":[777.6,499.2,710.4,196.8]}
+{"kind":"textbox","id":"sh/2pcfa5oz","slide":29,"name":"Text 13","text":"용어 — 데스크톱 앱이란?","textPreview":"용어 — 데스크톱 앱이란?","textChars":14,"textLines":1,"bbox":[801.6,513.6,662.4,38.4]}
+{"kind":"textbox","id":"sh/ps3y5knq","slide":29,"name":"Text 14","text":"Anthropic이 제공하는 Claude 프로그램. \n대화용 Chat · 내 PC의 격리된 가상 환경에서 수행되는 Cowork · \n내 PC에서 직접 수행되는 Code 3개 탭으로 구성되며, \n이 \"Code\" 탭이 곧 Claude Code입니다.","textPreview":"Anthropic이 제공하는 Claude 프로그램.  | 대화용 Chat · 내 PC의 격리된 가상 환경에서 수행되는 Cowork ·  | 내 PC에서 직접 수행되는 Code 3개 탭으로 구성되며,  | 이 \"Code\" 탭이 곧 Claude Co...","textChars":137,"textLines":4,"bbox":[801.6,556.8,662.4,129.6]}
+{"kind":"textbox","id":"sh/8z2h8bq1","slide":29,"name":"제목 1","placeholder":"title","text":"Claude Code란? — HOW","textPreview":"Claude Code란? — HOW","textChars":19,"textLines":1,"bbox":[53.5,10.42,1442.4,84.69]}
+{"kind":"textbox","id":"sh/zm50veps","slide":29,"name":"Slide Number Placeholder 0","placeholder":"slideNumber","text":"16","textPreview":"16","textChars":2,"textLines":1,"bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/gny5sjyp","slide":29,"text":"[발표] '에이전틱(agentic) = 스스로 파일을 찾고 작업을 단계별로 수행'을 한 줄로 풀어준다. 비개발자가 겁먹지 않도록 '코드를 몰라도 자연어로 시키면 된다' + '검은 명령창이 아니라 친숙한 GUI'를 반복 강조. 데스크톱 앱은 별도 빌드가 아니라 Claude 앱(Chat·Cowork·Code)의 Code 탭이며 CLI와 동일 엔진·설정(CLAUDE.md·MCP·skills) 공유. 출처: https://code.claude.com/docs/en/overview, https://code.claude.com/docs/en/desktop-quickstart"}
+{"kind":"slide","id":"sl/14bup87q","slide":30,"title":"Q&A","textShapes":1}
+{"kind":"textbox","id":"sh/rm5czq50","slide":30,"name":"Text 1","text":"Q&A","textPreview":"Q&A","textChars":3,"textLines":1,"bbox":[58.94,293.62,1369.33,223.25]}
+{"kind":"image","id":"im/zid4zypc","slide":30,"name":"Image 0","bbox":[0,0,1536,864]}
+{"kind":"notes","id":"nt/14bup87q","slide":30,"text":""}

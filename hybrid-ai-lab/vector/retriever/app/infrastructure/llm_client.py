@@ -10,6 +10,7 @@ from typing import Any, Callable, Mapping, TypeVar
 
 from pydantic import BaseModel, SecretStr
 
+from app.application.ports import LLMPort
 from app.settings import LLMConfigError, Settings
 
 
@@ -164,6 +165,7 @@ def create_chat_model(
     if client_type is None:
         raise LLMConfigError(f"{provider} LLM 클라이언트 구현이 없음")
 
+    # client_type은 위에서 만들어진 ChatOpenAI, ChatAnthropic, ChatGroq 중 하나임
     return client_type(
         model=model,
         api_key=api_key,
@@ -215,7 +217,7 @@ def _parsing_error_text(error: Any) -> str | None:
     return f"{type(error).__name__}: structured output parsing failed"
 
 
-class LangChainLLMClient:
+class LangChainLLMClient(LLMPort):
     """자체 3시도·180초 마감 안에서 Structured Output을 호출함."""
 
     def __init__(
@@ -251,6 +253,7 @@ class LangChainLLMClient:
             raise LLMCallLimitError(scope="request", limit=0, used=0)
         if isinstance(max_tokens, bool) or not isinstance(max_tokens, int) or max_tokens <= 0:
             raise LLMConfigError("max_tokens는 양의 정수여야 함")
+        
         allowed_attempts = min(MAX_TRANSMISSION_ATTEMPTS, int(max_attempts))
         timeout = float(self.settings.LLM_TIMEOUT_SECONDS)
         hard_budget = min(timeout * MAX_TRANSMISSION_ATTEMPTS, MAX_DEADLINE_SECONDS)
@@ -272,7 +275,9 @@ class LangChainLLMClient:
                 )
                 kwargs: dict[str, Any] = {
                     "method": "json_schema",
-                    "include_raw": True,
+                     # 이 파라미터가 true라서 결과는 schema 타입이 아니라 아래와 같이 리턴됨
+                     # { "raw": {모델의 원본 메시지}, "parsed": {schema타입 결과}, parsing_error: {파싱오류} }
+                    "include_raw": True,   
                 }
                 if self.settings.LLM_PROVIDER in {"groq", "openai"}:
                     kwargs["strict"] = True
@@ -283,6 +288,7 @@ class LangChainLLMClient:
                 classified = classify_llm_error(error)
                 classified.attempts = 0
                 raise classified from error
+            
             try:
                 output = runnable.invoke([("system", system), ("human", user)])
                 if not isinstance(output, Mapping):
@@ -294,6 +300,7 @@ class LangChainLLMClient:
                 except Exception as error:
                     parsed_model = None
                     parsing_error = error
+                    
                 return StructuredResult(
                     parsed=parsed_model,
                     raw=output.get("raw"),

@@ -10,6 +10,7 @@ from types import SimpleNamespace
 from app.application.graph import RetrieverResources, build_graph, execution_config
 from app.application.state import Hit, RouteDecision
 from app.domain.search_filter import MetadataFilter
+from app.domain.vector_search import DEFAULT_VECTOR_SEARCH_OPTIONS, VectorSearchOptions
 
 
 ORIGINAL_QUERY = "원 질문"
@@ -47,6 +48,7 @@ class RecordingVectorStore:
     def __init__(self, original_score: float) -> None:
         self.original_score = original_score
         self.search_calls: list[int] = []
+        self.search_options: list[VectorSearchOptions] = []
 
     def count(self) -> int:
         return 8
@@ -62,8 +64,10 @@ class RecordingVectorStore:
         _embedding: list[float],
         size: int,
         _metadata_filter: MetadataFilter,
+        options: VectorSearchOptions = DEFAULT_VECTOR_SEARCH_OPTIONS,
     ) -> list[Hit]:
         self.search_calls.append(size)
+        self.search_options.append(options)
         top_score = self.original_score if len(self.search_calls) == 1 else 0.88
         return [_hit(index, max(0.01, top_score - index * 0.01)) for index in range(min(size, 8))]
 
@@ -74,7 +78,7 @@ class RecordingBm25:
         self.queries: list[str] = []
         self._chunks = {hit.chunk_id: hit for hit in [_hit(index, 0.8 - index * 0.01) for index in range(8)]}
 
-    def scores(
+    def keyword_search(
         self,
         query: str,
         *,
@@ -141,7 +145,7 @@ def _settings() -> SimpleNamespace:
         CANDIDATE_MULTIPLIER=2,
         HYBRID_WEIGHT_BM25=0.3,
         HYBRID_WEIGHT_VECTOR=0.7,
-        TRANSFORM_GATE_THRESHOLD=0.70,
+        TRANSFORM_GATE_THRESHOLD=0.86,
         TRANSFORM_MULTI_COUNT=3,
         TRANSFORM_DECOMPOSITION_MIN=2,
         TRANSFORM_DECOMPOSITION_MAX=4,
@@ -202,17 +206,42 @@ def _resources(
 
 
 class SearchWorkflowMatrixTest(unittest.TestCase):
+    def test_mmr_options_apply_to_original_and_transformed_queries(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            events: list[str] = []
+            resources, _embedder, vector_store, _bm25, _reranker, _llm = _resources(
+                original_score=0.69,
+                router_action="transform",
+                events=events,
+                log_dir=Path(directory),
+            )
+            resources.settings.VECTOR_SEARCH_STRATEGY = "mmr"
+            resources.settings.MMR_FETCH_MULTIPLIER = 3
+            resources.settings.MMR_LAMBDA_MULT = 0.25
+
+            build_graph(resources, None, answer_enabled=False).invoke(
+                _state("vector", "auto", "mmr-options"),
+                execution_config("mmr-options"),
+            )
+
+            expected = VectorSearchOptions(
+                strategy="mmr",
+                fetch_multiplier=3,
+                lambda_mult=0.25,
+            )
+            self.assertEqual([expected, expected, expected], vector_store.search_options)
+
     def test_search_only_matrix_excludes_answer_llm_and_reuses_original_vector_search(self) -> None:
         scenarios = [
             ("off", "off", 0.40, "keep", "off", 0),
-            ("gate_pass", "auto", 0.70, "keep", "gate_pass", 0),
-            ("keep", "auto", 0.69, "keep", "keep", 0),
-            ("transform", "auto", 0.69, "transform", "transform", 2),
+            ("gate_pass", "auto", 0.86, "keep", "gate_pass", 0),
+            ("keep", "auto", 0.85, "keep", "keep", 0),
+            ("transform", "auto", 0.85, "transform", "transform", 2),
         ]
 
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            for mode in ("vector", "hybrid", "hybrid_rerank"):
+            for mode in ("vector", "vector_rerank", "hybrid", "hybrid_rerank"):
                 for variant, transform_mode, score, router_action, expected_action, transformed_count in scenarios:
                     name = f"{mode}-{variant}"
                     with self.subTest(case=name):
@@ -235,14 +264,14 @@ class SearchWorkflowMatrixTest(unittest.TestCase):
                         self.assertEqual(1 + transformed_count, len(vector_store.search_calls))
                         self.assertEqual(1, embedder.queries.count(ORIGINAL_QUERY))
 
-                        expected_bm25 = [] if mode == "vector" else [ORIGINAL_QUERY] + (
+                        expected_bm25 = [] if mode in {"vector", "vector_rerank"} else [ORIGINAL_QUERY] + (
                             TRANSFORMED_QUERIES if transformed_count else []
                         )
                         self.assertEqual(expected_bm25, bm25.queries)
                         self.assertEqual(1 if variant in {"keep", "transform"} else 0, llm.calls)
 
                         expected_reranks = 0
-                        if mode == "hybrid_rerank":
+                        if mode in {"vector_rerank", "hybrid_rerank"}:
                             expected_reranks = 1 + transformed_count
                         self.assertEqual(expected_reranks, len(reranker.queries))
 
@@ -256,8 +285,12 @@ class SearchWorkflowMatrixTest(unittest.TestCase):
                         self.assertIn("complete_original_results", timings)
                         self.assertEqual(variant in {"keep", "transform"}, "plan_query_transform" in timings)
                         self.assertEqual(bool(transformed_count), "search_transformed" in timings)
-                        self.assertEqual(bool(transformed_count), "merge_queries" in timings)
-                        self.assertEqual(mode == "hybrid_rerank", "rerank" in timings)
+                        expected_merge = bool(transformed_count) and mode in {"vector", "hybrid"}
+                        self.assertEqual(expected_merge, "merge_queries" in timings)
+                        self.assertEqual(
+                            mode in {"vector_rerank", "hybrid_rerank"},
+                            "rerank" in timings,
+                        )
                         self.assertNotIn("build_prompt", timings)
                         self.assertNotIn("generate_answer", timings)
                         self.assertNotIn("verify_evidence", timings)
@@ -268,7 +301,7 @@ class SearchWorkflowMatrixTest(unittest.TestCase):
                         if transformed_count:
                             self.assertLess(events.index("vector:원 질문"), events.index("router"))
                             self.assertLess(events.index("router"), events.index("vector:변환 질문 1"))
-                            if mode != "vector":
+                            if mode in {"hybrid", "hybrid_rerank"}:
                                 self.assertLess(
                                     events.index("bm25:원 질문"),
                                     events.index("vector:변환 질문 1"),

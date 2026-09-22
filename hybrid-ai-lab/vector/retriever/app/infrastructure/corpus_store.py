@@ -7,11 +7,12 @@ import json
 from pathlib import Path
 from typing import Any
 
+from ..application.ports import CorpusPort
 from ..domain.corpus import CorpusSnapshot
 from ..domain.korean_tokenizer import KoreanTokenizer
 
 
-class VersionedCorpusStore:
+class VersionedCorpusStore(CorpusPort):
     """`active_index.json`만 신뢰해 완성된 세대만 노출함."""
 
     def __init__(self, index_root: Path) -> None:

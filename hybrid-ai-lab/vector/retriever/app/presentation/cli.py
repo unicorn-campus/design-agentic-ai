@@ -21,9 +21,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--top-k", type=int, default=5, help="최종 검색 결과 건수")
     parser.add_argument(
         "--mode",
-        choices=("vector", "hybrid", "hybrid_rerank"),
+        choices=("vector", "vector_rerank", "hybrid", "hybrid_rerank"),
         default="hybrid_rerank",
-        help="검색 경로",
+        help="검색 경로: 벡터, 벡터+리랭킹, 하이브리드, 하이브리드+리랭킹",
     )
     parser.add_argument(
         "--transform",
@@ -53,7 +53,7 @@ def main(argv: list[str] | None = None) -> int:
         request = RetrieverRequest(
             query=args.query.strip(),  # 검색할 질문의 앞뒤 공백을 제거한 문자열
             top_k=args.top_k,  # 최종 결과로 받을 검색 문서의 최대 개수
-            mode=args.mode,  # 검색 방식: 벡터, 하이브리드 또는 하이브리드+리랭킹
+            mode=args.mode,  # 검색 방식: 벡터·벡터+리랭킹·하이브리드·하이브리드+리랭킹
             transform=args.transform,  # 질문 변환 사용 여부: off 또는 auto
             role=args.role,  # 검색 권한 역할: agent 또는 제한 문서도 보는 auditor
             thread_id=thread_id,  # 체크포인트와 실행 로그에서 이번 요청을 구분하는 ID
