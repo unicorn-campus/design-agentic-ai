@@ -38,9 +38,9 @@
 <polyline points="800,540 800,578 1365,578 1365,626" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="1365,626 1358.4755169883315,612.4932934647098 1371.5244830116685,612.4932934647098" fill="#5D6C83"/>
 <rect x="1190" y="632" width="350" height="184" rx="18" fill="#F0E8FF" stroke="#8058B2" stroke-width="2"/>
-<text x="1208" y="662.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#8058B2">검토 우선순위</text>
+<text x="1208" y="662.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#8058B2">고객 이탈 가능성</text>
 <text x="1208" y="704.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">예측형 AI</text>
-<text x="1208" y="741.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">문의·감정·반복·영향</text>
+<text x="1208" y="741.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이용 추이·보유·상담 이력</text>
 <rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
 <text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">선택과 실행 순서는 별개</text>
 <text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">정형·문서 조회는 병렬 가능. 관계와 예측은 필요한 ID·특징이 준비된 뒤 실행.</text>

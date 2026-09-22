@@ -24,9 +24,9 @@
 <text x="676" y="361.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">고객→카드→상품→문서</text>
 <rect x="962" y="220" width="280" height="237" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
 <text x="980" y="250.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-6</text>
-<text x="980" y="289.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">상담 위험도가</text>
-<text x="980" y="324.18" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">산출되었음</text>
-<text x="980" y="361.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">0.82 / PR-DEMO v1</text>
+<text x="980" y="289.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">고객 이탈 위험이</text>
+<text x="980" y="324.18" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">예측되었음</text>
+<text x="980" y="361.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">90일 내 82% / 가상값</text>
 <rect x="1266" y="220" width="280" height="237" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
 <text x="1284" y="250.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-10</text>
 <text x="1284" y="289.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">초안 확인이</text>

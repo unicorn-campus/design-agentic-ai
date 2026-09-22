@@ -64,20 +64,20 @@
 <rect x="1225" y="215" width="300" height="150" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
 <text x="1243" y="245.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#5D6C83">자동화 시작 조건</text>
 <text x="1243" y="282.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">예측 특징 준비</text>
-<text x="1243" y="318.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">문의·감정·반복·영향</text>
+<text x="1243" y="318.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이용 추이·보유·상담</text>
 <polyline points="1375,366 1375,425" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="1375,425 1368.4755169883315,411.49329346470984 1381.5244830116685,411.49329346470984" fill="#5D6C83"/>
 <rect x="1225" y="430" width="300" height="210" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
 <text x="1243" y="460.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#3674CE">C-6 · 예측형 AI</text>
-<text x="1243" y="499.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">상담 위험도를</text>
-<text x="1243" y="534.18" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">산출하라</text>
-<text x="1243" y="571.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">PR-DEMO/v1 추론</text>
+<text x="1243" y="499.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">고객 이탈 위험을</text>
+<text x="1243" y="534.18" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">예측하라</text>
+<text x="1243" y="571.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">CHURN-DEMO/v1 추론</text>
 <polyline points="1375,641 1375,688" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="1375,688 1368.4755169883315,674.4932934647098 1381.5244830116685,674.4932934647098" fill="#5D6C83"/>
 <rect x="1225" y="695" width="300" height="152" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
 <text x="1243" y="725.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-6</text>
-<text x="1243" y="762.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">상담 위험도 산출</text>
-<text x="1243" y="798.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">0.82 / 우선 검토</text>
+<text x="1243" y="762.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">고객 이탈 위험 예측</text>
+<text x="1243" y="798.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">90일 내 82% / 높음</text>
 <rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
 <text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">입출력과 담당자 유형</text>
 <text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">검색 결과는 원천·기준시점을 보존하고, 예측 결과는 모델 버전과 특징 시점을 보존.</text>

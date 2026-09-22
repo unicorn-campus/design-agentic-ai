@@ -38,7 +38,7 @@
 <text x="1284" y="454.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">관계 경로 확보</text>
 <rect x="50" y="700" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
 <text x="68" y="730.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-6</text>
-<text x="68" y="769.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">위험도 산출</text>
+<text x="68" y="769.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">이탈 위험 예측</text>
 <polyline points="330,775 349,775" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="349,775 335.49329346470984,781.5244830116685 335.49329346470984,768.4755169883315" fill="#5D6C83"/>
 <rect x="354" y="700" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>

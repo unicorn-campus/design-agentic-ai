@@ -26,15 +26,15 @@
 <polyline points="985,365 985,412" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="985,412 978.4755169883315,398.49329346470984 991.5244830116685,398.49329346470984" fill="#5D6C83"/>
 <rect x="1190" y="200" width="350" height="165" rx="18" fill="#F0E8FF" stroke="#8058B2" stroke-width="2"/>
-<text x="1208" y="230.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#8058B2">E-6 · 검토 우선순위</text>
-<text x="1208" y="268.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">상담 위험 점수 0.82</text>
-<text x="1208" y="305.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">PR-DEMO/v1 · 가상값</text>
+<text x="1208" y="230.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#8058B2">E-6 · 고객 이탈 예측</text>
+<text x="1208" y="268.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">90일 내 이탈 확률 82%</text>
+<text x="1208" y="305.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">CHURN-DEMO/v1 · 가상값</text>
 <polyline points="1365,365 1365,412" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="1365,412 1358.4755169883315,398.49329346470984 1371.5244830116685,398.49329346470984" fill="#5D6C83"/>
 <rect x="50" y="420" width="1500" height="150" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
 <text x="68" y="450.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">C-7 · 규칙 기반 코드 → E-7</text>
 <text x="68" y="492.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">동일 고객·상품·시점·권한 확인 → R-01 근거 묶음 선정</text>
-<text x="68" y="529.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">원천 충돌·누락을 보존 / 예측은 별도 우선순위 / 추가 소비 거절을 제약으로 전달</text>
+<text x="68" y="529.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">원천 충돌·누락을 보존 / 이탈 예측은 별도 판단 자료 / 추가 소비 거절을 제약으로 전달</text>
 <polyline points="285,570 285,634" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="285,634 278.47551698833155,620.4932934647098 291.52448301166845,620.4932934647098" fill="#5D6C83"/>
 <rect x="50" y="640" width="480" height="220" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
@@ -48,14 +48,14 @@
 <text x="578" y="670.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#36865B">V-3 · 읽기 모델</text>
 <text x="578" y="712.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">화면용 결과 구성</text>
 <text x="578" y="749.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">초안 + R-01 + 현황</text>
-<text x="578" y="778.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">우선순위 + 확인 상태</text>
+<text x="578" y="778.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이탈 예측 + 확인 상태</text>
 <polyline points="1040,748 1065,748" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="1065,748 1051.49329346471,754.5244830116685 1051.49329346471,741.4755169883315" fill="#5D6C83"/>
 <rect x="1070" y="640" width="480" height="220" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
 <text x="1088" y="670.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#5D6C83">U-3 · Human</text>
 <text x="1088" y="712.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">상담사 초안 검토</text>
 <text x="1088" y="749.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">추가 소비 없이 조건 확인</text>
-<text x="1088" y="778.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">우선 검토 / 확인 버튼</text>
+<text x="1088" y="778.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이탈 위험 높음 / 확인 버튼</text>
 <rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
 <text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">반환과 확인의 후속 연결</text>
 <text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">서버 반환 완료 → C-9 → E-9   /   U-3 확인 버튼 → C-10 → E-10</text>
