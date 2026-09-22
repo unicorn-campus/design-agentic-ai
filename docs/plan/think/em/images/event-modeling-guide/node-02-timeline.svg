@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+<rect width="1600" height="1080" fill="#F5F7FB"/>
+<rect x="48" y="38" width="74" height="60" rx="16" fill="#18263D" stroke="#18263D" stroke-width="2"/>
+<text x="85" y="80.47999999999999" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">02</text>
+<text x="145" y="86.08" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="38" font-weight="700" fill="#18263D">사건을 시간순으로 놓기</text>
+<text x="148" y="127.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#5D6C83">이번 결과: 준비된 자료에서 상담사의 확인까지 이어지는 한 번의 이야기</text>
+<polyline points="48,155 1552,155" fill="none" stroke="#B9C6D7" stroke-width="1" stroke-dasharray="none" stroke-linejoin="round"/>
+<text x="50" y="1046.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이탈 위험 방지 · Event Modeling 작성 예시</text>
+<text x="1550" y="1046.04" text-anchor="end" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">가상 데이터 · 설계 제안</text>
+<rect x="50" y="195" width="600" height="132" rx="18" fill="#E0F3E9" stroke="#36865B" stroke-width="2"/>
+<text x="68" y="225.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#36865B">별도 준비 흐름 · I-1</text>
+<text x="68" y="265.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">문서 색인과 관계 자료가 준비되었음</text>
+<text x="68" y="303.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">상담 전 준비 / 자료 버전 보존</text>
+<text x="720" y="250.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#5D6C83">아래는 하나의 가능한 발생 순서입니다.</text>
+<text x="720" y="283.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#5D6C83">실행 시에는 입력이 준비된 조회를 병렬로 수행할 수 있습니다.</text>
+<rect x="50" y="385" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="68" y="415.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-1</text>
+<text x="68" y="454.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">문의 접수</text>
+<polyline points="330,460 349,460" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="349,460 335.49329346470984,466.52448301166845 335.49329346470984,453.47551698833155" fill="#5D6C83"/>
+<rect x="354" y="385" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="372" y="415.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-2</text>
+<text x="372" y="454.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">경로 결정</text>
+<polyline points="634,460 653,460" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="653,460 639.4932934647098,466.52448301166845 639.4932934647098,453.47551698833155" fill="#5D6C83"/>
+<rect x="658" y="385" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="676" y="415.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-3</text>
+<text x="676" y="454.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">현황 확보</text>
+<polyline points="938,460 957,460" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="957,460 943.4932934647098,466.52448301166845 943.4932934647098,453.47551698833155" fill="#5D6C83"/>
+<rect x="962" y="385" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="980" y="415.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-4</text>
+<text x="980" y="454.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">문서 후보 확보</text>
+<polyline points="1242,460 1261,460" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1261,460 1247.49329346471,466.52448301166845 1247.49329346471,453.47551698833155" fill="#5D6C83"/>
+<rect x="1266" y="385" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="1284" y="415.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-5</text>
+<text x="1284" y="454.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">관계 경로 확보</text>
+<rect x="50" y="700" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="68" y="730.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-6</text>
+<text x="68" y="769.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">위험도 산출</text>
+<polyline points="330,775 349,775" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="349,775 335.49329346470984,781.5244830116685 335.49329346470984,768.4755169883315" fill="#5D6C83"/>
+<rect x="354" y="700" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="372" y="730.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-7</text>
+<text x="372" y="769.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">근거 묶음 선정</text>
+<polyline points="634,775 653,775" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="653,775 639.4932934647098,781.5244830116685 639.4932934647098,768.4755169883315" fill="#5D6C83"/>
+<rect x="658" y="700" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="676" y="730.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-8</text>
+<text x="676" y="769.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">초안 작성</text>
+<polyline points="938,775 957,775" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="957,775 943.4932934647098,781.5244830116685 943.4932934647098,768.4755169883315" fill="#5D6C83"/>
+<rect x="962" y="700" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="980" y="730.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-9</text>
+<text x="980" y="769.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">초안 반환</text>
+<polyline points="1242,775 1261,775" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1261,775 1247.49329346471,781.5244830116685 1247.49329346471,768.4755169883315" fill="#5D6C83"/>
+<rect x="1266" y="700" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="1284" y="730.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-10</text>
+<text x="1284" y="769.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">상담사 확인</text>
+<polyline points="1538,458 1569,458 1569,610 29,610 29,775 47,775" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="9 7" stroke-linejoin="round"/>
+<polygon points="47,775 33.49329346470985,781.5244830116685 33.49329346470985,768.4755169883315" fill="#5D6C83"/>
+<text x="800" y="658.52" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#5D6C83">확보한 자료와 특징으로 판단한 뒤 상담사에게 제공</text>
+<rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
+<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">빠진 입력 찾기</text>
+<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">관계 검색에는 개체 ID가, 예측에는 특징이, 초안 작성에는 선정한 근거가 먼저 필요함.</text>
+</svg>

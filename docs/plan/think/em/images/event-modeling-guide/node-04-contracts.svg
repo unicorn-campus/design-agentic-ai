@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+<rect width="1600" height="1080" fill="#F5F7FB"/>
+<rect x="48" y="38" width="74" height="60" rx="16" fill="#18263D" stroke="#18263D" stroke-width="2"/>
+<text x="85" y="80.47999999999999" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">04</text>
+<text x="145" y="86.08" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="38" font-weight="700" fill="#18263D">요청에서 결과까지 연결하기</text>
+<text x="148" y="127.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#5D6C83">이번 결과: 시작 조건 → 커맨드 → 결과 이벤트의 네 슬라이스</text>
+<polyline points="48,155 1552,155" fill="none" stroke="#B9C6D7" stroke-width="1" stroke-dasharray="none" stroke-linejoin="round"/>
+<text x="50" y="1046.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이탈 위험 방지 · Event Modeling 작성 예시</text>
+<text x="1550" y="1046.04" text-anchor="end" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">가상 데이터 · 설계 제안</text>
+<text x="50" y="260.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">화면/자동화</text>
+<text x="50" y="494.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">커맨드</text>
+<text x="50" y="767.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">이벤트</text>
+<rect x="235" y="215" width="300" height="150" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<text x="253" y="245.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#5D6C83">자동화 시작 조건</text>
+<text x="253" y="282.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">현황 경로 선택</text>
+<text x="253" y="318.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">회원·조회 시점</text>
+<polyline points="385,366 385,425" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="385,425 378.47551698833155,411.49329346470984 391.52448301166845,411.49329346470984" fill="#5D6C83"/>
+<rect x="235" y="430" width="300" height="210" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="253" y="460.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#3674CE">C-3 · 규칙 기반 코드</text>
+<text x="253" y="499.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">고객 현황을</text>
+<text x="253" y="534.18" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">확보하라</text>
+<text x="253" y="571.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">고객 정보계 조회</text>
+<polyline points="385,641 385,688" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="385,688 378.47551698833155,674.4932934647098 391.52448301166845,674.4932934647098" fill="#5D6C83"/>
+<rect x="235" y="695" width="300" height="152" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="253" y="725.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-3</text>
+<text x="253" y="762.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">고객 현황 확보</text>
+<text x="253" y="798.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">CARD-204 / 420,000원</text>
+<rect x="565" y="215" width="300" height="150" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<text x="583" y="245.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#5D6C83">자동화 시작 조건</text>
+<text x="583" y="282.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">문서 경로 선택</text>
+<text x="583" y="318.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">질의·회원·접근 조건</text>
+<polyline points="715,366 715,425" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="715,425 708.4755169883315,411.49329346470984 721.5244830116685,411.49329346470984" fill="#5D6C83"/>
+<rect x="565" y="430" width="300" height="210" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="583" y="460.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#3674CE">C-4 · 규칙 기반 코드</text>
+<text x="583" y="499.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">문서 후보를</text>
+<text x="583" y="534.18" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">확보하라</text>
+<text x="583" y="571.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">벡터 저장소 검색</text>
+<polyline points="715,641 715,688" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="715,688 708.4755169883315,674.4932934647098 721.5244830116685,674.4932934647098" fill="#5D6C83"/>
+<rect x="565" y="695" width="300" height="152" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="583" y="725.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-4</text>
+<text x="583" y="762.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">문서 후보 확보</text>
+<text x="583" y="798.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">GUIDE-DEMO / H-17</text>
+<rect x="895" y="215" width="300" height="150" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<text x="913" y="245.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#5D6C83">자동화 시작 조건</text>
+<text x="913" y="282.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">개체 ID 준비</text>
+<text x="913" y="318.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">회원·카드·상품 ID</text>
+<polyline points="1045,366 1045,425" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1045,425 1038.4755169883315,411.49329346470984 1051.5244830116685,411.49329346470984" fill="#5D6C83"/>
+<rect x="895" y="430" width="300" height="210" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="913" y="460.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#3674CE">C-5 · 규칙 기반 코드</text>
+<text x="913" y="499.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">관계 경로를</text>
+<text x="913" y="534.18" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">확보하라</text>
+<text x="913" y="571.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">관계 저장소 탐색</text>
+<polyline points="1045,641 1045,688" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1045,688 1038.4755169883315,674.4932934647098 1051.5244830116685,674.4932934647098" fill="#5D6C83"/>
+<rect x="895" y="695" width="300" height="152" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="913" y="725.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-5</text>
+<text x="913" y="762.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">관계 경로 확보</text>
+<text x="913" y="798.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">상품→안내 문서 + 원천</text>
+<rect x="1225" y="215" width="300" height="150" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<text x="1243" y="245.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#5D6C83">자동화 시작 조건</text>
+<text x="1243" y="282.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">예측 특징 준비</text>
+<text x="1243" y="318.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">문의·감정·반복·영향</text>
+<polyline points="1375,366 1375,425" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1375,425 1368.4755169883315,411.49329346470984 1381.5244830116685,411.49329346470984" fill="#5D6C83"/>
+<rect x="1225" y="430" width="300" height="210" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
+<text x="1243" y="460.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#3674CE">C-6 · 예측형 AI</text>
+<text x="1243" y="499.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">상담 위험도를</text>
+<text x="1243" y="534.18" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">산출하라</text>
+<text x="1243" y="571.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">PR-DEMO/v1 추론</text>
+<polyline points="1375,641 1375,688" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1375,688 1368.4755169883315,674.4932934647098 1381.5244830116685,674.4932934647098" fill="#5D6C83"/>
+<rect x="1225" y="695" width="300" height="152" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
+<text x="1243" y="725.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-6</text>
+<text x="1243" y="762.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">상담 위험도 산출</text>
+<text x="1243" y="798.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">0.82 / 우선 검토</text>
+<rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
+<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">입출력과 담당자 유형</text>
+<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">검색 결과는 원천·기준시점을 보존하고, 예측 결과는 모델 버전과 특징 시점을 보존.</text>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080">
+<rect width="1600" height="1080" fill="#F5F7FB"/>
+<rect x="48" y="38" width="74" height="60" rx="16" fill="#18263D" stroke="#18263D" stroke-width="2"/>
+<text x="85" y="80.47999999999999" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">03</text>
+<text x="145" y="86.08" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="38" font-weight="700" fill="#18263D">상담사가 볼 화면 그리기</text>
+<text x="148" y="127.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#5D6C83">이번 결과: 입력·현황·초안 검토 화면의 필드와 시작 행동</text>
+<polyline points="48,155 1552,155" fill="none" stroke="#B9C6D7" stroke-width="1" stroke-dasharray="none" stroke-linejoin="round"/>
+<text x="50" y="1046.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이탈 위험 방지 · Event Modeling 작성 예시</text>
+<text x="1550" y="1046.04" text-anchor="end" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">가상 데이터 · 설계 제안</text>
+<rect x="50" y="230" width="470" height="570" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<rect x="50" y="230" width="470" height="65" rx="18" fill="#E9EDF3" stroke="#E9EDF3" stroke-width="2"/>
+<text x="72" y="264.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="700" fill="#5D6C83">U-1 · 입력</text>
+<text x="72" y="352.64" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="29" font-weight="700" fill="#18263D">문의 접수</text>
+<rect x="565" y="230" width="470" height="570" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<rect x="565" y="230" width="470" height="65" rx="18" fill="#E9EDF3" stroke="#E9EDF3" stroke-width="2"/>
+<text x="587" y="264.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="700" fill="#5D6C83">U-2 · 현황</text>
+<text x="587" y="352.64" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="29" font-weight="700" fill="#18263D">고객 현황</text>
+<rect x="1080" y="230" width="470" height="570" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
+<rect x="1080" y="230" width="470" height="65" rx="18" fill="#E9EDF3" stroke="#E9EDF3" stroke-width="2"/>
+<text x="1102" y="264.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="700" fill="#5D6C83">U-3 · 검토</text>
+<text x="1102" y="352.64" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="29" font-weight="700" fill="#18263D">제안 초안</text>
+<text x="72" y="423.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="400" fill="#5D6C83">가명 회원 ID</text>
+<text x="72" y="466.32" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="27" font-weight="700" fill="#18263D">M-204</text>
+<text x="72" y="538.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="400" fill="#5D6C83">고객 질문과 상담 요청</text>
+<text x="72" y="578.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#18263D">연회비 부담 · 장보기 혜택</text>
+<text x="72" y="613.18" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="400" fill="#18263D">추가 소비 없는 상담 초안</text>
+<rect x="72" y="707" width="425" height="58" rx="18" fill="#3674CE" stroke="#3674CE" stroke-width="2"/>
+<text x="284" y="743.68" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#FFFFFF">상담 시작</text>
+<text x="587" y="423.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="400" fill="#5D6C83">보유 카드 / 상품</text>
+<text x="587" y="465.15999999999997" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="26" font-weight="700" fill="#18263D">CARD-204 / P-01</text>
+<text x="587" y="538.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="400" fill="#5D6C83">전월 승인 사용액</text>
+<text x="587" y="583.32" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="27" font-weight="700" fill="#18263D">420,000원</text>
+<text x="587" y="663.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#5D6C83">기준월 · 집계 정의 · 출처</text>
+<text x="1102" y="423.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="400" fill="#5D6C83">초안 · 근거 · 주의사항</text>
+<text x="1102" y="461.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">추가 소비 없이 조건 확인</text>
+<text x="1102" y="538.2" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="20" font-weight="400" fill="#5D6C83">상담 우선순위</text>
+<text x="1102" y="579.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">우선 검토 · 점수 0.82</text>
+<text x="1102" y="663.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#5D6C83">R-01 / DRAFT-01 v1</text>
+<rect x="1102" y="707" width="425" height="58" rx="18" fill="#8058B2" stroke="#8058B2" stroke-width="2"/>
+<text x="1314" y="743.68" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#FFFFFF">초안 확인</text>
+<polyline points="520,520 559,520" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="559,520 545.4932934647098,526.5244830116685 545.4932934647098,513.4755169883315" fill="#5D6C83"/>
+<polyline points="1035,520 1074,520" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
+<polygon points="1074,520 1060.49329346471,526.5244830116685 1060.49329346471,513.4755169883315" fill="#5D6C83"/>
+<text x="65" y="855.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">자동화: 문의 접수 → 경로 결정·자료 확보 → 근거 준비 후 초안 작성</text>
+<rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
+<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">3단계는 화면 구상</text>
+<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">5단계에서 같은 U-3에 표시할 값과 출처를 읽기 모델로 연결함. 점수는 설계용 가상값.</text>
+</svg>
