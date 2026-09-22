@@ -11,8 +11,8 @@
 <text x="68" y="225.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#36865B">별도 준비 흐름 · I-1</text>
 <text x="68" y="265.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">문서 색인과 관계 자료가 준비되었음</text>
 <text x="68" y="303.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">상담 전 준비 / 자료 버전 보존</text>
-<text x="720" y="250.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#5D6C83">아래는 하나의 가능한 발생 순서입니다.</text>
-<text x="720" y="283.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#5D6C83">실행 시에는 입력이 준비된 조회를 병렬로 수행할 수 있습니다.</text>
+<text x="720" y="250.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#5D6C83">아래는 한 상담의 가능한 기록 순서입니다.</text>
+<text x="720" y="283.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#5D6C83">E-4가 E-3보다 먼저 기록되는 경우도 가능합니다.</text>
 <rect x="50" y="385" width="280" height="143" rx="18" fill="#FFF0D9" stroke="#D88A24" stroke-width="2"/>
 <text x="68" y="415.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#D88A24">E-1</text>
 <text x="68" y="454.68" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="23" font-weight="700" fill="#18263D">문의 접수</text>
@@ -63,6 +63,6 @@
 <polygon points="47,775 33.49329346470985,781.5244830116685 33.49329346470985,768.4755169883315" fill="#5D6C83"/>
 <text x="800" y="658.52" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="400" fill="#5D6C83">확보한 자료와 특징으로 판단한 뒤 상담사에게 제공</text>
 <rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
-<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">빠진 입력 찾기</text>
-<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">관계 검색에는 개체 ID가, 예측에는 특징이, 초안 작성에는 선정한 근거가 먼저 필요함.</text>
+<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">기록 순서와 실행 의존관계 구분</text>
+<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">이벤트 번호는 실행 순번이 아님. 병렬 시작·조건부 선택·취합 조건은 자동화와 사양에 명시.</text>
 </svg>

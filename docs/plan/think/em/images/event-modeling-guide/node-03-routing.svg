@@ -14,34 +14,34 @@
 <rect x="450" y="397" width="700" height="143" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
 <text x="468" y="427.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#3674CE">A-1 → C-2 · 생성형 AI + 규칙 기반 코드</text>
 <text x="468" y="467.84" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="24" font-weight="700" fill="#18263D">질문 해석 → 실행할 경로와 선택 이유 확정</text>
-<text x="468" y="505.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">권한과 입력 확인 / 필요한 경로만 선택</text>
+<text x="468" y="505.04" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">필수·보조 구분 / 필요한 입력·대기 시간도 저장</text>
 <polyline points="800,335 800,392" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="800,392 793.4755169883315,378.49329346470984 806.5244830116685,378.49329346470984" fill="#5D6C83"/>
 <polyline points="800,540 800,578 225,578 225,626" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="225,626 218.47551698833155,612.4932934647098 231.52448301166845,612.4932934647098" fill="#5D6C83"/>
 <rect x="50" y="632" width="350" height="184" rx="18" fill="#E0F3E9" stroke="#36865B" stroke-width="2"/>
-<text x="68" y="662.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#36865B">수치·상태</text>
-<text x="68" y="704.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">정형검색</text>
-<text x="68" y="741.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">카드·상품·사용액</text>
+<text x="68" y="662.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#36865B">수치·상태 필요 → 선택</text>
+<text x="68" y="704.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">정형검색 · C-3</text>
+<text x="68" y="741.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이번 질문: 필수</text>
 <polyline points="800,540 800,578 605,578 605,626" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="605,626 598.4755169883315,612.4932934647098 611.5244830116685,612.4932934647098" fill="#5D6C83"/>
 <rect x="430" y="632" width="350" height="184" rx="18" fill="#E0F3E9" stroke="#36865B" stroke-width="2"/>
-<text x="448" y="662.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#36865B">조건·발언</text>
-<text x="448" y="704.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">벡터검색</text>
-<text x="448" y="741.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">혜택 안내·이전 상담</text>
+<text x="448" y="662.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#36865B">조건·발언 필요 → 선택</text>
+<text x="448" y="704.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">벡터검색 · C-4</text>
+<text x="448" y="741.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이번 질문: 필수</text>
 <polyline points="800,540 800,578 985,578 985,626" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="985,626 978.4755169883315,612.4932934647098 991.5244830116685,612.4932934647098" fill="#5D6C83"/>
 <rect x="810" y="632" width="350" height="184" rx="18" fill="#E0F3E9" stroke="#36865B" stroke-width="2"/>
-<text x="828" y="662.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#36865B">적용 문서 연결</text>
-<text x="828" y="704.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">그래프검색</text>
-<text x="828" y="741.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">고객→카드→상품→문서</text>
+<text x="828" y="662.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#36865B">문서 연결 확인 필요 → 선택</text>
+<text x="828" y="704.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">그래프검색 · C-5</text>
+<text x="828" y="741.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이번 질문: 필수</text>
 <polyline points="800,540 800,578 1365,578 1365,626" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="1365,626 1358.4755169883315,612.4932934647098 1371.5244830116685,612.4932934647098" fill="#5D6C83"/>
 <rect x="1190" y="632" width="350" height="184" rx="18" fill="#F0E8FF" stroke="#8058B2" stroke-width="2"/>
-<text x="1208" y="662.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#8058B2">고객 이탈 가능성</text>
-<text x="1208" y="704.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">예측형 AI</text>
-<text x="1208" y="741.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이용 추이·보유·상담 이력</text>
+<text x="1208" y="662.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#8058B2">이탈 판단 필요 → 선택</text>
+<text x="1208" y="704.0" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="25" font-weight="700" fill="#18263D">예측형 AI · C-6</text>
+<text x="1208" y="741.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이번 질문: 보조</text>
 <rect x="50" y="903" width="1500" height="87" rx="18" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
-<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">선택과 실행 순서는 별개</text>
-<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">정형·문서 조회는 병렬 가능. 관계와 예측은 필요한 ID·특징이 준비된 뒤 실행.</text>
+<text x="75" y="941.52" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="22" font-weight="700" fill="#18263D">다른 질문이면 다른 계획</text>
+<text x="75" y="975.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="400" fill="#5D6C83">사용액만 물으면 C-3만 선택. 선택하지 않은 경로는 실행하지도, 취합할 때 기다리지도 않음.</text>
 </svg>

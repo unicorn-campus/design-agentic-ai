@@ -46,7 +46,7 @@
 <text x="583" y="798.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">GUIDE-DEMO / H-17</text>
 <rect x="895" y="215" width="300" height="150" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
 <text x="913" y="245.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#5D6C83">자동화 시작 조건</text>
-<text x="913" y="282.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">개체 ID 준비</text>
+<text x="913" y="282.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">선택 + C-3 ID 준비</text>
 <text x="913" y="318.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">회원·카드·상품 ID</text>
 <polyline points="1045,366 1045,425" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="1045,425 1038.4755169883315,411.49329346470984 1051.5244830116685,411.49329346470984" fill="#5D6C83"/>
@@ -63,8 +63,8 @@
 <text x="913" y="798.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">상품→안내 문서 + 원천</text>
 <rect x="1225" y="215" width="300" height="150" rx="18" fill="#FFFFFF" stroke="#B9C6D7" stroke-width="2"/>
 <text x="1243" y="245.56" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="16" font-weight="700" fill="#5D6C83">자동화 시작 조건</text>
-<text x="1243" y="282.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">예측 특징 준비</text>
-<text x="1243" y="318.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">이용 추이·보유·상담</text>
+<text x="1243" y="282.36" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="21" font-weight="700" fill="#18263D">선택 + 특징 준비</text>
+<text x="1243" y="318.54" text-anchor="start" font-family="Malgun Gothic, sans-serif" font-size="19" font-weight="400" fill="#5D6C83">C-3 이용·보유·상담 집계</text>
 <polyline points="1375,366 1375,425" fill="none" stroke="#5D6C83" stroke-width="3" stroke-dasharray="none" stroke-linejoin="round"/>
 <polygon points="1375,425 1368.4755169883315,411.49329346470984 1381.5244830116685,411.49329346470984" fill="#5D6C83"/>
 <rect x="1225" y="430" width="300" height="210" rx="18" fill="#E5EFFF" stroke="#3674CE" stroke-width="2"/>
