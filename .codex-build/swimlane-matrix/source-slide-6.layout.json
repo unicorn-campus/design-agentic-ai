@@ -1,0 +1,1576 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/x8f69ofe",
+    "id": "x8f69ofe",
+    "slide": 6,
+    "layoutId": "/ppt/slideLayouts/slideLayout1.xml",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Calibri Light",
+        "eastAsianTypeface": "Calibri Light",
+        "complexScriptTypeface": "Calibri Light"
+      },
+      "minorFont": {
+        "latinTypeface": "Calibri",
+        "eastAsianTypeface": "Calibri",
+        "complexScriptTypeface": "Calibri"
+      }
+    },
+    "typefaces": [
+      "Calibri",
+      "Calibri Light",
+      "Pretendard"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout1.xml",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h4bupgn6",
+      "id": "10",
+      "bbox": [
+        34,
+        18,
+        800,
+        22
+      ],
+      "geometry": "rect",
+      "text": "Event Modeling  ›  4단계 Command",
+      "textPreview": "Event Modeling  ›  4단계 Command",
+      "resolvedFontSize": 21.18,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 0.88,
+        "insets": {
+          "top": 2,
+          "right": 3,
+          "bottom": 2,
+          "left": 3
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Event Modeling  ›  4단계 Command"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Event Modeling  ›  4단계 Command",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Event Modeling  ›  4단계 Command",
+              "fontSize": 17,
+              "typeface": "Pretendard",
+              "color": "#7C8598"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yhg7epsj",
+      "id": "2",
+      "bbox": [
+        34,
+        43,
+        1180,
+        56
+      ],
+      "geometry": "rect",
+      "text": "선택한 결과를 취합해 초안을 작성함",
+      "textPreview": "선택한 결과를 취합해 초안을 작성함",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 2,
+          "right": 3,
+          "bottom": 2,
+          "left": 3
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "선택한 결과를 취합해 초안을 작성함"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "선택한 결과를 취합해 초안을 작성함",
+          "resolvedTextStyle": {
+            "fontSize": 42,
+            "typeface": "Pretendard",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "선택한 결과를 취합해 초안을 작성함",
+              "fontSize": 42,
+              "typeface": "Pretendard",
+              "color": "#1E2A5C",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zi98nu94",
+      "id": "3",
+      "bbox": [
+        34,
+        112,
+        1180,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#D9E0EC",
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/87ipkzal",
+      "id": "4",
+      "bbox": [
+        34,
+        112,
+        170,
+        4
+      ],
+      "geometry": "rect",
+      "fillColor": "#2E74C6",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/98rqt4r6",
+      "id": "5",
+      "bbox": [
+        34,
+        121,
+        1180,
+        28
+      ],
+      "geometry": "rect",
+      "text": "선택한 경로의 완료 상태를 확인한 뒤 근거를 선정하고 상담 초안을 작성함",
+      "textPreview": "선택한 경로의 완료 상태를 확인한 뒤 근거를 선정하고 상담 초안을 작성함",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 2,
+          "right": 3,
+          "bottom": 2,
+          "left": 3
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "선택한 경로의 완료 상태를 확인한 뒤 근거를 선정하고 상담 초안을 작성함"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "선택한 경로의 완료 상태를 확인한 뒤 근거를 선정하고 상담 초안을 작성함",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Pretendard",
+            "color": "#4A5364",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "선택한 경로의 완료 상태를 확인한 뒤 근거를 선정하고 상담 초안을 작성함",
+              "fontSize": 18,
+              "typeface": "Pretendard",
+              "color": "#4A5364"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ml07i9sv",
+      "id": "6",
+      "bbox": [
+        34,
+        686,
+        1180,
+        1
+      ],
+      "geometry": "rect",
+      "fillColor": "#EDF0F6",
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7m98ru9g",
+      "id": "7",
+      "bbox": [
+        36,
+        691,
+        640,
+        18
+      ],
+      "geometry": "rect",
+      "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+      "textPreview": "이탈 위험 방지 · Event Modeling 작성 예시",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 0.78,
+        "insets": {
+          "top": 2,
+          "right": 3,
+          "bottom": 2,
+          "left": 3
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "이탈 위험 방지 · Event Modeling 작성 예시"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+              "fontSize": 15,
+              "typeface": "Pretendard",
+              "color": "#7C8598"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/oryp8fah",
+      "id": "8",
+      "bbox": [
+        1125,
+        691,
+        86,
+        18
+      ],
+      "geometry": "rect",
+      "text": "6 / 7",
+      "textPreview": "6 / 7",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 0.78,
+        "insets": {
+          "top": 2,
+          "right": 3,
+          "bottom": 2,
+          "left": 3
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "6 / 7"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "6 / 7",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "6 / 7",
+              "fontSize": 15,
+              "typeface": "Pretendard",
+              "color": "#7C8598"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/fa103ulc",
+      "id": "11",
+      "bbox": [
+        34,
+        162,
+        1180,
+        505
+      ],
+      "text": "레이어 | ID | 제목 | 내용\n화면·자동화\nTrigger | AT-6 | 근거 선정 시작 | 시작 문장: 필수 E-3·E-4·E-5가 완료되고 보조 E-6이 완료 또는 보류되면 근거 선정이 시작됨\nCommand | C-7 | 근거 묶음 선정 | 요청: 근거 묶음을 선정하라\n입력: 실행 계획, E-3 ~ E-6 결과와 상태\n담당자 유형: 규칙 기반 코드\nEvent | E-7 | 근거 묶음 선정 | 사실: 근거 묶음이 선정되었음\n결과: 근거 묶음 ID, 채택 근거, 제외 근거, 주의사항\n화면·자동화\nTrigger | AT-7 | 상담 초안 작성 시작 | 시작 문장: ‘근거 묶음이 선정되었음’ Event가 발생하면 상담 초안 작성이 시작됨\nCommand | C-8 | 상담 초안 작성 | 요청: 상담 초안을 작성하라\n입력: 근거 묶음, 예측 결과 또는 상태, 고객 제약\n담당자 유형: 생성형 AI가 초안 생성, 규칙 기반 코드가 검증·저장\nEvent | E-8 | 상담 초안 작성 | 사실: 상담 초안이 작성되었음\n결과: 초안 ID, 버전, 제안 내용, 근거 참조, 주의사항",
+      "textPreview": "레이어 | ID | 제목 | 내용 | 화면·자동화 | Trigger | AT-6 | 근거 선정 시작 | 시작 문장: 필수 E-3·E-4·E-5가 완료되고 보조 E-6이 완료 또는 보류되면 근거 선정이 시작됨 | Command | C-7 | 근거 ...",
+      "rows": 7,
+      "cols": 4,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            34,
+            162,
+            170,
+            42
+          ],
+          "text": "레이어",
+          "textPreview": "레이어",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "레이어",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "레이어",
+                  "fontSize": 19,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            204,
+            162,
+            90,
+            42
+          ],
+          "text": "ID",
+          "textPreview": "ID",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "ID",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "ID",
+                  "fontSize": 19,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 3,
+          "bbox": [
+            294,
+            162,
+            220,
+            42
+          ],
+          "text": "제목",
+          "textPreview": "제목",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "제목",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "제목",
+                  "fontSize": 19,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 4,
+          "bbox": [
+            514,
+            162,
+            700,
+            42
+          ],
+          "text": "내용",
+          "textPreview": "내용",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "내용",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "내용",
+                  "fontSize": 19,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            34,
+            204,
+            170,
+            77.17
+          ],
+          "text": "화면·자동화\nTrigger",
+          "textPreview": "화면·자동화 | Trigger",
+          "fillColor": "#2E74C6",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "화면·자동화",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "화면·자동화",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Trigger",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Trigger",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            204,
+            204,
+            90,
+            77.17
+          ],
+          "text": "AT-6",
+          "textPreview": "AT-6",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "AT-6",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "AT-6",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2E74C6",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 3,
+          "bbox": [
+            294,
+            204,
+            220,
+            77.17
+          ],
+          "text": "근거 선정 시작",
+          "textPreview": "근거 선정 시작",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "근거 선정 시작",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "근거 선정 시작",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 2,
+          "column": 4,
+          "bbox": [
+            514,
+            204,
+            700,
+            77.17
+          ],
+          "text": "시작 문장: 필수 E-3·E-4·E-5가 완료되고 보조 E-6이 완료 또는 보류되면 근거 선정이 시작됨",
+          "textPreview": "시작 문장: 필수 E-3·E-4·E-5가 완료되고 보조 E-6이 완료 또는 보류되면 근거 선정이 시작됨",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "시작 문장: 필수 E-3·E-4·E-5가 완료되고 보조 E-6이 완료 또는 보류되면 근거 선정이 시작됨",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "시작 문장: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "필수 E-3·E-4·E-5가 완료되고 보조 E-6이 완료 또는 보류되면 근거 선정이 시작됨",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            34,
+            281.17,
+            170,
+            77.17
+          ],
+          "text": "Command",
+          "textPreview": "Command",
+          "fillColor": "#1E2A5C",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Command",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Command",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            204,
+            281.17,
+            90,
+            77.17
+          ],
+          "text": "C-7",
+          "textPreview": "C-7",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "C-7",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "C-7",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 3,
+          "bbox": [
+            294,
+            281.17,
+            220,
+            77.17
+          ],
+          "text": "근거 묶음 선정",
+          "textPreview": "근거 묶음 선정",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "근거 묶음 선정",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "근거 묶음 선정",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 3,
+          "column": 4,
+          "bbox": [
+            514,
+            281.17,
+            700,
+            77.17
+          ],
+          "text": "요청: 근거 묶음을 선정하라\n입력: 실행 계획, E-3 ~ E-6 결과와 상태\n담당자 유형: 규칙 기반 코드",
+          "textPreview": "요청: 근거 묶음을 선정하라 | 입력: 실행 계획, E-3 ~ E-6 결과와 상태 | 담당자 유형: 규칙 기반 코드",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "요청: 근거 묶음을 선정하라",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "요청: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "근거 묶음을 선정하라",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "입력: 실행 계획, E-3 ~ E-6 결과와 상태",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "입력: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "실행 계획, E-3 ~ E-6 결과와 상태",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "담당자 유형: 규칙 기반 코드",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "담당자 유형: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "규칙 기반 코드",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 4,
+          "column": 1,
+          "bbox": [
+            34,
+            358.33,
+            170,
+            77.17
+          ],
+          "text": "Event",
+          "textPreview": "Event",
+          "fillColor": "#404155",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Event",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Event",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 4,
+          "column": 2,
+          "bbox": [
+            204,
+            358.33,
+            90,
+            77.17
+          ],
+          "text": "E-7",
+          "textPreview": "E-7",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-7",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-7",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#404155",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 4,
+          "column": 3,
+          "bbox": [
+            294,
+            358.33,
+            220,
+            77.17
+          ],
+          "text": "근거 묶음 선정",
+          "textPreview": "근거 묶음 선정",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "근거 묶음 선정",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "근거 묶음 선정",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "row": 4,
+          "column": 4,
+          "bbox": [
+            514,
+            358.33,
+            700,
+            77.17
+          ],
+          "text": "사실: 근거 묶음이 선정되었음\n결과: 근거 묶음 ID, 채택 근거, 제외 근거, 주의사항",
+          "textPreview": "사실: 근거 묶음이 선정되었음 | 결과: 근거 묶음 ID, 채택 근거, 제외 근거, 주의사항",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "사실: 근거 묶음이 선정되었음",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "사실: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "근거 묶음이 선정되었음",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "결과: 근거 묶음 ID, 채택 근거, 제외 근거, 주의사항",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "결과: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "근거 묶음 ID, 채택 근거, 제외 근거, 주의사항",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "row": 5,
+          "column": 1,
+          "bbox": [
+            34,
+            435.5,
+            170,
+            77.17
+          ],
+          "text": "화면·자동화\nTrigger",
+          "textPreview": "화면·자동화 | Trigger",
+          "fillColor": "#2E74C6",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "화면·자동화",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "화면·자동화",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Trigger",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Trigger",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "row": 5,
+          "column": 2,
+          "bbox": [
+            204,
+            435.5,
+            90,
+            77.17
+          ],
+          "text": "AT-7",
+          "textPreview": "AT-7",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "AT-7",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "AT-7",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2E74C6",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "row": 5,
+          "column": 3,
+          "bbox": [
+            294,
+            435.5,
+            220,
+            77.17
+          ],
+          "text": "상담 초안 작성 시작",
+          "textPreview": "상담 초안 작성 시작",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "상담 초안 작성 시작",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "상담 초안 작성 시작",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "row": 5,
+          "column": 4,
+          "bbox": [
+            514,
+            435.5,
+            700,
+            77.17
+          ],
+          "text": "시작 문장: ‘근거 묶음이 선정되었음’ Event가 발생하면 상담 초안 작성이 시작됨",
+          "textPreview": "시작 문장: ‘근거 묶음이 선정되었음’ Event가 발생하면 상담 초안 작성이 시작됨",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "시작 문장: ‘근거 묶음이 선정되었음’ Event가 발생하면 상담 초안 작성이 시작됨",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "시작 문장: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "‘근거 묶음이 선정되었음’ Event가 발생하면 상담 초안 작성이 시작됨",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 21,
+          "row": 6,
+          "column": 1,
+          "bbox": [
+            34,
+            512.67,
+            170,
+            77.17
+          ],
+          "text": "Command",
+          "textPreview": "Command",
+          "fillColor": "#1E2A5C",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Command",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Command",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 22,
+          "row": 6,
+          "column": 2,
+          "bbox": [
+            204,
+            512.67,
+            90,
+            77.17
+          ],
+          "text": "C-8",
+          "textPreview": "C-8",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "C-8",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "C-8",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 23,
+          "row": 6,
+          "column": 3,
+          "bbox": [
+            294,
+            512.67,
+            220,
+            77.17
+          ],
+          "text": "상담 초안 작성",
+          "textPreview": "상담 초안 작성",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "상담 초안 작성",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "상담 초안 작성",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 24,
+          "row": 6,
+          "column": 4,
+          "bbox": [
+            514,
+            512.67,
+            700,
+            77.17
+          ],
+          "text": "요청: 상담 초안을 작성하라\n입력: 근거 묶음, 예측 결과 또는 상태, 고객 제약\n담당자 유형: 생성형 AI가 초안 생성, 규칙 기반 코드가 검증·저장",
+          "textPreview": "요청: 상담 초안을 작성하라 | 입력: 근거 묶음, 예측 결과 또는 상태, 고객 제약 | 담당자 유형: 생성형 AI가 초안 생성, 규칙 기반 코드가 검증·저장",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "요청: 상담 초안을 작성하라",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "요청: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "상담 초안을 작성하라",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "입력: 근거 묶음, 예측 결과 또는 상태, 고객 제약",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "입력: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "근거 묶음, 예측 결과 또는 상태, 고객 제약",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "담당자 유형: 생성형 AI가 초안 생성, 규칙 기반 코드가 검증·저장",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "담당자 유형: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "생성형 AI가 초안 생성, 규칙 기반 코드가 검증·저장",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 25,
+          "row": 7,
+          "column": 1,
+          "bbox": [
+            34,
+            589.83,
+            170,
+            77.17
+          ],
+          "text": "Event",
+          "textPreview": "Event",
+          "fillColor": "#404155",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Event",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Event",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 26,
+          "row": 7,
+          "column": 2,
+          "bbox": [
+            204,
+            589.83,
+            90,
+            77.17
+          ],
+          "text": "E-8",
+          "textPreview": "E-8",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-8",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-8",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#404155",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 27,
+          "row": 7,
+          "column": 3,
+          "bbox": [
+            294,
+            589.83,
+            220,
+            77.17
+          ],
+          "text": "상담 초안 작성",
+          "textPreview": "상담 초안 작성",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "상담 초안 작성",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "상담 초안 작성",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 28,
+          "row": 7,
+          "column": 4,
+          "bbox": [
+            514,
+            589.83,
+            700,
+            77.17
+          ],
+          "text": "사실: 상담 초안이 작성되었음\n결과: 초안 ID, 버전, 제안 내용, 근거 참조, 주의사항",
+          "textPreview": "사실: 상담 초안이 작성되었음 | 결과: 초안 ID, 버전, 제안 내용, 근거 참조, 주의사항",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "사실: 상담 초안이 작성되었음",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "사실: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "상담 초안이 작성되었음",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "결과: 초안 ID, 버전, 제안 내용, 근거 참조, 주의사항",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "결과: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "초안 ID, 버전, 제안 내용, 근거 참조, 주의사항",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

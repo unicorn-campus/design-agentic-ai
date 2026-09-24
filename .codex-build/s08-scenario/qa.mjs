@@ -1,0 +1,11 @@
+import fs from "node:fs/promises";
+import { FileBlob, PresentationFile } from "@oai/artifact-tool";
+const src="C:/Users/hiond/class/design-agentic-ai/docs/plan/think/em/Event-Modeling-S-08-시나리오-구체화-1장.pptx";
+const out="C:/Users/hiond/class/design-agentic-ai/.codex-build/s08-scenario/final";
+await fs.mkdir(out,{recursive:true});
+const p=await PresentationFile.importPptx(await FileBlob.load(src));
+const png=await p.slides.getItem(0).export({format:"png",scale:1.5});
+await fs.writeFile(`${out}/slide-1.png`,new Uint8Array(await png.arrayBuffer()));
+const inspect=await p.inspect({kind:"slide,textbox,table,notes,layout",maxChars:30000});
+await fs.writeFile(`${out}/inspect.ndjson`,inspect.ndjson);
+console.log(`slides=${p.slides.items.length}`);

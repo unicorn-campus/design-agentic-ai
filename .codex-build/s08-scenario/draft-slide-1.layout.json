@@ -1,0 +1,1207 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/517k07",
+    "id": "517k07",
+    "slide": 1,
+    "layoutId": "09215306-032a-471b-a8a4-758bf844e25c",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "1280b706-0535-4f37-a3c7-a735882d954b",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "Pretendard"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "09215306-032a-471b-a8a4-758bf844e25c",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "1280b706-0535-4f37-a3c7-a735882d954b",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "1280b706-0535-4f37-a3c7-a735882d954b",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hw3ixk3m",
+      "id": "1",
+      "name": "crumb",
+      "bbox": [
+        34,
+        18,
+        800,
+        22
+      ],
+      "geometry": "rect",
+      "text": "Event Modeling  ›  7단계 시나리오 구체화",
+      "textPreview": "Event Modeling  ›  7단계 시나리오 구체화",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 17,
+        "typeface": "Pretendard",
+        "color": "#7C8598",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Event Modeling  ›  7단계 시나리오 구체화"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Event Modeling  ›  7단계 시나리오 구체화",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Event Modeling  ›  7단계 시나리오 구체화",
+              "fontSize": 17,
+              "typeface": "Pretendard",
+              "color": "#7C8598",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/utsjm54b",
+      "id": "2",
+      "name": "title",
+      "bbox": [
+        34,
+        43,
+        1180,
+        56
+      ],
+      "geometry": "rect",
+      "text": "S-08 상담 제안 작성",
+      "textPreview": "S-08 상담 제안 작성",
+      "resolvedFontSize": 42,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 42,
+        "typeface": "Pretendard",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "S-08 상담 제안 작성"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "S-08 상담 제안 작성",
+          "resolvedTextStyle": {
+            "fontSize": 42,
+            "typeface": "Pretendard",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "S-08 상담 제안 작성",
+              "fontSize": 42,
+              "typeface": "Pretendard",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vu10valw",
+      "id": "3",
+      "name": "title-rule",
+      "bbox": [
+        34,
+        112,
+        1180,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#D9E0EC",
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/87a1kfm5",
+      "id": "4",
+      "name": "title-accent",
+      "bbox": [
+        34,
+        112,
+        170,
+        4
+      ],
+      "geometry": "rect",
+      "fillColor": "#2E74C6",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9sjitknq",
+      "id": "5",
+      "name": "story-label",
+      "bbox": [
+        34,
+        126,
+        135,
+        64
+      ],
+      "geometry": "roundRect",
+      "text": "유저스토리",
+      "textPreview": "유저스토리",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18,
+        "typeface": "Pretendard",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "유저스토리"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "유저스토리",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Pretendard",
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "유저스토리",
+              "fontSize": 18,
+              "typeface": "Pretendard",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#1E2A5C",
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m5sji54z",
+      "id": "6",
+      "name": "story",
+      "bbox": [
+        177,
+        126,
+        1037,
+        64
+      ],
+      "geometry": "roundRect",
+      "text": "상담사로서 검증된 검색·예측 근거를 바탕으로 고객에게 전달할 상담 제안을 확인하고 싶음. 이를 통해 정확하고 일관된 상담 안내를 제공할 수 있음.",
+      "textPreview": "상담사로서 검증된 검색·예측 근거를 바탕으로 고객에게 전달할 상담 제안을 확인하고 싶음. 이를 통해 정확하고 일관된 상담 안내를 제공할 수 있음.",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18,
+        "typeface": "Pretendard",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 6,
+          "right": 14,
+          "bottom": 6,
+          "left": 14
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "상담사로서 검증된 검색·예측 근거를 바탕으로 고객에게 전달할 상담 제안을 확인하고 싶음. 이를 통해 정확하고 일관된 상담 안내를 제공할 수"
+          },
+          {
+            "index": 2,
+            "text": "있음."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "상담사로서 검증된 검색·예측 근거를 바탕으로 고객에게 전달할 상담 제안을 확인하고 싶음. 이를 통해 정확하고 일관된 상담 안내를 제공할 수 있음.",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Pretendard",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "상담사로서 검증된 검색·예측 근거를 바탕으로 고객에게 전달할 상담 제안을 확인하고 싶음. 이를 통해 정확하고 일관된 상담 안내를 제공할 수 있음.",
+              "fontSize": 18,
+              "typeface": "Pretendard",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#EEF3FA",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 7,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/6lgryls3",
+      "id": "7",
+      "bbox": [
+        34,
+        204,
+        1180,
+        460
+      ],
+      "text": "슬라이스 ID | 시나리오 | Given | When | Then\nS-08 | 검증된 근거로 고위험 고객의 상담 제안 작성 | 상담 CS-20260924-001의 E-7에 회원 M-1001, M카드 혜택 문서 DOC-203 v2026.08 14쪽, 최근 상담 CS-8842, 이탈 확률 0.82·등급 ‘높음’이 선택되어 있음 | 생성형 AI GEN-AI-2.1에 400자 이내, ‘카드 혜택’과 ‘다음 행동’을 포함하도록 C-8 상담 제안 작성을 요청함 | E-8이 발생함. 제안 ID P-1001, 버전 1, 혜택 안내와 이용 감소에 따른 상담 권고, DOC-203·CS-8842 참조, 검증 상태 ‘통과’가 기록됨\nS-08 | 예측 보류 시 위험 표현을 제외하고 제안 작성 | E-7에 유효한 카드 혜택 근거가 있으나 가입 7일로 E-6이 ‘관찰기간 부족’ 상태이며, 예측 결과가 없으면 위험 표현을 사용하지 않는 규칙이 적용됨 | 상담 CS-20260924-002에 대해 동일한 문체와 400자 제한으로 C-8 상담 제안 작성을 요청함 | E-8이 발생함. 카드 혜택과 다음 행동만 포함되고 riskMention=false, 예측 보류 사유와 사용한 문서 근거가 기록됨\nS-08 | 근거에 없는 혜택 문장이 생성되어 작성 보류 | E-7의 선택 근거에는 ‘공항 라운지 연 2회’만 있으며, 모든 혜택 문장은 선택된 출처로 확인되어야 한다는 검증 규칙이 적용됨 | C-8 실행 중 생성 결과에 근거가 없는 ‘연회비 면제’ 문장이 포함됨 | E-8은 발생하지 않음. ‘상담 제안 작성이 보류되었음’이 발생하고 reasonCode=UNSUPPORTED_CLAIM, 문제 문장, 검증 근거, 사람 검토 필요=true가 기록되며 생성 결과는 상담사에게 제공되지 않음",
+      "textPreview": "슬라이스 ID | 시나리오 | Given | When | Then | S-08 | 검증된 근거로 고위험 고객의 상담 제안 작성 | 상담 CS-20260924-001의 E-7에 회원 M-1001, M카드 혜택 문서 DOC-203 v2026.08 1...",
+      "rows": 4,
+      "cols": 5,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            34,
+            204,
+            95,
+            46
+          ],
+          "text": "슬라이스 ID",
+          "textPreview": "슬라이스 ID",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "슬라이스 ID",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "슬라이스 ID",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            129,
+            204,
+            215,
+            46
+          ],
+          "text": "시나리오",
+          "textPreview": "시나리오",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "시나리오",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "시나리오",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 3,
+          "bbox": [
+            344,
+            204,
+            315,
+            46
+          ],
+          "text": "Given",
+          "textPreview": "Given",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Given",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Given",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 4,
+          "bbox": [
+            659,
+            204,
+            240,
+            46
+          ],
+          "text": "When",
+          "textPreview": "When",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "When",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "When",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 1,
+          "column": 5,
+          "bbox": [
+            899,
+            204,
+            315,
+            46
+          ],
+          "text": "Then",
+          "textPreview": "Then",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Then",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Then",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            34,
+            250,
+            95,
+            138
+          ],
+          "text": "S-08",
+          "textPreview": "S-08",
+          "fillColor": "#EEF3FA",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S-08",
+              "resolvedTextStyle": {
+                "fontSize": 16,
+                "typeface": "Pretendard",
+                "color": "#2E74C6",
+                "bold": true,
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S-08",
+                  "fontSize": 16,
+                  "typeface": "Pretendard",
+                  "color": "#2E74C6",
+                  "bold": true,
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            129,
+            250,
+            215,
+            138
+          ],
+          "text": "검증된 근거로 고위험 고객의 상담 제안 작성",
+          "textPreview": "검증된 근거로 고위험 고객의 상담 제안 작성",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "검증된 근거로 고위험 고객의 상담 제안 작성",
+              "resolvedTextStyle": {
+                "fontSize": 14,
+                "typeface": "Pretendard",
+                "color": "#1E2A5C",
+                "bold": true,
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "검증된 근거로 고위험 고객의 상담 제안 작성",
+                  "fontSize": 14,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true,
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 2,
+          "column": 3,
+          "bbox": [
+            344,
+            250,
+            315,
+            138
+          ],
+          "text": "상담 CS-20260924-001의 E-7에 회원 M-1001, M카드 혜택 문서 DOC-203 v2026.08 14쪽, 최근 상담 CS-8842, 이탈 확률 0.82·등급 ‘높음’이 선택되어 있음",
+          "textPreview": "상담 CS-20260924-001의 E-7에 회원 M-1001, M카드 혜택 문서 DOC-203 v2026.08 14쪽, 최근 상담 CS-8842, 이탈 확률 0.82·등급 ‘높음’이 선택되어 있음",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "상담 CS-20260924-001의 E-7에 회원 M-1001, M카드 혜택 문서 DOC-203 v2026.08 14쪽, 최근 상담 CS-8842, 이탈 확률 0.82·등급 ‘높음’이 선택되어 있음",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "상담 CS-20260924-001의 E-7에 회원 M-1001, M카드 혜택 문서 DOC-203 v2026.08 14쪽, 최근 상담 CS-8842, 이탈 확률 0.82·등급 ‘높음’이 선택되어 있음",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 2,
+          "column": 4,
+          "bbox": [
+            659,
+            250,
+            240,
+            138
+          ],
+          "text": "생성형 AI GEN-AI-2.1에 400자 이내, ‘카드 혜택’과 ‘다음 행동’을 포함하도록 C-8 상담 제안 작성을 요청함",
+          "textPreview": "생성형 AI GEN-AI-2.1에 400자 이내, ‘카드 혜택’과 ‘다음 행동’을 포함하도록 C-8 상담 제안 작성을 요청함",
+          "fillColor": "#F7FAFE",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "생성형 AI GEN-AI-2.1에 400자 이내, ‘카드 혜택’과 ‘다음 행동’을 포함하도록 C-8 상담 제안 작성을 요청함",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "생성형 AI GEN-AI-2.1에 400자 이내, ‘카드 혜택’과 ‘다음 행동’을 포함하도록 C-8 상담 제안 작성을 요청함",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 2,
+          "column": 5,
+          "bbox": [
+            899,
+            250,
+            315,
+            138
+          ],
+          "text": "E-8이 발생함. 제안 ID P-1001, 버전 1, 혜택 안내와 이용 감소에 따른 상담 권고, DOC-203·CS-8842 참조, 검증 상태 ‘통과’가 기록됨",
+          "textPreview": "E-8이 발생함. 제안 ID P-1001, 버전 1, 혜택 안내와 이용 감소에 따른 상담 권고, DOC-203·CS-8842 참조, 검증 상태 ‘통과’가 기록됨",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-8이 발생함. 제안 ID P-1001, 버전 1, 혜택 안내와 이용 감소에 따른 상담 권고, DOC-203·CS-8842 참조, 검증 상태 ‘통과’가 기록됨",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-8이 발생함. 제안 ID P-1001, 버전 1, 혜택 안내와 이용 감소에 따른 상담 권고, DOC-203·CS-8842 참조, 검증 상태 ‘통과’가 기록됨",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            34,
+            388,
+            95,
+            138
+          ],
+          "text": "S-08",
+          "textPreview": "S-08",
+          "fillColor": "#EEF3FA",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S-08",
+              "resolvedTextStyle": {
+                "fontSize": 16,
+                "typeface": "Pretendard",
+                "color": "#2E74C6",
+                "bold": true,
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S-08",
+                  "fontSize": 16,
+                  "typeface": "Pretendard",
+                  "color": "#2E74C6",
+                  "bold": true,
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            129,
+            388,
+            215,
+            138
+          ],
+          "text": "예측 보류 시 위험 표현을 제외하고 제안 작성",
+          "textPreview": "예측 보류 시 위험 표현을 제외하고 제안 작성",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "예측 보류 시 위험 표현을 제외하고 제안 작성",
+              "resolvedTextStyle": {
+                "fontSize": 14,
+                "typeface": "Pretendard",
+                "color": "#1E2A5C",
+                "bold": true,
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "예측 보류 시 위험 표현을 제외하고 제안 작성",
+                  "fontSize": 14,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true,
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 3,
+          "column": 3,
+          "bbox": [
+            344,
+            388,
+            315,
+            138
+          ],
+          "text": "E-7에 유효한 카드 혜택 근거가 있으나 가입 7일로 E-6이 ‘관찰기간 부족’ 상태이며, 예측 결과가 없으면 위험 표현을 사용하지 않는 규칙이 적용됨",
+          "textPreview": "E-7에 유효한 카드 혜택 근거가 있으나 가입 7일로 E-6이 ‘관찰기간 부족’ 상태이며, 예측 결과가 없으면 위험 표현을 사용하지 않는 규칙이 적용됨",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-7에 유효한 카드 혜택 근거가 있으나 가입 7일로 E-6이 ‘관찰기간 부족’ 상태이며, 예측 결과가 없으면 위험 표현을 사용하지 않는 규칙이 적용됨",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-7에 유효한 카드 혜택 근거가 있으나 가입 7일로 E-6이 ‘관찰기간 부족’ 상태이며, 예측 결과가 없으면 위험 표현을 사용하지 않는 규칙이 적용됨",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 3,
+          "column": 4,
+          "bbox": [
+            659,
+            388,
+            240,
+            138
+          ],
+          "text": "상담 CS-20260924-002에 대해 동일한 문체와 400자 제한으로 C-8 상담 제안 작성을 요청함",
+          "textPreview": "상담 CS-20260924-002에 대해 동일한 문체와 400자 제한으로 C-8 상담 제안 작성을 요청함",
+          "fillColor": "#F7FAFE",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "상담 CS-20260924-002에 대해 동일한 문체와 400자 제한으로 C-8 상담 제안 작성을 요청함",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "상담 CS-20260924-002에 대해 동일한 문체와 400자 제한으로 C-8 상담 제안 작성을 요청함",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 3,
+          "column": 5,
+          "bbox": [
+            899,
+            388,
+            315,
+            138
+          ],
+          "text": "E-8이 발생함. 카드 혜택과 다음 행동만 포함되고 riskMention=false, 예측 보류 사유와 사용한 문서 근거가 기록됨",
+          "textPreview": "E-8이 발생함. 카드 혜택과 다음 행동만 포함되고 riskMention=false, 예측 보류 사유와 사용한 문서 근거가 기록됨",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-8이 발생함. 카드 혜택과 다음 행동만 포함되고 riskMention=false, 예측 보류 사유와 사용한 문서 근거가 기록됨",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-8이 발생함. 카드 혜택과 다음 행동만 포함되고 riskMention=false, 예측 보류 사유와 사용한 문서 근거가 기록됨",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "row": 4,
+          "column": 1,
+          "bbox": [
+            34,
+            526,
+            95,
+            138
+          ],
+          "text": "S-08",
+          "textPreview": "S-08",
+          "fillColor": "#EEF3FA",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S-08",
+              "resolvedTextStyle": {
+                "fontSize": 16,
+                "typeface": "Pretendard",
+                "color": "#2E74C6",
+                "bold": true,
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S-08",
+                  "fontSize": 16,
+                  "typeface": "Pretendard",
+                  "color": "#2E74C6",
+                  "bold": true,
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "row": 4,
+          "column": 2,
+          "bbox": [
+            129,
+            526,
+            215,
+            138
+          ],
+          "text": "근거에 없는 혜택 문장이 생성되어 작성 보류",
+          "textPreview": "근거에 없는 혜택 문장이 생성되어 작성 보류",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "근거에 없는 혜택 문장이 생성되어 작성 보류",
+              "resolvedTextStyle": {
+                "fontSize": 14,
+                "typeface": "Pretendard",
+                "color": "#1E2A5C",
+                "bold": true,
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "근거에 없는 혜택 문장이 생성되어 작성 보류",
+                  "fontSize": 14,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true,
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "row": 4,
+          "column": 3,
+          "bbox": [
+            344,
+            526,
+            315,
+            138
+          ],
+          "text": "E-7의 선택 근거에는 ‘공항 라운지 연 2회’만 있으며, 모든 혜택 문장은 선택된 출처로 확인되어야 한다는 검증 규칙이 적용됨",
+          "textPreview": "E-7의 선택 근거에는 ‘공항 라운지 연 2회’만 있으며, 모든 혜택 문장은 선택된 출처로 확인되어야 한다는 검증 규칙이 적용됨",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-7의 선택 근거에는 ‘공항 라운지 연 2회’만 있으며, 모든 혜택 문장은 선택된 출처로 확인되어야 한다는 검증 규칙이 적용됨",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-7의 선택 근거에는 ‘공항 라운지 연 2회’만 있으며, 모든 혜택 문장은 선택된 출처로 확인되어야 한다는 검증 규칙이 적용됨",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "row": 4,
+          "column": 4,
+          "bbox": [
+            659,
+            526,
+            240,
+            138
+          ],
+          "text": "C-8 실행 중 생성 결과에 근거가 없는 ‘연회비 면제’ 문장이 포함됨",
+          "textPreview": "C-8 실행 중 생성 결과에 근거가 없는 ‘연회비 면제’ 문장이 포함됨",
+          "fillColor": "#F7FAFE",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "C-8 실행 중 생성 결과에 근거가 없는 ‘연회비 면제’ 문장이 포함됨",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "C-8 실행 중 생성 결과에 근거가 없는 ‘연회비 면제’ 문장이 포함됨",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "row": 4,
+          "column": 5,
+          "bbox": [
+            899,
+            526,
+            315,
+            138
+          ],
+          "text": "E-8은 발생하지 않음. ‘상담 제안 작성이 보류되었음’이 발생하고 reasonCode=UNSUPPORTED_CLAIM, 문제 문장, 검증 근거, 사람 검토 필요=true가 기록되며 생성 결과는 상담사에게 제공되지 않음",
+          "textPreview": "E-8은 발생하지 않음. ‘상담 제안 작성이 보류되었음’이 발생하고 reasonCode=UNSUPPORTED_CLAIM, 문제 문장, 검증 근거, 사람 검토 필요=true가 기록되며 생성 결과는 상담사에게 제공되지 않음",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-8은 발생하지 않음. ‘상담 제안 작성이 보류되었음’이 발생하고 reasonCode=UNSUPPORTED_CLAIM, 문제 문장, 검증 근거, 사람 검토 필요=true가 기록되며 생성 결과는 상담사에게 제공되지 않음",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-8은 발생하지 않음. ‘상담 제안 작성이 보류되었음’이 발생하고 reasonCode=UNSUPPORTED_CLAIM, 문제 문장, 검증 근거, 사람 검토 필요=true가 기록되며 생성 결과는 상담사에게 제공되지 않음",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/k3q1gvm9",
+      "id": "8",
+      "name": "footer-rule",
+      "bbox": [
+        34,
+        686,
+        1180,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#EDF0F6",
+      "lineWidth": 1
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/l4jip0ne",
+      "id": "9",
+      "name": "footer-left",
+      "bbox": [
+        36,
+        691,
+        640,
+        18
+      ],
+      "geometry": "rect",
+      "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+      "textPreview": "이탈 위험 방지 · Event Modeling 작성 예시",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 15,
+        "typeface": "Pretendard",
+        "color": "#7C8598",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "이탈 위험 방지 · Event Modeling 작성 예시"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+              "fontSize": 15,
+              "typeface": "Pretendard",
+              "color": "#7C8598",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/x8judgjy",
+      "id": "10",
+      "name": "footer-page",
+      "bbox": [
+        1125,
+        691,
+        86,
+        18
+      ],
+      "geometry": "rect",
+      "text": "1 / 1",
+      "textPreview": "1 / 1",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 15,
+        "typeface": "Pretendard",
+        "color": "#7C8598",
+        "alignment": "right",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1 / 1"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1 / 1",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "1 / 1",
+              "fontSize": 15,
+              "typeface": "Pretendard",
+              "color": "#7C8598",
+              "alignment": "right"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

@@ -1,0 +1,238 @@
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"Event Modeling  ›  4단계 Command","textShapes":15}
+{"kind":"textbox","id":"sh/vyp0je1s","slide":1,"text":"Event Modeling  ›  4단계 Command","textPreview":"Event Modeling  ›  4단계 Command","textChars":30,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/547294r6","slide":1,"text":"한 개 슬라이스의 기본 구조","textPreview":"한 개 슬라이스의 기본 구조","textChars":15,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/k3yl0zql","slide":1,"bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/7qp4be9c","slide":1,"bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/65g3298r","slide":1,"text":"첫 장에서는 레이어별 ID와 제목만으로 Trigger → Command → Event 연결을 확인함","textPreview":"첫 장에서는 레이어별 ID와 제목만으로 Trigger → Command → Event 연결을 확인함","textChars":55,"textLines":1,"bbox":[34,121,1180,28]}
+{"kind":"shape","id":"sh/ts7md4r2","slide":1,"bbox":[34,686,1180,1]}
+{"kind":"textbox","id":"sh/sryl4zqx","slide":1,"text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/fu94fe98","slide":1,"text":"1 / 7","textPreview":"1 / 7","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"shape","id":"sh/utg3698n","slide":1,"bbox":[110,171,190,120]}
+{"kind":"textbox","id":"sh/wn6dc7eh","slide":1,"text":"화면·자동화\nTrigger","textPreview":"화면·자동화 | Trigger","textChars":14,"textLines":2,"bbox":[126,183,158,96]}
+{"kind":"shape","id":"sh/hofulsf2","slide":1,"bbox":[110,338,190,120]}
+{"kind":"textbox","id":"sh/ul4vaxgb","slide":1,"text":"Command","textPreview":"Command","textChars":7,"textLines":1,"bbox":[126,350,158,96]}
+{"kind":"shape","id":"sh/vmdcj2xw","slide":1,"bbox":[110,505,190,120]}
+{"kind":"textbox","id":"sh/4r6dg7et","slide":1,"text":"Event","textPreview":"Event","textChars":5,"textLines":1,"bbox":[126,517,158,96]}
+{"kind":"shape","id":"sh/5sfepcfe","slide":1,"bbox":[365,171,795,120]}
+{"kind":"shape","id":"sh/ipovexwn","slide":1,"bbox":[397,192,150,76]}
+{"kind":"textbox","id":"sh/3qxwn2x8","slide":1,"text":"UT-1","textPreview":"UT-1","textChars":4,"textLines":1,"bbox":[410,200,124,58]}
+{"kind":"textbox","id":"sh/sfqdkrep","slide":1,"text":"상담 시작 선택","textPreview":"상담 시작 선택","textChars":8,"textLines":1,"bbox":[590,196,515,68]}
+{"kind":"shape","id":"sh/dgzetcfa","slide":1,"bbox":[365,338,795,120]}
+{"kind":"shape","id":"sh/1cvuxc7e","slide":1,"bbox":[397,359,150,76]}
+{"kind":"textbox","id":"sh/0bmd476t","slide":1,"text":"C-1","textPreview":"C-1","textChars":3,"textLines":1,"bbox":[410,367,124,58]}
+{"kind":"textbox","id":"sh/zadcv2p8","slide":1,"text":"문의 접수","textPreview":"문의 접수","textChars":5,"textLines":1,"bbox":[590,363,515,68]}
+{"kind":"shape","id":"sh/e94v2hon","slide":1,"bbox":[365,505,795,120]}
+{"kind":"shape","id":"sh/90ve1w7q","slide":1,"bbox":[397,526,150,76]}
+{"kind":"textbox","id":"sh/ozmd8r65","slide":1,"text":"E-1","textPreview":"E-1","textChars":3,"textLines":1,"bbox":[410,534,124,58]}
+{"kind":"textbox","id":"sh/nydczmpk","slide":1,"text":"문의 접수","textPreview":"문의 접수","textChars":5,"textLines":1,"bbox":[590,530,515,68]}
+{"kind":"shape","id":"sh/juhg7q9s","slide":1,"bbox":[762.5,291,0,47]}
+{"kind":"shape","id":"sh/wr6xwbq1","slide":1,"bbox":[762.5,458,0,47]}
+{"kind":"shape","id":"sh/432dwn6l","slide":1,"bbox":[310,645,750,34]}
+{"kind":"textbox","id":"sh/uxgjq907","slide":1,"text":"세부 문장과 데이터는 다음 장부터 표의 ‘내용’ 열에서 확인","textPreview":"세부 문장과 데이터는 다음 장부터 표의 ‘내용’ 열에서 확인","textChars":33,"textLines":1,"bbox":[326,649,718,25]}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"Event Modeling  ›  4단계 Command","textShapes":68}
+{"kind":"textbox","id":"sh/qt43u9cb","slide":2,"text":"Event Modeling  ›  4단계 Command","textPreview":"Event Modeling  ›  4단계 Command","textChars":30,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/9072xkry","slide":2,"text":"전체 슬라이스 종합","textPreview":"전체 슬라이스 종합","textChars":10,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/ozy1ofad","slide":2,"bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/b29kza94","slide":2,"bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/a10jqpsj","slide":2,"text":"전체 10개 슬라이스를 ID와 제목만으로 배치하고 세부 조건은 뒤의 표에서 확인함","textPreview":"전체 10개 슬라이스를 ID와 제목만으로 배치하고 세부 조건은 뒤의 표에서 확인함","textChars":45,"textLines":1,"bbox":[34,121,1180,28]}
+{"kind":"shape","id":"sh/x4r21kru","slide":2,"bbox":[34,686,1180,1]}
+{"kind":"textbox","id":"sh/w3i1sfa9","slide":2,"text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/r65knqtk","slide":2,"text":"2 / 7","textPreview":"2 / 7","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"textbox","id":"sh/q5wjelsz","slide":2,"text":"접수부터 관계 경로 확보까지","textPreview":"접수부터 관계 경로 확보까지","textChars":15,"textLines":1,"bbox":[36,151,400,24]}
+{"kind":"textbox","id":"sh/ove9o7yd","slide":2,"text":"이탈 예측부터 사람의 확인까지","textPreview":"이탈 예측부터 사람의 확인까지","textChars":16,"textLines":1,"bbox":[36,407,400,24]}
+{"kind":"shape","id":"sh/9wnqhczy","slide":2,"bbox":[34,180,220,52]}
+{"kind":"shape","id":"sh/mtwrmxg7","slide":2,"bbox":[40,186,57,40]}
+{"kind":"textbox","id":"sh/nu58f2hs","slide":2,"text":"UT-1","textPreview":"UT-1","textChars":4,"textLines":1,"bbox":[43,189,51,34]}
+{"kind":"textbox","id":"sh/wjy9sry9","slide":2,"text":"상담 시작 선택","textPreview":"상담 시작 선택","textChars":8,"textLines":1,"bbox":[104,187,142,38]}
+{"kind":"shape","id":"sh/xk7qlczu","slide":2,"bbox":[34,246,220,52]}
+{"kind":"shape","id":"sh/ahwrqhgj","slide":2,"bbox":[40,252,57,40]}
+{"kind":"textbox","id":"sh/bip8jmho","slide":2,"text":"C-1","textPreview":"C-1","textChars":3,"textLines":1,"bbox":[43,255,51,34]}
+{"kind":"textbox","id":"sh/cnupgny5","slide":2,"text":"문의 접수","textPreview":"문의 접수","textChars":5,"textLines":1,"bbox":[104,253,142,38]}
+{"kind":"shape","id":"sh/do3q9szq","slide":2,"bbox":[34,312,220,52]}
+{"kind":"shape","id":"sh/t8byxkn2","slide":2,"bbox":[40,318,57,40]}
+{"kind":"textbox","id":"sh/s72xofmh","slide":2,"text":"E-1","textPreview":"E-1","textChars":3,"textLines":1,"bbox":[43,321,51,34]}
+{"kind":"textbox","id":"sh/76twva5c","slide":2,"text":"문의 접수","textPreview":"문의 접수","textChars":5,"textLines":1,"bbox":[104,319,142,38]}
+{"kind":"shape","id":"sh/mxc76x4b","slide":2,"bbox":[144,232,0,14]}
+{"kind":"shape","id":"sh/90n6hc32","slide":2,"bbox":[144,298,0,14]}
+{"kind":"shape","id":"sh/gbmxszmt","slide":2,"bbox":[274,180,220,52]}
+{"kind":"shape","id":"sh/fadgzu58","slide":2,"bbox":[280,186,57,40]}
+{"kind":"textbox","id":"sh/u94fqp4n","slide":2,"text":"AT-1","textPreview":"AT-1","textChars":4,"textLines":1,"bbox":[283,189,51,34]}
+{"kind":"textbox","id":"sh/p0vy54na","slide":2,"text":"경로 결정 시작","textPreview":"경로 결정 시작","textChars":8,"textLines":1,"bbox":[344,187,142,38]}
+{"kind":"shape","id":"sh/4zmxwzmp","slide":2,"bbox":[274,246,220,52]}
+{"kind":"shape","id":"sh/mlgvq147","slide":2,"bbox":[280,252,57,40]}
+{"kind":"textbox","id":"sh/nmpcj6ls","slide":2,"text":"C-2","textPreview":"C-2","textChars":3,"textLines":1,"bbox":[283,255,51,34]}
+{"kind":"textbox","id":"sh/onydsbmd","slide":2,"text":"실행 경로 결정","textPreview":"실행 경로 결정","textChars":8,"textLines":1,"bbox":[344,253,142,38]}
+{"kind":"shape","id":"sh/9o7ulg3y","slide":2,"bbox":[274,312,220,52]}
+{"kind":"shape","id":"sh/a9gvulkj","slide":2,"bbox":[280,318,57,40]}
+{"kind":"textbox","id":"sh/ba9cn6l4","slide":2,"text":"E-2","textPreview":"E-2","textChars":3,"textLines":1,"bbox":[283,321,51,34]}
+{"kind":"textbox","id":"sh/wbidwb29","slide":2,"text":"실행 경로 결정","textPreview":"실행 경로 결정","textChars":8,"textLines":1,"bbox":[344,319,142,38]}
+{"kind":"shape","id":"sh/vmdwz29k","slide":2,"bbox":[384,232,0,14]}
+{"kind":"shape","id":"sh/dg3y50b2","slide":2,"bbox":[384,298,0,14]}
+{"kind":"shape","id":"sh/je9crql0","slide":2,"bbox":[514,180,220,52]}
+{"kind":"shape","id":"sh/ru5cbqd4","slide":2,"bbox":[520,186,57,40]}
+{"kind":"textbox","id":"sh/69wbilcj","slide":2,"text":"AT-2","textPreview":"AT-2","textChars":4,"textLines":1,"bbox":[523,189,51,34]}
+{"kind":"textbox","id":"sh/tw7ud0va","slide":2,"text":"현황 확보 시작","textPreview":"현황 확보 시작","textChars":8,"textLines":1,"bbox":[584,187,142,38]}
+{"kind":"shape","id":"sh/svedkvup","slide":2,"bbox":[514,246,220,52]}
+{"kind":"shape","id":"sh/fypcfqdg","slide":2,"bbox":[520,252,57,40]}
+{"kind":"textbox","id":"sh/exgvmlcv","slide":2,"text":"C-3","textPreview":"C-3","textChars":3,"textLines":1,"bbox":[523,255,51,34]}
+{"kind":"textbox","id":"sh/107uh0v6","slide":2,"text":"고객 현황 확보","textPreview":"고객 현황 확보","textChars":8,"textLines":1,"bbox":[584,253,142,38]}
+{"kind":"shape","id":"sh/gzydovul","slide":2,"bbox":[514,312,220,52]}
+{"kind":"shape","id":"sh/v2lc36dw","slide":2,"bbox":[520,318,57,40]}
+{"kind":"textbox","id":"sh/a1cba1wb","slide":2,"text":"E-3","textPreview":"E-3","textChars":3,"textLines":1,"bbox":[523,321,51,34]}
+{"kind":"textbox","id":"sh/0vq1o36x","slide":2,"text":"고객 현황 확보","textPreview":"고객 현황 확보","textChars":8,"textLines":1,"bbox":[584,319,142,38]}
+{"kind":"shape","id":"sh/a5wba5cj","slide":2,"bbox":[624,232,0,14]}
+{"kind":"shape","id":"sh/lc7u9kb6","slide":2,"bbox":[624,298,0,14]}
+{"kind":"shape","id":"sh/zuh0vypc","slide":2,"bbox":[754,180,220,52]}
+{"kind":"shape","id":"sh/c76hk361","slide":2,"bbox":[760,186,57,40]}
+{"kind":"textbox","id":"sh/d8zit87m","slide":2,"text":"AT-3","textPreview":"AT-3","textChars":4,"textLines":1,"bbox":[763,189,51,34]}
+{"kind":"textbox","id":"sh/q5ozitov","slide":2,"text":"문서 후보 시작","textPreview":"문서 후보 시작","textChars":8,"textLines":1,"bbox":[824,187,142,38]}
+{"kind":"shape","id":"sh/r6x0rypg","slide":2,"bbox":[754,246,220,52]}
+{"kind":"shape","id":"sh/w3a1wn65","slide":2,"bbox":[760,252,57,40]}
+{"kind":"textbox","id":"sh/xoji5s7q","slide":2,"text":"C-4","textPreview":"C-4","textChars":3,"textLines":1,"bbox":[763,255,51,34]}
+{"kind":"textbox","id":"sh/5kfipszu","slide":2,"text":"문서 후보 확보","textPreview":"문서 후보 확보","textChars":8,"textLines":1,"bbox":[824,253,142,38]}
+{"kind":"shape","id":"sh/kj6hgny9","slide":2,"bbox":[754,312,220,52]}
+{"kind":"shape","id":"sh/jix0niho","slide":2,"bbox":[760,318,57,40]}
+{"kind":"textbox","id":"sh/ihozedgj","slide":2,"text":"E-4","textPreview":"E-4","textChars":3,"textLines":1,"bbox":[763,321,51,34]}
+{"kind":"textbox","id":"sh/xgfil8zy","slide":2,"text":"문서 후보 확보","textPreview":"문서 후보 확보","textChars":8,"textLines":1,"bbox":[824,319,142,38]}
+{"kind":"shape","id":"sh/1c3qdgr2","slide":2,"bbox":[864,232,0,14]}
+{"kind":"shape","id":"sh/ut87qhs7","slide":2,"bbox":[864,298,0,14]}
+{"kind":"shape","id":"sh/ad4zadg7","slide":2,"bbox":[994,180,220,52]}
+{"kind":"shape","id":"sh/9svih8zm","slide":2,"bbox":[1000,186,57,40]}
+{"kind":"textbox","id":"sh/8rmh83y1","slide":2,"text":"AT-4","textPreview":"AT-4","textChars":4,"textLines":1,"bbox":[1003,189,51,34]}
+{"kind":"textbox","id":"sh/yxkfi9wz","slide":2,"text":"관계 경로 시작","textPreview":"관계 경로 시작","textChars":8,"textLines":1,"bbox":[1064,187,142,38]}
+{"kind":"shape","id":"sh/zytgbexk","slide":2,"bbox":[994,246,220,52]}
+{"kind":"shape","id":"sh/0j2xkje5","slide":2,"bbox":[1000,252,57,40]}
+{"kind":"textbox","id":"sh/lkbyd4fq","slide":2,"text":"C-5","textPreview":"C-5","textChars":3,"textLines":1,"bbox":[1003,255,51,34]}
+{"kind":"textbox","id":"sh/qt0fepw3","slide":2,"text":"관계 경로 확보","textPreview":"관계 경로 확보","textChars":8,"textLines":1,"bbox":[1064,253,142,38]}
+{"kind":"shape","id":"sh/bu9w7uxo","slide":2,"bbox":[994,312,220,52]}
+{"kind":"shape","id":"sh/cv2xgzet","slide":2,"bbox":[1000,318,57,40]}
+{"kind":"textbox","id":"sh/dwbe94fe","slide":2,"text":"E-5","textPreview":"E-5","textChars":3,"textLines":1,"bbox":[1003,321,51,34]}
+{"kind":"textbox","id":"sh/2p0fapwr","slide":2,"text":"관계 경로 확보","textPreview":"관계 경로 확보","textChars":8,"textLines":1,"bbox":[1064,319,142,38]}
+{"kind":"shape","id":"sh/tk7ud0jy","slide":2,"bbox":[1104,232,0,14]}
+{"kind":"shape","id":"sh/6xgbilk7","slide":2,"bbox":[1104,298,0,14]}
+{"kind":"shape","id":"sh/6tk7yxcz","slide":2,"bbox":[34,436,220,52]}
+{"kind":"shape","id":"sh/tgvqtcva","slide":2,"bbox":[40,442,57,40]}
+{"kind":"textbox","id":"sh/sf2p07up","slide":2,"text":"AT-5","textPreview":"AT-5","textChars":4,"textLines":1,"bbox":[43,445,51,34]}
+{"kind":"textbox","id":"sh/jqt8nid8","slide":2,"text":"위험 예측 시작","textPreview":"위험 예측 시작","textChars":8,"textLines":1,"bbox":[104,443,142,38]}
+{"kind":"shape","id":"sh/ipk7udcn","slide":2,"bbox":[34,502,220,52]}
+{"kind":"shape","id":"sh/5sbqpsve","slide":2,"bbox":[40,508,57,40]}
+{"kind":"textbox","id":"sh/4r2pwnut","slide":2,"text":"C-6","textPreview":"C-6","textChars":3,"textLines":1,"bbox":[43,511,51,34]}
+{"kind":"textbox","id":"sh/3md8zmtc","slide":2,"text":"이탈 위험 예측","textPreview":"이탈 위험 예측","textChars":8,"textLines":1,"bbox":[104,509,142,38]}
+{"kind":"shape","id":"sh/2l4r6hc7","slide":2,"bbox":[34,568,220,52]}
+{"kind":"shape","id":"sh/kry50jap","slide":2,"bbox":[40,574,57,40]}
+{"kind":"textbox","id":"sh/ls7mtobu","slide":2,"text":"E-6","textPreview":"E-6","textChars":3,"textLines":1,"bbox":[43,577,51,34]}
+{"kind":"textbox","id":"sh/ypgny9sj","slide":2,"text":"이탈 위험 예측","textPreview":"이탈 위험 예측","textChars":8,"textLines":1,"bbox":[104,575,142,38]}
+{"kind":"shape","id":"sh/0vqt4v6p","slide":2,"bbox":[144,488,0,14]}
+{"kind":"shape","id":"sh/zuhcvqp4","slide":2,"bbox":[144,554,0,14]}
+{"kind":"shape","id":"sh/9w76xob6","slide":2,"bbox":[274,436,220,52]}
+{"kind":"shape","id":"sh/mtgn29sf","slide":2,"bbox":[280,442,57,40]}
+{"kind":"textbox","id":"sh/7up4vet0","slide":2,"text":"AT-6","textPreview":"AT-6","textChars":4,"textLines":1,"bbox":[283,445,51,34]}
+{"kind":"textbox","id":"sh/wzi583ah","slide":2,"text":"근거 선정 시작","textPreview":"근거 선정 시작","textChars":8,"textLines":1,"bbox":[344,443,142,38]}
+{"kind":"shape","id":"sh/hkr618b2","slide":2,"bbox":[274,502,220,52]}
+{"kind":"shape","id":"sh/uxwf6xgz","slide":2,"bbox":[280,508,57,40]}
+{"kind":"textbox","id":"sh/fi5gz2hk","slide":2,"text":"C-7","textPreview":"C-7","textChars":3,"textLines":1,"bbox":[283,511,51,34]}
+{"kind":"textbox","id":"sh/gjyx87y5","slide":2,"text":"근거 묶음 선정","textPreview":"근거 묶음 선정","textChars":8,"textLines":1,"bbox":[344,509,142,38]}
+{"kind":"shape","id":"sh/hk7y1czq","slide":2,"bbox":[274,568,220,52]}
+{"kind":"shape","id":"sh/2lgfahgb","slide":2,"bbox":[280,574,57,40]}
+{"kind":"textbox","id":"sh/3mpg3mhw","slide":2,"text":"E-7","textPreview":"E-7","textChars":3,"textLines":1,"bbox":[283,577,51,34]}
+{"kind":"textbox","id":"sh/4nyxcryh","slide":2,"text":"근거 묶음 선정","textPreview":"근거 묶음 선정","textChars":8,"textLines":1,"bbox":[344,575,142,38]}
+{"kind":"shape","id":"sh/fux0vmhs","slide":2,"bbox":[384,488,0,14]}
+{"kind":"shape","id":"sh/bypg7eh4","slide":2,"bbox":[384,554,0,14]}
+{"kind":"shape","id":"sh/rq9g7mhs","slide":2,"bbox":[514,436,220,52]}
+{"kind":"shape","id":"sh/1kbidgju","slide":2,"bbox":[520,442,57,40]}
+{"kind":"textbox","id":"sh/0j214bip","slide":2,"text":"AT-7","textPreview":"AT-7","textChars":4,"textLines":1,"bbox":[523,445,51,34]}
+{"kind":"textbox","id":"sh/zit0bq14","slide":2,"text":"초안 작성 시작","textPreview":"초안 작성 시작","textChars":8,"textLines":1,"bbox":[584,443,142,38]}
+{"kind":"shape","id":"sh/eh0z2l0j","slide":2,"bbox":[514,502,220,52]}
+{"kind":"shape","id":"sh/98bih0j6","slide":2,"bbox":[520,508,57,40]}
+{"kind":"textbox","id":"sh/on218vil","slide":2,"text":"C-8","textPreview":"C-8","textChars":3,"textLines":1,"bbox":[523,511,51,34]}
+{"kind":"textbox","id":"sh/nmt0fq10","slide":2,"text":"상담 초안 작성","textPreview":"상담 초안 작성","textChars":8,"textLines":1,"bbox":[584,509,142,38]}
+{"kind":"shape","id":"sh/mlkj6l0f","slide":2,"bbox":[514,568,220,52]}
+{"kind":"shape","id":"sh/xcvil0j2","slide":2,"bbox":[520,574,57,40]}
+{"kind":"textbox","id":"sh/wbm1cvix","slide":2,"text":"E-8","textPreview":"E-8","textChars":3,"textLines":1,"bbox":[523,577,51,34]}
+{"kind":"textbox","id":"sh/gful8jqt","slide":2,"text":"상담 초안 작성","textPreview":"상담 초안 작성","textChars":8,"textLines":1,"bbox":[584,575,142,38]}
+{"kind":"shape","id":"sh/3utw3ydk","slide":2,"bbox":[624,488,0,14]}
+{"kind":"shape","id":"sh/g7ix8je9","slide":2,"bbox":[624,554,0,14]}
+{"kind":"shape","id":"sh/vulkfep8","slide":2,"bbox":[754,436,220,52]}
+{"kind":"shape","id":"sh/4julcjq5","slide":2,"bbox":[760,442,57,40]}
+{"kind":"textbox","id":"sh/5k32lo7a","slide":2,"text":"AT-8","textPreview":"AT-8","textChars":4,"textLines":1,"bbox":[763,445,51,34]}
+{"kind":"textbox","id":"sh/ihc3at8z","slide":2,"text":"초안 반환 시작","textPreview":"초안 반환 시작","textChars":8,"textLines":1,"bbox":[824,443,142,38]}
+{"kind":"shape","id":"sh/3ilkjepk","slide":2,"bbox":[754,502,220,52]}
+{"kind":"shape","id":"sh/kna10zql","slide":2,"bbox":[760,508,57,40]}
+{"kind":"textbox","id":"sh/loj294r6","slide":2,"text":"C-9","textPreview":"C-9","textChars":3,"textLines":1,"bbox":[763,511,51,34]}
+{"kind":"textbox","id":"sh/nu9wvmd0","slide":2,"text":"초안 데이터 반환","textPreview":"초안 데이터 반환","textChars":9,"textLines":1,"bbox":[824,509,142,38]}
+{"kind":"shape","id":"sh/mt0f2hwf","slide":2,"bbox":[754,568,220,52]}
+{"kind":"shape","id":"sh/9grexwv6","slide":2,"bbox":[760,574,57,40]}
+{"kind":"textbox","id":"sh/ovix4rel","slide":2,"text":"E-9","textPreview":"E-9","textChars":3,"textLines":1,"bbox":[763,577,51,34]}
+{"kind":"textbox","id":"sh/zq9wrmd4","slide":2,"text":"초안 데이터 반환","textPreview":"초안 데이터 반환","textChars":9,"textLines":1,"bbox":[824,575,142,38]}
+{"kind":"shape","id":"sh/m143a1wr","slide":2,"bbox":[864,488,0,14]}
+{"kind":"shape","id":"sh/x8fmpgfe","slide":2,"bbox":[864,554,0,14]}
+{"kind":"shape","id":"sh/0rix0re9","slide":2,"bbox":[994,436,220,52]}
+{"kind":"shape","id":"sh/rmpwn2ds","slide":2,"bbox":[1000,442,57,40]}
+{"kind":"textbox","id":"sh/qlgvuxw7","slide":2,"text":"UT-2","textPreview":"UT-2","textChars":4,"textLines":1,"bbox":[1003,445,51,34]}
+{"kind":"textbox","id":"sh/6t0jy5sr","slide":2,"text":"초안 확인 선택","textPreview":"초안 확인 선택","textChars":8,"textLines":1,"bbox":[1064,443,142,38]}
+{"kind":"shape","id":"sh/ru90ratc","slide":2,"bbox":[994,502,220,52]}
+{"kind":"shape","id":"sh/svi10fax","slide":2,"bbox":[1000,508,57,40]}
+{"kind":"textbox","id":"sh/twbitkri","slide":2,"text":"C-10","textPreview":"C-10","textChars":4,"textLines":1,"bbox":[1003,511,51,34]}
+{"kind":"textbox","id":"sh/i50zu5sv","slide":2,"text":"초안 확인 기록","textPreview":"초안 확인 기록","textChars":8,"textLines":1,"bbox":[1064,509,142,38]}
+{"kind":"shape","id":"sh/j690nqtg","slide":2,"bbox":[994,568,220,52]}
+{"kind":"shape","id":"sh/47ihwva1","slide":2,"bbox":[1000,574,57,40]}
+{"kind":"textbox","id":"sh/5srip0b6","slide":2,"text":"E-10","textPreview":"E-10","textChars":4,"textLines":1,"bbox":[1003,577,51,34]}
+{"kind":"textbox","id":"sh/a1gzqlsj","slide":2,"text":"초안 확인 기록","textPreview":"초안 확인 기록","textChars":8,"textLines":1,"bbox":[1064,575,142,38]}
+{"kind":"shape","id":"sh/xgz6tcv6","slide":2,"bbox":[1104,488,0,14]}
+{"kind":"shape","id":"sh/at8nixcv","slide":2,"bbox":[1104,554,0,14]}
+{"kind":"shape","id":"sh/cv6lwjuh","slide":2,"bbox":[224,638,832,34]}
+{"kind":"textbox","id":"sh/budknetw","slide":2,"text":"가로 배치는 슬라이스 전체를 훑어보기 위한 구성 · 병렬 실행과 선행 조건은 다음 장부터 표에서 확인","textPreview":"가로 배치는 슬라이스 전체를 훑어보기 위한 구성 · 병렬 실행과 선행 조건은 다음 장부터 표에서 확인","textChars":56,"textLines":1,"bbox":[240,642,800,25]}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"Event Modeling  ›  4단계 Command","textShapes":5}
+{"kind":"textbox","id":"sh/n2l4fq98","slide":3,"text":"Event Modeling  ›  4단계 Command","textPreview":"Event Modeling  ›  4단계 Command","textChars":30,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/cza94vmx","slide":3,"text":"문의 접수와 실행 경로 결정","textPreview":"문의 접수와 실행 경로 결정","textChars":15,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/d0jax03i","slide":3,"bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/298ryl4v","slide":3,"bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/3ah8rqlg","slide":3,"text":"사용자 행동으로 문의를 접수하고, 접수 Event가 다음 자동화를 시작함","textPreview":"사용자 행동으로 문의를 접수하고, 접수 Event가 다음 자동화를 시작함","textChars":40,"textLines":1,"bbox":[34,121,1180,28]}
+{"kind":"shape","id":"sh/obq90bml","slide":3,"bbox":[34,686,1180,1]}
+{"kind":"textbox","id":"sh/pcjqtg36","slide":3,"text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/m5cra54z","slide":3,"text":"3 / 7","textPreview":"3 / 7","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"table","id":"tb/98bu1cbe","slide":3,"name":"","rows":7,"cols":4,"preview":"레이어 | ID | 제목 | 내용","bbox":[34,162,1180,505]}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"Event Modeling  ›  4단계 Command","textShapes":5}
+{"kind":"textbox","id":"sh/kbm987y5","slide":4,"text":"Event Modeling  ›  4단계 Command","textPreview":"Event Modeling  ›  4단계 Command","textChars":30,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/1cj2d8b6","slide":4,"text":"정형검색과 유사도 검색을 함께 시작함","textPreview":"정형검색과 유사도 검색을 함께 시작함","textChars":20,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/0ba143al","slide":4,"bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/rm1k7yt4","slide":4,"bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/ql8jytsj","slide":4,"text":"E-2가 발생하고 각 경로가 선택되면 C-3과 C-4는 서로의 결과를 기다리지 않음","textPreview":"E-2가 발생하고 각 경로가 선택되면 C-3과 C-4는 서로의 결과를 기다리지 않음","textChars":46,"textLines":1,"bbox":[34,121,1180,28]}
+{"kind":"shape","id":"sh/doj29oba","slide":4,"bbox":[34,686,1180,1]}
+{"kind":"textbox","id":"sh/sna103ap","slide":4,"text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/3ihk3et8","slide":4,"text":"4 / 7","textPreview":"4 / 7","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"table","id":"tb/etsvmp0j","slide":4,"name":"","rows":7,"cols":4,"preview":"레이어 | ID | 제목 | 내용","bbox":[34,162,1180,505]}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"Event Modeling  ›  4단계 Command","textShapes":5}
+{"kind":"textbox","id":"sh/w32dkbuh","slide":5,"text":"Event Modeling  ›  4단계 Command","textPreview":"Event Modeling  ›  4단계 Command","textChars":30,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/dgbulwnm","slide":5,"text":"관계검색과 이탈 위험 예측을 함께 시작함","textPreview":"관계검색과 이탈 위험 예측을 함께 시작함","textChars":22,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/cf2tcr61","slide":5,"bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/z2tcnm5s","slide":5,"bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/yhkbe1o7","slide":5,"text":"C-5와 C-6은 E-3 결과가 준비된 뒤 시작하며 서로의 결과에는 의존하지 않음","textPreview":"C-5와 C-6은 E-3 결과가 준비된 뒤 시작하며 서로의 결과에는 의존하지 않음","textChars":45,"textLines":1,"bbox":[34,121,1180,28]}
+{"kind":"shape","id":"sh/l4bupwny","slide":5,"bbox":[34,686,1180,1]}
+{"kind":"textbox","id":"sh/032tgr6d","slide":5,"text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/n6dcr65o","slide":5,"text":"5 / 7","textPreview":"5 / 7","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"table","id":"tb/epo7qtoj","slide":5,"name":"","rows":7,"cols":4,"preview":"레이어 | ID | 제목 | 내용","bbox":[34,162,1180,505]}
+{"kind":"slide","id":"sl/x8f69ofe","slide":6,"title":"Event Modeling  ›  4단계 Command","textShapes":5}
+{"kind":"textbox","id":"sh/h4bupgn6","slide":6,"text":"Event Modeling  ›  4단계 Command","textPreview":"Event Modeling  ›  4단계 Command","textChars":30,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/yhg7epsj","slide":6,"text":"선택한 결과를 취합해 초안을 작성함","textPreview":"선택한 결과를 취합해 초안을 작성함","textChars":19,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/zi98nu94","slide":6,"bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/87ipkzal","slide":6,"bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/98rqt4r6","slide":6,"text":"선택한 경로의 완료 상태를 확인한 뒤 근거를 선정하고 상담 초안을 작성함","textPreview":"선택한 경로의 완료 상태를 확인한 뒤 근거를 선정하고 상담 초안을 작성함","textChars":40,"textLines":1,"bbox":[34,121,1180,28]}
+{"kind":"shape","id":"sh/ml07i9sv","slide":6,"bbox":[34,686,1180,1]}
+{"kind":"textbox","id":"sh/7m98ru9g","slide":6,"text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/oryp8fah","slide":6,"text":"6 / 7","textPreview":"6 / 7","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"table","id":"tb/fa103ulc","slide":6,"name":"","rows":7,"cols":4,"preview":"레이어 | ID | 제목 | 내용","bbox":[34,162,1180,505]}
+{"kind":"slide","id":"sl/gnmp4jqx","slide":7,"title":"Event Modeling  ›  4단계 Command","textShapes":6}
+{"kind":"textbox","id":"sh/xcz2l03q","slide":7,"text":"Event Modeling  ›  4단계 Command","textPreview":"Event Modeling  ›  4단계 Command","textChars":30,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/cb2tkvap","slide":7,"text":"초안 반환과 사람의 확인을 구분함","textPreview":"초안 반환과 사람의 확인을 구분함","textChars":18,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/dcbud0ra","slide":7,"bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/ydkbm5sv","slide":7,"bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/zedcfa9g","slide":7,"text":"서버가 데이터를 반환한 사실과 상담사가 내용을 확인한 사실을 각각 기록함","textPreview":"서버가 데이터를 반환한 사실과 상담사가 내용을 확인한 사실을 각각 기록함","textChars":40,"textLines":1,"bbox":[34,121,1180,28]}
+{"kind":"shape","id":"sh/kzmdova1","slide":7,"bbox":[34,686,1180,1]}
+{"kind":"textbox","id":"sh/l0vuh0rm","slide":7,"text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/eh0ba1sr","slide":7,"text":"7 / 7","textPreview":"7 / 7","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"shape","id":"sh/baxkjqlk","slide":7,"bbox":[135,645,1010,34]}
+{"kind":"textbox","id":"sh/a9ojq5kz","slide":7,"text":"저장된 초안을 다시 반환하면 E-9는 새로 생길 수 있음 · 새로 작성하지 않았다면 E-8은 반복하지 않음","textPreview":"저장된 초안을 다시 반환하면 E-9는 새로 생길 수 있음 · 새로 작성하지 않았다면 E-8은 반복하지 않음","textChars":59,"textLines":1,"bbox":[150,649,980,25]}
+{"kind":"table","id":"tb/n6l4f6xc","slide":7,"name":"","rows":7,"cols":4,"preview":"레이어 | ID | 제목 | 내용","bbox":[34,162,1180,450]}

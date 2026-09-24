@@ -1,0 +1,1576 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/ofy9wn61",
+    "id": "ofy9wn61",
+    "slide": 3,
+    "layoutId": "/ppt/slideLayouts/slideLayout1.xml",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Calibri Light",
+        "eastAsianTypeface": "Calibri Light",
+        "complexScriptTypeface": "Calibri Light"
+      },
+      "minorFont": {
+        "latinTypeface": "Calibri",
+        "eastAsianTypeface": "Calibri",
+        "complexScriptTypeface": "Calibri"
+      }
+    },
+    "typefaces": [
+      "Calibri",
+      "Calibri Light",
+      "Pretendard"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout1.xml",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/n2l4fq98",
+      "id": "10",
+      "bbox": [
+        34,
+        18,
+        800,
+        22
+      ],
+      "geometry": "rect",
+      "text": "Event Modeling  ›  4단계 Command",
+      "textPreview": "Event Modeling  ›  4단계 Command",
+      "resolvedFontSize": 21.18,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 0.88,
+        "insets": {
+          "top": 2,
+          "right": 3,
+          "bottom": 2,
+          "left": 3
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Event Modeling  ›  4단계 Command"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Event Modeling  ›  4단계 Command",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Event Modeling  ›  4단계 Command",
+              "fontSize": 17,
+              "typeface": "Pretendard",
+              "color": "#7C8598"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cza94vmx",
+      "id": "2",
+      "bbox": [
+        34,
+        43,
+        1180,
+        56
+      ],
+      "geometry": "rect",
+      "text": "문의 접수와 실행 경로 결정",
+      "textPreview": "문의 접수와 실행 경로 결정",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 2,
+          "right": 3,
+          "bottom": 2,
+          "left": 3
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "문의 접수와 실행 경로 결정"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "문의 접수와 실행 경로 결정",
+          "resolvedTextStyle": {
+            "fontSize": 42,
+            "typeface": "Pretendard",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "문의 접수와 실행 경로 결정",
+              "fontSize": 42,
+              "typeface": "Pretendard",
+              "color": "#1E2A5C",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/d0jax03i",
+      "id": "3",
+      "bbox": [
+        34,
+        112,
+        1180,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#D9E0EC",
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/298ryl4v",
+      "id": "4",
+      "bbox": [
+        34,
+        112,
+        170,
+        4
+      ],
+      "geometry": "rect",
+      "fillColor": "#2E74C6",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3ah8rqlg",
+      "id": "5",
+      "bbox": [
+        34,
+        121,
+        1180,
+        28
+      ],
+      "geometry": "rect",
+      "text": "사용자 행동으로 문의를 접수하고, 접수 Event가 다음 자동화를 시작함",
+      "textPreview": "사용자 행동으로 문의를 접수하고, 접수 Event가 다음 자동화를 시작함",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 2,
+          "right": 3,
+          "bottom": 2,
+          "left": 3
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "사용자 행동으로 문의를 접수하고, 접수 Event가 다음 자동화를 시작함"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "사용자 행동으로 문의를 접수하고, 접수 Event가 다음 자동화를 시작함",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Pretendard",
+            "color": "#4A5364",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "사용자 행동으로 문의를 접수하고, 접수 Event가 다음 자동화를 시작함",
+              "fontSize": 18,
+              "typeface": "Pretendard",
+              "color": "#4A5364"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/obq90bml",
+      "id": "6",
+      "bbox": [
+        34,
+        686,
+        1180,
+        1
+      ],
+      "geometry": "rect",
+      "fillColor": "#EDF0F6",
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pcjqtg36",
+      "id": "7",
+      "bbox": [
+        36,
+        691,
+        640,
+        18
+      ],
+      "geometry": "rect",
+      "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+      "textPreview": "이탈 위험 방지 · Event Modeling 작성 예시",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 0.78,
+        "insets": {
+          "top": 2,
+          "right": 3,
+          "bottom": 2,
+          "left": 3
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "이탈 위험 방지 · Event Modeling 작성 예시"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+              "fontSize": 15,
+              "typeface": "Pretendard",
+              "color": "#7C8598"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m5cra54z",
+      "id": "8",
+      "bbox": [
+        1125,
+        691,
+        86,
+        18
+      ],
+      "geometry": "rect",
+      "text": "3 / 7",
+      "textPreview": "3 / 7",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 0.78,
+        "insets": {
+          "top": 2,
+          "right": 3,
+          "bottom": 2,
+          "left": 3
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "3 / 7"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "3 / 7",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "3 / 7",
+              "fontSize": 15,
+              "typeface": "Pretendard",
+              "color": "#7C8598"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/98bu1cbe",
+      "id": "11",
+      "bbox": [
+        34,
+        162,
+        1180,
+        505
+      ],
+      "text": "레이어 | ID | 제목 | 내용\n화면·자동화\nTrigger | UT-1 | 상담 시작 선택 | 시작 문장: 상담사가 문의 접수 화면에서 상담 시작을 선택하면 문의 접수가 시작됨\nCommand | C-1 | 문의 접수 | 요청: 문의를 접수하라\n입력: 회원 ID, 상담 질문, 상담사 ID\n담당자 유형: 규칙 기반 코드\nEvent | E-1 | 문의 접수 | 사실: 문의가 접수되었음\n결과: 상담 ID, 접수 시각, 권한 확인 결과\n화면·자동화\nTrigger | AT-1 | 실행 경로 결정 시작 | 시작 문장: ‘문의가 접수되었음’ Event가 발생하면 실행 경로 결정이 시작됨\nCommand | C-2 | 실행 경로 결정 | 요청: 실행 경로를 결정하라\n입력: 질문, 권한 확인 결과, 상담 제약\n담당자 유형: 생성형 AI가 질문 해석 지원, 규칙 기반 코드가 경로 확정\nEvent | E-2 | 실행 경로 결정 | 사실: 실행 경로가 정해졌음\n결과: 선택 경로, 필수 여부, 대기시간, 선택 이유",
+      "textPreview": "레이어 | ID | 제목 | 내용 | 화면·자동화 | Trigger | UT-1 | 상담 시작 선택 | 시작 문장: 상담사가 문의 접수 화면에서 상담 시작을 선택하면 문의 접수가 시작됨 | Command | C-1 | 문의 접수 | 요청: 문의를...",
+      "rows": 7,
+      "cols": 4,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            34,
+            162,
+            170,
+            42
+          ],
+          "text": "레이어",
+          "textPreview": "레이어",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "레이어",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "레이어",
+                  "fontSize": 19,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            204,
+            162,
+            90,
+            42
+          ],
+          "text": "ID",
+          "textPreview": "ID",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "ID",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "ID",
+                  "fontSize": 19,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 3,
+          "bbox": [
+            294,
+            162,
+            220,
+            42
+          ],
+          "text": "제목",
+          "textPreview": "제목",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "제목",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "제목",
+                  "fontSize": 19,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 4,
+          "bbox": [
+            514,
+            162,
+            700,
+            42
+          ],
+          "text": "내용",
+          "textPreview": "내용",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "내용",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "내용",
+                  "fontSize": 19,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            34,
+            204,
+            170,
+            77.17
+          ],
+          "text": "화면·자동화\nTrigger",
+          "textPreview": "화면·자동화 | Trigger",
+          "fillColor": "#2E74C6",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "화면·자동화",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "화면·자동화",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Trigger",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Trigger",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            204,
+            204,
+            90,
+            77.17
+          ],
+          "text": "UT-1",
+          "textPreview": "UT-1",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "UT-1",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "UT-1",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2E74C6",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 3,
+          "bbox": [
+            294,
+            204,
+            220,
+            77.17
+          ],
+          "text": "상담 시작 선택",
+          "textPreview": "상담 시작 선택",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "상담 시작 선택",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "상담 시작 선택",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 2,
+          "column": 4,
+          "bbox": [
+            514,
+            204,
+            700,
+            77.17
+          ],
+          "text": "시작 문장: 상담사가 문의 접수 화면에서 상담 시작을 선택하면 문의 접수가 시작됨",
+          "textPreview": "시작 문장: 상담사가 문의 접수 화면에서 상담 시작을 선택하면 문의 접수가 시작됨",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "시작 문장: 상담사가 문의 접수 화면에서 상담 시작을 선택하면 문의 접수가 시작됨",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "시작 문장: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "상담사가 문의 접수 화면에서 상담 시작을 선택하면 문의 접수가 시작됨",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            34,
+            281.17,
+            170,
+            77.17
+          ],
+          "text": "Command",
+          "textPreview": "Command",
+          "fillColor": "#1E2A5C",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Command",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Command",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            204,
+            281.17,
+            90,
+            77.17
+          ],
+          "text": "C-1",
+          "textPreview": "C-1",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "C-1",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "C-1",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 3,
+          "bbox": [
+            294,
+            281.17,
+            220,
+            77.17
+          ],
+          "text": "문의 접수",
+          "textPreview": "문의 접수",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "문의 접수",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "문의 접수",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 3,
+          "column": 4,
+          "bbox": [
+            514,
+            281.17,
+            700,
+            77.17
+          ],
+          "text": "요청: 문의를 접수하라\n입력: 회원 ID, 상담 질문, 상담사 ID\n담당자 유형: 규칙 기반 코드",
+          "textPreview": "요청: 문의를 접수하라 | 입력: 회원 ID, 상담 질문, 상담사 ID | 담당자 유형: 규칙 기반 코드",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "요청: 문의를 접수하라",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "요청: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "문의를 접수하라",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "입력: 회원 ID, 상담 질문, 상담사 ID",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "입력: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "회원 ID, 상담 질문, 상담사 ID",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "담당자 유형: 규칙 기반 코드",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "담당자 유형: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "규칙 기반 코드",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 4,
+          "column": 1,
+          "bbox": [
+            34,
+            358.33,
+            170,
+            77.17
+          ],
+          "text": "Event",
+          "textPreview": "Event",
+          "fillColor": "#404155",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Event",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Event",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 4,
+          "column": 2,
+          "bbox": [
+            204,
+            358.33,
+            90,
+            77.17
+          ],
+          "text": "E-1",
+          "textPreview": "E-1",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-1",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-1",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#404155",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 4,
+          "column": 3,
+          "bbox": [
+            294,
+            358.33,
+            220,
+            77.17
+          ],
+          "text": "문의 접수",
+          "textPreview": "문의 접수",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "문의 접수",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "문의 접수",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "row": 4,
+          "column": 4,
+          "bbox": [
+            514,
+            358.33,
+            700,
+            77.17
+          ],
+          "text": "사실: 문의가 접수되었음\n결과: 상담 ID, 접수 시각, 권한 확인 결과",
+          "textPreview": "사실: 문의가 접수되었음 | 결과: 상담 ID, 접수 시각, 권한 확인 결과",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "사실: 문의가 접수되었음",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "사실: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "문의가 접수되었음",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "결과: 상담 ID, 접수 시각, 권한 확인 결과",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "결과: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "상담 ID, 접수 시각, 권한 확인 결과",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "row": 5,
+          "column": 1,
+          "bbox": [
+            34,
+            435.5,
+            170,
+            77.17
+          ],
+          "text": "화면·자동화\nTrigger",
+          "textPreview": "화면·자동화 | Trigger",
+          "fillColor": "#2E74C6",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "화면·자동화",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "화면·자동화",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Trigger",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Trigger",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "row": 5,
+          "column": 2,
+          "bbox": [
+            204,
+            435.5,
+            90,
+            77.17
+          ],
+          "text": "AT-1",
+          "textPreview": "AT-1",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "AT-1",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "AT-1",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2E74C6",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "row": 5,
+          "column": 3,
+          "bbox": [
+            294,
+            435.5,
+            220,
+            77.17
+          ],
+          "text": "실행 경로 결정 시작",
+          "textPreview": "실행 경로 결정 시작",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "실행 경로 결정 시작",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "실행 경로 결정 시작",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "row": 5,
+          "column": 4,
+          "bbox": [
+            514,
+            435.5,
+            700,
+            77.17
+          ],
+          "text": "시작 문장: ‘문의가 접수되었음’ Event가 발생하면 실행 경로 결정이 시작됨",
+          "textPreview": "시작 문장: ‘문의가 접수되었음’ Event가 발생하면 실행 경로 결정이 시작됨",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "시작 문장: ‘문의가 접수되었음’ Event가 발생하면 실행 경로 결정이 시작됨",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "시작 문장: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "‘문의가 접수되었음’ Event가 발생하면 실행 경로 결정이 시작됨",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 21,
+          "row": 6,
+          "column": 1,
+          "bbox": [
+            34,
+            512.67,
+            170,
+            77.17
+          ],
+          "text": "Command",
+          "textPreview": "Command",
+          "fillColor": "#1E2A5C",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Command",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Command",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 22,
+          "row": 6,
+          "column": 2,
+          "bbox": [
+            204,
+            512.67,
+            90,
+            77.17
+          ],
+          "text": "C-2",
+          "textPreview": "C-2",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "C-2",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "C-2",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 23,
+          "row": 6,
+          "column": 3,
+          "bbox": [
+            294,
+            512.67,
+            220,
+            77.17
+          ],
+          "text": "실행 경로 결정",
+          "textPreview": "실행 경로 결정",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "실행 경로 결정",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "실행 경로 결정",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 24,
+          "row": 6,
+          "column": 4,
+          "bbox": [
+            514,
+            512.67,
+            700,
+            77.17
+          ],
+          "text": "요청: 실행 경로를 결정하라\n입력: 질문, 권한 확인 결과, 상담 제약\n담당자 유형: 생성형 AI가 질문 해석 지원, 규칙 기반 코드가 경로 확정",
+          "textPreview": "요청: 실행 경로를 결정하라 | 입력: 질문, 권한 확인 결과, 상담 제약 | 담당자 유형: 생성형 AI가 질문 해석 지원, 규칙 기반 코드가 경로 확정",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "요청: 실행 경로를 결정하라",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "요청: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "실행 경로를 결정하라",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "입력: 질문, 권한 확인 결과, 상담 제약",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "입력: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "질문, 권한 확인 결과, 상담 제약",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "담당자 유형: 생성형 AI가 질문 해석 지원, 규칙 기반 코드가 경로 확정",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "담당자 유형: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "생성형 AI가 질문 해석 지원, 규칙 기반 코드가 경로 확정",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 25,
+          "row": 7,
+          "column": 1,
+          "bbox": [
+            34,
+            589.83,
+            170,
+            77.17
+          ],
+          "text": "Event",
+          "textPreview": "Event",
+          "fillColor": "#404155",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Event",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Event",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 26,
+          "row": 7,
+          "column": 2,
+          "bbox": [
+            204,
+            589.83,
+            90,
+            77.17
+          ],
+          "text": "E-2",
+          "textPreview": "E-2",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-2",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-2",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#404155",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 27,
+          "row": 7,
+          "column": 3,
+          "bbox": [
+            294,
+            589.83,
+            220,
+            77.17
+          ],
+          "text": "실행 경로 결정",
+          "textPreview": "실행 경로 결정",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "실행 경로 결정",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "실행 경로 결정",
+                  "fontSize": 18,
+                  "typeface": "Pretendard",
+                  "color": "#2B3242",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 28,
+          "row": 7,
+          "column": 4,
+          "bbox": [
+            514,
+            589.83,
+            700,
+            77.17
+          ],
+          "text": "사실: 실행 경로가 정해졌음\n결과: 선택 경로, 필수 여부, 대기시간, 선택 이유",
+          "textPreview": "사실: 실행 경로가 정해졌음 | 결과: 선택 경로, 필수 여부, 대기시간, 선택 이유",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "사실: 실행 경로가 정해졌음",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "사실: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "실행 경로가 정해졌음",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "결과: 선택 경로, 필수 여부, 대기시간, 선택 이유",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "결과: ",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true
+                },
+                {
+                  "index": 2,
+                  "text": "선택 경로, 필수 여부, 대기시간, 선택 이유",
+                  "fontSize": 17,
+                  "typeface": "Pretendard",
+                  "color": "#4A5364"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

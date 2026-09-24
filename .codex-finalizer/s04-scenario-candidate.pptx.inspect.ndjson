@@ -1,0 +1,15 @@
+{"kind":"deck","id":"pr/cqwrbx","name":"Deck"}
+{"kind":"layout","layoutId":"0ff37782-ae85-4204-9cc7-4f18713f3d1b","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"00aad5f5-31c3-4dfe-8413-cd58cf88c586","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/fdrkla","slide":1,"title":"Event Modeling  ›  7단계 시나리오 구체화","textShapes":6}
+{"kind":"textbox","id":"sh/4vi5k321","slide":1,"name":"crumb","text":"Event Modeling  ›  7단계 시나리오 구체화","textPreview":"Event Modeling  ›  7단계 시나리오 구체화","textChars":31,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/3u94bylg","slide":1,"name":"title","text":"S-04 질문 관련 문단 검색","textPreview":"S-04 질문 관련 문단 검색","textChars":16,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/it0nitkv","slide":1,"name":"title-rule","bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/hsrm9o3a","slide":1,"name":"title-accent","bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/gry5gj25","slide":1,"name":"story-label","text":"유저스토리","textPreview":"유저스토리","textChars":5,"textLines":1,"bbox":[34,126,135,64]}
+{"kind":"textbox","id":"sh/vqp47elk","slide":1,"name":"story","text":"상담사로서 고객 질문과 의미상 관련된 문단과 원문 위치를 확인하고 싶음. 이를 통해 상담 제안에 사용할 근거를 신속하게 확보할 수 있음.","textPreview":"상담사로서 고객 질문과 의미상 관련된 문단과 원문 위치를 확인하고 싶음. 이를 통해 상담 제안에 사용할 근거를 신속하게 확보할 수 있음.","textChars":76,"textLines":1,"bbox":[177,126,1037,64]}
+{"kind":"shape","id":"sh/1obmls3u","slide":1,"name":"footer-rule","bbox":[34,686,1180,0]}
+{"kind":"textbox","id":"sh/0n25sn29","slide":1,"name":"footer-left","text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/2xsjatgz","slide":1,"name":"footer-page","text":"1 / 1","textPreview":"1 / 1","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"table","id":"tb/bm5cve58","slide":1,"name":"","rows":4,"cols":5,"preview":"슬라이스 ID | 시나리오 | Given | When | Then","bbox":[34,204,1180,462]}
+{"kind":"notes","id":"nt/fdrkla","slide":1,"text":"S-04 질문 관련 문단 검색 Slice를 유저스토리와 구체적인 Specification by Example 시나리오로 정리함. 예시 ID와 값은 교육용 합성 데이터임."}

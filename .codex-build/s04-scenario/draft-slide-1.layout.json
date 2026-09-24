@@ -1,0 +1,1203 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/fdrkla",
+    "id": "fdrkla",
+    "slide": 1,
+    "layoutId": "00aad5f5-31c3-4dfe-8413-cd58cf88c586",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "0ff37782-ae85-4204-9cc7-4f18713f3d1b",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "Pretendard"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "00aad5f5-31c3-4dfe-8413-cd58cf88c586",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "0ff37782-ae85-4204-9cc7-4f18713f3d1b",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "0ff37782-ae85-4204-9cc7-4f18713f3d1b",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4vi5k321",
+      "id": "1",
+      "name": "crumb",
+      "bbox": [
+        34,
+        18,
+        800,
+        22
+      ],
+      "geometry": "rect",
+      "text": "Event Modeling  ›  7단계 시나리오 구체화",
+      "textPreview": "Event Modeling  ›  7단계 시나리오 구체화",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 17,
+        "typeface": "Pretendard",
+        "color": "#7C8598",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Event Modeling  ›  7단계 시나리오 구체화"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Event Modeling  ›  7단계 시나리오 구체화",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Event Modeling  ›  7단계 시나리오 구체화",
+              "fontSize": 17,
+              "typeface": "Pretendard",
+              "color": "#7C8598",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3u94bylg",
+      "id": "2",
+      "name": "title",
+      "bbox": [
+        34,
+        43,
+        1180,
+        56
+      ],
+      "geometry": "rect",
+      "text": "S-04 질문 관련 문단 검색",
+      "textPreview": "S-04 질문 관련 문단 검색",
+      "resolvedFontSize": 42,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 42,
+        "typeface": "Pretendard",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "S-04 질문 관련 문단 검색"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "S-04 질문 관련 문단 검색",
+          "resolvedTextStyle": {
+            "fontSize": 42,
+            "typeface": "Pretendard",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "S-04 질문 관련 문단 검색",
+              "fontSize": 42,
+              "typeface": "Pretendard",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/it0nitkv",
+      "id": "3",
+      "name": "title-rule",
+      "bbox": [
+        34,
+        112,
+        1180,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#D9E0EC",
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hsrm9o3a",
+      "id": "4",
+      "name": "title-accent",
+      "bbox": [
+        34,
+        112,
+        170,
+        4
+      ],
+      "geometry": "rect",
+      "fillColor": "#2E74C6",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gry5gj25",
+      "id": "5",
+      "name": "story-label",
+      "bbox": [
+        34,
+        126,
+        135,
+        64
+      ],
+      "geometry": "roundRect",
+      "text": "유저스토리",
+      "textPreview": "유저스토리",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18,
+        "typeface": "Pretendard",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "유저스토리"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "유저스토리",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Pretendard",
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "유저스토리",
+              "fontSize": 18,
+              "typeface": "Pretendard",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#1E2A5C",
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vqp47elk",
+      "id": "6",
+      "name": "story",
+      "bbox": [
+        177,
+        126,
+        1037,
+        64
+      ],
+      "geometry": "roundRect",
+      "text": "상담사로서 고객 질문과 의미상 관련된 문단과 원문 위치를 확인하고 싶음. 이를 통해 상담 제안에 사용할 근거를 신속하게 확보할 수 있음.",
+      "textPreview": "상담사로서 고객 질문과 의미상 관련된 문단과 원문 위치를 확인하고 싶음. 이를 통해 상담 제안에 사용할 근거를 신속하게 확보할 수 있음.",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18,
+        "typeface": "Pretendard",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 6,
+          "right": 14,
+          "bottom": 6,
+          "left": 14
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "상담사로서 고객 질문과 의미상 관련된 문단과 원문 위치를 확인하고 싶음. 이를 통해 상담 제안에 사용할 근거를 신속하게 확보할 수 있음."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "상담사로서 고객 질문과 의미상 관련된 문단과 원문 위치를 확인하고 싶음. 이를 통해 상담 제안에 사용할 근거를 신속하게 확보할 수 있음.",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Pretendard",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "상담사로서 고객 질문과 의미상 관련된 문단과 원문 위치를 확인하고 싶음. 이를 통해 상담 제안에 사용할 근거를 신속하게 확보할 수 있음.",
+              "fontSize": 18,
+              "typeface": "Pretendard",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#EEF3FA",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 7,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/bm5cve58",
+      "id": "7",
+      "bbox": [
+        34,
+        204,
+        1180,
+        460
+      ],
+      "text": "슬라이스 ID | 시나리오 | Given | When | Then\nS-04 | 질문과 관련된 문단을 검색 | 질문 Q-1001은 ‘M카드의 공항 라운지 혜택은?’이고, 회원 M-1001의 접근 범위는 상담사임. 벡터 색인 BENEFIT-2026.09, 관련도 기준 0.75, 최대 결과 수 3개가 준비되어 있음 | 질문 Q-1001과 접근 범위로 C-4 질문 관련 문단 검색을 요청함 | E-4가 발생함. DOC-203 v2026.08 14쪽 3번째 문단이 rank=1, similarity=0.87로 기록되고 원문 위치와 색인 버전이 포함됨\nS-04 | 관련도 기준을 충족하는 문단이 없음 | 질문 Q-1002는 ‘해외 렌터카 보험 혜택은?’이고, BENEFIT-2026.09 색인의 최고 유사도는 0.62이며 관련도 기준은 0.75임 | 질문 Q-1002와 최대 결과 수 3개로 C-4 질문 관련 문단 검색을 요청함 | E-4가 발생함. 결과 목록은 비어 있고 resultCount=0, maxSimilarity=0.62, threshold=0.75, 색인 버전 BENEFIT-2026.09가 기록됨\nS-04 | 벡터 색인을 사용할 수 없어 검색 보류 | 벡터 색인 BENEFIT-2026.09가 unavailable 상태이고 검색 제한시간은 3초, 최대 재시도 횟수는 2회임 | 질문 Q-1003으로 C-4 질문 관련 문단 검색을 요청함 | E-4는 발생하지 않음. ‘질문 관련 문단 검색이 보류되었음’이 발생하고 reasonCode=VECTOR_INDEX_UNAVAILABLE, 시도 횟수 2, 재시도 가능 시각이 기록됨",
+      "textPreview": "슬라이스 ID | 시나리오 | Given | When | Then | S-04 | 질문과 관련된 문단을 검색 | 질문 Q-1001은 ‘M카드의 공항 라운지 혜택은?’이고, 회원 M-1001의 접근 범위는 상담사임. 벡터 색인 BENEFIT-202...",
+      "rows": 4,
+      "cols": 5,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            34,
+            204,
+            95,
+            46
+          ],
+          "text": "슬라이스 ID",
+          "textPreview": "슬라이스 ID",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "슬라이스 ID",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "슬라이스 ID",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            129,
+            204,
+            215,
+            46
+          ],
+          "text": "시나리오",
+          "textPreview": "시나리오",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "시나리오",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "시나리오",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 3,
+          "bbox": [
+            344,
+            204,
+            315,
+            46
+          ],
+          "text": "Given",
+          "textPreview": "Given",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Given",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Given",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 4,
+          "bbox": [
+            659,
+            204,
+            240,
+            46
+          ],
+          "text": "When",
+          "textPreview": "When",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "When",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "When",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 1,
+          "column": 5,
+          "bbox": [
+            899,
+            204,
+            315,
+            46
+          ],
+          "text": "Then",
+          "textPreview": "Then",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Then",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Then",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            34,
+            250,
+            95,
+            138
+          ],
+          "text": "S-04",
+          "textPreview": "S-04",
+          "fillColor": "#EEF3FA",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S-04",
+              "resolvedTextStyle": {
+                "fontSize": 16,
+                "typeface": "Pretendard",
+                "color": "#2E74C6",
+                "bold": true,
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S-04",
+                  "fontSize": 16,
+                  "typeface": "Pretendard",
+                  "color": "#2E74C6",
+                  "bold": true,
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            129,
+            250,
+            215,
+            138
+          ],
+          "text": "질문과 관련된 문단을 검색",
+          "textPreview": "질문과 관련된 문단을 검색",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "질문과 관련된 문단을 검색",
+              "resolvedTextStyle": {
+                "fontSize": 14,
+                "typeface": "Pretendard",
+                "color": "#1E2A5C",
+                "bold": true,
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "질문과 관련된 문단을 검색",
+                  "fontSize": 14,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true,
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 2,
+          "column": 3,
+          "bbox": [
+            344,
+            250,
+            315,
+            138
+          ],
+          "text": "질문 Q-1001은 ‘M카드의 공항 라운지 혜택은?’이고, 회원 M-1001의 접근 범위는 상담사임. 벡터 색인 BENEFIT-2026.09, 관련도 기준 0.75, 최대 결과 수 3개가 준비되어 있음",
+          "textPreview": "질문 Q-1001은 ‘M카드의 공항 라운지 혜택은?’이고, 회원 M-1001의 접근 범위는 상담사임. 벡터 색인 BENEFIT-2026.09, 관련도 기준 0.75, 최대 결과 수 3개가 준비되어 있음",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "질문 Q-1001은 ‘M카드의 공항 라운지 혜택은?’이고, 회원 M-1001의 접근 범위는 상담사임. 벡터 색인 BENEFIT-2026.09, 관련도 기준 0.75, 최대 결과 수 3개가 준비되어 있음",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "질문 Q-1001은 ‘M카드의 공항 라운지 혜택은?’이고, 회원 M-1001의 접근 범위는 상담사임. 벡터 색인 BENEFIT-2026.09, 관련도 기준 0.75, 최대 결과 수 3개가 준비되어 있음",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 2,
+          "column": 4,
+          "bbox": [
+            659,
+            250,
+            240,
+            138
+          ],
+          "text": "질문 Q-1001과 접근 범위로 C-4 질문 관련 문단 검색을 요청함",
+          "textPreview": "질문 Q-1001과 접근 범위로 C-4 질문 관련 문단 검색을 요청함",
+          "fillColor": "#F7FAFE",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "질문 Q-1001과 접근 범위로 C-4 질문 관련 문단 검색을 요청함",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "질문 Q-1001과 접근 범위로 C-4 질문 관련 문단 검색을 요청함",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 2,
+          "column": 5,
+          "bbox": [
+            899,
+            250,
+            315,
+            138
+          ],
+          "text": "E-4가 발생함. DOC-203 v2026.08 14쪽 3번째 문단이 rank=1, similarity=0.87로 기록되고 원문 위치와 색인 버전이 포함됨",
+          "textPreview": "E-4가 발생함. DOC-203 v2026.08 14쪽 3번째 문단이 rank=1, similarity=0.87로 기록되고 원문 위치와 색인 버전이 포함됨",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-4가 발생함. DOC-203 v2026.08 14쪽 3번째 문단이 rank=1, similarity=0.87로 기록되고 원문 위치와 색인 버전이 포함됨",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-4가 발생함. DOC-203 v2026.08 14쪽 3번째 문단이 rank=1, similarity=0.87로 기록되고 원문 위치와 색인 버전이 포함됨",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            34,
+            388,
+            95,
+            138
+          ],
+          "text": "S-04",
+          "textPreview": "S-04",
+          "fillColor": "#EEF3FA",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S-04",
+              "resolvedTextStyle": {
+                "fontSize": 16,
+                "typeface": "Pretendard",
+                "color": "#2E74C6",
+                "bold": true,
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S-04",
+                  "fontSize": 16,
+                  "typeface": "Pretendard",
+                  "color": "#2E74C6",
+                  "bold": true,
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            129,
+            388,
+            215,
+            138
+          ],
+          "text": "관련도 기준을 충족하는 문단이 없음",
+          "textPreview": "관련도 기준을 충족하는 문단이 없음",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "관련도 기준을 충족하는 문단이 없음",
+              "resolvedTextStyle": {
+                "fontSize": 14,
+                "typeface": "Pretendard",
+                "color": "#1E2A5C",
+                "bold": true,
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "관련도 기준을 충족하는 문단이 없음",
+                  "fontSize": 14,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true,
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 3,
+          "column": 3,
+          "bbox": [
+            344,
+            388,
+            315,
+            138
+          ],
+          "text": "질문 Q-1002는 ‘해외 렌터카 보험 혜택은?’이고, BENEFIT-2026.09 색인의 최고 유사도는 0.62이며 관련도 기준은 0.75임",
+          "textPreview": "질문 Q-1002는 ‘해외 렌터카 보험 혜택은?’이고, BENEFIT-2026.09 색인의 최고 유사도는 0.62이며 관련도 기준은 0.75임",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "질문 Q-1002는 ‘해외 렌터카 보험 혜택은?’이고, BENEFIT-2026.09 색인의 최고 유사도는 0.62이며 관련도 기준은 0.75임",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "질문 Q-1002는 ‘해외 렌터카 보험 혜택은?’이고, BENEFIT-2026.09 색인의 최고 유사도는 0.62이며 관련도 기준은 0.75임",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 3,
+          "column": 4,
+          "bbox": [
+            659,
+            388,
+            240,
+            138
+          ],
+          "text": "질문 Q-1002와 최대 결과 수 3개로 C-4 질문 관련 문단 검색을 요청함",
+          "textPreview": "질문 Q-1002와 최대 결과 수 3개로 C-4 질문 관련 문단 검색을 요청함",
+          "fillColor": "#F7FAFE",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "질문 Q-1002와 최대 결과 수 3개로 C-4 질문 관련 문단 검색을 요청함",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "질문 Q-1002와 최대 결과 수 3개로 C-4 질문 관련 문단 검색을 요청함",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 3,
+          "column": 5,
+          "bbox": [
+            899,
+            388,
+            315,
+            138
+          ],
+          "text": "E-4가 발생함. 결과 목록은 비어 있고 resultCount=0, maxSimilarity=0.62, threshold=0.75, 색인 버전 BENEFIT-2026.09가 기록됨",
+          "textPreview": "E-4가 발생함. 결과 목록은 비어 있고 resultCount=0, maxSimilarity=0.62, threshold=0.75, 색인 버전 BENEFIT-2026.09가 기록됨",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-4가 발생함. 결과 목록은 비어 있고 resultCount=0, maxSimilarity=0.62, threshold=0.75, 색인 버전 BENEFIT-2026.09가 기록됨",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-4가 발생함. 결과 목록은 비어 있고 resultCount=0, maxSimilarity=0.62, threshold=0.75, 색인 버전 BENEFIT-2026.09가 기록됨",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "row": 4,
+          "column": 1,
+          "bbox": [
+            34,
+            526,
+            95,
+            138
+          ],
+          "text": "S-04",
+          "textPreview": "S-04",
+          "fillColor": "#EEF3FA",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "S-04",
+              "resolvedTextStyle": {
+                "fontSize": 16,
+                "typeface": "Pretendard",
+                "color": "#2E74C6",
+                "bold": true,
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "S-04",
+                  "fontSize": 16,
+                  "typeface": "Pretendard",
+                  "color": "#2E74C6",
+                  "bold": true,
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "row": 4,
+          "column": 2,
+          "bbox": [
+            129,
+            526,
+            215,
+            138
+          ],
+          "text": "벡터 색인을 사용할 수 없어 검색 보류",
+          "textPreview": "벡터 색인을 사용할 수 없어 검색 보류",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "벡터 색인을 사용할 수 없어 검색 보류",
+              "resolvedTextStyle": {
+                "fontSize": 14,
+                "typeface": "Pretendard",
+                "color": "#1E2A5C",
+                "bold": true,
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "벡터 색인을 사용할 수 없어 검색 보류",
+                  "fontSize": 14,
+                  "typeface": "Pretendard",
+                  "color": "#1E2A5C",
+                  "bold": true,
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "row": 4,
+          "column": 3,
+          "bbox": [
+            344,
+            526,
+            315,
+            138
+          ],
+          "text": "벡터 색인 BENEFIT-2026.09가 unavailable 상태이고 검색 제한시간은 3초, 최대 재시도 횟수는 2회임",
+          "textPreview": "벡터 색인 BENEFIT-2026.09가 unavailable 상태이고 검색 제한시간은 3초, 최대 재시도 횟수는 2회임",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "벡터 색인 BENEFIT-2026.09가 unavailable 상태이고 검색 제한시간은 3초, 최대 재시도 횟수는 2회임",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "벡터 색인 BENEFIT-2026.09가 unavailable 상태이고 검색 제한시간은 3초, 최대 재시도 횟수는 2회임",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "row": 4,
+          "column": 4,
+          "bbox": [
+            659,
+            526,
+            240,
+            138
+          ],
+          "text": "질문 Q-1003으로 C-4 질문 관련 문단 검색을 요청함",
+          "textPreview": "질문 Q-1003으로 C-4 질문 관련 문단 검색을 요청함",
+          "fillColor": "#F7FAFE",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "질문 Q-1003으로 C-4 질문 관련 문단 검색을 요청함",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "질문 Q-1003으로 C-4 질문 관련 문단 검색을 요청함",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "row": 4,
+          "column": 5,
+          "bbox": [
+            899,
+            526,
+            315,
+            138
+          ],
+          "text": "E-4는 발생하지 않음. ‘질문 관련 문단 검색이 보류되었음’이 발생하고 reasonCode=VECTOR_INDEX_UNAVAILABLE, 시도 횟수 2, 재시도 가능 시각이 기록됨",
+          "textPreview": "E-4는 발생하지 않음. ‘질문 관련 문단 검색이 보류되었음’이 발생하고 reasonCode=VECTOR_INDEX_UNAVAILABLE, 시도 횟수 2, 재시도 가능 시각이 기록됨",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "E-4는 발생하지 않음. ‘질문 관련 문단 검색이 보류되었음’이 발생하고 reasonCode=VECTOR_INDEX_UNAVAILABLE, 시도 횟수 2, 재시도 가능 시각이 기록됨",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "E-4는 발생하지 않음. ‘질문 관련 문단 검색이 보류되었음’이 발생하고 reasonCode=VECTOR_INDEX_UNAVAILABLE, 시도 횟수 2, 재시도 가능 시각이 기록됨",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1obmls3u",
+      "id": "8",
+      "name": "footer-rule",
+      "bbox": [
+        34,
+        686,
+        1180,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#EDF0F6",
+      "lineWidth": 1
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0n25sn29",
+      "id": "9",
+      "name": "footer-left",
+      "bbox": [
+        36,
+        691,
+        640,
+        18
+      ],
+      "geometry": "rect",
+      "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+      "textPreview": "이탈 위험 방지 · Event Modeling 작성 예시",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 15,
+        "typeface": "Pretendard",
+        "color": "#7C8598",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "이탈 위험 방지 · Event Modeling 작성 예시"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "이탈 위험 방지 · Event Modeling 작성 예시",
+              "fontSize": 15,
+              "typeface": "Pretendard",
+              "color": "#7C8598",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2xsjatgz",
+      "id": "10",
+      "name": "footer-page",
+      "bbox": [
+        1125,
+        691,
+        86,
+        18
+      ],
+      "geometry": "rect",
+      "text": "1 / 1",
+      "textPreview": "1 / 1",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 15,
+        "typeface": "Pretendard",
+        "color": "#7C8598",
+        "alignment": "right",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1 / 1"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1 / 1",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "typeface": "Pretendard",
+            "color": "#7C8598",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "1 / 1",
+              "fontSize": 15,
+              "typeface": "Pretendard",
+              "color": "#7C8598",
+              "alignment": "right"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

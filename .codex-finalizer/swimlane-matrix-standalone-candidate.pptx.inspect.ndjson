@@ -1,0 +1,117 @@
+{"kind":"deck","id":"pr/j0ge6j","name":"Deck"}
+{"kind":"layout","layoutId":"093b4ce3-f36c-4114-ac20-a6ffd1e60795","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"90ecefdd-4e98-4a01-8a60-d57d1e1a1357","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/qi8gnk","slide":1,"title":"Event Modeling  ›  6단계 Swimlane","textShapes":60}
+{"kind":"textbox","id":"sh/apcr2twj","slide":1,"name":"breadcrumb","text":"Event Modeling  ›  6단계 Swimlane","textPreview":"Event Modeling  ›  6단계 Swimlane","textChars":31,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/xsnadofu","slide":1,"name":"title","text":"스윔레인 매트릭스","textPreview":"스윔레인 매트릭스","textChars":9,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/wre94je9","slide":1,"name":"title-rule","bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/ju5sfyx0","slide":1,"name":"title-rule-accent","bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/itwr6twf","slide":1,"name":"lead","text":"행은 업무 책임, 열은 워크플로우 단계이며 셀에는 Slice ID와 업무명을 배치함","textPreview":"행은 업무 책임, 열은 워크플로우 단계이며 셀에는 Slice ID와 업무명을 배치함","textChars":46,"textLines":1,"bbox":[34,121,1180,28]}
+{"kind":"textbox","id":"sh/5wnah8f6","slide":1,"name":"corner-header","text":"Swimlane","textPreview":"Swimlane","textChars":8,"textLines":1,"bbox":[34,158,170,52]}
+{"kind":"shape","id":"sh/kve983el","slide":1,"name":"stage-1-bg","bbox":[204,158,144.29,52]}
+{"kind":"textbox","id":"sh/7ypsjixw","slide":1,"name":"stage-1-num","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[211,168,26,30]}
+{"kind":"textbox","id":"sh/6xwradwr","slide":1,"name":"stage-1-label","text":"문의 접수","textPreview":"문의 접수","textChars":5,"textLines":1,"bbox":[240,162,104.29,44]}
+{"kind":"shape","id":"sh/ojy587i1","slide":1,"name":"stage-2-bg","bbox":[348.29,158,144.29,52]}
+{"kind":"textbox","id":"sh/pk7mhcjm","slide":1,"name":"stage-2-num","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[355.29,168,26,30]}
+{"kind":"textbox","id":"sh/2hgn6x0v","slide":1,"name":"stage-2-label","text":"실행 경로\n결정","textPreview":"실행 경로 | 결정","textChars":8,"textLines":2,"bbox":[384.29,162,104.29,44]}
+{"kind":"shape","id":"sh/nip4f21g","slide":1,"name":"stage-3-bg","bbox":[492.57,158,144.29,52]}
+{"kind":"textbox","id":"sh/wni5c7id","slide":1,"name":"stage-3-num","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[499.57,168,26,30]}
+{"kind":"textbox","id":"sh/xormlczi","slide":1,"name":"stage-3-label","text":"상담 정보\n확보","textPreview":"상담 정보 | 확보","textChars":8,"textLines":2,"bbox":[528.57,162,104.29,44]}
+{"kind":"shape","id":"sh/algnah07","slide":1,"name":"stage-4-bg","bbox":[636.86,158,144.29,52]}
+{"kind":"textbox","id":"sh/bm94j2hs","slide":1,"name":"stage-4-num","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[643.86,168,26,30]}
+{"kind":"textbox","id":"sh/kbi5gri9","slide":1,"name":"stage-4-label","text":"제안 정보\n구성","textPreview":"제안 정보 | 구성","textChars":8,"textLines":2,"bbox":[672.86,162,104.29,44]}
+{"kind":"shape","id":"sh/lcr6pwzu","slide":1,"name":"stage-5-bg","bbox":[781.14,158,144.29,52]}
+{"kind":"textbox","id":"sh/t8nm9wry","slide":1,"name":"stage-5-num","text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[788.14,168,26,30]}
+{"kind":"textbox","id":"sh/s7e50rad","slide":1,"name":"stage-5-label","text":"상담 제안\n작성","textPreview":"상담 제안 | 작성","textChars":8,"textLines":2,"bbox":[817.14,162,104.29,44]}
+{"kind":"shape","id":"sh/76547m9s","slide":1,"name":"stage-6-bg","bbox":[925.43,158,144.29,52]}
+{"kind":"textbox","id":"sh/65wnyhs7","slide":1,"name":"stage-6-num","text":"6","textPreview":"6","textChars":1,"textLines":1,"bbox":[932.43,168,26,30]}
+{"kind":"textbox","id":"sh/hw7mdwru","slide":1,"name":"stage-6-label","text":"상담 제안\n제공","textPreview":"상담 제안 | 제공","textChars":8,"textLines":2,"bbox":[961.43,162,104.29,44]}
+{"kind":"shape","id":"sh/gvy54rap","slide":1,"name":"stage-7-bg","bbox":[1069.71,158,144.29,52]}
+{"kind":"textbox","id":"sh/fap4bm94","slide":1,"name":"stage-7-num","text":"7","textPreview":"7","textChars":1,"textLines":1,"bbox":[1076.71,168,26,30]}
+{"kind":"textbox","id":"sh/u9gn2hsj","slide":1,"name":"stage-7-label","text":"상담 제안\n확인","textPreview":"상담 제안 | 확인","textChars":8,"textLines":2,"bbox":[1105.71,162,104.29,44]}
+{"kind":"textbox","id":"sh/x03m1srq","slide":1,"name":"lane-1","text":"상담 진행 관리","textPreview":"상담 진행 관리","textChars":8,"textLines":1,"bbox":[34,210,170,72]}
+{"kind":"shape","id":"sh/wfuls7a5","slide":1,"name":"cell-1-1","bbox":[204,210,144.29,72]}
+{"kind":"shape","id":"sh/mlsj2t83","slide":1,"name":"cell-1-2","bbox":[348.29,210,144.29,72]}
+{"kind":"shape","id":"sh/n61kbypo","slide":1,"name":"cell-1-3","bbox":[492.57,210,144.29,72]}
+{"kind":"shape","id":"sh/o7a143q9","slide":1,"name":"cell-1-4","bbox":[636.86,210,144.29,72]}
+{"kind":"shape","id":"sh/98j2d87u","slide":1,"name":"cell-1-5","bbox":[781.14,210,144.29,72]}
+{"kind":"shape","id":"sh/a9sj6d8z","slide":1,"name":"cell-1-6","bbox":[925.43,210,144.29,72]}
+{"kind":"shape","id":"sh/balkfipk","slide":1,"name":"cell-1-7","bbox":[1069.71,210,144.29,72]}
+{"kind":"textbox","id":"sh/wbu18nq5","slide":1,"name":"lane-2","text":"실행 경로 관리","textPreview":"실행 경로 관리","textChars":8,"textLines":1,"bbox":[34,282,170,64]}
+{"kind":"shape","id":"sh/xc32hs7q","slide":1,"name":"cell-2-1","bbox":[204,282,144.29,64]}
+{"kind":"shape","id":"sh/qd8ju98v","slide":1,"name":"cell-2-2","bbox":[348.29,282,144.29,64]}
+{"kind":"shape","id":"sh/reh03e9g","slide":1,"name":"cell-2-3","bbox":[492.57,282,144.29,64]}
+{"kind":"shape","id":"sh/7yp8bqxs","slide":1,"name":"cell-2-4","bbox":[636.86,282,144.29,64]}
+{"kind":"shape","id":"sh/6xgrilwn","slide":1,"name":"cell-2-5","bbox":[781.14,282,144.29,64]}
+{"kind":"shape","id":"sh/t07qdgfy","slide":1,"name":"cell-2-6","bbox":[925.43,282,144.29,64]}
+{"kind":"shape","id":"sh/szy9kbed","slide":1,"name":"cell-2-7","bbox":[1069.71,282,144.29,64]}
+{"kind":"textbox","id":"sh/f298fqx4","slide":1,"name":"lane-3","text":"고객 현황 조회","textPreview":"고객 현황 조회","textChars":8,"textLines":1,"bbox":[34,346,170,64]}
+{"kind":"shape","id":"sh/u10rmlwj","slide":1,"name":"cell-3-1","bbox":[204,346,144.29,64]}
+{"kind":"shape","id":"sh/horqh0fa","slide":1,"name":"cell-3-2","bbox":[348.29,346,144.29,64]}
+{"kind":"shape","id":"sh/g3i9ovep","slide":1,"name":"cell-3-3","bbox":[492.57,346,144.29,64]}
+{"kind":"shape","id":"sh/3q98jax0","slide":1,"name":"cell-3-4","bbox":[636.86,346,144.29,64]}
+{"kind":"shape","id":"sh/2p0rq5wf","slide":1,"name":"cell-3-5","bbox":[781.14,346,144.29,64]}
+{"kind":"shape","id":"sh/0v2p0fut","slide":1,"name":"cell-3-6","bbox":[925.43,346,144.29,64]}
+{"kind":"shape","id":"sh/1wbq90be","slide":1,"name":"cell-3-7","bbox":[1069.71,346,144.29,64]}
+{"kind":"textbox","id":"sh/etk7y5cn","slide":1,"name":"lane-4","text":"지식 검색","textPreview":"지식 검색","textChars":5,"textLines":1,"bbox":[34,410,170,104]}
+{"kind":"shape","id":"sh/zut87at8","slide":1,"name":"cell-4-1","bbox":[204,410,144.29,104]}
+{"kind":"shape","id":"sh/cripwvux","slide":1,"name":"cell-4-2","bbox":[348.29,410,144.29,104]}
+{"kind":"shape","id":"sh/dsbq50b2","slide":1,"name":"cell-4-3","bbox":[492.57,410,144.29,104]}
+{"kind":"shape","id":"sh/qp07ulcr","slide":1,"name":"cell-4-4","bbox":[636.86,410,144.29,104]}
+{"kind":"shape","id":"sh/rq9o3qtc","slide":1,"name":"cell-4-5","bbox":[781.14,410,144.29,104]}
+{"kind":"shape","id":"sh/43ipsvul","slide":1,"name":"cell-4-6","bbox":[925.43,410,144.29,104]}
+{"kind":"shape","id":"sh/p4r61gb6","slide":1,"name":"cell-4-7","bbox":[1069.71,410,144.29,104]}
+{"kind":"textbox","id":"sh/5kj65cnu","slide":1,"name":"lane-5","text":"이탈 위험 예측","textPreview":"이탈 위험 예측","textChars":8,"textLines":1,"bbox":[34,514,170,64]}
+{"kind":"shape","id":"sh/4ja5w7m9","slide":1,"name":"cell-5-1","bbox":[204,514,144.29,64]}
+{"kind":"shape","id":"sh/jy143254","slide":1,"name":"cell-5-2","bbox":[348.29,514,144.29,64]}
+{"kind":"shape","id":"sh/ixsnuh4j","slide":1,"name":"cell-5-3","bbox":[492.57,514,144.29,64]}
+{"kind":"shape","id":"sh/hwzm1cny","slide":1,"name":"cell-5-4","bbox":[636.86,514,144.29,64]}
+{"kind":"shape","id":"sh/wvq5s7md","slide":1,"name":"cell-5-5","bbox":[781.14,514,144.29,64]}
+{"kind":"shape","id":"sh/vuh4z25s","slide":1,"name":"cell-5-6","bbox":[925.43,514,144.29,64]}
+{"kind":"shape","id":"sh/ut8nqx47","slide":1,"name":"cell-5-7","bbox":[1069.71,514,144.29,64]}
+{"kind":"textbox","id":"sh/1s36dw32","slide":1,"name":"lane-6","text":"상담 제안","textPreview":"상담 제안","textChars":5,"textLines":1,"bbox":[34,578,170,76]}
+{"kind":"shape","id":"sh/gru54rmh","slide":1,"name":"cell-6-1","bbox":[204,578,144.29,76]}
+{"kind":"shape","id":"sh/el4bi9gn","slide":1,"name":"cell-6-2","bbox":[348.29,578,144.29,76]}
+{"kind":"shape","id":"sh/zmdcbuh8","slide":1,"name":"cell-6-3","bbox":[492.57,578,144.29,76]}
+{"kind":"shape","id":"sh/0nmtkzyt","slide":1,"name":"cell-6-4","bbox":[636.86,578,144.29,76]}
+{"kind":"shape","id":"sh/1ovud4ze","slide":1,"name":"cell-6-5","bbox":[781.14,578,144.29,76]}
+{"kind":"shape","id":"sh/qxkbepgr","slide":1,"name":"cell-6-6","bbox":[925.43,578,144.29,76]}
+{"kind":"shape","id":"sh/rits7uhc","slide":1,"name":"cell-6-7","bbox":[1069.71,578,144.29,76]}
+{"kind":"textbox","id":"sh/cj2tgzyx","slide":1,"name":"S-01-badge","text":"S-01","textPreview":"S-01","textChars":4,"textLines":1,"bbox":[209,219,43,31]}
+{"kind":"textbox","id":"sh/dkva94zi","slide":1,"name":"S-01-title","text":"문의 접수","textPreview":"문의 접수","textChars":5,"textLines":1,"bbox":[255,219,88.29,31]}
+{"kind":"textbox","id":"sh/adobqtgv","slide":1,"name":"S-01-links","text":"C-1 · E-1","textPreview":"C-1 · E-1","textChars":9,"textLines":1,"bbox":[209,252,134.29,20]}
+{"kind":"textbox","id":"sh/bexcjexg","slide":1,"name":"S-09-badge","text":"S-09","textPreview":"S-09","textChars":4,"textLines":1,"bbox":[930.43,219,43,31]}
+{"kind":"textbox","id":"sh/jats3epk","slide":1,"name":"S-09-title","text":"상담 제안 제공","textPreview":"상담 제안 제공","textChars":8,"textLines":1,"bbox":[976.43,219,88.29,31]}
+{"kind":"textbox","id":"sh/i9kba98f","slide":1,"name":"S-09-links","text":"C-9 · E-9","textPreview":"C-9 · E-9","textChars":9,"textLines":1,"bbox":[930.43,252,134.29,20]}
+{"kind":"textbox","id":"sh/5cbu5o7q","slide":1,"name":"S-10-badge","text":"S-10","textPreview":"S-10","textChars":4,"textLines":1,"bbox":[1074.71,219,43,31]}
+{"kind":"textbox","id":"sh/kb2tcjq5","slide":1,"name":"S-10-title","text":"상담 제안 확인","textPreview":"상담 제안 확인","textChars":8,"textLines":1,"bbox":[1120.71,219,88.29,31]}
+{"kind":"textbox","id":"sh/v69sze9o","slide":1,"name":"S-10-links","text":"C-10 · E-10","textPreview":"C-10 · E-10","textChars":11,"textLines":1,"bbox":[1074.71,252,134.29,20]}
+{"kind":"textbox","id":"sh/a50b6983","slide":1,"name":"S-02-badge","text":"S-02","textPreview":"S-02","textChars":4,"textLines":1,"bbox":[353.29,287,43,31]}
+{"kind":"textbox","id":"sh/x8ba1o7u","slide":1,"name":"S-02-title","text":"실행 경로 결정","textPreview":"실행 경로 결정","textChars":8,"textLines":1,"bbox":[399.29,287,88.29,31]}
+{"kind":"textbox","id":"sh/w72t8jq9","slide":1,"name":"S-02-links","text":"C-2 · E-2","textPreview":"C-2 · E-2","textChars":9,"textLines":1,"bbox":[353.29,320,134.29,20]}
+{"kind":"textbox","id":"sh/n29svu9c","slide":1,"name":"S-03-badge","text":"S-03","textPreview":"S-03","textChars":4,"textLines":1,"bbox":[497.57,351,43,31]}
+{"kind":"textbox","id":"sh/mh0b2p87","slide":1,"name":"S-03-title","text":"고객 현황 확보","textPreview":"고객 현황 확보","textChars":8,"textLines":1,"bbox":[543.57,351,88.29,31]}
+{"kind":"textbox","id":"sh/cny9wv6p","slide":1,"name":"S-03-links","text":"C-3 · E-3","textPreview":"C-3 · E-3","textChars":9,"textLines":1,"bbox":[497.57,384,134.29,20]}
+{"kind":"textbox","id":"sh/d87q507a","slide":1,"name":"S-04-badge","text":"S-04","textPreview":"S-04","textChars":4,"textLines":1,"bbox":[497.57,412,43,30]}
+{"kind":"textbox","id":"sh/qlw7uloz","slide":1,"name":"S-04-title","text":"질문 관련 문단 검색","textPreview":"질문 관련 문단 검색","textChars":11,"textLines":1,"bbox":[543.57,412,88.29,30]}
+{"kind":"textbox","id":"sh/bm583qp4","slide":1,"name":"S-04-links","text":"C-4 · E-4","textPreview":"C-4 · E-4","textChars":9,"textLines":1,"bbox":[497.57,444,134.29,18]}
+{"kind":"textbox","id":"sh/0by90f61","slide":1,"name":"S-05-badge","text":"S-05","textPreview":"S-05","textChars":4,"textLines":1,"bbox":[497.57,462,43,30]}
+{"kind":"textbox","id":"sh/lc7q9knm","slide":1,"name":"S-05-title","text":"보유 카드 관련 근거 조회","textPreview":"보유 카드 관련 근거 조회","textChars":14,"textLines":1,"bbox":[543.57,462,88.29,30]}
+{"kind":"textbox","id":"sh/y9gry5ov","slide":1,"name":"S-05-links","text":"C-5 · E-5","textPreview":"C-5 · E-5","textChars":9,"textLines":1,"bbox":[497.57,494,134.29,18]}
+{"kind":"textbox","id":"sh/zap87a5g","slide":1,"name":"S-06-badge","text":"S-06","textPreview":"S-06","textChars":4,"textLines":1,"bbox":[497.57,519,43,31]}
+{"kind":"textbox","id":"sh/gfupob6h","slide":1,"name":"S-06-title","text":"이탈 위험 예측","textPreview":"이탈 위험 예측","textChars":8,"textLines":1,"bbox":[543.57,519,88.29,31]}
+{"kind":"textbox","id":"sh/1gnqxg72","slide":1,"name":"S-06-links","text":"C-6 · E-6","textPreview":"C-6 · E-6","textChars":9,"textLines":1,"bbox":[497.57,552,134.29,20]}
+{"kind":"textbox","id":"sh/2xwfmxc7","slide":1,"name":"S-07-badge","text":"S-07","textPreview":"S-07","textChars":4,"textLines":1,"bbox":[641.86,589,43,31]}
+{"kind":"textbox","id":"sh/3y5wf2dc","slide":1,"name":"S-07-title","text":"상담 제안용 정보 구성","textPreview":"상담 제안용 정보 구성","textChars":12,"textLines":1,"bbox":[687.86,589,88.29,31]}
+{"kind":"textbox","id":"sh/ozexo7ux","slide":1,"name":"S-07-links","text":"C-7 · E-7","textPreview":"C-7 · E-7","textChars":9,"textLines":1,"bbox":[641.86,622,134.29,20]}
+{"kind":"textbox","id":"sh/p0nehsvi","slide":1,"name":"S-08-badge","text":"S-08","textPreview":"S-08","textChars":4,"textLines":1,"bbox":[786.14,589,43,31]}
+{"kind":"textbox","id":"sh/a1wfqxc3","slide":1,"name":"S-08-title","text":"상담 제안 작성","textPreview":"상담 제안 작성","textChars":8,"textLines":1,"bbox":[832.14,589,88.29,31]}
+{"kind":"textbox","id":"sh/b25wj2do","slide":1,"name":"S-08-links","text":"C-8 · E-8","textPreview":"C-8 · E-8","textChars":9,"textLines":1,"bbox":[786.14,622,134.29,20]}
+{"kind":"textbox","id":"sh/c3yxs7u9","slide":1,"name":"parallel-marker","text":"조건에 따라 병렬","textPreview":"조건에 따라 병렬","textChars":9,"textLines":1,"bbox":[504.57,205,120.29,20]}
+{"kind":"textbox","id":"sh/x47elcvu","slide":1,"name":"legend-command","text":"S · Slice","textPreview":"S · Slice","textChars":9,"textLines":1,"bbox":[270,658,110,25]}
+{"kind":"textbox","id":"sh/65cvedcz","slide":1,"name":"legend-event","text":"C/E · 연결 ID","textPreview":"C/E · 연결 ID","textChars":11,"textLines":1,"bbox":[390,658,135,25]}
+{"kind":"textbox","id":"sh/r6lw7idk","slide":1,"name":"legend-note","text":"화면·Trigger·Read Model은 Slice 상세표에서 확인","textPreview":"화면·Trigger·Read Model은 Slice 상세표에서 확인","textChars":37,"textLines":1,"bbox":[540,658,465,25]}
+{"kind":"shape","id":"sh/9kridgf2","slide":1,"name":"footer-rule","bbox":[34,686,1180,0]}
+{"kind":"textbox","id":"sh/8jihkbeh","slide":1,"name":"footer-left","text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/7y90b6xw","slide":1,"name":"footer-page","text":"1 / 1","textPreview":"1 / 1","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"notes","id":"nt/qi8gnk","slide":1,"text":"사용자 제공 Event 목록과 Slice 정의를 바탕으로 구성함. C-7/E-7은 첨부 표의 중복 ID를 전체 흐름에 맞게 바로잡아 표기함."}

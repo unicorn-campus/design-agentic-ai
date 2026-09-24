@@ -1,0 +1,36 @@
+{"kind":"deck","id":"pr/ox7iq7","name":"Deck"}
+{"kind":"layout","layoutId":"186649b7-f5f8-44b2-9fce-ec391e213d79","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"503c5537-3541-4f2d-bd36-2b9e7ae1fffe","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/4nlhh9","slide":1,"title":"Event Modeling  ›  7단계 시나리오 구체화","textShapes":5}
+{"kind":"textbox","id":"sh/1gbi5of2","slide":1,"name":"crumb-1","text":"Event Modeling  ›  7단계 시나리오 구체화","textPreview":"Event Modeling  ›  7단계 시나리오 구체화","textChars":31,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/ed0zu9wr","slide":1,"name":"title-1","text":"S-03·S-04 시나리오","textPreview":"S-03·S-04 시나리오","textChars":14,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/fe903exw","slide":1,"name":"title-rule-1","bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/oj2h0jet","slide":1,"name":"title-accent-1","bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/p4bi9ofe","slide":1,"name":"lead-1","text":"고객 현황 확보와 질문 관련 문단 검색의 정상 흐름과 예외 조건을 Given–When–Then으로 구체화함","textPreview":"고객 현황 확보와 질문 관련 문단 검색의 정상 흐름과 예외 조건을 Given–When–Then으로 구체화함","textChars":59,"textLines":1,"bbox":[34,121,1180,28]}
+{"kind":"shape","id":"sh/nit07yx8","slide":1,"name":"footer-rule-1","bbox":[34,686,1180,0]}
+{"kind":"textbox","id":"sh/4nyhozy9","slide":1,"name":"footer-left-1","text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/58rix4fu","slide":1,"name":"footer-page-1","text":"1 / 3","textPreview":"1 / 3","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"table","id":"tb/vml8fup0","slide":1,"name":"","rows":5,"cols":5,"preview":"슬라이스 ID | 시나리오 | Given | When | Then","bbox":[34,158,1180,508]}
+{"kind":"notes","id":"nt/4nlhh9","slide":1,"text":"사용자와 협의한 S-03부터 S-08까지의 Given–When–Then 시나리오를 표로 정리함."}
+{"kind":"slide","id":"sl/96uqcr","slide":2,"title":"Event Modeling  ›  7단계 시나리오 구체화","textShapes":5}
+{"kind":"textbox","id":"sh/i5s7mlsv","slide":2,"name":"crumb-2","text":"Event Modeling  ›  7단계 시나리오 구체화","textPreview":"Event Modeling  ›  7단계 시나리오 구체화","textChars":31,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/5sjqx0r6","slide":2,"name":"title-2","text":"S-05·S-06 시나리오","textPreview":"S-05·S-06 시나리오","textChars":14,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/krapoval","slide":2,"name":"title-rule-2","bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/7u18za9c","slide":2,"name":"title-accent-2","bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/6ts7q5sr","slide":2,"name":"lead-2","text":"보유 카드 관련 근거 조회와 이탈 위험 예측의 정상 흐름과 예외 조건을 Given–When–Then으로 구체화함","textPreview":"보유 카드 관련 근거 조회와 이탈 위험 예측의 정상 흐름과 예외 조건을 Given–When–Then으로 구체화함","textChars":62,"textLines":1,"bbox":[34,121,1180,28]}
+{"kind":"shape","id":"sh/svapsfax","slide":2,"name":"footer-rule-2","bbox":[34,686,1180,0]}
+{"kind":"textbox","id":"sh/nyhon6ts","slide":2,"name":"footer-left-2","text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/mxo7e1sn","slide":2,"name":"footer-page-2","text":"2 / 3","textPreview":"2 / 3","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"table","id":"tb/kbipsj2h","slide":2,"name":"","rows":5,"cols":5,"preview":"슬라이스 ID | 시나리오 | Given | When | Then","bbox":[34,158,1180,508]}
+{"kind":"notes","id":"nt/96uqcr","slide":2,"text":"사용자와 협의한 S-03부터 S-08까지의 Given–When–Then 시나리오를 표로 정리함."}
+{"kind":"slide","id":"sl/z6gdbl","slide":3,"title":"Event Modeling  ›  7단계 시나리오 구체화","textShapes":5}
+{"kind":"textbox","id":"sh/l87el0nq","slide":3,"name":"crumb-3","text":"Event Modeling  ›  7단계 시나리오 구체화","textPreview":"Event Modeling  ›  7단계 시나리오 구체화","textChars":31,"textLines":1,"bbox":[34,18,800,22]}
+{"kind":"textbox","id":"sh/e5gval4z","slide":3,"name":"title-3","text":"S-07·S-08 시나리오","textPreview":"S-07·S-08 시나리오","textChars":14,"textLines":1,"bbox":[34,43,1180,56]}
+{"kind":"shape","id":"sh/z6pwjq5k","slide":3,"name":"title-rule-3","bbox":[34,112,1180,3]}
+{"kind":"shape","id":"sh/8bidgvm1","slide":3,"name":"title-accent-3","bbox":[34,112,170,4]}
+{"kind":"textbox","id":"sh/9crep0nm","slide":3,"name":"lead-3","text":"상담 제안용 정보 구성과 상담 제안 작성의 정상 흐름과 예외 조건을 Given–When–Then으로 구체화함","textPreview":"상담 제안용 정보 구성과 상담 제안 작성의 정상 흐름과 예외 조건을 Given–When–Then으로 구체화함","textChars":60,"textLines":1,"bbox":[34,121,1180,28]}
+{"kind":"shape","id":"sh/na9wnq5w","slide":3,"name":"footer-rule-3","bbox":[34,686,1180,0]}
+{"kind":"textbox","id":"sh/wzidkfmd","slide":3,"name":"footer-left-3","text":"이탈 위험 방지 · Event Modeling 작성 예시","textPreview":"이탈 위험 방지 · Event Modeling 작성 예시","textChars":31,"textLines":1,"bbox":[36,691,640,18]}
+{"kind":"textbox","id":"sh/x0retkny","slide":3,"name":"footer-page-3","text":"3 / 3","textPreview":"3 / 3","textChars":5,"textLines":1,"bbox":[1125,691,86,18]}
+{"kind":"table","id":"tb/fehcfq50","slide":3,"name":"","rows":5,"cols":5,"preview":"슬라이스 ID | 시나리오 | Given | When | Then","bbox":[34,158,1180,508]}
+{"kind":"notes","id":"nt/z6gdbl","slide":3,"text":"사용자와 협의한 S-03부터 S-08까지의 Given–When–Then 시나리오를 표로 정리함."}

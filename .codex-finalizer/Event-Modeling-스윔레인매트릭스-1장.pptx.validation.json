@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "presentation-finalization.v1",
+  "finalSha256": "2aec60958be894d949e42773484168744fd5753f67cbf28308f3aaf3cd93c5de",
+  "byteCount": 19143,
+  "packageIntegrity": {
+    "chart_count": 0,
+    "claim_boundary": "Structural package checks only; no slide text, notes, formulas, chart values, or native PowerPoint execution were inspected.",
+    "finding_count": 0,
+    "findings": [],
+    "notes_parts_skipped": 1,
+    "relationship_part_count": 7,
+    "slide_count": 1,
+    "status": "pass",
+    "exitCode": 0,
+    "findingCount": 0,
+    "warnings": []
+  },
+  "presentationLayout": {
+    "finding_count": 0,
+    "findings": [],
+    "font_policy": {
+      "checked_text_script_count": 71,
+      "native_font_rendering_verified": false,
+      "observed_font_families": [
+        "Pretendard"
+      ],
+      "observed_font_use_counts": {
+        "Pretendard": 71
+      },
+      "passed": true,
+      "performed": true
+    },
+    "slide_count": 1,
+    "slide_size_in": [
+      13.3333,
+      7.5
+    ],
+    "warning_count": 0,
+    "warnings": [],
+    "exitCode": 0,
+    "findingCount": 0,
+    "fontPolicy": {
+      "checked_text_script_count": 71,
+      "native_font_rendering_verified": false,
+      "observed_font_families": [
+        "Pretendard"
+      ],
+      "observed_font_use_counts": {
+        "Pretendard": 71
+      },
+      "passed": true,
+      "performed": true
+    }
+  },
+  "fontSelection": {
+    "basis": "reference",
+    "approvedFamilies": [
+      "Pretendard"
+    ],
+    "scriptFonts": {},
+    "referenceSha256": "8345c79401b6d7a37be2531ca787c01d0fd7b9fb69607f21c3ac6be29e941370",
+    "referenceFontsVerifiedInEncodedText": true,
+    "checked_text_script_count": 71,
+    "native_font_rendering_verified": false,
+    "observed_font_families": [
+      "Pretendard"
+    ],
+    "observed_font_use_counts": {
+      "Pretendard": 71
+    },
+    "passed": true,
+    "performed": true
+  },
+  "firstPartyImport": {
+    "performed": true,
+    "passed": true,
+    "slideCount": 1,
+    "sha256": "2aec60958be894d949e42773484168744fd5753f67cbf28308f3aaf3cd93c5de",
+    "runtimeNodeModules": "C:\\Users\\hiond\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\node_modules",
+    "nodeExecutable": "C:\\Users\\hiond\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe"
+  },
+  "nativeTableArithmetic": {
+    "performed": true,
+    "checked_column_count": 0,
+    "checks": [],
+    "claim_boundary": "Displayed-value arithmetic with rounding tolerance; not source-data verification.",
+    "eligible_table_count": 0,
+    "finding_count": 0,
+    "findings": [],
+    "native_table_count": 0,
+    "passed": true,
+    "schema_version": "presentation-native-table-arithmetic.v1",
+    "skipped_tables": [],
+    "slide_count": 1,
+    "warning_count": 0,
+    "warnings": []
+  },
+  "nativeChartTitles": {
+    "performed": true,
+    "checks": [],
+    "finding_count": 0,
+    "findings": [],
+    "native_chart_count": 0,
+    "native_powerpoint_verified": false,
+    "passed": true,
+    "presentation_sha256": "2aec60958be894d949e42773484168744fd5753f67cbf28308f3aaf3cd93c5de",
+    "schema_version": "presentation-native-chart-titles.v1",
+    "slide_count": 1,
+    "source_text_emitted": false,
+    "unresolved_linked_title_count": 0
+  },
+  "sourceDerivedPolicyFlags": [
+    "--expected-slide-size-emu",
+    "12192000,6858000",
+    "--validate-heading-fit",
+    "--cover-role",
+    "none",
+    "--expected-slide-count",
+    "1",
+    "--approved-font-family",
+    "Pretendard"
+  ],
+  "nativeChartValidation": {
+    "detectedOwnerSlides": [],
+    "detectedChartCount": 0,
+    "targetApplication": "portable",
+    "sourceChartOwnersExplicitlyDeclared": true,
+    "validatorRan": false,
+    "passed": true
+  }
+}
