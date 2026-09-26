@@ -1,0 +1,66 @@
+flowchart LR
+  subgraph SYSTEM["이탈위험 대응 상담 시스템"]
+    direction LR
+
+    subgraph P1["P-1 상담·운영 요청 처리"]
+      direction TB
+      API["상담·운영 API"]
+      CONSULT["상담 진행 관리"]
+      STATUS["고객 현황 조회"]
+      KNOWLEDGE["지식 검색"]
+      RISK["이탈 위험 예측"]
+      PROPOSAL["상담 제안 작성"]
+
+      API -->|"동기 내부 호출<br/>문의 접수·색인 요청·확인 기록"| CONSULT
+      CONSULT <-->|"동기 내부 호출<br/>회원ID·조회 조건 / 고객 현황"| STATUS
+      CONSULT <-->|"동기 내부 호출<br/>질문·접근 범위 / 관련 문단·상담 근거"| KNOWLEDGE
+      CONSULT <-->|"동기 내부 호출<br/>고객 현황·예측 기간 / 이탈 확률·위험 등급"| RISK
+      CONSULT <-->|"동기 내부 호출<br/>선별 정보 / 제안 초안·근거·주의사항"| PROPOSAL
+    end
+
+    subgraph P2["P-2 문서 색인 Worker"]
+      direction TB
+      INDEX["문서 색인"]
+    end
+
+    subgraph SHARED["공유 인프라·저장소"]
+      direction TB
+      MQ[("Message Queue<br/>index.request<br/>index.completed·failed")]
+      DOCS[("문서·벡터 인덱스")]
+      CONSULT_DB[("상담 제안·확인 이력")]
+      JOB_DB[("색인 작업 상태")]
+    end
+
+    API -.->|"비동기 발행<br/>색인 요청ID·원본 문서 경로"| MQ
+    MQ -.->|"비동기 소비<br/>index.request"| INDEX
+    INDEX -.->|"비동기 발행<br/>완료 시각·성공·실패 사유"| MQ
+    MQ -.->|"비동기 소비<br/>index.completed·failed"| API
+
+    INDEX -->|"쓰기<br/>문서ID·문단·버전·벡터"| DOCS
+    KNOWLEDGE -->|"동기 읽기<br/>질문·접근 범위"| DOCS
+    DOCS -->|"관련 문단·유사도·원문 위치"| KNOWLEDGE
+
+    CONSULT -->|"쓰기<br/>상담제안ID·확인 시각"| CONSULT_DB
+    INDEX -->|"쓰기<br/>작업 상태·완료 시각"| JOB_DB
+    API -->|"동기 조회<br/>색인 요청ID"| JOB_DB
+    JOB_DB -->|"작업 상태·오류"| API
+  end
+
+  LEGEND["실선: 같은 요청 흐름의 동기 호출·저장소 접근<br/>점선: 배포 단위를 넘는 Message Queue 비동기 통신"]
+
+  classDef api fill:#1E2A5C,stroke:#1E2A5C,color:#FFFFFF,stroke-width:2px;
+  classDef service fill:#FFFFFF,stroke:#2E74C6,color:#1E2A5C,stroke-width:1.5px;
+  classDef worker fill:#EEF3FA,stroke:#404155,color:#1E2A5C,stroke-width:2px;
+  classDef store fill:#F5F8FC,stroke:#7C8598,color:#2B3242,stroke-width:1.5px;
+  classDef note fill:#FFFFFF,stroke:#D9E0EC,color:#4A5364,stroke-dasharray:5 5;
+
+  class API api;
+  class CONSULT,STATUS,KNOWLEDGE,RISK,PROPOSAL service;
+  class INDEX worker;
+  class MQ,DOCS,CONSULT_DB,JOB_DB store;
+  class LEGEND note;
+
+  style SYSTEM fill:#FFFFFF,stroke:#1E2A5C,stroke-width:3px
+  style P1 fill:#F5F8FC,stroke:#2E74C6,stroke-width:2px
+  style P2 fill:#EEF3FA,stroke:#404155,stroke-width:2px
+  style SHARED fill:#FFFFFF,stroke:#7C8598,stroke-width:2px,stroke-dasharray:6 4

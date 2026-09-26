@@ -1,0 +1,2382 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/cbcnpa",
+    "id": "cbcnpa",
+    "slide": 1,
+    "layoutId": "0c17a643-ef9a-45a7-990d-2952ba84ca59",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "af12bd0c-17e9-4bd3-90d4-cb7892e12b6d",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "Noto Sans KR"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "0c17a643-ef9a-45a7-990d-2952ba84ca59",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "af12bd0c-17e9-4bd3-90d4-cb7892e12b6d",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "af12bd0c-17e9-4bd3-90d4-cb7892e12b6d",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7qdkfahw",
+      "id": "1",
+      "bbox": [
+        40,
+        20,
+        700,
+        24
+      ],
+      "geometry": "rect",
+      "text": "② 논리 아키텍처 › 전체관계도",
+      "textPreview": "② 논리 아키텍처 › 전체관계도",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#7C8598",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "② 논리 아키텍처 › 전체관계도"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "② 논리 아키텍처 › 전체관계도",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#7C8598",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "② 논리 아키텍처 › 전체관계도",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#7C8598",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8rml8fih",
+      "id": "2",
+      "bbox": [
+        40,
+        43,
+        1180,
+        52
+      ],
+      "geometry": "rect",
+      "text": "이탈위험 대응 상담 시스템 논리 아키텍처",
+      "textPreview": "이탈위험 대응 상담 시스템 논리 아키텍처",
+      "resolvedFontSize": 42.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 42.67,
+        "typeface": "Noto Sans KR",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "이탈위험 대응 상담 시스템 논리 아키텍처"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "이탈위험 대응 상담 시스템 논리 아키텍처",
+          "resolvedTextStyle": {
+            "fontSize": 42.67,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "이탈위험 대응 상담 시스템 논리 아키텍처",
+              "fontSize": 42.67,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9sv2hkz2",
+      "id": "3",
+      "bbox": [
+        40,
+        100,
+        1200,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#D9E0EC",
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yl4j250f",
+      "id": "4",
+      "bbox": [
+        40,
+        100,
+        170,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#2E74C6",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zmdkbah0",
+      "id": "5",
+      "bbox": [
+        40,
+        108,
+        1200,
+        28
+      ],
+      "geometry": "rect",
+      "text": "사용자·사내 연계 시스템·외부 AI 사업자의 통제 경계를 분리하고, 경계마다 전달 데이터와 민감정보를 표시함",
+      "textPreview": "사용자·사내 연계 시스템·외부 AI 사업자의 통제 경계를 분리하고, 경계마다 전달 데이터와 민감정보를 표시함",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21.33,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "사용자·사내 연계 시스템·외부 AI 사업자의 통제 경계를 분리하고, 경계마다 전달 데이터와 민감정보를 표시함"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "사용자·사내 연계 시스템·외부 AI 사업자의 통제 경계를 분리하고, 경계마다 전달 데이터와 민감정보를 표시함",
+          "resolvedTextStyle": {
+            "fontSize": 21.33,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "사용자·사내 연계 시스템·외부 AI 사업자의 통제 경계를 분리하고, 경계마다 전달 데이터와 민감정보를 표시함",
+              "fontSize": 21.33,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/knm14fil",
+      "id": "6",
+      "bbox": [
+        30,
+        145,
+        270,
+        462
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5F8FC",
+      "lineColor": "#2E74C6",
+      "lineWidth": 2
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lov2dkz6",
+      "id": "7",
+      "bbox": [
+        42,
+        151,
+        246,
+        36
+      ],
+      "geometry": "rect",
+      "text": "TB-1  외부 사용자 경계",
+      "textPreview": "TB-1  외부 사용자 경계",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 20,
+        "typeface": "Noto Sans KR",
+        "color": "#2E74C6",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "TB-1  외부 사용자 경계"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TB-1  외부 사용자 경계",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Noto Sans KR",
+            "color": "#2E74C6",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "TB-1  외부 사용자 경계",
+              "fontSize": 20,
+              "typeface": "Noto Sans KR",
+              "color": "#2E74C6",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/axkjy50j",
+      "id": "8",
+      "bbox": [
+        455,
+        205,
+        350,
+        225
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#EEF3FA",
+      "lineColor": "#1E2A5C",
+      "lineWidth": 2
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/bitk7qh4",
+      "id": "9",
+      "bbox": [
+        467,
+        211,
+        326,
+        36
+      ],
+      "geometry": "rect",
+      "text": "TB-2  당사 통제 경계",
+      "textPreview": "TB-2  당사 통제 경계",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 20,
+        "typeface": "Noto Sans KR",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "TB-2  당사 통제 경계"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TB-2  당사 통제 경계",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "TB-2  당사 통제 경계",
+              "fontSize": 20,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3upwb29s",
+      "id": "10",
+      "bbox": [
+        1010,
+        145,
+        240,
+        225
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F5F8FC",
+      "lineColor": "#7C8598",
+      "lineWidth": 2
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2tgvixs7",
+      "id": "11",
+      "bbox": [
+        1022,
+        151,
+        216,
+        36
+      ],
+      "geometry": "rect",
+      "text": "TB-3  사내 연계 시스템 경계",
+      "textPreview": "TB-3  사내 연계 시스템 경계",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 20,
+        "typeface": "Noto Sans KR",
+        "color": "#7C8598",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "TB-3  사내 연계 시스템"
+          },
+          {
+            "index": 2,
+            "text": "경계"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TB-3  사내 연계 시스템 경계",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Noto Sans KR",
+            "color": "#7C8598",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "TB-3  사내 연계 시스템 경계",
+              "fontSize": 20,
+              "typeface": "Noto Sans KR",
+              "color": "#7C8598",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pw7edsry",
+      "id": "12",
+      "bbox": [
+        1010,
+        390,
+        240,
+        217
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#EEF3FA",
+      "lineColor": "#404155",
+      "lineWidth": 2
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4vydk7qd",
+      "id": "13",
+      "bbox": [
+        1022,
+        396,
+        216,
+        36
+      ],
+      "geometry": "rect",
+      "text": "TB-4  외부 AI 사업자 경계",
+      "textPreview": "TB-4  외부 AI 사업자 경계",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 20,
+        "typeface": "Noto Sans KR",
+        "color": "#404155",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "TB-4  외부 AI 사업자"
+          },
+          {
+            "index": 2,
+            "text": "경계"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TB-4  외부 AI 사업자 경계",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Noto Sans KR",
+            "color": "#404155",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "TB-4  외부 AI 사업자 경계",
+              "fontSize": 20,
+              "typeface": "Noto Sans KR",
+              "color": "#404155",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rypwf29o",
+      "id": "14",
+      "bbox": [
+        80,
+        190,
+        170,
+        54
+      ],
+      "geometry": "roundRect",
+      "text": "고객",
+      "textPreview": "고객",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21.33,
+        "typeface": "Noto Sans KR",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 7,
+          "bottom": 5,
+          "left": 7
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "고객"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "고객",
+          "resolvedTextStyle": {
+            "fontSize": 21.33,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "고객",
+              "fontSize": 21.33,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#2E74C6",
+      "lineWidth": 1.6
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qxgvmx8j",
+      "id": "15",
+      "bbox": [
+        80,
+        300,
+        170,
+        62
+      ],
+      "geometry": "roundRect",
+      "text": "상담사",
+      "textPreview": "상담사",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21.33,
+        "typeface": "Noto Sans KR",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 7,
+          "bottom": 5,
+          "left": 7
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "상담사"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "상담사",
+          "resolvedTextStyle": {
+            "fontSize": 21.33,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "상담사",
+              "fontSize": 21.33,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#2E74C6",
+      "lineWidth": 1.6
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/d0rehcru",
+      "id": "16",
+      "bbox": [
+        80,
+        475,
+        170,
+        62
+      ],
+      "geometry": "roundRect",
+      "text": "운영자",
+      "textPreview": "운영자",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21.33,
+        "typeface": "Noto Sans KR",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 7,
+          "bottom": 5,
+          "left": 7
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "운영자"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "운영자",
+          "resolvedTextStyle": {
+            "fontSize": 21.33,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "운영자",
+              "fontSize": 21.33,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#2E74C6",
+      "lineWidth": 1.6
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/czido7q9",
+      "id": "17",
+      "bbox": [
+        500,
+        270,
+        260,
+        100
+      ],
+      "geometry": "roundRect",
+      "text": "이탈위험 대응 상담 시스템",
+      "textPreview": "이탈위험 대응 상담 시스템",
+      "resolvedFontSize": 26.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 26.67,
+        "typeface": "Noto Sans KR",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 7,
+          "bottom": 5,
+          "left": 7
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "이탈위험 대응 상담"
+          },
+          {
+            "index": 2,
+            "text": "시스템"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "이탈위험 대응 상담 시스템",
+          "resolvedTextStyle": {
+            "fontSize": 26.67,
+            "typeface": "Noto Sans KR",
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "이탈위험 대응 상담 시스템",
+              "fontSize": 26.67,
+              "typeface": "Noto Sans KR",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#1E2A5C",
+      "lineColor": "#1E2A5C",
+      "lineWidth": 1.6
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/725c3i9k",
+      "id": "18",
+      "bbox": [
+        1030,
+        205,
+        200,
+        58
+      ],
+      "geometry": "roundRect",
+      "text": "고객정보계\n보유카드정보",
+      "textPreview": "고객정보계 | 보유카드정보",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21.33,
+        "typeface": "Noto Sans KR",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 7,
+          "bottom": 5,
+          "left": 7
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "고객정보계"
+          },
+          {
+            "index": 2,
+            "text": "보유카드정보"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "고객정보계",
+          "resolvedTextStyle": {
+            "fontSize": 21.33,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "고객정보계",
+              "fontSize": 21.33,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "보유카드정보",
+          "resolvedTextStyle": {
+            "fontSize": 21.33,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "보유카드정보",
+              "fontSize": 21.33,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#7C8598",
+      "lineWidth": 1.6
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/61wvadsz",
+      "id": "19",
+      "bbox": [
+        1030,
+        290,
+        200,
+        58
+      ],
+      "geometry": "roundRect",
+      "text": "카드이용계\n이용현황",
+      "textPreview": "카드이용계 | 이용현황",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21.33,
+        "typeface": "Noto Sans KR",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 7,
+          "bottom": 5,
+          "left": 7
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "카드이용계"
+          },
+          {
+            "index": 2,
+            "text": "이용현황"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "카드이용계",
+          "resolvedTextStyle": {
+            "fontSize": 21.33,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "카드이용계",
+              "fontSize": 21.33,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "이용현황",
+          "resolvedTextStyle": {
+            "fontSize": 21.33,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "이용현황",
+              "fontSize": 21.33,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#7C8598",
+      "lineWidth": 1.6
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ahkzilsn",
+      "id": "20",
+      "bbox": [
+        1030,
+        445,
+        200,
+        58
+      ],
+      "geometry": "roundRect",
+      "text": "외부 예측 AI 서비스",
+      "textPreview": "외부 예측 AI 서비스",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21.33,
+        "typeface": "Noto Sans KR",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 7,
+          "bottom": 5,
+          "left": 7
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "외부 예측 AI 서비스"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "외부 예측 AI 서비스",
+          "resolvedTextStyle": {
+            "fontSize": 21.33,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "외부 예측 AI 서비스",
+              "fontSize": 21.33,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#404155",
+      "lineWidth": 1.6
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/bitgbqt8",
+      "id": "21",
+      "bbox": [
+        1030,
+        530,
+        200,
+        58
+      ],
+      "geometry": "roundRect",
+      "text": "외부 LLM",
+      "textPreview": "외부 LLM",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21.33,
+        "typeface": "Noto Sans KR",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 7,
+          "bottom": 5,
+          "left": 7
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "외부 LLM"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "외부 LLM",
+          "resolvedTextStyle": {
+            "fontSize": 21.33,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "외부 LLM",
+              "fontSize": 21.33,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#404155",
+      "lineWidth": 1.6
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wjmhkbat",
+      "id": "22",
+      "bbox": [
+        165,
+        244,
+        0,
+        56
+      ],
+      "geometry": "straightConnector1",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 23,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xkvydgbe",
+      "id": "23",
+      "bbox": [
+        250,
+        320,
+        250,
+        11
+      ],
+      "verticalFlip": true,
+      "geometry": "straightConnector1",
+      "lineColor": "#2E74C6",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 24,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mtkze1sr",
+      "id": "24",
+      "bbox": [
+        250,
+        320,
+        250,
+        186
+      ],
+      "verticalFlip": true,
+      "geometry": "straightConnector1",
+      "lineColor": "#2E74C6",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 25,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nutg76tw",
+      "id": "25",
+      "bbox": [
+        760,
+        234,
+        270,
+        86
+      ],
+      "verticalFlip": true,
+      "geometry": "straightConnector1",
+      "lineColor": "#7C8598",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 26,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ov2hgbah",
+      "id": "26",
+      "bbox": [
+        760,
+        319,
+        270,
+        1
+      ],
+      "verticalFlip": true,
+      "geometry": "straightConnector1",
+      "lineColor": "#7C8598",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 27,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9gby9gb2",
+      "id": "27",
+      "bbox": [
+        760,
+        320,
+        270,
+        154
+      ],
+      "geometry": "straightConnector1",
+      "lineColor": "#404155",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 28,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ep0fa1cf",
+      "id": "28",
+      "bbox": [
+        760,
+        320,
+        270,
+        239
+      ],
+      "geometry": "straightConnector1",
+      "lineColor": "#404155",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 29,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zq9g36t0",
+      "id": "29",
+      "bbox": [
+        60,
+        245,
+        210,
+        46
+      ],
+      "geometry": "rect",
+      "text": "상담질문·본인확인 정보\n상담 안내·확인 결과",
+      "textPreview": "상담질문·본인확인 정보 | 상담 안내·확인 결과",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "상담질문·본인확인 정보"
+          },
+          {
+            "index": 2,
+            "text": "상담 안내·확인 결과"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "상담질문·본인확인 정보",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "상담질문·본인확인 정보",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "상담 안내·확인 결과",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "상담 안내·확인 결과",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 30,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1wja5ozu",
+      "id": "30",
+      "bbox": [
+        305,
+        248,
+        145,
+        90
+      ],
+      "geometry": "roundRect",
+      "text": "TB-1 · SL-1·2·3·4\n회원ID·질문·상담사ID\n제안내용·근거·주의사항",
+      "textPreview": "TB-1 · SL-1·2·3·4 | 회원ID·질문·상담사ID | 제안내용·근거·주의사항",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 3,
+          "right": 5,
+          "bottom": 3,
+          "left": 5
+        }
+      },
+      "textLayout": {
+        "lineCount": 6,
+        "lines": [
+          {
+            "index": 1,
+            "text": "TB-1 ·"
+          },
+          {
+            "index": 2,
+            "text": "SL-1·2·3·4"
+          },
+          {
+            "index": 3,
+            "text": "회원ID·질문·상"
+          },
+          {
+            "index": 4,
+            "text": "담사ID"
+          },
+          {
+            "index": 5,
+            "text": "제안내용·근거·"
+          },
+          {
+            "index": 6,
+            "text": "주의사항"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TB-1 · SL-1·2·3·4\n회원ID·질문·상담사ID\n제안내용·근거·주의사항",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "TB-1 · SL-1·2·3·4",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "bold": true,
+              "alignment": "center"
+            },
+            {
+              "index": 2,
+              "text": "\n회원ID·질문·상담사ID\n제안내용·근거·주의사항",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 31,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gvatwjy9",
+      "id": "31",
+      "bbox": [
+        305,
+        430,
+        145,
+        78
+      ],
+      "geometry": "roundRect",
+      "text": "TB-1 · SL-5\n원본 문서 경로\n색인 완료 시각",
+      "textPreview": "TB-1 · SL-5 | 원본 문서 경로 | 색인 완료 시각",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 3,
+          "right": 5,
+          "bottom": 3,
+          "left": 5
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "TB-1 · SL-5"
+          },
+          {
+            "index": 2,
+            "text": "원본 문서 경로"
+          },
+          {
+            "index": 3,
+            "text": "색인 완료 시각"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TB-1 · SL-5\n원본 문서 경로\n색인 완료 시각",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "TB-1 · SL-5",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "bold": true,
+              "alignment": "center"
+            },
+            {
+              "index": 2,
+              "text": "\n원본 문서 경로\n색인 완료 시각",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 32,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fuhs3yho",
+      "id": "32",
+      "bbox": [
+        815,
+        178,
+        185,
+        78
+      ],
+      "geometry": "roundRect",
+      "text": "TB-3 · SL-1·3\n회원ID·조회 기준일\n카드ID·상품ID",
+      "textPreview": "TB-3 · SL-1·3 | 회원ID·조회 기준일 | 카드ID·상품ID",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 3,
+          "right": 5,
+          "bottom": 3,
+          "left": 5
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "TB-3 · SL-1·3"
+          },
+          {
+            "index": 2,
+            "text": "회원ID·조회 기준일"
+          },
+          {
+            "index": 3,
+            "text": "카드ID·상품ID"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TB-3 · SL-1·3\n회원ID·조회 기준일\n카드ID·상품ID",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "TB-3 · SL-1·3",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "bold": true,
+              "alignment": "center"
+            },
+            {
+              "index": 2,
+              "text": "\n회원ID·조회 기준일\n카드ID·상품ID",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 33,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/et8butg3",
+      "id": "33",
+      "bbox": [
+        815,
+        282,
+        185,
+        78
+      ],
+      "geometry": "roundRect",
+      "text": "TB-3 · SL-1·3\n회원ID·카드ID\n승인 사용액·연체액",
+      "textPreview": "TB-3 · SL-1·3 | 회원ID·카드ID | 승인 사용액·연체액",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 3,
+          "right": 5,
+          "bottom": 3,
+          "left": 5
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "TB-3 · SL-1·3"
+          },
+          {
+            "index": 2,
+            "text": "회원ID·카드ID"
+          },
+          {
+            "index": 3,
+            "text": "승인 사용액·연체액"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TB-3 · SL-1·3\n회원ID·카드ID\n승인 사용액·연체액",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "TB-3 · SL-1·3",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "bold": true,
+              "alignment": "center"
+            },
+            {
+              "index": 2,
+              "text": "\n회원ID·카드ID\n승인 사용액·연체액",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 34,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tsza1ozi",
+      "id": "34",
+      "bbox": [
+        815,
+        410,
+        185,
+        82
+      ],
+      "geometry": "roundRect",
+      "text": "TB-4 · SL-1·3·4\n회원ID·고객 현황·예측 기간\n이탈 확률·위험 등급",
+      "textPreview": "TB-4 · SL-1·3·4 | 회원ID·고객 현황·예측 기간 | 이탈 확률·위험 등급",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 3,
+          "right": 5,
+          "bottom": 3,
+          "left": 5
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "TB-4 · SL-1·3·4"
+          },
+          {
+            "index": 2,
+            "text": "회원ID·고객"
+          },
+          {
+            "index": 3,
+            "text": "현황·예측 기간"
+          },
+          {
+            "index": 4,
+            "text": "이탈 확률·위험 등급"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TB-4 · SL-1·3·4\n회원ID·고객 현황·예측 기간\n이탈 확률·위험 등급",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "TB-4 · SL-1·3·4",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "bold": true,
+              "alignment": "center"
+            },
+            {
+              "index": 2,
+              "text": "\n회원ID·고객 현황·예측 기간\n이탈 확률·위험 등급",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 35,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/srq9sjyd",
+      "id": "35",
+      "bbox": [
+        815,
+        510,
+        185,
+        82
+      ],
+      "geometry": "roundRect",
+      "text": "TB-4 · SL-2·5\n비식별 질문·선별 근거\n질문 해석·상담 제안 초안",
+      "textPreview": "TB-4 · SL-2·5 | 비식별 질문·선별 근거 | 질문 해석·상담 제안 초안",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 3,
+          "right": 5,
+          "bottom": 3,
+          "left": 5
+        }
+      },
+      "textLayout": {
+        "lineCount": 5,
+        "lines": [
+          {
+            "index": 1,
+            "text": "TB-4 · SL-2·5"
+          },
+          {
+            "index": 2,
+            "text": "비식별 질문·선별"
+          },
+          {
+            "index": 3,
+            "text": "근거"
+          },
+          {
+            "index": 4,
+            "text": "질문 해석·상담 제안"
+          },
+          {
+            "index": 5,
+            "text": "초안"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TB-4 · SL-2·5\n비식별 질문·선별 근거\n질문 해석·상담 제안 초안",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "TB-4 · SL-2·5",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "bold": true,
+              "alignment": "center"
+            },
+            {
+              "index": 2,
+              "text": "\n비식별 질문·선별 근거\n질문 해석·상담 제안 초안",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 36,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rqhszehs",
+      "id": "36",
+      "bbox": [
+        455,
+        460,
+        350,
+        118
+      ],
+      "geometry": "roundRect",
+      "text": "외부 LLM 미통과\n회원ID·카드ID·상담사ID·상담ID·원문 문서 경로\n입력 전 제거하고 대체 ID를 사용함",
+      "textPreview": "외부 LLM 미통과 | 회원ID·카드ID·상담사ID·상담ID·원문 문서 경로 | 입력 전 제거하고 대체 ID를 사용함",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "tx1",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 6,
+          "right": 10,
+          "bottom": 6,
+          "left": 10
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "외부 LLM 미통과"
+          },
+          {
+            "index": 2,
+            "text": "회원ID·카드ID·상담사ID·상담ID·원문"
+          },
+          {
+            "index": 3,
+            "text": "문서 경로"
+          },
+          {
+            "index": 4,
+            "text": "입력 전 제거하고 대체 ID를 사용함"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "외부 LLM 미통과",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "외부 LLM 미통과",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "회원ID·카드ID·상담사ID·상담ID·원문 문서 경로",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "회원ID·카드ID·상담사ID·상담ID·원문 문서 경로",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "입력 전 제거하고 대체 ID를 사용함",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "입력 전 제거하고 대체 ID를 사용함",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#2E74C6",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#2E74C6",
+      "lineWidth": 2
+    },
+    {
+      "order": 37,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6p8rq9g7",
+      "id": "37",
+      "bbox": [
+        30,
+        625,
+        1220,
+        54
+      ],
+      "geometry": "roundRect",
+      "text": "SL-1 개인정보  회원ID·상담사ID·상담ID     SL-2 상담정보  질문·발언·상담일     SL-3 금융정보  카드ID·상품ID·승인액·연체액\nSL-4 추론정보  이탈확률·위험등급·판단신호     SL-5 내부업무정보  문서ID·문단·원문위치·버전",
+      "textPreview": "SL-1 개인정보  회원ID·상담사ID·상담ID     SL-2 상담정보  질문·발언·상담일     SL-3 금융정보  카드ID·상품ID·승인액·연체액 | SL-4 추론정보  이탈확률·위험등급·판단신호     SL-5 내부업무정보  문서ID·문단...",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4,
+          "right": 8,
+          "bottom": 4,
+          "left": 8
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "SL-1 개인정보  회원ID·상담사ID·상담ID     SL-2 상담정보  질문·발언·상담일     SL-3 금융정보  카드ID·상품ID·승인액·연체액"
+          },
+          {
+            "index": 2,
+            "text": "SL-4 추론정보  이탈확률·위험등급·판단신호     SL-5 내부업무정보  문서ID·문단·원문위치·버전"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "SL-1 개인정보  회원ID·상담사ID·상담ID     SL-2 상담정보  질문·발언·상담일     SL-3 금융정보  카드ID·상품ID·승인액·연체액",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "SL-1 개인정보  회원ID·상담사ID·상담ID     SL-2 상담정보  질문·발언·상담일     SL-3 금융정보  카드ID·상품ID·승인액·연체액",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "SL-4 추론정보  이탈확률·위험등급·판단신호     SL-5 내부업무정보  문서ID·문단·원문위치·버전",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "SL-4 추론정보  이탈확률·위험등급·판단신호     SL-5 내부업무정보  문서ID·문단·원문위치·버전",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#F5F8FC",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 38,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5ozax4zm",
+      "id": "38",
+      "bbox": [
+        40,
+        691,
+        1200,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#EDF0F6",
+      "lineWidth": 1
+    },
+    {
+      "order": 39,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4n69ozi1",
+      "id": "39",
+      "bbox": [
+        40,
+        693,
+        280,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Agentic AI Architecture",
+      "textPreview": "Agentic AI Architecture",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#7C8598",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Agentic AI Architecture"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Agentic AI Architecture",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#7C8598",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Agentic AI Architecture",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#7C8598",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 40,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kfy98ju1",
+      "id": "40",
+      "bbox": [
+        1190,
+        693,
+        50,
+        20
+      ],
+      "geometry": "rect",
+      "text": "1",
+      "textPreview": "1",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#7C8598",
+        "alignment": "right",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#7C8598",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "1",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#7C8598",
+              "alignment": "right"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

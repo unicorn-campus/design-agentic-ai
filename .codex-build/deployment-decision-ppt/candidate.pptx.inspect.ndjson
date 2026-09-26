@@ -1,0 +1,28 @@
+{"kind":"deck","id":"pr/ldhxll","name":"Deck"}
+{"kind":"layout","layoutId":"614ce593-62fc-4a63-a069-c36ca8c26e42","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"919a993f-f4af-41d6-85a7-32d8d7e70fa6","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/b1tkje","slide":1,"title":"② 논리 아키텍처 › 프로세스 분리 판정","textShapes":16}
+{"kind":"textbox","id":"sh/h0bmlcj6","slide":1,"text":"② 논리 아키텍처 › 프로세스 분리 판정","textPreview":"② 논리 아키텍처 › 프로세스 분리 판정","textChars":22,"textLines":1,"bbox":[40,18,760,24]}
+{"kind":"textbox","id":"sh/udk3qx0v","slide":1,"text":"내부 서비스 배포 단위 결정과 통신 방식","textPreview":"내부 서비스 배포 단위 결정과 통신 방식","textChars":22,"textLines":1,"bbox":[40,42,1180,52]}
+{"kind":"shape","id":"sh/vetkj210","slide":1,"bbox":[40,100,1200,3]}
+{"kind":"shape","id":"sh/8b2lo7ip","slide":1,"bbox":[40,100,170,3]}
+{"kind":"textbox","id":"sh/9cb2hsja","slide":1,"text":"세 개의 배포 단위로 분리하고, 상담 흐름은 동기 통신으로 연결하며 문서 색인은 MQ 비동기로 격리함","textPreview":"세 개의 배포 단위로 분리하고, 상담 흐름은 동기 통신으로 연결하며 문서 색인은 MQ 비동기로 격리함","textChars":56,"textLines":1,"bbox":[40,108,1200,28]}
+{"kind":"textbox","id":"sh/m903mx0j","slide":1,"text":"4개 질문 기준 배포 판단","textPreview":"4개 질문 기준 배포 판단","textChars":14,"textLines":1,"bbox":[40,150,710,42]}
+{"kind":"textbox","id":"sh/7a9kf214","slide":1,"text":"배포 단위 간 통신","textPreview":"배포 단위 간 통신","textChars":10,"textLines":1,"bbox":[775,150,465,42]}
+{"kind":"textbox","id":"sh/l8r2dsjy","slide":1,"text":"최종 배포 단위\nP-1 상담 오케스트레이션  상담 진행 관리·상담 제안 작성\nP-2 조회·분석  고객 현황 조회·지식 검색·이탈 위험 예측\nP-3 문서 색인 Worker  문서 색인","textPreview":"최종 배포 단위 | P-1 상담 오케스트레이션  상담 진행 관리·상담 제안 작성 | P-2 조회·분석  고객 현황 조회·지식 검색·이탈 위험 예측 | P-3 문서 색인 Worker  문서 색인","textChars":101,"textLines":4,"bbox":[40,535,710,112]}
+{"kind":"textbox","id":"sh/lcfehsfi","slide":1,"text":"P-1\n상담 오케스트레이션\n상담 진행 관리\n상담 제안 작성","textPreview":"P-1 | 상담 오케스트레이션 | 상담 진행 관리 | 상담 제안 작성","textChars":32,"textLines":4,"bbox":[795,215,175,135]}
+{"kind":"textbox","id":"sh/0bmd8nyx","slide":1,"text":"P-2\n조회·분석\n고객 현황·지식 검색\n이탈 위험 예측\n인덱스 읽기","textPreview":"P-2 | 조회·분석 | 고객 현황·지식 검색 | 이탈 위험 예측 | 인덱스 읽기","textChars":37,"textLines":5,"bbox":[1050,215,175,135]}
+{"kind":"textbox","id":"sh/zadwf2xc","slide":1,"text":"MQ\n색인 작업 메시지\n요청·완료·실패 이벤트","textPreview":"MQ | 색인 작업 메시지 | 요청·완료·실패 이벤트","textChars":25,"textLines":3,"bbox":[795,500,175,100]}
+{"kind":"textbox","id":"sh/y94v6xgr","slide":1,"text":"P-3\n문서 색인 Worker\n문서 색인\n인덱스 쓰기","textPreview":"P-3 | 문서 색인 Worker | 문서 색인 | 인덱스 쓰기","textChars":29,"textLines":4,"bbox":[1050,500,175,100]}
+{"kind":"shape","id":"sh/d8vedsf6","slide":1,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/c7md4nyl","slide":1,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/b6dcbixg","slide":1,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/q54v2dgv","slide":1,"text":"P-1 ↔ P-2  동기 REST/gRPC","textPreview":"P-1 ↔ P-2  동기 REST/gRPC","textChars":23,"textLines":1,"bbox":[995,355,230,52]}
+{"kind":"textbox","id":"sh/p4bu98fa","slide":1,"text":"P-1 ↔ P-3  MQ 비동기","textPreview":"P-1 ↔ P-3  MQ 비동기","textChars":17,"textLines":1,"bbox":[995,420,230,52]}
+{"kind":"textbox","id":"sh/oj2d03yp","slide":1,"text":"공유 문서·벡터 인덱스: P-3 쓰기 · P-2 읽기","textPreview":"공유 문서·벡터 인덱스: P-3 쓰기 · P-2 읽기","textChars":29,"textLines":1,"bbox":[795,615,430,42]}
+{"kind":"textbox","id":"sh/gzq5c7ax","slide":1,"text":"실선  동기 통신    점선  MQ 비동기 통신","textPreview":"실선  동기 통신    점선  MQ 비동기 통신","textChars":26,"textLines":1,"bbox":[790,660,440,24]}
+{"kind":"shape","id":"sh/10zmlcr2","slide":1,"bbox":[40,691,1200,0]}
+{"kind":"textbox","id":"sh/ex8naxsr","slide":1,"text":"Agentic AI Architecture","textPreview":"Agentic AI Architecture","textChars":23,"textLines":1,"bbox":[40,693,280,20]}
+{"kind":"textbox","id":"sh/fyh4j29c","slide":1,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[1190,693,50,20]}
+{"kind":"table","id":"tb/hgra5gza","slide":1,"name":"","rows":5,"cols":6,"preview":"비교 후보 | 독립 배포 | 독립 확장 | 장애 격리 | 트리거 상이 | 결정","bbox":[40,200,710,310]}
+{"kind":"notes","id":"nt/b1tkje","slide":1,"text":"설계 판단: 상담 오케스트레이션과 조회·분석은 동기 REST/gRPC로 연결함. 문서 색인은 Message Queue 비동기로 분리함. P-2 장애 시 P-1은 상담사 이관 또는 제한된 제안으로 전환해야 장애 격리 효과가 생김."}

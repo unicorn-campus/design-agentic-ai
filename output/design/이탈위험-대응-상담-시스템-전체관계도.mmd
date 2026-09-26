@@ -1,0 +1,75 @@
+flowchart TB
+  %% 신뢰경계 TB-1: 시스템을 사용하는 사람
+  subgraph TB1["TB-1 외부 사용자 경계"]
+    direction LR
+    CUSTOMER["고객"]
+    COUNSELOR["상담사"]
+    OPERATOR["운영자"]
+  end
+
+  %% 신뢰경계 TB-2: 당사가 직접 통제하는 단일 내부 시스템
+  subgraph TB2["TB-2 당사 통제 경계"]
+    direction TB
+    SYSTEM["이탈위험 대응 상담 시스템"]
+  end
+
+  %% 신뢰경계 TB-3: 권한과 로그 관리 주체가 다른 사내 연계 시스템
+  subgraph TB3["TB-3 사내 연계 시스템 경계"]
+    direction LR
+    CUSTOMER_INFO["고객정보계<br/>보유카드정보"]
+    CARD_USAGE["카드이용계<br/>이용현황"]
+  end
+
+  %% 신뢰경계 TB-4: 외부 AI 사업자
+  subgraph TB4["TB-4 외부 AI 사업자 경계"]
+    direction LR
+    PREDICT_AI["외부 예측 AI 서비스"]
+    LLM["외부 LLM"]
+  end
+
+  %% 고객과 상담사 사이의 업무 관계
+  CUSTOMER -->|"상담질문·본인확인 정보"| COUNSELOR
+  COUNSELOR -->|"상담 안내·확인 결과"| CUSTOMER
+
+  %% TB-1 ↔ TB-2
+  COUNSELOR -->|"TB-1 · SL-1 · SL-2<br/>회원ID·상담질문·상담사ID"| SYSTEM
+  SYSTEM -->|"TB-1 · SL-2 · SL-3 · SL-4<br/>상담제안ID·제안내용·근거참조·주의사항"| COUNSELOR
+  COUNSELOR -->|"TB-1 · SL-1<br/>상담제안ID·상담사ID·확인 시각"| SYSTEM
+  OPERATOR -->|"TB-1 · SL-5<br/>색인 시작 요청·원본 문서 경로"| SYSTEM
+  SYSTEM -->|"TB-1 · SL-5<br/>색인 완료 시각·원본 문서 경로"| OPERATOR
+
+  %% TB-2 ↔ TB-3
+  SYSTEM -->|"TB-3 · SL-1<br/>회원ID·조회 기준일·접근 권한 범위"| CUSTOMER_INFO
+  CUSTOMER_INFO -->|"TB-3 · SL-1 · SL-3<br/>회원-카드 관계·카드ID·상품ID"| SYSTEM
+  SYSTEM -->|"TB-3 · SL-1 · SL-3<br/>회원ID·카드ID·조회 기준일"| CARD_USAGE
+  CARD_USAGE -->|"TB-3 · SL-3<br/>승인 사용액·연체액·출처·기준 시점"| SYSTEM
+
+  %% TB-2 ↔ TB-4
+  SYSTEM -->|"TB-4 · SL-1 · SL-3<br/>회원ID·고객 현황·예측 기간"| PREDICT_AI
+  PREDICT_AI -->|"TB-4 · SL-4<br/>이탈 확률·위험 등급·판단 신호·입력 기준 시점"| SYSTEM
+  SYSTEM -->|"TB-4 · SL-2 · SL-5<br/>비식별 상담질문·선별 근거 문단"| LLM
+  LLM -->|"TB-4 · SL-2<br/>질문 해석 결과·상담 제안 초안"| SYSTEM
+
+  %% 경계 미통과 원칙
+  BLOCK["TB-4 미통과<br/>회원ID·카드ID·상담사ID·상담ID·원문 문서 경로"]
+  BLOCK -.->|"외부 LLM 입력 전 제거·대체 ID 사용"| SYSTEM
+
+  %% 민감정보 라벨 범례
+  LEGEND["민감정보 라벨<br/>SL-1 개인정보: 회원ID·상담사ID·상담ID<br/>SL-2 상담정보: 상담질문·발언·상담일<br/>SL-3 금융정보: 카드ID·상품ID·승인액·연체액<br/>SL-4 추론정보: 이탈확률·위험등급·판단신호<br/>SL-5 내부업무정보: 문서ID·문단·원문위치·버전"]
+
+  classDef actor fill:#eef5ff,stroke:#2563eb,color:#172554,stroke-width:1.5px;
+  classDef internal fill:#dcfce7,stroke:#15803d,color:#14532d,stroke-width:3px;
+  classDef enterprise fill:#fff7ed,stroke:#ea580c,color:#7c2d12,stroke-width:1.5px;
+  classDef vendor fill:#fdf2f8,stroke:#be185d,color:#831843,stroke-width:1.5px;
+  classDef note fill:#fff,stroke:#64748b,color:#334155,stroke-dasharray:5 5;
+
+  class CUSTOMER,COUNSELOR,OPERATOR actor;
+  class SYSTEM internal;
+  class CUSTOMER_INFO,CARD_USAGE enterprise;
+  class PREDICT_AI,LLM vendor;
+  class BLOCK,LEGEND note;
+
+  style TB1 fill:#f8fbff,stroke:#2563eb,stroke-width:2px,stroke-dasharray:6 4
+  style TB2 fill:#f0fdf4,stroke:#15803d,stroke-width:3px
+  style TB3 fill:#fffaf0,stroke:#ea580c,stroke-width:2px,stroke-dasharray:6 4
+  style TB4 fill:#fff7fb,stroke:#be185d,stroke-width:2px,stroke-dasharray:6 4

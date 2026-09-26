@@ -1,0 +1,2473 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/b1tkje",
+    "id": "b1tkje",
+    "slide": 1,
+    "layoutId": "919a993f-f4af-41d6-85a7-32d8d7e70fa6",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "614ce593-62fc-4a63-a069-c36ca8c26e42",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "Noto Sans KR"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "919a993f-f4af-41d6-85a7-32d8d7e70fa6",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "614ce593-62fc-4a63-a069-c36ca8c26e42",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "614ce593-62fc-4a63-a069-c36ca8c26e42",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h0bmlcj6",
+      "id": "1",
+      "bbox": [
+        40,
+        18,
+        760,
+        24
+      ],
+      "geometry": "rect",
+      "text": "② 논리 아키텍처 › 프로세스 분리 판정",
+      "textPreview": "② 논리 아키텍처 › 프로세스 분리 판정",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#7C8598",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "② 논리 아키텍처 › 프로세스 분리 판정"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "② 논리 아키텍처 › 프로세스 분리 판정",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#7C8598",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "② 논리 아키텍처 › 프로세스 분리 판정",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#7C8598",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/udk3qx0v",
+      "id": "2",
+      "bbox": [
+        40,
+        42,
+        1180,
+        52
+      ],
+      "geometry": "rect",
+      "text": "내부 서비스 배포 단위 결정과 통신 방식",
+      "textPreview": "내부 서비스 배포 단위 결정과 통신 방식",
+      "resolvedFontSize": 41.33,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 41.33,
+        "typeface": "Noto Sans KR",
+        "color": "#1E2A5C",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "내부 서비스 배포 단위 결정과 통신 방식"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "내부 서비스 배포 단위 결정과 통신 방식",
+          "resolvedTextStyle": {
+            "fontSize": 41.33,
+            "typeface": "Noto Sans KR",
+            "color": "#1E2A5C",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "내부 서비스 배포 단위 결정과 통신 방식",
+              "fontSize": 41.33,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vetkj210",
+      "id": "3",
+      "bbox": [
+        40,
+        100,
+        1200,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#D9E0EC",
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8b2lo7ip",
+      "id": "4",
+      "bbox": [
+        40,
+        100,
+        170,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#2E74C6",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9cb2hsja",
+      "id": "5",
+      "bbox": [
+        40,
+        108,
+        1200,
+        28
+      ],
+      "geometry": "rect",
+      "text": "세 개의 배포 단위로 분리하고, 상담 흐름은 동기 통신으로 연결하며 문서 색인은 MQ 비동기로 격리함",
+      "textPreview": "세 개의 배포 단위로 분리하고, 상담 흐름은 동기 통신으로 연결하며 문서 색인은 MQ 비동기로 격리함",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21.33,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "세 개의 배포 단위로 분리하고, 상담 흐름은 동기 통신으로 연결하며 문서 색인은 MQ 비동기로 격리함"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "세 개의 배포 단위로 분리하고, 상담 흐름은 동기 통신으로 연결하며 문서 색인은 MQ 비동기로 격리함",
+          "resolvedTextStyle": {
+            "fontSize": 21.33,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "세 개의 배포 단위로 분리하고, 상담 흐름은 동기 통신으로 연결하며 문서 색인은 MQ 비동기로 격리함",
+              "fontSize": 21.33,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m903mx0j",
+      "id": "6",
+      "bbox": [
+        40,
+        150,
+        710,
+        42
+      ],
+      "geometry": "roundRect",
+      "text": "4개 질문 기준 배포 판단",
+      "textPreview": "4개 질문 기준 배포 판단",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Noto Sans KR",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 5,
+          "bottom": 2,
+          "left": 5
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "4개 질문 기준 배포 판단"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "4개 질문 기준 배포 판단",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Noto Sans KR",
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "4개 질문 기준 배포 판단",
+              "fontSize": 24,
+              "typeface": "Noto Sans KR",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#1E2A5C",
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7a9kf214",
+      "id": "7",
+      "bbox": [
+        775,
+        150,
+        465,
+        42
+      ],
+      "geometry": "roundRect",
+      "text": "배포 단위 간 통신",
+      "textPreview": "배포 단위 간 통신",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Noto Sans KR",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 5,
+          "bottom": 2,
+          "left": 5
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "배포 단위 간 통신"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "배포 단위 간 통신",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Noto Sans KR",
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "배포 단위 간 통신",
+              "fontSize": 24,
+              "typeface": "Noto Sans KR",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#2E74C6",
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/hgra5gza",
+      "id": "8",
+      "bbox": [
+        40,
+        200,
+        710,
+        310
+      ],
+      "text": "비교 후보 | 독립 배포 | 독립 확장 | 장애 격리 | 트리거 상이 | 결정\n문서 색인 ↔ 상담 요청 처리 | 근거 미확정 | 예 | 예 | 예 | P-3 분리\n상담 핵심 ↔ 조회·분석 | 근거 미확정 | 예 | 예 | 아니오 | P-1·P-2 분리\n상담 진행 ↔ 제안 작성 | 아니오 | 아니오 | 아니오 | 아니오 | P-1로 합침\n고객 현황 ↔ 지식 검색 ↔ 이탈 예측 | 아니오 | 조건부 | 조건부 | 아니오 | P-2로 합침",
+      "textPreview": "비교 후보 | 독립 배포 | 독립 확장 | 장애 격리 | 트리거 상이 | 결정 | 문서 색인 ↔ 상담 요청 처리 | 근거 미확정 | 예 | 예 | 예 | P-3 분리 | 상담 핵심 ↔ 조회·분석 | 근거 미확정 | 예 | 예 | 아니오 | P-1...",
+      "rows": 5,
+      "cols": 6,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            40,
+            200,
+            225,
+            46
+          ],
+          "text": "비교 후보",
+          "textPreview": "비교 후보",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "비교 후보",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "비교 후보",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            265,
+            200,
+            82,
+            46
+          ],
+          "text": "독립 배포",
+          "textPreview": "독립 배포",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "독립 배포",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "독립 배포",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 3,
+          "bbox": [
+            347,
+            200,
+            82,
+            46
+          ],
+          "text": "독립 확장",
+          "textPreview": "독립 확장",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "독립 확장",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "독립 확장",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 4,
+          "bbox": [
+            429,
+            200,
+            82,
+            46
+          ],
+          "text": "장애 격리",
+          "textPreview": "장애 격리",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "장애 격리",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "장애 격리",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 1,
+          "column": 5,
+          "bbox": [
+            511,
+            200,
+            82,
+            46
+          ],
+          "text": "트리거 상이",
+          "textPreview": "트리거 상이",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "트리거 상이",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "트리거 상이",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 1,
+          "column": 6,
+          "bbox": [
+            593,
+            200,
+            157,
+            46
+          ],
+          "text": "결정",
+          "textPreview": "결정",
+          "fillColor": "#E2EEF9",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "결정",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "결정",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            40,
+            246,
+            225,
+            66
+          ],
+          "text": "문서 색인 ↔ 상담 요청 처리",
+          "textPreview": "문서 색인 ↔ 상담 요청 처리",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "문서 색인 ↔ 상담 요청 처리",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "문서 색인 ↔ 상담 요청 처리",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            265,
+            246,
+            82,
+            66
+          ],
+          "text": "근거 미확정",
+          "textPreview": "근거 미확정",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "근거 미확정",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "근거 미확정",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 2,
+          "column": 3,
+          "bbox": [
+            347,
+            246,
+            82,
+            66
+          ],
+          "text": "예",
+          "textPreview": "예",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "예",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "예",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 2,
+          "column": 4,
+          "bbox": [
+            429,
+            246,
+            82,
+            66
+          ],
+          "text": "예",
+          "textPreview": "예",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "예",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "예",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 2,
+          "column": 5,
+          "bbox": [
+            511,
+            246,
+            82,
+            66
+          ],
+          "text": "예",
+          "textPreview": "예",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "예",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "예",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 2,
+          "column": 6,
+          "bbox": [
+            593,
+            246,
+            157,
+            66
+          ],
+          "text": "P-3 분리",
+          "textPreview": "P-3 분리",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "P-3 분리",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "P-3 분리",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            40,
+            312,
+            225,
+            66
+          ],
+          "text": "상담 핵심 ↔ 조회·분석",
+          "textPreview": "상담 핵심 ↔ 조회·분석",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "상담 핵심 ↔ 조회·분석",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "상담 핵심 ↔ 조회·분석",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            265,
+            312,
+            82,
+            66
+          ],
+          "text": "근거 미확정",
+          "textPreview": "근거 미확정",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "근거 미확정",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "근거 미확정",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 3,
+          "column": 3,
+          "bbox": [
+            347,
+            312,
+            82,
+            66
+          ],
+          "text": "예",
+          "textPreview": "예",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "예",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "예",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "row": 3,
+          "column": 4,
+          "bbox": [
+            429,
+            312,
+            82,
+            66
+          ],
+          "text": "예",
+          "textPreview": "예",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "예",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "예",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "row": 3,
+          "column": 5,
+          "bbox": [
+            511,
+            312,
+            82,
+            66
+          ],
+          "text": "아니오",
+          "textPreview": "아니오",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "아니오",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "아니오",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "row": 3,
+          "column": 6,
+          "bbox": [
+            593,
+            312,
+            157,
+            66
+          ],
+          "text": "P-1·P-2 분리",
+          "textPreview": "P-1·P-2 분리",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "P-1·P-2 분리",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "P-1·P-2 분리",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "row": 4,
+          "column": 1,
+          "bbox": [
+            40,
+            378,
+            225,
+            66
+          ],
+          "text": "상담 진행 ↔ 제안 작성",
+          "textPreview": "상담 진행 ↔ 제안 작성",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "상담 진행 ↔ 제안 작성",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "상담 진행 ↔ 제안 작성",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "row": 4,
+          "column": 2,
+          "bbox": [
+            265,
+            378,
+            82,
+            66
+          ],
+          "text": "아니오",
+          "textPreview": "아니오",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "아니오",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "아니오",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 21,
+          "row": 4,
+          "column": 3,
+          "bbox": [
+            347,
+            378,
+            82,
+            66
+          ],
+          "text": "아니오",
+          "textPreview": "아니오",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "아니오",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "아니오",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 22,
+          "row": 4,
+          "column": 4,
+          "bbox": [
+            429,
+            378,
+            82,
+            66
+          ],
+          "text": "아니오",
+          "textPreview": "아니오",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "아니오",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "아니오",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 23,
+          "row": 4,
+          "column": 5,
+          "bbox": [
+            511,
+            378,
+            82,
+            66
+          ],
+          "text": "아니오",
+          "textPreview": "아니오",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "아니오",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "아니오",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 24,
+          "row": 4,
+          "column": 6,
+          "bbox": [
+            593,
+            378,
+            157,
+            66
+          ],
+          "text": "P-1로 합침",
+          "textPreview": "P-1로 합침",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "P-1로 합침",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "P-1로 합침",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 25,
+          "row": 5,
+          "column": 1,
+          "bbox": [
+            40,
+            444,
+            225,
+            66
+          ],
+          "text": "고객 현황 ↔ 지식 검색 ↔ 이탈 예측",
+          "textPreview": "고객 현황 ↔ 지식 검색 ↔ 이탈 예측",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "고객 현황 ↔ 지식 검색 ↔ 이탈 예측",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "고객 현황 ↔ 지식 검색 ↔ 이탈 예측",
+                  "alignment": "left"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 26,
+          "row": 5,
+          "column": 2,
+          "bbox": [
+            265,
+            444,
+            82,
+            66
+          ],
+          "text": "아니오",
+          "textPreview": "아니오",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "아니오",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "아니오",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 27,
+          "row": 5,
+          "column": 3,
+          "bbox": [
+            347,
+            444,
+            82,
+            66
+          ],
+          "text": "조건부",
+          "textPreview": "조건부",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "조건부",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "조건부",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 28,
+          "row": 5,
+          "column": 4,
+          "bbox": [
+            429,
+            444,
+            82,
+            66
+          ],
+          "text": "조건부",
+          "textPreview": "조건부",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "조건부",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "조건부",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 29,
+          "row": 5,
+          "column": 5,
+          "bbox": [
+            511,
+            444,
+            82,
+            66
+          ],
+          "text": "아니오",
+          "textPreview": "아니오",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "아니오",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "아니오",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 30,
+          "row": 5,
+          "column": 6,
+          "bbox": [
+            593,
+            444,
+            157,
+            66
+          ],
+          "text": "P-2로 합침",
+          "textPreview": "P-2로 합침",
+          "fillColor": "#F5F8FC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "P-2로 합침",
+              "resolvedTextStyle": {
+                "alignment": "center"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "P-2로 합침",
+                  "alignment": "center"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/l8r2dsjy",
+      "id": "9",
+      "bbox": [
+        40,
+        535,
+        710,
+        112
+      ],
+      "geometry": "roundRect",
+      "text": "최종 배포 단위\nP-1 상담 오케스트레이션  상담 진행 관리·상담 제안 작성\nP-2 조회·분석  고객 현황 조회·지식 검색·이탈 위험 예측\nP-3 문서 색인 Worker  문서 색인",
+      "textPreview": "최종 배포 단위 | P-1 상담 오케스트레이션  상담 진행 관리·상담 제안 작성 | P-2 조회·분석  고객 현황 조회·지식 검색·이탈 위험 예측 | P-3 문서 색인 Worker  문서 색인",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 7,
+          "right": 12,
+          "bottom": 7,
+          "left": 14
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "최종 배포 단위"
+          },
+          {
+            "index": 2,
+            "text": "P-1 상담 오케스트레이션  상담 진행 관리·상담 제안 작성"
+          },
+          {
+            "index": 3,
+            "text": "P-2 조회·분석  고객 현황 조회·지식 검색·이탈 위험 예측"
+          },
+          {
+            "index": 4,
+            "text": "P-3 문서 색인 Worker  문서 색인"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "최종 배포 단위",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "최종 배포 단위",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "P-1 상담 오케스트레이션  상담 진행 관리·상담 제안 작성",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "P-1 상담 오케스트레이션  상담 진행 관리·상담 제안 작성",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "P-2 조회·분석  고객 현황 조회·지식 검색·이탈 위험 예측",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "P-2 조회·분석  고객 현황 조회·지식 검색·이탈 위험 예측",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 4,
+          "text": "P-3 문서 색인 Worker  문서 색인",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "P-3 문서 색인 Worker  문서 색인",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#EEF3FA",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lcfehsfi",
+      "id": "10",
+      "bbox": [
+        795,
+        215,
+        175,
+        135
+      ],
+      "geometry": "roundRect",
+      "text": "P-1\n상담 오케스트레이션\n상담 진행 관리\n상담 제안 작성",
+      "textPreview": "P-1 | 상담 오케스트레이션 | 상담 진행 관리 | 상담 제안 작성",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "tx1",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 8,
+          "bottom": 5,
+          "left": 8
+        }
+      },
+      "textLayout": {
+        "lineCount": 5,
+        "lines": [
+          {
+            "index": 1,
+            "text": "P-1"
+          },
+          {
+            "index": 2,
+            "text": "상담"
+          },
+          {
+            "index": 3,
+            "text": "오케스트레이션"
+          },
+          {
+            "index": 4,
+            "text": "상담 진행 관리"
+          },
+          {
+            "index": 5,
+            "text": "상담 제안 작성"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "P-1",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "P-1",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "상담 오케스트레이션",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "상담 오케스트레이션",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "상담 진행 관리\n상담 제안 작성",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "상담 진행 관리\n상담 제안 작성",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#FFFFFF",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#1E2A5C",
+      "lineColor": "#1E2A5C",
+      "lineWidth": 2
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0bmd8nyx",
+      "id": "11",
+      "bbox": [
+        1050,
+        215,
+        175,
+        135
+      ],
+      "geometry": "roundRect",
+      "text": "P-2\n조회·분석\n고객 현황·지식 검색\n이탈 위험 예측\n인덱스 읽기",
+      "textPreview": "P-2 | 조회·분석 | 고객 현황·지식 검색 | 이탈 위험 예측 | 인덱스 읽기",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "tx1",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 8,
+          "bottom": 5,
+          "left": 8
+        }
+      },
+      "textLayout": {
+        "lineCount": 6,
+        "lines": [
+          {
+            "index": 1,
+            "text": "P-2"
+          },
+          {
+            "index": 2,
+            "text": "조회·분석"
+          },
+          {
+            "index": 3,
+            "text": "고객 현황·지식"
+          },
+          {
+            "index": 4,
+            "text": "검색"
+          },
+          {
+            "index": 5,
+            "text": "이탈 위험 예측"
+          },
+          {
+            "index": 6,
+            "text": "인덱스 읽기"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "P-2",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "P-2",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "조회·분석",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "조회·분석",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "고객 현황·지식 검색\n이탈 위험 예측\n인덱스 읽기",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "고객 현황·지식 검색\n이탈 위험 예측\n인덱스 읽기",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#1E2A5C",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#EEF3FA",
+      "lineColor": "#2E74C6",
+      "lineWidth": 2
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zadwf2xc",
+      "id": "12",
+      "bbox": [
+        795,
+        500,
+        175,
+        100
+      ],
+      "geometry": "roundRect",
+      "text": "MQ\n색인 작업 메시지\n요청·완료·실패 이벤트",
+      "textPreview": "MQ | 색인 작업 메시지 | 요청·완료·실패 이벤트",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "tx1",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 8,
+          "bottom": 5,
+          "left": 8
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "MQ"
+          },
+          {
+            "index": 2,
+            "text": "색인 작업 메시지"
+          },
+          {
+            "index": 3,
+            "text": "요청·완료·실패"
+          },
+          {
+            "index": 4,
+            "text": "이벤트"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "MQ",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "MQ",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#2B3242",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "색인 작업 메시지",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "색인 작업 메시지",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#2B3242",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "요청·완료·실패 이벤트",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "요청·완료·실패 이벤트",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#2B3242",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#F5F8FC",
+      "lineColor": "#7C8598",
+      "lineWidth": 2
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/y94v6xgr",
+      "id": "13",
+      "bbox": [
+        1050,
+        500,
+        175,
+        100
+      ],
+      "geometry": "roundRect",
+      "text": "P-3\n문서 색인 Worker\n문서 색인\n인덱스 쓰기",
+      "textPreview": "P-3 | 문서 색인 Worker | 문서 색인 | 인덱스 쓰기",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "tx1",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 5,
+          "right": 8,
+          "bottom": 5,
+          "left": 8
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "P-3"
+          },
+          {
+            "index": 2,
+            "text": "문서 색인 Worker"
+          },
+          {
+            "index": 3,
+            "text": "문서 색인"
+          },
+          {
+            "index": 4,
+            "text": "인덱스 쓰기"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "P-3",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "P-3",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "문서 색인 Worker",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "문서 색인 Worker",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "문서 색인\n인덱스 쓰기",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "문서 색인\n인덱스 쓰기",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#FFFFFF",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#404155",
+      "lineColor": "#404155",
+      "lineWidth": 2
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/d8vedsf6",
+      "id": "14",
+      "bbox": [
+        970,
+        282.5,
+        80,
+        0
+      ],
+      "geometry": "straightConnector1",
+      "lineColor": "#2E74C6",
+      "lineWidth": 2
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/c7md4nyl",
+      "id": "15",
+      "bbox": [
+        882.5,
+        350,
+        0,
+        150
+      ],
+      "geometry": "straightConnector1",
+      "lineColor": "#7C8598",
+      "lineWidth": 2
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/b6dcbixg",
+      "id": "16",
+      "bbox": [
+        970,
+        550,
+        80,
+        0
+      ],
+      "geometry": "straightConnector1",
+      "lineColor": "#7C8598",
+      "lineWidth": 2
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/q54v2dgv",
+      "id": "17",
+      "bbox": [
+        995,
+        355,
+        230,
+        52
+      ],
+      "geometry": "roundRect",
+      "text": "P-1 ↔ P-2  동기 REST/gRPC",
+      "textPreview": "P-1 ↔ P-2  동기 REST/gRPC",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 3,
+          "right": 4,
+          "bottom": 3,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "P-1 ↔ P-2  동기"
+          },
+          {
+            "index": 2,
+            "text": "REST/gRPC"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "P-1 ↔ P-2  동기 REST/gRPC",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "P-1 ↔ P-2  동기 REST/gRPC",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/p4bu98fa",
+      "id": "18",
+      "bbox": [
+        995,
+        420,
+        230,
+        52
+      ],
+      "geometry": "roundRect",
+      "text": "P-1 ↔ P-3  MQ 비동기",
+      "textPreview": "P-1 ↔ P-3  MQ 비동기",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#404155",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 3,
+          "right": 4,
+          "bottom": 3,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "P-1 ↔ P-3  MQ 비동기"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "P-1 ↔ P-3  MQ 비동기",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#404155",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "P-1 ↔ P-3  MQ 비동기",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#404155",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#F5F8FC",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/oj2d03yp",
+      "id": "19",
+      "bbox": [
+        795,
+        615,
+        430,
+        42
+      ],
+      "geometry": "roundRect",
+      "text": "공유 문서·벡터 인덱스: P-3 쓰기 · P-2 읽기",
+      "textPreview": "공유 문서·벡터 인덱스: P-3 쓰기 · P-2 읽기",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#4A5364",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 3,
+          "right": 4,
+          "bottom": 3,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "공유 문서·벡터 인덱스: P-3 쓰기 · P-2 읽기"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "공유 문서·벡터 인덱스: P-3 쓰기 · P-2 읽기",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#4A5364",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "공유 문서·벡터 인덱스: P-3 쓰기 · P-2 읽기",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#4A5364",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#D9E0EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gzq5c7ax",
+      "id": "20",
+      "bbox": [
+        790,
+        660,
+        440,
+        24
+      ],
+      "geometry": "rect",
+      "text": "실선  동기 통신    점선  MQ 비동기 통신",
+      "textPreview": "실선  동기 통신    점선  MQ 비동기 통신",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#7C8598",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "실선  동기 통신    점선  MQ 비동기 통신"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "실선  동기 통신    점선  MQ 비동기 통신",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#7C8598",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "실선  동기 통신    점선  MQ 비동기 통신",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#7C8598",
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/10zmlcr2",
+      "id": "21",
+      "bbox": [
+        40,
+        691,
+        1200,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#EDF0F6",
+      "lineWidth": 1
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ex8naxsr",
+      "id": "22",
+      "bbox": [
+        40,
+        693,
+        280,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Agentic AI Architecture",
+      "textPreview": "Agentic AI Architecture",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#7C8598",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Agentic AI Architecture"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Agentic AI Architecture",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#7C8598",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Agentic AI Architecture",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#7C8598",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 23,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fyh4j29c",
+      "id": "23",
+      "bbox": [
+        1190,
+        693,
+        50,
+        20
+      ],
+      "geometry": "rect",
+      "text": "1",
+      "textPreview": "1",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Noto Sans KR",
+        "color": "#7C8598",
+        "alignment": "right",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 2,
+          "right": 4,
+          "bottom": 2,
+          "left": 4
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1",
+          "resolvedTextStyle": {
+            "fontSize": 18.67,
+            "typeface": "Noto Sans KR",
+            "color": "#7C8598",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "1",
+              "fontSize": 18.67,
+              "typeface": "Noto Sans KR",
+              "color": "#7C8598",
+              "alignment": "right"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}
