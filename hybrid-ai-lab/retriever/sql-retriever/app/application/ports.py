@@ -1,38 +1,15 @@
-"""응용 계층이 외부 구현에 요구하는 포트 계약."""
-
-from abc import abstractmethod
+"""응용 계층이 사용하는 저장소·모델·SQL 검사 계약."""
+from datetime import date
 from typing import Protocol
 
-
-class CustomerRepositoryPort(Protocol):
-    @abstractmethod
-    def rows(self, sql: str, parameters: dict) -> list[dict]: ...
-
-    @abstractmethod
-    def member(self, member_id: str) -> dict | None: ...
-
-    @abstractmethod
-    def schema(self) -> list[dict]: ...
+from .models import QueryPlan
 
 
-class LLMPort(Protocol):
-    @abstractmethod
-    def ask(self, system: str, user: str, max_tokens: int = 1800) -> dict: ...
+class RepositoryPort(Protocol):
+    def retrieve(self, member_id: str, base_date: date) -> dict: ...
+    def search(self, member_id: str, base_date: date, validated_sql: str) -> dict: ...
 
 
-class QueryPort(Protocol):
-    @abstractmethod
-    def __call__(self, repository: CustomerRepositoryPort, member_id: str, base_date: str): ...
-
-
-class ContextBuilderPort(Protocol):
-    @abstractmethod
-    def __call__(
-        self,
-        member_id: str,
-        products: list[dict],
-        monthly_usage: list[dict],
-        delinquency: dict | None,
-        base_date: str,
-    ) -> str: ...
-
+class LanguageModelPort(Protocol):
+    def plan(self, question: str, schema: dict, catalog: list[dict], mode: str) -> QueryPlan: ...
+    def explain(self, question: str, context: dict) -> str: ...

@@ -1,23 +1,13 @@
-"""계층의 구체 구현을 한곳에서 연결하는 조립 진입점."""
-
-from .application.customer_service import CustomerService
-from .application.lab_service import LabService
-from .domain.context import build_context
-from .infrastructure.claude_gateway import ClaudeGateway
-from .infrastructure.postgres_repository import PostgresRepository
-from .infrastructure.queries import query_delinquency, query_products, query_usage
-from .infrastructure.settings import ROOT, load_settings
+"""계층별 어댑터를 조립하는 유일한 구성 지점."""
+from app.application.search_service import SearchService
+from app.infrastructure.groq_gateway import GroqGateway
+from app.infrastructure.postgres_repository import PostgresRepository
+from app.infrastructure.settings import load_settings
+from app.infrastructure.sql_guard import LOGICAL_SCHEMA, validate_sql
 
 
-def build_application() -> LabService:
+def create_service() -> SearchService:
     settings = load_settings()
-    repository = PostgresRepository(settings.db_dsn, settings.db_password)
-    customers = CustomerService(
-        repository=repository,
-        products_query=query_products,
-        usage_query=query_usage,
-        delinquency_query=query_delinquency,
-        context_builder=build_context,
-    )
-    prompt = (ROOT / "app/prompts/answer_with_context.md").read_text(encoding="utf-8")
-    return LabService(repository, ClaudeGateway(settings), customers, prompt)
+    repository = PostgresRepository(settings.db_dsn, settings.db_password,
+                                    statement_timeout_ms=settings.statement_timeout_ms)
+    return SearchService(repository, GroqGateway(settings), validate_sql, LOGICAL_SCHEMA)
