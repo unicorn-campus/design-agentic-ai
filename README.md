@@ -1,5 +1,5 @@
 # design-agentic-ai
 
-실습 루트는 [hybrid-ai-lab](hybrid-ai-lab/README.md)임.
+실습 예제는 `hybrid-ai-lab/`에 있습니다.
 
-[W2 실습 안내](hybrid-ai-lab/src/nl2sql/README.md)에서 환경 설정과 실행 방법 확인 가능함.
+[SQL 예제 안내](hybrid-ai-lab/sql-retriever/README.md)에서 구조와 실행 방법을 확인할 수 있습니다.

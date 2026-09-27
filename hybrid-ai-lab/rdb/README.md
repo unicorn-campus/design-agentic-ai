@@ -110,6 +110,25 @@ docker exec -it hybrid-ai-lab-rdb psql -U cardlab -d cardlab
 | `delinquency` | 6,780 | 월별 연체 지표 |
 | `lab_metadata` | 7 | 기준일·원자료 출처 등 데이터 기준 |
 
+SQL 예제에서 컬럼을 직접 조회할 때는 아래 필드를 기준으로 살펴보면 됩니다.
+
+금액은 정수 원 단위이고, 날짜는 `YYYY-MM-DD`, 기준월은 `YYYY-MM` 형식입니다.
+
+| 테이블 | 주요 컬럼 |
+|--------|-----------|
+| `member` | `member_id`, `segment_id`, `join_date`, `age_band` |
+| `card` | `card_id`, `member_id`, `product_id`, `brand`, `issue_date`, `status` |
+| `product` | `product_id`, `product_name`, `effective_date`, `family_card_available` |
+| `product_annual_fee` | `product_id`, `brand`, `base_fee`, `service_fee`, `total_fee` |
+| `merchant` | `merchant_id`, `merchant_name`, `category` |
+| `card_txn` | `txn_id`, `card_id`, `merchant_id`, `txn_date`, `amount`, `approval_code` |
+| `delinquency` | `member_id`, `base_month`, `overdue_days`, `overdue_count_12m` |
+| `lab_metadata` | `key`, `value` |
+
+`delinquency`의 기본 키는 `member_id`와 `base_month`를 함께 사용합니다.
+
+테이블 제약과 인덱스는 [스키마 정의](init/01_schema.sql)에서 확인할 수 있습니다.
+
 ### private — 실습이 읽지 못하는 곳
 
 | 테이블 | 행 수 | 설명 |
@@ -136,6 +155,37 @@ SELECT * FROM private.member_id_map;   -- ERROR: permission denied for schema pr
 
 상품 시행일이 기준일보다 **미래인 것은 의도한 설정**임. 시행일 조건으로 거르는 실습의
 재료로 씀.
+
+### SQL 예제의 조회 범위
+
+SQL 예제는 2026-03-01부터 2026-08-31까지를 조회 기준일로 받으며, 기본 실행은 최근 6개월을 보여 줍니다.
+
+고객의 모든 카드에서 `APPROVED` 거래만 합산하고 `CANCELLED` 거래는 제외합니다.
+
+보유 상품은 `ACTIVE` 카드만 조회합니다. 연체 자료가 없으면 0건으로 단정하지 않고 `확인 필요`로 표시합니다.
+
+다음 고객은 조회 결과의 의미를 확인할 때 사용할 수 있습니다.
+
+| 고객 | 확인할 결과 |
+|------|-------------|
+| `M-1042` | 3월부터 8월까지 사용액이 점차 줄어듭니다. |
+| `M-3099` | 8월 연체 자료가 없어 7월 자료가 반환되며, 현재 월은 `확인 필요`로 표시됩니다. |
+| `M-3100` | 연체 자료가 전혀 없어 `확인 필요`로 표시됩니다. |
+
+`M-1042`의 승인 거래 사용액은 다음과 같습니다.
+
+| 2026년 월 | 사용액 |
+|-----------|-------:|
+| 3월 | 1,574,000원 |
+| 4월 | 1,495,000원 |
+| 5월 | 1,416,000원 |
+| 6월 | 1,338,000원 |
+| 7월 | 1,259,000원 |
+| 8월 | 1,180,000원 |
+
+2026년 5월 대비 8월 변화율은 약 -16.7%입니다.
+
+취소 거래를 승인 거래에 섞으면 위 사용액과 일치하지 않습니다.
 
 ### 세그먼트
 
