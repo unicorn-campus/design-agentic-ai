@@ -13,8 +13,8 @@ from dotenv import dotenv_values
 from pydantic import SecretStr
 
 
-APP_DIR = Path(__file__).resolve().parents[1]   # hybrid-ai-lab/vector-retriever
-LAB_ROOT = APP_DIR.parent   # hybrid-ai-lab
+APP_DIR = Path(__file__).resolve().parents[1]   # hybrid-ai-lab/retriever/vector-retriever
+LAB_ROOT = APP_DIR.parents[1]   # hybrid-ai-lab
 
 
 class LLMConfigError(ValueError):
@@ -122,7 +122,7 @@ def _choice(*allowed: str) -> Callable[[str, Any], str]:
 
 # Vector DB 경로  
 def _default_chroma_path() -> Path:
-    return APP_DIR.parent / "indexer" / "vector-bm25" / "data" / "chroma"
+    return LAB_ROOT / "indexer" / "vector-bm25" / "data" / "chroma"
 
 # 질의 변경 캐시 경로 
 def _default_transform_cache_path() -> Path:
@@ -130,7 +130,7 @@ def _default_transform_cache_path() -> Path:
 
 # BM25 인덱스 경로 
 def _default_search_index_root() -> Path:
-    return APP_DIR.parent / "indexer" / "vector-bm25" / "data" / "search_indexes"
+    return LAB_ROOT / "indexer" / "vector-bm25" / "data" / "search_indexes"
 
 # 계획서 1-3절과 1-3-2절의 모든 키를 한 곳에서만 허용함.
 _SPECS: dict[str, _Spec] = {

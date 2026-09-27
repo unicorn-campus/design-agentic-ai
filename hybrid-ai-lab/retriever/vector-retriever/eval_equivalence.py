@@ -17,9 +17,11 @@ from uuid import uuid4
 
 
 APP_ROOT = Path(__file__).resolve().parent
-LAB_ROOT = APP_ROOT.parent
-DEFAULT_QUESTIONS = LAB_ROOT / "s3.3" / "templates" / "baseline_questions.json"
-DEFAULT_TRANSFORMS = LAB_ROOT / "s3.3" / "results" / "adaptive_top1_070_updated.json"
+LAB_ROOT = APP_ROOT.parents[1]   # hybrid-ai-lab
+# s3.3 실습 폴더는 backup/ 아래로 옮겨졌음. 기본값이 그 위치를 가리키므로,
+# 다른 곳의 자료를 쓰려면 --questions·--transforms로 직접 지정함.
+DEFAULT_QUESTIONS = LAB_ROOT / "backup" / "s3.3" / "templates" / "baseline_questions.json"
+DEFAULT_TRANSFORMS = LAB_ROOT / "backup" / "s3.3" / "results" / "adaptive_top1_070_updated.json"
 DEFAULT_OUTPUT = APP_ROOT / "data" / "equivalence_run1.json"
 DEFAULT_CACHE = APP_ROOT / "data" / "equivalence_transform_cache.json"
 TOP_K = 5

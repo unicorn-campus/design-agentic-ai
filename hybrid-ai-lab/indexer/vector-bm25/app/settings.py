@@ -114,16 +114,15 @@ def _choice(*allowed: str) -> Callable[[str, Any], str]:
     return parse
 
 
+# Indexer 산출물 경로. 두 서비스가 같은 곳을 가리켜야 하므로 lab 루트에서 내려가는
+# 절대 경로로 적음. 예전에는 APP_DIR.name으로 "내가 Indexer인가"를 판별했으나,
+# 폴더가 옮겨질 때마다 이름과 깊이가 함께 바뀌어 조용히 어긋났음.
 def _default_chroma_path() -> Path:
-    if APP_DIR.name == "vector-bm25":
-        return APP_DIR / "data" / "chroma"
-    return APP_DIR.parent / "indexer" / "vector-bm25" / "data" / "chroma"
+    return LAB_ROOT / "indexer" / "vector-bm25" / "data" / "chroma"
 
 
 def _default_search_index_root() -> Path:
-    if APP_DIR.name == "vector-bm25":
-        return APP_DIR / "data" / "search_indexes"
-    return APP_DIR.parent / "indexer" / "vector-bm25" / "data" / "search_indexes"
+    return LAB_ROOT / "indexer" / "vector-bm25" / "data" / "search_indexes"
 
 
 # 계획서 1-3절과 1-3-2절의 모든 키를 한 곳에서만 허용함.

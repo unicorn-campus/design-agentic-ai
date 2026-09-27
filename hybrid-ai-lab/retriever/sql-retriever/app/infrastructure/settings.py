@@ -23,7 +23,7 @@ def _value(values: dict, name: str, default: str = "") -> str:
 
 
 def _local_rdb_password() -> str:
-    compose_path = ROOT.parent / "rdb" / "compose.yml"
+    compose_path = ROOT.parents[1] / "rdb" / "compose.yml"   # hybrid-ai-lab/rdb
     if not compose_path.exists():
         return ""
     for line in compose_path.read_text(encoding="utf-8").splitlines():
@@ -36,7 +36,7 @@ def _local_rdb_password() -> str:
 def load_settings() -> Settings:
     env_path = ROOT / ".env"
     if not env_path.exists():
-        env_path = ROOT.parent / ".env"
+        env_path = ROOT.parents[1] / ".env"   # 서비스 .env가 없으면 hybrid-ai-lab/.env
     values = dotenv_values(env_path)
     key = _value(values, "CLAUDE_API_KEY")
     configured_dsn = _value(values, "S22_DB_DSN")

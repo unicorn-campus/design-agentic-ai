@@ -8,18 +8,18 @@ Vector, Hybrid, Hybrid + Rerank 세 경로와 선택적 질문 변환을 지원�
 ## 실행 전제
 
 - Python 3.12 권장
-- Indexer가 만든 `../indexer/vector-bm25/data/chroma/`와 `../indexer/vector-bm25/data/search_indexes/` 필요
+- Indexer가 만든 `../../indexer/vector-bm25/data/chroma/`와 `../../indexer/vector-bm25/data/search_indexes/` 필요
 - 컬렉션 `card_docs`에 청크 1건 이상 필요
 - 임베딩 서명 `sentence-transformers:nlpai-lab/KURE-v1:prompt-policy-v2` 필요
 - 실제 동등성 평가 전제는 청크 485건과 임베딩 1,024차원임
 - Rerank 최초 사용 시 `BAAI/bge-reranker-v2-m3` 약 2.2GB 다운로드 필요
 
-Indexer 실행 방법은 `../indexer/vector-bm25/README.md` 참고 대상임.
+Indexer 실행 방법은 `../../indexer/vector-bm25/README.md` 참고 대상임.
 
 ## 설치
 
 ```bash
-cd hybrid-ai-lab/vector-retriever
+cd hybrid-ai-lab/retriever/vector-retriever
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
@@ -45,7 +45,7 @@ cp .env.example .env
 
 `SEARCH_INDEX_ROOT`는 Indexer가 발행한 `active_index.json`의 루트임.
 
-기본값은 `../indexer/vector-bm25/data/search_indexes/`이며 custom `--out`을 사용한 경우 같은 경로로 설정해야 함.
+기본값은 `../../indexer/vector-bm25/data/search_indexes/`이며 custom `--out`을 사용한 경우 같은 경로로 설정해야 함.
 
 `KOREAN_USER_DICTIONARY`는 Indexer와 같은 파일을 지정해야 하며 파일 내용은 토크나이저 서명에 포함됨.
 
@@ -414,7 +414,7 @@ SSE 시작 전 발생한 400·503은 JSON 오류 응답임.
 
 | 경로 | 내용 |
 |---|---|
-| `../indexer/vector-bm25/data/search_indexes/` | Indexer가 발행한 버전형 corpus와 BM25S 색인 |
+| `../../indexer/vector-bm25/data/search_indexes/` | Indexer가 발행한 버전형 corpus와 BM25S 색인 |
 | `data/transform_cache.json` | 질문별 변환 결정 캐시 |
 | `data/checkpoints/retriever.sqlite` | CLI·POST 체크포인트 |
 | `data/logs/<thread-id>.jsonl` | 본문·비밀값을 제외한 노드 감사 로그 |
