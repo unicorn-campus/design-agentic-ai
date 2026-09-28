@@ -21,6 +21,9 @@ nl2sql 강제 모드에서는 고정 조회를 선택하지 않습니다.
 제공된 테이블로 알 수 없는 데이터는 unsupported로 판단합니다. 없는 컬럼을 만들지 않습니다.
 SQL은 PostgreSQL 문법의 SELECT 한 개로 작성합니다. FROM의 테이블 이름은 입력 schema에 있는 이름만 사용합니다.
 JOIN 조건에는 card_ref를 사용합니다. 테이블 별칭으로 컬럼을 명확히 지정합니다.
+card_ref는 원본 카드번호가 아니라 요청 안에서 개별 카드를 식별하는 비식별 참조값입니다.
+customer_cards의 개별 카드 행을 반환하는 비집계 SELECT에는 card_ref를 포함합니다.
+브랜드별 집계처럼 결과 단위가 개별 카드가 아니면 card_ref를 포함하지 않습니다.
 서브쿼리, WITH, UNION, OFFSET, SELECT INTO, 잠금, 형변환, 윈도 함수, 사용자 정의 함수는 사용하지 않습니다.
 집계는 SUM, COUNT, AVG, MIN, MAX와 ROUND, COALESCE, NULLIF, ABS만 사용합니다.
 SELECT *는 쓰지 않습니다. COUNT(*)는 허용합니다. LIMIT은 1부터 100 사이 정수로 지정합니다.
@@ -28,7 +31,8 @@ SELECT *는 쓰지 않습니다. COUNT(*)는 허용합니다. LIMIT은 1부터 1
 monthly_usage는 최근 6개월의 카드별 월 집계이며 approved_amount는 승인 금액 합계입니다.
 건별 거래, 가맹점·업종, 6개월보다 오래된 사용내역, 실제 해지, 이탈 확률은 알 수 없습니다.
 COUNT(*)로 거래 건수를 계산하지 않습니다. 승인 건수는 SUM(transaction_count)입니다.
-거래당 평균은 SUM(approved_amount) / NULLIF(SUM(transaction_count), 0)로 계산합니다.
+거래당 평균은 아래 계산식을 그대로 사용하며 형변환을 추가하지 않습니다.
+ROUND(SUM(approved_amount) * 1.0 / NULLIF(SUM(transaction_count), 0), 2)
 customer_delinquency는 최신 이용 가능한 완료 월 한 건이며 연체 월별 추이나 카드별 연체 정보는 없습니다.
 card의 current_status는 현재 스냅샷입니다. 과거 상태라고 주장하지 않습니다.
 product_effective_date보다 이전의 연회비는 당시 적용된 정책이라고 단정하지 않습니다.
@@ -48,4 +52,11 @@ reason은 한국어로 간결하게 작성합니다.
 카드별 월별 승인 사용액을 보여 주세요 → fixed, query_id=monthly_usage, sql=null
 월별 총 승인 사용액을 합산해 주세요 → nl2sql
 SELECT month, SUM(approved_amount) AS amount FROM monthly_usage GROUP BY month ORDER BY month LIMIT 100
+연회비가 가장 높은 카드 3개를 보여 주세요 → nl2sql
+SELECT card_ref, product_name, annual_fee FROM customer_cards ORDER BY annual_fee DESC, card_ref LIMIT 3
+브랜드별 평균 연회비를 보여 주세요 → nl2sql
+SELECT brand, AVG(annual_fee) AS average_annual_fee FROM customer_cards GROUP BY brand ORDER BY brand LIMIT 100
+전체 기간의 거래당 평균 승인 금액을 계산해 주세요 → nl2sql
+SELECT ROUND(SUM(approved_amount) * 1.0 / NULLIF(SUM(transaction_count), 0), 2) AS average_approved_amount
+FROM monthly_usage LIMIT 1
 이탈 확률이 몇 퍼센트인가요 → unsupported

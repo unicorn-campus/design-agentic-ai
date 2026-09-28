@@ -8,7 +8,7 @@ import os
 import uvicorn
 from dotenv import dotenv_values
 
-from app.infrastructure.settings import LAB_ROOT
+from app.infrastructure.settings import LAB_ROOT, LLM_PROVIDERS, LLM_RUNTIMES
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -16,9 +16,23 @@ def main(argv: list[str] | None = None) -> int:
     values = dotenv_values(LAB_ROOT / ".env", interpolate=False)
     default_port = os.getenv("SQL_RETRIEVER_PORT") or values.get("SQL_RETRIEVER_PORT") or "8012"
     parser.add_argument("--port", type=int, default=default_port)
+    parser.add_argument(
+        "--llm-provider",
+        choices=LLM_PROVIDERS,
+        help="LLM 실행 위치(.env의 SQL_RETRIEVER_LLM_PROVIDER보다 우선)",
+    )
+    parser.add_argument(
+        "--llm-runtime",
+        choices=LLM_RUNTIMES,
+        help="로컬 Gemma 실행 런타임(.env의 SQL_RETRIEVER_LLM_RUNTIME보다 우선)",
+    )
     args = parser.parse_args(argv)
     if not 1 <= args.port <= 65535:
         parser.error("포트는 1~65535 범위여야 합니다.")
+    if args.llm_provider:
+        os.environ["SQL_RETRIEVER_LLM_PROVIDER"] = args.llm_provider
+    if args.llm_runtime:
+        os.environ["SQL_RETRIEVER_LLM_RUNTIME"] = args.llm_runtime
     uvicorn.run("app.presentation.api:app", host="127.0.0.1", port=args.port)
     return 0
 

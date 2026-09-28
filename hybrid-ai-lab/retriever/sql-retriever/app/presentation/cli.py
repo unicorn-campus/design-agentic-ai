@@ -11,6 +11,7 @@ from typing import Any, TextIO
 from pydantic import ValidationError
 
 from app.application.models import SearchError, SearchRequest
+from app.infrastructure.settings import LLM_PROVIDERS, LLM_RUNTIMES
 
 
 class _ParserExit(Exception):
@@ -30,6 +31,16 @@ class _ArgumentParser(argparse.ArgumentParser):
 def build_parser() -> argparse.ArgumentParser:
     parser = _ArgumentParser(description="고객 정형 데이터 검색 CLI")
     parser.add_argument("--schema", action="store_true", help="지원 스키마와 고정 조회 목록 출력")
+    parser.add_argument(
+        "--llm-provider",
+        choices=LLM_PROVIDERS,
+        help="LLM 실행 위치(.env의 SQL_RETRIEVER_LLM_PROVIDER보다 우선)",
+    )
+    parser.add_argument(
+        "--llm-runtime",
+        choices=LLM_RUNTIMES,
+        help="로컬 Gemma 실행 런타임(.env의 SQL_RETRIEVER_LLM_RUNTIME보다 우선)",
+    )
     parser.add_argument(
         "--query-mode",
         choices=("auto", "fixed", "nl2sql"),
@@ -56,12 +67,12 @@ def _safe_error(stream: TextIO, code: str, message: str) -> None:
     _write_json(stream, {"error": {"code": code, "message": message}})
 
 
-def _resolve_service(service):
+def _resolve_service(service, provider: str | None = None, runtime: str | None = None):
     if service is not None:
         return service
     from app.bootstrap import create_service
 
-    return create_service()
+    return create_service(provider, runtime)
 
 
 def main(
@@ -83,7 +94,7 @@ def main(
         return error.status
 
     try:
-        application = _resolve_service(service)
+        application = _resolve_service(service, args.llm_provider, args.llm_runtime)
         if args.schema:
             _write_json(output, application.schema())
             return 0

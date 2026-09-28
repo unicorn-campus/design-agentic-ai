@@ -48,10 +48,19 @@ class SearchRequest(BaseModel):
 
 class QueryPlan(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    query_mode: Literal["fixed", "nl2sql", "unsupported"]
-    query_id: QueryId | None
-    sql: str | None = Field(max_length=10000)
-    reason: str = Field(min_length=1, max_length=1000)
+    query_mode: Literal["fixed", "nl2sql", "unsupported"] = Field(
+        description=("질문 전체를 고정 조회가 그대로 충족하면 fixed, 추가 필터·집계·정렬이 필요하면 "
+                     "nl2sql, 제공 데이터로 알 수 없으면 unsupported"),
+    )
+    query_id: QueryId | None = Field(
+        description="fixed에서만 사용할 고정 조회 ID. nl2sql과 unsupported에서는 null",
+    )
+    sql: str | None = Field(
+        max_length=10000,
+        description=("nl2sql에서만 사용할 SELECT. 개별 customer_cards 행을 반환하면 card_ref를 포함하고, "
+                     "집계 결과에는 불필요한 card_ref를 포함하지 않음"),
+    )
+    reason: str = Field(min_length=1, max_length=1000, description="계획을 선택한 이유를 설명하는 짧은 한국어")
 
     @model_validator(mode="after")
     def valid_plan(self):

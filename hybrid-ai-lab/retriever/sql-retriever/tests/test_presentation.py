@@ -134,3 +134,23 @@ def test_cli_reports_sanitized_usage_and_service_errors():
     assert code == 1
     assert "secret" not in stderr.getvalue()
 
+
+def test_cli_llm_provider_is_forwarded_to_bootstrap(monkeypatch):
+    selected = []
+
+    def create_service(provider=None, runtime=None):
+        selected.append((provider, runtime))
+        return FakeService()
+
+    monkeypatch.setattr("app.bootstrap.create_service", create_service)
+    stdout, stderr = io.StringIO(), io.StringIO()
+    code = main(
+        ["--llm-provider", "gemma", "--llm-runtime", "vllm", "--query-mode", "fixed",
+         "--member-id", "M-1042", "--base-date", "2026-08-31"],
+        stdout=stdout,
+        stderr=stderr,
+    )
+    assert code == 0
+    assert selected == [("gemma", "vllm")]
+    assert stderr.getvalue() == ""
+

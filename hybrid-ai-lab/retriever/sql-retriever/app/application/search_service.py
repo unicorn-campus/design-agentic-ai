@@ -1,7 +1,6 @@
 """검색 계획 → 검증된 조회 → 선택적 설명을 연결합니다."""
 from collections.abc import Callable
 
-from langchain_core.runnables import RunnableLambda
 from langsmith import tracing_context
 
 from app.domain.catalog import FIXED_QUERIES, query_catalog
@@ -15,9 +14,6 @@ class SearchService:
                  sql_validator: Callable[[str], str], logical_schema: dict):
         self.repository, self.llm = repository, llm
         self.sql_validator, self.logical_schema = sql_validator, logical_schema
-        self.chain = (RunnableLambda(self._plan).with_config(run_name="plan_search")
-                      | RunnableLambda(self._retrieve).with_config(run_name="retrieve_data")
-                      | RunnableLambda(self._explain).with_config(run_name="optional_explanation"))
 
     def schema(self) -> dict:
         return {
@@ -40,7 +36,9 @@ class SearchService:
         # 실습의 원본 식별자와 검색 결과가 환경 설정만으로 외부 tracing에 전송되지 않게 합니다.
         with tracing_context(enabled=False):
             try:
-                return self.chain.invoke(request)
+                planned = self._plan(request)
+                retrieved = self._retrieve(planned)
+                return self._explain(retrieved)
             except SearchError:
                 raise
             except ValueError as error:
