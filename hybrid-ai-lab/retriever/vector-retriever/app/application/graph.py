@@ -1200,13 +1200,15 @@ class RetrieverResources:
 [출력]
 - AnswerDraft 스키마의 conclusion·caution·evidence 필드만 구조화 출력함.
 - conclusion: 문서 유형별 근거의 성격을 반영한 질문의 직접적인 답변임.
-- caution: 적용 조건·예외·문서 간 차이·상담 사례의 한계·추가 확인 사항이며, 없으면 빈 문자열임.
+- caution: 적용 조건·예외·문서 간 차이·상담 사례의 한계·추가 확인 사항이며, 빈 문자열 없이 반드시 작성함.
+  특별한 주의사항이 없으면 "검색 근거 외 추가 확인이 필요한 사항 없음"으로 작성함.
 - evidence: 검색 결과 순번 ref와 해당 결과 본문에서 그대로 가져온 quote의 목록임.
 
 [제약조건]
 - MUST: 
   - evidence.ref는 1부터 시작하는 유효한 검색 결과 순번이어야 함.
   - evidence.quote는 해당 검색 결과 본문에 연속해서 존재하는 원문이어야 함.
+  - caution은 빈 문자열이나 공백만으로 출력하지 않음.
   - 근거가 부족하면 conclusion에 "검색 근거만으로 확인할 수 없음"을 명시함.
   - consult_log만으로 현재의 일반 정책을 확정하지 않고 약관 또는 혜택 안내 확인이 필요함을 명시함.
 - MUST NOT: 
