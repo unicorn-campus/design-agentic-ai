@@ -14,5 +14,5 @@ def test_transaction_average_prompt_uses_guard_compatible_decimal_division():
     sql = f"SELECT {AVERAGE_EXPRESSION} AS average_approved_amount FROM monthly_usage LIMIT 1"
 
     assert AVERAGE_EXPRESSION in prompt
-    assert "형변환을 추가하지 않습니다" in prompt
+    assert "형변환을 추가하지 않음" in prompt
     assert validate_sql(sql) == sql
