@@ -1,122 +1,47 @@
-"""회원과 기준일로 격리된 논리 읽기 모델 SQL."""
+"""회원·기준일 세션 범위로 격리된 논리 읽기 모델 조회문.
 
+논리 테이블은 DB의 `app` 스키마 뷰이며, 정의는 `rdb/init/04_views_rls.sql`에 있음.
+회원 격리는 원본 테이블의 행 수준 보안(RLS)이 담당하므로 이 모듈은 어떤 회원 조건도
+SQL에 넣지 않음. 기준일·6개월 창은 뷰가 세션 변수를 읽어 적용함.
 
-# NL2SQL은 아래 네 공개 CTE만 볼 수 있음. 밑줄로 시작하는 CTE는 저장소 내부 조립용이며
-# SQL 검사기가 접근을 허용하지 않음.
-LOGICAL_CTE_SQL = r"""
-WITH
-_request_scope AS (
-    SELECT
-        %(member_id)s::text AS member_id,
-        %(base_date)s::date AS base_date,
-        %(coverage_start)s::date AS coverage_start
-),
-customer_profile AS (
-    SELECT m.join_date, m.age_band
-    FROM public.member AS m
-    JOIN _request_scope AS scope ON scope.member_id = m.member_id
-    WHERE m.join_date <= scope.base_date
-),
-_customer_cards_internal AS (
-    SELECT
-        c.card_id,
-        'CARD_' || lpad(
-            row_number() OVER (ORDER BY c.card_id)::text,
-            3,
-            '0'
-        ) AS card_ref,
-        c.product_id,
-        p.product_name,
-        c.brand,
-        c.issue_date,
-        c.status AS current_status,
-        p.effective_date AS product_effective_date,
-        (p.effective_date <= scope.base_date) AS is_product_effective_on_base_date,
-        fee.total_fee AS annual_fee
-    FROM public.card AS c
-    JOIN _request_scope AS scope ON scope.member_id = c.member_id
-    JOIN public.product AS p ON p.product_id = c.product_id
-    JOIN public.product_annual_fee AS fee
-      ON fee.product_id = c.product_id AND fee.brand = c.brand
-    WHERE c.issue_date <= scope.base_date
-),
-customer_cards AS (
-    SELECT
-        card_ref,
-        product_id,
-        product_name,
-        brand,
-        issue_date,
-        current_status,
-        product_effective_date,
-        is_product_effective_on_base_date,
-        annual_fee
-    FROM _customer_cards_internal
-),
-_usage_months AS (
-    SELECT month_start::date AS month_start
-    FROM _request_scope AS scope
-    CROSS JOIN LATERAL generate_series(
-        greatest(
-            date_trunc('month', scope.base_date) - INTERVAL '5 months',
-            date_trunc('month', scope.coverage_start)
-        ),
-        date_trunc('month', scope.base_date),
-        INTERVAL '1 month'
-    ) AS month_start
-),
-monthly_usage AS (
-    SELECT
-        cards.card_ref,
-        to_char(months.month_start, 'YYYY-MM') AS month,
-        greatest(months.month_start, cards.issue_date)::date AS period_start,
-        least(
-            (months.month_start + INTERVAL '1 month - 1 day')::date,
-            scope.base_date
-        ) AS period_end,
-        coalesce(sum(txn.amount), 0)::bigint AS approved_amount,
-        count(txn.txn_id)::integer AS transaction_count
-    FROM _customer_cards_internal AS cards
-    CROSS JOIN _request_scope AS scope
-    CROSS JOIN _usage_months AS months
-    LEFT JOIN public.card_txn AS txn
-      ON txn.card_id = cards.card_id
-     AND txn.approval_code = 'APPROVED'
-     AND txn.txn_date >= greatest(months.month_start, cards.issue_date)::date
-     AND txn.txn_date <= least(
-         (months.month_start + INTERVAL '1 month - 1 day')::date,
-         scope.base_date
-     )
-    WHERE cards.issue_date <= least(
-        (months.month_start + INTERVAL '1 month - 1 day')::date,
-        scope.base_date
-    )
-    GROUP BY cards.card_ref, months.month_start, cards.issue_date, scope.base_date
-),
-customer_delinquency AS (
-    SELECT
-        delinquency.base_month,
-        (
-            to_date(delinquency.base_month || '-01', 'YYYY-MM-DD')
-            + INTERVAL '1 month - 1 day'
-        )::date AS as_of_date,
-        delinquency.overdue_amount,
-        delinquency.overdue_days,
-        delinquency.overdue_count_12m
-    FROM public.delinquency AS delinquency
-    JOIN _request_scope AS scope ON scope.member_id = delinquency.member_id
-    WHERE (
-        to_date(delinquency.base_month || '-01', 'YYYY-MM-DD')
-        + INTERVAL '1 month - 1 day'
-    )::date <= scope.base_date
-    ORDER BY delinquency.base_month DESC
-    LIMIT 1
-)
+조회 전에 트랜잭션 안에서 SCOPE_SETTINGS 세 값을 지정해야 함.
+지정하지 않으면 모든 뷰가 0행을 반환함(기본 거부).
 """
 
 
-PROFILE_SELECT = "SELECT join_date, age_band FROM customer_profile"
+# 트랜잭션마다 set_config(..., true)로 지정하는 세션 변수.
+MEMBER_SETTING = "app.member_id"
+BASE_DATE_SETTING = "app.base_date"
+COVERAGE_START_SETTING = "app.coverage_start"
+SCOPE_SETTINGS = (MEMBER_SETTING, BASE_DATE_SETTING, COVERAGE_START_SETTING)
 
+# NL2SQL이 볼 수 있는 논리 테이블. 검색 경로가 app을 가리키므로 모델은 스키마 없이 씀.
+LOGICAL_SCHEMA_NAME = "app"
+LOGICAL_VIEWS = (
+    "customer_profile",
+    "customer_cards",
+    "monthly_usage",
+    "customer_delinquency",
+)
+
+
+# 회원 존재·가입일 확인용. 기준일 필터가 없어 "없는 회원"과 "가입 전 기준일"을 구분함.
+MEMBER_SELECT = """
+SELECT member_id, join_date, age_band
+FROM app_internal.member_basic
+LIMIT 1
+"""
+
+# 회원과 무관한 메타데이터이므로 RLS 대상이 아님.
+METADATA_SELECT = """
+SELECT key, value
+FROM public.lab_metadata
+WHERE key IN ('base_date', 'txn_period')
+"""
+
+PROFILE_SELECT = "SELECT join_date, age_band FROM app.customer_profile"
+
+# 원본 card_id가 필요한 고정 조회는 NL2SQL에 열지 않은 app_internal을 씀.
 CARDS_SELECT = """
 SELECT
     card_id,
@@ -129,48 +54,42 @@ SELECT
     product_effective_date,
     is_product_effective_on_base_date,
     annual_fee
-FROM _customer_cards_internal
+FROM app_internal.customer_cards_full
 ORDER BY card_ref
 """
 
 USAGE_SELECT = """
 SELECT card_ref, month, period_start, period_end, approved_amount, transaction_count
-FROM monthly_usage
+FROM app.monthly_usage
 ORDER BY month, card_ref
 """
 
 DELINQUENCY_SELECT = """
 SELECT base_month, as_of_date, overdue_amount, overdue_days, overdue_count_12m
-FROM customer_delinquency
+FROM app.customer_delinquency
 """
 
 SEARCH_METADATA_SELECT = """
 SELECT
     EXISTS (
         SELECT 1
-        FROM customer_cards
+        FROM app.customer_cards
         WHERE is_product_effective_on_base_date = false
     ) AS has_future_product,
-    (SELECT max(as_of_date) FROM customer_delinquency) AS delinquency_as_of_date
+    (SELECT max(as_of_date) FROM app.customer_delinquency) AS delinquency_as_of_date
 """
 
 
-def scoped_query(select_sql: str) -> str:
-    """고정 CTE 뒤에 저장소 내부 SELECT를 결합함."""
-
-    return f"{LOGICAL_CTE_SQL}\n{select_sql.strip()}"
-
-
 def guarded_query(validated_sql: str) -> str:
-    """검증된 논리 SQL을 CTE 범위 안에 두고 저장소 상한 101행을 적용함."""
+    """검증된 논리 SQL에 저장소 상한 101행을 적용함.
 
-    # psycopg의 pyformat 파서가 사용자 SQL의 LIKE '%'와 modulo %를 바인딩 표기로
-    # 오해하지 않게 사용자 SQL 구간의 퍼센트만 이스케이프함. 실행 SQL 의미는 같음.
-    escaped_sql = validated_sql.replace("%", "%%")
+    회원·기준일 조건을 덧붙이지 않음. 뷰와 RLS가 이미 범위를 좁혀 두었고,
+    같은 조건을 두 곳에 두면 한쪽만 고쳤을 때 어긋나기 때문임.
+    """
+
     return (
-        f"{LOGICAL_CTE_SQL}\n"
         "SELECT * FROM (\n"
-        f"{escaped_sql}\n"
+        f"{validated_sql.strip()}\n"
         ") AS guarded_result\n"
         "LIMIT 101"
     )

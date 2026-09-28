@@ -85,6 +85,8 @@ docker compose -f rdb/compose.yml down -v    # 중지 + 데이터 삭제(다음 
 | 데이터베이스 | `cardlab` |
 | 관리 계정 | `cardlab` / `cardlab` — 전체 권한 |
 | 실습 계정 | `lab_user` / `cardlab` — `public` 읽기 전용, `private` 접근 불가 |
+| 검색기 계정 | `sql_retriever_user` / `cardlab` — `app` 논리 뷰만 읽음, 원본 테이블 권한 없음 |
+| 뷰 소유자 | `app_reader` — 로그인 불가. `app` 뷰를 소유하며 RLS 정책이 이 역할에 걸림 |
 | 컨테이너 | `hybrid-ai-lab-rdb` (postgres:18-alpine) |
 | 볼륨 | `hybrid-ai-lab-pgdata` |
 
@@ -94,6 +96,28 @@ docker exec -it hybrid-ai-lab-rdb psql -U cardlab -d cardlab
 
 실습 코드에서는 **`lab_user`를 쓰는 것을 기본**으로 함. 재식별 열쇠에 손이 닿지 않는 것을
 계정 수준에서 보장하기 위함임.
+
+### 행 수준 보안(RLS)과 논리 뷰
+
+`member` · `card` · `card_txn` · `delinquency` 네 테이블에 행 수준 보안을 켜 둠.
+정형 검색기(`retriever/sql-retriever`)가 자연어 질문으로 SQL을 만들 때 다른 회원의 행에
+닿지 못하게 하려는 것임. 정의는 `init/04_views_rls.sql`에 있음.
+
+`lab_user`는 영향을 받지 않음. RLS를 켜면 정책이 없는 역할은 0행이 되므로
+`lab_user`에는 전체 허용 정책을 함께 만들어 기존 실습이 그대로 동작하게 했음.
+
+검색기 계정은 세션 변수 `app.member_id` · `app.base_date` · `app.coverage_start`를
+트랜잭션 안에서 지정해야 `app` 스키마 뷰가 행을 돌려줌. 지정하지 않으면 0행임.
+
+```sql
+-- sql_retriever_user로 접속했을 때
+BEGIN READ ONLY;
+SELECT set_config('app.member_id', 'M-5015', true),
+       set_config('app.base_date', '2026-08-31', true),
+       set_config('app.coverage_start', '2025-08-01', true);
+SELECT card_ref, product_name, annual_fee FROM app.customer_cards ORDER BY card_ref;
+COMMIT;
+```
 
 ## 테이블
 
@@ -249,6 +273,7 @@ docker compose -f rdb/compose.yml up -d
 | `data/d2_products.json` | 추출 결과(상품 원천) |
 | `init/01_schema.sql` | 스키마·권한 |
 | `init/02_seed.sql` | 적재 데이터(생성물 — 직접 고치지 말 것) |
+| `init/04_views_rls.sql` | 검색기용 논리 뷰·행 수준 보안·계정 (시드 이후에 실행되어야 함) |
 
 ## 원자료
 

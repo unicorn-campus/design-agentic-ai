@@ -45,7 +45,7 @@ def load_settings(env_path: Path | None = None) -> Settings:
     dsn = get("SQL_RETRIEVER_DB_DSN") or get("S22_DB_DSN")
     password = get("SQL_RETRIEVER_DB_PASSWORD") or get("S22_DB_PASSWORD")
     if not dsn:
-        dsn = "host=localhost port=5432 dbname=cardlab user=lab_user"
+        dsn = "host=localhost port=5432 dbname=cardlab user=sql_retriever_user"
         if not password:
             compose = LAB_ROOT / "rdb" / "compose.yml"
             if compose.is_file():

@@ -17,25 +17,19 @@ from app.domain.customer import (
     validate_requested_date,
 )
 from .queries import (
+    BASE_DATE_SETTING,
     CARDS_SELECT,
+    COVERAGE_START_SETTING,
     DELINQUENCY_SELECT,
+    LOGICAL_SCHEMA_NAME,
+    LOGICAL_VIEWS,
+    MEMBER_SELECT,
+    MEMBER_SETTING,
+    METADATA_SELECT,
     PROFILE_SELECT,
     SEARCH_METADATA_SELECT,
     USAGE_SELECT,
     guarded_query,
-    scoped_query,
-)
-
-
-PUBLIC_TABLES = (
-    "member",
-    "product",
-    "product_annual_fee",
-    "merchant",
-    "card",
-    "card_txn",
-    "delinquency",
-    "lab_metadata",
 )
 
 
@@ -74,7 +68,9 @@ class PostgresRepository:
                     connection.execute(
                         "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY"
                     )
-                    connection.execute("SET LOCAL search_path TO pg_catalog, public")
+                    # 모델이 만든 SQL은 스키마 없이 논리 테이블 이름만 씀. app만 두어
+                    # 원본 테이블 이름이 우연히 풀리지 않게 함.
+                    connection.execute("SET LOCAL search_path TO pg_catalog, app")
                     connection.execute(
                         "SELECT set_config('statement_timeout', %s, true)",
                         (str(self._statement_timeout_ms),),
@@ -87,11 +83,19 @@ class PostgresRepository:
 
     @staticmethod
     def _rows(connection: Any, sql: str, parameters: dict | None = None) -> list[dict]:
-        rows = connection.execute(sql, parameters or {}).fetchall()
+        # 빈 dict를 넘기면 psycopg가 SQL 안의 %를 자리표시자로 해석함. None을 그대로 전달함.
+        rows = connection.execute(sql, parameters).fetchall()
         return [_normalize(dict(row)) for row in rows]
 
     @staticmethod
+    def _set_scope(connection: Any, name: str, value: str) -> None:
+        """이 트랜잭션에만 유효한 세션 변수를 지정함. 커밋·롤백 시 자동으로 풀림."""
+
+        connection.execute("SELECT set_config(%s, %s, true)", (name, value))
+
+    @classmethod
     def _request_context(
+        cls,
         connection: Any,
         member_id: str,
         base_date: date,
@@ -99,10 +103,9 @@ class PostgresRepository:
         validate_member_id(member_id)
         if type(base_date) is not date:
             raise ValueError("기준일은 날짜여야 합니다.")
-        metadata_rows = connection.execute(
-            "SELECT key, value FROM public.lab_metadata "
-            "WHERE key IN ('base_date', 'txn_period')"
-        ).fetchall()
+        # 회원 범위를 먼저 열어야 RLS가 아래 회원 조회에 행을 내어 줌.
+        cls._set_scope(connection, MEMBER_SETTING, member_id)
+        metadata_rows = connection.execute(METADATA_SELECT).fetchall()
         metadata = {row["key"]: row["value"] for row in metadata_rows}
         if "base_date" not in metadata or "txn_period" not in metadata:
             raise RuntimeError("정형 데이터의 기준일 메타데이터를 확인할 수 없습니다.")
@@ -117,14 +120,14 @@ class PostgresRepository:
             coverage_start = date.fromisoformat(f"{period_match.group(1)}-01")
         except (TypeError, ValueError) as error:
             raise RuntimeError("정형 데이터의 기준일 메타데이터 형식이 올바르지 않습니다.") from error
-        member = connection.execute(
-            "SELECT member_id, join_date, age_band "
-            "FROM public.member WHERE member_id = %(member_id)s LIMIT 1",
-            {"member_id": member_id},
-        ).fetchone()
+        # 회원 조건을 SQL에 넣지 않음. RLS가 세션 범위의 한 회원만 보여 줌.
+        member = connection.execute(MEMBER_SELECT).fetchone()
         if member is None:
             raise ValueError("존재하지 않는 회원ID입니다.")
         validate_requested_date(base_date, data_base_date, member["join_date"], coverage_start)
+        # 날짜 범위는 검증을 통과한 뒤에 연다. 이 값이 없으면 논리 뷰는 0행을 반환함.
+        cls._set_scope(connection, BASE_DATE_SETTING, base_date.isoformat())
+        cls._set_scope(connection, COVERAGE_START_SETTING, coverage_start.isoformat())
         return dict(member), data_base_date, coverage_start
 
     def retrieve(self, member_id: str, base_date: date) -> dict:
@@ -134,15 +137,10 @@ class PostgresRepository:
             member, data_base_date, coverage_start = self._request_context(
                 connection, member_id, base_date
             )
-            parameters = {
-                "member_id": member_id,
-                "base_date": base_date,
-                "coverage_start": coverage_start,
-            }
-            profile_rows = self._rows(connection, scoped_query(PROFILE_SELECT), parameters)
-            cards = self._rows(connection, scoped_query(CARDS_SELECT), parameters)
-            usage = self._rows(connection, scoped_query(USAGE_SELECT), parameters)
-            delinquency_rows = self._rows(connection, scoped_query(DELINQUENCY_SELECT), parameters)
+            profile_rows = self._rows(connection, PROFILE_SELECT)
+            cards = self._rows(connection, CARDS_SELECT)
+            usage = self._rows(connection, USAGE_SELECT)
+            delinquency_rows = self._rows(connection, DELINQUENCY_SELECT)
 
         delinquency = delinquency_rows[0] if delinquency_rows else None
         product_future = any(not row["is_product_effective_on_base_date"] for row in cards)
@@ -212,7 +210,7 @@ class PostgresRepository:
         }
 
     def search(self, member_id: str, base_date: date, validated_sql: str) -> dict:
-        """검증된 논리 SQL을 회원·기준일 CTE 안에서 다시 검사해 실행함."""
+        """검증된 논리 SQL을 회원·기준일 세션 범위 안에서 다시 검사해 실행함."""
 
         if not isinstance(validated_sql, str) or not validated_sql.strip():
             raise ValueError("실행할 SQL이 필요합니다.")
@@ -224,17 +222,8 @@ class PostgresRepository:
             _, data_base_date, coverage_start = self._request_context(
                 connection, member_id, base_date
             )
-            parameters = {
-                "member_id": member_id,
-                "base_date": base_date,
-                "coverage_start": coverage_start,
-            }
-            rows = self._rows(connection, guarded_query(checked_sql), parameters)
-            metadata = self._rows(
-                connection,
-                scoped_query(SEARCH_METADATA_SELECT),
-                parameters,
-            )[0]
+            rows = self._rows(connection, guarded_query(checked_sql))
+            metadata = self._rows(connection, SEARCH_METADATA_SELECT)[0]
         if len(rows) > 100:
             raise ValueError("조회 결과가 최대 100행을 초과했습니다.")
         referenced_models = {
@@ -300,21 +289,20 @@ class PostgresRepository:
         }
 
     def schema(self) -> list[dict]:
-        """private를 제외한 public 허용 목록의 컬럼만 반환함."""
+        """NL2SQL에 열려 있는 app 스키마 논리 뷰의 컬럼만 반환함."""
 
         with self._transaction() as connection:
             result = []
-            for table in PUBLIC_TABLES:
+            for view in LOGICAL_VIEWS:
                 columns = self._rows(
                     connection,
                     "SELECT ordinal_position, column_name, data_type, is_nullable "
                     "FROM information_schema.columns "
-                    "WHERE table_schema = 'public' AND table_name = %(table)s "
+                    "WHERE table_schema = %(schema)s AND table_name = %(view)s "
                     "ORDER BY ordinal_position",
-                    {"table": table},
+                    {"schema": LOGICAL_SCHEMA_NAME, "view": view},
                 )
-                count = connection.execute(
-                    f'SELECT count(*) AS row_count FROM public."{table}"'
-                ).fetchone()["row_count"]
-                result.append({"table": table, "row_count": count, "columns": columns})
+                # 행 수는 세지 않음. 논리 뷰는 요청 회원·기준일 범위 안에서만 행이 있어
+                # 범위를 열지 않고 센 값은 언제나 0이며 뜻이 없음.
+                result.append({"table": view, "columns": columns})
         return result
