@@ -19,6 +19,7 @@ def test_settings_does_not_expose_secrets_and_env_has_precedence(tmp_path, monke
     assert settings.api_key == "runtime-secret"
     assert "secret" not in repr(settings)
     assert settings.model == "openai/gpt-oss-120b"
+    assert settings.llm_provider == "groq"
     assert settings.gemma_model == "hf.co/unsloth/gemma-4-12B-it-qat-GGUF:UD-Q4_K_XL"
     assert settings.llm_runtime == "ollama"
     assert settings.vllm_model == "gemma-4-12b-it"

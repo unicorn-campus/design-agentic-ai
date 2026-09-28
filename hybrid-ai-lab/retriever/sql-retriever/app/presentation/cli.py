@@ -34,12 +34,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--llm-provider",
         choices=LLM_PROVIDERS,
-        help="LLM 실행 위치(.env의 SQL_RETRIEVER_LLM_PROVIDER보다 우선)",
+        help="LLM 제공자(기본값: groq, .env의 SQL_RETRIEVER_LLM_PROVIDER보다 우선)",
     )
     parser.add_argument(
         "--llm-runtime",
         choices=LLM_RUNTIMES,
-        help="로컬 Gemma 실행 런타임(.env의 SQL_RETRIEVER_LLM_RUNTIME보다 우선)",
+        help="로컬 Gemma 실행 런타임(기본값: ollama, .env 설정보다 우선)",
     )
     parser.add_argument(
         "--query-mode",
