@@ -1,10 +1,10 @@
 """PostgreSQL 고객 현황 조회 어댑터."""
 
 from contextlib import contextmanager
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from decimal import Decimal
 import re
-from typing import Any, Iterator
+from typing import Any, Generator
 
 import psycopg
 from psycopg.rows import dict_row
@@ -22,11 +22,13 @@ from .queries import (
     COVERAGE_START_SETTING,
     DELINQUENCY_SELECT,
     LOGICAL_SCHEMA_NAME,
+    LOGICAL_VIEW_SOURCES,
     LOGICAL_VIEWS,
     MEMBER_SELECT,
     MEMBER_SETTING,
     METADATA_SELECT,
     PROFILE_SELECT,
+    SCHEMA_COLUMNS_SELECT,
     SEARCH_METADATA_SELECT,
     USAGE_SELECT,
     guarded_query,
@@ -58,7 +60,7 @@ class PostgresRepository:
         self._statement_timeout_ms = statement_timeout_ms
 
     @contextmanager
-    def _transaction(self) -> Iterator[Any]:
+    def _transaction(self) -> Generator[Any, None, None]:
         kwargs: dict[str, Any] = {"row_factory": dict_row, "connect_timeout": 5}
         if self._password:
             kwargs["password"] = self._password
@@ -92,6 +94,61 @@ class PostgresRepository:
         """이 트랜잭션에만 유효한 세션 변수를 지정함. 커밋·롤백 시 자동으로 풀림."""
 
         connection.execute("SELECT set_config(%s, %s, true)", (name, value))
+
+    @staticmethod
+    def _sources(
+        models: set[str],
+        data_base_date: date,
+        base_date: date,
+        coverage_start: date,
+        delinquency_basis: str | None,
+    ) -> list[dict]:
+        """외부 설정의 원본 테이블과 요청별 기준 정보를 결합함."""
+
+        details = {
+            "customer_profile": {
+                "actual_basis_date": data_base_date.isoformat(),
+            },
+            "customer_cards": {
+                "actual_basis_date": data_base_date.isoformat(),
+            },
+            "monthly_usage": {
+                "actual_basis_date": base_date.isoformat(),
+                "coverage_start": coverage_start.isoformat(),
+                "filter": "approval_code=APPROVED, 최근 6개월, txn_date<=requested_base_date",
+            },
+            "merchant_usage": {
+                "actual_basis_date": base_date.isoformat(),
+                "coverage_start": coverage_start.isoformat(),
+                "filter": "approval_code=APPROVED, 최근 6개월, txn_date<=requested_base_date",
+            },
+            "customer_daily_usage": {
+                "actual_basis_date": base_date.isoformat(),
+                "coverage_start": coverage_start.isoformat(),
+                "filter": "approval_code=APPROVED, 최근 90일, txn_date<=requested_base_date",
+            },
+            "customer_delinquency": {
+                "actual_basis_date": delinquency_basis,
+                "status": "available" if delinquency_basis else "unknown",
+            },
+            "customer_delinquency_history": {
+                "actual_basis_date": delinquency_basis,
+                "status": "available" if delinquency_basis else "unknown",
+                "window": "최근 12개 완료 월",
+            },
+        }
+        missing = models.difference(LOGICAL_VIEW_SOURCES) | models.difference(details)
+        if missing:
+            raise RuntimeError(f"논리 뷰의 출처 설정을 확인해 주세요: {sorted(missing)}")
+        return [
+            {
+                "name": name,
+                "tables": list(LOGICAL_VIEW_SOURCES[name]),
+                **details[name],
+            }
+            for name in LOGICAL_VIEWS
+            if name in models
+        ]
 
     @classmethod
     def _request_context(
@@ -130,8 +187,13 @@ class PostgresRepository:
         cls._set_scope(connection, COVERAGE_START_SETTING, coverage_start.isoformat())
         return dict(member), data_base_date, coverage_start
 
-    def retrieve(self, member_id: str, base_date: date) -> dict:
-        """UFR-EVID-010의 고객 현황을 근거와 기준시점까지 함께 반환함."""
+    def retrieve_customer_snapshot(self, member_id: str, base_date: date) -> dict:
+        """고객 현황 전체 묶음을 조회함.
+
+        목적: 한 회원의 프로필·카드·최근 이용실적·연체 현황을 근거와 함께 제공함.
+        방법: 읽기 전용 트랜잭션에서 회원과 기준일 범위를 설정한 뒤 논리 뷰를 각각 조회함.
+        반환값: 조회 데이터, 출처, 기준일, 경고와 고객 현황 확보 이벤트를 담은 dict임.
+        """
 
         with self._transaction() as connection:
             member, data_base_date, coverage_start = self._request_context(
@@ -156,31 +218,13 @@ class PostgresRepository:
         approved_amount = sum(row["approved_amount"] for row in usage)
         overdue_amount = delinquency["overdue_amount"] if delinquency else None
         delinquency_basis = delinquency["as_of_date"] if delinquency else None
-        sources = [
-            {
-                "name": "customer_profile",
-                "tables": ["public.member"],
-                "actual_basis_date": data_base_date.isoformat(),
-            },
-            {
-                "name": "customer_cards",
-                "tables": ["public.card", "public.product", "public.product_annual_fee"],
-                "actual_basis_date": data_base_date.isoformat(),
-            },
-            {
-                "name": "monthly_usage",
-                "tables": ["public.card_txn", "public.card"],
-                "actual_basis_date": base_date.isoformat(),
-                "coverage_start": coverage_start.isoformat(),
-                "filter": "approval_code=APPROVED, 최근 6개월, txn_date<=requested_base_date",
-            },
-            {
-                "name": "customer_delinquency",
-                "tables": ["public.delinquency"],
-                "actual_basis_date": delinquency_basis,
-                "status": "available" if delinquency else "unknown",
-            },
-        ]
+        sources = self._sources(
+            {"customer_profile", "customer_cards", "monthly_usage", "customer_delinquency"},
+            data_base_date,
+            base_date,
+            coverage_start,
+            delinquency_basis,
+        )
         event = {
             "event_id": "E-3",
             "event_name": "고객 현황 확보됨",
@@ -230,41 +274,25 @@ class PostgresRepository:
             table.name.lower()
             for table in parse_one(checked_sql, read="postgres").find_all(exp.Table)
         }
-        source_by_model = {
-            "customer_profile": {
-                "name": "customer_profile",
-                "tables": ["public.member"],
-                "actual_basis_date": data_base_date.isoformat(),
-            },
-            "customer_cards": {
-                "name": "customer_cards",
-                "tables": ["public.card", "public.product", "public.product_annual_fee"],
-                "actual_basis_date": data_base_date.isoformat(),
-            },
-            "monthly_usage": {
-                "name": "monthly_usage",
-                "tables": ["public.card_txn", "public.card"],
-                "actual_basis_date": base_date.isoformat(),
-                "coverage_start": coverage_start.isoformat(),
-                "filter": "approval_code=APPROVED, 최근 6개월, txn_date<=requested_base_date",
-            },
-            "customer_delinquency": {
-                "name": "customer_delinquency",
-                "tables": ["public.delinquency"],
-                "actual_basis_date": metadata["delinquency_as_of_date"],
-                "status": "available" if metadata["delinquency_as_of_date"] else "unknown",
-            },
-        }
+        sources = self._sources(
+            referenced_models,
+            data_base_date,
+            base_date,
+            coverage_start,
+            metadata["delinquency_as_of_date"],
+        )
         warnings = snapshot_warnings(
             base_date,
             "customer_cards" in referenced_models and metadata["has_future_product"],
         )
-        if "monthly_usage" in referenced_models and coverage_start > usage_window(base_date)[0]:
+        if referenced_models.intersection({"monthly_usage", "merchant_usage"}) and coverage_start > usage_window(base_date)[0]:
             warnings.append(
                 "최근 6개월 전체를 채울 거래 자료가 없어 데이터 제공 시작월부터만 반환합니다."
             )
+        if "customer_daily_usage" in referenced_models and coverage_start > base_date - timedelta(days=89):
+            warnings.append("최근 90일 전체를 채울 거래 자료가 없어 데이터 제공 시작일부터만 반환합니다.")
         if (
-            "customer_delinquency" in referenced_models
+            referenced_models.intersection({"customer_delinquency", "customer_delinquency_history"})
             and metadata["delinquency_as_of_date"] is None
         ):
             warnings.append("기준일까지 이용 가능한 연체 자료가 없어 연체액은 확인 필요 상태입니다.")
@@ -275,16 +303,7 @@ class PostgresRepository:
             "member_id": member_id,
             "requested_base_date": base_date.isoformat(),
             "data_base_date": data_base_date.isoformat(),
-            "sources": [
-                source_by_model[name]
-                for name in (
-                    "customer_profile",
-                    "customer_cards",
-                    "monthly_usage",
-                    "customer_delinquency",
-                )
-                if name in referenced_models
-            ],
+            "sources": sources,
             "warnings": warnings,
         }
 
@@ -296,10 +315,7 @@ class PostgresRepository:
             for view in LOGICAL_VIEWS:
                 columns = self._rows(
                     connection,
-                    "SELECT ordinal_position, column_name, data_type, is_nullable "
-                    "FROM information_schema.columns "
-                    "WHERE table_schema = %(schema)s AND table_name = %(view)s "
-                    "ORDER BY ordinal_position",
+                    SCHEMA_COLUMNS_SELECT,
                     {"schema": LOGICAL_SCHEMA_NAME, "view": view},
                 )
                 # 행 수는 세지 않음. 논리 뷰는 요청 회원·기준일 범위 안에서만 행이 있어

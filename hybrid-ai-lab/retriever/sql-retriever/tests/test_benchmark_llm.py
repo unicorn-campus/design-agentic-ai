@@ -58,7 +58,7 @@ def test_vllm_benchmark_selects_the_served_model(monkeypatch):
         lambda actual, provider, runtime: sentinel,
     )
 
-    model_name, gateway = _select_gateway("gemma-vllm", settings)
+    model_name, gateway = _select_gateway("google_local-vllm", settings)
 
     assert model_name == "gemma-vllm:test"
     assert gateway is sentinel

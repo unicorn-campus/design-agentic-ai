@@ -12,7 +12,7 @@ class Repository:
     def __init__(self):
         self.calls = []
 
-    def retrieve(self, member_id, base_date):
+    def retrieve_customer_snapshot(self, member_id, base_date):
         self.calls.append(("retrieve", member_id, base_date))
         return {"member_id": member_id, "cards": [{"card_id": "C-001", "card_ref": "CARD_001"}],
                 "warnings": ["현재 상태 스냅샷입니다."]}
@@ -27,9 +27,11 @@ class Model:
         self.result = plan
         self.fail_explain = fail_explain
         self.plan_calls, self.explain_calls = [], []
+        self.plan_dates = []
 
-    def plan(self, *args):
+    def plan(self, *args, base_date):
         self.plan_calls.append(args)
+        self.plan_dates.append(base_date)
         return self.result
 
     def explain(self, *args):
@@ -94,6 +96,18 @@ def test_forced_nl2sql_rejects_wrong_mode():
     with pytest.raises(SearchError, match="검색 방식"):
         engine.execute(request(query_mode="nl2sql", question="카드 조회"))
     assert repository.calls == []
+
+
+@pytest.mark.parametrize("mode", ["auto", "nl2sql"])
+@pytest.mark.parametrize("base_date", [date(2026, 8, 31), date(2026, 8, 15), date(2026, 1, 5)])
+def test_planner_and_repository_receive_same_requested_date(mode, base_date):
+    plan = QueryPlan(query_mode="nl2sql", query_id=None,
+                     sql="SELECT month, SUM(approved_amount) FROM monthly_usage GROUP BY month",
+                     reason="monthly total")
+    engine, repository, model = service(Model(plan))
+    engine.execute(request(query_mode=mode, base_date=base_date, question="monthly total"))
+    assert model.plan_dates == [base_date]
+    assert repository.calls[0][2] == base_date
 
 
 def test_unsafe_sql_does_not_reach_database():

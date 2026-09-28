@@ -62,6 +62,9 @@ class QueryPlan(BaseModel):
     )
     reason: str = Field(min_length=1, max_length=1000, description="계획을 선택한 이유를 설명하는 짧은 한국어")
 
+    # QueryPlan 모델 검사 수행 데코레이트: mode가 'after'이므로 QueryPlan 객체 생성 후 valid_plan 수행 
+    # 상위 클래스인 BaseModel에 의해 프라퍼티의 자료형 검사(51~63라인)이 자동 수행 -> 
+    # QueryPlan 생성 -> valid_plan함수 수행 
     @model_validator(mode="after")
     def valid_plan(self):
         if self.query_mode == "fixed" and (self.query_id is None or self.sql is not None):

@@ -1,95 +1,88 @@
-"""회원·기준일 세션 범위로 격리된 논리 읽기 모델 조회문.
+"""외부 설정과 SQL 파일에서 논리 읽기 모델 조회문을 불러옵니다.
 
-논리 테이블은 DB의 `app` 스키마 뷰이며, 정의는 `rdb/init/04_views_rls.sql`에 있음.
-회원 격리는 원본 테이블의 행 수준 보안(RLS)이 담당하므로 이 모듈은 어떤 회원 조건도
-SQL에 넣지 않음. 기준일·6개월 창은 뷰가 세션 변수를 읽어 적용함.
-
-조회 전에 트랜잭션 안에서 SCOPE_SETTINGS 세 값을 지정해야 함.
-지정하지 않으면 모든 뷰가 0행을 반환함(기본 거부).
+논리 뷰와 원본 테이블 관계는 ``sql/query_config.json``에서 관리하고,
+실행 SQL은 같은 디렉터리의 개별 ``.sql`` 파일에서 관리합니다.
 """
 
+import json
+from pathlib import Path
+import re
+from typing import Any
 
-# 트랜잭션마다 set_config(..., true)로 지정하는 세션 변수.
-MEMBER_SETTING = "app.member_id"
-BASE_DATE_SETTING = "app.base_date"
-COVERAGE_START_SETTING = "app.coverage_start"
+
+SQL_DIRECTORY = Path(__file__).with_name("sql")
+CONFIG_PATH = SQL_DIRECTORY / "query_config.json"
+
+
+def _load_config() -> dict[str, Any]:
+    try:
+        config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise RuntimeError(f"SQL 설정 파일을 읽을 수 없습니다: {CONFIG_PATH}") from error
+    if not isinstance(config, dict):
+        raise RuntimeError("SQL 설정 파일의 최상위 값은 객체여야 합니다.")
+    return config
+
+
+def _read_sql(config: dict[str, Any], name: str) -> str:
+    try:
+        filename = config["sql_files"][name]
+    except (KeyError, TypeError) as error:
+        raise RuntimeError(f"SQL 파일 설정이 없습니다: {name}") from error
+    if not isinstance(filename, str) or Path(filename).name != filename:
+        raise RuntimeError(f"SQL 파일 이름이 올바르지 않습니다: {name}")
+    path = SQL_DIRECTORY / filename
+    try:
+        sql = path.read_text(encoding="utf-8").strip()
+    except OSError as error:
+        raise RuntimeError(f"SQL 파일을 읽을 수 없습니다: {path}") from error
+    if not sql:
+        raise RuntimeError(f"SQL 파일이 비어 있습니다: {path}")
+    return sql
+
+
+_CONFIG = _load_config()
+
+try:
+    _SCOPE_SETTINGS = _CONFIG["scope_settings"]
+    MEMBER_SETTING = str(_SCOPE_SETTINGS["member"])
+    BASE_DATE_SETTING = str(_SCOPE_SETTINGS["base_date"])
+    COVERAGE_START_SETTING = str(_SCOPE_SETTINGS["coverage_start"])
+    LOGICAL_SCHEMA_NAME = str(_CONFIG["logical_schema"])
+    _VIEW_CONFIG = _CONFIG["logical_views"]
+    LOGICAL_VIEWS = tuple(str(item["name"]) for item in _VIEW_CONFIG)
+    LOGICAL_SCHEMA = {
+        str(item["name"]): tuple(str(column) for column in item["columns"])
+        for item in _VIEW_CONFIG
+    }
+    LOGICAL_VIEW_SOURCES = {
+        str(item["name"]): tuple(str(table) for table in item["source_tables"])
+        for item in _VIEW_CONFIG
+    }
+except (KeyError, TypeError) as error:
+    raise RuntimeError("SQL 설정 파일의 필수 항목을 확인해 주세요.") from error
+
+if not LOGICAL_VIEWS or len(LOGICAL_VIEWS) != len(set(LOGICAL_VIEWS)):
+    raise RuntimeError("논리 뷰 설정은 중복 없이 한 개 이상 필요합니다.")
+if re.fullmatch(r"[a-z_][a-z0-9_]*", LOGICAL_SCHEMA_NAME) is None:
+    raise RuntimeError("논리 스키마 이름이 올바르지 않습니다.")
+if any(not LOGICAL_SCHEMA[name] for name in LOGICAL_VIEWS):
+    raise RuntimeError("각 논리 뷰에는 컬럼이 한 개 이상 필요합니다.")
+
 SCOPE_SETTINGS = (MEMBER_SETTING, BASE_DATE_SETTING, COVERAGE_START_SETTING)
 
-# NL2SQL이 볼 수 있는 논리 테이블. 검색 경로가 app을 가리키므로 모델은 스키마 없이 씀.
-LOGICAL_SCHEMA_NAME = "app"
-LOGICAL_VIEWS = (
-    "customer_profile",
-    "customer_cards",
-    "monthly_usage",
-    "customer_delinquency",
-)
-
-
-# 회원 존재·가입일 확인용. 기준일 필터가 없어 "없는 회원"과 "가입 전 기준일"을 구분함.
-MEMBER_SELECT = """
-SELECT member_id, join_date, age_band
-FROM app_internal.member_basic
-LIMIT 1
-"""
-
-# 회원과 무관한 메타데이터이므로 RLS 대상이 아님.
-METADATA_SELECT = """
-SELECT key, value
-FROM public.lab_metadata
-WHERE key IN ('base_date', 'txn_period')
-"""
-
-PROFILE_SELECT = "SELECT join_date, age_band FROM app.customer_profile"
-
-# 원본 card_id가 필요한 고정 조회는 NL2SQL에 열지 않은 app_internal을 씀.
-CARDS_SELECT = """
-SELECT
-    card_id,
-    card_ref,
-    product_id,
-    product_name,
-    brand,
-    issue_date,
-    current_status,
-    product_effective_date,
-    is_product_effective_on_base_date,
-    annual_fee
-FROM app_internal.customer_cards_full
-ORDER BY card_ref
-"""
-
-USAGE_SELECT = """
-SELECT card_ref, month, period_start, period_end, approved_amount, transaction_count
-FROM app.monthly_usage
-ORDER BY month, card_ref
-"""
-
-DELINQUENCY_SELECT = """
-SELECT base_month, as_of_date, overdue_amount, overdue_days, overdue_count_12m
-FROM app.customer_delinquency
-"""
-
-SEARCH_METADATA_SELECT = """
-SELECT
-    EXISTS (
-        SELECT 1
-        FROM app.customer_cards
-        WHERE is_product_effective_on_base_date = false
-    ) AS has_future_product,
-    (SELECT max(as_of_date) FROM app.customer_delinquency) AS delinquency_as_of_date
-"""
+MEMBER_SELECT = _read_sql(_CONFIG, "member_select")
+METADATA_SELECT = _read_sql(_CONFIG, "metadata_select")
+PROFILE_SELECT = _read_sql(_CONFIG, "profile_select")
+CARDS_SELECT = _read_sql(_CONFIG, "cards_select")
+USAGE_SELECT = _read_sql(_CONFIG, "usage_select")
+DELINQUENCY_SELECT = _read_sql(_CONFIG, "delinquency_select")
+SEARCH_METADATA_SELECT = _read_sql(_CONFIG, "search_metadata_select")
+_GUARDED_QUERY_TEMPLATE = _read_sql(_CONFIG, "guarded_query")
+SCHEMA_COLUMNS_SELECT = _read_sql(_CONFIG, "schema_columns_select")
 
 
 def guarded_query(validated_sql: str) -> str:
-    """검증된 논리 SQL에 저장소 상한 101행을 적용함.
+    """검증된 논리 SQL에 외부 템플릿으로 저장소 상한 101행을 적용합니다."""
 
-    회원·기준일 조건을 덧붙이지 않음. 뷰와 RLS가 이미 범위를 좁혀 두었고,
-    같은 조건을 두 곳에 두면 한쪽만 고쳤을 때 어긋나기 때문임.
-    """
-
-    return (
-        "SELECT * FROM (\n"
-        f"{validated_sql.strip()}\n"
-        ") AS guarded_result\n"
-        "LIMIT 101"
-    )
+    return _GUARDED_QUERY_TEMPLATE.format(validated_sql=validated_sql.strip())

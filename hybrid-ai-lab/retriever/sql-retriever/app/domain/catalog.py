@@ -29,5 +29,8 @@ FIXED_QUERIES = {
 
 
 def query_catalog() -> list[dict]:
-    return [{"query_id": key, "description": value["description"], "result_grain": value["result_grain"]}
+    return [{"query_id": key, 
+             "description": value["description"], 
+             "result_grain": value["result_grain"],
+             "sql": value["sql"]}
             for key, value in FIXED_QUERIES.items()]

@@ -145,12 +145,12 @@ def test_cli_llm_provider_is_forwarded_to_bootstrap(monkeypatch):
     monkeypatch.setattr("app.bootstrap.create_service", create_service)
     stdout, stderr = io.StringIO(), io.StringIO()
     code = main(
-        ["--llm-provider", "gemma", "--llm-runtime", "vllm", "--query-mode", "fixed",
+        ["--llm-provider", "google_local", "--llm-runtime", "vllm", "--query-mode", "fixed",
          "--member-id", "M-1042", "--base-date", "2026-08-31"],
         stdout=stdout,
         stderr=stderr,
     )
     assert code == 0
-    assert selected == [("gemma", "vllm")]
+    assert selected == [("google_local", "vllm")]
     assert stderr.getvalue() == ""
 

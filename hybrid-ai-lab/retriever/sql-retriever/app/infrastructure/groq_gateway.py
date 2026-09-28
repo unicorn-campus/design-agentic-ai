@@ -1,15 +1,13 @@
 """Groq의 계획 생성과 선택적 설명을 LangChain으로 호출합니다."""
 import json
-from pathlib import Path
+from datetime import date
 
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 from langsmith import tracing_context
 
 from app.application.models import QueryPlan, SearchError
+from .prompt_loader import explain_prompt, plan_prompt
 from .settings import Settings
-
-PROMPTS = Path(__file__).resolve().parents[1] / "prompts"
 
 
 class GroqGateway:
@@ -26,19 +24,20 @@ class GroqGateway:
             max_retries=1,
         )
 
-    def plan(self, question: str, schema: dict, catalog: list[dict], mode: str) -> QueryPlan:
-        system = (PROMPTS / "search_plan.md").read_text(encoding="utf-8")
-        prompt = ChatPromptTemplate.from_messages([
-            ("system", system),
-            ("human", "<request>{request}</request>"),
-        ])
+    def plan(self, question: str, schema: dict, catalog: list[dict], mode: str,
+             *, base_date: date) -> QueryPlan:
+        prompt = plan_prompt()
         payload = json.dumps({"question": question, "mode": mode, "schema": schema,
-                              "fixed_queries": catalog}, ensure_ascii=False)
+                              "fixed_queries": catalog,
+                              "base_date": base_date.isoformat()}, ensure_ascii=False)
         try:
             model = self._model().with_structured_output(
                 QueryPlan, method="json_schema", include_raw=True, strict=True)
+            
+            # LCEL 체인 수행. prompt 객체의 human 메시지 변수인 'request' 치환 
             with tracing_context(enabled=False):
                 result = (prompt | model).invoke({"request": payload})
+                
             if result.get("parsing_error") is not None or result.get("parsed") is None:
                 raise ValueError("Invalid structured output")
             raw = result.get("raw")
@@ -51,10 +50,7 @@ class GroqGateway:
             raise SearchError("planning_failed", "Groq 검색 계획 생성에 실패했습니다. 연결·모델 응답을 확인해 주세요.", 502) from error
 
     def explain(self, question: str, context: dict) -> str:
-        system = (PROMPTS / "explain_result.md").read_text(encoding="utf-8")
-        prompt = ChatPromptTemplate.from_messages([
-            ("system", system), ("human", "<input>{payload}</input>"),
-        ])
+        prompt = explain_prompt()
         payload = json.dumps({"question": question, "context": context}, ensure_ascii=False, default=str)
         if len(payload) > 50000:
             raise SearchError("explanation_too_large", "확인용 설명의 입력 크기를 초과했습니다.", 422)

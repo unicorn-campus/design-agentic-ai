@@ -21,6 +21,9 @@ from app.infrastructure.queries import (
 RLS_DDL = (
     Path(__file__).resolve().parents[3] / "rdb" / "init" / "04_views_rls.sql"
 ).read_text(encoding="utf-8")
+HISTORY_DAILY_DDL = (
+    Path(__file__).resolve().parents[3] / "rdb" / "init" / "06_history_daily_usage.sql"
+).read_text(encoding="utf-8")
 
 
 def test_query_module_reads_only_logical_views_and_adds_no_member_condition():
@@ -78,6 +81,21 @@ def test_rls_ddl_scopes_members_and_keeps_existing_lab_account_working():
         assert "public.delinquency" not in statement
 
 
+def test_history_and_daily_views_keep_scoped_aggregate_contracts():
+    assert "CREATE OR REPLACE VIEW app.customer_delinquency_history" in HISTORY_DAILY_DDL
+    assert "INTERVAL '11 months'" in HISTORY_DAILY_DDL
+    assert "CREATE OR REPLACE VIEW app.customer_daily_usage" in HISTORY_DAILY_DDL
+    assert "scope.base_date - INTERVAL '89 days'" in HISTORY_DAILY_DDL
+    assert "scope.coverage_start" in HISTORY_DAILY_DDL
+    assert "member_scope.join_date" in HISTORY_DAILY_DDL
+    assert "txn.approval_code = 'APPROVED'" in HISTORY_DAILY_DDL
+    assert "LEFT JOIN public.card_txn" in HISTORY_DAILY_DDL
+    assert "coalesce(sum(txn.amount), 0)::bigint" in HISTORY_DAILY_DDL
+    for view in ("customer_delinquency_history", "customer_daily_usage"):
+        assert f"ALTER VIEW app.{view} OWNER TO app_reader;" in HISTORY_DAILY_DDL
+        assert f"GRANT SELECT ON app.{view} TO sql_retriever_user;" in HISTORY_DAILY_DDL
+
+
 def test_guarded_query_caps_rows_without_adding_scope_or_escaping():
     original = "SELECT card_ref FROM customer_cards WHERE product_name LIKE '%생활%' LIMIT 100"
     query = guarded_query(original)
@@ -110,7 +128,7 @@ def test_live_repository_preserves_dates_sources_and_e3_contract():
         os.environ["SQL_RETRIEVER_TEST_DSN"],
         os.environ.get("SQL_RETRIEVER_TEST_PASSWORD", ""),
     )
-    result = repository.retrieve("M-1042", date(2026, 8, 15))
+    result = repository.retrieve_customer_snapshot("M-1042", date(2026, 8, 15))
 
     assert result["requested_base_date"] == "2026-08-15"
     assert result["data_base_date"] == "2026-08-31"
@@ -119,6 +137,7 @@ def test_live_repository_preserves_dates_sources_and_e3_contract():
     assert all(item["period_end"] <= "2026-08-15" for item in result["monthly_usage"])
     assert result["delinquency"]["as_of_date"] == "2026-07-31"
     assert any(source["name"] == "monthly_usage" for source in result["sources"])
+    assert not any(source["name"] == "merchant_usage" for source in result["sources"])
 
 
 @pytest.mark.skipif(
@@ -172,11 +191,11 @@ def test_live_coverage_start_truncates_months_and_older_date_is_rejected():
         os.environ["SQL_RETRIEVER_TEST_DSN"],
         os.environ.get("SQL_RETRIEVER_TEST_PASSWORD", ""),
     )
-    result = repository.retrieve("M-1042", date(2025, 8, 15))
+    result = repository.retrieve_customer_snapshot("M-1042", date(2025, 8, 15))
     assert {row["month"] for row in result["monthly_usage"]} == {"2025-08"}
     assert any("데이터 제공 시작월" in warning for warning in result["warnings"])
     with pytest.raises(ValueError, match="거래 데이터 제공 기간 이전"):
-        repository.retrieve("M-1042", date(2025, 7, 31))
+        repository.retrieve_customer_snapshot("M-1042", date(2025, 7, 31))
 
 
 def _live_connection():
@@ -199,7 +218,10 @@ def test_live_logical_views_are_empty_without_session_scope():
             "app.customer_profile",
             "app.customer_cards",
             "app.monthly_usage",
+            "app.merchant_usage",
             "app.customer_delinquency",
+            "app.customer_delinquency_history",
+            "app.customer_daily_usage",
         ):
             assert connection.execute(f"SELECT count(*) FROM {view}").fetchone()[0] == 0
 
@@ -212,7 +234,8 @@ def test_live_service_account_cannot_reach_source_tables():
     """앱 코드를 우회해도 원본 테이블은 DB가 막는지 확인함."""
 
     with _live_connection() as connection:
-        for table in ("public.card", "public.member", "public.card_txn", "public.delinquency"):
+        for table in ("public.card", "public.member", "public.card_txn", "public.merchant",
+                      "public.delinquency"):
             with pytest.raises(psycopg.errors.InsufficientPrivilege):
                 connection.execute(f"SELECT count(*) FROM {table}")
             connection.rollback()
@@ -229,8 +252,8 @@ def test_live_search_of_one_member_never_returns_another_members_cards():
         os.environ["SQL_RETRIEVER_TEST_DSN"],
         os.environ.get("SQL_RETRIEVER_TEST_PASSWORD", ""),
     )
-    first = repository.retrieve("M-5015", date(2026, 8, 31))
-    second = repository.retrieve("M-5094", date(2026, 8, 31))
+    first = repository.retrieve_customer_snapshot("M-5015", date(2026, 8, 31))
+    second = repository.retrieve_customer_snapshot("M-5094", date(2026, 8, 31))
 
     first_cards = {card["card_id"] for card in first["cards"]}
     second_cards = {card["card_id"] for card in second["cards"]}
@@ -238,3 +261,135 @@ def test_live_search_of_one_member_never_returns_another_members_cards():
     assert first_cards.isdisjoint(second_cards)
     assert all(card_id.startswith("C-5015-") for card_id in first_cards)
     assert all(card_id.startswith("C-5094-") for card_id in second_cards)
+
+
+@pytest.mark.skipif(
+    not os.environ.get("SQL_RETRIEVER_TEST_DSN"),
+    reason="읽기 전용 PostgreSQL 통합 시험만 실행함",
+)
+@pytest.mark.parametrize("base_date", [date(2026, 8, 31), date(2026, 8, 15)])
+def test_live_merchant_usage_matches_monthly_totals_and_date_scope(base_date):
+    repository = PostgresRepository(
+        os.environ["SQL_RETRIEVER_TEST_DSN"],
+        os.environ.get("SQL_RETRIEVER_TEST_PASSWORD", ""),
+    )
+    merchant = repository.search(
+        "M-5029", base_date,
+        "SELECT card_ref, month, merchant_name, category, first_approved_date, "
+        "last_approved_date, approved_amount, transaction_count "
+        "FROM merchant_usage ORDER BY month, card_ref LIMIT 100",
+    )
+    monthly = repository.retrieve_customer_snapshot("M-5029", base_date)["monthly_usage"]
+    assert sum(row["approved_amount"] for row in merchant["rows"]) == sum(
+        row["approved_amount"] for row in monthly
+    )
+    assert sum(row["transaction_count"] for row in merchant["rows"]) == sum(
+        row["transaction_count"] for row in monthly
+    )
+    assert all(row["first_approved_date"] <= row["last_approved_date"] <= base_date.isoformat()
+               for row in merchant["rows"])
+    assert merchant["sources"][0]["tables"] == ["public.card_txn", "public.card", "public.merchant"]
+
+
+@pytest.mark.skipif(
+    not os.environ.get("SQL_RETRIEVER_TEST_DSN"),
+    reason="읽기 전용 PostgreSQL 통합 시험만 실행함",
+)
+def test_live_merchant_usage_excludes_cancelled_only_member():
+    repository = PostgresRepository(
+        os.environ["SQL_RETRIEVER_TEST_DSN"],
+        os.environ.get("SQL_RETRIEVER_TEST_PASSWORD", ""),
+    )
+    result = repository.search("M-1021", date(2026, 8, 31),
+                               "SELECT merchant_name FROM merchant_usage LIMIT 100")
+    assert result["rows"] == []
+
+
+@pytest.mark.skipif(
+    not os.environ.get("SQL_RETRIEVER_TEST_DSN"),
+    reason="읽기 전용 PostgreSQL 통합 시험만 실행함",
+)
+@pytest.mark.parametrize(
+    ("base_date", "first_month", "last_month", "row_count"),
+    [
+        (date(2026, 8, 15), "2025-08", "2026-07", 12),
+        (date(2026, 1, 15), "2025-08", "2025-12", 5),
+    ],
+)
+def test_live_delinquency_history_uses_only_recent_completed_months(
+    base_date, first_month, last_month, row_count
+):
+    repository = PostgresRepository(
+        os.environ["SQL_RETRIEVER_TEST_DSN"],
+        os.environ.get("SQL_RETRIEVER_TEST_PASSWORD", ""),
+    )
+    result = repository.search(
+        "M-5029",
+        base_date,
+        "SELECT base_month, as_of_date, overdue_amount, overdue_days, overdue_count_12m "
+        "FROM customer_delinquency_history ORDER BY base_month LIMIT 100",
+    )
+
+    rows = result["rows"]
+    assert len(rows) == row_count
+    assert rows[0]["base_month"] == first_month
+    assert rows[-1]["base_month"] == last_month
+    assert all(row["as_of_date"] <= base_date.isoformat() for row in rows)
+
+
+@pytest.mark.skipif(
+    not os.environ.get("SQL_RETRIEVER_TEST_DSN"),
+    reason="읽기 전용 PostgreSQL 통합 시험만 실행함",
+)
+def test_live_daily_usage_matches_monthly_approved_totals_and_keeps_zero_days():
+    repository = PostgresRepository(
+        os.environ["SQL_RETRIEVER_TEST_DSN"],
+        os.environ.get("SQL_RETRIEVER_TEST_PASSWORD", ""),
+    )
+    base_date = date(2026, 8, 29)
+    daily = repository.search(
+        "M-5029",
+        base_date,
+        "SELECT usage_date, approved_amount, transaction_count "
+        "FROM customer_daily_usage ORDER BY usage_date LIMIT 100",
+    )["rows"]
+    monthly = repository.search(
+        "M-5029",
+        base_date,
+        "SELECT month, approved_amount, transaction_count FROM monthly_usage "
+        "WHERE month BETWEEN '2026-06' AND '2026-08' ORDER BY month, card_ref LIMIT 100",
+    )["rows"]
+
+    assert len(daily) == 90
+    assert daily[0]["usage_date"] == "2026-06-01"
+    assert daily[-1]["usage_date"] == "2026-08-29"
+    assert sum(row["approved_amount"] for row in daily) == sum(
+        row["approved_amount"] for row in monthly
+    )
+    assert sum(row["transaction_count"] for row in daily) == sum(
+        row["transaction_count"] for row in monthly
+    )
+    assert any(row["approved_amount"] == 0 and row["transaction_count"] == 0 for row in daily)
+
+
+@pytest.mark.skipif(
+    not os.environ.get("SQL_RETRIEVER_TEST_DSN"),
+    reason="읽기 전용 PostgreSQL 통합 시험만 실행함",
+)
+def test_live_daily_usage_excludes_cancellations_and_cannot_cross_member_scope():
+    repository = PostgresRepository(
+        os.environ["SQL_RETRIEVER_TEST_DSN"],
+        os.environ.get("SQL_RETRIEVER_TEST_PASSWORD", ""),
+    )
+    sql = (
+        "SELECT usage_date, approved_amount, transaction_count "
+        "FROM customer_daily_usage ORDER BY usage_date LIMIT 100"
+    )
+    cancelled_only = repository.search("M-1021", date(2026, 8, 31), sql)["rows"]
+    approved = repository.search("M-5029", date(2026, 8, 31), sql)["rows"]
+
+    assert len(cancelled_only) == 90
+    assert all(row["approved_amount"] == 0 for row in cancelled_only)
+    assert all(row["transaction_count"] == 0 for row in cancelled_only)
+    assert sum(row["approved_amount"] for row in approved) > 0
+    assert sum(row["transaction_count"] for row in approved) > 0

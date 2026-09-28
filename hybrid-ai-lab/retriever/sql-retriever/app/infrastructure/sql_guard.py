@@ -8,36 +8,7 @@ import sqlglot
 from sqlglot import exp
 from sqlglot.errors import ParseError
 
-
-LOGICAL_SCHEMA: dict[str, tuple[str, ...]] = {
-    "customer_profile": ("join_date", "age_band"),
-    "customer_cards": (
-        "card_ref",
-        "product_id",
-        "product_name",
-        "brand",
-        "issue_date",
-        "current_status",
-        "product_effective_date",
-        "is_product_effective_on_base_date",
-        "annual_fee",
-    ),
-    "monthly_usage": (
-        "card_ref",
-        "month",
-        "period_start",
-        "period_end",
-        "approved_amount",
-        "transaction_count",
-    ),
-    "customer_delinquency": (
-        "base_month",
-        "as_of_date",
-        "overdue_amount",
-        "overdue_days",
-        "overdue_count_12m",
-    ),
-}
+from .queries import LOGICAL_SCHEMA
 
 _MAX_ROWS = 100
 _MAX_SQL_LENGTH = 20_000
@@ -181,6 +152,10 @@ def _validate_columns(
 
 def _validate_functions(statement: exp.Select) -> None:
     for function in statement.find_all(exp.Func):
+        # sqlglot은 AND/OR 연산자도 Func 하위 타입으로 표현합니다.
+        # 구문 허용 목록에서 별도로 검사하므로 함수 이름 검사는 건너뜁니다.
+        if isinstance(function, (exp.And, exp.Or)):
+            continue
         if function.sql_name().upper() not in _ALLOWED_FUNCTIONS:
             _fail("허용되지 않은 함수입니다.")
 

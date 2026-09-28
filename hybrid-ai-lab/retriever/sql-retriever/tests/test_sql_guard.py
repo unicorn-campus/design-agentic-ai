@@ -12,7 +12,8 @@ def test_fixed_catalog_queries_are_allowed(query_id):
 
 def test_schema_contract_contains_only_logical_read_models():
     assert set(LOGICAL_SCHEMA) == {
-        "customer_profile", "customer_cards", "monthly_usage", "customer_delinquency"
+        "customer_profile", "customer_cards", "monthly_usage", "merchant_usage",
+        "customer_daily_usage", "customer_delinquency", "customer_delinquency_history"
     }
     assert "member_id" not in {column for columns in LOGICAL_SCHEMA.values() for column in columns}
 
@@ -24,6 +25,45 @@ def test_aggregate_query_is_normalized_and_limited():
     )
     assert "SUM(approved_amount) AS amount" in result
     assert result.endswith("LIMIT 100")
+
+
+def test_merchant_category_aggregate_is_allowed_without_transaction_details():
+    sql = (
+        "SELECT category, SUM(approved_amount) AS amount, "
+        "SUM(transaction_count) AS approved_count FROM merchant_usage "
+        "WHERE month BETWEEN '2026-06' AND '2026-08' "
+        "GROUP BY category ORDER BY amount DESC LIMIT 100"
+    )
+    assert validate_sql(sql) == sql
+    for hidden in ("member_id", "card_id", "merchant_id", "txn_id", "txn_date"):
+        assert hidden not in LOGICAL_SCHEMA["merchant_usage"]
+
+
+def test_date_bounds_with_boolean_operators_are_allowed():
+    sql = (
+        "SELECT category, SUM(approved_amount) AS amount FROM merchant_usage "
+        "WHERE month >= '2026-06' AND month <= '2026-08' "
+        "GROUP BY category ORDER BY amount DESC LIMIT 1"
+    )
+    assert validate_sql(sql) == sql
+    alternatives = (
+        "SELECT merchant_name FROM merchant_usage "
+        "WHERE category = '교통' OR category = '교육' LIMIT 100"
+    )
+    assert validate_sql(alternatives) == alternatives
+
+
+def test_daily_usage_and_delinquency_history_support_bounded_selects():
+    daily = (
+        "SELECT usage_date, approved_amount, transaction_count FROM customer_daily_usage "
+        "WHERE usage_date BETWEEN '2026-08-25' AND '2026-08-31' ORDER BY usage_date LIMIT 100"
+    )
+    history = (
+        "SELECT base_month, overdue_amount, overdue_days FROM customer_delinquency_history "
+        "ORDER BY base_month LIMIT 100"
+    )
+    assert validate_sql(daily) == daily
+    assert validate_sql(history) == history
 
 
 def test_existing_limit_is_preserved_or_capped():

@@ -13,7 +13,7 @@ OLLAMA_BASE_URL = "http://127.0.0.1:11434"
 VLLM_BASE_URL = "http://127.0.0.1:8000/v1"
 VLLM_MODEL = "gemma-4-12b-it"
 VLLM_MAX_TOKENS = 1024
-LLM_PROVIDERS = ("groq", "gemma")
+LLM_PROVIDERS = ("groq", "google_local")
 LLM_RUNTIMES = ("ollama", "vllm")
 
 
@@ -66,7 +66,7 @@ def load_settings(env_path: Path | None = None) -> Settings:
         raise ValueError("SQL 검색기의 시간·토큰 제한 설정을 확인해 주세요.") from error
     provider = get("SQL_RETRIEVER_LLM_PROVIDER", "groq").lower()
     if provider not in LLM_PROVIDERS:
-        raise ValueError("SQL_RETRIEVER_LLM_PROVIDER는 groq 또는 gemma여야 합니다.")
+        raise ValueError("SQL_RETRIEVER_LLM_PROVIDER는 groq 또는 google_local이어야 합니다.")
     runtime = get("SQL_RETRIEVER_LLM_RUNTIME", "ollama").lower()
     if runtime not in LLM_RUNTIMES:
         raise ValueError("SQL_RETRIEVER_LLM_RUNTIME은 ollama 또는 vllm이어야 합니다.")

@@ -13,11 +13,11 @@ def create_language_model(
     provider: str | None = None,
     runtime: str | None = None,
 ):
-    selected = (provider or settings.llm_provider).lower()
+    selected_provider = (provider or settings.llm_provider).lower()
     selected_runtime = (runtime or settings.llm_runtime).lower()
-    if selected == "groq":
+    if selected_provider == "groq":
         return GroqGateway(settings)
-    if selected == "gemma":
+    if selected_provider == "google_local":
         if selected_runtime == "vllm":
             return VllmGateway(
                 settings.vllm_base_url,
@@ -35,7 +35,7 @@ def create_language_model(
             settings.max_tokens,
             structured_methods=("function_calling", "json_schema", "json_mode"),
         )
-    raise ValueError("LLM provider는 groq 또는 gemma여야 합니다.")
+    raise ValueError("LLM provider는 groq 또는 google_local이어야 합니다.")
 
 
 def create_service(provider: str | None = None, runtime: str | None = None) -> SearchService:

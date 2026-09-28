@@ -1,3 +1,5 @@
+from datetime import date
+
 import pytest
 from langchain_core.messages import AIMessage
 from langchain_core.runnables import RunnableLambda
@@ -29,7 +31,7 @@ def test_structured_groq_plan_and_requested_model():
     plan = QueryPlan(query_mode="fixed", query_id="cards", sql=None, reason="카드 조회")
     model, options = gateway({"parsed": plan, "parsing_error": None,
                               "raw": AIMessage(content="", response_metadata={"finish_reason": "stop"})})
-    result = model.plan("카드를 보여 주세요", {}, [], "auto")
+    result = model.plan("카드를 보여 주세요", {}, [], "auto", base_date=date(2026, 8, 31))
     assert result == plan
     assert options["model"] == MODEL == "openai/gpt-oss-120b"
     assert options["model_kwargs"]["include_reasoning"] is False
@@ -43,7 +45,7 @@ def test_structured_groq_plan_and_requested_model():
 def test_invalid_or_truncated_plan_is_not_executed(response):
     model, _ = gateway(response)
     with pytest.raises(SearchError) as failure:
-        model.plan("질문", {}, [], "auto")
+        model.plan("질문", {}, [], "auto", base_date=date(2026, 8, 31))
     assert failure.value.code == "planning_failed"
     assert "credentials" not in failure.value.message
 
@@ -51,7 +53,7 @@ def test_invalid_or_truncated_plan_is_not_executed(response):
 def test_no_api_key_fails_only_when_model_is_used():
     model = GroqGateway(Settings("dsn", "password", ""))
     with pytest.raises(SearchError) as failure:
-        model.plan("질문", {}, [], "auto")
+        model.plan("질문", {}, [], "auto", base_date=date(2026, 8, 31))
     assert failure.value.code == "missing_groq_key"
 
 

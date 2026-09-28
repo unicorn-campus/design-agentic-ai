@@ -1,3 +1,5 @@
+from datetime import date
+
 import pytest
 from langchain_core.messages import AIMessage
 from langchain_core.runnables import RunnableLambda
@@ -50,7 +52,7 @@ def test_structured_ollama_plan_and_model_options():
     }
     gateway, model_options, structured_options = planning_gateway(response)
 
-    result = gateway.plan("카드를 보여 주세요", {}, [], "auto")
+    result = gateway.plan("카드를 보여 주세요", {}, [], "auto", base_date=date(2026, 8, 31))
 
     assert result == plan
     assert model_options == {
@@ -103,8 +105,8 @@ def test_plan_falls_back_and_caches_supported_structured_output_method():
         lambda **kwargs: NegotiatingModel(),
     )
 
-    assert gateway.plan("카드를 보여 주세요", {}, [], "auto") == plan
-    assert gateway.plan("카드를 다시 보여 주세요", {}, [], "auto") == plan
+    assert gateway.plan("카드를 보여 주세요", {}, [], "auto", base_date=date(2026, 8, 31)) == plan
+    assert gateway.plan("카드를 다시 보여 주세요", {}, [], "auto", base_date=date(2026, 8, 31)) == plan
     assert calls == ["json_schema", "function_calling", "function_calling"]
     assert gateway.structured_output_attempts == 3
     assert gateway.structured_output_fallback_calls == 1
@@ -145,8 +147,8 @@ def test_cached_method_failure_tries_remaining_methods():
         lambda **kwargs: RecoveringModel(),
     )
 
-    assert gateway.plan("카드를 보여 주세요", {}, [], "auto") == plan
-    assert gateway.plan("카드를 다시 보여 주세요", {}, [], "auto") == plan
+    assert gateway.plan("카드를 보여 주세요", {}, [], "auto", base_date=date(2026, 8, 31)) == plan
+    assert gateway.plan("카드를 다시 보여 주세요", {}, [], "auto", base_date=date(2026, 8, 31)) == plan
     assert calls == ["json_schema", "json_schema", "function_calling"]
     assert gateway._structured_method == "function_calling"
     assert gateway.structured_output_attempts == 3
@@ -173,7 +175,7 @@ def test_invalid_empty_or_truncated_plan_is_not_executed(response):
     gateway, _, _ = planning_gateway(response)
 
     with pytest.raises(SearchError) as failure:
-        gateway.plan("질문", {}, [], "auto")
+        gateway.plan("질문", {}, [], "auto", base_date=date(2026, 8, 31))
 
     assert failure.value.code == "planning_failed"
     assert "credentials" not in failure.value.message

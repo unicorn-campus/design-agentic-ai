@@ -11,7 +11,7 @@ import statistics
 import subprocess
 import time
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import sqlglot
@@ -31,6 +31,7 @@ class Case:
     question: str
     expected_mode: str
     expected_query_id: str | None = None
+    base_date: date = date(2026, 8, 31)
 
 
 CASES = (
@@ -168,12 +169,12 @@ def _select_gateway(provider: str, settings):
     if provider == "groq":
         model_name = settings.model
         gateway = create_language_model(settings, provider)
-    elif provider == "gemma":
+    elif provider == "google_local":
         model_name = settings.gemma_model
         gateway = create_language_model(settings, provider)
-    elif provider == "gemma-vllm":
+    elif provider == "google_local-vllm":
         model_name = settings.vllm_model
-        gateway = create_language_model(settings, "gemma", "vllm")
+        gateway = create_language_model(settings, "google_local", "vllm")
     else:
         model_name = QWEN_COMPARISON_MODEL
         gateway = OllamaGateway(
@@ -191,7 +192,7 @@ def _run_provider(provider: str, repeat: int, seed: int) -> tuple[dict, list[dic
     if provider == "groq" and not settings.api_key:
         return {"provider": provider, "model": model_name, "status": "skipped",
                 "reason": "GROQ_API_KEY가 설정되지 않았습니다."}, []
-    if provider == "gemma-vllm" and not settings.vllm_api_key:
+    if provider == "google_local-vllm" and not settings.vllm_api_key:
         return {"provider": provider, "model": model_name, "status": "skipped",
                 "reason": "SQL_RETRIEVER_VLLM_API_KEY가 설정되지 않았습니다."}, []
     catalog = query_catalog()
@@ -199,7 +200,8 @@ def _run_provider(provider: str, repeat: int, seed: int) -> tuple[dict, list[dic
 
     started = time.perf_counter_ns()
     try:
-        first = gateway.plan(CASES[0].question, LOGICAL_SCHEMA, catalog, "auto")
+        first = gateway.plan(CASES[0].question, LOGICAL_SCHEMA, catalog, "auto",
+                             base_date=CASES[0].base_date)
         first_call_ms = (time.perf_counter_ns() - started) / 1_000_000
         first_status = "ok"
         first_error = None
@@ -225,7 +227,8 @@ def _run_provider(provider: str, repeat: int, seed: int) -> tuple[dict, list[dic
     for case, iteration in work:
         started = time.perf_counter_ns()
         try:
-            plan = gateway.plan(case.question, LOGICAL_SCHEMA, catalog, "auto")
+            plan = gateway.plan(case.question, LOGICAL_SCHEMA, catalog, "auto",
+                                base_date=case.base_date)
             latency_ms = (time.perf_counter_ns() - started) / 1_000_000
             record = {
                 "provider": provider,
@@ -318,8 +321,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--providers",
         nargs="+",
-        choices=(*LLM_PROVIDERS, "gemma-vllm", "qwen"),
-        default=(*LLM_PROVIDERS, "gemma-vllm", "qwen"),
+        choices=(*LLM_PROVIDERS, "google_local-vllm", "qwen"),
+        default=(*LLM_PROVIDERS, "google_local-vllm", "qwen"),
     )
     parser.add_argument("--repeat", type=int, default=1)
     parser.add_argument("--seed", type=int, default=20260927)

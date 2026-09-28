@@ -101,7 +101,22 @@ docker exec -it hybrid-ai-lab-rdb psql -U cardlab -d cardlab
 
 `member` · `card` · `card_txn` · `delinquency` 네 테이블에 행 수준 보안을 켜 둠.
 정형 검색기(`retriever/sql-retriever`)가 자연어 질문으로 SQL을 만들 때 다른 회원의 행에
-닿지 못하게 하려는 것임. 정의는 `init/04_views_rls.sql`에 있음.
+닿지 못하게 하려는 것임. 기본 뷰와 정책은 `init/04_views_rls.sql`, 가맹점·업종 집계 뷰는
+`init/05_merchant_usage.sql`에 있음.
+
+월별 연체 이력과 일별 승인 집계는 `init/06_history_daily_usage.sql`에 있음.  
+신규 DB는 초기화 때 자동 적용하며, 기존 DB에는 05 다음에 06을 적용함.
+
+가맹점·업종 집계는 `app.merchant_usage`에서 카드·월·가맹점별 승인 금액과 건수를 제공함.
+최초·최근 승인일도 함께 제공하지만 개별 거래 행과 원본 카드·가맹점 ID는 노출하지 않음.
+기존 DB 볼륨에는 아래처럼 추가 뷰를 적용함. 새 DB는 초기화 때 자동 적용됨.
+
+```powershell
+Get-Content -Raw -Encoding utf8 rdb/init/05_merchant_usage.sql |
+  docker exec -i hybrid-ai-lab-rdb psql -X -1 -v ON_ERROR_STOP=1 -U cardlab -d cardlab
+Get-Content -Raw -Encoding utf8 rdb/init/06_history_daily_usage.sql |
+  docker exec -i hybrid-ai-lab-rdb psql -X -1 -v ON_ERROR_STOP=1 -U cardlab -d cardlab
+```
 
 `lab_user`는 영향을 받지 않음. RLS를 켜면 정책이 없는 역할은 0행이 되므로
 `lab_user`에는 전체 허용 정책을 함께 만들어 기존 실습이 그대로 동작하게 했음.
@@ -274,6 +289,8 @@ docker compose -f rdb/compose.yml up -d
 | `init/01_schema.sql` | 스키마·권한 |
 | `init/02_seed.sql` | 적재 데이터(생성물 — 직접 고치지 말 것) |
 | `init/04_views_rls.sql` | 검색기용 논리 뷰·행 수준 보안·계정 (시드 이후에 실행되어야 함) |
+| `init/05_merchant_usage.sql` | 카드·월·가맹점별 승인 집계 뷰 (04 이후 실행, 기존 DB 재적용 가능) |
+| `init/06_history_daily_usage.sql` | 최근 12개 완료 월 연체 이력·최근 90일 일별 승인 집계 뷰 |
 
 ## 원자료
 

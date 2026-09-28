@@ -1,3 +1,5 @@
+from datetime import date
+
 import pytest
 from langchain_core.messages import AIMessage
 from langchain_core.runnables import RunnableLambda
@@ -36,7 +38,7 @@ def test_vllm_plan_uses_openai_compatible_json_schema():
         "http://localhost:8000/v1/", "gemma:test", "token", 30.0, 512, factory,
     )
 
-    assert gateway.plan("카드를 보여 주세요", {}, [], "auto") == plan
+    assert gateway.plan("카드를 보여 주세요", {}, [], "auto", base_date=date(2026, 8, 31)) == plan
     assert model_options == {
         "model": "gemma:test",
         "base_url": "http://localhost:8000/v1",
@@ -58,7 +60,7 @@ def test_vllm_requires_key_without_exposing_it():
     gateway = VllmGateway("http://localhost:8000/v1", "gemma:test", "", 30.0, 512)
 
     with pytest.raises(SearchError) as failure:
-        gateway.plan("질문", {}, [], "auto")
+        gateway.plan("질문", {}, [], "auto", base_date=date(2026, 8, 31))
 
     assert failure.value.code == "missing_vllm_key"
 
@@ -82,7 +84,7 @@ def test_vllm_rejects_incomplete_structured_response():
     )
 
     with pytest.raises(SearchError) as failure:
-        gateway.plan("질문", {}, [], "auto")
+        gateway.plan("질문", {}, [], "auto", base_date=date(2026, 8, 31))
 
     assert failure.value.code == "planning_failed"
 

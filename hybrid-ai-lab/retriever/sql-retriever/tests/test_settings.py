@@ -14,6 +14,7 @@ def test_settings_does_not_expose_secrets_and_env_has_precedence(tmp_path, monke
     env = tmp_path / ".env"
     env.write_text("GROQ_API_KEY=file-secret\nSQL_RETRIEVER_DB_PASSWORD=db-secret\n", encoding="utf-8")
     monkeypatch.setenv("GROQ_API_KEY", "runtime-secret")
+    monkeypatch.delenv("SQL_RETRIEVER_LLM_PROVIDER", raising=False)
     monkeypatch.delenv("SQL_RETRIEVER_LLM_RUNTIME", raising=False)
     settings = load_settings(env)
     assert settings.api_key == "runtime-secret"
@@ -36,7 +37,7 @@ def test_missing_key_does_not_block_settings(tmp_path, monkeypatch):
 def test_llm_provider_and_gemma_settings_can_be_selected(tmp_path, monkeypatch):
     env = tmp_path / ".env"
     env.write_text(
-        "SQL_RETRIEVER_LLM_PROVIDER=gemma\n"
+        "SQL_RETRIEVER_LLM_PROVIDER=google_local\n"
         "SQL_RETRIEVER_GEMMA_MODEL=gemma4:custom\n"
         "SQL_RETRIEVER_OLLAMA_BASE_URL=http://localhost:11434\n"
         "SQL_RETRIEVER_LLM_RUNTIME=vllm\n"
@@ -48,7 +49,7 @@ def test_llm_provider_and_gemma_settings_can_be_selected(tmp_path, monkeypatch):
     )
     monkeypatch.delenv("SQL_RETRIEVER_LLM_PROVIDER", raising=False)
     settings = load_settings(env)
-    assert settings.llm_provider == "gemma"
+    assert settings.llm_provider == "google_local"
     assert settings.gemma_model == "gemma4:custom"
     assert settings.ollama_base_url == "http://localhost:11434"
     assert settings.llm_runtime == "vllm"
@@ -63,7 +64,7 @@ def test_unknown_llm_provider_is_rejected(tmp_path, monkeypatch):
     env = tmp_path / ".env"
     env.write_text("SQL_RETRIEVER_LLM_PROVIDER=unknown\n", encoding="utf-8")
     monkeypatch.delenv("SQL_RETRIEVER_LLM_PROVIDER", raising=False)
-    with pytest.raises(ValueError, match="groq 또는 gemma"):
+    with pytest.raises(ValueError, match="groq 또는 google_local"):
         load_settings(env)
 
 

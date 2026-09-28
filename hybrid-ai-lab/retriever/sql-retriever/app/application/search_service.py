@@ -24,6 +24,9 @@ class SearchService:
             "rules": [
                 "테이블은 요청 회원과 기준일로 제한된 논리 읽기 모델입니다.",
                 "승인 금액은 원 단위이며 취소 거래를 제외합니다. monthly_usage는 최근 6개월 카드별 월 집계입니다.",
+                "merchant_usage는 최근 6개월 카드·월·가맹점별 승인 거래 집계이며 가맹점명과 업종을 제공합니다.",
+                "customer_daily_usage는 최근 90일의 회원별 일 승인액·건수이며 무거래일도 0으로 표시합니다.",
+                "customer_delinquency_history는 기준일 이전 완료된 최근 12개월의 월별 연체 이력입니다.",
                 "회원ID와 원본 카드ID는 SQL 조건에 넣지 않습니다. card_ref는 요청 내 대체 식별자입니다.",
                 "월별 연체는 기준일 이전 완료된 월만 조회합니다. 현재 카드 상태의 과거 이력은 없습니다.",
                 "SELECT 한 개, 허용 컬럼, 최대 100행만 지원합니다. 세부 거래·문서·상담 이력·이탈 확률은 없습니다.",
@@ -33,7 +36,11 @@ class SearchService:
     def execute(self, request: SearchRequest) -> SearchResponse:
         if not isinstance(request, SearchRequest):
             request = SearchRequest.model_validate(request)
-        # 실습의 원본 식별자와 검색 결과가 환경 설정만으로 외부 tracing에 전송되지 않게 합니다.
+            
+        # 목적: 실습의 원본 식별자와 검색 결과가 외부 tracing으로 전송되는 것을 방지합니다.
+        # 방법: 이 검색 흐름에서는 환경 설정과 관계없이 LangSmith tracing을 비활성화합니다.
+        # tracing_context는 아래 langsmith에서 import한 함수로서 'enabled=False'로 하면 추적이 비활성화됨 
+        # from langsmith import tracing_context
         with tracing_context(enabled=False):
             try:
                 planned = self._plan(request)
@@ -48,12 +55,20 @@ class SearchService:
 
     def _plan(self, request: SearchRequest) -> tuple[SearchRequest, QueryPlan]:
         if request.query_mode == "fixed":
+            # QueryPlan 객체 plan 생성. 아직 query_id에 해당하는 sql이 셋팅되지는 않음 
             plan = QueryPlan(query_mode="fixed", query_id=request.query_id or "customer_snapshot",
                              sql=None, reason="호출자가 지정한 고정 조회를 실행합니다.")
         else:
+
+            # question에서 member_id, 다른 ID 식별자, 대체 카드번호, 이메일, 주민번호 앞7자리, 전화번호, 카드번호 제거  
             question = redact_text(request.question or "", (request.member_id,))
-            plan = QueryPlan.model_validate(self.llm.plan(
-                question, self.logical_schema, query_catalog(), request.query_mode))
+            
+            # LLM에 QueryPlan 스키마에 맞춰 결과 리턴 요청 
+            # query_mode(fixed 또는 nl2sql), query_id(nl2sql일땐 null), sql(fixed일땐 null), reason(판단 이유)을 
+            plan = self.llm.plan(
+                question, self.logical_schema, query_catalog(), request.query_mode,
+                base_date=request.base_date)
+            
             if plan.query_mode == "unsupported":
                 raise SearchError("unsupported_question", "질문에 필요한 데이터나 조회 형태를 지원하지 않습니다.", 422)
             if request.query_mode == "nl2sql" and plan.query_mode != "nl2sql":
@@ -61,9 +76,19 @@ class SearchService:
         return request, plan
 
     def _retrieve(self, state: tuple[SearchRequest, QueryPlan]) -> tuple[SearchRequest, SearchResponse]:
+        """검색 계획에 따라 고객의 정형 데이터를 조회합니다.
+
+        목적: 확정된 고정 조회 또는 NL2SQL 계획으로 요청 회원의 데이터를 안전하게 확보합니다.
+        처리 방법: 고객 현황은 전용 저장소 함수로 조회하고, 나머지 계획은 SQL을 검증한 뒤 실행합니다.
+        결과값: 원본 요청과 조회 데이터·검색 방식·경고를 담은 SearchResponse의 튜플을 반환합니다.
+        """
+
         request, plan = state
+        
         if plan.query_mode == "fixed" and plan.query_id == "customer_snapshot":
-            data = self.repository.retrieve(request.member_id, request.base_date)
+            data = self.repository.retrieve_customer_snapshot(
+                request.member_id, request.base_date
+            )
         else:
             sql = FIXED_QUERIES[plan.query_id]["sql"] if plan.query_mode == "fixed" else plan.sql
             try:

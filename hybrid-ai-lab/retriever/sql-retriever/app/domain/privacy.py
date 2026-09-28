@@ -9,13 +9,25 @@ PRIVATE_KEYS = {"member_id", "card_id", "counselor_id", "consultation_id", "requ
 
 
 def redact_text(text: str, identifiers=()) -> str:
+    # 문자열 길이가 큰 순으로 정렬하고, 각 식별자(identifier)를 제거함 
+    """ 
+    identifiers = ["M-123", "M-12345"]
+    text = "회원 M-12345의 정보를 조회합니다."
+    
+    위의 예에서 M-123을 제거하면 '45'가 일부 남는 문제를 방지하기 위함
+    """
     for identifier in sorted(set(str(value) for value in identifiers if value), key=len, reverse=True):
         text = text.replace(identifier, "[식별자 제거]")
+    
+    # 식별자 포맷을 찾아 제거      
     text = re.sub(r"(?i)\b(?:M|C|CS|CONSULT|COUNSELOR|AGENT)[-_][A-Z0-9_-]+\b", "[식별자 제거]", text)
+    
+    # 대체 카드번호 제거: 논리 view에는 실제 카드번호를 'CARD-{일련번호}'형식으로 대체함 
     text = re.sub(r"(?i)\bCARD-[A-Z0-9_-]+\b", "[식별자 제거]", text)
+    
     text = re.sub(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}", "[이메일 제거]", text)
-    text = re.sub(r"\b\d{6}[- ]?[1-4]\d{6}\b", "[개인번호 제거]", text)
-    text = re.sub(r"\b01[016789][- ]?\d{3,4}[- ]?\d{4}\b", "[연락처 제거]", text)
+    text = re.sub(r"\b\d{6}[- ]?[1-4]\d{6}\b", "[주민번호 앞 7자리 제거]", text)
+    text = re.sub(r"\b01[016789][- ]?\d{3,4}[- ]?\d{4}\b", "[전화번호 제거]", text)
     text = re.sub(r"\b\d{4}[- ]\d{4}[- ]\d{4}[- ]\d{4}\b", "[카드번호 제거]", text)
     text = re.sub(r"\b\d{16}\b", "[카드번호 제거]", text)
     return text

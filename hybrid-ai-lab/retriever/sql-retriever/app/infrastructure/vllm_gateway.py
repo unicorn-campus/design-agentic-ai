@@ -1,17 +1,14 @@
 """vLLM의 OpenAI 호환 API로 검색 계획과 선택적 설명을 생성합니다."""
 
 import json
-from pathlib import Path
+from datetime import date
 from typing import Any, Callable
 
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langsmith import tracing_context
 
 from app.application.models import QueryPlan, SearchError
-
-
-PROMPTS = Path(__file__).resolve().parents[1] / "prompts"
+from .prompt_loader import explain_prompt, plan_prompt
 
 
 class VllmGateway:
@@ -60,16 +57,14 @@ class VllmGateway:
         if metadata.get("finish_reason") not in (None, "stop"):
             raise ValueError("Incomplete model response")
 
-    def plan(self, question: str, schema: dict, catalog: list[dict], mode: str) -> QueryPlan:
-        system = (PROMPTS / "search_plan.md").read_text(encoding="utf-8")
-        prompt = ChatPromptTemplate.from_messages([
-            ("system", system),
-            ("human", "<request>{request}</request>"),
-        ])
+    def plan(self, question: str, schema: dict, catalog: list[dict], mode: str,
+             *, base_date: date) -> QueryPlan:
+        prompt = plan_prompt()
         payload = json.dumps(
             {
                 "question": question,
                 "mode": mode,
+                "base_date": base_date.isoformat(),
                 "schema": schema,
                 "fixed_queries": catalog,
             },
@@ -98,11 +93,7 @@ class VllmGateway:
             ) from error
 
     def explain(self, question: str, context: dict) -> str:
-        system = (PROMPTS / "explain_result.md").read_text(encoding="utf-8")
-        prompt = ChatPromptTemplate.from_messages([
-            ("system", system),
-            ("human", "<input>{payload}</input>"),
-        ])
+        prompt = explain_prompt()
         payload = json.dumps(
             {"question": question, "context": context},
             ensure_ascii=False,
