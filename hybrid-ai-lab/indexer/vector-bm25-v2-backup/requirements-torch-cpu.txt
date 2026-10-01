@@ -1,0 +1,4 @@
+# PyTorch CPU 판. GPU가 없거나 CPU로만 임베딩할 때 requirements.txt보다 먼저 설치함.
+# Linux의 기본 저장소(PyPI) torch는 CUDA 판이라 CPU 판을 받으려면 PyTorch 전용 저장소 지정이 필요함.
+--index-url https://download.pytorch.org/whl/cpu
+torch==2.14.0

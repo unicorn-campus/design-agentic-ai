@@ -1,6 +1,7 @@
 """Retriever가 하위 계층에 요구하는 입출력 계약."""
 
 from abc import abstractmethod
+from collections.abc import AsyncIterator
 from typing import Any, Protocol, TypeVar
 
 from pydantic import BaseModel
@@ -8,7 +9,7 @@ from pydantic import BaseModel
 from ..domain.corpus import CorpusSnapshot
 from ..domain.search_filter import MetadataFilter
 from ..domain.vector_search import DEFAULT_VECTOR_SEARCH_OPTIONS, VectorSearchOptions
-from .state import Hit, RouteDecision
+from .state import HealthResult, Hit, RetrieverRequest, RouteDecision, SearchResult
 
 
 StructuredModel = TypeVar("StructuredModel", bound=BaseModel)
@@ -98,3 +99,23 @@ class TransformCachePort(Protocol):
 
     @abstractmethod
     def put(self, query: str, decision: RouteDecision) -> None: ...
+
+
+class RetrieverGraphPort(Protocol):
+    """검색·답변 흐름(그래프) 실행을 응용 서비스에 제공하는 계약."""
+
+    @abstractmethod
+    def search(self, request: RetrieverRequest) -> SearchResult:
+        """답변 LLM 없이 검색 결과만 확정함."""
+
+    @abstractmethod
+    def answer(self, request: RetrieverRequest) -> SearchResult:
+        """검색·답변·근거 검증을 한 번 실행함."""
+
+    @abstractmethod
+    def stream(self, request: RetrieverRequest) -> AsyncIterator[dict[str, Any]]:
+        """노드 진행 이벤트와 최종 결과를 순서대로 전달함."""
+
+    @abstractmethod
+    def health(self) -> HealthResult:
+        """검색 자원 준비 상태를 확인함."""

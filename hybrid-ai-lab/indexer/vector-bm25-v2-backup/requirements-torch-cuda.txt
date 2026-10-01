@@ -1,0 +1,5 @@
+# PyTorch NVIDIA GPU(CUDA 12.6) 판. Windows·Linux에서 EMBED_DEVICE=cuda로 임베딩할 때 먼저 설치함.
+# NVIDIA 드라이버가 지원하는 CUDA 버전(nvidia-smi 오른쪽 위) 이하의 판을 골라야 함.
+# 드라이버가 CUDA 13.0 이상을 지원하면 주소 끝을 cu130으로 바꿔 사용 가능.
+--index-url https://download.pytorch.org/whl/cu126
+torch==2.14.0

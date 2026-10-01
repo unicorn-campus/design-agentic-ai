@@ -1,0 +1,34 @@
+{
+  "sources": 8,
+  "extract": {
+    "source_count": 8,
+    "prepared_count": 192
+  },
+  "chunk": {
+    "chunk_count": 192,
+    "reused_count": 0,
+    "embedded_count": 192
+  },
+  "index": {
+    "collection_count": 192,
+    "newly_embedded": 192,
+    "skipped_by_hash": 0,
+    "failed": [],
+    "embedding_dimension": 768,
+    "generation": "gen-group2-build-002-0d04ea20"
+  },
+  "timings": {
+    "discover": 4,
+    "prepare": 5196,
+    "plan": 4,
+    "begin_generation": 350,
+    "embed_batch": 375255,
+    "upsert_batch": 711,
+    "publish": 3206,
+    "total_ms": 384782
+  },
+  "status": "ok",
+  "exit_code": 0,
+  "thread_id": "group2-build-002",
+  "no_op": false
+}

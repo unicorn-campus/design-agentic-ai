@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "documents": {
+    "D1": {
+      "owner_dept": "product_planning",
+      "created_at": "2026-09-10",
+      "effective_date": "2027-01-15",
+      "version": "1.2",
+      "supersedes": "1.1",
+      "synthetic": true,
+      "classification_basis": "교육용 합성 약관의 고객 공개본"
+    },
+    "D2": {
+      "owner_dept": "benefit_ops",
+      "created_at": "2026-09-09",
+      "effective_date": "2027-01-15",
+      "version": "1.0",
+      "synthetic": true,
+      "classification_basis": "교육용 합성 상품 안내의 고객 공개본"
+    },
+    "D3": {
+      "owner_dept": "customer_service",
+      "version": "v2",
+      "synthetic": true,
+      "classification_basis": "교육용 합성 상담 기록의 제한 공개본"
+    }
+  }
+}

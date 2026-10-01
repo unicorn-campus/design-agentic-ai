@@ -1,0 +1,15 @@
+langgraph==1.2.11
+langgraph-checkpoint-sqlite==3.1.1
+langchain-core==1.6.3
+langchain-text-splitters==1.1.2
+sentence-transformers==6.0.1
+transformers==5.17.0
+# torch 판(CPU·CUDA·MPS)은 requirements-torch-*.txt로 먼저 설치함. 여기서는 버전만 고정함
+torch==2.14.0
+chromadb==1.5.9
+bm25s==0.3.11
+kiwipiepy==0.23.2
+PyMuPDF==1.28.2
+pydantic==2.13.5
+numpy==2.5.3
+python-dotenv==1.2.3

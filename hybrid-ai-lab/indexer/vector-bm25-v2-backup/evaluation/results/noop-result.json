@@ -1,0 +1,28 @@
+{
+  "sources": 8,
+  "extract": {
+    "source_count": 8,
+    "prepared_count": 192
+  },
+  "chunk": {
+    "chunk_count": 192,
+    "reused_count": 192,
+    "embedded_count": 0
+  },
+  "index": {
+    "collection_count": 192,
+    "newly_embedded": 0,
+    "skipped_by_hash": 192,
+    "failed": [],
+    "embedding_dimension": 768,
+    "generation": "gen-group2-final-003-0af4f7bc"
+  },
+  "timings": {
+    "discover": 10,
+    "total_ms": 26
+  },
+  "status": "ok",
+  "exit_code": 0,
+  "thread_id": "group2-noop-004",
+  "no_op": true
+}

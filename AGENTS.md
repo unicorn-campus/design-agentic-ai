@@ -220,6 +220,18 @@ API·UI 엔지니어
 - 표준 섹션 8종(`[목표]`/`[역할]`/`[맥락]`/`[입력]`/`[처리]`/`[출력]`/`[제약조건]`/`[예시]`)으로 구조화
 - 필수 섹션(목표·역할·맥락·처리·출력)을 빠짐없이 채우고, 모호어 대신 검증 가능한 표현 사용
 
+## 파이썬 개발 가이드
+파이썬으로 앱·서비스·에이전트 코드 개발 시 `references/layered-architecture-guide.md`의 DIP 적용 Layered Architecture를  
+반드시 준수할 것. (1회성 스크립트·노트북 실습·50줄 이하 단일 파일 예제는 제외)
+- 계층 구조: `domain` / `application`(models·ports·services) / `infrastructure` / `presentation` / `bootstrap.py`
+- 포트(`Protocol` + `@abstractmethod`)는 `application/ports.py`에 두고, 실제 어댑터는 포트를 명시적 상속
+- 구현체 생성·주입은 `bootstrap.py` 한 곳에서만 수행, import는 바깥에서 안쪽(domain) 방향으로만 허용
+- 외부 기술(DB·LLM SDK·LangGraph 등) import는 `infrastructure`에만 둠
+- 완료 보고 전 가이드 §7 「DIP 위반 신호」 체크리스트를 점검하고 결과를 보고에 포함
+- 주석·docstring은 `references/dev-comment-guide.md`를 반드시 준수할 것  
+  (명사체 종결, "왜"를 설명하는 주석, 포트 docstring에 입력 전제·반환값·예외·부작용 명시)
+- 완료 보고 전 주석 가이드 §10 「점검 체크리스트」를 점검하고 결과를 보고에 포함
+
 ## Lessons Learned
 > skill/agent 실행 중 확인된 시행착오와 교훈을 기록한다.
 > 모든 에이전트는 작업 전 이 섹션을 반드시 참고한다.

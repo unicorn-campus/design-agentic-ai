@@ -9,7 +9,7 @@ from typing import Any
 
 from ..application.ports import CorpusPort
 from ..domain.corpus import CorpusSnapshot
-from ..domain.korean_tokenizer import KoreanTokenizer
+from .korean_tokenizer import KoreanTokenizer
 
 
 class VersionedCorpusStore(CorpusPort):

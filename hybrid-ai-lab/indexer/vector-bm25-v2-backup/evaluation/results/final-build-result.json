@@ -1,0 +1,33 @@
+{
+  "sources": 8,
+  "extract": {
+    "source_count": 8,
+    "prepared_count": 192
+  },
+  "chunk": {
+    "chunk_count": 192,
+    "reused_count": 192,
+    "embedded_count": 0
+  },
+  "index": {
+    "collection_count": 192,
+    "newly_embedded": 0,
+    "skipped_by_hash": 192,
+    "failed": [],
+    "embedding_dimension": 768,
+    "generation": "gen-group2-final-003-0af4f7bc"
+  },
+  "timings": {
+    "discover": 10,
+    "prepare": 5441,
+    "plan": 582,
+    "begin_generation": 39,
+    "upsert_batch": 517,
+    "publish": 3290,
+    "total_ms": 9907
+  },
+  "status": "ok",
+  "exit_code": 0,
+  "thread_id": "group2-final-003",
+  "no_op": false
+}

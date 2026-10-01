@@ -24,4 +24,4 @@ groq==0.37.1
 anthropic==1.5.0
 openai==3.13.0
 
-# KURE-v1 약 2GB, bge-reranker-v2-m3 약 2.2GB 최초 다운로드 발생
+# KURE-v2 약 285MB, bge-reranker-v2-m3 약 2.2GB 최초 다운로드 발생(2026-09-29 로컬 캐시 실측)

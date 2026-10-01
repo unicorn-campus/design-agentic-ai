@@ -7,7 +7,7 @@ from pathlib import Path
 import sys
 from uuid import uuid4
 
-from app.application.graph import answer_question, describe_error
+from app.application.retriever_service import RetrieverService
 from app.application.state import RetrieverRequest, RouteInfo, SearchResult
 
 
@@ -77,7 +77,9 @@ def _emit(result: SearchResult) -> None:
     print(json.dumps(result.model_dump(mode="json"), ensure_ascii=False, indent=2))
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: list[str] | None = None, service: RetrieverService | None = None) -> int:
+    """CLI 진입점. service를 넘기면 그대로 쓰고(시험용 주입 지점), 없으면 bootstrap으로 조립함."""
+
     parser = build_parser()
     args = parser.parse_args(argv)
     thread_id = args.thread_id or _thread_id()
@@ -95,12 +97,16 @@ def main(argv: list[str] | None = None) -> int:
             prompt_only=args.prompt_only,  # True이면 답변용 프롬프트까지만 만들고 LLM 호출은 생략
             max_llm_calls=args.max_llm_calls,  # 한 요청에서 허용할 최대 LLM 호출 횟수
         )
-        result = answer_question(request)
+        if service is None:
+            from app.bootstrap import create_service
+
+            service = create_service()
+        result = service.answer(request)
         _emit(result)
         _report_saved(result, args.out, thread_id)
         return 1 if result.status == "error" else 0
     except (ValueError, OSError, RuntimeError, ImportError) as error:
-        detail = describe_error(error)
+        detail = RetrieverService.describe_error(error)
         print(f"실행 중단: {detail}", file=sys.stderr)
         # 검색까지는 성공했을 수 있으므로 부분 결과가 있으면 그대로 남김.
         partial = getattr(error, "partial_result", None)

@@ -1,4 +1,4 @@
-"""실제 KURE 색인으로 4개 검색 조합의 Top-5 동등성을 평가함.
+"""실제 KURE-v2 색인으로 4개 검색 조합의 Top-5 동등성을 평가함.
 
 답변 LLM은 prompt-only로 차단하고, 질문 변환은 확정된 s3.3 결과를
 TransformCache 계약으로 변환하여 외부 LLM 호출 없이 재현함.
@@ -26,6 +26,10 @@ DEFAULT_OUTPUT = APP_ROOT / "data" / "equivalence_run1.json"
 DEFAULT_CACHE = APP_ROOT / "data" / "equivalence_transform_cache.json"
 TOP_K = 5
 MISSING_RANK_PENALTY = TOP_K + 1
+# 평가 전제: Indexer가 nlpai-lab/KURE-v2로 만든 card_docs 색인(2026-09-29 실제 조회 기준).
+# 설정 EMBED_MODEL=nlpai-lab/KURE-v2, Chroma 483건·768차원, active_index.json chunk_count=483.
+EXPECTED_COLLECTION_COUNT = 483
+EXPECTED_EMBEDDING_DIMENSION = 768
 
 METHODS = (
     ("vector_top5", "vector", "off", 6, 2.125),
@@ -171,21 +175,26 @@ def run(
     cache_path: Path,
     output_path: Path,
 ) -> dict[str, Any]:
-    from app.application.graph import answer_question, check_health, load_resources
     from app.application.state import RetrieverRequest
-    from app.settings import load_settings
+    from app.bootstrap import create_service, load_settings
 
     cases = load_scored_cases(questions_path)
     if len(cases) != 7:
         raise RuntimeError(f"평가 가능 질문은 7건이어야 함: {len(cases)}")
     cache = build_transform_cache(transforms_path, cache_path)
     settings = load_settings({"TRANSFORM_CACHE_PATH": cache_path})
-    resources = load_resources(settings=settings, llm=ForbiddenLLM())
-    health = check_health(resources)
-    if health.collection_count != 485 or health.embedding_dimension != 1024:
+    # 외부 LLM 대신 호출 즉시 실패하는 ForbiddenLLM을 bootstrap 주입 지점으로 끼워 넣음.
+    service = create_service(settings=settings, llm=ForbiddenLLM())
+    health = service.health()
+    if (
+        health.collection_count != EXPECTED_COLLECTION_COUNT
+        or health.embedding_dimension != EXPECTED_EMBEDDING_DIMENSION
+    ):
         raise RuntimeError(
             "동등성 평가 전제 불충족: "
-            f"count={health.collection_count}, dimension={health.embedding_dimension}"
+            f"count={health.collection_count}(기대 {EXPECTED_COLLECTION_COUNT}), "
+            f"dimension={health.embedding_dimension}(기대 {EXPECTED_EMBEDDING_DIMENSION}), "
+            f"embed={health.models.get('embed')}"
         )
 
     run_id = uuid4().hex[:12]
@@ -198,7 +207,7 @@ def run(
         rows = []
         for index, case in enumerate(cases, start=1):
             started = perf_counter()
-            result = answer_question(
+            result = service.answer(
                 RetrieverRequest(
                     query=case["question"],
                     top_k=TOP_K,
@@ -209,7 +218,6 @@ def run(
                     prompt_only=True,
                     max_llm_calls=8,
                 ),
-                resources,
             )
             elapsed_ms = (perf_counter() - started) * 1000
             # 최종 1위의 원 벡터 점수가 답변 관문보다 낮으면 그래프는

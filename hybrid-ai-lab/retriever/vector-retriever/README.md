@@ -2,7 +2,7 @@
 
 > 로컬 전용 — 인증 기능이 없으므로 외부 네트워크에 노출하면 안 됨.
 
-KURE-v1 ChromaDB에서 문서를 검색하고 근거가 붙은 답변을 만드는 로컬 앱임.
+KURE-v2(`nlpai-lab/KURE-v2`) ChromaDB에서 문서를 검색하고 근거가 붙은 답변을 만드는 로컬 앱임.
 Vector, Hybrid, Hybrid + Rerank 세 경로와 선택적 질문 변환을 지원함.
 
 ## 실행 전제
@@ -10,8 +10,9 @@ Vector, Hybrid, Hybrid + Rerank 세 경로와 선택적 질문 변환을 지원�
 - Python 3.12 권장
 - Indexer가 만든 `../../indexer/vector-bm25/data/chroma/`와 `../../indexer/vector-bm25/data/search_indexes/` 필요
 - 컬렉션 `card_docs`에 청크 1건 이상 필요
-- 임베딩 서명 `sentence-transformers:nlpai-lab/KURE-v1:prompt-policy-v2` 필요
-- 실제 동등성 평가 전제는 청크 485건과 임베딩 1,024차원임
+- 임베딩 모델은 `nlpai-lab/KURE-v2`(설정 `EMBED_MODEL` 기본값)임
+- 임베딩 서명 `sentence-transformers:nlpai-lab/KURE-v2:prompt-policy-v2` 필요
+- 실제 동등성 평가 전제는 청크 483건과 임베딩 768차원임(2026-09-29 실제 색인 조회 기준)
 - Rerank 최초 사용 시 `BAAI/bge-reranker-v2-m3` 약 2.2GB 다운로드 필요
 
 Indexer 실행 방법은 `../../indexer/vector-bm25/README.md` 참고 대상임.
@@ -71,7 +72,7 @@ python run_retriever.py \
 
 | 모드 | 처리 | 최종 결과 |
 |---|---|---|
-| `vector` | KURE-v1 의미 검색 | Vector Top-K |
+| `vector` | KURE-v2 의미 검색 | Vector Top-K |
 | `vector_rerank` | Vector 후보를 Cross-Encoder로 재정렬 | Rerank Top-K |
 | `hybrid` | Vector 0.6 + BM25 0.4 | 융합 Top-K |
 | `hybrid_rerank` | Hybrid 후보를 Cross-Encoder로 재정렬 | Rerank Top-K |
@@ -410,6 +411,53 @@ HTTP 오류 본문 형태는 다음과 같음.
 SSE 시작 전 발생한 400·503은 JSON 오류 응답임.
 스트림 시작 뒤 발생한 호출 제한·시간 초과·내부 오류는 `error` 이벤트로 전송됨.
 
+## 코드 구조
+
+계층별 의존 방향은 presentation → application ← infrastructure이며, 조립은 `app/bootstrap.py`만 담당함.  
+domain은 표준 라이브러리만 사용하고, application은 포트(인터페이스)와 서비스를 소유함.
+
+```text
+vector-retriever/
+├── run_retriever.py          # CLI 진입점 → presentation/cli.py
+├── serve_retriever.py        # HTTP 서버 진입점 → presentation/api.py (설정은 bootstrap 경유)
+├── eval_equivalence.py       # 4조합 동등성 평가 (bootstrap.create_service에 ForbiddenLLM 주입)
+├── eval_retriever_matrix.py  # 질문 10건 × 4모드 검색 평가 (bootstrap.create_service 사용)
+└── app/
+    ├── bootstrap.py          # 설정 로딩 → 구현체 생성 → 서비스 조립 (create_resources·create_service)
+    ├── domain/               # 표준 라이브러리만 쓰는 규칙
+    │   ├── access.py         #   역할별 접근 등급·권한 필터
+    │   ├── corpus.py         #   corpus 스냅샷 값 객체
+    │   ├── location.py       #   청크 위치 표기
+    │   ├── search_filter.py  #   DB 중립 메타데이터 필터
+    │   └── vector_search.py  #   벡터 검색 옵션·MMR 계산
+    ├── application/          # 유스케이스·포트·DTO (외부 기술 import 없음, pydantic만 허용)
+    │   ├── retriever_service.py  # RetrieverService: search·answer·stream·health 진입점
+    │   ├── ports.py              # 포트(Protocol + @abstractmethod), RetrieverGraphPort 포함
+    │   ├── state.py              # 요청·결과·State DTO
+    │   ├── errors.py             # 응용 오류 계약·오류 요약
+    │   ├── llm_budget.py         # 서버 누적 LLM 호출 예산
+    │   ├── query_transform.py    # 질문 변환 판정·가중 RRF·분해 질의 규칙
+    │   ├── scoring.py            # 점수 융합·리랭크 적용·근거 검증
+    │   └── runtime.py            # 타임아웃 실행기·감사 로그
+    ├── infrastructure/       # 포트 구현체(포트를 명시적으로 상속)와 설정
+    │   ├── graph.py              # LangGraph StateGraph 구성·노드, LangGraphRetrieverRunner
+    │   ├── settings.py           # .env·환경변수 설정 로더
+    │   ├── embedder.py           # KURE-v2 임베더(LazyHuggingFaceEmbedder)
+    │   ├── chroma_store.py       # Chroma·메모리 벡터 저장소
+    │   ├── bm25_index.py         # BM25S 키워드 검색
+    │   ├── corpus_store.py       # 버전형 corpus 읽기
+    │   ├── korean_tokenizer.py   # Kiwi 한국어 토크나이저
+    │   ├── reranker.py           # Cross-Encoder 리랭커
+    │   ├── llm_client.py         # Groq·Claude·OpenAI 구조화 출력 클라이언트
+    │   └── transform_cache.py    # 질문 변환 결정 캐시
+    └── presentation/         # application 서비스만 사용
+        ├── api.py                # FastAPI·SSE, create_app(service=None)
+        └── cli.py                # CLI, main(argv, service=None)
+```
+
+`create_app(service=None)`과 `cli.main(argv, service=None)`은 서비스를 넘기면 그대로 사용하고,  
+넘기지 않으면 `app.bootstrap.create_service()`로 조립함.
+
 ## 실행 파일과 감사 로그
 
 | 경로 | 내용 |
@@ -433,18 +481,23 @@ python eval_equivalence.py
 결과는 `data/equivalence_run1.json`에 저장됨.
 네 조합이 모두 기준선을 충족해야 종료 코드 0이며, 하나라도 미달하면 종료 코드 1임.
 
-2026-09-13 A안 적용 뒤 재측정 결과는 다음과 같음.
+2026-09-29 KURE-v2 색인(483건·768차원) 측정 결과는 다음과 같음.  
+기준 값은 KURE-v1 시절 확정한 기준선이며 변경하지 않았음.
 
 | 조합 | 기준 | 실측 | 판정 |
 |---|---:|---:|---|
-| `vector/off` | 6/7·2.125 | 6/7·2.125 | 통과 |
-| `hybrid/off` | 6/7·2.375 | 6/7·2.375 | 통과 |
-| `hybrid/auto` | 7/7·1.125 | 7/7·1.125 | 통과 |
-| `hybrid_rerank/auto` | 7/7·1.375 | 7/7·1.375 | 통과 |
+| `vector/off` | 6/7·2.125 | 6/7·1.875 | 통과 |
+| `hybrid/off` | 6/7·2.375 | 6/7·1.625 | 통과 |
+| `hybrid/auto` | 7/7·1.125 | 6/7·1.625 | 미달 |
+| `hybrid_rerank/auto` | 7/7·1.375 | 6/7·1.625 | 미달 |
 
-재측정은 48.65초에 종료 코드 0으로 끝났으며 `all_methods_meet_baseline=true`임.
-답변·라우터 LLM 네트워크 호출은 0회임.
-q6의 `hybrid_rerank/auto` 결과에서 `D1_0010`은 1위, `D2_0003`은 4위임.
+측정은 198초에 종료 코드 1로 끝났으며 `all_methods_meet_baseline=false`임.  
+답변·라우터 LLM 네트워크 호출은 0회임.  
+네 조합 모두 q6에서 `D1_0010`은 1위지만 `D2_0003`이 Top-5 밖이라 실패함.  
+구조 정리 전 코드로 같은 조건을 다시 측정해도 순위·점수가 행 단위로 같았으므로  
+미달 원인은 코드 변경이 아니라 색인 모델 교체(KURE-v1 → KURE-v2)로 판단됨.  
+기준선을 KURE-v2 기준으로 다시 정할지, 검색 설정을 조정할지는 결정 필요 사항임.
 
-A안 적용 전 `hybrid_rerank/auto`의 6/7·1.625 미달은 변경 전 이력임.
+KURE-v1 색인(485건·1,024차원)에서는 2026-09-13 A안 적용 뒤 네 조합 모두 기준선을 통과했음.  
+A안 적용 전 `hybrid_rerank/auto`의 6/7·1.625 미달은 KURE-v1 시점의 변경 전 이력임.
 비교 이력은 `../COMPARISON.md`, 전체 검증 범위는 `../verify-report.md` 참고 대상임.

@@ -3,15 +3,23 @@
 from __future__ import annotations
 
 import random
-import threading
 import time
 from dataclasses import dataclass
 from typing import Any, Callable, Mapping, TypeVar
 
 from pydantic import BaseModel, SecretStr
 
+from app.application.errors import (
+    LLMAuthError,
+    LLMCallLimitError,
+    LLMConfigError,
+    LLMError,
+    LLMRequestError,
+    LLMRetryableError,
+)
+from app.application.llm_budget import LLMCallCounter
 from app.application.ports import LLMPort
-from app.settings import LLMConfigError, Settings
+from app.infrastructure.settings import Settings
 
 
 StructuredModel = TypeVar("StructuredModel", bound=BaseModel)
@@ -26,41 +34,6 @@ BACKOFF_JITTER_LOW = 0.8
 BACKOFF_JITTER_HIGH = 1.2
 
 
-class LLMError(RuntimeError):
-    """외부 LLM 오류의 공통 계약."""
-
-    def __init__(self, message: str, *, attempts: int = 0, status_code: int | None = None):
-        super().__init__(message)
-        self.attempts = attempts
-        self.status_code = status_code
-
-
-class LLMRetryableError(LLMError):
-    """429·5xx·연결·타임아웃처럼 제한적으로 재시도 가능한 오류."""
-
-
-class LLMAuthError(LLMError):
-    """키가 거부되거나 모델 사용 권한이 없는 오류."""
-
-
-class LLMRequestError(LLMError):
-    """요청 형식·모델·문맥 길이 문제처럼 재시도하면 안 되는 오류."""
-
-
-class LLMCallLimitError(LLMError):
-    """전송 전에 호출 예산이 소진된 오류."""
-
-    def __init__(self, *, scope: str, limit: int, used: int):
-        super().__init__("LLM 호출 상한에 도달함", attempts=0)
-        self.scope = scope
-        self.limit = limit
-        self.used = used
-
-    @property
-    def detail(self) -> dict[str, int | str]:
-        return {"scope": self.scope, "limit": self.limit, "used": self.used}
-
-
 @dataclass(frozen=True)
 class StructuredResult:
     """LangChain include_raw 결과를 제공자와 무관한 모양으로 정규화함."""
@@ -69,36 +42,6 @@ class StructuredResult:
     raw: Any
     parsing_error: str | None
     attempts: int
-
-
-class LLMCallCounter:
-    """프로세스 안에서 서버 누적 전송 횟수를 원자적으로 집계함."""
-
-    def __init__(self, limit: int):
-        if isinstance(limit, bool) or not isinstance(limit, int) or limit <= 0:
-            raise LLMConfigError("MAX_LLM_CALLS_TOTAL은 양의 정수여야 함")
-        self.limit = limit
-        self._used = 0
-        self._lock = threading.Lock()
-
-    @property
-    def used(self) -> int:
-        with self._lock:
-            return self._used
-
-    @property
-    def remaining(self) -> int:
-        with self._lock:
-            return max(0, self.limit - self._used)
-
-    def add(self, count: int) -> int:
-        if isinstance(count, bool) or not isinstance(count, int) or count < 0:
-            raise ValueError("LLM 호출 증가량은 0 이상의 정수여야 함")
-        with self._lock:
-            if self._used + count > self.limit:
-                raise LLMCallLimitError(scope="total", limit=self.limit, used=self._used)
-            self._used += count
-            return self._used
 
 
 def _provider_class(provider: str) -> type:

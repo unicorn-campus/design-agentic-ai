@@ -11,8 +11,8 @@ from time import monotonic
 from typing import Any
 from uuid import uuid4
 
-from app.application.graph import check_health, load_resources, search_documents
 from app.application.state import RetrieverRequest
+from app.bootstrap import create_service
 
 
 APP_DIR = Path(__file__).resolve().parent
@@ -35,8 +35,8 @@ def run_matrix(questions_path: Path, output_path: Path) -> dict[str, Any]:
     role = str(suite.get("role", "auditor"))
     transform = str(suite.get("transform", "off"))
 
-    resources = load_resources()
-    health = check_health(resources)
+    service = create_service()
+    health = service.health()
     if not health.index_connected:
         raise RuntimeError("Retriever 인덱스 연결 실패")
 
@@ -46,7 +46,7 @@ def run_matrix(questions_path: Path, output_path: Path) -> dict[str, Any]:
     for case in cases:
         for mode in MODES:
             run_started = monotonic()
-            result = search_documents(
+            result = service.search(
                 RetrieverRequest(
                     query=case["question"],
                     top_k=top_k,
@@ -56,7 +56,6 @@ def run_matrix(questions_path: Path, output_path: Path) -> dict[str, Any]:
                     thread_id=f"matrix-{run_id}-{case['id']}-{mode}",
                     max_llm_calls=1,
                 ),
-                resources,
             )
             ranks = {
                 chunk_id: _rank(chunk_id, result.hits)

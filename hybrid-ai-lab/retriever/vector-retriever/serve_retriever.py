@@ -2,7 +2,7 @@
 
 import argparse
 
-from app.settings import load_settings
+from app.bootstrap import load_settings
 
 
 def main(argv: list[str] | None = None) -> None:

@@ -8,7 +8,7 @@ from typing import Any
 
 from ..application.ports import BM25Port, CorpusPort
 from ..application.state import Hit
-from ..domain.korean_tokenizer import KoreanTokenizer
+from .korean_tokenizer import KoreanTokenizer
 from ..domain.location import resolve_location
 
 

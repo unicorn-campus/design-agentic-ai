@@ -1,0 +1,35 @@
+{
+  "generation": "gen-group2-final-003-0af4f7bc",
+  "chunk_count": 192,
+  "vector_count": 192,
+  "chunks_by_document_type": {
+    "D1": 11,
+    "D2": 133,
+    "D3": 48
+  },
+  "actual_token_min": 305,
+  "actual_token_max": 748,
+  "actual_vector_norm_min": 0.9999999872885105,
+  "actual_vector_norm_max": 1.0000001276531458,
+  "dimension": 768,
+  "residual_pii_format_matches": 0,
+  "embedding_contract": {
+    "model": "nlpai-lab/KURE-v2",
+    "revision": "3431f86d399d666083890dbb882aced6708873bc",
+    "max_seq_length": 800,
+    "dimension": 768,
+    "normalize_embeddings": true,
+    "pooling": "sentence-transformers-colbert-conversion-single-vector"
+  },
+  "package_versions": {
+    "langgraph": "1.2.11",
+    "langgraph-checkpoint-sqlite": "3.1.1",
+    "langchain-text-splitters": "1.1.2",
+    "sentence-transformers": "6.0.1",
+    "transformers": "5.17.0",
+    "torch": "2.14.0",
+    "chromadb": "1.5.9",
+    "bm25s": "0.3.11",
+    "kiwipiepy": "0.23.2"
+  }
+}
