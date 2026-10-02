@@ -8,11 +8,13 @@ Vector, Hybrid, Hybrid + Rerank 세 경로와 선택적 질문 변환을 지원�
 ## 실행 전제
 
 - Python 3.12 권장
-- Indexer가 만든 `../../indexer/vector-bm25/data/chroma/`와 `../../indexer/vector-bm25/data/search_indexes/` 필요
+- Indexer가 게시한 활성 세대 포인터 `../../indexer/vector-bm25/data/active_generation.json` 필요  
+  포인터가 가리키는 같은 세대의 `chroma`와 `search_indexes`를 함께 사용함
 - 컬렉션 `card_docs`에 청크 1건 이상 필요
 - 임베딩 모델은 `nlpai-lab/KURE-v2`(설정 `EMBED_MODEL` 기본값)임
 - 임베딩 서명 `sentence-transformers:nlpai-lab/KURE-v2:prompt-policy-v2` 필요
-- 실제 동등성 평가 전제는 청크 483건과 임베딩 768차원임(2026-09-29 실제 색인 조회 기준)
+- 현재 활성 세대는 `gen-rebuild-20261002-c8f87e7e`, 청크 195건 · 768차원임(2026-10-02 재색인 기준)
+- 아래 「동등성 평가」 수치는 이전 Indexer 색인(청크 483건) 기준 기록이므로 현재 세대에 그대로 적용되지 않음
 - Rerank 최초 사용 시 `BAAI/bge-reranker-v2-m3` 약 2.2GB 다운로드 필요
 
 Indexer 실행 방법은 `../../indexer/vector-bm25/README.md` 참고 대상임.
@@ -44,9 +46,16 @@ cp .env.example .env
 
 `VECTOR_STORE_BACKEND` 기본값은 `chroma`임. `memory`는 자동화 시험용 비영속 저장소임.
 
-`SEARCH_INDEX_ROOT`는 Indexer가 발행한 `active_index.json`의 루트임.
+색인 경로는 `CHROMA_PATH`·`SEARCH_INDEX_ROOT`를 비워 두면 `ACTIVE_GENERATION_POINTER`에서 읽음.  
+기본 포인터는 `../../indexer/vector-bm25/data/active_generation.json`이며,  
+포인터의 `chroma_path`·`search_index_root`·`collection`을 같은 세대에서 함께 사용함.  
+Indexer가 새 세대를 게시하면 검색기를 다시 시작할 때 새 세대를 읽음.
 
-기본값은 `../../indexer/vector-bm25/data/search_indexes/`이며 custom `--out`을 사용한 경우 같은 경로로 설정해야 함.
+`SEARCH_INDEX_ROOT`는 Indexer가 발행한 `active_index.json`의 루트임.  
+경로를 직접 지정할 때는 `CHROMA_PATH`와 `SEARCH_INDEX_ROOT`를 **같은 세대로 함께** 적어야 함.  
+한쪽만 적으면 벡터와 BM25가 다른 세대를 가리키므로 설정 오류로 중단함.  
+Indexer에서 `--output`을 바꾼 경우에는 그 폴더의 `active_generation.json`을 `ACTIVE_GENERATION_POINTER`로 지정함.  
+포인터 파일이 없으면 이전 고정 배치(`data/chroma`, `data/search_indexes`)를 기본값으로 사용함.
 
 `KOREAN_USER_DICTIONARY`는 Indexer와 같은 파일을 지정해야 하며 파일 내용은 토크나이저 서명에 포함됨.
 
@@ -411,6 +420,87 @@ HTTP 오류 본문 형태는 다음과 같음.
 SSE 시작 전 발생한 400·503은 JSON 오류 응답임.
 스트림 시작 뒤 발생한 호출 제한·시간 초과·내부 오류는 `error` 이벤트로 전송됨.
 
+## 카드명 별칭과 날짜 표기 통일
+
+색인이 만든 **별칭 사전**을 질의에도 똑같이 적용해, 사람이 줄여 부른 카드명과 문서의 정식 카드명이
+같은 토큰이 되게 함. 날짜도 `2026년 2월`과 `2026-02`를 같은 토큰(`2026-02`)으로 맞춤.
+규칙과 산출물은 인덱서가 만들며 자세한 내용은 `indexer/vector-bm25/README.md`에 있음.
+
+- 활성 세대 포인터(`active_index.json`)의 `card_aliases`·`card_aliases_sha256`·`card_aliases_count`와
+  manifest의 `card_aliases`를 읽어 파일 해시·건수·정렬 형식을 모두 검사함
+- 검사를 통과한 별칭을 질의 토크나이저에 넣고, `alias_map_sha256`이 파일 해시와 같은지 다시 확인함
+- manifest의 `tokenizer_signature`가 질의 토크나이저 서명과 다르면 시작하지 않음
+  (토큰화 정책 버전 4. 별칭·날짜 규칙이 서명에 들어 있음)
+- 별칭 산출물이 없는 이전 세대는 빈 별칭으로 읽어 그대로 검색 가능함.
+  다만 서명이 정책 버전 4가 아니면 색인을 다시 만들어야 함
+
+별칭 파일 1열은 **형태소 분석기에 등록할 표면형**이라 낱말 사이 공백을 가질 수 있음
+(예: `가게모음 프리미엄<탭>한빛가게모음프리미엄`). 이 띄어 쓴 표면형 덕분에
+"가게모음 프리미엄 혜택"처럼 띄어 쓴 질문이 기본 카드(`한빛가게모음`)로 잘못 치환되지 않음.
+2열 정식 토큰에는 공백이 없어야 하며, 공백이 있으면 색인을 띄우지 않음.
+
+## 색인용 텍스트(`index_text`)
+
+인덱서는 D2 혜택 안내 청크에 `[카드: 한빛 가게모음 프리미엄 (D2-C040)]` 같은 머리말을 붙여 색인합니다.
+이 머리말은 **색인에만** 들어가고 표시·인용에는 쓰지 않습니다.
+
+| corpus 필드 | 뜻 | 검색기에서 쓰는 곳 |
+|---|---|---|
+| `text` | 원래 본문. 머리말 없음 | 검색 결과 표시, 프롬프트 근거, 인용 검증 |
+| `index_text` | 머리말 + 본문. 머리말이 붙은 청크에만 있음 | BM25 색인·임베딩이 만들어진 기준이며, 문서빈도 통계도 이 값으로 셈 |
+
+`index_text`가 없는 레코드는 `text`가 곧 색인용 텍스트이므로, 이 필드를 만들기 전 세대도 그대로 읽힙니다.
+Chroma에 저장되는 document 본문도 머리말이 없는 원래 본문이므로 벡터 검색 결과의 인용문이 달라지지 않습니다.
+
+## 질문 핵심어가 결과에 있는지 보기
+
+"질문이 꼭 집어 물은 말이 검색 결과 안에 실제로 들어 있는가"를 판정하는 부품임.
+**아직 검색 그래프나 API 응답에 연결하지 않았고**, 이후 근거 충분성 판정에서 쓰려고 따로 만들어 둠.
+`app.bootstrap.create_keyword_coverage_service()`로 꺼내 씀.
+
+| 단계 | 하는 일 | 두는 곳 |
+|---|---|---|
+| ① 형태소 분석 | 명사·숫자·코드만 남기고 동사·형용사·어미를 버림 | `infrastructure/korean_tokenizer.py` |
+| ② 대상명 묶기·통일 | 사용자 사전으로 고유이름을 한 덩어리로, 별칭 사전으로 정식 이름으로 바꿈 | 같은 토크나이저(BM25 색인과 동일 경로) |
+| ③ 핵심어 선별 | 드문 말(IDF 높은 말)만 남김 | `domain/keywords.py`(순수 함수) |
+| ④ 결과와 대조 | 검색 결과도 같은 분석기로 잘라 핵심어가 있는지 확인 | `application/keyword_service.py` |
+
+③의 세부 규칙은 다음과 같음. 별도 불용어표는 두지 않음 — 흔한 말은 IDF가 낮아 저절로 빠짐.
+
+- 색인에 없는(df=0) **고유이름**은 남김. 카드명·별칭 사전 항목, Kiwi 고유명사(NNP), 숫자·코드·날짜 표준형이 해당함
+- 색인에 없는(df=0) **일반명사**는 뺌. 질문자가 쓴 다른 표현일 뿐이라 결과 대조 기준이 되지 못함
+- 전체 청크 중 `KEYWORD_MAX_DOC_RATIO` 이상에 나오는 말은 뺌
+
+| 설정 | 뜻 | 기본값 |
+|---|---|---|
+| `KEYWORD_MAX_DOC_RATIO` | 이 비율 이상의 청크에 나오면 흔한 말로 보고 핵심어에서 뺌 | `0.80` |
+| `KEYWORD_TOP_N` | "상위 핵심어가 결과에 없음"을 볼 때 상위 몇 개를 볼지 | `3` |
+
+**기본값 0.80을 고른 근거**: 평가 질문 13건에 대해 사람이 고른 핵심어와 비교한 13건 평균임.
+
+| ratio | 정밀도 | 재현율 | 평균 핵심어 수 |
+|---|---|---|---|
+| 1.0 | 0.65 | 0.89 | 7.9 |
+| 0.8 | 0.65 | 0.82 | 7.3 |
+| 0.7 | 0.67 | 0.75 | 6.5 |
+| 0.6 | 0.56 | 0.49 | 4.9 |
+
+0.7과 0.6 사이에서 재현율이 0.75 → 0.49로 급락함(`연회비`·`전월`·`실적`·`포인트`가 한꺼번에 빠짐).
+절벽에서 떨어진 0.8을 기본값으로 두었고, 손으로 관리하던 불용어표 방식(0.66/0.81)과 같은 수준을 사전 없이 냄.
+**이 수치는 현재 문서 묶음 195청크에서 잰 값이므로, 문서가 바뀌면 평가셋으로 다시 보정해야 함.**
+
+출력은 핵심어 목록(토큰·df·idf·고유이름 여부), 결과별 포함 여부(`coverage`),
+어느 결과에도 없는 핵심어(`missing`), 상위 핵심어 중 미포함(`top_missing(n)`)임.
+
+순수 함수 규칙 시험은 `tests/check_keyword_rules.py`에 있음.
+이 가상환경에는 pytest가 없으므로 그대로 실행해 확인함(통과하면 `keyword-rules-ok` 출력).
+
+```powershell
+.venv/Scripts/python.exe tests/check_keyword_rules.py
+```
+
+인덱서의 `pytest`도 이 스크립트를 하위 프로세스로 실행해 회귀를 함께 지킴.
+
 ## 코드 구조
 
 계층별 의존 방향은 presentation → application ← infrastructure이며, 조립은 `app/bootstrap.py`만 담당함.  
@@ -427,11 +517,13 @@ vector-retriever/
     ├── domain/               # 표준 라이브러리만 쓰는 규칙
     │   ├── access.py         #   역할별 접근 등급·권한 필터
     │   ├── corpus.py         #   corpus 스냅샷 값 객체
+    │   ├── keywords.py       #   질문 핵심어 선별·결과 대조 규칙
     │   ├── location.py       #   청크 위치 표기
     │   ├── search_filter.py  #   DB 중립 메타데이터 필터
     │   └── vector_search.py  #   벡터 검색 옵션·MMR 계산
     ├── application/          # 유스케이스·포트·DTO (외부 기술 import 없음, pydantic만 허용)
     │   ├── retriever_service.py  # RetrieverService: search·answer·stream·health 진입점
+    │   ├── keyword_service.py    # KeywordCoverageService: 질문 핵심어 유무 판정(그래프 미연결)
     │   ├── ports.py              # 포트(Protocol + @abstractmethod), RetrieverGraphPort 포함
     │   ├── state.py              # 요청·결과·State DTO
     │   ├── errors.py             # 응용 오류 계약·오류 요약
@@ -446,7 +538,8 @@ vector-retriever/
     │   ├── chroma_store.py       # Chroma·메모리 벡터 저장소
     │   ├── bm25_index.py         # BM25S 키워드 검색
     │   ├── corpus_store.py       # 버전형 corpus 읽기
-    │   ├── korean_tokenizer.py   # Kiwi 한국어 토크나이저
+    │   ├── keyword_analyzer.py   # 핵심어 분석기(BM25 질의 토크나이저·corpus 통계 재사용)
+    │   ├── korean_tokenizer.py   # Kiwi 한국어 토크나이저(카드명 사전·별칭 치환·날짜 표기 통일)
     │   ├── reranker.py           # Cross-Encoder 리랭커
     │   ├── llm_client.py         # Groq·Claude·OpenAI 구조화 출력 클라이언트
     │   └── transform_cache.py    # 질문 변환 결정 캐시
@@ -462,7 +555,8 @@ vector-retriever/
 
 | 경로 | 내용 |
 |---|---|
-| `../../indexer/vector-bm25/data/search_indexes/` | Indexer가 발행한 버전형 corpus와 BM25S 색인 |
+| `../../indexer/vector-bm25/data/active_generation.json` | Indexer가 게시한 활성 세대 포인터(두 색인 경로) |
+| `../../indexer/vector-bm25/data/generations/<세대>/` | 세대별 Chroma와 버전형 corpus·BM25S 색인 |
 | `data/transform_cache.json` | 질문별 변환 결정 캐시 |
 | `data/checkpoints/retriever.sqlite` | CLI·POST 체크포인트 |
 | `data/logs/<thread-id>.jsonl` | 본문·비밀값을 제외한 노드 감사 로그 |

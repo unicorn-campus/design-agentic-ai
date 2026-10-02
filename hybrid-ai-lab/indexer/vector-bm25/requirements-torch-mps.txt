@@ -1,0 +1,4 @@
+# PyTorch Apple 실리콘 GPU(MPS) 판. macOS 14 이상에서 EMBED_DEVICE=mps로 임베딩할 때 먼저 설치함.
+# macOS용 기본 저장소(PyPI) torch에 MPS 지원이 포함되어 별도 저장소 지정이 없음.
+# torch 2.14의 macOS 설치 파일은 macOS 14 이상용만 있어 13 이하에서는 설치되지 않음.
+torch==2.14.0

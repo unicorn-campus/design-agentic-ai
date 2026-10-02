@@ -1,0 +1,28 @@
+{
+  "sources": 8,
+  "extract": {
+    "source_count": 8,
+    "prepared_count": 195
+  },
+  "chunk": {
+    "chunk_count": 195,
+    "reused_count": 195,
+    "embedded_count": 0
+  },
+  "index": {
+    "collection_count": 195,
+    "newly_embedded": 0,
+    "skipped_by_hash": 195,
+    "failed": [],
+    "embedding_dimension": 768,
+    "generation": "gen-v3-measure-002-67d6d900"
+  },
+  "timings": {
+    "discover_docs": 10,
+    "total_ms": 30
+  },
+  "status": "ok",
+  "exit_code": 0,
+  "thread_id": "v3-noop-003",
+  "no_op": true
+}

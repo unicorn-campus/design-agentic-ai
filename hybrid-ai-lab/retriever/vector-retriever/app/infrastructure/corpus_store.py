@@ -106,6 +106,65 @@ class VersionedCorpusStore(CorpusPort):
             raise ValueError("활성 카드명 사전이 정렬·중복 제거된 표준 형식이 아님")
         return tuple(words), actual_hash
 
+    def _load_card_aliases(
+        self,
+        pointer: dict[str, Any],
+        manifest: dict[str, Any],
+    ) -> tuple[tuple[tuple[str, str], ...], str | None]:
+        """활성 세대의 카드 별칭 TSV를 검증해 (별칭, 정식 토큰) 쌍으로 읽음.
+
+        목적: 색인이 쓴 치환표와 글자 하나까지 같은 표를 질의 토크나이저에 넘기기 위함.
+        반환값: 별칭 쌍과 파일 해시임. 별칭 산출물이 없는 이전 세대이면 빈 쌍과 None임.
+        예외: 포인터·manifest·파일이 서로 어긋나거나 표준 형식이 아니면 ValueError를 발생시킴.
+        부수효과: 별칭 파일을 읽지만 변경하지 않음.
+        """
+
+        relative = pointer.get("card_aliases")
+        manifest_info = manifest.get("card_aliases")
+        pointer_metadata_present = any(
+            key in pointer
+            for key in ("card_aliases", "card_aliases_sha256", "card_aliases_count")
+        )
+        if not pointer_metadata_present:
+            if manifest_info is not None:
+                raise ValueError("manifest에만 카드 별칭 정보가 있음")
+            # 별칭 도입 전 세대는 빈 치환표로 읽어 이전 색인도 그대로 검색 가능하게 함.
+            return (), None
+        if not relative or not isinstance(manifest_info, dict):
+            raise ValueError("카드 별칭 경로 또는 manifest 정보가 불완전함")
+        if "card_aliases_sha256" not in pointer or "card_aliases_count" not in pointer:
+            raise ValueError("활성 포인터의 카드 별칭 검증 정보가 불완전함")
+
+        alias_path = self._resolve(str(relative))
+        payload = alias_path.read_bytes()
+        actual_hash = hashlib.sha256(payload).hexdigest()
+        if actual_hash != str(pointer["card_aliases_sha256"]):
+            raise ValueError("활성 카드 별칭 SHA-256이 포인터와 일치하지 않음")
+        if manifest_info.get("path") != str(relative) or manifest_info.get("sha256") != actual_hash:
+            raise ValueError("활성 포인터와 manifest의 카드 별칭 정보가 일치하지 않음")
+        if int(manifest_info.get("count", -1)) != int(pointer["card_aliases_count"]):
+            raise ValueError("활성 포인터와 manifest의 카드 별칭 건수가 일치하지 않음")
+
+        # 1열은 형태소 분석기에 등록할 표면형이라 낱말 사이 공백을 가질 수 있고, 2열은 공백 없는 정식 토큰임.
+        aliases: dict[str, str] = {}
+        for line_number, raw_line in enumerate(payload.decode("utf-8").splitlines(), start=1):
+            if not raw_line.strip():
+                continue
+            parts = raw_line.split("\t")
+            if len(parts) != 2 or not parts[0] or not parts[1]:
+                raise ValueError(f"카드 별칭 {line_number}행 형식이 올바르지 않음")
+            if " " in parts[1]:
+                raise ValueError(f"카드 별칭 {line_number}행의 정식 토큰에 공백이 있음")
+            if parts[0] in aliases:
+                raise ValueError(f"카드 별칭 {line_number}행에 같은 별칭이 다시 나옴")
+            aliases[parts[0]] = parts[1]
+
+        if len(aliases) != int(pointer["card_aliases_count"]):
+            raise ValueError("활성 카드 별칭 항목 수가 포인터와 일치하지 않음")
+        if KoreanTokenizer.alias_payload(aliases) != payload:
+            raise ValueError("활성 카드 별칭이 정렬·중복 제거된 표준 형식이 아님")
+        return tuple(sorted(aliases.items())), actual_hash
+
     def load_active(self) -> CorpusSnapshot | None:
         pointer_path = self.index_root / "active_index.json"
         if not pointer_path.exists():
@@ -133,6 +192,7 @@ class VersionedCorpusStore(CorpusPort):
             pointer,
             manifest,
         )
+        card_aliases, card_aliases_sha256 = self._load_card_aliases(pointer, manifest)
         return CorpusSnapshot(
             generation=str(pointer["generation"]),
             corpus_sha256=actual_hash,
@@ -141,4 +201,6 @@ class VersionedCorpusStore(CorpusPort):
             manifest=manifest,
             card_dictionary_words=card_dictionary_words,
             card_dictionary_sha256=card_dictionary_sha256,
+            card_aliases=card_aliases,
+            card_aliases_sha256=card_aliases_sha256,
         )

@@ -64,9 +64,11 @@ class BM25Index(BM25Port):
         if manifest.get("corpus_sha256") != snapshot.corpus_sha256:
             raise ValueError("corpus manifest와 실제 파일의 SHA-256이 일치하지 않음")
 
-        # card 유저 사전을 포함한 tokenizer 생성
+        # card 유저 사전과 카드 별칭 치환표를 포함한 tokenizer 생성
+        # 질의와 색인이 같은 별칭을 써야 "모아생활"이 색인의 "한빛모아생활"과 같은 토큰이 됨.
         tokenizer = self._base_tokenizer.with_additional_user_words(
-            snapshot.card_dictionary_words
+            snapshot.card_dictionary_words,
+            aliases=snapshot.alias_mapping(),
         )
 
         if (
@@ -75,6 +77,12 @@ class BM25Index(BM25Port):
             != snapshot.card_dictionary_sha256
         ):
             raise ValueError("카드명 사전 파일과 질의 토크나이저의 SHA-256이 일치하지 않음")
+
+        if (
+            snapshot.card_aliases_sha256 is not None
+            and tokenizer.alias_map_sha256 != snapshot.card_aliases_sha256
+        ):
+            raise ValueError("카드 별칭 파일과 질의 토크나이저의 SHA-256이 일치하지 않음")
 
         if manifest.get("tokenizer_signature") != tokenizer.signature:
             raise ValueError("BM25 색인과 질의 토크나이저 서명이 일치하지 않음")

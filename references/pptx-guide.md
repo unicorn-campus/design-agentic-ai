@@ -24,7 +24,27 @@
 - 외부 변환 스킬 의존 금지
 - 빌더 스킬은 본 가이드 6절(코드 생성 시 필수 검증 규칙)을 **반드시 준수**
 
-**런타임 요구사항**: `node ≥ 18`, `npm i pptxgenjs`
+**런타임 요구사항**: `node ≥ 18`, `npm i pptxgenjs`  
+**미리보기 요구사항**: LibreOffice(`soffice`), `pip install pymupdf`
+
+---
+
+## 미리보기·렌더링 검증 (PowerPoint COM 금지)
+
+- 슬라이드를 그림으로 확인할 때는 **LibreOffice headless만 사용**함
+  ```
+  python scripts/render-pptx.py {덱}.pptx --out {출력폴더}
+  ```
+  → `{출력폴더}/{덱}.pdf` + `slide-1.png ...` 생성
+- **PowerPoint COM 자동화 금지**: `New-Object -ComObject PowerPoint.Application`, `win32com`, `comtypes`,  
+  `Slide.Export()` 등으로 PowerPoint를 띄우는 스크립트를 만들지 않음
+  - 이유: PowerPoint는 컴퓨터 전체에서 한 프로세스만 실행됨. 스크립트가 사용자가 열어 둔 창에 붙어
+    작업이 섞이고, 마지막 `Quit()`가 사용자 창까지 닫아 크래시처럼 보임. 도구 시간 초과로 중간에 끊기면
+    숨은 POWERPNT.EXE가 남아 다음 실행이 먹통이 됨
+- 직접 `soffice`를 부를 때도 전용 임시 프로필(`-env:UserInstallation=file:///...`)을 붙여  
+  사용자가 열어 둔 LibreOffice 창과 섞이지 않게 함
+- LibreOffice 렌더링은 PowerPoint와 글꼴·줄바꿈이 조금 다를 수 있음. "PowerPoint에서 확인함"이라고 보고하지 않고  
+  "LibreOffice 미리보기로 확인함"이라고 보고함
 
 ---
 

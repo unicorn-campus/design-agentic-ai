@@ -1,0 +1,34 @@
+{
+  "sources": 8,
+  "extract": {
+    "source_count": 8,
+    "prepared_count": 195
+  },
+  "chunk": {
+    "chunk_count": 195,
+    "reused_count": 0,
+    "embedded_count": 195
+  },
+  "index": {
+    "collection_count": 195,
+    "newly_embedded": 195,
+    "skipped_by_hash": 0,
+    "failed": [],
+    "embedding_dimension": 768,
+    "generation": "gen-v3-full-001-12b9a9cf"
+  },
+  "timings": {
+    "discover_docs": 4,
+    "load_split_clean": 76515,
+    "prepare_embed": 2712,
+    "embed": 6047,
+    "upsert": 3220,
+    "build_text_index": 13610,
+    "publish": 200,
+    "total_ms": 102438
+  },
+  "status": "ok",
+  "exit_code": 0,
+  "thread_id": "v3-full-001",
+  "no_op": false
+}

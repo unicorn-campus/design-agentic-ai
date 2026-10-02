@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import math
 import os
 from dataclasses import dataclass
@@ -118,17 +119,21 @@ def _choice(*allowed: str) -> Callable[[str, Any], str]:
 
     return parse
 
-# Vector DB 경로  
+# Vector DB 경로 — 활성 세대 포인터가 없을 때만 쓰는 고정 배치 기본값
 def _default_chroma_path() -> Path:
     return LAB_ROOT / "indexer" / "vector-bm25" / "data" / "chroma"
 
-# 질의 변경 캐시 경로 
+# 질의 변경 캐시 경로
 def _default_transform_cache_path() -> Path:
     return APP_DIR / "data" / "transform_cache.json"
 
-# BM25 인덱스 경로 
+# BM25 인덱스 경로 — 활성 세대 포인터가 없을 때만 쓰는 고정 배치 기본값
 def _default_search_index_root() -> Path:
     return LAB_ROOT / "indexer" / "vector-bm25" / "data" / "search_indexes"
+
+# Indexer가 두 색인을 모두 완성한 뒤에만 교체하는 활성 세대 포인터 파일
+def _default_generation_pointer() -> Path:
+    return LAB_ROOT / "indexer" / "vector-bm25" / "data" / "active_generation.json"
 
 # 계획서 1-3절과 1-3-2절의 모든 키를 한 곳에서만 허용함.
 _SPECS: dict[str, _Spec] = {
@@ -137,10 +142,19 @@ _SPECS: dict[str, _Spec] = {
     "CHROMA_COLLECTION": _Spec("card_docs", _text),  # 검색할 Chroma 컬렉션 이름
     "EMBED_MODEL": _Spec("nlpai-lab/KURE-v2", _text),  # 질문을 벡터로 변환할 임베딩 모델
     "SEARCH_INDEX_ROOT": _Spec(_default_search_index_root, _path),  # 활성 corpus·BM25S 세대 루트
+    "ACTIVE_GENERATION_POINTER": _Spec(_default_generation_pointer, _path),  # 두 색인 경로를 고를 활성 세대 포인터
     "KOREAN_USER_DICTIONARY": _Spec(None, _path),  # 카드명·상품명 한국어 사용자 사전
     "KOREAN_TOKENIZER_WORKERS": _Spec(1, _positive_int),  # 실시간 질의 Kiwi 작업자 수
     "BM25_K1": _Spec(1.5, _positive_float),  # Indexer와 공유하는 BM25 단어 빈도 포화 계수
     "BM25_B": _Spec(0.75, _unit_float),  # Indexer와 공유하는 BM25 문서 길이 보정 계수
+    # 핵심어 유무 판정 기준 — 전체 청크 중 이 비율 이상에 나오는 말은 흔한 말로 보고 핵심어에서 뺌.
+    # 기본값 0.80은 평가 질문 13건(keyword_check v3)에서 고른 값임. 후보값별 13건 평균은
+    # 1.0 → 0.65/0.89, 0.8 → 0.65/0.82, 0.7 → 0.67/0.75, 0.6 → 0.56/0.49(정밀도/재현율)로
+    # 0.7과 0.6 사이에서 재현율이 급락하므로 그 절벽에서 떨어진 0.8을 기본값으로 둠.
+    # 0.8은 불용어표를 손으로 관리하던 이전 방식(0.66/0.81)과 같은 수준을 사전 없이 냄.
+    # 이 수치는 현재 문서 묶음 195청크에서 측정한 값이며, 문서가 바뀌면 평가셋으로 다시 보정해야 함.
+    "KEYWORD_MAX_DOC_RATIO": _Spec(0.80, _unit_float),  # 핵심어에서 제외할 문서빈도 비율 하한
+    "KEYWORD_TOP_N": _Spec(3, _positive_int),  # "상위 핵심어 미포함" 판정에 볼 상위 핵심어 개수
     "RERANK_MODEL": _Spec("BAAI/bge-reranker-v2-m3", _text),  # 후보 문서 순위를 다시 매길 모델
     "LLM_PROVIDER": _Spec("groq", _choice("groq", "claude", "openai")),  # 답변에 사용할 LLM 제공자
     "GROQ_API_KEY": _Spec(None, _text, True),  # Groq 인증 키이며 로그에서 가리는 비밀값
@@ -184,6 +198,49 @@ _SPECS: dict[str, _Spec] = {
     "TIMEOUT_VECTOR_SEARCH": _Spec(10, _positive_float),  # 벡터 검색 한 번의 제한 시간(초)
     "TIMEOUT_RERANK": _Spec(60, _positive_float),  # 후보 문서 리랭킹 한 번의 제한 시간(초)
 }
+
+
+_INDEX_PATH_KEYS = ("CHROMA_PATH", "SEARCH_INDEX_ROOT")
+
+
+def _apply_generation_pointer(selected: dict[str, Any], sources: dict[str, str]) -> None:
+    """두 색인 경로를 지정하지 않았으면 활성 세대 포인터에서 같은 세대의 경로를 채움.
+
+    입력 전제: `selected`·`sources`는 키마다 값과 출처를 고른 직후의 사전임.
+    부수효과: 포인터를 쓰면 두 경로와 컬렉션 이름의 값·출처(`pointer:<파일명>`)를 바꿈.
+    예외: 두 경로 중 하나만 지정했거나 포인터가 손상됐으면 `LLMConfigError`.
+    포인터 파일이 없으면 고정 기본 경로를 그대로 둠 — 세대 포인터 이전 배치와 호환하기 위함.
+    """
+
+    # 한쪽만 바꾸면 벡터와 BM25가 서로 다른 세대의 청크를 가리켜 검색 결과가 어긋남
+    explicit = [key for key in _INDEX_PATH_KEYS if sources[key] != "default"]
+    if len(explicit) == 1:
+        raise LLMConfigError("CHROMA_PATH와 SEARCH_INDEX_ROOT는 같은 세대 경로로 함께 지정해야 함")
+    if explicit:
+        return
+
+    pointer_path: Path = selected["ACTIVE_GENERATION_POINTER"]
+    if not pointer_path.is_file():
+        return
+    try:
+        pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise LLMConfigError(f"활성 세대 포인터를 읽을 수 없음: {pointer_path}") from error
+    if not isinstance(pointer, dict) or pointer.get("format_version") != 1:
+        raise LLMConfigError(f"활성 세대 포인터 형식이 올바르지 않음: {pointer_path}")
+
+    origin = f"pointer:{pointer_path.name}"
+    for key, field in (("CHROMA_PATH", "chroma_path"), ("SEARCH_INDEX_ROOT", "search_index_root")):
+        relative = pointer.get(field)
+        if not isinstance(relative, str) or not relative.strip():
+            raise LLMConfigError(f"활성 세대 포인터에 {field}가 없음: {pointer_path}")
+        # 포인터 안의 경로는 포인터 파일이 있는 data 폴더 기준 상대 경로임
+        selected[key] = (pointer_path.parent / relative).resolve()
+        sources[key] = origin
+    collection = pointer.get("collection")
+    if sources["CHROMA_COLLECTION"] == "default" and isinstance(collection, str) and collection.strip():
+        selected["CHROMA_COLLECTION"] = collection.strip()
+        sources["CHROMA_COLLECTION"] = origin
 
 
 def _present(value: Any) -> bool:
@@ -235,6 +292,7 @@ def load_settings(cli_overrides: Mapping[str, Any] | None = None) -> Settings:
         selected[name] = SecretStr(parsed) if parsed is not None and spec.secret else parsed
         sources[name] = source if source_name == name else f"{source}:{source_name}"
 
+    _apply_generation_pointer(selected, sources)
     if selected["TRANSFORM_DECOMPOSITION_MIN"] > selected["TRANSFORM_DECOMPOSITION_MAX"]:
         raise LLMConfigError(
             "TRANSFORM_DECOMPOSITION_MIN은 TRANSFORM_DECOMPOSITION_MAX 이하여야 함"

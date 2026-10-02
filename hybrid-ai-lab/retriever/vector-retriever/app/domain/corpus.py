@@ -16,3 +16,11 @@ class CorpusSnapshot:
     manifest: dict[str, Any]
     card_dictionary_words: tuple[tuple[str, str, float], ...] = ()
     card_dictionary_sha256: str | None = None
+    # 별칭은 (별칭 표면형, 정식 카드 토큰) 쌍이며, 별칭 산출물이 없는 이전 세대에서는 비어 있음.
+    card_aliases: tuple[tuple[str, str], ...] = ()
+    card_aliases_sha256: str | None = None
+
+    def alias_mapping(self) -> dict[str, str]:
+        """질의 토크나이저에 넘길 별칭 치환표를 반환함."""
+
+        return dict(self.card_aliases)

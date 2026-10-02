@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "defaults": {
+    "chunk_size": 800,
+    "chunk_overlap": 200,
+    "unit": "embedding_token_including_special_tokens"
+  },
+  "documents": {
+    "D1": {
+      "file_regex": "^D1_.*\\.pdf$",
+      "doc_type": "regulation",
+      "access_level": "public",
+      "margin_repeat_min": 2,
+      "separators": [
+        "(?=제\\s*\\d+조(?:의\\d+)?\\s*\\([^\\n]+\\))",
+        "(?<=\\n)(?=\\| )",
+        "(?<=[.!?。])\\s+",
+        "\\n\\n",
+        "\\n",
+        " ",
+        ""
+      ]
+    },
+    "D2": {
+      "file_regex": "^D2_.*\\.pdf$",
+      "doc_type": "benefit_guide",
+      "access_level": "public",
+      "margin_repeat_min": 2,
+      "separators": [
+        "(?=D2-C\\d{3}(?:-B\\d+)?)",
+        "(?<=\\n)(?=\\| )",
+        "(?<=[.!?。])\\s+",
+        "\\n\\n",
+        "\\n",
+        " ",
+        ""
+      ],
+      "borderless_tables": true,
+      "segment": {
+        "boundary_regex": "(?m)^(D2-C\\d{3})[ \\t]*$",
+        "tail_regex": "(?m)^D2-C\\d{3}(?!-B)[ \\t]*[|\u00b7]",
+        "key_field": "card_id",
+        "value_fields": ["card_name"],
+        "metadata_fields": {
+          "card_id": "card_id",
+          "product_id": "card_id",
+          "card_name": "card_name"
+        },
+        "clear_keys": [
+          "card_id",
+          "product_id",
+          "card_name",
+          "card_id_all",
+          "product_id_all",
+          "card_name_all"
+        ],
+        "ambiguity_keys": ["benefit_id_all", "section_label_all"]
+      },
+      "index_header": {
+        "template": "[\uce74\ub4dc: {card_name} ({card_id})]",
+        "field_templates": {
+          "card_name": "[\uce74\ub4dc: {card_name}]",
+          "card_id": "[\uce74\ub4dc: {card_id}]"
+        },
+        "separator": "\n"
+      }
+    },
+    "D3": {
+      "file_regex": "^D3_S\\d{2}_.*\\.txt$",
+      "doc_type": "consult_log",
+      "access_level": "restricted",
+      "separators": [
+        "(?=(?:고객|상담사)\\s*[:：])",
+        "(?<=[.!?。])\\s+",
+        "\\n\\n",
+        "\\n",
+        " ",
+        ""
+      ]
+    }
+  }
+}

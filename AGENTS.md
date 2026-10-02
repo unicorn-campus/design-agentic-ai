@@ -211,6 +211,8 @@ API·UI 엔지니어
 ## PPT 작성 가이드
 - PPT 작성 시 사전에 PPT 스크립트를 먼저 작성할 것 
 - PPT 스크립트 작성 시 `references/pptx-guide.md`의 스타일 가이드를 반드시 준수할 것
+- 슬라이드 미리보기·렌더링 검증은 `python scripts/render-pptx.py {덱}.pptx`(LibreOffice)로만 수행함.  
+  PowerPoint COM 자동화(`-ComObject PowerPoint.Application`, `win32com` 등)는 사용 금지
 
 ## 엑셀파일 작성 가이드
 엑셀 파일 작성 시 `references/xlsx-guide.md`를 반드시 준수할 것.
@@ -257,6 +259,12 @@ API·UI 엔지니어
   설치 ① `claude plugin marketplace add anthropics/claude-plugins-community`  
   설치 ② `claude plugin install eli5@claude-community`  
   출처: [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community/blob/main/eli5/skills/eli5/SKILL.md), 3회차/eli5스킬조회
+- [HIGH] PPT 미리보기에 **PowerPoint COM 사용 금지, LibreOffice(`scripts/render-pptx.py`) 사용**  
+  — COM 스크립트가 사용자의 PowerPoint 창에 붙고 `Quit()`로 함께 닫아 크래시처럼 보였음.  
+  출처: Codex presentations 스킬 실행 중 즉석 생성된 `temp/.*-build/render*.ps1`
+- [HIGH] 슬라이드(PPT) 작성 시 폰트는 **`Pretendard`를 사용할 것**  
+  — 제목·본문·도형 안 글자·표 등 슬라이드의 모든 텍스트에 적용. Calibri·Arial·맑은 고딕 직접 지정 금지.  
+  출처: 클로니/문서 검색 아키텍처 교재 작성
 
 ---
 

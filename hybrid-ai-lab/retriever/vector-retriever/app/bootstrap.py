@@ -9,8 +9,10 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from app.application.keyword_service import KeywordCoverageService
 from app.application.ports import (
     BM25Port,
+    CorpusPort,
     EmbedderPort,
     LLMPort,
     RerankerPort,
@@ -19,6 +21,7 @@ from app.application.ports import (
 )
 from app.application.retriever_service import RetrieverService, ServiceLimits
 from app.infrastructure.bm25_index import BM25Index
+from app.infrastructure.keyword_analyzer import BM25KeywordAnalyzer
 from app.infrastructure.chroma_store import create_vector_store
 from app.infrastructure.corpus_store import VersionedCorpusStore
 from app.infrastructure.embedder import LazyHuggingFaceEmbedder
@@ -74,6 +77,37 @@ def create_resources(
     )
 
 
+def create_keyword_coverage_service(
+    *,
+    settings: Any = None,
+    bm25: BM25Index | None = None,
+    corpus: CorpusPort | None = None,
+) -> KeywordCoverageService:
+    """질문 핵심어가 검색 결과에 있는지 판정하는 서비스를 조립함.
+
+    목적: 근거 충분성 판정에서 쓸 부품을 검색 그래프와 분리해 따로 만들고 시험할 수 있게 함.
+    방법: BM25 색인이 이미 쓰고 있는 질의 토크나이저와 corpus 통계를 그대로 재사용함.
+    인자: bm25·corpus를 넘기면 그 구현체를 쓰고, 없으면 설정으로 새 색인 어댑터를 만듦.
+    반환값: 아직 검색 그래프·API 응답에 연결되지 않은 독립 서비스임.
+    부수효과: bm25를 새로 만들면 첫 사용 시 활성 세대의 색인 파일을 읽음.
+    """
+
+    loaded = settings or load_settings()
+    actual_corpus = corpus or VersionedCorpusStore(Path(loaded.SEARCH_INDEX_ROOT))
+    actual_bm25 = bm25 or BM25Index(
+        actual_corpus,
+        KoreanTokenizer(
+            getattr(loaded, "KOREAN_USER_DICTIONARY", None),
+            num_workers=int(getattr(loaded, "KOREAN_TOKENIZER_WORKERS", 1)),
+        ),
+    )
+    return KeywordCoverageService(
+        BM25KeywordAnalyzer(actual_bm25, actual_corpus),
+        max_document_ratio=float(loaded.KEYWORD_MAX_DOC_RATIO),
+        top_keywords=int(loaded.KEYWORD_TOP_N),
+    )
+
+
 def service_limits(settings: Any) -> ServiceLimits:
     """설정값에서 API 호출 예산·제한 시간을 꺼내 서비스에 넘길 값으로 만듦."""
 
@@ -99,6 +133,7 @@ def create_service(**overrides: Any) -> RetrieverService:
 
 __all__ = [
     "Settings",
+    "create_keyword_coverage_service",
     "create_resources",
     "create_service",
     "load_settings",
