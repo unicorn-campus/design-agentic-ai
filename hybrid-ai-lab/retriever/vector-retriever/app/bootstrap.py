@@ -9,8 +9,9 @@ from app.application.steps import RetrieverSteps, StepConfig
 from app.infrastructure.audit_log import JsonlAuditLog
 from app.infrastructure.clock import SystemClock
 from app.infrastructure.embedder import SentenceTransformerEmbedder
+from app.infrastructure.chat_models import build_claude_chat, build_groq_chat
 from app.infrastructure.graph import LangGraphWorkflow
-from app.infrastructure.groq_gateway import GroqLanguageModel
+from app.infrastructure.llm_gateway import LangChainLanguageModel
 from app.infrastructure.index_store import LocalIndexProvider
 from app.infrastructure.reranker import CrossEncoderReranker
 from app.infrastructure.settings import Settings, load_settings
@@ -21,16 +22,24 @@ logger = logging.getLogger(__name__)
 _WARMUP_TEXT = "연회비"
 
 
-def create_language_model(settings: Settings) -> GroqLanguageModel:
-    """LLM 커넥터 C-01 ~ C-04 구현체를 만듦. 커넥터를 바꿀 때는 이 함수만 고침."""
+def create_language_model(settings: Settings) -> LangChainLanguageModel:
+    """LLM 커넥터 C-01 ~ C-04 구현체를 만듦. 커넥터별 모델을 바꿀 때는 이 함수만 고침.
 
-    return GroqLanguageModel(
-        api_key=settings.groq_api_key,
-        model=settings.groq_model,
-        timeouts={"C-01": settings.timeout_c01, "C-02": settings.timeout_c02,
-                  "C-03": settings.timeout_c03, "C-04": settings.timeout_c04},
-        reasoning_effort=settings.groq_reasoning_effort,
-    )
+    선택 기준: C-01 질문 분석·C-02 다음 행동·C-04 답변 생성은 Groq(gpt-oss-120b),
+    C-03 질문 변환만 Claude Opus 5.5(사용자 결정 2026-10-03). 모두 LangChain 채팅 모델로 만들어 같은 게이트웨이에 끼움.
+    """
+
+    timeouts = {"C-01": settings.timeout_c01, "C-02": settings.timeout_c02,
+                "C-03": settings.timeout_c03, "C-04": settings.timeout_c04}
+    models = {
+        connector: build_groq_chat(connector, api_key=settings.groq_api_key, model=settings.groq_model,
+                                   reasoning_effort=settings.groq_reasoning_effort, timeout=timeouts[connector])
+        for connector in ("C-01", "C-02", "C-04")
+    }
+    models["C-03"] = build_claude_chat(api_key=settings.anthropic_api_key, model=settings.claude_model,
+                                       effort=settings.claude_effort, max_tokens=settings.claude_max_tokens,
+                                       timeout=timeouts["C-03"])
+    return LangChainLanguageModel(models, timeouts=timeouts)
 
 
 def create_service(settings: Settings | None = None, *, warm_up: bool = True) -> RetrieverService:
@@ -45,7 +54,9 @@ def create_service(settings: Settings | None = None, *, warm_up: bool = True) ->
 
     settings = settings or load_settings()
     if not settings.groq_api_key:
-        logger.warning("GROQ_API_KEY가 비어 있어 LLM 단계(C-01 ~ C-04)는 모두 대체 경로로 동작함")
+        logger.warning("GROQ_API_KEY가 비어 있어 C-01·C-02·C-04는 대체 경로로 동작함")
+    if not settings.anthropic_api_key:
+        logger.warning("ANTHROPIC_API_KEY(CLAUDE_API_KEY)가 비어 있어 C-03 질문 변환은 keep 대체 경로로 동작함")
     embedder = SentenceTransformerEmbedder(
         settings.embed_model,
         revision=settings.embed_revision,

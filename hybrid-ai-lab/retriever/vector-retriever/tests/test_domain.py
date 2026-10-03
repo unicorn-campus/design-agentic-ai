@@ -33,10 +33,15 @@ def test_unknown_role_is_rejected(role):
 # ---------------------------------------------------------------- 시간 예산(⑥-10)
 
 
+# 설계서 원래 값(총 30초, C-03 1.2초). 계산 규칙 검증은 설계서 계산 예와 같은 값으로 함
+DESIGN = budget.BudgetPolicy(total_seconds=30.0,
+                             connector_worst_seconds={"C-01": 2.5, "C-02": 1.5, "C-03": 1.2, "C-04": 2.5})
+
+
 def test_remaining_budget_matches_design_example():
     """설계 계산 예: S-R3 진입, 사용 12초, 답변 켬 → 11.3초."""
 
-    value = budget.remaining_budget(budget.BudgetPolicy(), elapsed_seconds=12, step_id="S-R3", generate_answer=True)
+    value = budget.remaining_budget(DESIGN, elapsed_seconds=12, step_id="S-R3", generate_answer=True)
     assert value == pytest.approx(11.3)
 
 
@@ -49,17 +54,26 @@ def test_answer_off_excludes_c04_and_s_r9_always_starts():
 
 
 def test_can_start_threshold_is_inclusive():
-    policy = budget.BudgetPolicy()
+    policy = DESIGN
     # S-R7 남은 연동 C-04 2.5초: 30 − x − 1.5 − 2.5 ≥ 1.5 → x ≤ 24.5
     assert budget.can_start(policy, elapsed_seconds=24.5, step_id="S-R7", generate_answer=True)
     assert not budget.can_start(policy, elapsed_seconds=24.6, step_id="S-R7", generate_answer=True)
 
 
 def test_default_limits_follow_design_body():
+    worst = DESIGN.connector_worst_seconds
+    assert worst["C-01"] + 6 * worst["C-02"] + 6 * worst["C-03"] + 3 * worst["C-04"] == pytest.approx(26.2)
+
+
+def test_runtime_defaults_reflect_claude_c03_decision():
+    """사용자 결정(2026-10-03): C-03을 Claude Opus 5.5로 바꿔 타임아웃 8.0초, 총 예산 45초. 상한 값은 설계 본문 그대로."""
+
     policy = budget.BudgetPolicy()
     assert (policy.max_turns, policy.max_llm_calls, policy.max_rewrites) == (6, 16, 2)
-    worst = policy.connector_worst_seconds
-    assert worst["C-01"] + 6 * worst["C-02"] + 6 * worst["C-03"] + 3 * worst["C-04"] == pytest.approx(26.2)
+    assert policy.total_seconds == 45.0
+    assert policy.connector_worst_seconds == {"C-01": 2.5, "C-02": 1.5, "C-03": 8.0, "C-04": 2.5}
+    # C-03은 하위 질문당 1회라 실제 최대 3회: 2.5 + 1.5 × 6 + 8.0 × 3 + 2.5 × 3 = 43.0초 ≤ 45초
+    assert 2.5 + 1.5 * 6 + 8.0 * 3 + 2.5 * 3 <= policy.total_seconds
 
 
 # ---------------------------------------------------------------- 점수 합치기(⑥-6)

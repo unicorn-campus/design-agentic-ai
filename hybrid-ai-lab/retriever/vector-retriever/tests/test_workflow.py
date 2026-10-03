@@ -53,6 +53,10 @@ Q_SKY = "스카이카드 마일리지"
 Q_SHOP = "쇼핑카드 할인"
 Q_MIXED = "스카이카드 마일리지 와 쇼핑카드 할인"
 
+# 워크플로우 시험은 설계서 계산 예(총 30초, C-03 1.2초)로 시간 예산 착지를 검증함.
+# 운영 기본값(총 45초, C-03 6.0초 — C-03을 Claude Opus 5.5로 바꾼 사용자 결정)은 test_domain에서 따로 검증함
+DESIGN_BUDGET = BudgetPolicy(total_seconds=30.0, connector_worst_seconds={C_01: 2.5, C_02: 1.5, C_03: 1.2, C_04: 2.5})
+
 
 # ---------------------------------------------------------------- 조립 도우미
 
@@ -94,7 +98,7 @@ def build(
     provider.clock = provider.clock or clock
     audit = FakeAuditLog()
     steps = RetrieverSteps(index_provider=provider, reranker=reranker, llm=llm, audit_log=audit,
-                           clock=clock, config=config)
+                           clock=clock, config=config or StepConfig(budget=DESIGN_BUDGET))
     workflow = LangGraphWorkflow(steps)
     service = RetrieverService(workflow=workflow, index_provider=provider, clock=clock, audit_log=audit)
     return Harness(service, steps, workflow, index, provider, reranker, llm, audit, clock)

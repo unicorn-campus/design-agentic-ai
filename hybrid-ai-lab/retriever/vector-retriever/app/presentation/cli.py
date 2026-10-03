@@ -171,7 +171,7 @@ def _source_line(item: Any) -> str:
             page = f"p.{item.page} ~ {item.page_end}"
         parts.append(page)
     if item.clause_no:
-        parts.append(f"{item.clause_no}조")
+        parts.append(str(item.clause_no))  # 색인 값이 이미 "제11조"처럼 "조"까지 담고 있음
     if item.card_name:
         parts.append(item.card_name)
     if item.section_label:

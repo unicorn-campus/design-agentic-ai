@@ -329,3 +329,13 @@ def test_api_responses_declare_utf8_charset() -> None:
 
     assert search.headers["content-type"] == "application/json; charset=utf-8"
     assert health.headers["content-type"] == "application/json; charset=utf-8"
+
+
+def test_cli_shows_clause_number_as_stored() -> None:
+    """색인의 clause_no는 '제5조'처럼 '조'를 이미 담고 있으므로 CLI가 '조'를 덧붙이지 않음(실행에서 '제11조조' 발견)."""
+
+    response = answered_response()
+    response.evidence[0].clause_no = "제5조"
+    out = io.StringIO()
+    main(["--query", "연회비", "--role", "agent"], service=FakeService(response), stdout=out, stderr=io.StringIO())
+    assert "제5조" in out.getvalue() and "제5조조" not in out.getvalue()

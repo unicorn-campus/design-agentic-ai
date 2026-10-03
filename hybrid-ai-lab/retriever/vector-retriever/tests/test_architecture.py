@@ -9,6 +9,7 @@ APP = Path(__file__).resolve().parents[1] / "app"
 # 실행 기술. application·domain에서 import하면 DIP 위반임(가이드 §4 '외부 기술 최소화')
 FORBIDDEN_TECH = {
     "psycopg", "langchain", "langchain_core", "langgraph", "httpx", "requests", "chromadb", "openai", "groq",
+    "anthropic", "langchain_groq", "langchain_anthropic",
     "bm25s", "kiwipiepy", "sentence_transformers", "torch", "transformers", "fastapi", "uvicorn", "numpy",
 }
 
