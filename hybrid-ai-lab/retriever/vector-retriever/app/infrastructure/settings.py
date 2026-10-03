@@ -68,9 +68,11 @@ class Settings:
     grade_lower: float = 0.3  # 채점 주 점수 하한. 미만이면 부정확(설계 ⑥-8, 설계 가정)
     grade_min_gap: float = 0.05  # 1·2위 최소 격차(설계 ⑥-8, 설계 가정)
     grade_min_overlap: int = 1  # 벡터·BM25 상위 k 최소 겹침 수(설계 ⑥-8, 설계 가정)
+    grade_overlap_waiver: float = 0.9  # 주 점수가 이 값 이상이면 겹침 조건 면제(사용자 결정, 설계 가정)
     hybrid_vector_weight: float = 0.6  # 하이브리드 합치기의 벡터 비중(설계 ⑥-6, 재검증 대상)
     hybrid_bm25_weight: float = 0.4  # 하이브리드 합치기의 BM25 비중(설계 ⑥-6, 재검증 대상)
     keyword_max_df_ratio: float = 0.1  # 채점 핵심어로 쓸 낱말의 문서 빈도 상한 비율(설계 ⑥-8)
+    domain_term_min_df_ratio: float = 0.2  # 잡담 판정 확인용 업무 어휘의 문서 빈도 하한 비율(사용자 결정, 설계 가정)
     api_host: str = "127.0.0.1"  # API 서버가 듣는 주소. 기본은 로컬만 염(설계 ⑦)
     api_port: int = 8020  # API 서버 포트. 코드에 박지 않고 설정으로 바꿀 수 있게 둠
 
@@ -104,6 +106,7 @@ class Settings:
             lower=self.grade_lower,
             min_gap=self.grade_min_gap,
             min_overlap=self.grade_min_overlap,
+            overlap_waiver_score=self.grade_overlap_waiver,
         )
 
 
@@ -208,9 +211,11 @@ def load_settings(env_path: Path | None = None) -> Settings:
         grade_lower=number("GRADE_LOWER", 0.3, minimum=0.0, maximum=1.0),
         grade_min_gap=number("GRADE_MIN_GAP", 0.05, minimum=0.0, maximum=1.0),
         grade_min_overlap=count("GRADE_MIN_OVERLAP", 1, minimum=0, maximum=50),
+        grade_overlap_waiver=number("GRADE_OVERLAP_WAIVER", 0.9, minimum=0.0, maximum=1.0),
         hybrid_vector_weight=number("HYBRID_VECTOR_WEIGHT", 0.6, minimum=0.0, maximum=1.0),
         hybrid_bm25_weight=number("HYBRID_BM25_WEIGHT", 0.4, minimum=0.0, maximum=1.0),
         keyword_max_df_ratio=number("KEYWORD_MAX_DF_RATIO", 0.1, minimum=0.0, maximum=1.0),
+        domain_term_min_df_ratio=number("DOMAIN_TERM_MIN_DF_RATIO", 0.2, minimum=0.0, maximum=1.0),
         api_host=text("API_HOST", "127.0.0.1"),
         api_port=count("API_PORT", 8020, minimum=1, maximum=65535),
     )

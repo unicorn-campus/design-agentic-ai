@@ -23,3 +23,23 @@ def select_rare_terms(
         return ()
     limit = float(max_df_ratio) * float(num_docs)
     return tuple(term for term, frequency in term_document_frequency.items() if float(frequency) <= limit)
+
+
+def select_common_domain_terms(
+    term_document_frequency: Mapping[str, int],
+    *,
+    num_docs: int,
+    min_df_ratio: float,
+) -> tuple[str, ...]:
+    """색인 조각의 일정 비율 이상에 나오는 명사(문서의 핵심 업무 어휘)를 고름.
+
+    목적: C-01이 잡담으로 판정한 질문에 업무 낱말이 있는지 볼 때 씀(잡담 오분류 막기, 사용자 결정 2026-10-03).
+    인자: min_df_ratio는 '업무 어휘'로 볼 최소 비율. 실측: '연회비' 163 · '고객' 56건, 인사말 낱말은 최대 '하루' 31건
+    (전체 218건)이라 0.2(44건)를 설계 가정 초깃값으로 둠.
+    반환값: 입력 순서를 지킨 낱말 튜플. 조각 수가 0이면 빈 튜플임.
+    """
+
+    if num_docs <= 0:
+        return ()
+    limit = float(min_df_ratio) * float(num_docs)
+    return tuple(term for term, frequency in term_document_frequency.items() if float(frequency) >= limit)

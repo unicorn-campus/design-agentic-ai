@@ -28,6 +28,8 @@ ENV_KEYS = (
     "C03_EFFORT",
     "C03_MAX_TOKENS",
     "TIMEOUT_C03",
+    "GRADE_OVERLAP_WAIVER",
+    "DOMAIN_TERM_MIN_DF_RATIO",
 )
 
 
@@ -65,6 +67,9 @@ def test_defaults_match_design_values(clean_env: None, empty_env_file: Path) -> 
     expected_c03 = ("claude-opus-5-5", "low", 4000)
     assert (settings.claude_model, settings.claude_effort, settings.claude_max_tokens) == expected_c03
     assert (settings.max_turns, settings.max_llm_calls, settings.max_rewrites) == (6, 16, 2)
+    # 개선안 1 · 3(사용자 결정 2026-10-03): 겹침 면제 기준 0.9, 업무 어휘 비율 0.2
+    assert (settings.grade_overlap_waiver, settings.domain_term_min_df_ratio) == (0.9, 0.2)
+    assert settings.grade_thresholds().overlap_waiver_score == 0.9
     assert (settings.api_host, settings.api_port) == ("127.0.0.1", 8020)
 
 

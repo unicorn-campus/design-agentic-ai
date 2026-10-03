@@ -22,6 +22,9 @@ class GradeThresholds:
     lower: float = 0.3  # 주 점수 하한. 미만이면 부정확
     min_gap: float = 0.05  # 1·2위 최소 격차
     min_overlap: int = 1  # 벡터·BM25 상위 k 최소 겹침 수
+    # 주 점수가 이 값 이상이면 겹침 조건을 면제함(사용자 결정 2026-10-03, 설계 가정 0.9).
+    # 평가셋 실측: 1위 0.915 · 0.92 · 0.961인데 겹침 0이라 불확실이던 정답 문항이 있었고, 0.877(1위 오답)은 막아야 했음
+    overlap_waiver_score: float = 0.9
 
 
 def score_band(main_score: float | None, thresholds: GradeThresholds, *, result_count: int) -> str:
@@ -77,11 +80,29 @@ def build_signals(
     )
 
 
+def overlap_satisfied(signals: GradeSignals, thresholds: GradeThresholds) -> bool:
+    """검색기 합의 조건을 만족하는지 반환함. 겹침이 기준 미만이어도 주 점수가 면제 기준 이상이면 만족으로 봄."""
+
+    if signals.overlap >= thresholds.min_overlap:
+        return True
+    return signals.main_score is not None and signals.main_score >= thresholds.overlap_waiver_score
+
+
+def evidence_worthy(candidates: Sequence[Candidate], thresholds: GradeThresholds) -> list[Candidate]:
+    """'정확' 판정된 결과 중 근거 묶음에 넣을 조각만 고름(사용자 결정 2026-10-03).
+
+    목적: 상위 top_k를 모두 넣으면 다른 카드 조각(리랭크 0.02 ~ 0.03)까지 근거·답변 재료로 섞임.
+    방법: 리랭크 점수가 하한(부정확 기준) 이상인 조각만 남김. 정확 판정이면 1위는 상한 이상이라 최소 1건은 남음.
+    """
+
+    return [c for c in candidates if c.rerank_score is not None and c.rerank_score >= thresholds.lower]
+
+
 def grade(signals: GradeSignals, thresholds: GradeThresholds) -> str:
     """판정 근거로 정확·불확실·부정확 중 하나를 반환함(설계 ⑥-8 판정 규칙).
 
     방법: 부정확(하나라도: 0건 · 1위 < 하한) → 정확(모두: 리랭크 성공 · 1위 ≥ 상한 · 핵심어 포함 ·
-    격차·겹침 충족) → 나머지는 불확실 순서로 판정함.
+    격차 충족 · 겹침 충족 또는 1위 ≥ 겹침 면제 기준) → 나머지는 불확실 순서로 판정함.
     예시: 리랭크가 실패하면 점수로 하한을 잴 수 없으므로 결과가 있는 한 최대 불확실임(사용자 결정).
     """
 
@@ -96,7 +117,7 @@ def grade(signals: GradeSignals, thresholds: GradeThresholds) -> str:
         and signals.keyword_match
         and signals.gap is not None
         and signals.gap >= thresholds.min_gap
-        and signals.overlap >= thresholds.min_overlap
+        and overlap_satisfied(signals, thresholds)
     ):
         return GRADE_CORRECT
     return GRADE_UNCERTAIN

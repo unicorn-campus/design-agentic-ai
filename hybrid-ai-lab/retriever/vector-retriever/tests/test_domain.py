@@ -131,6 +131,8 @@ def test_grade_uncertain_cases(case):
     elif case == "small_gap":
         cands = [_candidate("a", 0.9), _candidate("b", 0.88)]
     elif case == "no_overlap":
+        # 겹침 0이고 1위가 면제 기준(0.9) 미만이면 불확실
+        cands = [_candidate("a", 0.85), _candidate("b", 0.5)]
         kwargs["bm"] = ("z",)
     elif case == "middle_score":
         cands = [_candidate("a", 0.5)]
@@ -250,3 +252,49 @@ def test_plan_rules():
     assert _plan(question_type="chitchat", chitchat_reply="안녕하세요").chitchat_reply == "안녕하세요"
     assert _plan(question_type="chitchat", chitchat_reply=" ").question_type == "simple"
     assert _plan(question_type="other").question_type == "simple"
+
+
+
+# ---------------------------------------------------------------- 개선안 1 · 2 · 3 (사용자 결정 2026-10-03)
+
+
+def test_overlap_waived_when_main_score_is_high():
+    """개선안 1: 벡터·BM25 겹침이 0이어도 1위가 0.9 이상이면 합의로 봄. 0.877처럼 미만이면 그대로 불확실."""
+
+    th = grading.GradeThresholds()
+    high = _signals([_candidate("a", 0.915), _candidate("b", 0.3)], bm=("z",))
+    below = _signals([_candidate("a", 0.877), _candidate("b", 0.3)], bm=("z",))
+    assert high.overlap == 0 and grading.grade(high, th) == "correct"
+    assert below.overlap == 0 and grading.grade(below, th) == "uncertain"
+    # 면제는 겹침 조건만 풀 뿐 다른 조건(핵심어 누락)은 그대로 막음
+    no_kw = _signals([_candidate("a", 0.95), _candidate("b", 0.3)], bm=("z",), terms=())
+    assert grading.grade(no_kw, th) == "uncertain"
+    strict = grading.GradeThresholds(overlap_waiver_score=1.01)  # 면제를 끄면 이전 동작
+    assert grading.grade(high, strict) == "uncertain"
+
+
+def test_evidence_worthy_keeps_only_scores_at_or_above_lower():
+    """개선안 2: 정확 판정이어도 리랭크 하한(0.3) 미만 조각은 근거에 넣지 않음."""
+
+    th = grading.GradeThresholds()
+    cands = [_candidate("a", 0.917), _candidate("b", 0.3), _candidate("c", 0.028), _candidate("d", None)]
+    assert [c.chunk_id for c in grading.evidence_worthy(cands, th)] == ["a", "b"]
+
+
+def test_common_domain_terms_and_chitchat_guard():
+    """개선안 3: 조각 20% 이상에 나오는 업무 명사가 있으면 잡담 판정을 단순 질문으로 바꿈."""
+
+    df = {"연회비": 163, "고객": 56, "하루": 31, "해결": 3}
+    assert keywords.select_common_domain_terms(df, num_docs=218, min_df_ratio=0.2) == ("연회비", "고객")
+
+    def domain(text: str) -> set[str]:
+        common = keywords.select_common_domain_terms({w: df.get(w, 0) for w in text.split()},
+                                                     num_docs=218, min_df_ratio=0.2)
+        return set(common)
+
+    guarded = _plan(question="이 고객 연회비 불만 이력", question_type="chitchat", chitchat_reply="네",
+                    domain_terms_of=domain)
+    assert guarded.question_type == "simple" and "업무 낱말" in guarded.warnings[0]
+    greeting = _plan(question="좋은 하루 해결 감사", question_type="chitchat", chitchat_reply="감사합니다",
+                     domain_terms_of=domain)
+    assert greeting.question_type == "chitchat"

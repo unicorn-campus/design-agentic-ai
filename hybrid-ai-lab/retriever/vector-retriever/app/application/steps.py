@@ -39,8 +39,8 @@ from app.domain.budget import (
     remaining_budget,
 )
 from app.domain.fusion import equal_weight_merge, rank_keys, rrf_merge, weighted_hybrid
-from app.domain.grading import GradeThresholds, build_signals, grade
-from app.domain.keywords import select_rare_terms
+from app.domain.grading import GradeThresholds, build_signals, evidence_worthy, grade
+from app.domain.keywords import select_common_domain_terms, select_rare_terms
 from app.domain.models import (
     GRADE_CORRECT,
     GRADE_INCORRECT,
@@ -119,6 +119,7 @@ class StepConfig:
     vector_weight: float = 0.6  # 하이브리드 벡터 비중(설계 ⑥-6, 결정 필요 — 재검증 대상)
     keyword_weight: float = 0.4  # 하이브리드 BM25 비중
     keyword_max_df_ratio: float = 0.1  # 핵심어 '드묾' 기준: 전체 조각의 10% 이하에 나오는 낱말(설계 가정)
+    domain_term_min_df_ratio: float = 0.2  # 업무 어휘 기준: 전체 조각의 20% 이상에 나오는 명사(잡담 오분류 막기, 설계 가정)
     prompt_chunk_count: int = 5  # C-03에 넘기는 결과 조각 수(설계 가정)
     prompt_chunk_chars: int = 1200  # C-03에 넘기는 조각당 글자 수 상한(설계 가정)
 
@@ -387,6 +388,7 @@ class RetrieverSteps:
                     chitchat_reply=result.chitchat_reply,
                     max_sub_questions=self.config.budget.max_sub_questions,
                     condition_terms_of=lambda text: set(index.condition_terms(text)),
+                    domain_terms_of=lambda text: self._domain_terms(index, text),
                 )
         warnings.extend(decision.warnings)
         trace = self._trace(state, {"step": S_R2, "question_type": decision.question_type,
@@ -404,6 +406,18 @@ class RetrieverSteps:
         return {**base, "sub_questions": subs, "evidence": {}, "evidence_rankings": {}, "grade_signals": {},
                 "qid_candidates": {}, "transform_history": [], "search_fail_streak": 0, "rewrite_count": 0,
                 "route": NODE_S_R3}
+
+    def _domain_terms(self, index: Any, text: str) -> set[str]:
+        """업무 낱말 = 상품명·숫자·코드(조건 낱말) + 색인 조각의 일정 비율 이상에 나오는 명사.
+
+        목적: C-01이 업무 질문을 잡담으로 잘못 보면 검색 없이 끝나므로, 잡담 판정일 때만 한 번 더 확인함.
+        """
+
+        common = select_common_domain_terms(
+            index.document_frequency(index.keyword_candidates(text)),
+            num_docs=index.num_docs(), min_df_ratio=self.config.domain_term_min_df_ratio,
+        )
+        return set(index.condition_terms(text)) | set(common)
 
     # ------------------------------------------------------------ S-R3 다음 행동 선택(B-2·B-2a)
 
@@ -676,6 +690,8 @@ class RetrieverSteps:
                                              for k, v in (state.get("evidence") or {}).items()}
         rankings = dict(state.get("evidence_rankings") or {})
         if verdict == GRADE_CORRECT:
+            # 하한 미만 조각(다른 카드 등)은 근거·답변 재료에서 뺌(사용자 결정 2026-10-03)
+            candidates = evidence_worthy(candidates, self.config.thresholds)
             for candidate in candidates:
                 item = evidence.get(candidate.chunk_id)
                 if item is None:

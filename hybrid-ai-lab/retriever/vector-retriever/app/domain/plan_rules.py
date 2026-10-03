@@ -32,11 +32,14 @@ def apply_plan_rules(
     chitchat_reply: str,
     max_sub_questions: int,
     condition_terms_of: Callable[[str], set[str]],
+    domain_terms_of: Callable[[str], set[str]] | None = None,
 ) -> PlanDecision:
     """C-01 응답을 서버 규칙으로 확정함.
 
     인자: condition_terms_of는 문장에서 상품명(카드명·별칭 통일)·기간·금액 같은 조건 낱말을 뽑는 함수임.
+    인자: domain_terms_of는 업무 낱말(상품명·숫자·코드 + 핵심 업무 어휘)을 뽑는 함수이며, 잡담 판정에만 씀.
     방법: ① 알 수 없는 유형 → 단순 ② 잡담인데 응답문이 비면 → 단순(검색해 보는 쪽이 안전함)
+    ②-1 잡담인데 업무 낱말이 있으면 → 단순(오분류 막기. 업무 질문을 검색 없이 끝내는 쪽이 더 위험함)
     ③ 복합인데 하위 질문이 없으면 → 단순 ④ 3개 초과면 앞 3개만 쓰고 경고
     ⑤ 하위 질문들이 원 질문의 조건을 빠뜨리거나 없는 조건을 만들면 → 단순(원 질문 1개)으로 대체함.
     반환값: PlanDecision. 규칙이 결과를 바꾼 이유는 warnings에 담음.
@@ -48,6 +51,9 @@ def apply_plan_rules(
         reply = str(chitchat_reply).strip()
         if not reply:
             return fallback_simple("잡담 응답문이 비어 단순 질문으로 처리")
+        domain_terms = sorted(domain_terms_of(question)) if domain_terms_of is not None else []
+        if domain_terms:
+            return fallback_simple(f"잡담 판정이지만 업무 낱말 {domain_terms[:5]}이 있어 단순 질문으로 처리")
         return PlanDecision(QTYPE_CHITCHAT, (), reply)
     if question_type == QTYPE_SIMPLE:
         return PlanDecision(QTYPE_SIMPLE)

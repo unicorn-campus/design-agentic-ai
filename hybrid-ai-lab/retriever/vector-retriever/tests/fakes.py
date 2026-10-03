@@ -114,6 +114,8 @@ class FakeIndex:
     corpus: Mapping[str, Chunk] = field(default_factory=make_corpus)
     hits: Mapping[str, Sequence[tuple[str, float]]] = field(default_factory=dict)  # 질의 → (조각ID, 점수)
     default_hits: Sequence[tuple[str, float]] = ()  # 대본에 없는 질의의 결과
+    # 질의 → BM25 결과. 비우면 벡터와 같은 대본을 씀. 따로 주면 두 검색기 겹침이 0인 상황을 만듦
+    keyword_hits: Mapping[str, Sequence[tuple[str, float]]] = field(default_factory=dict)
     vector_error: Exception | None = None
     keyword_error: Exception | None = None
     leaky: bool = False  # 참이면 권한 밖 조각도 돌려줌(색인 계약 위반 흉내 — 응용 계층 이중 확인 검증용)
@@ -154,7 +156,7 @@ class FakeIndex:
         self._spend()
         if self.keyword_error is not None:
             raise self.keyword_error
-        return self._scored(query, access_levels, k)
+        return self._scored(query, access_levels, k, keyword=True)
 
     def _spend(self) -> None:
         """검색에 쓴 시간을 가짜 시계에 반영함."""
@@ -162,11 +164,13 @@ class FakeIndex:
         if self.clock is not None and self.search_cost_s:
             self.clock.advance(self.search_cost_s)
 
-    def _scored(self, query: str, access_levels: Sequence[str], k: int) -> list[ScoredChunk]:
+    def _scored(self, query: str, access_levels: Sequence[str], k: int, *, keyword: bool = False) -> list[ScoredChunk]:
         """대본 결과에 권한 필터를 적용해 상위 k개를 반환함(leaky면 필터를 건너뜀)."""
 
         allowed = set(access_levels)
         rows = self.hits.get(query, self.default_hits)
+        if keyword and query in self.keyword_hits:
+            rows = self.keyword_hits[query]
         out: list[ScoredChunk] = []
         for chunk_id, score in rows:
             chunk = self.corpus.get(chunk_id)

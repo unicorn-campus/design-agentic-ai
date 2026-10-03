@@ -792,3 +792,65 @@ def test_22_약관이_1위면_카드가_섞여도_되묻지_않고_질문_변환
     assert C_03 in h.llm.calls  # 규칙이 되묻지 않았으므로 질문 변환 LLM이 불림
     assert response.clarify_question == ""
     assert not any("대상 섞임" in warning for warning in response.warnings)
+
+
+
+# ---------------------------------------------------------------- ㉓ ~ ㉕ 개선안 1 · 2 · 3 (사용자 결정 2026-10-03)
+
+
+def _one_search_llm() -> FakeLLM:
+    """원 질문을 한 번 검색하고 끝내는 C-02 대본."""
+
+    return FakeLLM(action=[ActionOutput(ACTION_SEARCH, "q0", "원 질문 검색"), ActionOutput(ACTION_FINISH, "", "종료")])
+
+
+def test_23_겹침이_0이어도_1위가_0_9_이상이면_정확으로_근거를_돌려줌() -> None:
+    """개선안 1: 벡터·BM25 상위가 하나도 안 겹쳐도 리랭크 1위가 면제 기준 이상이면 검색기 합의로 봄."""
+
+    corpus = make_corpus()
+    index = FakeIndex(corpus=corpus, hits={Q_SKY: [("d2a1", 0.9)]}, keyword_hits={Q_SKY: [("d1c1", 5.0)]})
+    high = build(index=index, reranker=FakeReranker(corpus=corpus, scores={"d2a1": 0.95, "d1c1": 0.2}),
+                 llm=_one_search_llm())
+    response = run(high, Q_SKY)
+    signals = last_request_log(high)["grade_signals"]["q0"]
+    assert signals["retriever_overlap"] == 0 and signals["grade"] == "correct"
+    assert response.status == STATUS_RETRIEVED
+
+    below = build(index=index, reranker=FakeReranker(corpus=corpus, scores={"d2a1": 0.85, "d1c1": 0.2}),
+                  llm=_one_search_llm())
+    run(below, Q_SKY)
+    assert last_request_log(below)["grade_signals"]["q0"]["grade"] == "uncertain"  # 0.85 < 0.9면 그대로 불확실
+
+
+def test_24_정확이어도_리랭크_하한_미만_조각은_근거에_넣지_않음() -> None:
+    """개선안 2: 정확 판정 결과 중 리랭크 0.3 미만(다른 카드 등)은 근거 목록·답변 재료에서 빠짐."""
+
+    corpus = make_corpus()
+    index = FakeIndex(corpus=corpus, hits={Q_FEE: [("d1c1", 0.9), ("d2a1", 0.5), ("d2b1", 0.4)]})
+    reranker = FakeReranker(corpus=corpus, scores={"d1c1": 0.92, "d2a1": 0.31, "d2b1": 0.03})
+    h = build(index=index, reranker=reranker, llm=_one_search_llm())
+    response = run(h, Q_FEE)
+
+    assert response.status == STATUS_RETRIEVED
+    assert [item.chunk_id for item in response.evidence] == ["d1c1", "d2a1"]  # 0.03은 빠짐, 0.31은 남음
+    assert last_request_log(h)["grade_signals"]["q0"]["result_count"] == 3  # 채점은 상위 3건 전부로 함
+
+
+def test_25_잡담_판정이어도_업무_낱말이_있으면_검색함() -> None:
+    """개선안 3: C-01이 잡담이라 해도 조각 20% 이상에 나오는 업무 명사가 있으면 단순 질문으로 검색함."""
+
+    corpus = make_corpus()
+    chitchat = [PlanOutput(QTYPE_CHITCHAT, (), "안녕하세요!", "인사로 판단")]
+    business = build(index=FakeIndex(corpus=corpus, hits={Q_FEE: [("d1c1", 0.9)]}, df={"연회비": 2}),
+                     reranker=FakeReranker(corpus=corpus, scores={"d1c1": 0.92}),
+                     llm=FakeLLM(plan=chitchat, action=[ActionOutput(ACTION_SEARCH, "q0", "")]))
+    response = run(business, Q_FEE)
+    assert response.question_type == QTYPE_SIMPLE
+    assert business.index.vector_queries == [Q_FEE]
+    assert any("업무 낱말" in warning for warning in response.warnings)
+
+    greeting = "안녕 반가워"
+    small_talk = build(index=FakeIndex(corpus=corpus, df={"안녕": 0}), llm=FakeLLM(plan=chitchat))
+    response = run(small_talk, greeting)
+    assert response.status == STATUS_NO_RETRIEVAL  # 업무 낱말이 없으면 그대로 검색 없이 응답
+    assert small_talk.index.vector_queries == []

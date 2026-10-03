@@ -99,6 +99,7 @@ def create_service(settings: Settings | None = None, *, warm_up: bool = True) ->
             vector_weight=settings.hybrid_vector_weight,
             keyword_weight=settings.hybrid_bm25_weight,
             keyword_max_df_ratio=settings.keyword_max_df_ratio,
+            domain_term_min_df_ratio=settings.domain_term_min_df_ratio,
         ),
     )
     return RetrieverService(
