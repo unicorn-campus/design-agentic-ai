@@ -1,45 +1,111 @@
-"""질의가 들어올 때 HuggingFace 임베딩 모델을 적재하는 임베더 어댑터."""
+"""질문을 색인과 같은 규칙으로 벡터 1개로 바꾸는 임베딩 어댑터임(설계 ⑥-5 · 색인 계약 3).
+
+왜 접두어를 붙이지 않나: 색인도 받은 문자열을 그대로 모델에 넣었으므로(색인 계약 3절),
+검색 쪽에서 "query: " 같은 접두어를 붙이면 같은 뜻의 문장이 다른 방향의 벡터가 되어 코사인 비교가 어긋남.
+"""
 
 from __future__ import annotations
 
-from typing import Any
+import threading
+from typing import Any, Callable
 
-from ..application.ports import EmbedderPort
+AUTO_DEVICE = "auto"
 
 
-class LazyHuggingFaceEmbedder(EmbedderPort):
-    """질의가 들어올 때까지 임베딩 모델 적재를 미룸."""
+class SentenceTransformerEmbedder:
+    """고정 revision의 KURE-v2 스냅샷으로 질의 벡터를 만드는 어댑터임.
 
-    # 목적: 지연 로딩할 임베딩 모델의 기본 정보를 준비함.
-    # 작업: 모델 이름·서명·초기 차원을 저장하고 실제 모델 자리는 비워 둠.
-    # 리턴값: 없음.
-    def __init__(self, model_name: str) -> None:
-        self.model_name = model_name
-        self.signature = f"sentence-transformers:{model_name}:prompt-policy-v2"
-        self.dimension = 0
-        self._model = None
+    모델 설정과 선택적 생성자를 주입받으며, 검색·저장은 수행하지 않음.
+    응용 계층에 임베딩 포트가 없어 이 어댑터는 같은 계층(infrastructure)의 색인 어댑터만 사용함.
+    """
 
-    # 목적: 실제 임베딩 모델을 처음 필요할 때 한 번만 메모리에 적재함.
-    # 작업: CPU용 정규화 임베딩 모델을 만들고 이후 호출에서 재사용하도록 저장함.
-    # 리턴값: 현재 사용할 HuggingFace 임베딩 모델 객체임.
+    def __init__(
+        self,
+        model: str,
+        *,
+        revision: str,
+        device: str = AUTO_DEVICE,
+        max_seq_length: int = 800,
+        dimension: int = 768,
+        local_files_only: bool = True,
+        model_factory: Callable[..., Any] | None = None,
+    ) -> None:
+        """모델 식별자·revision·입력 상한·기대 출력 차원을 고정함.
+
+        인자: max_seq_length는 특수 토큰을 포함한 입력 토큰 상한이며 색인과 같은 800이 기본값임.
+        인자: device가 "auto"이면 인자를 생략해 라이브러리가 cuda·mps·cpu 중 쓸 수 있는 장치를 고름.
+        예외: 모델명·revision이 비었거나 상한·차원이 양수가 아니면 ValueError를 발생시킴.
+        부수효과: 없음 — 모델 파일 읽기는 첫 embed 호출까지 미룸(서버 시작을 막지 않기 위함).
+        """
+
+        if not str(model).strip() or not str(revision).strip():
+            raise ValueError("임베딩 모델명과 revision은 비어 있을 수 없습니다.")
+        if int(max_seq_length) <= 0 or int(dimension) <= 0:
+            raise ValueError("입력 토큰 상한과 임베딩 차원은 양수여야 합니다.")
+        self.model = str(model).strip()
+        self.revision = str(revision).strip()
+        self.device = str(device).strip()
+        self.max_seq_length = int(max_seq_length)
+        self.dimension = int(dimension)
+        self.local_files_only = bool(local_files_only)
+        self._model_factory = model_factory
+        self._loaded: Any = None
+        # 여러 요청이 동시에 첫 질의를 던져도 모델이 두 번 올라가지 않게 잠금으로 묶음.
+        self._lock = threading.Lock()
+
     def _load(self) -> Any:
-        if self._model is None:
-            from langchain_huggingface import HuggingFaceEmbeddings
+        """고정 revision 모델을 한 번만 올리고 입력 상한을 적용함.
 
-            self._model = HuggingFaceEmbeddings(
-                model_name=self.model_name,
-                model_kwargs={"device": "cpu"},
-                encode_kwargs={"normalize_embeddings": True},
+        반환값: 적재된 모델 객체임.
+        예외: 로컬 캐시에 스냅샷이 없으면 라이브러리 예외를 그대로 올림.
+        부수효과: 모델을 메모리에 올려 보관함.
+        """
+
+        if self._loaded is not None:
+            return self._loaded
+        with self._lock:
+            if self._loaded is not None:
+                return self._loaded
+            factory = self._model_factory
+            if factory is None:
+                from sentence_transformers import SentenceTransformer
+
+                factory = SentenceTransformer
+            options: dict[str, Any] = {
+                "revision": self.revision,
+                "local_files_only": self.local_files_only,
+            }
+            # auto는 PyTorch가 모르는 장치 이름이므로 인자를 생략해 라이브러리 자동 선택에 맡김.
+            if self.device.lower() != AUTO_DEVICE:
+                options["device"] = self.device
+            model = factory(self.model, **options)
+            model.max_seq_length = self.max_seq_length
+            self._loaded = model
+            return model
+
+    def embed(self, text: str) -> list[float]:
+        """질문 한 문장을 길이 1로 정규화된 벡터 1개로 바꿈.
+
+        인자: text는 접두어 없이 그대로 모델에 들어감(색인 계약 3).
+        반환값: 길이가 dimension인 실수 목록임.
+        예외: 입력이 빈 문자열이거나 출력 차원이 기대와 다르면 ValueError를 발생시킴.
+        부수효과: 첫 호출에서 모델 파일을 읽고 메모리에 유지함.
+        """
+
+        if not isinstance(text, str) or not text.strip():
+            raise ValueError("임베딩 입력은 비어 있지 않은 문자열이어야 합니다.")
+        values = self._load().encode(
+            [text],
+            normalize_embeddings=True,
+            show_progress_bar=False,
+        )
+        row = values[0]
+        vector = [float(value) for value in (row.tolist() if hasattr(row, "tolist") else row)]
+        if len(vector) != self.dimension:
+            raise ValueError(
+                f"임베딩 출력 차원이 색인 계약과 다릅니다: expected={self.dimension}, actual={len(vector)}"
             )
-        return self._model
-
-    # 목적: 검색 질문을 벡터 저장소와 비교할 숫자 벡터로 변환함.
-    # 작업: 모델을 준비해 질문을 임베딩하고 실제 벡터 차원을 갱신함.
-    # 리턴값: 질문을 나타내는 float 값의 벡터 목록임.
-    def embed_query(self, text: str) -> list[float]:
-        values = list(self._load().embed_query(text))
-        self.dimension = len(values)
-        return values
+        return vector
 
 
-__all__ = ["LazyHuggingFaceEmbedder"]
+__all__ = ["SentenceTransformerEmbedder"]

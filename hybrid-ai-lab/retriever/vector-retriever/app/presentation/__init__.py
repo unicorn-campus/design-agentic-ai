@@ -1,1 +1,1 @@
-"""Retriever 표현 계층."""
+"""CLI·FastAPI 진입점 계층임."""

@@ -1,1 +1,1 @@
-"""LangGraph 기반 Retriever 앱."""
+"""문서 검색(Agentic RAG) 리트리버 W-2 애플리케이션 패키지임."""

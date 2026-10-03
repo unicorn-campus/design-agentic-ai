@@ -1,18 +1,20 @@
-"""BM25 문서와 질의에 동일하게 적용하는 한국어 토크나이저."""
+"""W-1 색인과 글자까지 같은 낱말을 만드는 한국어 분석기 어댑터임(색인 계약 6 · 설계 ⑥-4).
+
+왜 인덱서 코드를 그대로 옮겨 왔나: BM25는 "질의 낱말과 색인 낱말이 문자열로 같을 때만" 점수가 붙음.
+표기 통일 한 단계나 사전 한 줄이 달라도 질의가 색인에 닿지 못하므로, 정책 본문(POLICY_DESCRIPTOR)과
+서명 계산식을 같은 값으로 유지해 `signature`가 manifest의 `tokenizer_signature`와 같아지는지로 검사함.
+이 파일에서 뺀 것은 색인 전용 기능(미등록어 후보 추출·별칭 일반명사 판정)뿐임.
+"""
 
 from __future__ import annotations
 
 from collections import Counter
-from dataclasses import dataclass
+from pathlib import Path
 import hashlib
 import json
-from pathlib import Path
 import re
-from typing import Iterable, Mapping, Sequence
 import unicodedata
-
-from ..domain.keywords import TermObservation
-
+from typing import Iterable, Mapping, Sequence
 
 _POLICY_VERSION = 4
 _NORMALIZATION_POLICY = "nfkc-lower-remove-numeric-comma-iso-date-v2"
@@ -21,17 +23,20 @@ _SURFACE_POLICY = "number-unit-code-dictionary-clean-compound-alias-v3"
 _ALIAS_POLICY = "card-name-spaced-surface-v2"
 _CONTENT_TAGS = frozenset(
     {
-        "NNG", "NNP", "NNB", "NP", "NR", "VV", "VA", "VX", "VCP",
-        "VCN", "MM", "MAG", "MAJ", "IC", "SL", "SH", "SN", "XR",
+        "NNG", "NNP", "NNB", "NP", "NR", "VV", "VA", "VX", "VCP", "VCN",
+        "MM", "MAG", "MAJ", "IC", "SL", "SH", "SN", "XR",
     }
 )
+# 채점 핵심어는 "무엇을 묻는지"를 가리키는 말만 써야 해서 내용어 18종 중 이름·수·코드 태그만 남김.
+# 동사·형용사·부사(VV·VA·MAG 등)는 어느 조각에나 흔해 결과와 맞춰 봐도 관련성을 말해 주지 못함.
+_KEYWORD_TAGS = frozenset({"NNG", "NNP", "NR", "SN", "SL", "SH"})
 _SURFACE_TOKEN = re.compile(r"[0-9a-z가-힣]+(?:[-_/][0-9a-z가-힣]+)*%?")
 _NUMBER_COMMA = re.compile(r"(?<=\d),(?=\d)")
 _ASCII_LETTER = re.compile(r"[a-z]")
 _DIGIT = re.compile(r"\d")
 _CODE_SEPARATOR = re.compile(r"[-_/]")
 
-# 날짜 표기 통일: 색인 문서의 "2026-02"와 질문의 "2026년 2월"이 같은 토큰이 되도록 ISO 모양으로 맞춤.
+# 날짜 표기 통일: 문서의 "2026-02"와 질문의 "2026년 2월"이 같은 토큰이 되도록 ISO 모양으로 맞춤.
 # 네 자리 연도 19xx·20xx만 대상으로 삼아 상품코드(d2-c001)나 두 자리 연도 표기를 건드리지 않음.
 _YEAR = r"(?:19|20)\d{2}"
 _KOREAN_FULL_DATE = re.compile(rf"(?<!\d)({_YEAR})\s*년\s*(\d{{1,2}})\s*월\s*(\d{{1,2}})\s*일")
@@ -58,28 +63,6 @@ POLICY_DESCRIPTOR: dict[str, object] = {
 }
 
 
-@dataclass(frozen=True)
-class TypoTokenization:
-    """원문 분석과 질의 전용 오타 교정 분석을 구분해 반환함."""
-
-    original: tuple[str, ...]
-    corrected: tuple[str, ...]
-
-    @property
-    def changed(self) -> bool:
-        return self.original != self.corrected
-
-
-@dataclass(frozen=True)
-class OOVCandidate:
-    """사전 자동 등록 없이 검토 대상으로만 반환하는 미등록어 후보."""
-
-    form: str
-    score: float
-    frequency: int
-    pos_score: float
-
-
 def _iso_full_date(year: str, month: str, day: str, original: str) -> str:
     """월·일이 달력 범위 안이면 ISO 날짜로 바꾸고 아니면 원문을 그대로 둠."""
 
@@ -90,7 +73,7 @@ def _iso_full_date(year: str, month: str, day: str, original: str) -> str:
 
 
 def _iso_year_month(year: str, month: str, original: str) -> str:
-    """월이 1~12이면 ISO 연월로 바꾸고 아니면 원문을 그대로 둠."""
+    """월이 1 ~ 12이면 ISO 연월로 바꾸고 아니면 원문을 그대로 둠."""
 
     month_value = int(month)
     if not 1 <= month_value <= 12:
@@ -101,7 +84,7 @@ def _iso_year_month(year: str, month: str, original: str) -> str:
 def unify_date_notation(text: str) -> str:
     """여러 날짜 표기를 ISO 모양(YYYY-MM-DD·YYYY-MM) 한 가지로 통일함.
 
-    목적: 같은 시점을 가리키는 문서와 질문이 서로 다른 토큰으로 갈라지지 않게 함.
+    목적: 같은 시점을 가리키는 문서와 질문이 서로 다른 낱말로 갈라지지 않게 함.
     방법: 연·월·일 표기를 먼저 바꾸고 연·월 표기를 뒤에 바꿔 더 긴 표기가 먼저 잡히게 함.
     반환값: 날짜 자리만 바뀐 문자열이며 이미 ISO 모양이면 그대로임.
     부수효과: 없음.
@@ -122,103 +105,152 @@ def unify_date_notation(text: str) -> str:
 
 
 def normalize_korean_text(text: str) -> str:
-    """전각 문자·숫자·날짜 표기를 검색에 안정적인 형태로 정규화함."""
+    """NFKC·소문자 변환, 숫자 쉼표 제거, 날짜 표기 통일을 거친 검색용 문자열을 반환함."""
 
-    normalized = unicodedata.normalize("NFKC", str(text)).lower()
-    return unify_date_notation(_NUMBER_COMMA.sub("", normalized))
+    value = _NUMBER_COMMA.sub("", unicodedata.normalize("NFKC", str(text)).lower())
+    return unify_date_notation(value)
+
+
+def lexical_policy_fingerprint(
+    *,
+    alias_rules_sha256: str,
+    alias_overrides_sha256: str,
+) -> str:
+    """토큰화 정책과 별칭 설정의 변화를 Kiwi 없이 비교할 정적 지문을 만듦.
+
+    목적: 색인을 만든 쪽과 검색하는 쪽의 어휘 정책이 같은지 모델 적재 전에 확인하기 위함.
+    인자: 두 해시는 manifest `card_aliases.rules_sha256`·`overrides_sha256` 값임.
+    반환값: SHA-256 16진 문자열임.
+    부수효과: 없음.
+    """
+
+    value = {
+        **POLICY_DESCRIPTOR,
+        "alias_rules_sha256": str(alias_rules_sha256),
+        "alias_overrides_sha256": str(alias_overrides_sha256),
+    }
+    payload = json.dumps(value, ensure_ascii=False, sort_keys=True).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def has_digit(value: str) -> bool:
+    """낱말에 숫자가 섞여 있는지 반환함(금액·기간·건수 같은 조건 낱말 판정용)."""
+
+    return bool(_DIGIT.search(str(value)))
+
+
+def is_code_like(value: str) -> bool:
+    """낱말이 영문자와 구분자를 함께 가진 코드 모양인지 반환함(예: d2-c018-b01)."""
+
+    text = str(value)
+    return bool(_ASCII_LETTER.search(text) and _CODE_SEPARATOR.search(text))
 
 
 def _base_tag(tag: str) -> str:
-    """Kiwi의 ``VA-I``·``VV-R`` 활용 표지를 기본 품사로 정규화함."""
+    """Kiwi 규칙성 접미사를 제거한 기본 품사 태그를 반환함."""
 
     return str(tag).split("-", 1)[0]
 
 
 class KoreanTokenizer:
-    """Kiwi 형태소와 제한된 원형 복합어를 함께 보존하는 토크나이저."""
+    """내용어와 카드명·코드 원형을 함께 보존하는 Kiwi 어댑터임.
+
+    사용자 사전·동적 카드명·별칭 치환표·Kiwi 생성자를 주입받으며, BM25 점수 계산이나 파일 저장은 수행하지 않음.
+    """
 
     def __init__(
         self,
         user_dictionary: Path | None = None,
         *,
-        additional_user_words: Iterable[tuple[str, str, float]] | None = None,
+        additional_user_words: Iterable[tuple[str, str, float]] = (),
         aliases: Mapping[str, str] | None = None,
-        num_workers: int | None = None,
+        num_workers: int = 1,
         oov_handling: str = "chr",
         typo_policy: str = "basic",
         typo_cost_threshold: float = 2.5,
+        kiwi_factory=None,
+        library_version: str | None = None,
     ) -> None:
-        try:
-            import kiwipiepy
-            from kiwipiepy import Kiwi
-        except ImportError as error:  # pragma: no cover - 설치 오류 안내 경로
-            raise RuntimeError("한국어 BM25를 사용하려면 kiwipiepy가 필요함") from error
+        """형태소 분석기와 검색어 보존 정책을 설정함.
 
-        self._kiwi = Kiwi(num_workers=num_workers)
-        self._version = str(getattr(kiwipiepy, "__version__", "unknown"))
+        인자: typo_cost_threshold는 색인 쪽 서명에 기록된 값이며 Kiwi 호출에는 넘기지 않음(계약 5-2).
+        인자: aliases는 별칭 표면형에서 정식 카드 토큰으로 가는 치환표이며 값에는 공백이 없어야 함.
+        예외: kiwipiepy가 없거나 사용자 사전을 읽지 못하면 해당 예외를 발생시킴.
+        부수효과: 사용자 사전을 읽고 Kiwi 인스턴스에 사용자 단어와 별칭 표면형을 등록함.
+        """
+
+        if kiwi_factory is None:
+            try:
+                import kiwipiepy
+                from kiwipiepy import Kiwi
+            except ImportError as error:
+                raise RuntimeError("BM25 질의를 나누려면 kiwipiepy가 필요합니다.") from error
+            kiwi_factory = Kiwi
+            library_version = str(kiwipiepy.__version__)
+        self._kiwi = kiwi_factory(num_workers=num_workers)
+        self._version = str(library_version or "injected")
         self._dictionary_path = Path(user_dictionary).resolve() if user_dictionary else None
         self._dictionary_hash = ""
-        self._additional_dictionary_hash = hashlib.sha256(b"").hexdigest()
-        self._num_workers = num_workers
+        self._num_workers = int(num_workers)
         self._oov_handling = str(oov_handling)
         self._typo_policy = str(typo_policy)
         self._typo_cost_threshold = float(typo_cost_threshold)
-        dictionary_surfaces: set[str] = set()
+        surfaces: set[str] = set()
         if self._dictionary_path:
             payload = self._dictionary_path.read_bytes()
             self._dictionary_hash = hashlib.sha256(payload).hexdigest()
-            # 공식 로더가 품사·점수·이형태·기분석 형식을 모두 처리함.
             self._kiwi.load_user_dictionary(str(self._dictionary_path))
-            dictionary_surfaces.update(self._read_dictionary_surfaces(payload))
-
-        additional_words = self._normalize_additional_words(additional_user_words or ())
-        self._additional_user_word_count = len(additional_words)
-        additional_payload = self.additional_user_words_payload(additional_words)
-        self._additional_dictionary_hash = hashlib.sha256(additional_payload).hexdigest()
-        for form, tag, score in additional_words:
+            surfaces.update(self._dictionary_surfaces_from(payload))
+        words = self.normalize_additional_words(additional_user_words)
+        self._additional_user_word_count = len(words)
+        extra_payload = self.additional_user_words_payload(words)
+        self._additional_dictionary_hash = hashlib.sha256(extra_payload).hexdigest()
+        for form, tag, score in words:
             self._kiwi.add_user_word(form, tag, score)
-            dictionary_surfaces.add(form.replace(" ", ""))
-
+            surfaces.add(form.replace(" ", ""))
+        # 카드명 사전의 정식 토큰(공백 제거)은 질문 속 "무엇에 대한 질문인가"를 집는 대상명 집합이 됨.
+        self._card_tokens = frozenset(form.replace(" ", "") for form, _tag, _score in words)
         self._alias_surfaces = self.normalize_aliases(aliases)
         self._alias_hash = hashlib.sha256(self.alias_payload(self._alias_surfaces)).hexdigest()
         self._aliases = {
             surface.replace(" ", ""): canonical
             for surface, canonical in self._alias_surfaces.items()
         }
-        for surface in self._alias_surfaces:
+        for surface, _canonical in self._alias_surfaces.items():
             # 별칭을 사전에 올려야 Kiwi가 "모아생활"을 모으+어+생활로 쪼개지 않고 한 덩어리로 봄.
             # 띄어 쓴 표면형을 등록하면 "가게모음 프리미엄"과 "가게모음프리미엄"이 모두 같은 단어로 잡힘.
             self._kiwi.add_user_word(surface, _ALIAS_TAG, _ALIAS_SCORE)
-            dictionary_surfaces.add(surface.replace(" ", ""))
-        self._dictionary_surfaces = frozenset(dictionary_surfaces)
+            surfaces.add(surface.replace(" ", ""))
+        self._dictionary_surfaces = frozenset(surfaces)
 
     @staticmethod
-    def _normalize_additional_words(
+    def normalize_additional_words(
         words: Iterable[tuple[str, str, float]],
     ) -> tuple[tuple[str, str, float], ...]:
+        """동적 사용자 단어를 정규화·중복 제거하여 안정적인 순서로 반환함.
+
+        예외: 표면형에 탭·줄바꿈이 있거나 표면형·품사가 비면 ValueError를 발생시킴.
+        부수효과: 없음.
+        """
+
         normalized: set[tuple[str, str, float]] = set()
         for raw_form, raw_tag, raw_score in words:
-            raw_form_text = str(raw_form)
-            if "\t" in raw_form_text or "\n" in raw_form_text or "\r" in raw_form_text:
-                raise ValueError("추가 사용자 단어의 형태에는 탭이나 줄바꿈을 넣을 수 없음")
-            form = " ".join(normalize_korean_text(raw_form_text).split())
+            if any(char in str(raw_form) for char in "\t\r\n"):
+                raise ValueError("사용자 단어에는 탭이나 줄바꿈을 넣을 수 없습니다.")
+            form = " ".join(normalize_korean_text(raw_form).split())
             tag = str(raw_tag).strip()
-            score = float(raw_score)
             if not form or not tag:
-                raise ValueError("추가 사용자 단어의 형태와 품사는 비어 있을 수 없음")
-            normalized.add((form, tag, score))
+                raise ValueError("사용자 단어의 형태와 품사는 비어 있을 수 없습니다.")
+            normalized.add((form, tag, float(raw_score)))
         return tuple(sorted(normalized))
 
     @classmethod
-    def additional_user_words_payload(
-        cls,
-        words: Iterable[tuple[str, str, float]],
-    ) -> bytes:
-        """추가 사용자 단어를 결정적인 Kiwi 사전 파일 내용으로 직렬화함."""
+    def additional_user_words_payload(cls, words: Iterable[tuple[str, str, float]]) -> bytes:
+        """동적 사용자 단어를 재현 가능한 UTF-8 사전 바이트로 직렬화함."""
 
-        normalized = cls._normalize_additional_words(words)
         return "".join(
-            f"{form}\t{tag}\t{score}\n" for form, tag, score in normalized
+            f"{form}\t{tag}\t{score}\n"
+            for form, tag, score in cls.normalize_additional_words(words)
         ).encode("utf-8")
 
     @staticmethod
@@ -236,25 +268,25 @@ class KoreanTokenizer:
         keys: dict[str, str] = {}
         for raw_alias, raw_canonical in dict(aliases or {}).items():
             if any(char in f"{raw_alias}{raw_canonical}" for char in "\t\r\n"):
-                raise ValueError("별칭에는 탭이나 줄바꿈을 넣을 수 없음")
+                raise ValueError("별칭에는 탭이나 줄바꿈을 넣을 수 없습니다.")
             surface = " ".join(normalize_korean_text(raw_alias).split())
             canonical = normalize_korean_text(raw_canonical).replace(" ", "")
             alias = surface.replace(" ", "")
             if not alias or not canonical:
-                raise ValueError("별칭과 정식 카드 토큰은 비어 있을 수 없음")
+                raise ValueError("별칭과 정식 카드 토큰은 비어 있을 수 없습니다.")
             if alias == canonical:
-                raise ValueError(f"별칭과 정식 카드 토큰이 같음: {surface}")
+                raise ValueError(f"별칭과 정식 카드 토큰이 같습니다: {surface}")
             if keys.setdefault(alias, surface) != surface:
                 # Kiwi는 사용자 단어를 공백과 무관하게 한 항목으로 보므로 띄어쓰기만 다른 중복을 금지함.
-                raise ValueError(f"띄어쓰기만 다른 별칭이 함께 있음: {surface}")
+                raise ValueError(f"띄어쓰기만 다른 별칭이 함께 있습니다: {surface}")
             if normalized.get(surface, canonical) != canonical:
-                raise ValueError(f"같은 별칭이 서로 다른 카드를 가리킴: {surface}")
+                raise ValueError(f"같은 별칭이 서로 다른 카드를 가리킵니다: {surface}")
             normalized[surface] = canonical
         return {surface: normalized[surface] for surface in sorted(normalized)}
 
     @classmethod
     def alias_payload(cls, aliases: Mapping[str, str] | None) -> bytes:
-        """별칭 표면형 치환표를 결정적인 UTF-8 TSV 파일 내용으로 직렬화함."""
+        """별칭 표면형 치환표를 재현 가능한 UTF-8 TSV 바이트로 직렬화함."""
 
         return "".join(
             f"{surface}\t{canonical}\n"
@@ -262,19 +294,28 @@ class KoreanTokenizer:
         ).encode("utf-8")
 
     @staticmethod
-    def _read_dictionary_surfaces(payload: bytes) -> frozenset[str]:
-        surfaces: set[str] = set()
-        for raw_line in payload.decode("utf-8-sig").splitlines():
-            line = raw_line.strip()
+    def _dictionary_surfaces_from(payload: bytes) -> frozenset[str]:
+        """사용자 사전 바이트에서 검색 결과에 보존할 표면형 집합을 읽음."""
+
+        values: set[str] = set()
+        for raw in payload.decode("utf-8-sig").splitlines():
+            line = raw.strip()
             if not line or line.startswith("#"):
                 continue
-            form = normalize_korean_text(line.split("\t", 1)[0]).replace(" ", "")
-            if len(form) >= 2:
-                surfaces.add(form)
-        return frozenset(surfaces)
+            value = normalize_korean_text(line.split("\t", 1)[0]).replace(" ", "")
+            if len(value) >= 2:
+                values.add(value)
+        return frozenset(values)
 
     @property
     def signature(self) -> str:
+        """토큰화 정책·라이브러리·사전 내용을 식별하는 SHA-256 서명을 반환함.
+
+        반환값: `kiwi:` 접두어가 붙은 문자열이며 manifest `tokenizer_signature`와 같아야 함.
+        예외: 없음.
+        부수효과: 없음.
+        """
+
         value: dict[str, object] = {
             **POLICY_DESCRIPTOR,
             "kiwipiepy": self._version,
@@ -292,10 +333,14 @@ class KoreanTokenizer:
 
     @property
     def user_dictionary_sha256(self) -> str:
+        """정적 사용자 사전의 SHA-256 해시를 반환하며, 사전이 없으면 빈 문자열임."""
+
         return self._dictionary_hash
 
     @property
     def additional_user_words_sha256(self) -> str:
+        """정규화된 동적 사용자 단어 사전의 SHA-256 해시를 반환함."""
+
         return self._additional_dictionary_hash
 
     @property
@@ -304,29 +349,18 @@ class KoreanTokenizer:
 
         return self._alias_hash
 
-    def with_additional_user_words(
-        self,
-        words: Iterable[tuple[str, str, float]],
-        *,
-        aliases: Mapping[str, str] | None = None,
-    ) -> KoreanTokenizer:
-        """동일한 기본 설정에 추가 사용자 단어와 별칭만 적용한 새 객체를 만듦."""
+    @property
+    def card_tokens(self) -> frozenset[str]:
+        """카드명 사전의 정식 토큰(공백 제거) 집합을 반환함(대상명 판정용)."""
 
-        return type(self)(
-            self._dictionary_path,
-            additional_user_words=words,
-            aliases=aliases,
-            num_workers=self._num_workers,
-            oov_handling=self._oov_handling,
-            typo_policy=self._typo_policy,
-            typo_cost_threshold=self._typo_cost_threshold,
-        )
+        return self._card_tokens
 
     @staticmethod
-    def _overlapping_tokens(tokens: Sequence[object], start: int, end: int) -> list[object]:
+    def _overlapping(tokens: Sequence[object], start: int, end: int) -> list[object]:
+        """문자 범위와 한 글자 이상 겹치는 Kiwi 토큰을 반환함."""
+
         return [
-            token
-            for token in tokens
+            token for token in tokens
             if int(getattr(token, "start")) < end and int(getattr(token, "end")) > start
         ]
 
@@ -356,154 +390,127 @@ class KoreanTokenizer:
             if token_start <= start and end <= token_end and (token_end - token_start) > (end - start):
                 return True
             form = self._substitute(
-                normalize_korean_text(str(getattr(token, "form"))).replace(" ", "")
+                normalize_korean_text(getattr(token, "form")).replace(" ", "")
             )
             if form == value:
                 return True
         return False
 
-    def _preserve_surface(self, surface: str, overlapping: Sequence[object]) -> bool:
+    def _preserve_surface(self, surface: str, analyzed: Sequence[object]) -> bool:
+        """숫자·코드·사전어·내용어 복합어의 원형을 추가 토큰으로 보존할지 판정함."""
+
         compact = surface.replace(" ", "")
-        if _DIGIT.search(compact):
+        if _DIGIT.search(compact) or compact in self._dictionary_surfaces:
             return True
         if _ASCII_LETTER.search(compact) and _CODE_SEPARATOR.search(compact):
             return True
-        if compact in self._dictionary_surfaces:
-            return True
-        base_tags = [_base_tag(str(getattr(token, "tag"))) for token in overlapping]
-        return len(base_tags) >= 2 and all(tag in _CONTENT_TAGS for tag in base_tags)
+        tags = [_base_tag(str(getattr(token, "tag"))) for token in analyzed]
+        return len(tags) >= 2 and all(tag in _CONTENT_TAGS for tag in tags)
 
-    def _is_proper(self, value: str, tag: str) -> bool:
-        """토큰이 고유이름(카드명·별칭·숫자·코드·날짜 표준형)인지 판정함.
+    def _from_analysis(self, normalized: str, analyzed: Sequence[object]) -> list[str]:
+        """내용어 형태소에 필요한 원형 토큰을 보충하되 같은 출현 횟수는 중복하지 않음."""
 
-        목적: 색인에 없는 말이라도 고유이름이면 핵심어로 남겨야 하므로 구분이 필요함.
-        부수효과: 없음.
-        """
-
-        if value in self._dictionary_surfaces:
-            return True
-        if tag in {"NNP", "SL", "SH", "SN"}:
-            return True
-        return bool(_DIGIT.search(value) or _CODE_SEPARATOR.search(value))
-
-    def _terms_from_analysis(
-        self, normalized: str, analyzed: Sequence[object]
-    ) -> list[TermObservation]:
-        """BM25 토큰과 그 품사·고유이름 여부를 같은 순서로 함께 만듦.
-
-        목적: 색인에 들어간 토큰과 글자 하나까지 같은 값을 핵심어 판정에도 쓰기 위함.
-        반환값: tokenize가 내보내는 토큰과 같은 순서·같은 개수의 관찰값 목록임.
-        부수효과: 없음.
-        """
-
-        terms: list[TermObservation] = []
-        for token in analyzed:
-            tag = _base_tag(str(getattr(token, "tag")))
-            if tag not in _CONTENT_TAGS:
-                continue
-            value = self._substitute(
-                normalize_korean_text(str(getattr(token, "form"))).replace(" ", "")
-            )
-            if not value:
-                continue
-            terms.append(TermObservation(value, tag, self._is_proper(value, tag)))
-
-        counts = Counter(term.token for term in terms)
-        surface_counts: Counter[str] = Counter()
+        tokens = [
+            self._substitute(normalize_korean_text(getattr(token, "form")).replace(" ", ""))
+            for token in analyzed
+            if _base_tag(str(getattr(token, "tag"))) in _CONTENT_TAGS
+        ]
+        tokens = [token for token in tokens if token]
+        counts = Counter(tokens)
+        surfaces: Counter[str] = Counter()
         for match in _SURFACE_TOKEN.finditer(normalized):
             surface = match.group(0)
             if len(surface) < 2:
                 continue
-            overlapping = self._overlapping_tokens(analyzed, match.start(), match.end())
+            overlapping = self._overlapping(analyzed, match.start(), match.end())
             if not self._preserve_surface(surface, overlapping):
                 continue
             value = self._substitute(surface)
             if self._is_redundant_surface(value, overlapping, match.start(), match.end()):
                 continue
-            surface_counts[value] += 1
-        for surface, frequency in surface_counts.items():
-            extra = max(0, frequency - counts[surface])
-            observation = TermObservation(surface, "SURFACE", self._is_proper(surface, "SURFACE"))
-            terms.extend([observation] * extra)
-        return terms
+            surfaces[value] += 1
+        for surface, frequency in surfaces.items():
+            tokens.extend([surface] * max(0, frequency - counts[surface]))
+        return tokens
 
-    def _tokens_from_analysis(self, normalized: str, analyzed: Sequence[object]) -> list[str]:
-        return [term.token for term in self._terms_from_analysis(normalized, analyzed)]
+    def tokenize(self, text: str) -> list[str]:
+        """문자열 하나를 BM25 색인용 내용어와 보존 표면형 목록으로 변환함.
 
-    def observe(self, text: str) -> tuple[TermObservation, ...]:
-        """문자열을 색인과 같은 토큰으로 자르고 품사·고유이름 여부를 함께 반환함.
-
-        목적: 핵심어 선별이 색인에 실제로 들어 있는 토큰만 다루도록 보장함.
-        반환값: tokenize와 같은 순서·같은 토큰에 품사와 고유이름 여부를 붙인 묶음임.
-        부수효과: 형태소 분석에 메모리의 Kiwi 인스턴스를 사용함.
+        반환값: 정규화된 형태소와 필요한 카드명·코드 원형을 입력 출현 횟수만큼 담은 목록임.
+        부수효과: 형태소 분석을 위해 메모리의 Kiwi 인스턴스를 사용함.
         """
 
         normalized = normalize_korean_text(text)
         analyzed = self._kiwi.tokenize(normalized, oov_handling=self._oov_handling)
-        return tuple(self._terms_from_analysis(normalized, analyzed))
-
-    def tokenize(self, text: str) -> list[str]:
-        """오타 교정을 적용하지 않은 기준 토큰을 반환함."""
-
-        normalized = normalize_korean_text(text)
-        analyzed = self._kiwi.tokenize(normalized, oov_handling=self._oov_handling)
-        return self._tokens_from_analysis(normalized, analyzed)
+        return self._from_analysis(normalized, analyzed)
 
     def tokenize_many(self, texts: Iterable[str]) -> list[list[str]]:
-        """색인 문서를 Kiwi iterable API로 순서 보존 병렬 분석함."""
+        """여러 문자열을 Kiwi 배치 분석으로 토큰화하여 입력 순서대로 반환함.
+
+        반환값: 입력이 비면 빈 목록, 아니면 각 문서의 BM25 토큰 목록임.
+        부수효과: 형태소 분석을 위해 메모리의 Kiwi 인스턴스를 사용함.
+        """
 
         normalized = [normalize_korean_text(text) for text in texts]
         if not normalized:
             return []
         analyzed = self._kiwi.tokenize(normalized, oov_handling=self._oov_handling)
         return [
-            self._tokens_from_analysis(text, tokens)
+            self._from_analysis(text, tokens)
             for text, tokens in zip(normalized, analyzed, strict=True)
         ]
 
-    def tokenize_with_typo_fallback(self, text: str) -> TypoTokenization:
-        """원 질의와 기본 오타 교정 질의를 별도 토큰 집합으로 반환함."""
+    def keyword_terms(self, text: str) -> list[str]:
+        """채점 핵심어 후보로 명사·숫자·코드 낱말만 골라 반환함.
+
+        방법: tokenize와 같은 표기 통일·별칭 치환을 쓰되 품사는 이름·수·코드 태그로 좁히고,
+        통째 보존 낱말도 숫자·코드·사전어만 남김(복합어 보존은 동사를 품을 수 있어 제외).
+        반환값: 글자 위치가 앞선 것부터 중복을 뺀 낱말 목록임. 빈 문장이면 빈 목록임.
+        예외: 없음.
+        부수효과: 형태소 분석을 위해 메모리의 Kiwi 인스턴스를 사용함.
+        """
 
         normalized = normalize_korean_text(text)
-        original = self._tokens_from_analysis(
-            normalized,
-            self._kiwi.tokenize(normalized, oov_handling=self._oov_handling),
-        )
-        corrected = self._tokens_from_analysis(
-            normalized,
-            self._kiwi.tokenize(
-                normalized,
-                oov_handling=self._oov_handling,
-                typos=self._typo_policy,
-                typo_cost_threshold=self._typo_cost_threshold,
-            ),
-        )
-        return TypoTokenization(tuple(original), tuple(corrected))
-
-    def extract_oov_candidates(
-        self,
-        texts: Iterable[str],
-        *,
-        min_cnt: int = 10,
-        max_word_len: int = 10,
-        min_score: float = 0.25,
-        pos_score: float = -3.0,
-    ) -> list[OOVCandidate]:
-        """미등록어 후보만 반환하며 Kiwi 사용자 사전에는 추가하지 않음."""
-
-        candidates = self._kiwi.extract_words(
-            (normalize_korean_text(text) for text in texts),
-            min_cnt=min_cnt,
-            max_word_len=max_word_len,
-            min_score=min_score,
-            pos_score=pos_score,
-        )
-        return [
-            OOVCandidate(
-                form=str(form),
-                score=float(score),
-                frequency=int(frequency),
-                pos_score=float(candidate_pos_score),
+        if not normalized.strip():
+            return []
+        analyzed = list(self._kiwi.tokenize(normalized, oov_handling=self._oov_handling))
+        found: list[tuple[int, str]] = []
+        for token in analyzed:
+            if _base_tag(str(getattr(token, "tag"))) not in _KEYWORD_TAGS:
+                continue
+            value = self._substitute(
+                normalize_korean_text(getattr(token, "form")).replace(" ", "")
             )
-            for form, score, frequency, candidate_pos_score in candidates
-        ]
+            if value:
+                found.append((int(getattr(token, "start")), value))
+        for match in _SURFACE_TOKEN.finditer(normalized):
+            surface = match.group(0)
+            if len(surface) < 2:
+                continue
+            if not (has_digit(surface) or is_code_like(surface) or surface in self._dictionary_surfaces):
+                continue
+            overlapping = self._overlapping(analyzed, match.start(), match.end())
+            value = self._substitute(surface)
+            if self._is_redundant_surface(value, overlapping, match.start(), match.end()):
+                continue
+            found.append((match.start(), value))
+        found.sort(key=lambda item: item[0])
+        terms: list[str] = []
+        seen: set[str] = set()
+        for _start, value in found:
+            if value in seen:
+                continue
+            seen.add(value)
+            terms.append(value)
+        return terms
+
+
+__all__ = [
+    "KoreanTokenizer",
+    "POLICY_DESCRIPTOR",
+    "has_digit",
+    "is_code_like",
+    "lexical_policy_fingerprint",
+    "normalize_korean_text",
+    "unify_date_notation",
+]

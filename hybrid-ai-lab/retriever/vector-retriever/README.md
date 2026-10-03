@@ -1,597 +1,474 @@
-# Vector Retriever
+# 문서 검색(Agentic RAG) 리트리버
 
-> 로컬 전용 — 인증 기능이 없으므로 외부 네트워크에 노출하면 안 됨.
+질문 1건을 받아 **필요한 만큼만** 검색·채점·질문 변환을 되풀이하고, 찾은 근거로만 답하거나 「확인 필요」로 끝내는 예제임.  
+앞 단계 인덱서(W-1 `indexer/vector-bm25`)가 만들어 둔 벡터·BM25 색인을 **읽기만** 함 — 색인을 새로 만들지 않음.
 
-KURE-v2(`nlpai-lab/KURE-v2`) ChromaDB에서 문서를 검색하고 근거가 붙은 답변을 만드는 로컬 앱임.
-Vector, Hybrid, Hybrid + Rerank 세 경로와 선택적 질문 변환을 지원함.
+용어 먼저 풀어 둠. 처음 보는 낱말이 나오면 여기로 돌아와 확인함.
 
-## 실행 전제
-
-- Python 3.12 권장
-- Indexer가 게시한 활성 세대 포인터 `../../indexer/vector-bm25/data/active_generation.json` 필요  
-  포인터가 가리키는 같은 세대의 `chroma`와 `search_indexes`를 함께 사용함
-- 컬렉션 `card_docs`에 청크 1건 이상 필요
-- 임베딩 모델은 `nlpai-lab/KURE-v2`(설정 `EMBED_MODEL` 기본값)임
-- 임베딩 서명 `sentence-transformers:nlpai-lab/KURE-v2:prompt-policy-v2` 필요
-- 현재 활성 세대는 `gen-rebuild-20261002-c8f87e7e`, 청크 195건 · 768차원임(2026-10-02 재색인 기준)
-- 아래 「동등성 평가」 수치는 이전 Indexer 색인(청크 483건) 기준 기록이므로 현재 세대에 그대로 적용되지 않음
-- Rerank 최초 사용 시 `BAAI/bge-reranker-v2-m3` 약 2.2GB 다운로드 필요
-
-Indexer 실행 방법은 `../../indexer/vector-bm25/README.md` 참고 대상임.
-
-## 설치
-
-```bash
-cd hybrid-ai-lab/retriever/vector-retriever
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-```
-
-Linux CPU 환경에서 PyTorch 설치본을 찾지 못하면  
-PyTorch CPU 인덱스를 먼저 지정해야 할 수 있음.
-
-```bash
-python -m pip install torch==2.14.0 \
-  --index-url https://download.pytorch.org/whl/cpu
-python -m pip install -r requirements.txt
-```
-
-설정 파일이 필요한 경우 예시 파일을 복사함. 빈 값은 코드 기본값으로 대체됨.
-
-```bash
-cp .env.example .env
-```
-
-`VECTOR_STORE_BACKEND` 기본값은 `chroma`임. `memory`는 자동화 시험용 비영속 저장소임.
-
-색인 경로는 `CHROMA_PATH`·`SEARCH_INDEX_ROOT`를 비워 두면 `ACTIVE_GENERATION_POINTER`에서 읽음.  
-기본 포인터는 `../../indexer/vector-bm25/data/active_generation.json`이며,  
-포인터의 `chroma_path`·`search_index_root`·`collection`을 같은 세대에서 함께 사용함.  
-Indexer가 새 세대를 게시하면 검색기를 다시 시작할 때 새 세대를 읽음.
-
-`SEARCH_INDEX_ROOT`는 Indexer가 발행한 `active_index.json`의 루트임.  
-경로를 직접 지정할 때는 `CHROMA_PATH`와 `SEARCH_INDEX_ROOT`를 **같은 세대로 함께** 적어야 함.  
-한쪽만 적으면 벡터와 BM25가 다른 세대를 가리키므로 설정 오류로 중단함.  
-Indexer에서 `--output`을 바꾼 경우에는 그 폴더의 `active_generation.json`을 `ACTIVE_GENERATION_POINTER`로 지정함.  
-포인터 파일이 없으면 이전 고정 배치(`data/chroma`, `data/search_indexes`)를 기본값으로 사용함.
-
-`KOREAN_USER_DICTIONARY`는 Indexer와 같은 파일을 지정해야 하며 파일 내용은 토크나이저 서명에 포함됨.
-
-`KOREAN_TOKENIZER_WORKERS`는 실시간 Kiwi 질의 분석 작업자 수이며 기본값은 1임.  
-BM25는 ACL 적용 후 Top-K만 조회하고 0점 후보를 제거함. 원 질의 결과가 없을 때만  
-Kiwi `basic` 오타 교정 질의를 한 번 사용하므로 상품 코드의 과도한 교정 가능성을 제한함.
-
-새 운영 벡터 DB는 DB 중립 필터를 변환하는 어댑터와 생성 팩터리에 등록함.
-
-## CLI
-
-### 인덱스 연결 확인
-
-`--dry-run`은 인덱스 연결·서명·건수를 확인한 뒤 검색 전에 종료함.
-
-```bash
-python run_retriever.py \
-  --query "연회비 면제 조건은?" \
-  --dry-run
-```
-
-### 네 가지 검색 모드
-
-| 모드 | 처리 | 최종 결과 |
-|---|---|---|
-| `vector` | KURE-v2 의미 검색 | Vector Top-K |
-| `vector_rerank` | Vector 후보를 Cross-Encoder로 재정렬 | Rerank Top-K |
-| `hybrid` | Vector 0.6 + BM25 0.4 | 융합 Top-K |
-| `hybrid_rerank` | Hybrid 후보를 Cross-Encoder로 재정렬 | Rerank Top-K |
-
-기본 최종 Top-K 5의 후보 흐름은 다음과 같음.
-
-| 모드 | 검색기별 원시 후보 | 질문별 융합 후보 | 최종 결과 |
-|---|---:|---:|---:|
-| `vector` | 20건 | 해당 없음 | 5건 |
-| `vector_rerank` | 40건 | Vector 10건 | Rerank 5건 |
-| `hybrid` | 20건 | 5건 | 5건 |
-| `hybrid_rerank` | 40건 | 10건 | Rerank 5건 |
-
-`CANDIDATE_MULTIPLIER=4`는 질문별 검색·융합 목표 수에 적용됨.
-따라서 `vector_rerank`와 `hybrid_rerank`는 리랭크 목표 10건 × 4로 검색기별 원시 후보 40건을 수집함.
-질문 변환 시에도 원 질문과 각 변환 질문에 같은 후보 계약이 적용됨.
-
-벡터 후보 선택은 기본적으로 `VECTOR_SEARCH_STRATEGY=similarity`를 사용하므로 기존 cosine 유사도 순서를 유지함.
-`VECTOR_SEARCH_STRATEGY=mmr`로 설정하면 유사 후보를 넓게 조회한 뒤 관련성과 문서 간 다양성을 함께 고려해 후보를 선택함.
-`MMR_FETCH_MULTIPLIER=2`는 MMR 반환 목표 수보다 몇 배 많은 유사 후보를 먼저 조회할지 지정함.
-`MMR_LAMBDA_MULT=0.5`는 0 이상 1 이하이며, 1에 가까울수록 질의 유사도, 0에 가까울수록 후보 다양성을 우선함.
-MMR을 사용해도 결과의 `score`와 `vector_score`에는 MMR 합성값이 아니라 원래 질의 cosine 유사도를 유지함.
-
-BM25는 Vector DB의 전체 문서를 다시 읽지 않음.
-
-활성 세대의 `corpus.jsonl`과 BM25S 파일을 로딩하고, 질의에도 색인과 동일한 Kiwi 토크나이저를 적용함.
-
-NFKC·숫자 쉼표·영문 대소문자를 정규화하며 형태소와 복합어 원형을 함께 보존함.
-
-답변 LLM을 호출하지 않고 검색 결과와 프롬프트만 확인하는 예시임.
-
-```bash
-python run_retriever.py \
-  --query "연회비 면제 조건은?" \
-  --mode vector \
-  --transform off \
-  --top-k 5 \
-  --prompt-only
-```
-
-```bash
-python run_retriever.py \
-  --query "연회비 면제 조건은?" \
-  --mode vector_rerank \
-  --transform off \
-  --top-k 5 \
-  --prompt-only
-```
-
-```bash
-python run_retriever.py \
-  --query "연회비 면제 조건은?" \
-  --mode hybrid \
-  --transform off \
-  --top-k 5 \
-  --prompt-only
-```
-
-```bash
-python run_retriever.py \
-  --query "연회비 면제 조건은?" \
-  --mode hybrid_rerank \
-  --transform off \
-  --top-k 5 \
-  --prompt-only
-```
-
-`--prompt-only`는 답변 LLM만 차단함.
-`--transform auto`에서 캐시가 없고 변환 관문을 통과하지 못하면 라우터 LLM 호출 가능함.
-
-### 질문 변환
-
-`--transform auto`는 원 질문 Vector Top-1 코사인 유사도가 0.86 미만일 때만 라우팅함.
-가능한 기법은 rewrite, multi, HyDE, step-back, decomposition임.
-
-```bash
-python run_retriever.py \
-  --query "올해 비용 면제와 포인트 적립 조건을 함께 알려주세요" \
-  --mode hybrid \
-  --transform auto \
-  --top-k 5 \
-  --prompt-only
-```
-
-질문 변환 결정은 기본적으로 `data/transform_cache.json`에 저장됨.
-같은 질문의 유효한 캐시가 있으면 라우터 LLM 호출 없이 재사용함.
-
-### CLI 옵션
-
-| 옵션 | 기본값 | 의미 |
-|---|---|---|
-| `--query` | 필수 | 공백이 아닌 질문 |
-| `--top-k` | `5` | 최종 검색 결과 건수 |
-| `--mode` | `hybrid_rerank` | 네 검색 경로 중 하나 |
-| `--transform` | `off` | `off` 또는 `auto` |
-| `--role` | `agent` | `agent` 또는 `auditor` |
-| `--thread-id` | 자동 생성 | 체크포인트 세션 키 |
-| `--dry-run` | 꺼짐 | 인덱스 확인 후 종료 |
-| `--prompt-only` | 꺼짐 | 답변 LLM 없이 프롬프트까지 실행 |
-| `--max-llm-calls` | `8` | 전송 시도 상한 |
-| `--out` | 저장 안 함 | 결과 JSON 저장 위치 |
-
-```bash
-python run_retriever.py --help
-```
-
-CLI 결과는 stdout의 JSON 한 건임. 파일로도 남기려면 `--out` 사용함.
-
-```bash
-# 폴더로 지정: {thread_id}.json 으로 저장되어 data/logs/{thread_id}.jsonl 실행 로그와 이름이 대응됨
-python run_retriever.py --query "연회비 면제 기준은?" --out data/answers
-
-# .json 으로 끝나면 그 파일에 그대로 저장함(덮어씀)
-python run_retriever.py --query "연회비 면제 기준은?" --out data/answers/my_answer.json
-```
-
-저장 경로는 stderr에 `결과 저장: {경로}`로 표시됨.  
-실패한 실행도 같은 규칙으로 저장하므로, 검색까지 성공한 부분 결과와 `route.error`의 오류 상세를 남길 수 있음.
-
-```bash
-python run_retriever.py \
-  --query "연회비 면제 조건은?" \
-  --mode hybrid \
-  --prompt-only > data/search_run1.json
-```
-
-중단된 CLI 작업은 같은 `--thread-id`로 재개 가능함.
-새 질문에는 완료된 작업의 ID를 재사용하지 않는 것이 안전함.
-
-## 역할과 검색 권한
-
-| `X-Role` 또는 `--role` | 검색 가능한 등급 |
+| 낱말 | 뜻 |
 |---|---|
-| `agent` | `public`, `internal` |
-| `auditor` | `public`, `internal`, `restricted` |
+| RAG | 질문에 답하기 전에 문서를 먼저 찾아 그 내용만 근거로 답하는 방식 |
+| Agentic RAG | 한 번 찾고 끝내지 않고, 결과를 보고 "더 찾을지·질문을 바꿀지·끝낼지"를 스스로 고르는 RAG |
+| 조각(chunk) | 긴 문서를 검색하기 좋게 잘라 둔 토막. 검색·인용의 최소 단위임 |
+| 벡터 검색 | 글자가 달라도 **뜻이 가까운** 조각을 찾는 방법 |
+| BM25 | **낱말이 똑같은** 조각을 찾는 고전 검색 방법 |
+| 리랭커(Reranker) | 질문과 조각을 한꺼번에 읽어 "정말 관련 있나"를 다시 점수 매기는 모델 |
+| 색인 세대(generation) | 인덱서가 한 번 만들어 게시한 색인 한 벌. 세대가 바뀌면 조각ID도 바뀜 |
+| LangGraph | 단계와 분기를 그래프로 적어 두고 그 순서대로 실행해 주는 파이썬 라이브러리 |
 
-BM25 권한 마스크는 점수 융합 전에 적용됨. 제한 문서가 후보 자리를 먼저 차지하지 않음.
+## 1. 목표 및 주요 기능
 
-융합 뒤에도 동일한 권한 필터를 다시 적용하여 방어선을 유지함.
+- 목표: 약관·혜택 안내·상담 이력 문서에서 질문의 근거를 찾아 주고, 근거가 없으면 **답을 지어내지 않고** 되묻기
+- 처리 단위: 질문 1건 = 실행 1회(동기 요청·1회 응답). 단계ID는 `S-R1` ~ `S-R9`
 
-HTTP 요청에는 `X-Role` 헤더가 필수임. 누락하거나 다른 값을 보내면 400 `invalid_role`임.
+| 기능 | 하는 일 | 맡은 곳 |
+|---|---|---|
+| 질문 분석·계획 | 인사·잡담인지, 단순 질문인지, 하위 질문으로 쪼갤 복합 질문인지 가름 | S-R2 (LLM) |
+| 다음 행동 선택 | 더 검색할지, 질문을 바꿀지, 수집을 끝낼지 고름 | S-R3 (LLM) |
+| 문서 검색 | 벡터 `top_k`×8건 + BM25 `top_k`×8건 → 점수 합치기 `top_k`×2건 → 리랭크 상위 `top_k`건 | S-R4 (규칙·모델) |
+| 결과 채점 | 점수와 핵심어 일치로 정확·불확실·부정확을 가름. **LLM을 쓰지 않음** | S-R5 (규칙) |
+| 질문 변환 | 부정확하면 질문을 다시 써서 재검색. 대상이 불분명하면 되물음 | S-R6 (LLM) |
+| 답변 생성 | 요청 옵션을 켤 때만 동작. 끄면 근거 목록만 돌려줌 | S-R7 (LLM) |
+| 근거 검증 | 답변의 인용문이 근거 본문과 **글자 그대로** 같은지 대조 | S-R8 (규칙) |
+| 결과 응답 | 상태 6종 중 하나로 마감하고 감사 로그 1줄을 남김 | S-R9 (규칙) |
 
-## LLM 설정
+반드시 붙인 안전장치 4종.
 
-실제 답변 또는 캐시 없는 질문 변환을 실행하려면  
-선택한 제공자의 키와 모델 설정이 필요함.
-키 값은 문서·명령 기록·버전 관리에 넣지 않아야 함.
+1. LLM 호출 상한 — 요청당 설정값 `MAX_LLM_CALLS`(기본 16)까지만 부름
+2. 권한은 검색기 안에서 — 역할을 열람 등급으로 바꿔 순위 계산 **전에** 걸러냄. LLM이 바꿀 수 없음
+3. 결정적 관문 유지 — 채점(S-R5)과 검증(S-R8)은 LLM이 아니라 규칙이 판정함
+4. 근거 부족 시 종료 — 「확인 필요」로 끝냄
 
-Groq 예시임.
+권한은 두 역할뿐임(`app/domain/access.py`).
 
-```dotenv
-LLM_PROVIDER=groq
-GROQ_API_KEY=<환경별 비밀값>
-GROQ_MODEL=openai/gpt-oss-120b
-```
-
-Claude 예시임.
-
-```dotenv
-LLM_PROVIDER=claude
-CLAUDE_API_KEY=<환경별 비밀값>
-CLAUDE_MODEL=<사용 가능한 모델 ID>
-```
-
-OpenAI 예시임.
-
-```dotenv
-LLM_PROVIDER=openai
-OPENAI_API_KEY=<환경별 비밀값>
-OPENAI_MODEL=<사용 가능한 모델 ID>
-```
-
-설정 우선순위는 CLI 재정의, 프로세스 환경변수, 앱 `.env`, `hybrid-ai-lab/.env`, 기본값 순임.
-빈 문자열과 공백은 미설정으로 처리됨.
-
-주요 제한 기본값은 다음과 같음.
-
-- LLM 전송 1회 제한 60초
-- Vector 검색 1회 제한 10초
-- Reranker 호출 1회 제한 60초
-- CLI 전송 시도 상한 8회
-- API 요청당 전송 시도 상한 2회
-- API 서버 프로세스 누적 전송 시도 상한 200회
-- API 요청 제한 120초
-- 근거 자동 검증 실패 시 수정 루프 최대 2회
-
-429·5xx·연결·타임아웃만 제한적으로 재시도함. 인증·권한·일반 4xx는 재시도하지 않음.
-
-임베딩·Reranker 모델 최초 적재는 작업 시간 제한에서 제외됨.
-시간 제한 호출은 공용 작업자 최대 4개로 실행됨.
-호출자는 마감에서 복귀하지만 이미 실행 중인 Python 스레드는 강제 종료할 수 없음.
-따라서 하부 작업이 끝날 때까지 작업자 하나를 계속 사용할 수 있음.
-
-2026-09-13 검증에서는 외부 LLM 네트워크 시험을 실행하지 않았음.
-답변 품질과 실제 제공자 인증은 별도 검증 대상임.
-
-## 답변 관문과 상태
-
-답변 전 최종 1위 결과의 원래 Vector 점수를 확인함.
-점수가 없거나 0.62 미만이면 LLM을 호출하지 않고 `status=needs_check`로 종료함.
-
-주요 상태는 다음과 같음.
-
-| 상태 | 의미 |
+| 역할 | 볼 수 있는 문서 |
 |---|---|
-| `ok` | 검색·답변·검증 정상 완료 |
-| `needs_check` | 답변 관문 미달 또는 명확화 필요 |
-| `prompt_only` | 답변 LLM 직전까지 완료 |
-| `dry_run` | 인덱스 확인 완료 |
-| `halted_by_limit` | 호출·수정 루프 상한에서 부분 결과 종료 |
-| `error` | 입력·설정 오류 |
+| `agent` | `public` |
+| `auditor` | `public` + `restricted`(상담 이력) |
 
-## HTTP API
+## 2. Workflow
 
-기본 바인딩은 `127.0.0.1:8001`임.
+`([ ])`는 시작·끝, `[ ]`는 단계, `{ }`는 갈림길임. 화살표 위 글자가 갈라지는 조건임.
 
-```bash
-python serve_retriever.py
+```mermaid
+flowchart TD
+  T(["동기 요청 · 질문 + 역할"]) --> R1["S-R1 요청 접수·검색 준비 확인"]
+  R1 -->|"설정·권한 오류"| R9
+  R1 --> R2{"S-R2 질문 분석·계획 · B-1"}
+  R2 -->|"인사·잡담"| R9
+  R2 -->|"단순 · 원 질문 1개"| R3
+  R2 -->|"복합 · 하위 질문 최대 3개"| R3
+  R3{"S-R3 다음 행동 선택 · B-2"} -->|"문서 검색"| R4
+  R3 -->|"질문 변환"| R6
+  R3 -->|"수집 종료 · 근거 0건"| R9
+  R3 -->|"수집 종료 · 답변 생성 끔"| R9
+  R3 -->|"수집 종료 · 답변 생성 켬"| R7
+  R4["S-R4 문서 검색 · search_docs"] --> R5["S-R5 검색 결과 채점 · grade_results"]
+  R4 -->|"남은 시간 부족 · 검색 건너뜀"| R3
+  R5 -->|"L-1 회전 · 상한 6회"| R3
+  R5 -->|"채점 입력 깨짐 · 오류"| R9
+  R6{"S-R6 질문 변환 · B-3"} -->|"변환 질의 있음"| R4
+  R6 -->|"keep · 재변환 금지"| R3
+  R6 -->|"clarify"| R9
+  R7{"S-R7 답변 생성 · B-5"} -->|"초안 작성"| R8
+  R7 -->|"생성 실패·시간 부족"| R9
+  R8{"S-R8 근거 검증 · B-4"} -->|"통과"| R9
+  R8 -->|"L-2 실패 · 재작성 2회 미만"| R7
+  R8 -->|"실패 · 2회 소진"| R9
+  R9(["S-R9 결과 응답"])
 ```
 
-개발 중 포트와 자동 재시작을 바꾸는 예시임.
+되돌아가는 선은 모두 상한으로 묶음. 상한은 `app/application/state.py`의 `ROUTES` 표와 설정값이 함께 정함.
 
-```bash
-python serve_retriever.py --host 127.0.0.1 --port 8001 --reload
-```
-
-지원 라우트는 4개임.
-
-| 메서드 | 경로 | 용도 |
+| 되돌아가는 선 | 상한 | 설정 변수 |
 |---|---|---|
-| `GET` | `/health` | 인덱스·모델 설정 상태 확인 |
-| `POST` | `/search` | 검색만 실행, `answer=null` |
-| `POST` | `/answer` | 검색·답변·근거 검증 실행 |
-| `GET` | `/answer/stream` | 노드 진행과 최종 결과를 SSE로 전송 |
+| S-R5 → S-R3 (근거 수집 반복 L-1) | S-R3 진입 6회 | `MAX_TURNS` |
+| S-R8 → S-R7 (답변 재작성 반복 L-2) | 재작성 2회 | `MAX_REWRITES` |
+| S-R6 → S-R3 (`keep`) | 그 질문의 재변환 금지 | — |
 
-OpenAPI 화면은 `/docs`, 명세 JSON은 `/openapi.json`에서 확인 가능함.
+설계서 도식에 없던 선이 코드에 하나 더 있음. **S-R4 → S-R3**임.  
+남은 시간이 단계 시작 기준(`START_THRESHOLD_SECONDS`, 기본 1.5초)보다 적으면 검색을 시작하지 않고 S-R3으로 돌아가  
+수집을 끝냄(`app/application/steps.py` `s_r4`). 위 도식은 이 선을 포함해 실제 코드(`ROUTES`)와 맞춤.
 
-### Health
-
-```bash
-curl -sS http://127.0.0.1:8001/health \
-  -H 'X-Role: agent'
-```
-
-### Search
-
-```bash
-curl -sS http://127.0.0.1:8001/search \
-  -H 'Content-Type: application/json' \
-  -H 'X-Role: agent' \
-  -d '{
-    "query": "연회비 면제 조건은?",
-    "top_k": 5,
-    "mode": "hybrid",
-    "transform": "off"
-  }'
-```
-
-`/search`는 답변 LLM을 호출하지 않음.
-다만 `transform=auto`이고 변환 캐시가 없으면 라우터 LLM 호출 가능함.
-
-### Answer
-
-```bash
-curl -sS http://127.0.0.1:8001/answer \
-  -H 'Content-Type: application/json' \
-  -H 'X-Role: agent' \
-  -d '{
-    "query": "연회비 면제 조건은?",
-    "top_k": 5,
-    "mode": "hybrid_rerank",
-    "transform": "off"
-  }'
-```
-
-성공 응답은 CLI `SearchResult` 필드에 32자리 `request_id`가 추가된 형태임.
-
-## SSE
-
-`curl -N`으로 버퍼링 없이 이벤트를 확인하는 예시임.
-
-```bash
-curl -N -G http://127.0.0.1:8001/answer/stream \
-  -H 'X-Role: agent' \
-  --data-urlencode 'query=연회비 면제 조건은?' \
-  --data 'top_k=5' \
-  --data 'mode=hybrid' \
-  --data 'transform=off'
-```
-
-이벤트 종류는 `node_start`, `node_end`, `final`, `error`임.
-`final`은 정상 그래프 종료 시 한 번 발생하며 POST `/answer`와 같은 결과 필드를 가짐.
-15초마다 SSE 주석 하트비트가 전송될 수 있음.
-
-브라우저 `EventSource`는 임의 헤더를 붙이지 못하므로 `X-Role` 요구사항과 맞지 않음.
-브라우저에서는 `fetch`와 `ReadableStream` 사용이 필요함.
-
-```js
-const response = await fetch(
-  "/answer/stream?query=" + encodeURIComponent("연회비 면제 조건은?"),
-  { headers: { "X-Role": "agent" } },
-);
-const reader = response.body.getReader();
-const decoder = new TextDecoder();
-while (true) {
-  const { value, done } = await reader.read();
-  if (done) break;
-  console.log(decoder.decode(value, { stream: true }));
-}
-```
-
-실제 서비스 화면에서는 청크 경계가 SSE 이벤트 경계와 같다고 가정하면 안 됨.
-수신 문자열을 빈 줄 기준으로 누적 파싱해야 함.
-
-## 오류 응답
-
-HTTP 오류 본문 형태는 다음과 같음.
-
-```json
-{
-  "error_code": "invalid_role",
-  "message": "X-Role 헤더가 올바르지 않음",
-  "detail": null
-}
-```
-
-| HTTP | `error_code` | 대표 원인 |
-|---:|---|---|
-| `400` | `invalid_request` | 요청 형식, LLM 설정·요청 오류 |
-| `400` | `invalid_role` | `X-Role` 누락 또는 허용 밖 값 |
-| `429` | `llm_call_limit` | 요청당·서버 누적·상류 호출 제한 |
-| `503` | `index_unavailable` | 빈 컬렉션, 서명 불일치, 자원 준비 실패 |
-| `504` | `timeout` | 요청 제한 시간 초과 |
-| `500` | `internal_error` | 그 밖의 처리 오류 |
-
-SSE 시작 전 발생한 400·503은 JSON 오류 응답임.
-스트림 시작 뒤 발생한 호출 제한·시간 초과·내부 오류는 `error` 이벤트로 전송됨.
-
-## 카드명 별칭과 날짜 표기 통일
-
-색인이 만든 **별칭 사전**을 질의에도 똑같이 적용해, 사람이 줄여 부른 카드명과 문서의 정식 카드명이
-같은 토큰이 되게 함. 날짜도 `2026년 2월`과 `2026-02`를 같은 토큰(`2026-02`)으로 맞춤.
-규칙과 산출물은 인덱서가 만들며 자세한 내용은 `indexer/vector-bm25/README.md`에 있음.
-
-- 활성 세대 포인터(`active_index.json`)의 `card_aliases`·`card_aliases_sha256`·`card_aliases_count`와
-  manifest의 `card_aliases`를 읽어 파일 해시·건수·정렬 형식을 모두 검사함
-- 검사를 통과한 별칭을 질의 토크나이저에 넣고, `alias_map_sha256`이 파일 해시와 같은지 다시 확인함
-- manifest의 `tokenizer_signature`가 질의 토크나이저 서명과 다르면 시작하지 않음
-  (토큰화 정책 버전 4. 별칭·날짜 규칙이 서명에 들어 있음)
-- 별칭 산출물이 없는 이전 세대는 빈 별칭으로 읽어 그대로 검색 가능함.
-  다만 서명이 정책 버전 4가 아니면 색인을 다시 만들어야 함
-
-별칭 파일 1열은 **형태소 분석기에 등록할 표면형**이라 낱말 사이 공백을 가질 수 있음
-(예: `가게모음 프리미엄<탭>한빛가게모음프리미엄`). 이 띄어 쓴 표면형 덕분에
-"가게모음 프리미엄 혜택"처럼 띄어 쓴 질문이 기본 카드(`한빛가게모음`)로 잘못 치환되지 않음.
-2열 정식 토큰에는 공백이 없어야 하며, 공백이 있으면 색인을 띄우지 않음.
-
-## 색인용 텍스트(`index_text`)
-
-인덱서는 D2 혜택 안내 청크에 `[카드: 한빛 가게모음 프리미엄 (D2-C040)]` 같은 머리말을 붙여 색인합니다.
-이 머리말은 **색인에만** 들어가고 표시·인용에는 쓰지 않습니다.
-
-| corpus 필드 | 뜻 | 검색기에서 쓰는 곳 |
-|---|---|---|
-| `text` | 원래 본문. 머리말 없음 | 검색 결과 표시, 프롬프트 근거, 인용 검증 |
-| `index_text` | 머리말 + 본문. 머리말이 붙은 청크에만 있음 | BM25 색인·임베딩이 만들어진 기준이며, 문서빈도 통계도 이 값으로 셈 |
-
-`index_text`가 없는 레코드는 `text`가 곧 색인용 텍스트이므로, 이 필드를 만들기 전 세대도 그대로 읽힙니다.
-Chroma에 저장되는 document 본문도 머리말이 없는 원래 본문이므로 벡터 검색 결과의 인용문이 달라지지 않습니다.
-
-## 질문 핵심어가 결과에 있는지 보기
-
-"질문이 꼭 집어 물은 말이 검색 결과 안에 실제로 들어 있는가"를 판정하는 부품임.
-**아직 검색 그래프나 API 응답에 연결하지 않았고**, 이후 근거 충분성 판정에서 쓰려고 따로 만들어 둠.
-`app.bootstrap.create_keyword_coverage_service()`로 꺼내 씀.
-
-| 단계 | 하는 일 | 두는 곳 |
-|---|---|---|
-| ① 형태소 분석 | 명사·숫자·코드만 남기고 동사·형용사·어미를 버림 | `infrastructure/korean_tokenizer.py` |
-| ② 대상명 묶기·통일 | 사용자 사전으로 고유이름을 한 덩어리로, 별칭 사전으로 정식 이름으로 바꿈 | 같은 토크나이저(BM25 색인과 동일 경로) |
-| ③ 핵심어 선별 | 드문 말(IDF 높은 말)만 남김 | `domain/keywords.py`(순수 함수) |
-| ④ 결과와 대조 | 검색 결과도 같은 분석기로 잘라 핵심어가 있는지 확인 | `application/keyword_service.py` |
-
-③의 세부 규칙은 다음과 같음. 별도 불용어표는 두지 않음 — 흔한 말은 IDF가 낮아 저절로 빠짐.
-
-- 색인에 없는(df=0) **고유이름**은 남김. 카드명·별칭 사전 항목, Kiwi 고유명사(NNP), 숫자·코드·날짜 표준형이 해당함
-- 색인에 없는(df=0) **일반명사**는 뺌. 질문자가 쓴 다른 표현일 뿐이라 결과 대조 기준이 되지 못함
-- 전체 청크 중 `KEYWORD_MAX_DOC_RATIO` 이상에 나오는 말은 뺌
-
-| 설정 | 뜻 | 기본값 |
-|---|---|---|
-| `KEYWORD_MAX_DOC_RATIO` | 이 비율 이상의 청크에 나오면 흔한 말로 보고 핵심어에서 뺌 | `0.80` |
-| `KEYWORD_TOP_N` | "상위 핵심어가 결과에 없음"을 볼 때 상위 몇 개를 볼지 | `3` |
-
-**기본값 0.80을 고른 근거**: 평가 질문 13건에 대해 사람이 고른 핵심어와 비교한 13건 평균임.
-
-| ratio | 정밀도 | 재현율 | 평균 핵심어 수 |
-|---|---|---|---|
-| 1.0 | 0.65 | 0.89 | 7.9 |
-| 0.8 | 0.65 | 0.82 | 7.3 |
-| 0.7 | 0.67 | 0.75 | 6.5 |
-| 0.6 | 0.56 | 0.49 | 4.9 |
-
-0.7과 0.6 사이에서 재현율이 0.75 → 0.49로 급락함(`연회비`·`전월`·`실적`·`포인트`가 한꺼번에 빠짐).
-절벽에서 떨어진 0.8을 기본값으로 두었고, 손으로 관리하던 불용어표 방식(0.66/0.81)과 같은 수준을 사전 없이 냄.
-**이 수치는 현재 문서 묶음 195청크에서 잰 값이므로, 문서가 바뀌면 평가셋으로 다시 보정해야 함.**
-
-출력은 핵심어 목록(토큰·df·idf·고유이름 여부), 결과별 포함 여부(`coverage`),
-어느 결과에도 없는 핵심어(`missing`), 상위 핵심어 중 미포함(`top_missing(n)`)임.
-
-순수 함수 규칙 시험은 `tests/check_keyword_rules.py`에 있음.
-이 가상환경에는 pytest가 없으므로 그대로 실행해 확인함(통과하면 `keyword-rules-ok` 출력).
-
-```powershell
-.venv/Scripts/python.exe tests/check_keyword_rules.py
-```
-
-인덱서의 `pytest`도 이 스크립트를 하위 프로세스로 실행해 회귀를 함께 지킴.
-
-## 코드 구조
-
-계층별 의존 방향은 presentation → application ← infrastructure이며, 조립은 `app/bootstrap.py`만 담당함.  
-domain은 표준 라이브러리만 사용하고, application은 포트(인터페이스)와 서비스를 소유함.
+## 3. 디렉토리 구조
 
 ```text
 vector-retriever/
-├── run_retriever.py          # CLI 진입점 → presentation/cli.py
-├── serve_retriever.py        # HTTP 서버 진입점 → presentation/api.py (설정은 bootstrap 경유)
-├── eval_equivalence.py       # 4조합 동등성 평가 (bootstrap.create_service에 ForbiddenLLM 주입)
-├── eval_retriever_matrix.py  # 질문 10건 × 4모드 검색 평가 (bootstrap.create_service 사용)
-└── app/
-    ├── bootstrap.py          # 설정 로딩 → 구현체 생성 → 서비스 조립 (create_resources·create_service)
-    ├── domain/               # 표준 라이브러리만 쓰는 규칙
-    │   ├── access.py         #   역할별 접근 등급·권한 필터
-    │   ├── corpus.py         #   corpus 스냅샷 값 객체
-    │   ├── keywords.py       #   질문 핵심어 선별·결과 대조 규칙
-    │   ├── location.py       #   청크 위치 표기
-    │   ├── search_filter.py  #   DB 중립 메타데이터 필터
-    │   └── vector_search.py  #   벡터 검색 옵션·MMR 계산
-    ├── application/          # 유스케이스·포트·DTO (외부 기술 import 없음, pydantic만 허용)
-    │   ├── retriever_service.py  # RetrieverService: search·answer·stream·health 진입점
-    │   ├── keyword_service.py    # KeywordCoverageService: 질문 핵심어 유무 판정(그래프 미연결)
-    │   ├── ports.py              # 포트(Protocol + @abstractmethod), RetrieverGraphPort 포함
-    │   ├── state.py              # 요청·결과·State DTO
-    │   ├── errors.py             # 응용 오류 계약·오류 요약
-    │   ├── llm_budget.py         # 서버 누적 LLM 호출 예산
-    │   ├── query_transform.py    # 질문 변환 판정·가중 RRF·분해 질의 규칙
-    │   ├── scoring.py            # 점수 융합·리랭크 적용·근거 검증
-    │   └── runtime.py            # 타임아웃 실행기·감사 로그
-    ├── infrastructure/       # 포트 구현체(포트를 명시적으로 상속)와 설정
-    │   ├── graph.py              # LangGraph StateGraph 구성·노드, LangGraphRetrieverRunner
-    │   ├── settings.py           # .env·환경변수 설정 로더
-    │   ├── embedder.py           # KURE-v2 임베더(LazyHuggingFaceEmbedder)
-    │   ├── chroma_store.py       # Chroma·메모리 벡터 저장소
-    │   ├── bm25_index.py         # BM25S 키워드 검색
-    │   ├── corpus_store.py       # 버전형 corpus 읽기
-    │   ├── keyword_analyzer.py   # 핵심어 분석기(BM25 질의 토크나이저·corpus 통계 재사용)
-    │   ├── korean_tokenizer.py   # Kiwi 한국어 토크나이저(카드명 사전·별칭 치환·날짜 표기 통일)
-    │   ├── reranker.py           # Cross-Encoder 리랭커
-    │   ├── llm_client.py         # Groq·Claude·OpenAI 구조화 출력 클라이언트
-    │   └── transform_cache.py    # 질문 변환 결정 캐시
-    └── presentation/         # application 서비스만 사용
-        ├── api.py                # FastAPI·SSE, create_app(service=None)
-        └── cli.py                # CLI, main(argv, service=None)
+├─ run_retriever.py            CLI 실행 진입점. 윈도우 콘솔 출력을 UTF-8로 바꾼 뒤 cli.main()을 부름
+├─ serve_retriever.py          API 서버 실행 진입점. --host·--port를 받아 uvicorn을 띄움
+├─ requirements.txt            공통 패키지 버전 고정(torch는 버전만 고정, 판은 아래 파일이 정함)
+├─ requirements-torch-cpu.txt  PyTorch CPU 판
+├─ requirements-torch-cuda.txt PyTorch NVIDIA GPU(CUDA 12.6) 판
+├─ requirements-torch-mps.txt  PyTorch Apple 실리콘 GPU(MPS) 판
+├─ requirements-dev.txt        위 공통 패키지 + pytest·httpx·mypy
+├─ pytest.ini                  시험 경로와 표식(integration·live) 정의
+├─ .env.example                설정 보기 파일. .env로 복사해 값을 채움
+├─ logs/audit.jsonl            감사 로그(실행하면 생김. Git에 올리지 않음)
+└─ app/
+   ├─ bootstrap.py             구현체를 만들어 끼우는 유일한 조립 지점
+   ├─ domain/                  외부 기술 없이 같은 입력에 같은 결과를 내는 업무 규칙
+   │  ├─ access.py             역할 → 열람 등급 변환(agent·auditor)
+   │  ├─ actions.py            S-R3에서 고를 수 있는 행동 목록과 검사
+   │  ├─ budget.py             남은 시간 예산·반복·호출 상한 계산
+   │  ├─ fusion.py             벡터·BM25 점수 정규화·가중합·RRF로 순위 합치기
+   │  ├─ grading.py            정확·불확실·부정확 채점 규칙
+   │  ├─ keywords.py           질문에서 채점용 핵심어(드문 명사·숫자·코드) 고르기
+   │  ├─ models.py             조각·후보·하위 질문 등 불변 값 객체
+   │  ├─ plan_rules.py         질문 분석(C-01) 응답 형식·개수·조건 보존 검사
+   │  ├─ transform_rules.py    질문 변환(C-03) 응답에 서버가 강제하는 금지 규칙
+   │  └─ verification.py       인용문과 근거 본문의 글자 단위 대조
+   ├─ application/             흐름과 약속. 바깥 기술을 직접 모름
+   │  ├─ models.py             요청·응답·오류 모델과 LLM 커넥터 입출력(DTO)
+   │  ├─ ports.py              필요한 기능의 약속(포트) 7종
+   │  ├─ services.py           요청 1건을 워크플로우로 실행하고 표준 응답으로 바꿈
+   │  ├─ state.py              단계가 주고받는 상태 필드와 ROUTES(갈 수 있는 다음 단계) 표
+   │  └─ steps.py              S-R1 ~ S-R9 단계 로직
+   ├─ infrastructure/          포트를 실제 기술로 구현한 어댑터
+   │  ├─ audit_log.py          감사 레코드를 JSON Lines 파일에 한 줄씩 덧붙임
+   │  ├─ clock.py              경과 시간·기준일을 주는 시스템 시계
+   │  ├─ embedder.py           질문을 색인과 같은 규칙으로 벡터 1개로 바꿈
+   │  ├─ graph.py              단계를 LangGraph StateGraph로 묶어 실행
+   │  ├─ groq_gateway.py       Groq Chat Completions 호출(커넥터 C-01 ~ C-04)
+   │  ├─ index_store.py        색인 세대를 서명·해시 대조 후 적재하고 검색
+   │  ├─ korean_tokenizer.py   색인과 글자까지 같은 낱말을 만드는 한국어 분석기
+   │  ├─ reranker.py           Cross-Encoder로 관련도 재점수
+   │  ├─ settings.py           환경변수·.env를 읽어 불변 Settings로 담음
+   │  └─ prompts/              C-01 ~ C-04 프롬프트 4개(c01_plan.md ~ c04_answer.md)
+   └─ presentation/            바깥에서 부르는 입구
+      ├─ api.py                /search·/health를 가진 FastAPI 앱
+      └─ cli.py                명령행 인자 해석과 사람이 읽는 요약 출력
 ```
 
-`create_app(service=None)`과 `cli.main(argv, service=None)`은 서비스를 넘기면 그대로 사용하고,  
-넘기지 않으면 `app.bootstrap.create_service()`로 조립함.
+의존 방향은 **바깥에서 안쪽으로 한 방향**임. `presentation` → `application` → `domain` 순으로만 가져오고,  
+`domain`은 아무것도 가져오지 않음. `infrastructure`는 `application/ports.py`의 약속을 상속해 구현하며,  
+`application`은 그 구현체 이름을 모름. 실제 구현체를 골라 끼우는 일은 `bootstrap.py` 한 곳에서만 함.  
+그래서 Chroma·Groq·LangGraph를 다른 기술로 바꿀 때 `infrastructure`와 `bootstrap.py`만 고치면 됨.  
+이 import 방향은 `tests/test_architecture.py`가 소스를 읽어 자동으로 검사함.
 
-## 실행 파일과 감사 로그
+## 4. 가상환경 설정
 
-| 경로 | 내용 |
-|---|---|
-| `../../indexer/vector-bm25/data/active_generation.json` | Indexer가 게시한 활성 세대 포인터(두 색인 경로) |
-| `../../indexer/vector-bm25/data/generations/<세대>/` | 세대별 Chroma와 버전형 corpus·BM25S 색인 |
-| `data/transform_cache.json` | 질문별 변환 결정 캐시 |
-| `data/checkpoints/retriever.sqlite` | CLI·POST 체크포인트 |
-| `data/logs/<thread-id>.jsonl` | 본문·비밀값을 제외한 노드 감사 로그 |
+Python 3.13 기준임. 패키지는 모두 이 폴더의 `.venv`에 설치하고, 시스템 파이썬의 패키지는 섞어 쓰지 않음.
 
-감사 로그는 노드, 완료·실패, 경과 시간, 예외 종류만 기록함.
-질문·검색 본문·메타데이터·API 키는 기록하지 않음.
+설치 순서가 **두 걸음**인 이유가 있음. `requirements.txt`는 `torch==2.14.0`처럼 버전만 고정하고 계산 장치별 판은 정하지 않음.  
+2)만 실행하면 기본 저장소(PyPI)의 CPU 판이 깔려 GPU가 있어도 쓰지 못함. 그래서 1)에서 장치에 맞는 판을 **먼저** 깖.  
+1)에서 깐 `2.14.0+cu126` 같은 판은 `torch==2.14.0` 조건을 이미 만족하므로 2)에서 바뀌지 않음.
 
-## 동등성 평가
+| 장치 | 1)에서 설치할 파일 | `.env`의 `EMBED_DEVICE` | 설치 조건 |
+|---|---|---|---|
+| CPU | `requirements-torch-cpu.txt` | `cpu` | 없음 |
+| NVIDIA GPU | `requirements-torch-cuda.txt` | `cuda` | Windows·Linux, 드라이버가 CUDA 12.6 이상 지원 |
+| Apple 실리콘 GPU | `requirements-torch-mps.txt` | `mps` | macOS 14 이상 |
 
-평가는 답변 LLM을 차단하고 저장된 질문 변환 결정을 재사용함.
+기본값 `auto`는 깔린 판으로 쓸 수 있는 장치를 cuda → mps → cpu 순으로 고름.  
+드라이버가 지원하는 CUDA 버전은 `nvidia-smi` 출력 오른쪽 위 `CUDA Version`에서 확인함.
+
+### Windows · Git Bash
 
 ```bash
-python eval_equivalence.py
+uv venv .venv --python 3.13
+uv pip install --python .venv/Scripts/python.exe -r requirements-torch-cuda.txt   # 1) 장치 판 먼저
+uv pip install --python .venv/Scripts/python.exe -r requirements-dev.txt          # 2) 나머지
+.venv/Scripts/python.exe -c "import torch; print(torch.__version__, torch.cuda.is_available())"
 ```
 
-결과는 `data/equivalence_run1.json`에 저장됨.
-네 조합이 모두 기준선을 충족해야 종료 코드 0이며, 하나라도 미달하면 종료 코드 1임.
+### Windows · PowerShell
 
-2026-09-29 KURE-v2 색인(483건·768차원) 측정 결과는 다음과 같음.  
-기준 값은 KURE-v1 시절 확정한 기준선이며 변경하지 않았음.
+```powershell
+uv venv .venv --python 3.13
+uv pip install --python .venv\Scripts\python.exe -r requirements-torch-cuda.txt   # 1) 장치 판 먼저
+uv pip install --python .venv\Scripts\python.exe -r requirements-dev.txt          # 2) 나머지
+.venv\Scripts\python.exe -c "import torch; print(torch.__version__, torch.cuda.is_available())"
+```
 
-| 조합 | 기준 | 실측 | 판정 |
-|---|---:|---:|---|
-| `vector/off` | 6/7·2.125 | 6/7·1.875 | 통과 |
-| `hybrid/off` | 6/7·2.375 | 6/7·1.625 | 통과 |
-| `hybrid/auto` | 7/7·1.125 | 6/7·1.625 | 미달 |
-| `hybrid_rerank/auto` | 7/7·1.375 | 6/7·1.625 | 미달 |
+### macOS · 기본 터미널(zsh·bash)
 
-측정은 198초에 종료 코드 1로 끝났으며 `all_methods_meet_baseline=false`임.  
-답변·라우터 LLM 네트워크 호출은 0회임.  
-네 조합 모두 q6에서 `D1_0010`은 1위지만 `D2_0003`이 Top-5 밖이라 실패함.  
-구조 정리 전 코드로 같은 조건을 다시 측정해도 순위·점수가 행 단위로 같았으므로  
-미달 원인은 코드 변경이 아니라 색인 모델 교체(KURE-v1 → KURE-v2)로 판단됨.  
-기준선을 KURE-v2 기준으로 다시 정할지, 검색 설정을 조정할지는 결정 필요 사항임.
+```bash
+uv venv .venv --python 3.13
+uv pip install --python .venv/bin/python -r requirements-torch-mps.txt            # 1) 장치 판 먼저
+uv pip install --python .venv/bin/python -r requirements-dev.txt                  # 2) 나머지
+.venv/bin/python -c "import torch; print(torch.__version__, torch.backends.mps.is_available())"
+```
 
-KURE-v1 색인(485건·1,024차원)에서는 2026-09-13 A안 적용 뒤 네 조합 모두 기준선을 통과했음.  
-A안 적용 전 `hybrid_rerank/auto`의 6/7·1.625 미달은 KURE-v1 시점의 변경 전 이력임.
-비교 이력은 `../COMPARISON.md`, 전체 검증 범위는 `../verify-report.md` 참고 대상임.
+### macOS · PowerShell 7
+
+```powershell
+uv venv .venv --python 3.13
+uv pip install --python .venv/bin/python -r requirements-torch-mps.txt            # 1) 장치 판 먼저
+uv pip install --python .venv/bin/python -r requirements-dev.txt                  # 2) 나머지
+.venv/bin/python -c "import torch; print(torch.__version__, torch.backends.mps.is_available())"
+```
+
+`uv`가 없으면 표준 도구로도 같은 일을 함 — `python -m venv .venv` 뒤에 위의 `uv pip install …`을
+`.venv/Scripts/python.exe -m pip install …`(macOS는 `.venv/bin/python -m pip install …`)로 바꿔 실행함.
+
+판과 장치 인식이 제대로 되면 아래처럼 보임.
+
+| 설치한 판 | 정상 출력 예 |
+|---|---|
+| CPU | `2.14.0+cpu False` |
+| NVIDIA GPU | `2.14.0+cu126 True` |
+| Apple 실리콘 GPU | `2.14.0 True`(`mps.is_available()` 기준) |
+
+이미 만든 `.venv`의 판을 바꿀 때는 `.venv` 폴더를 지우고 위 순서대로 다시 깔는 편이 가장 확실함.
+
+### 설정 파일과 색인·모델 준비
+
+`.env.example`을 `.env`로 복사해 값을 채움. 읽는 순서는 **이 폴더의 `.env` → `hybrid-ai-lab/.env` → 환경변수**이며  
+환경변수가 가장 우선임(`app/infrastructure/settings.py`). 비밀값은 `.env.example`에 적지 않음.
+
+실행 전에 아래 3가지가 준비돼야 함.
+
+1. **색인** — W-1 인덱서가 먼저 색인을 만들어 게시해야 함. `DATA_ROOT`(기본 `../../indexer/vector-bm25/data`)
+   아래에 `active_generation.json`과 `generations/`가 있어야 하며, 없으면 상태 확인이 `ready=false`가 됨
+2. **모델** — `EMBED_MODEL`(`nlpai-lab/KURE-v2`)과 `RERANK_MODEL`(`BAAI/bge-reranker-v2-m3`)을 쓰며,
+   `HF_LOCAL_FILES_ONLY=true`가 기본이라 **로컬 캐시에 이미 받아 둔 모델만** 씀. 처음 한 번은 `false`로 두고
+   받은 뒤 다시 `true`로 돌려 고정된 모델을 재사용함. 임베딩 모델·`EMBED_REVISION`은 색인과 같아야 하며
+   다르면 색인 적재가 서명 대조에서 멈춤
+3. **LLM 비밀키** — `GROQ_API_KEY`를 이 폴더의 `.env` 또는 공용 `hybrid-ai-lab/.env`에 둠. 비어 있으면
+   서버는 뜨지만 LLM 단계(C-01 ~ C-04)가 모두 대체 경로로 돌아감(경고 로그가 남음)
+
+## 5. 실행 방법
+
+아래 명령은 Windows Git Bash 기준임. PowerShell은 `/`를 `\`로, macOS는 `.venv/Scripts/python.exe`를
+`.venv/bin/python`으로 바꿈.
+
+### CLI
+
+`--query`와 `--role`은 필수임. 역할은 본문이 아니라 **실행하는 사람이 직접** 주는 값임.
+
+| 인자 | 뜻 |
+|---|---|
+| `--query` | 질문(500자 이하) |
+| `--role` | `agent` 또는 `auditor` |
+| `--generate-answer` | 답변 생성까지 함(기본은 꺼짐 — 근거 목록만) |
+| `--top-k` | 반환 수(1 ~ 10, 기본 5) |
+| `--json` | 사람이 읽는 요약 대신 응답 JSON 원본 출력 |
+
+```bash
+# 1) 검색만 — 근거 목록과 점수만 봄
+.venv/Scripts/python.exe run_retriever.py --query "모아생활 카드의 주요 혜택은?" --role agent
+
+# 2) 답변까지 — 인용이 원문과 맞는지 검증을 통과한 문장만 나옴
+.venv/Scripts/python.exe run_retriever.py --query "연회비 면제 조건은 무엇인가요?" --role agent --generate-answer
+
+# 3) 감사자 역할 — 상담 이력(restricted)까지 봄
+#    현재 채점 기준값(설계 가정)에서는 상담 이력 질문이 '확인 필요'로 끝나는 경우가 많음(9장 남은 과제 참고)
+.venv/Scripts/python.exe run_retriever.py --query "최근 상담에서 반복된 불만은?" --role auditor --top-k 5
+
+# 4) 응답 JSON 원본 저장
+.venv/Scripts/python.exe run_retriever.py --query "연회비 면제 조건은 무엇인가요?" --role agent --json > result.json
+```
+
+서비스 조립(색인 적재 + 모델 미리 올리기)에 **약 17초**가 걸림(GPU, 2026-10-03 실측).  
+CLI는 실행마다 한 번씩 조립하므로 여러 질문을 던져 볼 때는 아래 API 서버를 띄우는 편이 빠름.  
+종료 코드는 정상 0, 응답 상태가 `error`면 1, 인자 오류면 2임.
+
+### API 서버
+
+```bash
+.venv/Scripts/python.exe serve_retriever.py                      # 기본 127.0.0.1:8020
+.venv/Scripts/python.exe serve_retriever.py --host 0.0.0.0 --port 9020
+```
+
+색인·모델 적재는 서버가 **뜰 때 한 번** 일어남. 시작 로그가 멈춘 뒤부터 요청을 보냄.
+
+| 경로 | 뜻 |
+|---|---|
+| `GET /health` | 색인을 쓸 수 있으면 200, 아니면 503. 본문에 세대ID·조각 수·마지막 오류 종류 |
+| `POST /search` | 질문 1건 검색. 역할은 `X-User-Role` 헤더로만 받음 |
+| `GET /docs` | 자동 생성된 Swagger 문서(브라우저에서 바로 호출해 볼 수 있음) |
+
+`X-User-Role` 헤더가 없으면 401, 정의되지 않은 역할이면 403임. 요청 **본문에 적은 `role` 값은 무시**함
+(앞단 로그인 게이트웨이가 넣어 준 헤더만 믿음).
+
+**Git Bash — curl**
+
+```bash
+curl -s http://127.0.0.1:8020/health
+
+# 윈도우에서는 한글을 명령줄 인자로 바로 넣으면 코드페이지 변환으로 깨져 400이 남.
+# 반드시 UTF-8 파일로 만들어 --data-binary로 보냄
+cat > body.json <<'JSON'
+{"query": "연회비 면제 조건은 무엇인가요?", "generate_answer": true, "top_k": 5}
+JSON
+
+curl -s -X POST http://127.0.0.1:8020/search \
+  -H "Content-Type: application/json" \
+  -H "X-User-Role: agent" \
+  --data-binary @body.json
+```
+
+**PowerShell — Invoke-RestMethod**
+
+```powershell
+Invoke-RestMethod -Uri http://127.0.0.1:8020/health
+
+$body = @{ query = "연회비 면제 조건은 무엇인가요?"; generate_answer = $true; top_k = 5 } | ConvertTo-Json
+# 문자열을 그대로 보내면 한글이 깨지므로 UTF-8 바이트로 바꿔 보냄
+$bytes = [System.Text.Encoding]::UTF8.GetBytes($body)
+$headers = @{ "X-User-Role" = "agent" }
+$type = "application/json; charset=utf-8"
+Invoke-RestMethod -Uri http://127.0.0.1:8020/search -Method Post -Body $bytes -Headers $headers -ContentType $type
+```
+
+### 감사 로그
+
+요청 1건이 끝날 때마다 `logs/audit.jsonl`(설정 `AUDIT_LOG_PATH`)에 JSON 한 줄이 쌓임.  
+**질문 원문은 남기지 않음** — SHA-256 해시 앞 16자(`query_sha256`)와 앞 20자(`query_head`)만 남김.  
+그 밖에 요청ID·역할·세대·상태·종료 사유·회전 수·LLM 호출 수·단계별 시간·근거 조각ID가 들어감.
+
+## 6. 응답 읽는 법 — 상태 6종
+
+응답의 `status`를 먼저 봄. 상태에 따라 채워지는 칸이 다름.
+
+| `status` | 우리말 | 언제 | 응답에 담기는 것 |
+|---|---|---|---|
+| `answered` | 답변 완료 | S-R8 근거 검증 통과 | 답변 문장 + 인용 + 근거 목록 |
+| `retrieved` | 검색 결과 | 답변 생성 끔 + 근거 있음 | 근거 목록(출처·본문·점수) |
+| `no_retrieval` | 검색 불필요 | S-R2가 인사·잡담으로 판단 | 짧은 응답문(문서 내용 없음) |
+| `needs_confirmation` | 확인 필요 | 근거 0건 · 되물음(clarify) · 재작성 소진 | 확인 못 한 항목·이유·확인 질문 |
+| `answer_failed` | 답변 생성 실패 | S-R7 시간 초과·생성 실패 | 근거 목록만 |
+| `error` | 오류 | S-R1 입력·권한·세대 오류, S-R5 입력 깨짐 | 오류 코드·요청ID |
+
+`answered`여도 근거를 못 찾은 하위 질문이 있으면 `unresolved`(확인 못 한 항목)에 따로 적음.  
+찾은 부분만 답하고 나머지는 지어내지 않기 때문임.
+
+실제로 확인한 보기(GPU, 2026-10-03 실측).
+
+| 질문 | 결과 |
+|---|---|
+| "연회비 면제 조건은 무엇인가요?"(`--generate-answer`) | `answered` · LLM 3회 · 약 2.4초 · 인용이 약관 제6조의2 원문과 글자 그대로 일치 |
+| "안녕하세요" | `no_retrieval` · 0.6초(검색하지 않음) |
+| "모아생활 카드의 주요 혜택은?" | `retrieved` · 한빛 모아생활 조각 리랭크 점수 0.917 |
+| "다음 연도 기본 연회비 면제 기준과 생활 포인트 적립을 위한 전월 최소 이용액" | 하위 질문 2개 — 연회비는 근거 확보, 생활 포인트는 카드가 특정되지 않아 되물음(clarify) |
+| "해외 결제 수수료 우대 조건" | `needs_confirmation`(문서에 없는 내용을 지어내지 않음) |
+
+근거 1건의 점수는 4종임. 해당 검색기 후보에 없던 점수는 `null`(CLI 요약에서는 `-`)로 보임.
+
+| 점수 | 뜻 |
+|---|---|
+| `vector` | 벡터 검색 코사인 점수(1 − 거리) |
+| `bm25` | BM25 원점수 |
+| `fused` | 정규화 가중합(기본 벡터 0.6 : BM25 0.4) |
+| `rerank` | 리랭커 점수 0 ~ 1(실패하면 `null`) |
+
+HTTP 상태는 응답의 `error_code`로 정함 — `invalid_input` 400, `role_missing` 401, `invalid_role` 403,
+`index_unavailable` 503, `broken_state`·`internal_error` 500. 오류 코드가 없으면 200임.
+
+## 7. 설계와 다른 점·결정 사항
+
+설계서를 그대로 옮기지 않은 자리임. 왜 그렇게 했는지 함께 적어 둠.
+
+| # | 항목 | 설계 | 실제 구현 | 이유 |
+|---|---|---|---|---|
+| ① | API 역할 전달 | 명시 없음 | 앞단 로그인 게이트웨이가 넣는 `X-User-Role` 헤더만 믿음(CLI는 `--role`) | 요청 본문으로 역할을 올리면 호출자가 권한을 스스로 바꿀 수 있음 |
+| ② | 반복·호출 상한 | 본문 값 | 회전 6 · LLM 16 · 재작성 2 | 설계 본문 값을 그대로 씀 |
+| ③ | 추론 내용 숨김 | `reasoning_format=hidden` | `include_reasoning=false` | gpt-oss가 앞 값을 지원하지 않음(context7 확인) |
+| ④ | 리랭커 입력 상한 | 512토큰 | 1024토큰(`RERANK_MAX_LENGTH`) | 512면 조각 뒤쪽 정답이 잘림(E12 0.048→0.402 · E13 0.060→0.338) |
+| ⑤ | 채점 핵심어 | 드문 명사·숫자·코드 | 상품명·숫자·코드 중 드문 낱말만(일반 명사 제외) | '주요'가 없어 정답(0.917)도 근거 부족이 됨 |
+| ⑥ | 리랭커가 읽는 글 | 조각 본문 | 리랭크는 `index_text`, 표시·인용 대조는 `text` | D2 본문엔 카드명이 없음(정답 0.063 → 0.917) |
+| ⑦ | Groq 타임아웃 | 단계별 타임아웃 | SDK 단계별 타임아웃 + **호출 전체 마감 시간**을 따로 걸음 | 단계별 값만으로는 최악값이 타임아웃을 넘음(첫 호출 3.8초 실측) |
+| ⑧ | 프롬프트 데이터 감싸기 | 명시 없음 | XML 태그로 감싸고 본문은 `<`·`>`만 무력화 | 본문의 `&`·`"`까지 바꾸면 인용문이 원문과 글자가 달라져 검증에 걸림 |
+| ⑨ | API 응답 문자셋 | 명시 없음 | `application/json; charset=utf-8` | 없으면 PowerShell 5.1이 한글을 깨뜨림(실측) |
+| ⑩ | '대상 섞임' 판정 | 대상명 없음 + 대상 섞임 | 대상 = 카드. 검색 1위가 카드 조각일 때만 섞임 | 약관 1위 질문을 카드로 되묻던 E12 해결 |
+
+④의 리랭커 점수는 평가셋 세 문항에서 모두 올랐음 — E12 0.048 → 0.402, E13 0.060 → 0.338, E02 0.603 → 0.868.
+
+## 8. 시험
+
+```bash
+.venv/Scripts/python.exe -m pytest -q                      # 전체(통합 시험 포함)
+.venv/Scripts/python.exe -m pytest -q -m "not integration" # 색인·모델 없이 빠르게
+```
+
+실측 결과임.
+
+| 명령 | 결과 |
+|---|---|
+| `python -m pytest -q` | **167건 통과**, 약 35초(색인 세대와 로컬 모델이 있어야 함) |
+| `python -m pytest -q -m "not integration"` | **160건 통과 · 7건 건너뜀**, 약 9초(실제 색인·모델 없이 실행) |
+
+`integration` 표식이 붙은 7건은 실제 색인 세대 폴더와 로컬 모델 파일을 씀.  
+`live` 표식은 실제 Groq API를 부르는 시험이며 비밀키와 네트워크가 필요함.
+
+시험이 보증하는 것.
+
+| 시험 파일 | 확인하는 것 |
+|---|---|
+| `test_architecture.py` | 계층 import 방향(바깥 → 안쪽) 위반이 없음 |
+| `test_domain.py` | 권한·시간 예산·점수 합치기·채점·인용 대조·행동·변환 규칙이 설계값대로 동작 |
+| `test_workflow.py` | 설계 분기·상한·시간 예산이 실제 LangGraph 실행에서 그대로 도는지 |
+| `test_index_store.py` | 색인 세대 서명·해시 대조와 권한 걸러내기 |
+| `test_korean_tokenizer.py` | 질의 낱말이 색인 낱말과 같아지는지(표기 통일·별칭) |
+| `test_groq_gateway.py` | 요청 인자와 오류 분류(네트워크 없이 가짜 클라이언트) |
+| `test_presentation.py` | API·CLI 계약(헤더 권한·오류 코드·종료 코드) |
+| `test_settings.py` | 기본값·환경변수 우선순위·상대 경로 해석 |
+
+### 평가셋으로 검색 품질 재기
+
+W-1 인덱서의 평가셋 `../../indexer/vector-bm25/evaluation/group2_questions.json`(20문항: 답 있음 13 · 없음 7)을
+그대로 씀. 정답 판정은 인덱서 평가와 같음 — 출처 파일이 맞고 정답 원문 조각(`any_of`) 하나가 조각 본문에 있으면 관련.
+
+```bash
+.venv/Scripts/python.exe evaluate_retriever.py                    # 답변 생성 끔
+.venv/Scripts/python.exe evaluate_retriever.py --generate-answer  # 답변 생성 켬(Groq 호출이 늘어남)
+```
+
+두 층을 따로 잼. 결과 전체는 `logs/eval-시각.json`에 저장됨.
+
+| 층 | 무엇을 재나 |
+|---|---|
+| 검색(첫 검색 상위 5) | S-R4 한 번의 결과로 Hit@5 · 근거 Recall@5 · MRR@5 · Precision@5 — 인덱서 평가와 같은 기준 |
+| 최종 응답 | 워크플로우 전체 실행 뒤 상태와, 채점 관문을 통과한 근거 목록의 같은 지표. 답 없음 문항은 '확인 필요'여야 정답 |
+
+평가셋의 `filters`(`card_id` · `member_pseudo_id`)는 설계 입력에 없어 쓰지 않음.
+회원별 상담 문항(`member_pseudo_id` 필터)은 `auditor`, 나머지는 `agent`로 물음.
+
+2026-10-03 실측(GPU, 답변 생성 끔).
+
+| 지표 | 전체 20문항 | 필터 없는 9문항 |
+|---|---|---|
+| 검색 Hit@5 · Recall@5 · MRR@5 | 0.923 · 0.846 · 0.776 | 1.0 · 1.0 · 0.875 |
+| 답 있음 → 근거를 들고 끝남 | 3 / 13 | 3 / 4 |
+| 답 없음 → 확인 필요로 끝남 | 6 / 7 | 5 / 5 |
+| 응답 시간 중앙값 · LLM 호출 평균 | 약 3.0초 · 2.65회 | 약 2.6초 · 2.56회 |
+
+검색 자체는 필터를 쓴 인덱서 평가(하이브리드 Hit@5 0.923)와 같은 수준임.  
+7장 ⑩ 반영 뒤에는 E12가 10회 중 10회 근거를 들고 끝남. E03은 질문 변환 결과에 따라 10회 중 7회만
+근거를 들고 끝나, 답 있음 문항 수는 실행마다 3 ~ 4문항 사이에서 움직임(기대값 약 3.7, 9장 9번).
+최종 응답에서 답 있음 문항이 막히는 이유는 9장에 정리함.
+
+## 9. 남은 과제·알려진 한계
+
+솔직히 적어 둠. 아래는 **아직 해결하지 못한 것**이며 숨기지 않음.
+
+1. **채점 기준값은 설계 가정임** — 상한 0.7 · 하한 0.3 · 1·2위 최소 격차 0.05 · 최소 겹침 1, 그리고 핵심어
+   '드묾' 비율 0.1은 측정으로 정한 값이 아님. 평가셋에서 하한 0.3은 답 없음 7문항 중 5문항을 걸러내고
+   답 있는 문항은 유지해 그대로 둠
+2. **상한 0.7이 너무 높은 사례가 있음** — 감사자의 상담 이력 질문이 1위 점수 0.47로 근거 부족으로 끝남
+3. **감사자 역할에서 D2 정답이 밀리는 사례가 있음** — 상담 조각이 융합 상위 10개를 차지해 혜택 안내서 정답이 리랭커까지
+   가지 못함
+4. **카드·회원 필터를 지원하지 않음** — 평가셋의 `card_id`·`member_pseudo_id` 필터는 설계 입력에 없어 구현하지 않음
+5. **LLM 호출 최대치는 16이 아니라 13회임** — 상한 설정은 16이지만 C-03이 하위 질문당 1회라 실제 최대는
+   1(C-01) + 6(C-02) + 3(C-03) + 3(C-04) = 13회임
+6. **CPU에서는 느림** — 리랭크 1회가 약 7초라 30초 시간 예산을 금방 씀. GPU 사용을 권함
+7. **설계 도식에 없는 선이 하나 있음** — S-R4에서 남은 시간이 부족해 검색을 건너뛰고 S-R3으로 돌아가는 선임
+   (2절 도식에 포함해 둠)
+8. **평가셋에서 답 있음 13문항 중 10문항이 '확인 필요'로 끝남**(8장 실측) — 원인별로 나누면 아래와 같음
+   - 카드명이 없는 카드 질문 5문항(E05·E13·E16·E17·E20): 평가셋은 필터로 카드를 정하지만 질문에는 카드명이 없어
+     '대상명 없음 + 대상 섞임' 규칙이 되물음. 필터가 없는 설계에서는 맞는 동작임
+   - (해결) 약관 질문인데 카드를 되묻던 E12는 '1위가 카드 조각일 때만 섞임'으로 고쳐 근거를 들고 끝남(7장 ⑩)
+   - 정답 조각이 상위 5에 있는데 리랭크 점수가 하한 미만인 3문항(E08 0.078 · E11 0.02 · E18 0.174)
+   - 검색에서 정답을 못 찾은 1문항(E10, 회원 필터가 필요한 상담 문항)
+9. **질문 변환 결과가 실행마다 조금씩 다름** — temperature 0 · seed 고정이어도 C-03이 만든 질의가 달라짐.
+   같은 문항을 10회씩 돌린 실측(2026-10-03, `logs/repeat-E01-E03-E12.json`)은 아래와 같음
+
+   | 문항 | 질문 변환 | 10회 결과 | 흔들리는 이유 |
+   |---|---|---|---|
+   | E01 · E02 | 없음 | 근거 반환 10 / 10 | 검색·채점은 규칙이라 결과가 항상 같음 |
+   | E12 | rewrite(오타 '몐제' → '면제') | 근거 반환 10 / 10 | 질의가 2가지로만 나오고 둘 다 0.83 이상 |
+   | E03 | rewrite | 근거 반환 7 / 10 | 10회에 질의 8가지. '휴면 상태가 된 …' 꼴은 0.54 ~ 0.59로 상한 0.7 미달 |
+
+   즉 흔들림은 LLM이 만드는 변환 질의 한 곳에서만 생김. 평가셋 답 있음 13문항 기준 기대값은 약 3.7문항
+   (E01 · E02 · E12 + E03의 70%)임. 줄이는 방법(미적용, 결정 필요): 변환 기법을 multi(질의 2 ~ 3개)로 유도해
+   가장 높은 점수를 쓰게 하기, 상한 0.7을 평가셋으로 다시 정하기
