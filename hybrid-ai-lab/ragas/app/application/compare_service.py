@@ -191,15 +191,13 @@ def _markdown(hyperparameter: str, baseline_id: str, base: dict[str, Any] | None
                      f"{_fmt(r['search_precision@5'])} | {_fmt(r['search_recall@k'])} (@{r['metric_k']}) | {_fmt(r['n'])} |")
     lines += ["", "## ② 어디서 막혔나 — 최종 응답 · RAGAS", "",
               "| 버전 | 근거 들고 끝남 | 그중 정답 근거 | 확인 필요 정답 | ContextRecall | Δ | ContextPrecision | Δ | "
-              "EntityRecall | Δ | Faithfulness | Δ | AnswerRelevancy | Δ | FactualCorrectness | Δ | RAGAS 채점 행 |",
-              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+              "Faithfulness | Δ | AnswerRelevancy | Δ | RAGAS 채점 행 |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for r in rows:
         lines.append(f"| {r['version']} | {_fmt(r['answerable_returned'])} | {_fmt(r['answerable_returned_with_relevant'])} | "
                      f"{_fmt(r['no_answer_refused'])} | {_fmt(r['context_recall'])} | {_signed(r['d_context_recall'])} | "
-                     f"{_fmt(r['context_precision'])} | {_signed(r['d_context_precision'])} | {_fmt(r['entity_recall'])} | "
-                     f"{_signed(r['d_entity_recall'])} | {_fmt(r['faithfulness'])} | "
+                     f"{_fmt(r['context_precision'])} | {_signed(r['d_context_precision'])} | {_fmt(r['faithfulness'])} | "
                      f"{_signed(r['d_faithfulness'])} | {_fmt(r['answer_relevancy'])} | {_signed(r['d_answer_relevancy'])} | "
-                     f"{_fmt(r['factual_correctness'])} | {_signed(r['d_factual_correctness'])} | "
                      f"{_fmt(r['ragas_scored'])}{' ' + r['ragas_scored_warning'] if r['ragas_scored_warning'] else ''} |")
     band_text = " · ".join(f"{m} {_fmt(b)}" for m, b in bands.items()) or "—"
     lines += ["", f"흔들림 폭(기준 버전 반복 평균의 최대 − 최소): {band_text}", "",

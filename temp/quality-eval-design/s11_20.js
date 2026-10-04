@@ -217,7 +217,7 @@ function s17() {
     { t: "코드 채점", tool: "evaluate_retriever.py", use: "배포 관문 · 버전 Δ", pro: "빠름 · 매번 같은 값 · 비용 0",
       out: "retriever.json(5지표 × 두 층)" },
     { t: "RAGAS 채점", tool: "evaluate_ragas.py", use: "어디서 새는지 진단", pro: "뜻까지 판정 · 답변 품질",
-      out: "ragas.json(6지표 × 3회)" },
+      out: "ragas.json(4지표 × 3회)" },
     { t: "사람 채점", tool: "human_review.py", use: "LLM 채점관 보정", pro: "품질 최고 · 다른 채점의 기준",
       out: "review.csv · 일치율 · kappa" },
   ];
@@ -329,26 +329,34 @@ function s19() {
 function s20() {
   const s = newSlide({
     title: "④ RAGAS 채점 ② 지표 · 평가자 · 반복",
-    lead: "6지표가 필요한 칸만 읽어 판정 — 평가자는 실험 끝까지 로컬 모델로 고정하고 3회 반복해 흔들림을 잼",
+    lead: "핵심 4지표(위 · 정 · 출 · 관)가 필요한 칸만 읽어 판정 — 평가자는 실험 끝까지 로컬 모델로 고정하고 3회 반복함",
     notes: "ragas 0.4.3: 지표는 ascore()로 MetricResult(value 점수 + reason 이유)를 돌려줌. AnswerRelevancy 임베딩은 KURE-v2.\n" +
       "평가자 local(Qwen3.5-9B)은 사고(thinking)를 켜면 빈 답을 내서 끔. 실험 중 평가자를 바꾸면 그 뒤 버전은 앞 버전과 비교 불가.\n" +
-      "긴 근거에서 ContextEntityRecall 개체 추출이 끝나지 않는 경우(IncompleteOutputException)는 그 칸만 평균에서 뺌.",
+      "보조 지표 ContextEntityRecall · FactualCorrectness는 재지 않음(사용자 결정 2026-10-04). 코드 채점 5지표는 그대로.\n" +
+      "평가자 호출이 실패한 칸(구조화 출력 미완료 등)은 그 칸만 평균에서 빼고 failed_scores에 남김.",
   });
-  const metrics = ["ContextPrecisionWithReference", "ContextRecall", "ContextEntityRecall", "Faithfulness", "AnswerRelevancy", "FactualCorrectness"];
-  const reads = [[1, 1, 1, 0], [1, 1, 1, 0], [0, 1, 1, 0], [1, 0, 1, 1], [1, 0, 0, 1], [0, 1, 0, 1]];
+  const metrics = [["위", "ContextPrecisionWithReference", "관련 조각이 위에 있나"], ["정", "ContextRecall", "정답이 근거에 다 있나"],
+    ["출", "Faithfulness", "답변이 근거에서 나왔나"], ["관", "AnswerRelevancy", "답변이 질문에 맞나(임베딩)"]];
+  const reads = [[1, 1, 1, 0], [1, 1, 1, 0], [1, 0, 1, 1], [1, 0, 0, 1]];
   const heads = ["질문", "정답", "근거", "답변"];
   const gx = X0 + 3.9, cw = 0.95, top = 1.95;
   heads.forEach((h, j) => text(s, h, { x: gx + j * cw, y: top, w: cw, h: 0.42, size: 14, bold: true, color: C.navy, align: "center" }));
-  metrics.forEach((m, i) => {
-    const y = top + 0.5 + i * 0.58;
-    rr(s, { x: X0, y, w: 3.85 + 4 * cw, h: 0.5, fill: i < 3 ? C.altRow : C.tint, line: null });
-    text(s, m, { x: X0 + 0.08, y, w: 3.8, h: 0.5, size: 14, bold: true, color: C.ink });
+  metrics.forEach(([badge, name, meaning], i) => {
+    const y = top + 0.5 + i * 0.95;
+    const search = i < 2;
+    rr(s, { x: X0, y, w: 3.85 + 4 * cw, h: 0.82, fill: search ? C.altRow : C.tint, line: null });
+    numBadge(s, badge, { x: X0 + 0.1, y: y + 0.17, size: 0.48, fill: search ? C.navy : C.blue, fsz: 16 });
+    text(s, name, { x: X0 + 0.68, y: y + 0.04, w: 3.2, h: 0.4, size: 14, bold: true, color: C.ink });
+    text(s, meaning, { x: X0 + 0.68, y: y + 0.42, w: 3.2, h: 0.36, size: 14, color: C.slate });
     reads[i].forEach((r, j) => {
-      if (r) s.addShape(L.getPptx().shapes.OVAL, { x: gx + j * cw + cw / 2 - 0.13, y: y + 0.12, w: 0.26, h: 0.26,
-        fill: { color: i < 3 ? C.navy : C.blue }, line: { type: "none" } });
+      if (r) s.addShape(L.getPptx().shapes.OVAL, { x: gx + j * cw + cw / 2 - 0.15, y: y + 0.26, w: 0.3, h: 0.3,
+        fill: { color: search ? C.navy : C.blue }, line: { type: "none" } });
     });
   });
-  text(s, "윗줄 3개 = 검색 지표 · 아랫줄 3개 = 생성 지표 · 점 = 읽는 칸", { x: X0, y: top + 0.5 + 6 * 0.58, w: 7.7, h: 0.4, size: 14, color: C.sub });
+  text(s, "윗줄 2개 = 검색 지표 · 아랫줄 2개 = 생성 지표 · 점 = 읽는 칸", { x: X0, y: top + 0.5 + 4 * 0.95, w: 7.7, h: 0.4, size: 14, color: C.sub });
+  rr(s, { x: X0, y: 6.85, w: 7.65, h: 1.0, fill: C.white, dash: "dash" });
+  text(s, "재지 않는 보조 지표: ContextEntityRecall(개체 재현) · FactualCorrectness(사실 정확도)\n코드 채점 5지표(Hit · Recall · MRR · Precision · nDCG)는 그대로 잼",
+    { x: X0 + 0.12, y: 6.88, w: 7.4, h: 0.94, size: 14, color: C.slate, valign: "middle" });
   const rx = 8.55, rw = XR - rx;
   table(s, [
     ["평가자", "모델", "반복 흔들림"],

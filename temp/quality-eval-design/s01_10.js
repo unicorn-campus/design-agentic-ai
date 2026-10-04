@@ -11,7 +11,7 @@ function s01() {
     lead: "하이퍼 파라미터 버전을 같은 잣대로 비교하는 실행기 — 버전 정의 파일 하나로 색인 · 검색 · 채점 · 비교표까지",
     notes: "설계 가이드는 교재 183쪽(버전 정의 · 설정 적용 · 실행 · 채점 · 기록 · 비교 + 공통 3원칙).\n" +
       "사용자 결정: D1 채점 도구까지 설계, D2 평가셋 md → json 변환 포함, D3 세대 포인터 백업 → 복원, D4 버전안 청크 크기 · Top-k,\n" +
-      "D5 Top-k 지표는 @k · @5 함께 + Δ는 @5, D6 기준 800도 새로 색인, D7 실험 중 검색 API 서버 내림, D8 사람 판정 20건은 참고값.",
+      "D5 Top-k 지표는 @k · @5 함께 + Δ는 @5, D6 기준 800도 새로 색인, D7 실험 중 검색 API 서버 내림, D8 사람 판정 20건은 참고값, D9 RAGAS는 핵심 4지표만(코드 채점 5지표는 그대로).",
   });
   table(s, [
     ["항목", "내용"],
@@ -91,7 +91,7 @@ function s03() {
   const envs = [
     { t: "indexer/vector-bm25/.venv", tool: "run_indexer.py", d: "--full-reindex --thread-id …\n설정 복사본 경로는 환경변수로", dash: false },
     { t: "retriever/vector-retriever/.venv", tool: "evaluate_retriever.py", d: "--questions · --generate-answer · --out\n+ --top-k 등 인자 추가", dash: true },
-    { t: "ragas/.venv  (ragas 0.4.3)", tool: "evaluate_ragas.py · human_review.py", d: "새로 만듦 — RAGAS 6지표 · 검토표\nexport · agree", dash: false, isNew: true },
+    { t: "ragas/.venv  (ragas 0.4.3)", tool: "evaluate_ragas.py · human_review.py", d: "새로 만듦 — RAGAS 4지표 · 검토표\nexport · agree", dash: false, isNew: true },
   ];
   envs.forEach((e, i) => {
     const y = 1.95 + i * 1.68;
@@ -183,7 +183,7 @@ function s05() {
     ["F2 색인", "새 thread-id로 전체 재색인 → 게시가 포인터를 새 세대로", "설정 복사본 · thread-id", "새 세대 gen-…", "예", "버전 실패 → F4"],
     ["F3 검색 · 코드 채점", "평가셋 20문항을 리트리버로 돌리고 5지표 두 층 채점", "eval-set.json · 사용 중 세대", "retriever.json", "아니요", "버전 실패 → F4"],
     ["F4 되돌리기", "포인터를 백업 값으로 복원하고 해시로 확인", "_backup", "복원 확인 기록", "예(아니면 확인만)", "건너뛰지 않음 · 실패 시 크게 알림"],
-    ["F5 RAGAS 채점", "답 있는 행만 6지표 × 3회 채점", "retriever.json", "ragas.json", "아니요", "버전 실패(F3 결과는 남음)"],
+    ["F5 RAGAS 채점", "답 있는 행만 RAGAS 4지표 × 3회 채점", "retriever.json", "ragas.json", "아니요", "버전 실패(F3 결과는 남음)"],
     ["F6 검토표", "문항당 1행 검토표 내보내기(판정은 기다리지 않음)", "retriever · ragas.json", "review.csv", "아니요", "버전 실패"],
     ["F7 비교표", "버전 폴더를 모아 버전 × 지표 표", "버전별 로그 3종", "compare.md · .csv", "아니요", "전체 실패(로그는 남음)"],
   ], { y: 1.95, colW: [2.2, 4.4, 2.35, 1.95, 1.4, 2.6], rowH: 0.64, size: 14 });

@@ -1,0 +1,827 @@
+{
+ "ports": {
+  "path": "ragas/app/application/ports.py",
+  "ranges": [
+   [
+    85,
+    98
+   ],
+   [
+    128,
+    134
+   ]
+  ],
+  "header": "app/application/ports.py:85-98, 128-134 (docstring · 일부 생략)",
+  "lines": [
+   "class IndexerPort(Protocol):",
+   "    \"\"\"인덱서를 하위 프로세스로 돌려 새 색인 세대를 만드는 계약.\"\"\"",
+   "",
+   "    @abstractmethod",
+   "    def reindex(self, thread_id: str, env: dict[str, str], log_dir: Path) -> str:",
+   "        \"\"\"전체 재색인을 돌리고 게시된 세대 이름을 돌려줌.",
+   "",
+   "        인자: env는 하위 프로세스에만 얹는 환경변수(설정 복사본 경로 등). 원본 .env는 건드리지 않음.",
+   "        반환값: 게시된 세대 이름(gen-…). 성공하면 사용 중 세대 포인터가 이 세대로 바뀌어 있음.",
+   "        예외: 종료 코드가 0이 아니면 StepError(\"E-EXIT\"), 결과 JSON을 못 읽으면 StepError(\"E-OUT\"),",
+   "              중단(130)이면 StepError(\"E-INT\").",
+   "        부수효과: 세대 폴더 · 체크포인트 · 포인터 변경, log_dir에 표준 출력 · 오류 기록.",
+   "        \"\"\"",
+   "    # …(생략)",
+   "    def write(self, content: dict[str, Any]) -> str:",
+   "        \"\"\"포인터를 원자적으로 바꾸고 새 SHA-256을 돌려줌.",
+   "",
+   "        부수효과: 인덱서와 같은 게시 잠금을 잡고 바꿈 — 떠 있는 리트리버는 다음 요청부터 그 세대를 씀.",
+   "        예외: 게시 잠금을 못 얻으면 QualityError(\"lock_unavailable\").",
+   "        \"\"\""
+  ]
+ },
+ "bootstrap": {
+  "path": "ragas/app/bootstrap.py",
+  "ranges": [
+   [
+    48,
+    55
+   ],
+   [
+    63,
+    76
+   ]
+  ],
+  "header": "app/bootstrap.py:48-55, 63-76 (docstring · 일부 생략)",
+  "lines": [
+   "def create_services(settings: Settings | None = None) -> Services:",
+   "    settings = settings or load_settings()",
+   "    store = LocalArtifactStore()",
+   "    ragas = RagasService(store, create_judge_factory(settings), concurrency=settings.ragas_concurrency)",
+   "    review = ReviewService(store)",
+   "    compare = CompareService(store)",
+   "    # …(생략)",
+   "    runner = RunnerService(",
+   "        store=store,",
+   "        pointer=ActivePointer(settings.data_root),",
+   "        lock=RunnerLock(settings.experiments_root / \".runner.lock\"),",
+   "        indexer=IndexerProcess(settings.indexer_python, settings.indexer_dir, settings.process_timeout_seconds),",
+   "        retriever=RetrieverEvalProcess(settings.retriever_python, settings.retriever_dir, settings.process_timeout_seconds),",
+   "        probe=HttpServerProbe(settings.retriever_api_urls),",
+   "        environment=environment,",
+   "        ragas=ragas, review=review, compare=compare,",
+   "        paths=RunnerPaths(ragas_root=settings.app_root, experiments_root=settings.experiments_root,",
+   "                          indexer_dir=settings.indexer_dir, data_root=settings.data_root),",
+   "    )",
+   "    return Services(settings, EvalSetService(store, ActiveCorpusReader(settings.data_root)), ragas, review, compare,",
+   "                    runner)"
+  ]
+ },
+ "fake_indexer": {
+  "path": "ragas/tests/fakes.py",
+  "ranges": [
+   [
+    92,
+    112
+   ]
+  ],
+  "header": "tests/fakes.py:92-112 (docstring · 일부 생략)",
+  "lines": [
+   "class FakeIndexer:",
+   "    def __init__(self, pointer: FakePointer, fail: bool = False):",
+   "        self.pointer, self.fail = pointer, fail",
+   "        self.calls: list[tuple[str, dict[str, str]]] = []",
+   "        self.base_seen: list[str] = []",
+   "",
+   "    def reindex(self, thread_id: str, env: dict[str, str], log_dir: Path) -> str:",
+   "        self.calls.append((thread_id, dict(env)))",
+   "        # 게시 조건: 시작할 때 포인터가 기준 세대여야 함(버전마다 되돌리기 확인용)",
+   "        self.base_seen.append(self.pointer.content[\"generation\"])",
+   "        if self.fail:",
+   "            raise StepError(\"E-EXIT\", \"indexer 종료 코드 1\")",
+   "        generation = f\"gen-{thread_id}\"",
+   "        self.pointer.write({\"generation\": generation, \"chroma_path\": f\"generations/{generation}/chroma\"})",
+   "        return generation",
+   "",
+   "",
+   "class FakeRetriever:"
+  ]
+ },
+ "test_restore": {
+  "path": "ragas/tests/test_runner.py",
+  "ranges": [
+   [
+    60,
+    71
+   ]
+  ],
+  "header": "tests/test_runner.py:60-71 (docstring · 일부 생략)",
+  "lines": [
+   "def test_reindex_plan_restores_pointer_between_versions_and_builds_compare(tmp_path: Path):",
+   "    runner, plan_path, pointer, indexer, retriever, lock = setup(tmp_path)",
+   "    result = runner.run(plan_path)",
+   "    assert statuses(result, \"800\") == {\"F1\": SUCCESS, \"F2\": SUCCESS, \"F3\": SUCCESS, \"F4\": SUCCESS, \"F5\": SUCCESS,",
+   "                                       \"F6\": SUCCESS}",
+   "    # 기준 버전부터 돌고, 두 번째 색인도 기준 세대에서 시작함(버전마다 되돌렸기 때문 — 게시 거부 방지)",
+   "    assert [call[0].split(\"-\")[2] for call in indexer.calls] == [\"800\", \"600\"]",
+   "    assert indexer.base_seen == [\"gen-base\", \"gen-base\"]",
+   "    # 검색은 그 버전이 만든 세대로 돌았고, 끝난 뒤 포인터는 원래 값임",
+   "    assert [c[\"generation\"] for c in retriever.calls] == [f\"gen-{indexer.calls[0][0]}\", f\"gen-{indexer.calls[1][0]}\"]",
+   "    assert pointer.content[\"generation\"] == \"gen-base\" and result[\"pointer_restored\"][\"matches\"]",
+   "    assert lock.events == [\"acquire\", \"release\"]"
+  ]
+ },
+ "cli_main": {
+  "path": "ragas/app/presentation/cli.py",
+  "ranges": [
+   [
+    76,
+    82
+   ],
+   [
+    108,
+    114
+   ],
+   [
+    119,
+    126
+   ]
+  ],
+  "header": "app/presentation/cli.py:76-82, 108-114, 119-126 (docstring · 일부 생략)",
+  "lines": [
+   "args = _parser().parse_args(argv)",
+   "if services_factory is None:",
+   "    from app.bootstrap import create_services  # 도움말만 볼 때 모델 · 평가자 모듈을 읽지 않게 늦게 import함",
+   "",
+   "    services_factory = create_services",
+   "try:",
+   "    services = services_factory()",
+   "    # …(생략)",
+   "    if args.command == \"run\":",
+   "        if args.check_only:",
+   "            _print(services.runner.preflight(args.plan))",
+   "            return 0",
+   "        only = [v.strip() for v in args.versions.split(\",\")] if args.versions else None",
+   "        _print(services.runner.run(args.plan, only=only, resume=args.resume, stop_on_error=args.stop_on_error))",
+   "        return 0",
+   "# …(생략)",
+   "except QualityError as error:",
+   "    print(json.dumps({\"status\": \"error\", \"code\": error.code, \"message\": error.message}, ensure_ascii=False),",
+   "          file=sys.stderr)",
+   "    return error.exit_code",
+   "except KeyboardInterrupt:",
+   "    print(json.dumps({\"status\": \"interrupted\"}, ensure_ascii=False), file=sys.stderr)",
+   "    return 130",
+   "return 1"
+  ]
+ },
+ "settings": {
+  "path": "ragas/app/infrastructure/settings.py",
+  "ranges": [
+   [
+    51,
+    62
+   ],
+   [
+    93,
+    98
+   ]
+  ],
+  "header": "app/infrastructure/settings.py:51-62, 93-98 (docstring · 일부 생략)",
+  "lines": [
+   "def load_settings(overrides: Mapping[str, str] | None = None) -> Settings:",
+   "    values = {**dotenv_values(LAB_ROOT / \".env\"), **dotenv_values(APP_ROOT / \".env\"), **os.environ, **(overrides or {})}",
+   "",
+   "    def text(key: str, default: str = \"\") -> str:",
+   "        value = values.get(key)",
+   "        return str(value).strip() if value not in (None, \"\") else default",
+   "                                 # …(생략)",
+   "                                 if u.strip()),",
+   "        # 팀 공용 .env는 CLAUDE_API_KEY 이름을 씀 — Anthropic SDK 기본 이름(ANTHROPIC_API_KEY)도 함께 받음",
+   "        anthropic_api_key=text(\"ANTHROPIC_API_KEY\") or text(\"CLAUDE_API_KEY\") or None,",
+   "        groq_api_key=text(\"GROQ_API_KEY\") or None,",
+   "        process_timeout_seconds=float(timeout) if timeout else None,",
+   "    )"
+  ]
+ },
+ "atomic": {
+  "path": "ragas/app/infrastructure/files.py",
+  "ranges": [
+   [
+    25,
+    38
+   ],
+   [
+    182,
+    192
+   ]
+  ],
+  "header": "app/infrastructure/files.py:25-38, 182-192 (docstring · 일부 생략)",
+  "lines": [
+   "def _atomic_write(path: Path, payload: bytes) -> None:",
+   "    path.parent.mkdir(parents=True, exist_ok=True)",
+   "    descriptor, temporary = tempfile.mkstemp(prefix=\".tmp-\", dir=path.parent)",
+   "    try:",
+   "        with os.fdopen(descriptor, \"wb\") as stream:",
+   "            stream.write(payload)",
+   "            stream.flush()",
+   "            os.fsync(stream.fileno())",
+   "        os.replace(temporary, path)",
+   "    finally:",
+   "        if os.path.exists(temporary):",
+   "            os.unlink(temporary)",
+   "    # …(생략)",
+   "    def write(self, content: dict[str, Any]) -> str:",
+   "        if not self._publish_lock.acquire():",
+   "            raise QualityError(\"lock_unavailable\", \"인덱서가 게시 중이라 포인터를 바꾸지 못함\")",
+   "        try:",
+   "            _atomic_write(self.path, (json.dumps(content, ensure_ascii=False, indent=2) + \"\\n\").encode(\"utf-8\"))",
+   "        finally:",
+   "            self._publish_lock.release()",
+   "        return self.sha256()"
+  ]
+ },
+ "parse_md": {
+  "path": "ragas/app/domain/eval_set.py",
+  "ranges": [
+   [
+    42,
+    42
+   ],
+   [
+    53,
+    61
+   ],
+   [
+    64,
+    73
+   ],
+   [
+    80,
+    81
+   ]
+  ],
+  "header": "app/domain/eval_set.py:42-42, 53-61, 64-73, 80-81 (docstring · 일부 생략)",
+  "lines": [
+   "def parse_eval_set_markdown(text: str) -> list[dict[str, Any]]:",
+   "    # …(생략)",
+   "    for raw in text.splitlines():",
+   "        line = raw.rstrip()",
+   "        heading = _HEADING.match(line)",
+   "        if heading:",
+   "            current = {\"id\": heading.group(1), \"question\": heading.group(2), \"answerable\": True,",
+   "                       \"ground_truth\": \"\", \"filters\": [], \"relevance\": []}",
+   "            questions.append(current)",
+   "            mode = \"\"",
+   "            continue",
+   "        # …(생략)",
+   "        if match := _ANSWER.match(line):",
+   "            current[\"ground_truth\"] = match.group(1)",
+   "            if match.group(1).startswith(NO_ANSWER_PREFIX):",
+   "                # 답 없음 문항은 근거를 비우고 「확인 필요」로 끝나야 정답(R3)",
+   "                current.update(answerable=False, ground_truth=NO_ANSWER_PREFIX,",
+   "                               no_answer_reason=\"문서에 답이 없음 — 「확인 필요」로 끝나야 정답\", no_answer_terms=[])",
+   "            mode = \"\"",
+   "        elif match := _EVIDENCE.match(line):",
+   "            current[\"relevance\"].append(_parse_evidence(match.group(1), current[\"id\"]))",
+   "            mode = \"evidence\"",
+   "        # …(생략)",
+   "        elif mode == \"evidence\" and (match := _FRAGMENT.match(line)):",
+   "            current[\"relevance\"][-1][\"any_of\"].append(match.group(1))"
+  ]
+ },
+ "check_index": {
+  "path": "ragas/app/domain/verification.py",
+  "ranges": [
+   [
+    97,
+    97
+   ],
+   [
+    105,
+    107
+   ],
+   [
+    115,
+    131
+   ]
+  ],
+  "header": "app/domain/verification.py:97-97, 105-107, 115-131 (docstring · 일부 생략)",
+  "lines": [
+   "def check_against_index(questions: list[dict[str, Any]], chunks: list[Chunk]) -> list[Issue]:",
+   "    # …(생략)",
+   "    issues: list[Issue] = []",
+   "    for question in questions:",
+   "        qid = question[\"id\"]",
+   "        # …(생략)",
+   "        evidence_chunks: list[Chunk] = []",
+   "        for unit in question.get(\"relevance\") or []:",
+   "            for fragment in unit.get(\"any_of\", []):",
+   "                found = _matching_chunks(chunks, unit[\"source\"], fragment)",
+   "                if not found:",
+   "                    issues.append(Issue(qid, 1, f\"색인 본문에 없음: 「{fragment}」\"))",
+   "                    continue",
+   "                evidence_chunks.extend(found)",
+   "                location = str(unit.get(\"location\", \"\"))",
+   "                if location.startswith(\"D2-C\") and not any(_benefit_at(c, fragment) == location for c in found):",
+   "                    issues.append(Issue(qid, 2, f\"「{fragment}」가 {location} 블록 안에 없음\"))",
+   "        if evidence_chunks:",
+   "            body = \"\".join(normalize(c.text).replace(\",\", \"\") for c in evidence_chunks)",
+   "            for number in numbers_in(question[\"ground_truth\"]):",
+   "                if number not in body:",
+   "                    issues.append(Issue(qid, 3, f\"정답의 숫자 {number}가 근거 조각에 없음\"))",
+   "    return issues"
+  ]
+ },
+ "check_plan": {
+  "path": "ragas/app/domain/plan.py",
+  "ranges": [
+   [
+    62,
+    62
+   ],
+   [
+    72,
+    86
+   ],
+   [
+    97,
+    102
+   ]
+  ],
+  "header": "app/domain/plan.py:62-62, 72-86, 97-102 (docstring · 일부 생략)",
+  "lines": [
+   "def check_plan(plan: dict[str, Any]) -> tuple[list[str], list[str]]:",
+   "    # …(생략)",
+   "    apply = plan.get(\"apply\")",
+   "    if apply not in APPLY_KINDS:",
+   "        rejects.append(f\"V4 apply는 {APPLY_KINDS} 중 하나여야 합니다: {apply}\")",
+   "    try:",
+   "        target = parse_target(str(plan.get(\"target\", \"\")))",
+   "    except ValueError as error:",
+   "        return [*rejects, f\"V4 {error}\"], unsupported",
+   "    if target.tool not in TOOLS:",
+   "        rejects.append(f\"V4 바꿀 수 있는 도구는 {TOOLS}뿐입니다: {target.tool}\")",
+   "    if target.kind == \"code\":",
+   "        unsupported.append(f\"V9 코드에 박힌 값은 아직 인자로 꺼내지 않았습니다: {target.key}\")",
+   "    elif apply in _KIND_OF_APPLY and _KIND_OF_APPLY[apply] != target.kind:",
+   "        rejects.append(f\"V4 apply({apply})와 대상 종류({target.kind})가 맞지 않습니다\")",
+   "    if target.kind == \"config\" and not target.key.startswith(\"defaults.\"):",
+   "        unsupported.append(f\"V7-1 인덱서는 defaults만 읽습니다(유형별 값은 코드 수정 필요): {target.key}\")",
+   "    # …(생략)",
+   "    low_high = RANGES.get(target.key)",
+   "    for version in versions:",
+   "        value = version.get(\"value\")",
+   "        if low_high and not (isinstance(value, (int, float)) and low_high[0] <= value <= low_high[1]):",
+   "            rejects.append(f\"V10 · V11 {target.key} 값 {value}이 허용 범위 {low_high[0]} ~ {low_high[1]} 밖입니다\")",
+   "    return rejects, unsupported"
+  ]
+ },
+ "run": {
+  "path": "ragas/app/application/runner_service.py",
+  "ranges": [
+   [
+    180,
+    190
+   ],
+   [
+    195,
+    198
+   ],
+   [
+    204,
+    208
+   ]
+  ],
+  "header": "app/application/runner_service.py:180-190, 195-198, 204-208 (docstring · 일부 생략)",
+  "lines": [
+   "self.lock.acquire()",
+   "backup_path = param_dir / state[\"pointer_backup\"]",
+   "try:",
+   "    # 처음 백업한 원래 값만 지킴 — 이어 하기에서 백업을 덮어쓰면 실험 세대를 '원래 값'으로 착각하게 됨",
+   "    if not self.store.exists(backup_path):",
+   "        self.store.write_json(backup_path, self.pointer.read())",
+   "    backup = self.store.read_json(backup_path)",
+   "    self._restore(backup)  # 앞 실행이 강제 종료돼 포인터가 실험 세대에 남았을 때를 대비함",
+   "    state[\"pointer_backup_generation\"] = backup.get(\"generation\")",
+   "    self._save(param_dir, state)",
+   "    for version in versions:",
+   "            # …(생략)",
+   "            continue",
+   "        ok = self._run_version(plan, version, param_dir, state, backup, eval_path, eval_digest, resume)",
+   "        if not ok and stop_on_error:",
+   "            break",
+   "# …(생략)",
+   "finally:",
+   "    restored = self._restore(self.store.read_json(backup_path)) if self.store.exists(backup_path) else None",
+   "    state[\"final_pointer_check\"] = restored",
+   "    self._save(param_dir, state)",
+   "    self.lock.release()"
+  ]
+ },
+ "run_version": {
+  "path": "ragas/app/application/runner_service.py",
+  "ranges": [
+   [
+    268,
+    282
+   ],
+   [
+    311,
+    318
+   ]
+  ],
+  "header": "app/application/runner_service.py:268-282, 311-318 (docstring · 일부 생략)",
+  "lines": [
+   "    # F2 색인(재색인 계획만)",
+   "    if plan.reindex:",
+   "        if resume and self._done(state, vid, \"F2\", version_pointer):",
+   "            # 앞 실행에서 만든 세대로 포인터를 다시 돌려놓아야 F3가 그 세대를 읽음",
+   "            if not self._done(state, vid, \"F3\", retriever_out):",
+   "                self.pointer.write(self.store.read_json(version_pointer))",
+   "        else:",
+   "            self._mark(param_dir, state, vid, \"F2\", RUNNING, thread_id=state[\"versions\"][vid][\"thread_id\"])",
+   "            generation = self.indexer.reindex(state[\"versions\"][vid][\"thread_id\"], config[\"indexer_env\"], logs)",
+   "            published = self.pointer.read()",
+   "            if published.get(\"generation\") != generation:",
+   "                raise StepError(\"E-OUT\", f\"게시된 세대({generation})와 포인터({published.get('generation')})가 다름\")",
+   "            self.store.write_json(version_pointer, published)",
+   "            self.store.append_text(self.paths.experiments_root / \"_registry.csv\",",
+   "                                   f\"{generation},{state['versions'][vid]['thread_id']},{plan.hyperparameter},\"",
+   "# …(생략)",
+   "finally:",
+   "    # F4 되돌리기 — 성공 · 실패 · 중단 모두 지남(RAGAS · 검토표는 로그만 읽어 포인터가 필요 없음)",
+   "    self._mark(param_dir, state, vid, \"F4\", RUNNING)",
+   "    check = self._restore(backup)",
+   "    if self.store.exists(config_path):",
+   "        config = self.store.read_json(config_path)",
+   "        config[\"pointer_restored\"] = check",
+   "        self.store.write_json(config_path, config)"
+  ]
+ },
+ "restore": {
+  "path": "ragas/app/application/runner_service.py",
+  "ranges": [
+   [
+    221,
+    243
+   ]
+  ],
+  "header": "app/application/runner_service.py:221-243 (docstring · 일부 생략)",
+  "lines": [
+   "def _restore(self, backup: dict[str, Any]) -> dict[str, Any]:",
+   "    changed = self.pointer.read() != backup",
+   "    if changed:",
+   "        self.pointer.write(backup)",
+   "    current = self.pointer.read()",
+   "    if current != backup:",
+   "        raise QualityError(\"restore_failed\",",
+   "                           f\"포인터 복원 확인 실패 — 백업 파일로 손으로 되돌려야 함(세대 {backup.get('generation')})\")",
+   "    return {\"restored\": changed, \"generation\": current.get(\"generation\"), \"matches\": True,",
+   "            \"sha256\": self.pointer.sha256(), \"at\": self.clock().isoformat(timespec=\"seconds\")}",
+   "",
+   "def _done(self, state: dict[str, Any], vid: str, step: str, artifact: Path | None) -> bool:",
+   "    record = state[\"versions\"][vid][\"steps\"].get(step, {})",
+   "    return record.get(\"status\") == SUCCESS and (artifact is None or self.store.exists(artifact))"
+  ]
+ },
+ "apply": {
+  "path": "ragas/app/application/runner_service.py",
+  "ranges": [
+   [
+    361,
+    381
+   ]
+  ],
+  "header": "app/application/runner_service.py:361-381 (docstring · 일부 생략)",
+  "lines": [
+   "indexer_env: dict[str, str] = {}",
+   "retriever_env = {\"DATA_ROOT\": str(self.paths.data_root), \"AUDIT_LOG_PATH\": str(vdir / \"logs\" / \"audit.jsonl\")}",
+   "retriever_args: list[str] = []",
+   "copy_info: dict[str, Any] = {}",
+   "if target.kind == \"config\":",
+   "    original_path = self.paths.indexer_dir / target.path",
+   "    original = self.store.read_json(original_path)",
+   "    changed = set_json_path(original, target.key, value)",
+   "    differences = leaf_differences(original, changed)",
+   "    if len(differences) > 1:",
+   "        raise StepError(\"E-CFG\", f\"설정 복사본이 원본과 {len(differences)}곳 다름: {differences}\")",
+   "    copy_path = vdir / Path(target.path).name",
+   "    self.store.write_json(copy_path, changed)",
+   "    indexer_env[INDEXER_CONFIG_ENV[copy_path.name]] = str(copy_path.resolve())",
+   "    copy_info = {\"original\": str(original_path), \"copy\": str(copy_path), \"differences\": differences,",
+   "                 \"copy_sha256\": hashlib.sha256(self.store.read_text(copy_path).encode(\"utf-8\")).hexdigest()}",
+   "elif target.kind == \"env\":",
+   "    (indexer_env if target.tool == \"indexer\" else retriever_env)[target.key] = str(value)",
+   "elif target.kind == \"arg\":",
+   "    retriever_args += [target.key, str(value)]",
+   "top_k = int(value) if target.key == \"--top-k\" else 5"
+  ]
+ },
+ "subprocess": {
+  "path": "ragas/app/infrastructure/processes.py",
+  "ranges": [
+   [
+    19,
+    20
+   ],
+   [
+    28,
+    44
+   ]
+  ],
+  "header": "app/infrastructure/processes.py:19-20, 28-44 (docstring · 일부 생략)",
+  "lines": [
+   "def _run(python: Path, cwd: Path, args: list[str], env: dict[str, str], log_dir: Path, name: str,",
+   "         timeout: float | None) -> subprocess.CompletedProcess[str]:",
+   "    # …(생략)",
+   "    merged = {**os.environ, **env, \"PYTHONIOENCODING\": \"utf-8\", \"PYTHONUTF8\": \"1\"}",
+   "    log_dir.mkdir(parents=True, exist_ok=True)",
+   "    try:",
+   "        completed = subprocess.run([str(python), *args], cwd=str(cwd), env=merged, stdin=subprocess.DEVNULL,",
+   "                                   capture_output=True, text=True, encoding=\"utf-8\", errors=\"replace\", timeout=timeout)",
+   "    except subprocess.TimeoutExpired as error:",
+   "        raise StepError(\"E-TIME\", f\"{name} 시간 상한 {timeout}초를 넘김\") from error",
+   "    except KeyboardInterrupt:",
+   "        raise",
+   "    (log_dir / f\"{name}.stdout.log\").write_text(completed.stdout or \"\", encoding=\"utf-8\")",
+   "    (log_dir / f\"{name}.stderr.log\").write_text(completed.stderr or \"\", encoding=\"utf-8\")",
+   "    if completed.returncode == INTERRUPTED:",
+   "        raise StepError(\"E-INT\", f\"{name}이 중단됨(종료 코드 130)\", 130)",
+   "    if completed.returncode != 0:",
+   "        tail = (completed.stderr or completed.stdout or \"\").strip().splitlines()[-3:]",
+   "        raise StepError(\"E-EXIT\", f\"{name} 종료 코드 {completed.returncode}: {' / '.join(tail)}\")",
+   "    return completed"
+  ]
+ },
+ "score_hits": {
+  "path": "retriever/vector-retriever/evaluate_retriever.py",
+  "ranges": [
+   [
+    82,
+    104
+   ]
+  ],
+  "header": "retriever/vector-retriever/evaluate_retriever.py:82-104 (docstring · 일부 생략)",
+  "lines": [
+   "def score_hits(question: dict[str, Any], hits: list[tuple[str, str, str | None]], k: int = 5) -> dict[str, Any]:",
+   "    units = question.get(\"relevance\") or []",
+   "    if not question[\"answerable\"]:",
+   "        return {name: None for name in METRIC_NAMES}",
+   "    matrix = [[_supports(source, text, unit, card_id) for unit in units] for source, text, card_id in hits[:k]]",
+   "    ranks = [rank for rank, row in enumerate(matrix, 1) if any(row)]",
+   "    covered = [any(row[col] for row in matrix) for col in range(len(units))]",
+   "    return {",
+   "        \"hit\": int(bool(ranks)),",
+   "        \"recall\": sum(covered) / len(units),",
+   "        \"mrr\": 1 / ranks[0] if ranks else 0.0,",
+   "        \"precision\": len(ranks) / k,",
+   "        \"ndcg\": round(_ndcg(ranks, len(units), k), 4),",
+   "    }"
+  ]
+ },
+ "split_rows": {
+  "path": "ragas/app/domain/scoring.py",
+  "ranges": [
+   [
+    13,
+    19
+   ],
+   [
+    36,
+    58
+   ]
+  ],
+  "header": "app/domain/scoring.py:13-19, 36-58 (docstring · 일부 생략)",
+  "lines": [
+   "METRIC_FIELDS: dict[str, tuple[str, ...]] = {",
+   "    \"context_precision\": (\"user_input\", \"reference\", \"retrieved_contexts\"),",
+   "    \"context_recall\": (\"user_input\", \"retrieved_contexts\", \"reference\"),",
+   "    \"faithfulness\": (\"user_input\", \"response\", \"retrieved_contexts\"),",
+   "    \"answer_relevancy\": (\"user_input\", \"response\"),",
+   "}",
+   "METRICS = tuple(METRIC_FIELDS)",
+   "# …(생략)",
+   "def split_rows(rows: Iterable[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:",
+   "    eligible: list[dict[str, Any]] = []",
+   "    excluded: list[dict[str, str]] = []",
+   "    for row in rows:",
+   "        if not row.get(\"answerable\"):",
+   "            reason = \"no_answer_question\"",
+   "        elif row.get(\"status\") not in ANSWERED_STATUSES:",
+   "            reason = \"status_not_answered\"",
+   "        elif not row.get(\"evidence\"):",
+   "            reason = \"empty_evidence\"",
+   "        elif not row.get(\"answer\"):",
+   "            reason = \"empty_response\"",
+   "        else:",
+   "            eligible.append(row)",
+   "            continue",
+   "        excluded.append({\"id\": row[\"id\"], \"reason\": reason})",
+   "    return eligible, excluded"
+  ]
+ },
+ "score_rows": {
+  "path": "ragas/app/application/ragas_service.py",
+  "ranges": [
+   [
+    27,
+    28
+   ],
+   [
+    36,
+    52
+   ]
+  ],
+  "header": "app/application/ragas_service.py:27-28, 36-52 (docstring · 일부 생략)",
+  "lines": [
+   "    async def score_rows(self, log: dict[str, Any], *, provider: str, repeat: int,",
+   "                         metrics: tuple[str, ...] = METRICS) -> dict[str, Any]:",
+   "# …(생략)",
+   "",
+   "        judge = self.judge_factory(provider)",
+   "        eligible, excluded = split_rows(log[\"rows\"])",
+   "        semaphore = asyncio.Semaphore(self.concurrency)",
+   "        failed: list[dict[str, Any]] = []",
+   "        results: dict[tuple[str, str, int], tuple[float, str | None]] = {}",
+   "",
+   "        async def one(row: dict[str, Any], metric: str, index: int) -> None:",
+   "            ragas_row = to_ragas_row(row)",
+   "            fields = {name: ragas_row[name] for name in METRIC_FIELDS[metric]}",
+   "            async with semaphore:",
+   "                try:",
+   "                    results[(row[\"id\"], metric, index)] = await judge.score(metric, fields)",
+   "                except Exception as error:  # 칸 하나의 실패로 전체 채점을 멈추지 않음(긴 근거의 개체 추출 미완료 등)",
+   "                    failed.append({\"id\": row[\"id\"], \"metric\": metric, \"repeat_index\": index,",
+   "                                   \"error\": f\"{type(error).__name__}: {str(error)[:300]}\"})"
+  ]
+ },
+ "judge": {
+  "path": "ragas/app/infrastructure/ragas_judge.py",
+  "ranges": [
+   [
+    52,
+    52
+   ],
+   [
+    63,
+    80
+   ]
+  ],
+  "header": "app/infrastructure/ragas_judge.py:52-52, 63-80 (docstring · 일부 생략)",
+  "lines": [
+   "def build_llm(provider: str, *, settings: Any) -> tuple[Callable[[], Any], str]:",
+   "    # …(생략)",
+   "    if provider == \"local\":",
+   "        def make() -> Any:",
+   "            from openai import AsyncOpenAI",
+   "",
+   "            client = AsyncOpenAI(base_url=settings.ollama_base_url, api_key=\"ollama\")  # Ollama는 키를 검사하지 않음",
+   "            return llm_factory(settings.local_model, client=client, temperature=0, reasoning_effort=\"none\",",
+   "                               max_tokens=settings.ragas_max_tokens)",
+   "        return make, settings.local_model",
+   "    if provider == \"groq\":",
+   "        if not settings.groq_api_key:",
+   "            raise ValueError(\"GROQ_API_KEY가 없음\")",
+   "",
+   "        def make() -> Any:",
+   "            from openai import AsyncOpenAI",
+   "",
+   "            client = AsyncOpenAI(base_url=settings.groq_base_url, api_key=settings.groq_api_key)",
+   "            return llm_factory(settings.groq_model, client=client, temperature=0, max_tokens=settings.ragas_max_tokens)",
+   "        return make, settings.groq_model"
+  ]
+ },
+ "anthropic": {
+  "path": "ragas/app/infrastructure/anthropic_llm.py",
+  "ranges": [
+   [
+    30,
+    52
+   ]
+  ],
+  "header": "app/infrastructure/anthropic_llm.py:30-52 (docstring · 일부 생략)",
+  "lines": [
+   "async def agenerate(self, prompt: str, response_model: type[ModelT]) -> ModelT:",
+   "    response = await self.client.beta.messages.parse(",
+   "        model=self.model,",
+   "        max_tokens=self.max_tokens,",
+   "        messages=[{\"role\": \"user\", \"content\": prompt}],",
+   "        output_format=response_model,",
+   "        output_config={\"effort\": self.effort},",
+   "        betas=[FALLBACK_BETA],",
+   "        fallbacks=\"default\",",
+   "    )",
+   "    if response.stop_reason == \"refusal\":",
+   "        category = getattr(response.stop_details, \"category\", None) if response.stop_details else None",
+   "        raise ClaudeRefusalError(f\"평가자가 거절함(분류: {category})\")",
+   "    if response.stop_reason == \"max_tokens\" or response.parsed_output is None:",
+   "        raise ValueError(f\"구조화 출력이 완성되지 않음(stop_reason={response.stop_reason})\")",
+   "    return response.parsed_output"
+  ]
+ },
+ "kappa": {
+  "path": "ragas/app/domain/scoring.py",
+  "ranges": [
+   [
+    104,
+    132
+   ]
+  ],
+  "header": "app/domain/scoring.py:104-132 (docstring · 일부 생략)",
+  "lines": [
+   "    @property",
+   "    def kappa(self) -> float | None:",
+   "        if not self.n:",
+   "            return None",
+   "        llm_pass = (self.tp + self.fp) / self.n",
+   "        human_pass = (self.tp + self.fn) / self.n",
+   "        chance = llm_pass * human_pass + (1 - llm_pass) * (1 - human_pass)",
+   "        if chance >= 1:",
+   "            return None",
+   "        return round(((self.tp + self.tn) / self.n - chance) / (1 - chance), 4)",
+   "",
+   "",
+   "def agreement(metric: str, pairs: Iterable[tuple[float, bool]], threshold: float) -> Agreement:",
+   "    tp = fp = fn = tn = 0",
+   "    for score, human_pass in pairs:",
+   "        llm_pass = score >= threshold",
+   "        if llm_pass and human_pass:",
+   "            tp += 1",
+   "        elif llm_pass:",
+   "            fp += 1",
+   "        elif human_pass:",
+   "            fn += 1",
+   "        else:",
+   "            tn += 1",
+   "    return Agreement(metric, tp, fp, fn, tn)"
+  ]
+ },
+ "compare": {
+  "path": "ragas/app/application/compare_service.py",
+  "ranges": [
+   [
+    124,
+    130
+   ],
+   [
+    137,
+    148
+   ]
+  ],
+  "header": "app/application/compare_service.py:124-130, 137-148 (docstring · 일부 생략)",
+  "lines": [
+   "for metric in CODE_METRICS:",
+   "    value = row[\"search_fixed\"].get(metric)",
+   "    diff = delta(value, base[\"search_fixed\"].get(metric)) if ok else None",
+   "    record[f\"search_{metric}@5\"] = value",
+   "    record[f\"d_search_{metric}@5\"] = diff",
+   "    if ok and metric in {\"recall\", \"ndcg\"}:",
+   "        verdicts.setdefault(judge_code(diff), []).append(f\"{row['version']} search_{metric}@5\")",
+   "# …(생략)",
+   "for metric in METRICS:",
+   "    item = (row[\"ragas\"] or {}).get(metric) or {}",
+   "    value = item.get(\"mean\")",
+   "    diff = delta(value, ((base or {}).get(\"ragas\") or {}).get(metric, {}).get(\"mean\")) \\",
+   "        if ok and same_judge[row[\"version\"]] and base and base[\"ragas\"] else None",
+   "    record[metric] = value",
+   "    record[f\"d_{metric}\"] = diff",
+   "    record[f\"sd_repeat_{metric}\"] = item.get(\"std\")",
+   "    if diff is not None:",
+   "        gap = _scored_gap(row, base)",
+   "        mark = \" ⚠\" if gap is not None and gap >= SCORED_GAP_WARN else \"\"",
+   "        verdicts.setdefault(judge_ragas(diff, bands.get(metric)), []).append(f\"{row['version']} {metric}{mark}\")"
+  ]
+ },
+ "plan_yaml": {
+  "path": "ragas/plans/top_k.yaml",
+  "ranges": [
+   [
+    1,
+    24
+   ]
+  ],
+  "header": "plans/top_k.yaml:1-24",
+  "lines": [
+   "# Top-k 3 · 5 · 10(기준 5, 재색인 아님). 코드에 박혀 있던 top_k=5를 evaluate_retriever.py --top-k 인자로 꺼내 씀",
+   "# 코드 지표는 @k(참고)와 @5(비교용)를 함께 남기고, 기준 대비 차이는 @5로만 계산함",
+   "schema_version: 1",
+   "hyperparameter: top_k",
+   "apply: code_arg",
+   "target: retriever:arg:--top-k",
+   "reindex: false",
+   "baseline: 5",
+   "versions:",
+   "  - id: \"3\"",
+   "    value: 3",
+   "  - id: \"5\"",
+   "    value: 5",
+   "    note: 기준 버전",
+   "  - id: \"10\"",
+   "    value: 10",
+   "    note: 허용 상한",
+   "eval_set:",
+   "  path: eval-set.json",
+   "  sha256: 253f89d84905",
+   "scoring:",
+   "  ragas_provider: local",
+   "  ragas_repeat: 3",
+   "  human_pass_threshold: 0.5"
+  ]
+ }
+}

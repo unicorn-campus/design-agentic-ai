@@ -16,7 +16,7 @@ const C = {
   titleLine: "E2E8F0", footLine: "E9ECF3", pageNum: "6B6B7B", white: "FFFFFF",
 };
 
-const MIN_FONT = 14;
+const MIN_FONT = Number(process.env.MIN_FONT || 14);  // 덱마다 하한을 바꿀 수 있음(소스설명서는 사용자 허용 13pt)
 const fs = (size) => {
   if (size < MIN_FONT) throw new Error(`fontSize ${size} < ${MIN_FONT}pt 금지 — 슬라이드를 나눌 것`);
   return size;
@@ -50,6 +50,26 @@ function newSlide({ title, lead, notes }) {
     s.addText(lead, { x: X0, y: 1.259, w: CW, h: 0.42, margin: 0, isTextBox: true,
       fontFace: FONT_SB, fontSize: fs(18), color: C.lead, valign: "middle" });
   }
+  if (notes) s.addNotes(notes);
+  return s;
+}
+
+// 제목 장표 — 본 덱에 붙여 넣어도 레이아웃이 따로 들어가지 않게 같은 `내용_단쪽` 위에 네이비 배경을 덮음.
+// 제목은 제목 개체 틀에 넣고 위치 · 색만 바꿈(붙여넣기 점검의 '제목 개체 틀 비었음'을 피함)
+function coverSlide({ label, title, subtitle, mark, meta, notes }) {
+  const s = pptx.addSlide({ masterName: LAYOUT });
+  s.addShape(pptx.shapes.RECTANGLE, { x: 0, y: 0, w: 16, h: 9, fill: { color: C.navy }, line: { type: "none" } });
+  s.addShape(pptx.shapes.RECTANGLE, { x: 0, y: 7.75, w: 16, h: 1.25, fill: { color: "16204A" }, line: { type: "none" } });
+  s.addText(mark, { x: 8.6, y: 0.9, w: 7.0, h: 4.6, fontFace: FONT, fontSize: fs(220), bold: true, color: "2A3870",
+    align: "right", valign: "middle", margin: 0, isTextBox: true });
+  s.addText(label, { x: 1.0, y: 2.55, w: 11, h: 0.45, fontFace: FONT, fontSize: fs(18), color: "BFD3F2", margin: 0,
+    isTextBox: true });
+  s.addShape(pptx.shapes.RECTANGLE, { x: 1.0, y: 3.15, w: 1.3, h: 0.07, fill: { color: C.blue }, line: { type: "none" } });
+  s.addText(title, { placeholder: "title", x: 1.0, y: 3.45, w: 13.5, h: 1.2, fontSize: 44, color: C.white, bold: true });
+  s.addText(subtitle, { x: 1.0, y: 4.85, w: 13.5, h: 0.6, fontFace: FONT, fontSize: fs(20), color: "D9E3F5", margin: 0,
+    isTextBox: true });
+  s.addText(meta, { x: 1.0, y: 8.1, w: 13.5, h: 0.5, fontFace: FONT, fontSize: fs(15), color: "BFD3F2", margin: 0,
+    isTextBox: true, valign: "middle" });
   if (notes) s.addNotes(notes);
   return s;
 }
@@ -145,5 +165,5 @@ function codeBox(s, lines, { x, y, w, h, size = 14, title }) {
     lineSpacingMultiple: 1.05 });
 }
 
-module.exports = { pptxgen, createDeck, newSlide, rr, box, text, card, headerBar, darkBadge, numBadge, pill, arrow,
+module.exports = { pptxgen, createDeck, newSlide, coverSlide, rr, box, text, card, headerBar, darkBadge, numBadge, pill, arrow,
   hline, table, callout, codeBox, C, FONT, FONT_SB, X0, CW, XR, BODY_TOP, BODY_BOTTOM, fs, getPptx: () => pptx };

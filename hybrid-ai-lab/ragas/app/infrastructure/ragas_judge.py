@@ -8,7 +8,7 @@ from app.application.ports import JudgePort
 
 
 class RagasJudge(JudgePort):
-    """ragas.metrics.collections 지표 6개를 들고 지표 이름으로 골라 채점함.
+    """ragas.metrics.collections 핵심 지표 4개를 들고 지표 이름으로 골라 채점함.
 
     평가자 LLM은 ragas llm_factory로 만듦 — 0.4의 지표 묶음은 Instructor 형식 LLM만 받고 LangChain 래퍼는 거부함
     (설치 소스 metrics/collections/base.py에서 확인). 지표 객체는 처음 쓸 때 한 번만 만듦.
@@ -26,20 +26,18 @@ class RagasJudge(JudgePort):
         return {"provider": self.provider, "model": self.model, "embedding_model": self.embedding_model}
 
     def _build(self) -> dict[str, Any]:
-        """지표 객체 6개를 만듦. ContextPrecision은 정답이 있는 평가셋이라 WithReference를 씀."""
+        """핵심 지표 객체 4개를 만듦. ContextPrecision은 정답이 있는 평가셋이라 WithReference를 씀."""
 
-        from ragas.metrics.collections import (AnswerRelevancy, ContextEntityRecall, ContextPrecisionWithReference,
-                                               ContextRecall, FactualCorrectness, Faithfulness)
+        from ragas.metrics.collections import (AnswerRelevancy, ContextPrecisionWithReference, ContextRecall,
+                                               Faithfulness)
 
         llm = self._llm_builder()
         return {
             "context_precision": ContextPrecisionWithReference(llm=llm),
             "context_recall": ContextRecall(llm=llm),
-            "entity_recall": ContextEntityRecall(llm=llm),
             "faithfulness": Faithfulness(llm=llm),
             # AnswerRelevancy만 임베딩을 씀(역질문과 원래 질문의 코사인 유사도) — 첫 사용 때 KURE-v2를 올림
             "answer_relevancy": AnswerRelevancy(llm=llm, embeddings=self._embeddings_builder()),
-            "factual_correctness": FactualCorrectness(llm=llm),
         }
 
     async def score(self, metric: str, fields: dict[str, Any]) -> tuple[float, str | None]:

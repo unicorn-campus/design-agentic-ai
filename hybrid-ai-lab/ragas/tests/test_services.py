@@ -46,17 +46,18 @@ def test_build_writes_json_only_when_verification_passes(tmp_path: Path):
 
 
 def test_ragas_scores_only_eligible_rows_and_records_failed_metric(tmp_path: Path):
-    judge = FakeJudge({"faithfulness": 0.5}, fail_metric="entity_recall")
+    judge = FakeJudge({"faithfulness": 0.5}, fail_metric="context_recall")
     log = tmp_path / "retriever.json"
     STORE.write_json(log, retriever_log("5", 0.8))
     report = RagasService(STORE, lambda provider: judge).score_file(log, tmp_path / "ragas.json", provider="local",
                                                                     repeat=3)
     assert report["scored"] == 1 and report["excluded"] == [{"id": "Q02", "reason": "no_answer_question"}]
-    assert len(judge.calls) == 6 * 3  # 채점 행 1 × 지표 6 × 반복 3
+    assert len(judge.calls) == 4 * 3  # 채점 행 1 × 지표 4 × 반복 3
     assert ("answer_relevancy", ("response", "user_input")) in judge.calls  # 지표가 읽는 칸만 넘김
     assert report["summary"]["faithfulness"]["mean"] == 0.5
     assert report["summary"]["faithfulness"]["repeat_means"] == [0.5, 0.5, 0.5]
-    assert report["summary"]["entity_recall"]["n"] == 0 and len(report["failed_scores"]) == 3
+    assert set(report["summary"]) == {"context_precision", "context_recall", "faithfulness", "answer_relevancy"}
+    assert report["summary"]["context_recall"]["n"] == 0 and len(report["failed_scores"]) == 3
 
 
 def test_review_export_one_row_per_question_and_protects_human_judgements(tmp_path: Path):
@@ -94,8 +95,7 @@ def _version(dir_: Path, version: str, recall: float, faith_means: list[float], 
                                                        "eval_set_hash": eval_hash})
     STORE.write_json(dir_ / version / "retriever.json", retriever_log(version, recall))
     summary = {m: {"mean": 0.7, "std": 0.0, "min": 0.7, "max": 0.7, "n": 1, "repeat_means": [0.7]}
-               for m in ("context_precision", "context_recall", "entity_recall", "answer_relevancy",
-                         "factual_correctness")}
+               for m in ("context_precision", "context_recall", "answer_relevancy")}
     summary["faithfulness"] = {"mean": sum(faith_means) / len(faith_means), "std": None, "min": min(faith_means),
                                "max": max(faith_means), "n": 1, "repeat_means": faith_means}
     STORE.write_json(dir_ / version / "ragas.json", {"provider": "local", "repeat": 3, "summary": summary,

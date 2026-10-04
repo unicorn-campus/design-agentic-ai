@@ -13,7 +13,7 @@
 |---|---|---|
 | 평가셋 준비 | `build_eval_set.py` | `eval-set.md`(사람용) → `eval-set.json`(기계용). 검증 5검사를 통과할 때만 저장 |
 | 평가셋 검증 | `verify_eval_set.py` | 사용 중 색인 세대로 ① 글자 대조 ② 카드 블록 ③ 숫자 대조 ④ 답 없음 ⑤ 구조를 다시 검사 |
-| RAGAS 채점 | `evaluate_ragas.py` | 리트리버 결과 로그를 6지표 × 반복 수로 채점 → 평균 · 반복 간 표준편차 · 최소 · 최대 |
+| RAGAS 채점 | `evaluate_ragas.py` | 리트리버 결과 로그를 RAGAS 핵심 4지표(ContextPrecision · ContextRecall · Faithfulness · AnswerRelevancy) × 반복 수로 채점 → 평균 · 반복 간 표준편차 · 최소 · 최대 |
 | 사람 검토표 | `human_review.py` | `export` 문항당 1행 CSV / `agree` 사람 판정 vs 지표별 LLM 판정의 일치율 · F1 · kappa |
 | 버전 실험 | `run_experiments.py` | 계획 파일로 F0 ~ F7을 돌리고 `experiments/{하이퍼 파라미터}/compare.md`를 만듦 |
 
@@ -53,7 +53,7 @@ flowchart TD
 | F2 | 재색인 계획만 — `run_indexer.py --full-reindex --thread-id exp-…` | 새 세대 `gen-exp-…` | 버전 실패 → F4 |
 | F3 | `evaluate_retriever.py --generate-answer` (+ `--top-k` 등) | `retriever.json` | 버전 실패 → F4 |
 | F4 | 포인터를 백업 값으로 되돌리고 내용으로 확인 | `config.json`의 `pointer_restored` | 건너뛰지 않음 |
-| F5 | 답 있는 행만 6지표 × 반복 수 채점 | `ragas.json` | 버전 실패(F3 결과는 남음) |
+| F5 | 답 있는 행만 4지표 × 반복 수 채점 | `ragas.json` | 버전 실패(F3 결과는 남음) |
 | F6 | 문항당 1행 검토표 내보내기(판정은 기다리지 않음) | `review.csv` | 버전 실패 |
 | F7 | 버전 폴더를 모아 기준 대비 차이 · 판정 | `compare.md` · `compare.csv` | 로그는 남음 |
 
@@ -249,7 +249,7 @@ RAGAS 결과나 사람 판정(`review-agree.json`)을 더한 뒤 비교표만 �
 
 단계별 소요 시간 — RAGAS 채점이 대부분을 차지함.
 
-| 버전 | F2 색인 | F3 검색 · 코드 채점 | F5 RAGAS(6지표 × 3회) |
+| 버전 | F2 색인 | F3 검색 · 코드 채점 | F5 RAGAS(당시 6지표 × 3회) |
 |---|---|---|---|
 | chunk 800 | 38초 | 110초 | 21분 30초(채점 행 11) |
 | chunk 600 | 42초 | 107초 | 14분 12초(채점 행 8) |
@@ -267,13 +267,17 @@ RAGAS 결과나 사람 판정(`review-agree.json`)을 더한 뒤 비교표만 �
 | 계획 | 코드 지표(@5) | 최종 응답 | RAGAS |
 |---|---|---|---|
 | chunk 600 vs 800 | Recall · nDCG · Hit 같음(0.912 · 0.898 · 0.941) | 근거를 들고 끝난 문항 11 → 8 | 채점 행이 11 → 8로 달라 Δ에 ⚠(참고만) |
-| top_k 3 vs 5 | Recall@5 −0.030 · Hit@5 −0.059(조각이 3개뿐) | 10 → 10 | FactualCorrectness −0.043, ContextPrecision +0.011 |
+| top_k 3 vs 5 | Recall@5 −0.030 · Hit@5 −0.059(조각이 3개뿐) | 10 → 10 | ContextPrecision +0.011 · AnswerRelevancy +0.021 · Faithfulness 0 |
+
+RAGAS 지표 변경(2026-10-04, 사용자 결정): 6지표 → 핵심 4지표. 위 실험은 6지표로 채점했으며, `ragas.json`에는 6지표 값이
+남아 있음. 비교표 · 검토표는 4지표로 다시 만들었음(로컬 평가자는 같은 입력에 같은 값이라 4지표 값은 그대로임).
+다음 실행부터는 4지표만 채점해 RAGAS 시간이 약 2/3로 줄 것으로 봄(실측 전).
 
 ### 7-3. 평가자 연결 확인(지표 1 ~ 2개씩 실제 호출)
 
 | 평가자 | 결과 |
 |---|---|
-| local(Qwen3.5-9B) | 6지표 채점됨, 3회 반복이 모두 같은 값(흔들림 0) |
+| local(Qwen3.5-9B) | 지표 채점됨, 3회 반복이 모두 같은 값(흔들림 0) |
 | anthropic(Claude Opus 5.5) | ContextRecall · Faithfulness 채점됨 — ragas 기본 경로는 400이라 전용 어댑터를 씀(8장 ⑦) |
 | groq(gpt-oss-120b) | ContextRecall 채점됨 |
 
@@ -297,6 +301,7 @@ RAGAS 결과나 사람 판정(`review-agree.json`)을 더한 뒤 비교표만 �
 | ⑤ | 프롬프트 제약 「LangChain 사용」 | 평가자는 ragas `llm_factory` | 사용자 결정. ragas 0.4.3의 지표 묶음은 LangChain 래퍼를 거부함(Instructor 형식만 받음) |
 | ⑥ | `retriever.json` 머리에 세대 이름 | `config.json`에 세대 이름 · 기준 세대 · 복원 확인을 남기고, `retriever.json`은 `--config-snapshot`으로 그 내용을 품음 | 세대는 실행기가 알고 있어 평가 스크립트를 더 고치지 않음 |
 | ⑦ | 평가자 3종 모두 `llm_factory` | Claude만 `AnthropicParseLLM`(SDK `messages.parse` 구조화 출력) | Claude Opus 5.5가 `temperature` · 강제 도구 호출을 400으로 거부 — ragas의 Anthropic 경로가 둘 다 보냄(실측). 거절 대비 `fallbacks="default"`를 켬 |
+| ⑧ | RAGAS 6지표(검색 3 · 생성 3) | 핵심 4지표(ContextPrecision · ContextRecall · Faithfulness · AnswerRelevancy) | 사용자 결정 — 보조 지표 ContextEntityRecall · FactualCorrectness는 재지 않음. 코드 채점 5지표는 그대로 |
 
 ## 9. 남은 과제 · 알려진 한계
 
@@ -314,9 +319,8 @@ RAGAS 결과나 사람 판정(`review-agree.json`)을 더한 뒤 비교표만 �
    `human_review.py agree … --out {버전}/review-agree.json` → `compare` 하위 명령으로 다시 만들면 들어감
 5. **RAGAS 시간** — 버전당 14 ~ 22분. 로컬 평가자는 3회가 모두 같은 값이라 2회분이 같은 계산을 되풀이함.
    로컬 평가자일 때 반복 수를 1로 줄일지는 결정 필요(교재 · 설계서는 3회)
-6. **EntityRecall이 낮음(0.28 ~ 0.33)** — 개체를 글자 그대로 비교해 '300만 원'과 '3,000,000원'을 다른 개체로 셈(지표 특성)
-7. **시간 상한 · API 재시도 없음** — `PROCESS_TIMEOUT_SECONDS` 기본값 없음, 외부 API 재시도 0회(근거가 없어 결정 필요)
-8. **실험 세대 정리는 수동** — `data/generations/`에 실험 세대 2개(약 15MB)가 남아 있음. 비교표를 확정한 뒤 지움
+6. **시간 상한 · API 재시도 없음** — `PROCESS_TIMEOUT_SECONDS` 기본값 없음, 외부 API 재시도 0회(근거가 없어 결정 필요)
+7. **실험 세대 정리는 수동** — `data/generations/`에 실험 세대 2개(약 15MB)가 남아 있음. 비교표를 확정한 뒤 지움
    (사용 중 세대 · 다른 세대의 `base_generation`은 지우지 않음)
-9. **Top-k 10 버전은 이번에 돌리지 않음** — 완료 확인은 기준 + 1버전으로 함(사용자 결정). `--versions 10 --resume`으로 이어 돌릴 수 있음
-10. **RAGAS 판정 이유(reason)가 비어 있음** — ragas 0.4.3의 지표 6개가 MetricResult.reason을 채우지 않아 검토표 이유 칸이 빈칸임
+8. **Top-k 10 버전은 이번에 돌리지 않음** — 완료 확인은 기준 + 1버전으로 함(사용자 결정). `--versions 10 --resume`으로 이어 돌릴 수 있음
+9. **RAGAS 판정 이유(reason)가 비어 있음** — ragas 0.4.3의 지표들이 MetricResult.reason을 채우지 않아 검토표 이유 칸이 빈칸임

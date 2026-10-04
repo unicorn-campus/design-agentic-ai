@@ -36,7 +36,7 @@ def _parser() -> argparse.ArgumentParser:
     verify.add_argument("--no-index", action="store_true")
     verify.add_argument("--out", type=Path, default=None, help="검증 보고서 JSON 저장 경로")
 
-    ragas = sub.add_parser("ragas", help="리트리버 결과 로그를 RAGAS 6지표로 채점")
+    ragas = sub.add_parser("ragas", help="리트리버 결과 로그를 RAGAS 핵심 4지표(Precision · Recall · Faithfulness · Relevancy)로 채점")
     ragas.add_argument("--log", type=Path, required=True, help="evaluate_retriever.py --generate-answer 결과 JSON")
     ragas.add_argument("--provider", choices=("local", "anthropic", "groq"), default="local")
     ragas.add_argument("--repeat", type=int, default=3)

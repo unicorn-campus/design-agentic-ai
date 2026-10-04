@@ -18,7 +18,7 @@ function s21() {
     ["question · ground_truth", "질문 · 정답", "기계"],
     ["answer · evidence", "답변 · 근거 본문(길면 자름)", "기계"],
     ["status · code_hit", "응답 상태 · 최종 Hit", "기계"],
-    ["ragas_* (6지표)", "지표 평균 점수(+ 판정 이유)", "기계"],
+    ["ragas_* (4지표)", "지표 평균 점수(+ 판정 이유)", "기계"],
     [{ text: "human_pass", options: { color: C.blue, bold: true } }, "pass / fail — 이 답변을 그대로 고객에게 줘도 되나?", "사람"],
     [{ text: "human_reason", options: { color: C.blue, bold: true } }, "이유 한 줄(fail이면 필수, 설계 가정)", "사람"],
   ], { x: X0, y: 2.5, w: 7.0, colW: [2.4, 3.6, 1.0], rowH: 0.55, size: 14 });
@@ -97,7 +97,7 @@ function s23() {
       "평가셋 해시가 버전끼리 다르면 Δ를 계산하지 않고 경고만 적음. n 차이가 3 이상이면 Δ 옆에 경고 표시(설계 가정).",
   });
   const flow = [["① 검색이 근거를 찾았나", "search@5 Recall · nDCG · Hit · MRR · Precision"],
-    ["② 어디서 막혔나", "최종 응답 상태 · final 지표 · RAGAS 6지표"], ["③ 채점끼리 맞나", "코드 · RAGAS 방향 · kappa(참고값)"],
+    ["② 어디서 막혔나", "최종 응답 상태 · final 지표 · RAGAS 4지표"], ["③ 채점끼리 맞나", "코드 · RAGAS 방향 · kappa(참고값)"],
     ["④ 다음 하이퍼 파라미터", "가장 큰 병목 하나만"]];
   const fw = 3.55, gap = 0.233;
   flow.forEach(([t, d], i) => {
@@ -133,7 +133,7 @@ function s24() {
     lead: "분석 순서대로 표 3개 + 판정 — 값은 실행해야 채워짐(아래 …는 빈칸)",
     notes: "compare.csv도 같은 열을 가짐: 식별(version · param · param_value · reindex · generation · eval_set_hash · n) →\n" +
       "검색 @5 5지표 → 최종 응답(answerable_returned · with_relevant · no_answer_refused · final_recall · final_ndcg) →\n" +
-      "RAGAS 6지표 → 채점끼리(방향 일치 · kappa) → 참고(search@k · seconds_median · llm_calls_mean).",
+      "RAGAS 4지표 → 채점끼리(방향 일치 · kappa) → 참고(search@k · seconds_median · llm_calls_mean).",
   });
   codeBox(s, [
     "# 비교표 — top_k (기준 5 · 평가셋 해시 … · 평가자 local · repeat 3)",

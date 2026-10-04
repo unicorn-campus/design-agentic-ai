@@ -16,12 +16,12 @@
 
 ## ② 어디서 막혔나 — 최종 응답 · RAGAS
 
-| 버전 | 근거 들고 끝남 | 그중 정답 근거 | 확인 필요 정답 | ContextRecall | Δ | ContextPrecision | Δ | EntityRecall | Δ | Faithfulness | Δ | AnswerRelevancy | Δ | FactualCorrectness | Δ | RAGAS 채점 행 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 800 | 11 | 11 | 3 | 1.000 | — | 0.973 | — | 0.317 | — | 0.803 | — | 0.805 | — | 0.573 | — | 11 |
-| 600 | 8 | 8 | 3 | 1.000 | +0.000 | 0.986 | +0.013 | 0.304 | -0.013 | 0.771 | -0.032 | 0.839 | +0.034 | 0.550 | -0.023 | 8 ⚠ |
+| 버전 | 근거 들고 끝남 | 그중 정답 근거 | 확인 필요 정답 | ContextRecall | Δ | ContextPrecision | Δ | Faithfulness | Δ | AnswerRelevancy | Δ | RAGAS 채점 행 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 800 | 11 | 11 | 3 | 1.000 | — | 0.973 | — | 0.803 | — | 0.805 | — | 11 |
+| 600 | 8 | 8 | 3 | 1.000 | +0.000 | 0.986 | +0.013 | 0.771 | -0.032 | 0.839 | +0.034 | 8 ⚠ |
 
-흔들림 폭(기준 버전 반복 평균의 최대 − 최소): context_precision 0.000 · context_recall 0.000 · entity_recall 0.000 · faithfulness 0.000 · answer_relevancy 0.000 · factual_correctness 0.000
+흔들림 폭(기준 버전 반복 평균의 최대 − 최소): context_precision 0.000 · context_recall 0.000 · faithfulness 0.000 · answer_relevancy 0.000
 
 ## ③ 채점끼리 맞나
 
@@ -33,7 +33,7 @@
 ## 판정
 
 - 개선: 600 context_precision ⚠, 600 answer_relevancy ⚠
-- 악화: 600 entity_recall ⚠, 600 faithfulness ⚠, 600 factual_correctness ⚠
+- 악화: 600 faithfulness ⚠
 - 차이 없음: 600 search_recall@5, 600 search_ndcg@5, 600 context_recall ⚠
 - 원인 확인: 없음
 - 다음 하이퍼 파라미터: 가장 큰 병목 하나만 골라 사람이 정함

@@ -8,14 +8,13 @@ from typing import Any, Iterable
 
 ANSWERED_STATUSES = frozenset({"answered", "retrieved"})  # 근거를 들고 끝난 응답 상태(리트리버 응답 상태 6종 중)
 
-# 지표 이름 → RAGAS ascore가 읽는 칸. 검색 지표 3 + 생성 지표 3
+# 지표 이름 → RAGAS ascore가 읽는 칸. 핵심 4지표(위 · 정 · 출 · 관) — 검색 지표 2 + 생성 지표 2
+# 보조 지표(ContextEntityRecall · FactualCorrectness)는 재지 않음(사용자 결정 2026-10-04)
 METRIC_FIELDS: dict[str, tuple[str, ...]] = {
     "context_precision": ("user_input", "reference", "retrieved_contexts"),
     "context_recall": ("user_input", "retrieved_contexts", "reference"),
-    "entity_recall": ("reference", "retrieved_contexts"),
     "faithfulness": ("user_input", "response", "retrieved_contexts"),
     "answer_relevancy": ("user_input", "response"),
-    "factual_correctness": ("response", "reference"),
 }
 METRICS = tuple(METRIC_FIELDS)
 
