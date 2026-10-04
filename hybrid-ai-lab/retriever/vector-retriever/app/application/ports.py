@@ -46,20 +46,24 @@ class SearchIndexPort(Protocol):
         """
 
     @abstractmethod
-    def vector_search(self, query: str, *, access_levels: Sequence[str], k: int) -> list[ScoredChunk]:
+    def vector_search(self, query: str, *, access_levels: Sequence[str], k: int,
+                      member_pseudo_id: str | None = None) -> list[ScoredChunk]:
         """질의를 임베딩해 코사인 점수가 높은 조각 k개를 찾음(뜻으로 찾기).
 
         인자: query는 접두어 없이 그대로 임베딩함(색인 계약 4). access_levels 밖의 조각은 순위 매기기 전에 거름.
+        member_pseudo_id가 있으면 회원 가명이 붙은 조각(상담 이력)은 그 회원 것만 순위 전에 남김.
         반환값: 점수(1 − 코사인 거리) 내림차순 목록. 후보가 k보다 적으면 있는 만큼만 돌려줌.
         예외: 임베딩·벡터 저장소 실패는 예외를 그대로 올림. 호출한 단계가 '한쪽 실패'로 처리함.
         부수효과: 없음(읽기 전용).
         """
 
     @abstractmethod
-    def keyword_search(self, query: str, *, access_levels: Sequence[str], k: int) -> list[ScoredChunk]:
+    def keyword_search(self, query: str, *, access_levels: Sequence[str], k: int,
+                       member_pseudo_id: str | None = None) -> list[ScoredChunk]:
         """색인과 같은 분석기로 질의를 낱말로 나눠 BM25 점수가 높은 조각 k개를 찾음(낱말로 찾기).
 
         인자: access_levels 밖의 조각은 점수 계산 뒤 순위를 매기기 전에 버림.
+        member_pseudo_id가 있으면 다른 회원의 상담 이력 조각도 같은 때에 버림.
         반환값: BM25 원점수 내림차순 목록. 점수가 0인 조각은 넣지 않음. 낱말이 하나도 없으면 빈 목록임.
         예외: BM25 색인 실패는 예외를 그대로 올림.
         부수효과: 없음(읽기 전용).
@@ -72,6 +76,17 @@ class SearchIndexPort(Protocol):
         반환값: 조각ID → Chunk. 없는 ID는 결과에서 빠짐. 본문은 BM25 색인이 아니라 말뭉치에서 읽음.
         예외: 없음.
         부수효과: 없음.
+        """
+
+    @abstractmethod
+    def consult_history(self, member_pseudo_id: str, *, access_levels: Sequence[str]) -> list[Chunk]:
+        """그 회원의 상담 이력 조각 전체를 상담 날짜 순으로 돌려줌(검색 없이 메타데이터로 고름).
+
+        목적: 상담 질문은 '첫 상담 · 가장 최근 상담'처럼 이력 전체를 봐야 답이 나와 답변 단계에 모두 넘김.
+        인자: member_pseudo_id는 회원 가명(member_pseudonym으로 계산한 값). access_levels 밖의 조각은 뺌.
+        반환값: 상담 날짜 → 상담ID → 조각ID 순 목록. 그 회원 상담이 없으면 빈 목록임.
+        예외: 없음.
+        부수효과: 없음(읽기 전용).
         """
 
     @abstractmethod

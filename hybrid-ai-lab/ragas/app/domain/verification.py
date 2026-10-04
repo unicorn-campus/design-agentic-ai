@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from hashlib import sha256
 import re
 from typing import Any, Iterable
 
@@ -91,7 +92,19 @@ def check_structure(questions: list[dict[str, Any]]) -> list[Issue]:
                 issues.append(Issue(qid, 5, "답 없음 문항인데 확인 낱말 묶음이 없음"))
         if not isinstance(question.get("filters", []), list):
             issues.append(Issue(qid, 5, "filters가 목록이 아님"))
+            continue
+        for item in question.get("filters") or []:
+            # 회원번호와 가명이 함께 있으면 짝이 맞아야 함 — 어긋나면 리트리버 회원 필터가 오류 없이 빈 결과를 냄
+            if isinstance(item, dict) and item.get("member_id") and item.get("member_pseudo_id"):
+                if member_pseudonym(str(item["member_id"])) != item["member_pseudo_id"]:
+                    issues.append(Issue(qid, 5, f"회원번호 {item['member_id']}의 가명이 member_pseudo_id와 다름"))
     return issues
+
+
+def member_pseudonym(member_id: str) -> str:
+    """인덱서 · 리트리버와 같은 회원 가명 계산('m_' + SHA-256 앞 16자리) — 평가셋 filters의 짝 검사용."""
+
+    return "m_" + sha256(member_id.strip().encode("utf-8")).hexdigest()[:16]
 
 
 def check_against_index(questions: list[dict[str, Any]], chunks: list[Chunk]) -> list[Issue]:

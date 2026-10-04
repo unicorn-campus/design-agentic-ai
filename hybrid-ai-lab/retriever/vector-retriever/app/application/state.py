@@ -47,6 +47,8 @@ class RetrieverState(TypedDict, total=False):
     query: Any  # 원 질문. 검사 전이라 문자열이 아닐 수 있음
     role: str | None
     access_levels: list[str]
+    member_id: Any  # 요청의 회원번호. 검사 전이라 None · 문자열이 아닐 수 있음
+    member_pseudo_id: str | None  # S-R1이 계산한 회원 가명 — 검색 조건에만 쓰고 원래 번호는 넘기지 않음
     generate_answer: Any
     top_k: Any
     today: str

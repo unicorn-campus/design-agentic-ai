@@ -17,7 +17,7 @@ versions:
     note: 허용 상한
 eval_set:
   path: eval-set.json
-  sha256: 253f89d84905
+  sha256: 0fdb90cdd27c
 scoring:
   ragas_provider: local
   ragas_repeat: 3

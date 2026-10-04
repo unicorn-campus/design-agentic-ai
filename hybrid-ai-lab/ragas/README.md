@@ -61,7 +61,7 @@ flowchart TD
 
 ```
 ragas/
-├─ eval-set.md                 평가셋 v2 20문항(사람용 원본 · 검토 칸)
+├─ eval-set.md                 평가셋 v3 22문항(사람용 원본 · 검토 칸)
 ├─ eval-set.json               기계용 평가셋(build_eval_set.py가 검증 통과 때만 씀)
 ├─ plans/
 │  ├─ chunk_size.yaml          청크 크기 600 · 800(기준 800, 재색인)
@@ -209,7 +209,7 @@ RAGAS 결과나 사람 판정(`review-agree.json`)을 더한 뒤 비교표만 �
 | `target` | 대상 키 `{도구}:{종류}:{대상}` | `indexer:config:config/document_policies.json#defaults.chunk_size` · `retriever:env:GRADE_MIN_GAP` · `retriever:arg:--top-k` |
 | `reindex` | 재색인 계획인지 | `true` |
 | `baseline` · `versions` | 기준 값 · 버전 목록(기준 포함) | `800` · `[{id: "600", value: 600}]` |
-| `eval_set` | 평가셋 경로 · 지문 | `eval-set.json` · `253f89d84905` |
+| `eval_set` | 평가셋 경로 · 지문 | `eval-set.json` · `0fdb90cdd27c` |
 | `scoring` | 평가자 · 반복 수 · 합격 기준값 | `local` · `3` · `0.5` |
 
 ## 6. 시험
@@ -236,9 +236,9 @@ RAGAS 결과나 사람 판정(`review-agree.json`)을 더한 뒤 비교표만 �
 
 | 항목 | 결과 |
 |---|---|
-| `build_eval_set.py` | 20문항 검증 5검사 **모두 통과**(실패 0) — 사용 중 세대 `gen-ch2-20261003-001-17151790` 기준 |
-| 구성 | 약관 6 · 카드 혜택 7 · 상담 이력 4 · 답 없음 3 |
-| 평가셋 지문 | `253f89d84905`(두 계획 파일의 `eval_set.sha256`) |
+| `build_eval_set.py` | 22문항 검증 5검사 **모두 통과**(실패 0) — 사용 중 세대 `gen-ch2-20261003-001-17151790` 기준 |
+| 구성 | 약관 6 · 카드 혜택 7 · 상담 이력 4 · 답 없음 5(회원 질문 2 포함, 2026-10-05) |
+| 평가셋 지문 | `253f89d84905`(이 실험 당시). 2026-10-04 상담 4문항에 `member_id`를 더해 `90681b2f4fae`, 2026-10-05 답 없음 회원 질문 Q21 · Q22를 더해 지금은 `0fdb90cdd27c` — 이후 실험은 이전 결과와 비교표에서 '평가셋 다름'으로 나뉨 |
 
 ### 7-2. 버전 실험(기준 + 1버전씩)
 

@@ -197,3 +197,13 @@ def test_comparison_judgements():
     assert judge_code(0.0) == "차이 없음" and judge_code(0.1) == "개선" and judge_code(None) == "—"
     assert judge_ragas(0.02, 0.03) == "차이 없음" and judge_ragas(-0.05, 0.03) == "악화"
     assert direction_match(0.1, -0.2).startswith("반대") and direction_match(0.1, 0.2) == "일치"
+
+
+def test_structure_check_catches_member_pseudonym_mismatch():
+    """filters의 회원번호와 가명이 어긋나면 ⑤ 구조 검사가 잡음(인덱서 값 M-1042 → m_59853c3d8e1e3c25)."""
+
+    questions = parsed()
+    questions[1]["filters"] = [{"member_id": "M-1042", "member_pseudo_id": "m_59853c3d8e1e3c25"}]
+    assert check_structure(questions) == []
+    questions[1]["filters"] = [{"member_id": "M-3001", "member_pseudo_id": "m_59853c3d8e1e3c25"}]
+    assert any("가명" in issue.reason for issue in check_structure(questions))

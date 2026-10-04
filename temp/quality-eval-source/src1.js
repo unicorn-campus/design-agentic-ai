@@ -258,9 +258,9 @@ function p12() {
     ["② 카드 블록", "조각 앞쪽의 마지막 D2-Cxxx-Byy가 위치와 같은가"],
     ["③ 숫자 대조", "정답의 숫자가 근거를 담은 색인 조각에 있나"],
     ["④ 답 없음", "낱말 묶음을 모두 담은 조각이 없어야 함"],
-    ["⑤ 구조", "check_structure — id 중복 · 필수 칸 · 위치 꼴"],
+    ["⑤ 구조", "check_structure — id 중복 · 필수 칸 · 위치 꼴 · 회원번호와 가명 짝"],
   ], { x: RX, y: TOP, w: RW, h: 5.2, size: 13 });
-  card(s, "실측: 20문항 실패 0 · 지문 253f89d84905", { x: RX, y: 7.3, w: RW, h: 0.6, fill: C.blue, line: null,
+  card(s, "실측: 20문항 실패 0 · 지문 90681b2f4fae", { x: RX, y: 7.3, w: RW, h: 0.6, fill: C.blue, line: null,
     color: C.white, size: 15, bold: true });
 }
 

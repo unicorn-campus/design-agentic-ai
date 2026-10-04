@@ -14,8 +14,10 @@ async function main() {
     meta: "hybrid-ai-lab / ragas · design-agentic-ai · 2026-10-04",
     notes: "제목 장표. 사용자 요청으로 추가(가이드는 새 덱 표지를 만들지 않지만, 같은 '내용_단쪽' 레이아웃에 배경을 덮어 붙여넣기 호환을 유지).",
   });
-  const parts = ["./s01_10", "./s11_20", "./s21_30"].filter((p) => fs.existsSync(path.join(__dirname, p + ".js")));
-  for (const p of parts) for (const fn of require(p)) await fn();
+  // 목차(2쪽) 바로 뒤에 사전작업(상담 검색 회원 필터) 2장을 끼움
+  const first = require("./s01_10");
+  const slides = [first[0], first[1], ...require("./s_pre"), ...first.slice(2), ...require("./s11_20"), ...require("./s21_30")];
+  for (const fn of slides) await fn();
   await pptx.writeFile({ fileName: out });
   console.log("✅ PPT 생성 완료:", out);
 }

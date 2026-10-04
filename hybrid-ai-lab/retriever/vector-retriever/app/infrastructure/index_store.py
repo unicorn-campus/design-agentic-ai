@@ -15,6 +15,7 @@ from typing import Any, Callable, Iterable, Sequence
 
 from app.application.models import IndexLease, IndexUnavailableError
 from app.application.ports import IndexProviderPort, SearchIndexPort
+from app.domain.member import CONSULT_DOC_TYPE, chronological, member_allows
 from app.domain.models import Chunk, ScoredChunk, SourceInfo
 
 from .korean_tokenizer import (
@@ -31,7 +32,7 @@ READY_STATUS = "ready"  # 이 값이 아닌 세대는 읽지 않음(색인 계�
 
 # 출처 표시에 쓰는 메타데이터 키(설계 ⑥-9). 나머지 키는 응답에 내보내지 않음.
 _TEXT_SOURCE_KEYS = ("source", "doc_key", "doc_type", "clause_no", "card_id", "card_name",
-                     "benefit_id", "section_label")
+                     "benefit_id", "section_label", "record_id", "consult_date")
 _INT_SOURCE_KEYS = ("page", "page_end")
 
 
@@ -181,10 +182,26 @@ class GenerationIndex(SearchIndexPort):
 
         return tuple(dict.fromkeys(str(value) for value in access_levels if str(value)))
 
-    def vector_search(self, query: str, *, access_levels: Sequence[str], k: int) -> list[ScoredChunk]:
+    @staticmethod
+    def _where(levels: tuple[str, ...], member_pseudo_id: str | None) -> dict[str, Any]:
+        """Chroma 검색 조건 — 열람 등급, 그리고 회원 필터가 있으면 '상담 이력이 아니거나 그 회원'.
+
+        Chroma는 '키가 없는 조각'을 조건으로 쓸 수 없어 doc_type으로 가름. 색인 계약상 회원 가명은
+        상담 이력(consult_log) 조각에만 있음(2026-10-04 말뭉치 218건 확인) — BM25 쪽 member_allows와 같은 결과가 남.
+        """
+
+        access = {"access_level": {"$in": list(levels)}}
+        if not member_pseudo_id:
+            return access
+        member = {"$or": [{"doc_type": {"$ne": CONSULT_DOC_TYPE}}, {"member_pseudo_id": {"$eq": member_pseudo_id}}]}
+        return {"$and": [access, member]}
+
+    def vector_search(self, query: str, *, access_levels: Sequence[str], k: int,
+                      member_pseudo_id: str | None = None) -> list[ScoredChunk]:
         """질의를 임베딩해 코사인 점수가 높은 조각 k개를 찾음(뜻으로 찾기).
 
         인자: query는 접두어 없이 그대로 임베딩함(색인 계약 4). access_levels 밖의 조각은 순위 매기기 전에 거름.
+        member_pseudo_id가 있으면 다른 회원의 상담 이력도 순위 전에 거름.
         반환값: 점수(1 − 코사인 거리) 내림차순 목록. 후보가 k보다 적으면 있는 만큼만 돌려줌.
         예외: 임베딩·벡터 저장소 실패는 예외를 그대로 올림. 호출한 단계가 '한쪽 실패'로 처리함.
         부수효과: 없음(읽기 전용).
@@ -198,7 +215,7 @@ class GenerationIndex(SearchIndexPort):
         result = self._collection.query(
             query_embeddings=[vector],
             n_results=min(int(k), self.num_docs()),
-            where={"access_level": {"$in": list(levels)}},
+            where=self._where(levels, member_pseudo_id),
             include=["distances"],
         )
         ids = (result.get("ids") or [[]])[0]
@@ -211,10 +228,12 @@ class GenerationIndex(SearchIndexPort):
         found.sort(key=lambda value: (-value.score, value.chunk_id))
         return found[: int(k)]
 
-    def keyword_search(self, query: str, *, access_levels: Sequence[str], k: int) -> list[ScoredChunk]:
+    def keyword_search(self, query: str, *, access_levels: Sequence[str], k: int,
+                       member_pseudo_id: str | None = None) -> list[ScoredChunk]:
         """색인과 같은 분석기로 질의를 낱말로 나눠 BM25 점수가 높은 조각 k개를 찾음(낱말로 찾기).
 
         인자: access_levels 밖의 조각은 점수 계산 뒤 순위를 매기기 전에 버림.
+        member_pseudo_id가 있으면 다른 회원의 상담 이력 조각도 같은 때에 버림.
         반환값: BM25 원점수 내림차순 목록. 점수가 0인 조각은 넣지 않음. 낱말이 하나도 없으면 빈 목록임.
         예외: BM25 색인 실패는 예외를 그대로 올림.
         부수효과: 없음(읽기 전용).
@@ -244,6 +263,8 @@ class GenerationIndex(SearchIndexPort):
             chunk = self._chunks.get(chunk_id)
             if chunk is None or chunk.access_level not in levels:
                 continue
+            if not member_allows(chunk.member_pseudo_id, member_pseudo_id):
+                continue
             found.append(ScoredChunk(chunk_id, score))
         found.sort(key=lambda value: (-value.score, value.chunk_id))
         return found[: int(k)]
@@ -262,6 +283,15 @@ class GenerationIndex(SearchIndexPort):
             if chunk is not None:
                 found[str(chunk_id)] = chunk
         return found
+
+    def consult_history(self, member_pseudo_id: str, *, access_levels: Sequence[str]) -> list[Chunk]:
+        """그 회원의 상담 이력 조각 전체를 상담 날짜 순으로 돌려줌(말뭉치 메타데이터로 고름, 검색 아님)."""
+
+        levels = set(access_levels)
+        own = [chunk for chunk in self._chunks.values()
+               if chunk.source.doc_type == CONSULT_DOC_TYPE and chunk.member_pseudo_id == member_pseudo_id
+               and chunk.access_level in levels]
+        return chronological(own)
 
     def tokens(self, text: str) -> list[str]:
         """BM25와 똑같은 분석기(표기 통일·Kiwi·카드명·별칭 사전)로 문장을 낱말 목록으로 바꿈.
@@ -775,6 +805,7 @@ class LocalIndexProvider(IndexProviderPort):
                 index_text=index_text,
                 access_level=str(metadata.get("access_level", "")),
                 source=_source_info(metadata),
+                member_pseudo_id=str(metadata.get("member_pseudo_id") or "") or None,
             )
             order.append(chunk_id)
             index_texts.append(index_text)

@@ -14,7 +14,7 @@ versions:
     value: 600
 eval_set:
   path: eval-set.json
-  sha256: 253f89d84905   # build_eval_set.py가 출력한 eval_set_hash — 평가셋이 바뀌면 함께 고침
+  sha256: 0fdb90cdd27c   # build_eval_set.py가 출력한 eval_set_hash — 평가셋이 바뀌면 함께 고침(2026-10-05 답 없음 회원 질문 Q21 · Q22 추가)
 scoring:
   ragas_provider: local    # 로컬 Qwen3.5-9B — 반복해도 같은 값. 실험 끝까지 바꾸지 않음
   ragas_repeat: 3

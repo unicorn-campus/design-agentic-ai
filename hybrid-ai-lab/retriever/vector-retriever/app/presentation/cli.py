@@ -56,6 +56,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="답변 생성까지 함(기본은 끔 — 근거 목록만 돌려줌)",
     )
     parser.add_argument("--top-k", type=int, default=5, help="반환 수(1 ~ 10, 기본 5)")
+    parser.add_argument("--member-id", default=None, help="상담 중인 회원번호(예: M-1042) — 상담 이력은 그 회원 것만 검색")
     parser.add_argument("--json", action="store_true", help="사람이 읽는 요약 대신 응답 JSON 원본을 출력")
     return parser
 
@@ -93,6 +94,7 @@ def main(
         query=args.query,
         generate_answer=args.generate_answer,
         top_k=args.top_k,
+        member_id=args.member_id,
     )
     response = application.execute(request, args.role)
 

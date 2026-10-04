@@ -25,6 +25,7 @@ from app.application.models import (
     TransformOutput,
 )
 from app.domain.budget import C_01, C_02, C_03, C_04
+from app.domain.member import chronological, is_member_consult
 from app.domain.models import QTYPE_SIMPLE, Chunk, ScoredChunk, SourceInfo
 from app.domain.transform_rules import KEEP
 
@@ -127,6 +128,7 @@ class FakeIndex:
     search_cost_s: float = 0.0  # 검색 1회가 쓰는 시간(초). S-R5·S-R6 착지를 만들 때 씀
     vector_queries: list[str] = field(default_factory=list)
     keyword_queries: list[str] = field(default_factory=list)
+    member_filters: list[str | None] = field(default_factory=list)  # 벡터 검색에 넘어온 회원 가명 기록
 
     # ------------------------------------------------------------ 검색
 
@@ -140,23 +142,26 @@ class FakeIndex:
 
         return len(self.corpus)
 
-    def vector_search(self, query: str, *, access_levels: Sequence[str], k: int) -> list[ScoredChunk]:
+    def vector_search(self, query: str, *, access_levels: Sequence[str], k: int,
+                      member_pseudo_id: str | None = None) -> list[ScoredChunk]:
         """대본에 적힌 조각을 점수 내림차순으로 반환함."""
 
         self.vector_queries.append(query)
+        self.member_filters.append(member_pseudo_id)
         self._spend()
         if self.vector_error is not None:
             raise self.vector_error
-        return self._scored(query, access_levels, k)
+        return self._scored(query, access_levels, k, member=member_pseudo_id)
 
-    def keyword_search(self, query: str, *, access_levels: Sequence[str], k: int) -> list[ScoredChunk]:
+    def keyword_search(self, query: str, *, access_levels: Sequence[str], k: int,
+                       member_pseudo_id: str | None = None) -> list[ScoredChunk]:
         """벡터 검색과 같은 대본을 쓰되 호출 기록만 따로 남김(두 검색기 겹침 신호가 1 이상이 되게 함)."""
 
         self.keyword_queries.append(query)
         self._spend()
         if self.keyword_error is not None:
             raise self.keyword_error
-        return self._scored(query, access_levels, k, keyword=True)
+        return self._scored(query, access_levels, k, keyword=True, member=member_pseudo_id)
 
     def _spend(self) -> None:
         """검색에 쓴 시간을 가짜 시계에 반영함."""
@@ -164,8 +169,9 @@ class FakeIndex:
         if self.clock is not None and self.search_cost_s:
             self.clock.advance(self.search_cost_s)
 
-    def _scored(self, query: str, access_levels: Sequence[str], k: int, *, keyword: bool = False) -> list[ScoredChunk]:
-        """대본 결과에 권한 필터를 적용해 상위 k개를 반환함(leaky면 필터를 건너뜀)."""
+    def _scored(self, query: str, access_levels: Sequence[str], k: int, *, keyword: bool = False,
+                member: str | None = None) -> list[ScoredChunk]:
+        """대본 결과에 권한 · 회원 필터를 적용해 상위 k개를 반환함(leaky면 두 필터를 모두 건너뜀)."""
 
         allowed = set(access_levels)
         rows = self.hits.get(query, self.default_hits)
@@ -178,6 +184,8 @@ class FakeIndex:
                 continue
             if not self.leaky and chunk.access_level not in allowed:
                 continue
+            if not self.leaky and member and chunk.member_pseudo_id and chunk.member_pseudo_id != member:
+                continue
             out.append(ScoredChunk(chunk_id, float(score)))
         return out[:k]
 
@@ -187,6 +195,12 @@ class FakeIndex:
         """조각ID로 조각을 찾음. 없는 ID는 결과에서 빠짐."""
 
         return {cid: self.corpus[cid] for cid in chunk_ids if cid in self.corpus}
+
+    def consult_history(self, member_pseudo_id: str, *, access_levels: Sequence[str]) -> list[Chunk]:
+        """그 회원 상담 조각을 날짜순으로 돌려줌(실제 색인과 같은 규칙)."""
+
+        return chronological(c for c in self.corpus.values() if is_member_consult(c, member_pseudo_id)
+                             and c.access_level in set(access_levels))
 
     def tokens(self, text: str) -> list[str]:
         """BM25와 같은 분석기 역할임."""

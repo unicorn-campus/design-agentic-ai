@@ -35,12 +35,21 @@ class SourceInfo:
     card_name: str | None = None  # 카드명(D2만)
     benefit_id: str | None = None  # 혜택 코드
     section_label: str | None = None  # 구역 표시
+    record_id: str | None = None  # 상담ID(D3만). 인덱서가 본문 머리말을 지워 메타데이터에만 남음
+    consult_date: str | None = None  # 상담 날짜 YYYY-MM-DD(D3만)
 
     @property
     def title(self) -> str:
-        """LLM에 넘길 조각 제목. 문서명과 구역을 이어 사람이 읽을 수 있게 만듦."""
+        """LLM에 넘길 조각 제목. 문서명과 구역을 이어 사람이 읽을 수 있게 만듦.
 
-        parts = [self.source]
+        상담 이력은 본문에 날짜가 없어 '첫 상담 · 가장 최근 상담' 질문에 답하려면 제목에 날짜·상담ID가 있어야 함.
+        """
+
+        parts = []
+        if self.consult_date or self.record_id:
+            parts.append(" ".join(p for p in ("상담", self.consult_date, f"({self.record_id})" if self.record_id else "")
+                                  if p))
+        parts.append(self.source)
         if self.card_name:
             parts.append(self.card_name)
         if self.section_label:
@@ -61,6 +70,7 @@ class Chunk:
     index_text: str
     access_level: str
     source: SourceInfo = field(default_factory=SourceInfo)
+    member_pseudo_id: str | None = None  # 상담 이력 조각의 회원 가명(색인 메타데이터). 출처 표시에는 쓰지 않음
 
 
 @dataclass(frozen=True)

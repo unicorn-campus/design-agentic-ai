@@ -289,19 +289,19 @@
   "path": "ragas/app/domain/verification.py",
   "ranges": [
    [
-    97,
-    97
+    110,
+    110
    ],
    [
-    105,
-    107
+    118,
+    120
    ],
    [
-    115,
-    131
+    128,
+    144
    ]
   ],
-  "header": "app/domain/verification.py:97-97, 105-107, 115-131 (docstring · 일부 생략)",
+  "header": "app/domain/verification.py:110-110, 118-120, 128-144 (docstring · 일부 생략)",
   "lines": [
    "def check_against_index(questions: list[dict[str, Any]], chunks: list[Chunk]) -> list[Issue]:",
    "    # …(생략)",
@@ -553,11 +553,11 @@
   "path": "retriever/vector-retriever/evaluate_retriever.py",
   "ranges": [
    [
-    82,
-    104
+    84,
+    106
    ]
   ],
-  "header": "retriever/vector-retriever/evaluate_retriever.py:82-104 (docstring · 일부 생략)",
+  "header": "retriever/vector-retriever/evaluate_retriever.py:84-106 (docstring · 일부 생략)",
   "lines": [
    "def score_hits(question: dict[str, Any], hits: list[tuple[str, str, str | None]], k: int = 5) -> dict[str, Any]:",
    "    units = question.get(\"relevance\") or []",
@@ -817,7 +817,7 @@
    "    note: 허용 상한",
    "eval_set:",
    "  path: eval-set.json",
-   "  sha256: 253f89d84905",
+   "  sha256: 90681b2f4fae",
    "scoring:",
    "  ragas_provider: local",
    "  ragas_repeat: 3",

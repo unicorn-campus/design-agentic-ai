@@ -11,6 +11,14 @@ import hashlib
 from typing import Any, Callable, Mapping, Sequence
 
 from app.domain.access import access_levels_for
+from app.domain.member import (
+    chronological,
+    consult_leads,
+    is_member_consult,
+    member_allows,
+    member_id_terms,
+    member_pseudonym,
+)
 from app.domain.actions import (
     ACTION_FINISH,
     ACTION_SEARCH,
@@ -52,6 +60,7 @@ from app.domain.models import (
     SUB_SATISFIED,
     SUB_UNCERTAIN,
     Candidate,
+    Chunk,
     SubQuestion,
 )
 from app.domain.plan_rules import PlanDecision, apply_plan_rules, fallback_simple
@@ -332,6 +341,13 @@ class RetrieverSteps:
             access_levels = access_levels_for(role)
         except ValueError:
             return self._error("invalid_role", "허용되지 않은 역할입니다.", warnings)
+        member_pseudo_id = None
+        if state.get("member_id") is not None:
+            # 가명 계산이 인덱서와 다르거나 번호에 오타가 있으면 오류 없이 결과만 비므로, 꼴부터 막음
+            try:
+                member_pseudo_id = member_pseudonym(state["member_id"])
+            except ValueError as error:
+                return self._error("invalid_input", str(error), warnings)
         try:
             lease = self.index_provider.acquire()
         except IndexUnavailableError as error:
@@ -340,6 +356,7 @@ class RetrieverSteps:
         return {
             "query": query.strip(),
             "access_levels": list(access_levels),
+            "member_pseudo_id": member_pseudo_id,
             "index": lease.index,
             "generation": lease.index.generation_id(),
             "status": "running",
@@ -526,6 +543,7 @@ class RetrieverSteps:
         index = state["index"]
         top_k = int(state["top_k"])
         access = list(state["access_levels"])
+        member = state.get("member_pseudo_id")
         technique = str(state.get("search_technique") or "original")
         queries = [q for q in (state.get("search_queries") or []) if str(q).strip()]
         k_candidates = top_k * 2 * 4  # 반환 수 × 2(리랭킹 후보) × 4(하이브리드 후보) = 40 (설계 ⑥-4·⑥-5)
@@ -534,7 +552,7 @@ class RetrieverSteps:
         results: list[_QueryResult] = []
         reranked_all = True
         for query in queries:
-            result = self._search_one(index, query, access, k_candidates, k_fused, top_k, warnings)
+            result = self._search_one(index, query, access, k_candidates, k_fused, top_k, warnings, member)
             if result is None:
                 continue
             reranked_all = reranked_all and all(c.rerank_score is not None for c in result.candidates.values())
@@ -553,17 +571,20 @@ class RetrieverSteps:
 
     def _search_one(
         self, index: Any, query: str, access: list[str], k_candidates: int, k_fused: int, top_k: int,
-        warnings: list[str],
+        warnings: list[str], member: str | None = None,
     ) -> _QueryResult | None:
-        """질의 1개를 검색함. 두 검색기가 모두 실패하면 None(검색 실패)을 돌려줌."""
+        """질의 1개를 검색함. 두 검색기가 모두 실패하면 None(검색 실패)을 돌려줌.
+
+        인자: member는 회원 가명(S-R1이 계산). 있으면 다른 회원의 상담 이력은 검색기 안에서 순위 전에 빠짐.
+        """
 
         vector_hits = keyword_hits = None
         try:
-            vector_hits = index.vector_search(query, access_levels=access, k=k_candidates)
+            vector_hits = index.vector_search(query, access_levels=access, k=k_candidates, member_pseudo_id=member)
         except Exception as error:  # 한쪽이 실패해도 남은 쪽으로 계속함(S-R4 예외 처리)
             warnings.append(f"벡터 검색 실패 → BM25만 사용: {type(error).__name__}")
         try:
-            keyword_hits = index.keyword_search(query, access_levels=access, k=k_candidates)
+            keyword_hits = index.keyword_search(query, access_levels=access, k=k_candidates, member_pseudo_id=member)
         except Exception as error:
             warnings.append(f"BM25 검색 실패 → 벡터만 사용: {type(error).__name__}")
         if vector_hits is None and keyword_hits is None:
@@ -580,6 +601,11 @@ class RetrieverSteps:
         if leaked:
             warnings.append(f"권한 밖 조각 {len(leaked)}건을 결과에서 제외")
         fused_ids = [cid for cid in fused_ids if cid in chunks and chunks[cid].access_level in allowed]
+        # 회원 범위도 권한처럼 한 번 더 확인함 — 검색기 구현이 조건을 빠뜨려도 다른 회원 상담이 근거로 나가지 않게 함
+        others = [cid for cid in fused_ids if not member_allows(chunks[cid].member_pseudo_id, member)]
+        if others:
+            warnings.append(f"다른 회원 상담 조각 {len(others)}건을 결과에서 제외")
+        fused_ids = [cid for cid in fused_ids if cid not in others]
 
         rerank: dict[str, float] | None = None
         if fused_ids:
@@ -592,7 +618,13 @@ class RetrieverSteps:
             except Exception as error:
                 warnings.append(f"리랭커 실패 → 융합 결과 사용: {type(error).__name__}")
         if rerank is not None:
-            order = rank_keys(rerank, (fused,))[:top_k]
+            order = rank_keys(rerank, (fused,))
+            if member and fused_ids and is_member_consult(chunks[fused_ids[0]], member):
+                # 융합 1위가 그 회원 상담이면 상담은 융합 순위로 앞에 둠 — 리랭커가 해석형 상담 질문에 0점대를 줘
+                # 0.006점 약관이 상담을 밀어내던 문제(Q17 실측, 사용자 결정 2026-10-05 '3번 확장')
+                own = [cid for cid in fused_ids if is_member_consult(chunks[cid], member)]
+                order = own + [cid for cid in order if cid not in own]
+            order = order[:top_k]
             main = {cid: rerank[cid] for cid in order}
         else:
             order = fused_ids[:top_k]
@@ -604,17 +636,20 @@ class RetrieverSteps:
         }
         return _QueryResult(order, main, candidates, list(vector_scores), list(keyword_scores))
 
-    def search_once(self, query: str, *, access_levels: Sequence[str], top_k: int = 5) -> list[Candidate]:
+    def search_once(self, query: str, *, access_levels: Sequence[str], top_k: int = 5,
+                    member_pseudo_id: str | None = None) -> list[Candidate]:
         """평가·진단용: 질의 1개를 S-R4와 같은 방식(벡터 + BM25 → 융합 → 리랭크)으로 검색해 상위 top_k를 반환함.
 
         목적: 채점 관문(S-R5)·LLM과 떼어 검색 품질만 따로 잴 수 있게 함(평가셋 Hit@5 등).
+        인자: member_pseudo_id는 회원 가명(member_pseudonym으로 계산한 값). 있으면 상담 이력은 그 회원 것만 봄.
         반환값: 최종 순위 순서의 후보 목록. 두 검색기가 모두 실패하면 빈 목록임.
         예외: 쓸 수 있는 색인 세대가 없으면 IndexUnavailableError를 발생시킴.
         부수효과: 없음(읽기 전용). 감사 로그를 남기지 않음.
         """
 
         index = self.index_provider.acquire().index
-        result = self._search_one(index, query, list(access_levels), top_k * 2 * 4, top_k * 2, top_k, [])
+        result = self._search_one(index, query, list(access_levels), top_k * 2 * 4, top_k * 2, top_k, [],
+                                  member_pseudo_id)
         return [] if result is None else [result.candidates[cid] for cid in result.order]
 
     @staticmethod
@@ -661,6 +696,7 @@ class RetrieverSteps:
             return self._error("broken_state", "채점할 질문 또는 검색 후보가 없습니다.", warnings)
         candidates = list(candidates)
         index = state["index"]
+        member = state.get("member_pseudo_id")
         signals = None
         if not self._can_start(state, S_R5):
             warnings.append("S-R5 남은 시간 예산 부족 → 불확실로 보고 진행")
@@ -671,6 +707,10 @@ class RetrieverSteps:
                 # 2026-10-03). '주요'·'얼마' 같은 일반 명사는 결과에 없어도 관련성과 무관해 넣지 않음
                 conditions = index.condition_terms(sub.text)
                 key_terms = [term for term in index.keyword_candidates(sub.text) if term in conditions]
+                if state.get("member_pseudo_id"):
+                    # 회원 필터가 걸린 요청은 회원번호가 이미 검색 조건이 됨 — 가명만 담긴 본문에서 찾게 두면 항상 탈락
+                    own = member_id_terms(state["member_id"])
+                    key_terms = [term for term in key_terms if term.lower() not in own]
                 keywords = select_rare_terms(
                     index.document_frequency(key_terms),
                     num_docs=index.num_docs(), max_df_ratio=self.config.keyword_max_df_ratio,
@@ -684,6 +724,8 @@ class RetrieverSteps:
                     question_targets=index.target_terms(sub.text),
                 )
                 verdict = grade(signals, self.config.thresholds)
+                if consult_leads(candidates, member):
+                    verdict = GRADE_CORRECT  # 상담 이력 판정 규칙 — 리랭크 점수 대신 융합 1위로 판정(사용자 결정 2026-10-05)
             except Exception as error:  # 계산 실패는 불확실로 보고 진행(부분결과, S-R5 예외 처리)
                 warnings.append(f"채점 계산 실패 → 불확실: {type(error).__name__}")
                 verdict = GRADE_UNCERTAIN
@@ -692,8 +734,18 @@ class RetrieverSteps:
                                              for k, v in (state.get("evidence") or {}).items()}
         rankings = dict(state.get("evidence_rankings") or {})
         if verdict == GRADE_CORRECT:
-            # 하한 미만 조각(다른 카드 등)은 근거·답변 재료에서 뺌(사용자 결정 2026-10-03)
-            candidates = evidence_worthy(candidates, self.config.thresholds)
+            if consult_leads(candidates, member):
+                # 상담 질문은 '첫 상담 · 가장 최근 상담'처럼 이력 전체를 봐야 답이 나와 그 회원 상담을 모두 근거로 넣음.
+                # 검색된 상담은 리랭크 점수와 무관하게 남기고, 나머지(약관 · 혜택)만 하한으로 거름(사용자 결정 2026-10-05)
+                kept = [c for c in candidates if is_member_consult(c.chunk, member)
+                        or (c.rerank_score is not None and c.rerank_score >= self.config.thresholds.lower)]
+                seen = {c.chunk_id for c in kept}
+                history = index.consult_history(member, access_levels=list(state["access_levels"]))
+                candidates = kept + [Candidate(chunk, None, None, 0.0, None) for chunk in history
+                                     if chunk.chunk_id not in seen]
+            else:
+                # 하한 미만 조각(다른 카드 등)은 근거·답변 재료에서 뺌(사용자 결정 2026-10-03)
+                candidates = evidence_worthy(candidates, self.config.thresholds)
             for candidate in candidates:
                 item = evidence.get(candidate.chunk_id)
                 if item is None:
@@ -713,6 +765,8 @@ class RetrieverSteps:
 
         grade_signals = dict(state.get("grade_signals") or {})
         grade_signals[qid] = {"grade": verdict, **(signals.as_dict() if signals else {})}
+        if verdict == GRADE_CORRECT and consult_leads(list(state.get("candidates") or []), member):
+            grade_signals[qid]["rule"] = "member_consult"  # 점수 규칙이 아니라 상담 이력 규칙으로 통과했음을 남김
         trace = self._trace(state, {"step": S_R5, "qid": qid, "grade": verdict,
                                     "signals": grade_signals[qid]})
         return {"grade": verdict, "grade_signals": grade_signals, "sub_questions": subs, "evidence": evidence,
@@ -825,8 +879,8 @@ class RetrieverSteps:
             sub_questions=tuple({"id": sq.qid, "question": sq.text, "satisfied": sq.status == SUB_SATISFIED}
                                 for sq in subs),
             evidence_chunks=tuple(
-                {"chunk_id": c.chunk_id, "title": c.chunk.source.title, "text": c.chunk.text}
-                for c in self._ordered_evidence(state)
+                {"chunk_id": chunk.chunk_id, "title": chunk.source.title, "text": chunk.text}
+                for chunk in self._answer_order(state)
             ),
             rewrite_reason="\n".join(state.get("verify_failures") or []) if rewrite_count else "",
             attempt_no=rewrite_count + 1,
@@ -890,6 +944,17 @@ class RetrieverSteps:
             order = [cid for cid in rank_keys(rrf_merge(rankings)) if cid in evidence]
         order += [cid for cid in evidence if cid not in order]
         return [evidence[cid]["candidate"] for cid in order]
+
+    def _answer_order(self, state: Mapping[str, Any]) -> list[Chunk]:
+        """답변 생성에 넘길 조각 순서. 그 회원 상담은 날짜순으로 앞에, 나머지는 근거 순위 그대로 뒤에 둠.
+
+        목적: 관련도 순서로 섞여 있으면 LLM이 '첫 상담 · 가장 최근 상담'을 조각 ID 글자로 짐작해야 함.
+        """
+
+        chunks = [c.chunk for c in self._ordered_evidence(state)]
+        member = state.get("member_pseudo_id")
+        consults = chronological(c for c in chunks if is_member_consult(c, member))
+        return consults + [c for c in chunks if not is_member_consult(c, member)]
 
     def s_r9(self, state: RetrieverState) -> dict[str, Any]:
         """화면이 바로 보여 줄 수 있게 상태·답·근거·출처를 한 번에 담고, 판단 과정을 감사 로그로 남김.
@@ -986,6 +1051,8 @@ class RetrieverSteps:
             "query_sha256": hashlib.sha256(query.encode("utf-8")).hexdigest()[:16],
             "query_head": query[:20],
             "role": state.get("role"),
+            # 원래 회원번호는 남기지 않고 가명만 남김(검색 조건과 같은 값이라 재현에는 충분함)
+            "member_pseudo_id": state.get("member_pseudo_id"),
             "generation": state.get("generation"),
             "status": response["status"],
             "finish_reason": response["finish_reason"],

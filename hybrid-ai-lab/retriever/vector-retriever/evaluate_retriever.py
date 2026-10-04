@@ -6,7 +6,8 @@
 - 최종 응답: 워크플로우 전체(S-R1 ~ S-R9)를 돌린 응답 상태와, 채점 관문을 통과한 근거 목록의 같은 지표
   답 없음 문항은 '확인 필요(needs_confirmation)'로 끝나야 정답으로 셈(지어내지 않음)
 
-평가셋의 filters(card_id·member_pseudo_id 등)는 설계 입력에 없어 쓰지 않음. 필터에 기대는 문항은 결과에 표시함.
+평가셋 filters 중 member_id(상담 문항의 회원번호)는 요청의 member_id로 넘김 — 상담 이력은 그 회원 것만 검색함.
+card_id는 설계 입력에 없어 쓰지 않음. 필터를 가진 문항은 결과에 표시함.
 결과 행에는 채점 관문을 통과한 근거 본문(evidence)도 남김 — evaluate_ragas.py가 이 로그를 읽어 RAGAS로 채점함.
 
 버전 실험용 인자(품질평가 설계서 ④ 코드 채점): --top-k · --metric-k · --fixed-k · --version-label · --config-snapshot.
@@ -29,11 +30,12 @@ from typing import Any
 import unicodedata
 
 from app.application.models import SearchRequest
+from app.domain.member import member_pseudonym
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_QUESTIONS = ROOT.parent.parent / "indexer" / "vector-bm25" / "evaluation" / "group2_questions.json"
 # 회원별 상담 이력 문항은 restricted(D3)를 봐야 하므로 감사자로, 나머지는 상담원(agent)으로 물음
-AUDITOR_FILTER_KEYS = {"member_pseudo_id"}
+AUDITOR_FILTER_KEYS = {"member_pseudo_id", "member_id"}
 ANSWERED_STATUSES = {"answered", "retrieved"}
 
 
@@ -133,10 +135,13 @@ def evaluate(questions: list[dict[str, Any]], *, generate_answer: bool, top_k: i
         filter_keys = {key for item in question.get("filters") or [] for key in item}
         role = "auditor" if filter_keys & AUDITOR_FILTER_KEYS else "agent"
         access = ["public", "restricted"] if role == "auditor" else ["public"]
-        first = steps.search_once(question["question"], access_levels=access, top_k=top_k)
+        member_id = next((item["member_id"] for item in question.get("filters") or [] if "member_id" in item), None)
+        member = member_pseudonym(member_id) if member_id else None
+        first = steps.search_once(question["question"], access_levels=access, top_k=top_k, member_pseudo_id=member)
         started = time.perf_counter()
         response = service.execute(
-            SearchRequest(query=question["question"], generate_answer=generate_answer, top_k=top_k), role
+            SearchRequest(query=question["question"], generate_answer=generate_answer, top_k=top_k,
+                          member_id=member_id), role
         )
         elapsed = time.perf_counter() - started
         first_hits = [(c.chunk.source.source, c.chunk.text, c.chunk.source.card_id) for c in first]
@@ -149,6 +154,7 @@ def evaluate(questions: list[dict[str, Any]], *, generate_answer: bool, top_k: i
             "answerable": bool(question["answerable"]),
             "role": role,
             "uses_filters": sorted(filter_keys),
+            "member_filter": member is not None,  # 회원 필터를 실어 검색했는지(원래 회원번호는 남기지 않음)
             "search": score_hits(question, first_hits, metric_k),
             # 버전끼리 같은 잣대로 비교하려고 k를 고정한 값도 함께 남김(Top-k 버전의 Δ는 이 값으로 계산)
             "search_fixed": score_hits(question, first_hits, fixed_k),

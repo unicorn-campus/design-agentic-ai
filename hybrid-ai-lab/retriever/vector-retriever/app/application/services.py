@@ -47,6 +47,7 @@ class RetrieverService:
             "role": role,
             "generate_answer": request.generate_answer,
             "top_k": request.top_k,
+            "member_id": request.member_id,
             "llm_calls": 0,
             "turn": 0,
             "timings": {},

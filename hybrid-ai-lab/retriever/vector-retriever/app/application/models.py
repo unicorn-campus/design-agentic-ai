@@ -92,6 +92,9 @@ class SearchRequest(BaseModel):
     query: str = Field(description="질문(필수, 500자 이하)")
     generate_answer: bool = Field(default=False, description="답변 생성 여부(기본 끔 — 끄면 근거 목록만 반환)")
     top_k: int = Field(default=5, description="반환 수(1 ~ 10, 기본 5)")
+    # 상담 화면에 열려 있는 고객. 주면 상담 이력은 그 회원 것만 검색함(약관 · 혜택은 그대로).
+    # 범위를 좁히기만 하므로 본문으로 받아도 권한이 늘지 않음 — 상담 이력 열람 자체는 역할(헤더)이 정함
+    member_id: str | None = Field(default=None, description="상담 중인 회원번호(선택, 예: M-1042)")
 
 
 class CitationOut(BaseModel):
