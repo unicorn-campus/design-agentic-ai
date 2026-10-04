@@ -364,6 +364,18 @@ class KoreanTokenizer:
             if int(getattr(token, "start")) < end and int(getattr(token, "end")) > start
         ]
 
+    @staticmethod
+    def _trim_trailing_particles(surface: str, overlapping: Sequence[object], start: int) -> str:
+        """표면형 끝의 조사(J…)·어미(E…) 토큰을 떼어낸 표면형을 반환함. 뗄 것이 없으면 그대로 돌려줌."""
+
+        tokens = sorted(overlapping, key=lambda token: int(getattr(token, "start")))
+        while tokens and _base_tag(str(getattr(tokens[-1], "tag"))).startswith(("J", "E")):
+            tokens.pop()
+        if not tokens:
+            return surface
+        end = int(getattr(tokens[-1], "end")) - start
+        return surface[:end] if 0 < end < len(surface) else surface
+
     def _substitute(self, token: str) -> str:
         """별칭이면 정식 카드 토큰으로 바꾸고 아니면 그대로 돌려줌."""
 
@@ -490,8 +502,14 @@ class KoreanTokenizer:
             if not (has_digit(surface) or is_code_like(surface) or surface in self._dictionary_surfaces):
                 continue
             overlapping = self._overlapping(analyzed, match.start(), match.end())
+            # '1년에'처럼 숫자 표면형 끝에 붙은 조사·어미는 떼어냄 — 붙은 채로 두면 '연 2회'를 담은 조각과도,
+            # '1년'만 담은 조각과도 영영 맞지 않는 핵심어가 됨(평가셋 v1 실측, 사용자 결정 2026-10-04)
+            surface = self._trim_trailing_particles(surface, overlapping, match.start())
+            if len(surface) < 2:
+                continue
             value = self._substitute(surface)
-            if self._is_redundant_surface(value, overlapping, match.start(), match.end()):
+            end = match.start() + len(surface)
+            if self._is_redundant_surface(value, self._overlapping(analyzed, match.start(), end), match.start(), end):
                 continue
             found.append((match.start(), value))
         found.sort(key=lambda item: item[0])

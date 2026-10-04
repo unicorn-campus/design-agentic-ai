@@ -1,0 +1,10 @@
+{
+  "format_version": 1,
+  "generation": "gen-exp-chunk_size-800-20261004-ec9fb6cc",
+  "chroma_path": "generations/gen-exp-chunk_size-800-20261004-ec9fb6cc/chroma",
+  "search_index_root": "generations/gen-exp-chunk_size-800-20261004-ec9fb6cc/search_indexes",
+  "collection": "card_docs",
+  "chunk_count": 218,
+  "embedding_dimension": 768,
+  "embedding_signature": "sentence-transformers:nlpai-lab/KURE-v2:prompt-policy-v2"
+}

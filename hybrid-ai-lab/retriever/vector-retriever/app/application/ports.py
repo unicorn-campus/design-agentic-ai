@@ -168,14 +168,18 @@ class RerankerPort(Protocol):
 
 
 class LanguageModelPort(Protocol):
-    """Groq LLM 커넥터 4종(C-01 ~ C-04)의 계약. 모두 동기 1회 호출·재시도 0회·구조화 출력임."""
+    """LLM 커넥터 4종(C-01 ~ C-04)의 계약. 모두 동기 1회 호출·재시도 0회·구조화 출력임.
+
+    커넥터별 모델·타임아웃은 이 계약이 아니라 설정(settings.py)과 bootstrap이 정함 — 숫자를 여기 적어 두면
+    설정을 바꿀 때 docstring만 옛 값으로 남기 때문임.
+    """
 
     @abstractmethod
     def analyze_question(self, payload: PlanInput) -> PlanOutput:
         """C-01: 질문 유형(chitchat·simple·complex)과 하위 질문을 받음.
 
         반환값: 스키마를 통과한 PlanOutput. 서버 규칙 검사는 호출한 단계가 따로 함.
-        예외: 시간 초과(2.5초)·HTTP 오류·응답 형식 오류는 ConnectorError를 발생시킴.
+        예외: 시간 초과(설정 TIMEOUT_C01)·HTTP 오류·응답 형식 오류는 ConnectorError를 발생시킴.
         부수효과: 외부 API 호출 1회.
         """
 
@@ -184,7 +188,7 @@ class LanguageModelPort(Protocol):
         """C-02: 허용 행동 목록 안에서 다음 행동 1개와 대상·이유를 받음.
 
         반환값: 스키마를 통과한 ActionOutput. 목록 밖 행동 검사는 호출한 단계가 함.
-        예외: 시간 초과(1.5초)·HTTP 오류·응답 형식 오류는 ConnectorError를 발생시킴.
+        예외: 시간 초과(설정 TIMEOUT_C02)·HTTP 오류·응답 형식 오류는 ConnectorError를 발생시킴.
         부수효과: 외부 API 호출 1회.
         """
 
@@ -193,7 +197,7 @@ class LanguageModelPort(Protocol):
         """C-03: 변환 기법 1개와 검색용 질의를 받음.
 
         반환값: 스키마를 통과한 TransformOutput. 금지 규칙 검사는 호출한 단계가 함.
-        예외: 시간 초과(1.2초)·HTTP 오류·응답 형식 오류는 ConnectorError를 발생시킴.
+        예외: 시간 초과(설정 TIMEOUT_C03)·HTTP 오류·응답 형식 오류는 ConnectorError를 발생시킴.
         부수효과: 외부 API 호출 1회.
         """
 
@@ -202,7 +206,7 @@ class LanguageModelPort(Protocol):
         """C-04: 근거 묶음만으로 문장마다 인용이 달린 답변 초안을 받음.
 
         반환값: 스키마를 통과한 AnswerOutput. 인용 대조는 S-R8이 따로 함.
-        예외: 시간 초과(2.5초)·HTTP 오류·응답 형식 오류는 ConnectorError를 발생시킴.
+        예외: 시간 초과(설정 TIMEOUT_C04)·HTTP 오류·응답 형식 오류는 ConnectorError를 발생시킴.
         부수효과: 외부 API 호출 1회.
         """
 

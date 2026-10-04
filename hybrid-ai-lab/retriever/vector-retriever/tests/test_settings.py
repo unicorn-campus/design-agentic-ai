@@ -24,9 +24,6 @@ ENV_KEYS = (
     "GRADE_UPPER",
     "API_HOST",
     "API_PORT",
-    "C03_MODEL",
-    "C03_EFFORT",
-    "C03_MAX_TOKENS",
     "TIMEOUT_C03",
     "GRADE_OVERLAP_WAIVER",
     "DOMAIN_TERM_MIN_DF_RATIO",
@@ -61,11 +58,8 @@ def test_defaults_match_design_values(clean_env: None, empty_env_file: Path) -> 
     assert settings.groq_model == "openai/gpt-oss-120b"
     assert settings.groq_reasoning_effort == "low"
     assert (settings.timeout_c01, settings.timeout_c02) == (2.5, 1.5)
-    assert (settings.timeout_c03, settings.timeout_c04) == (8.0, 2.5)  # C-03 Claude 전환(사용자 결정)
-    assert settings.time_budget_seconds == 45.0
-    # Claude Code 등이 CLAUDE_EFFORT를 이미 쓰므로 C-03 설정은 C03_ 접두어로 받음(이름 충돌 실측)
-    expected_c03 = ("claude-opus-5-5", "low", 4000)
-    assert (settings.claude_model, settings.claude_effort, settings.claude_max_tokens) == expected_c03
+    assert (settings.timeout_c03, settings.timeout_c04) == (1.2, 2.5)  # C-03 Groq 복귀(사용자 결정 2026-10-04)
+    assert settings.time_budget_seconds == 30.0
     assert (settings.max_turns, settings.max_llm_calls, settings.max_rewrites) == (6, 16, 2)
     # 개선안 1 · 3(사용자 결정 2026-10-03): 겹침 면제 기준 0.9, 업무 어휘 비율 0.2
     assert (settings.grade_overlap_waiver, settings.domain_term_min_df_ratio) == (0.9, 0.2)
@@ -178,13 +172,3 @@ def test_secret_is_hidden_in_repr(clean_env: None, tmp_path: Path) -> None:
     assert settings.groq_api_key == "not-a-real-key"
     assert "not-a-real-key" not in repr(settings)
 
-
-def test_anthropic_key_falls_back_to_claude_api_key(tmp_path, monkeypatch) -> None:
-    """공용 .env는 Anthropic 키를 CLAUDE_API_KEY로 둠. 표준 이름 ANTHROPIC_API_KEY가 없으면 그 값을 씀."""
-
-    for key in ("ANTHROPIC_API_KEY", "CLAUDE_API_KEY"):
-        monkeypatch.delenv(key, raising=False)
-    monkeypatch.setenv("CLAUDE_API_KEY", "not-a-real-claude-key")
-    assert load_settings(tmp_path / "missing.env").anthropic_api_key == "not-a-real-claude-key"
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "not-a-real-anthropic-key")
-    assert load_settings(tmp_path / "missing.env").anthropic_api_key == "not-a-real-anthropic-key"

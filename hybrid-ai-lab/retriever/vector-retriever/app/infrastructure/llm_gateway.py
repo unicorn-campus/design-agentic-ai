@@ -1,6 +1,6 @@
 """LanguageModelPort를 LangChain 채팅 모델로 구현한 어댑터임(커넥터 C-01 ~ C-04).
 
-제공자를 가리지 않음 — 모델 객체를 밖에서 받아 쓰므로 C-01·C-02·C-04는 Groq, C-03은 Claude처럼 섞어 꽂을 수 있음.
+모델 객체를 밖(bootstrap)에서 받아 씀 — 지금은 C-01 ~ C-04 모두 Groq(gpt-oss-120b)임.
 재시도는 0회임. 실패는 ConnectorError로 올리고, 대체 경로 선택은 부르는 단계의 몫임(설계 슬라이드 18 ~ 19).
 """
 
@@ -13,7 +13,6 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
 from pathlib import Path
 from typing import Any, Iterator, Literal, Mapping, Sequence
 
-import anthropic
 import groq
 from langchain_core.exceptions import OutputParserException
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -38,8 +37,8 @@ from app.domain.transform_rules import ALLOWED_TECHNIQUES
 from app.domain.verification import AnswerSentence, Citation
 from app.infrastructure.chat_models import C01, C02, C03, C04
 
-# 커넥터별 타임아웃(초). C-03만 Claude라 8.0초임 — 실측 22회 중앙 3.6초·최대 7.1초를 덮는 값(사용자 결정, 2026-10-03)
-DEFAULT_TIMEOUTS: dict[str, float] = {C01: 2.5, C02: 1.5, C03: 8.0, C04: 2.5}
+# 커넥터별 타임아웃(초, 설계 ③)
+DEFAULT_TIMEOUTS: dict[str, float] = {C01: 2.5, C02: 1.5, C03: 1.2, C04: 2.5}
 
 # 시스템 프롬프트 파일명 — 설계서 [NOTES] 전문을 그대로 담은 파일임(문구를 코드에 복사하지 않음)
 PROMPT_FILES: dict[str, str] = {
@@ -130,11 +129,11 @@ STATUS_KINDS: dict[int, ConnectorErrorKind] = {
     499: "cancelled",
 }
 
-# 두 SDK의 같은 뜻 예외를 한 묶음으로 봄. 제공자가 늘어도 이 묶음만 넓히면 분류 규칙은 그대로임
-TIMEOUT_ERRORS = (groq.APITimeoutError, anthropic.APITimeoutError)
-SCHEMA_ERRORS = (groq.APIResponseValidationError, anthropic.APIResponseValidationError)
-STATUS_ERRORS = (groq.APIStatusError, anthropic.APIStatusError)
-CONNECTION_ERRORS = (groq.APIConnectionError, anthropic.APIConnectionError)
+# SDK 예외를 뜻별 묶음으로 봄. 제공자가 늘어도 이 묶음만 넓히면 분류 규칙은 그대로임
+TIMEOUT_ERRORS = (groq.APITimeoutError,)
+SCHEMA_ERRORS = (groq.APIResponseValidationError,)
+STATUS_ERRORS = (groq.APIStatusError,)
+CONNECTION_ERRORS = (groq.APIConnectionError,)
 # 구조화 출력 파싱·검증 실패. 모델이 거절(stop_reason refusal)해 본문이 비어도 파서가 여기로 떨어짐
 PARSE_ERRORS = (OutputParserException, ValidationError, json.JSONDecodeError)
 
@@ -208,7 +207,7 @@ def _fields(payload: Mapping[str, Any]) -> str:
 def _structured(model: Any, schema: type[BaseModel]) -> Any:
     """채팅 모델에 구조화 출력(json_schema)을 씌운 실행 사슬을 만듦.
 
-    방법: strict 인자를 받는 제공자(Groq)에만 strict=True를 넘김. Anthropic 쪽은 그 인자가 없어
+    방법: strict 인자를 받는 제공자(Groq)에만 strict=True를 넘김. 그 인자가 없는 제공자는
     넘기면 조용히 무시되므로, 넘기는지 여부를 서명으로 보고 정함.
     반환값: invoke(메시지 목록) → 스키마 인스턴스를 돌려주는 Runnable임.
     예외: 제공자가 json_schema 방식을 지원하지 않으면 그 제공자의 예외를 그대로 올림.

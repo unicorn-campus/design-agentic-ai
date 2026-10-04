@@ -32,8 +32,7 @@ _REMAINING_CONNECTORS: dict[str, tuple[str, ...]] = {
 class BudgetPolicy:
     """요청 1건의 시간 예산과 반복·호출 상한 값. 설정에서 읽어 bootstrap이 주입함."""
 
-    # 설계 30초 → 45초(사용자 결정 2026-10-03): C-03을 Claude Opus 5.5로 바꾸며 1회 4 ~ 5초(실측)가 들어 예산을 늘림
-    total_seconds: float = 45.0  # 총 시간 예산
+    total_seconds: float = 30.0  # 총 시간 예산(설계 ⑤)
     closing_seconds: float = 1.5  # S-R9 몫으로 떼어 두는 종료 처리 시간(총 예산의 5%, 설계 가정)
     start_threshold_seconds: float = 1.5  # 단계 시작 기준. 남은 시간 예산이 이 값 미만이면 착지(설계 가정)
     max_turns: int = 6  # L-1 회전 상한. S-R3 진입 횟수로 셈(7번째 진입은 LLM 없이 수집 종료)
@@ -42,8 +41,8 @@ class BudgetPolicy:
     max_sub_questions: int = 3  # S-R2 하위 질문 최대 개수
     max_search_fail_streak: int = 2  # 검색 연속 실패가 이 횟수에 닿으면 즉시 수집 종료
     connector_worst_seconds: dict[str, float] = field(
-        default_factory=lambda: {C_01: 2.5, C_02: 1.5, C_03: 8.0, C_04: 2.5}
-    )  # 커넥터별 최악값 = 타임아웃 × (재시도 0 + 1). C-03은 Claude Opus 5.5라 설계 1.2초 → 8.0초(사용자 결정)
+        default_factory=lambda: {C_01: 2.5, C_02: 1.5, C_03: 1.2, C_04: 2.5}
+    )  # 커넥터별 최악값 = 타임아웃 × (재시도 0 + 1)
 
 
 def remaining_connector_worst(policy: BudgetPolicy, step_id: str, *, generate_answer: bool) -> float:
@@ -67,7 +66,7 @@ def remaining_budget(
     """설계 ⑥-10의 '남은 시간 예산'을 계산함.
 
     방법: 총 예산 − 사용 시간 − 종료 처리 시간 − 남은 외부 연동 최악값 합.
-    예시: S-R3 진입, 사용 12초, 답변 켬 → 30 − 12 − 1.5 − (1.5 + 1.2 + 2.5) = 11.3초.
+    예시(기본값 기준): S-R3 진입, 사용 12초, 답변 켬 → 30 − 12 − 1.5 − (1.5 + 1.2 + 2.5) = 11.3초.
     반환값: 음수일 수 있음. 음수·기준 미만이면 그 단계를 시작하지 않고 착지함.
     """
 

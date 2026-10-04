@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "plan_path": "plans\\top_k.yaml",
+  "plan_sha256": "c97dd2d28a51882f5527d83ba86bce547647dc5142417fe772470fdc71764019",
+  "run_date": "20261004",
+  "pointer_backup": "_backup/active_generation.json",
+  "versions": {
+    "5": {
+      "order": 0,
+      "is_baseline": true,
+      "thread_id": null,
+      "steps": {
+        "F1": {
+          "status": "성공",
+          "at": "2026-10-04T12:31:57+00:00",
+          "artifact": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\ragas\\experiments\\top_k\\5\\config.json"
+        },
+        "F2": {
+          "status": "건너뜀",
+          "at": "2026-10-04T12:31:57+00:00",
+          "detail": "재색인 아님 — 사용 중 세대를 그대로 씀"
+        },
+        "F3": {
+          "status": "성공",
+          "at": "2026-10-04T12:33:45+00:00",
+          "artifact": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\ragas\\experiments\\top_k\\5\\retriever.json"
+        },
+        "F4": {
+          "status": "성공",
+          "at": "2026-10-04T12:33:45+00:00",
+          "restored": false,
+          "generation": "gen-ch2-20261003-001-17151790",
+          "matches": true,
+          "sha256": "01877f56a9f5e2364215715c31e523c2b69ec079d2d2c3f288d5a15649e7dba3"
+        },
+        "F5": {
+          "status": "성공",
+          "at": "2026-10-04T12:50:34+00:00",
+          "artifact": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\ragas\\experiments\\top_k\\5\\ragas.json",
+          "scored": 10,
+          "failed_scores": 0
+        },
+        "F6": {
+          "status": "성공",
+          "at": "2026-10-04T12:50:34+00:00",
+          "artifact": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\ragas\\experiments\\top_k\\5\\review.csv",
+          "rows": 20
+        }
+      }
+    },
+    "3": {
+      "order": 1,
+      "is_baseline": false,
+      "thread_id": null,
+      "steps": {
+        "F1": {
+          "status": "성공",
+          "at": "2026-10-04T12:50:34+00:00",
+          "artifact": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\ragas\\experiments\\top_k\\3\\config.json"
+        },
+        "F2": {
+          "status": "건너뜀",
+          "at": "2026-10-04T12:50:34+00:00",
+          "detail": "재색인 아님 — 사용 중 세대를 그대로 씀"
+        },
+        "F3": {
+          "status": "성공",
+          "at": "2026-10-04T12:52:17+00:00",
+          "artifact": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\ragas\\experiments\\top_k\\3\\retriever.json"
+        },
+        "F4": {
+          "status": "성공",
+          "at": "2026-10-04T12:52:17+00:00",
+          "restored": false,
+          "generation": "gen-ch2-20261003-001-17151790",
+          "matches": true,
+          "sha256": "01877f56a9f5e2364215715c31e523c2b69ec079d2d2c3f288d5a15649e7dba3"
+        },
+        "F5": {
+          "status": "성공",
+          "at": "2026-10-04T13:08:41+00:00",
+          "artifact": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\ragas\\experiments\\top_k\\3\\ragas.json",
+          "scored": 10,
+          "failed_scores": 0
+        },
+        "F6": {
+          "status": "성공",
+          "at": "2026-10-04T13:08:41+00:00",
+          "artifact": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\ragas\\experiments\\top_k\\3\\review.csv",
+          "rows": 20
+        }
+      }
+    }
+  },
+  "pointer_backup_generation": "gen-ch2-20261003-001-17151790",
+  "final_pointer_check": {
+    "restored": false,
+    "generation": "gen-ch2-20261003-001-17151790",
+    "matches": true,
+    "sha256": "01877f56a9f5e2364215715c31e523c2b69ec079d2d2c3f288d5a15649e7dba3",
+    "at": "2026-10-04T13:08:41+00:00"
+  }
+}

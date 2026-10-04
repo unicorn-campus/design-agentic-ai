@@ -1,0 +1,21 @@
+# 청크 크기 600 · 800(기준 800, 재색인). 기준 800도 같은 절차(설정 복사본 + 새 thread-id)로 다시 색인함
+# 청크 크기는 임베딩 입력 상한(800토큰)보다 키울 수 없음 — 인덱서가 오류로 멈추므로 실행 전에 거부함
+schema_version: 1
+hyperparameter: chunk_size
+apply: config_file
+target: indexer:config:config/document_policies.json#defaults.chunk_size
+reindex: true
+baseline: 800
+versions:
+  - id: "800"
+    value: 800
+    note: 기준 버전 · 새로 색인
+  - id: "600"
+    value: 600
+eval_set:
+  path: eval-set.json
+  sha256: 253f89d84905   # build_eval_set.py가 출력한 eval_set_hash — 평가셋이 바뀌면 함께 고침
+scoring:
+  ragas_provider: local    # 로컬 Qwen3.5-9B — 반복해도 같은 값. 실험 끝까지 바꾸지 않음
+  ragas_repeat: 3
+  human_pass_threshold: 0.5  # 설계 가정

@@ -1,0 +1,52 @@
+{
+  "param": "top_k",
+  "version": "3",
+  "value": 3,
+  "baseline": 5,
+  "is_baseline": false,
+  "apply": "code_arg",
+  "target": "retriever:arg:--top-k",
+  "reindex": false,
+  "indexer_env": {},
+  "retriever_env": {
+    "DATA_ROOT": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\indexer\\vector-bm25\\data",
+    "AUDIT_LOG_PATH": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\ragas\\experiments\\top_k\\3\\logs\\audit.jsonl"
+  },
+  "retriever_args": [
+    "--top-k",
+    "3"
+  ],
+  "config_copy": {},
+  "base_generation": "gen-ch2-20261003-001-17151790",
+  "eval_set_path": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\ragas\\eval-set.json",
+  "eval_set_hash": "253f89d84905",
+  "provider": "local",
+  "repeat": 3,
+  "human_threshold": 0.5,
+  "top_k": 3,
+  "metric_k": 3,
+  "fixed_k": 5,
+  "environment": {
+    "git_commit": "0005530fb284e08622c8b40379e766b3b6108999",
+    "git_dirty": true,
+    "python": {
+      "ragas": "Python 3.13.13",
+      "indexer": "Python 3.13.13",
+      "retriever": "Python 3.13.13"
+    },
+    "embed_device": "auto",
+    "secrets": {
+      "GROQ_API_KEY": "(설정됨)",
+      "ANTHROPIC_API_KEY": "(설정됨)"
+    }
+  },
+  "created_at": "2026-10-04T12:50:34+00:00",
+  "generation": "gen-ch2-20261003-001-17151790",
+  "pointer_restored": {
+    "restored": false,
+    "generation": "gen-ch2-20261003-001-17151790",
+    "matches": true,
+    "sha256": "01877f56a9f5e2364215715c31e523c2b69ec079d2d2c3f288d5a15649e7dba3",
+    "at": "2026-10-04T12:52:17+00:00"
+  }
+}

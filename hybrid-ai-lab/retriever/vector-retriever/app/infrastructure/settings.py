@@ -21,7 +21,6 @@ DEFAULT_EMBED_REVISION = "3431f86d399d666083890dbb882aced6708873bc"
 DEFAULT_RERANK_MODEL = "BAAI/bge-reranker-v2-m3"
 DEFAULT_RERANK_REVISION = "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
 DEFAULT_GROQ_MODEL = "openai/gpt-oss-120b"
-DEFAULT_CLAUDE_MODEL = "claude-opus-5-5"
 DEFAULT_AUDIT_LOG_PATH = "logs/audit.jsonl"
 
 # .env 값이 참으로 인정되는 표기. 대소문자는 가리지 않음
@@ -32,13 +31,12 @@ _TRUE_WORDS = frozenset({"1", "true", "yes", "y", "on"})
 class Settings:
     """리트리버 1개 프로세스의 실행 설정값. 조립은 bootstrap이 하고 이 객체는 값만 담음.
 
-    비밀값(groq_api_key·anthropic_api_key)은 repr에서 가림. 값 검증은 load_settings가 끝낸 뒤 이 객체를 만듦.
+    비밀값(groq_api_key)은 repr에서 가림. 값 검증은 load_settings가 끝낸 뒤 이 객체를 만듦.
     """
 
     data_root: Path  # 색인 세대 폴더의 뿌리(W-1 indexer/vector-bm25/data). 절대 경로로 해석해 둠
     audit_log_path: Path  # 감사 로그 파일 경로. 절대 경로로 해석해 둠(설계 S-R9 ④)
-    groq_api_key: str = field(default="", repr=False)  # Groq 비밀키(C-01·C-02·C-04). 비면 해당 단계가 대체 경로로 감
-    anthropic_api_key: str = field(default="", repr=False)  # Anthropic 비밀키(C-03). 비면 C-03은 keep 대체 경로
+    groq_api_key: str = field(default="", repr=False)  # Groq 비밀키(C-01 ~ C-04). 비면 LLM 단계가 대체 경로로 감
     embed_model: str = DEFAULT_EMBED_MODEL  # 질의 임베딩 모델. 색인과 같은 모델이어야 함(색인 계약 4)
     embed_revision: str = DEFAULT_EMBED_REVISION  # 임베딩 모델 revision 고정값(색인 계약 4·5)
     embed_device: str = "auto"  # 임베딩 실행 장치. auto·cpu·cuda·mps 중 하나(설계 ⑥-5)
@@ -48,17 +46,14 @@ class Settings:
     rerank_model: str = DEFAULT_RERANK_MODEL  # Cross-Encoder 리랭커 모델(설계 ⑥-7)
     rerank_revision: str = DEFAULT_RERANK_REVISION  # 리랭커 revision 고정값
     rerank_max_length: int = 1024  # 리랭커 입력 상한 토큰 수. 설계 512 → 1024 변경(사용자 결정, 2026-10-03)
-    groq_model: str = DEFAULT_GROQ_MODEL  # C-01·C-02·C-04가 쓰는 Groq 모델(설계 ③)
+    # C-03을 Claude Opus 5.5로 바꿨다가 요금 때문에 Groq로 되돌림(사용자 결정 2026-10-04)
+    groq_model: str = DEFAULT_GROQ_MODEL  # C-01 ~ C-04가 쓰는 Groq 모델(설계 ③)
     groq_reasoning_effort: str = "low"  # Groq 추론 강도. 지연을 낮추려고 low로 둠(설계 가정)
-    # C-03 질문 변환만 Claude로 바꿈(사용자 결정 2026-10-03). Opus 5.5는 temperature·seed를 받지 않아 effort로만 조절함
-    claude_model: str = DEFAULT_CLAUDE_MODEL  # C-03 질문 변환 모델
-    claude_effort: str = "low"  # C-03 사고 강도(Opus 5.5 기본 medium보다 낮춰 지연을 줄임, 설계 가정)
-    claude_max_tokens: int = 4000  # C-03 출력 상한. 사고 토큰도 이 안에서 쓰므로 설계 700보다 크게 둠(설계 가정)
     timeout_c01: float = 2.5  # C-01 질문 분석 타임아웃(초, 설계 ③)
     timeout_c02: float = 1.5  # C-02 행동 선택 타임아웃(초, 설계 ③)
-    timeout_c03: float = 8.0  # C-03 타임아웃(초). Claude Opus 5.5 실측 중앙 3.6·최대 7.1초라 설계 1.2 → 8.0(사용자 결정)
+    timeout_c03: float = 1.2  # C-03 질문 변환 타임아웃(초, 설계 ③)
     timeout_c04: float = 2.5  # C-04 답변 생성 타임아웃(초, 설계 ③)
-    time_budget_seconds: float = 45.0  # 요청 1건의 총 시간 예산(초). C-03 변경으로 설계 30 → 45(사용자 결정)
+    time_budget_seconds: float = 30.0  # 요청 1건의 총 시간 예산(초, 설계 ⑤)
     closing_seconds: float = 1.5  # S-R9 몫으로 떼어 두는 종료 처리 시간(초, 설계 ⑥-10)
     start_threshold_seconds: float = 1.5  # 단계 시작 기준(초). 남은 예산이 이 값 미만이면 착지(설계 ⑥-10)
     max_turns: int = 6  # L-1 회전 상한. S-R3 진입 횟수로 셈(설계 ④)
@@ -181,8 +176,6 @@ def load_settings(env_path: Path | None = None) -> Settings:
         data_root=_resolve_path(text("DATA_ROOT"), DEFAULT_DATA_ROOT),
         audit_log_path=_resolve_path(text("AUDIT_LOG_PATH"), DEFAULT_AUDIT_LOG_PATH),
         groq_api_key=text("GROQ_API_KEY"),
-        # 공용 hybrid-ai-lab/.env는 Anthropic 키를 CLAUDE_API_KEY로 둠. 표준 이름 ANTHROPIC_API_KEY를 먼저 봄
-        anthropic_api_key=text("ANTHROPIC_API_KEY") or text("CLAUDE_API_KEY"),
         embed_model=text("EMBED_MODEL", DEFAULT_EMBED_MODEL),
         embed_revision=text("EMBED_REVISION", DEFAULT_EMBED_REVISION),
         embed_device=text("EMBED_DEVICE", "auto"),
@@ -194,14 +187,11 @@ def load_settings(env_path: Path | None = None) -> Settings:
         rerank_max_length=count("RERANK_MAX_LENGTH", 1024, minimum=1, maximum=8192),
         groq_model=text("GROQ_MODEL", DEFAULT_GROQ_MODEL),
         groq_reasoning_effort=text("GROQ_REASONING_EFFORT", "low"),
-        claude_model=text("C03_MODEL", DEFAULT_CLAUDE_MODEL),
-        claude_effort=text("C03_EFFORT", "low"),
-        claude_max_tokens=count("C03_MAX_TOKENS", 4000, minimum=256, maximum=64000),
         timeout_c01=number("TIMEOUT_C01", 2.5, minimum=0.1, maximum=60.0),
         timeout_c02=number("TIMEOUT_C02", 1.5, minimum=0.1, maximum=60.0),
-        timeout_c03=number("TIMEOUT_C03", 8.0, minimum=0.1, maximum=60.0),
+        timeout_c03=number("TIMEOUT_C03", 1.2, minimum=0.1, maximum=60.0),
         timeout_c04=number("TIMEOUT_C04", 2.5, minimum=0.1, maximum=60.0),
-        time_budget_seconds=number("TIME_BUDGET_SECONDS", 45.0, minimum=1.0, maximum=600.0),
+        time_budget_seconds=number("TIME_BUDGET_SECONDS", 30.0, minimum=1.0, maximum=600.0),
         closing_seconds=number("CLOSING_SECONDS", 1.5, minimum=0.1, maximum=60.0),
         start_threshold_seconds=number("START_THRESHOLD_SECONDS", 1.5, minimum=0.1, maximum=60.0),
         max_turns=count("MAX_TURNS", 6, minimum=1, maximum=50),

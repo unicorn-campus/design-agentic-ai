@@ -6,7 +6,6 @@ import json
 import time
 from typing import Any
 
-import anthropic
 import groq
 import httpx
 import pytest
@@ -25,11 +24,7 @@ from app.infrastructure.chat_models import (
     C02,
     C03,
     C04,
-    CLAUDE_FALLBACK_BETA,
-    CLAUDE_FALLBACK_MODE,
-    DEFAULT_CLAUDE_MODEL,
     DEFAULT_GROQ_MODEL,
-    build_claude_chat,
     build_groq_chat,
 )
 from app.infrastructure.llm_gateway import (
@@ -79,7 +74,7 @@ class _FakeChat:
 
 
 class _FakeChatNoStrict(_FakeChat):
-    """strict 인자를 받지 않는 제공자(Anthropic)를 흉내 낸 가짜임."""
+    """strict 인자를 받지 않는 제공자를 흉내 낸 가짜임(게이트웨이가 제공자를 가리지 않음을 확인)."""
 
     def with_structured_output(self, schema: Any, *, method: str = "function_calling"):  # type: ignore[override]
         self.structured_kwargs = {"schema": schema, "method": method}
@@ -124,8 +119,7 @@ def _gateway(
     source = results or RESULTS
     chats: dict[str, _FakeChat] = {}
     for connector_id in (C01, C02, C03, C04):
-        maker = _FakeChatNoStrict if connector_id == C03 else _FakeChat
-        chats[connector_id] = maker(source[connector_id], raises=raises, delay=delay)
+        chats[connector_id] = _FakeChat(source[connector_id], raises=raises, delay=delay)
     return LangChainLanguageModel(chats, timeouts), chats
 
 
@@ -185,6 +179,7 @@ class _Recorder:
     [
         (C01, 0.0, 700, 1001, 2.5),
         (C02, 0.0, 400, 1002, 1.5),
+        (C03, 0.0, 700, 1003, 1.2),
         (C04, 0.2, 1800, 1004, 2.5),
     ],
 )
@@ -209,11 +204,11 @@ def test_groq_chat_uses_design_fixed_values(
     assert DEFAULT_TIMEOUTS[connector_id] == timeout  # 설계 타임아웃 표와 같은 값임
 
 
-def test_groq_chat_rejects_claude_connector() -> None:
-    """C-03은 Claude 커넥터라 Groq 공장이 받지 않음."""
+def test_groq_chat_rejects_unknown_connector() -> None:
+    """설계에 없는 커넥터ID는 서버 시작 때 바로 드러나게 거절함."""
 
     with pytest.raises(ValueError):
-        build_groq_chat(C03, api_key=FAKE_KEY, timeout=1.2, chat_factory=_Recorder)
+        build_groq_chat("C-99", api_key=FAKE_KEY, timeout=1.2, chat_factory=_Recorder)
 
 
 def test_real_groq_chat_turns_zero_temperature_into_epsilon() -> None:
@@ -228,34 +223,6 @@ def test_real_groq_chat_turns_zero_temperature_into_epsilon() -> None:
     assert params["reasoning_format"] is None
 
 
-def test_claude_chat_has_no_sampling_knobs() -> None:
-    """Opus 5.5는 temperature·top_p·seed를 받으면 400이므로 아예 넘기지 않음."""
-
-    chat = build_claude_chat(api_key=FAKE_KEY, timeout=6.0, chat_factory=_Recorder)
-    sent = chat.kwargs
-    assert sent["model"] == DEFAULT_CLAUDE_MODEL
-    assert sent["max_retries"] == 0
-    assert sent["max_tokens"] == 4000  # 생각 토큰도 이 상한을 함께 써서 작게 두면 JSON이 잘림
-    assert sent["default_request_timeout"] == 6.0
-    assert sent["output_config"] == {"effort": "low"}
-    assert not {"temperature", "top_p", "top_k", "seed"} & set(sent)
-
-
-def test_claude_chat_asks_for_server_side_fallback() -> None:
-    """서버측 거절 대체는 beta 표시와 fallbacks 값을 짝으로 보내야 켜짐(실호출로 전달 확인함)."""
-
-    chat = build_claude_chat(api_key=FAKE_KEY, timeout=6.0, chat_factory=_Recorder)
-    assert chat.kwargs["betas"] == [CLAUDE_FALLBACK_BETA]
-    assert chat.kwargs["model_kwargs"] == {"fallbacks": CLAUDE_FALLBACK_MODE}
-
-
-def test_claude_chat_fallback_can_be_turned_off() -> None:
-    """대체가 막힌 환경을 위해 fallbacks를 끌 수 있음 — 끄면 beta 표시도 함께 빠짐."""
-
-    chat = build_claude_chat(api_key=FAKE_KEY, timeout=6.0, chat_factory=_Recorder, fallbacks=False)
-    assert "betas" not in chat.kwargs and "model_kwargs" not in chat.kwargs
-
-
 # ---------------------------------------------------------------- 2. 구조화 출력 설정
 
 
@@ -265,7 +232,15 @@ def test_structured_output_is_json_schema_with_strict_where_supported() -> None:
     _, chats = _gateway()
     assert chats[C01].structured_kwargs == {"schema": PlanResult, "method": "json_schema", "strict": True}
     assert chats[C04].structured_kwargs["schema"] is AnswerResult
-    # Anthropic의 with_structured_output은 strict 인자가 없음 — 넘기지 않아야 함
+    assert chats[C03].structured_kwargs == {"schema": TransformResult, "method": "json_schema", "strict": True}
+
+
+def test_structured_output_skips_strict_for_provider_without_it() -> None:
+    """strict 인자가 없는 제공자에는 strict를 넘기지 않음 — 제공자를 바꿔 꽂아도 게이트웨이는 그대로 씀."""
+
+    chats = {connector_id: _FakeChat(RESULTS[connector_id]) for connector_id in (C01, C02, C04)}
+    chats[C03] = _FakeChatNoStrict(TRANSFORM_OK)
+    LangChainLanguageModel(chats)
     assert chats[C03].structured_kwargs == {"schema": TransformResult, "method": "json_schema"}
 
 
@@ -282,7 +257,7 @@ def test_timeouts_can_be_overridden_per_connector() -> None:
 
     gateway, _ = _gateway(timeouts={C02: 0.9})
     assert gateway._timeouts[C02] == 0.9
-    assert gateway._timeouts[C03] == DEFAULT_TIMEOUTS[C03] == 8.0
+    assert gateway._timeouts[C03] == DEFAULT_TIMEOUTS[C03] == 1.2
 
 
 # ---------------------------------------------------------------- 3. 프롬프트 인젝션 대비
@@ -437,14 +412,6 @@ def _groq_status(status: int) -> groq.APIStatusError:
     return groq.APIStatusError("boom", response=httpx.Response(status, request=request), body=None)
 
 
-def _anthropic_status(status: int) -> anthropic.APIStatusError:
-    """지정한 HTTP 상태를 가진 Anthropic SDK 예외를 만듦."""
-
-    request = httpx.Request("POST", "https://api.anthropic.com/v1/messages")
-    return anthropic.APIStatusError("boom", response=httpx.Response(status, request=request), body=None)
-
-
-@pytest.mark.parametrize("maker", [_groq_status, _anthropic_status], ids=["groq", "anthropic"])
 @pytest.mark.parametrize(
     ("status", "kind"),
     [
@@ -460,10 +427,10 @@ def _anthropic_status(status: int) -> anthropic.APIStatusError:
         (404, "unknown"),
     ],
 )
-def test_http_status_is_classified(maker: Any, status: int, kind: str) -> None:
-    """두 SDK 모두 HTTP 상태 코드가 설계 표의 분류로 바뀜."""
+def test_http_status_is_classified(status: int, kind: str) -> None:
+    """HTTP 상태 코드가 설계 표의 분류로 바뀜."""
 
-    gateway, _ = _gateway(raises=maker(status))
+    gateway, _ = _gateway(raises=_groq_status(status))
     with pytest.raises(ConnectorError) as caught:
         gateway.analyze_question(_plan_input())
     assert caught.value.kind == kind
@@ -483,29 +450,21 @@ def test_groq_timeout_is_classified_before_connection_error() -> None:
     assert caught.value.elapsed_seconds is not None
 
 
-def test_anthropic_timeout_is_classified() -> None:
-    """C-03(Claude)도 같은 규칙으로 timeout을 가려냄."""
+def test_transform_timeout_is_classified() -> None:
+    """C-03도 같은 규칙으로 timeout을 가려냄."""
 
-    request = httpx.Request("POST", "https://api.anthropic.com/v1/messages")
-    gateway, _ = _gateway(raises=anthropic.APITimeoutError(request=request))
+    request = httpx.Request("POST", "https://api.groq.com/openai/v1/chat/completions")
+    gateway, _ = _gateway(raises=groq.APITimeoutError(request=request))
     with pytest.raises(ConnectorError) as caught:
         gateway.transform_query(_transform_input())
     assert caught.value.kind == "timeout"
     assert caught.value.connector_id == C03
 
 
-@pytest.mark.parametrize(
-    "error",
-    [
-        groq.APIConnectionError(request=httpx.Request("POST", "https://api.groq.com/x")),
-        anthropic.APIConnectionError(request=httpx.Request("POST", "https://api.anthropic.com/x")),
-    ],
-    ids=["groq", "anthropic"],
-)
-def test_connection_failure_is_capacity(error: Exception) -> None:
+def test_connection_failure_is_capacity() -> None:
     """연결 실패는 용량 부족으로 분류함."""
 
-    gateway, _ = _gateway(raises=error)
+    gateway, _ = _gateway(raises=groq.APIConnectionError(request=httpx.Request("POST", "https://api.groq.com/x")))
     with pytest.raises(ConnectorError) as caught:
         gateway.analyze_question(_plan_input())
     assert caught.value.kind == "capacity"
@@ -546,10 +505,10 @@ def test_parse_failures_are_format_errors(error: Exception) -> None:
 def test_wrapped_sdk_error_is_still_classified() -> None:
     """LangChain이 SDK 예외를 한 겹 감싸도 원인 사슬을 따라가 같은 분류로 봄."""
 
-    inner = _anthropic_status(429)
+    inner = _groq_status(429)
     try:
         raise inner
-    except anthropic.APIStatusError as cause:
+    except groq.APIStatusError as cause:
         wrapper = RuntimeError("chain failed")
         wrapper.__cause__ = cause
     gateway, _ = _gateway(raises=wrapper)

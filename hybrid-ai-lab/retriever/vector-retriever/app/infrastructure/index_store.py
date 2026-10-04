@@ -733,8 +733,10 @@ class LocalIndexProvider(IndexProviderPort):
         per_chunk = tokenizer.tokenize_many(index_texts)
         document_frequency: dict[str, int] = {}
         chunk_terms: dict[str, frozenset[str]] = {}
-        for chunk_id, tokens in zip(order, per_chunk, strict=True):
-            terms = frozenset(tokens)
+        for chunk_id, tokens, text in zip(order, per_chunk, index_texts, strict=True):
+            # 핵심어 일치는 질문 쪽 keyword_terms와 같은 규칙으로 자른 낱말도 함께 봐야 짝이 맞음(조사 뗀 숫자 표면형 등).
+            # BM25 검색 토큰(색인 계약)은 그대로 두고, 채점용 낱말 집합에만 더함
+            terms = frozenset(tokens) | frozenset(tokenizer.keyword_terms(text))
             chunk_terms[chunk_id] = terms
             for term in terms:
                 document_frequency[term] = document_frequency.get(term, 0) + 1

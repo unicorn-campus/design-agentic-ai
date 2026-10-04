@@ -1,7 +1,7 @@
 """커넥터별 LangChain 채팅 모델을 설계 고정값대로 만들어 주는 공장임(C-01 ~ C-04).
 
 하이퍼파라미터를 여기 상수로 묶어 둠 — 부르는 단계도, 게이트웨이도 값을 흔들 수 없게 함(설계 슬라이드 26·28·30·32).
-재시도는 두 제공자 모두 0회로 고정함. SDK 기본값 2회가 커넥터 타임아웃을 몰래 2 ~ 3배로 늘리는 일을 막음.
+재시도는 0회로 고정함. SDK 기본값 2회가 커넥터 타임아웃을 몰래 2 ~ 3배로 늘리는 일을 막음.
 """
 
 from __future__ import annotations
@@ -9,7 +9,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Callable
 
-from langchain_anthropic import ChatAnthropic
 from langchain_core.language_models import BaseChatModel
 from langchain_groq import ChatGroq
 
@@ -20,20 +19,11 @@ C03 = "C-03"
 C04 = "C-04"
 
 DEFAULT_GROQ_MODEL = "openai/gpt-oss-120b"
-DEFAULT_CLAUDE_MODEL = "claude-opus-5-5"
-
-# C-03만 Claude를 씀. thinking 토큰도 이 상한 안에서 쓰이므로 설계 700으로 두면 응답이 잘림(설계 가정 4000)
-DEFAULT_CLAUDE_MAX_TOKENS = 4000
-DEFAULT_CLAUDE_EFFORT = "low"
-
-# 서버측 거절 대체(fallbacks) — Opus 5.5가 안전 분류로 거절하면 같은 호출 안에서 대체 모델이 이어 받음
-CLAUDE_FALLBACK_BETA = "server-side-fallback-2026-07-01"
-CLAUDE_FALLBACK_MODE = "default"
 
 
 @dataclass(frozen=True)
 class GroqSpec:
-    """Groq 커넥터 1개의 고정 하이퍼파라미터. 설계 슬라이드 26·28·32의 표를 그대로 옮긴 값임."""
+    """Groq 커넥터 1개의 고정 하이퍼파라미터. 설계 슬라이드 26·28·30·32의 표를 그대로 옮긴 값임."""
 
     temperature: float
     max_completion_tokens: int
@@ -44,6 +34,7 @@ class GroqSpec:
 GROQ_SPECS: dict[str, GroqSpec] = {
     C01: GroqSpec(0.0, 700, 1001),
     C02: GroqSpec(0.0, 400, 1002),
+    C03: GroqSpec(0.0, 700, 1003),
     C04: GroqSpec(0.2, 1800, 1004),
 }
 
@@ -57,7 +48,7 @@ def build_groq_chat(
     timeout: float,
     chat_factory: Callable[..., Any] | None = None,
 ) -> BaseChatModel:
-    """Groq 커넥터(C-01·C-02·C-04) 1개가 쓸 채팅 모델을 설계 고정값으로 만듦.
+    """커넥터(C-01 ~ C-04) 1개가 쓸 채팅 모델을 설계 고정값으로 만듦.
 
     인자: connector_id는 GROQ_SPECS에 있는 값이어야 함. api_key는 비밀값 저장소에서 온 값이며 어디에도 기록하지 않음.
     인자: timeout은 SDK의 단계별 제한 시간임. 호출 전체 마감 시간은 게이트웨이가 따로 검(설계 ③).
@@ -90,40 +81,3 @@ def build_groq_chat(
         },
     )
 
-
-def build_claude_chat(
-    *,
-    api_key: str,
-    model: str = DEFAULT_CLAUDE_MODEL,
-    effort: str = DEFAULT_CLAUDE_EFFORT,
-    max_tokens: int = DEFAULT_CLAUDE_MAX_TOKENS,
-    timeout: float,
-    chat_factory: Callable[..., Any] | None = None,
-    fallbacks: bool = True,
-) -> BaseChatModel:
-    """C-03(질문 변환)이 쓸 Claude 채팅 모델을 만듦.
-
-    인자: api_key는 Anthropic 키(CLAUDE_API_KEY)임. 어디에도 기록하지 않음.
-    인자: effort는 생각 깊이이며 지연을 낮추려고 low를 기본으로 둠(모델 기본값은 medium).
-    인자: max_tokens는 생각 토큰까지 함께 쓰는 상한임. 작게 두면 JSON이 중간에 잘림.
-    인자: fallbacks를 끄면 서버측 거절 대체를 붙이지 않음(대체가 막힌 환경용).
-    반환값: 하이퍼파라미터가 고정된 BaseChatModel임.
-    부수효과: 없음.
-    왜 temperature·seed가 없나: Opus 5.5는 temperature·top_p·seed를 받으면 400으로 거절함. 생각을 끌 수도 없어
-    effort만으로 깊이를 조절함(claude-api 스킬 기준). 그래서 '같은 질문엔 같은 답' 보장은 이 커넥터에 없음.
-    """
-
-    factory = chat_factory or ChatAnthropic
-    options: dict[str, Any] = {
-        "model": model,
-        "api_key": api_key,
-        "max_tokens": max_tokens,
-        "max_retries": 0,
-        "default_request_timeout": timeout,
-        "output_config": {"effort": effort},
-    }
-    if fallbacks:
-        # betas는 ChatAnthropic 정식 필드이고, fallbacks는 model_kwargs를 거쳐 요청 본문에 그대로 실림
-        options["betas"] = [CLAUDE_FALLBACK_BETA]
-        options["model_kwargs"] = {"fallbacks": CLAUDE_FALLBACK_MODE}
-    return factory(**options)

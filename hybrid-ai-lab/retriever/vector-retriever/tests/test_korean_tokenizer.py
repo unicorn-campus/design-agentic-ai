@@ -100,6 +100,16 @@ def test_핵심어에_코드가_통째로_남음():
     assert "d2-c018-b01" in terms
 
 
+def test_핵심어의_숫자_표면형에서_끝_조사를_뗌():
+    # '1년에'를 그대로 두면 어느 조각과도 맞지 않는 핵심어가 됨(평가셋 v1 실측)
+    terms = _tokenizer().keyword_terms("공항 라운지 입장권은 1년에 몇 번 받을 수 있나요")
+    assert "1년" in terms
+    assert "1년에" not in terms
+    # 조사가 없는 숫자 표면형과 코드는 그대로 남음
+    assert "3000000원" in _tokenizer().keyword_terms("3,000,000원 이상")
+    assert "d2-c018-b01" in _tokenizer().keyword_terms("D2-C018-B01을 알려 주세요")
+
+
 def test_빈_문장은_빈_목록을_줌():
     tokenizer = _tokenizer()
     assert tokenizer.keyword_terms("   ") == []

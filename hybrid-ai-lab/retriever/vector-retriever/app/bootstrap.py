@@ -9,7 +9,7 @@ from app.application.steps import RetrieverSteps, StepConfig
 from app.infrastructure.audit_log import JsonlAuditLog
 from app.infrastructure.clock import SystemClock
 from app.infrastructure.embedder import SentenceTransformerEmbedder
-from app.infrastructure.chat_models import build_claude_chat, build_groq_chat
+from app.infrastructure.chat_models import build_groq_chat
 from app.infrastructure.graph import LangGraphWorkflow
 from app.infrastructure.llm_gateway import LangChainLanguageModel
 from app.infrastructure.index_store import LocalIndexProvider
@@ -25,8 +25,8 @@ _WARMUP_TEXT = "연회비"
 def create_language_model(settings: Settings) -> LangChainLanguageModel:
     """LLM 커넥터 C-01 ~ C-04 구현체를 만듦. 커넥터별 모델을 바꿀 때는 이 함수만 고침.
 
-    선택 기준: C-01 질문 분석·C-02 다음 행동·C-04 답변 생성은 Groq(gpt-oss-120b),
-    C-03 질문 변환만 Claude Opus 5.5(사용자 결정 2026-10-03). 모두 LangChain 채팅 모델로 만들어 같은 게이트웨이에 끼움.
+    선택 기준: C-01 ~ C-04 모두 Groq(gpt-oss-120b). C-03을 Claude Opus 5.5로 바꿨다가 요금 때문에 되돌림
+    (사용자 결정 2026-10-04). 모두 LangChain 채팅 모델로 만들어 같은 게이트웨이에 끼움.
     """
 
     timeouts = {"C-01": settings.timeout_c01, "C-02": settings.timeout_c02,
@@ -34,11 +34,8 @@ def create_language_model(settings: Settings) -> LangChainLanguageModel:
     models = {
         connector: build_groq_chat(connector, api_key=settings.groq_api_key, model=settings.groq_model,
                                    reasoning_effort=settings.groq_reasoning_effort, timeout=timeouts[connector])
-        for connector in ("C-01", "C-02", "C-04")
+        for connector in ("C-01", "C-02", "C-03", "C-04")
     }
-    models["C-03"] = build_claude_chat(api_key=settings.anthropic_api_key, model=settings.claude_model,
-                                       effort=settings.claude_effort, max_tokens=settings.claude_max_tokens,
-                                       timeout=timeouts["C-03"])
     return LangChainLanguageModel(models, timeouts=timeouts)
 
 
@@ -47,16 +44,14 @@ def create_service(settings: Settings | None = None, *, warm_up: bool = True) ->
 
     방법: 설정 로딩 → 임베더·색인 공급자·리랭커·LLM·감사 로그·시계 생성 → 단계 로직 → LangGraph 실행기 → 서비스 순서.
     인자: warm_up이 참이면 임베딩·리랭커 모델을 서버 시작 때 한 번 올림(설계 S-R1 비고 '모델은 시작 때 1회 적재').
-    첫 요청에서 모델을 올리면 10초 넘게 걸려 30초 시간 예산의 대부분을 써 버리기 때문임(지식니 실측 11.9초).
+    첫 요청에서 모델을 올리면 10초 넘게 걸려 시간 예산(기본 30초)의 대부분을 써 버리기 때문임(지식니 실측 11.9초).
     반환값: RetrieverService. 색인 적재에 실패해도 예외 없이 돌려주며 상태 확인(health)이 ready=false를 알림.
     부수효과: 색인 세대 적재(약 4초)·모델 적재.
     """
 
     settings = settings or load_settings()
     if not settings.groq_api_key:
-        logger.warning("GROQ_API_KEY가 비어 있어 C-01·C-02·C-04는 대체 경로로 동작함")
-    if not settings.anthropic_api_key:
-        logger.warning("ANTHROPIC_API_KEY(CLAUDE_API_KEY)가 비어 있어 C-03 질문 변환은 keep 대체 경로로 동작함")
+        logger.warning("GROQ_API_KEY가 비어 있어 LLM 단계(C-01 ~ C-04)는 모두 대체 경로로 동작함")
     embedder = SentenceTransformerEmbedder(
         settings.embed_model,
         revision=settings.embed_revision,

@@ -65,15 +65,13 @@ def test_default_limits_follow_design_body():
     assert worst["C-01"] + 6 * worst["C-02"] + 6 * worst["C-03"] + 3 * worst["C-04"] == pytest.approx(26.2)
 
 
-def test_runtime_defaults_reflect_claude_c03_decision():
-    """사용자 결정(2026-10-03): C-03을 Claude Opus 5.5로 바꿔 타임아웃 8.0초, 총 예산 45초. 상한 값은 설계 본문 그대로."""
+def test_runtime_defaults_follow_design_after_groq_c03_revert():
+    """사용자 결정(2026-10-04): C-03을 Groq로 되돌려 타임아웃 1.2초, 총 예산 30초(설계 원래 값)로 돌아감."""
 
     policy = budget.BudgetPolicy()
     assert (policy.max_turns, policy.max_llm_calls, policy.max_rewrites) == (6, 16, 2)
-    assert policy.total_seconds == 45.0
-    assert policy.connector_worst_seconds == {"C-01": 2.5, "C-02": 1.5, "C-03": 8.0, "C-04": 2.5}
-    # C-03은 하위 질문당 1회라 실제 최대 3회: 2.5 + 1.5 × 6 + 8.0 × 3 + 2.5 × 3 = 43.0초 ≤ 45초
-    assert 2.5 + 1.5 * 6 + 8.0 * 3 + 2.5 * 3 <= policy.total_seconds
+    assert policy.total_seconds == DESIGN.total_seconds == 30.0
+    assert policy.connector_worst_seconds == DESIGN.connector_worst_seconds
 
 
 # ---------------------------------------------------------------- 점수 합치기(⑥-6)
@@ -139,6 +137,51 @@ def test_grade_uncertain_cases(case):
     else:
         cands = [_candidate("a", None), _candidate("b", None)]
     assert grading.grade(_signals(cands, **kwargs), th) == "uncertain"
+
+
+def _card(cid: str, rerank: float, card_id: str | None, card_name: str | None = None, text: str = "") -> Candidate:
+    """카드·본문을 지정한 채점 시험용 후보를 만듦."""
+
+    source = SourceInfo(source="D.pdf", card_id=card_id, card_name=card_name)
+    body = text or f"본문 {cid}"
+    return Candidate(Chunk(cid, body, body, "public", source), 0.5, 1.0, 0.5, rerank)
+
+
+def _target_signals(cands, targets=()):
+    return grading.build_signals(cands, keywords=(), result_terms=set(), vector_top_ids=["a"], keyword_top_ids=["a"],
+                                 top_k=5, thresholds=grading.GradeThresholds(), question_targets=targets)
+
+
+def test_gap_ignores_neighbor_chunks_of_same_card():
+    # 같은 카드의 이웃 조각이 0.005 차이로 2위여도 '모호함'이 아님(평가셋 v1: 반려동행 · 청소년생활)
+    signals = _target_signals([_card("a", 0.99, "D2-C058", "한빛 반려동행"), _card("b", 0.985, "D2-C058", "한빛 반려동행")])
+    assert grading.grade(signals, grading.GradeThresholds()) == "correct"
+
+
+def test_gap_ignores_cards_the_question_did_not_name():
+    cands = [_card("a", 0.997, "D2-C001", "한빛 모아생활"), _card("b", 0.99, "D2-C035", "한빛 일상포인트")]
+    th = grading.GradeThresholds()
+    assert grading.grade(_target_signals(cands, targets=("한빛모아생활",)), th) == "correct"
+    # 질문이 카드를 지정하지 않으면 다른 카드는 진짜 경쟁자 → 격차 미달로 불확실
+    assert grading.grade(_target_signals(cands), th) == "uncertain"
+
+
+def test_top_card_must_match_the_named_card():
+    # 질문은 가족돌봄인데 1위가 다른 카드면 점수가 높아도 정확이 아님(평가셋 v1 답 없음 Q19)
+    cands = [_card("a", 0.98, "D2-C025", "한빛 세계산책"), _card("b", 0.5, "D2-C021", "한빛 가족돌봄")]
+    signals = _target_signals(cands, targets=("한빛가족돌봄",))
+    assert signals.target_match is False
+    assert grading.grade(signals, grading.GradeThresholds()) == "uncertain"
+
+
+def test_gap_ignores_chunks_sharing_the_same_article():
+    # 오버랩으로 같은 조항 머리를 나눠 가진 약관 조각끼리는 경쟁자가 아님. 참조('제10조에 따릅니다')는 머리로 보지 않음
+    a = _card("a", 0.85, None, text="제16조의2(할부 거래의 철회 요청) ① 7일 이내 ... 제10조에 따릅니다")
+    b = _card("b", 0.84, None, text="제15조(승인과 취소) ... 제16조의2(할부 거래의 철회 요청) ① 7일 이내")
+    c = _card("c", 0.83, None, text="제10조(연회비 면제) ① ...")
+    signals = _target_signals([a, b, c])
+    assert signals.gap == pytest.approx(0.02)  # b는 같은 조항이라 건너뛰고 c(다른 조항)와 비교
+    assert grading.target_keys(a) & grading.target_keys(b)
 
 
 def test_grade_incorrect_on_empty_or_low_score():

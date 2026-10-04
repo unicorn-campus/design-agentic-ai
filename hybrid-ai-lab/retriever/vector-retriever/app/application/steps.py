@@ -680,6 +680,8 @@ class RetrieverSteps:
                     vector_top_ids=list(state.get("vector_top_ids") or []),
                     keyword_top_ids=list(state.get("keyword_top_ids") or []),
                     top_k=int(state["top_k"]), thresholds=self.config.thresholds,
+                    # 질문이 지정한 카드 — 1위가 그 카드인지 보고, 지정하지 않은 카드는 격차 경쟁자에서 뺌(사용자 결정 2026-10-04)
+                    question_targets=index.target_terms(sub.text),
                 )
                 verdict = grade(signals, self.config.thresholds)
             except Exception as error:  # 계산 실패는 불확실로 보고 진행(부분결과, S-R5 예외 처리)

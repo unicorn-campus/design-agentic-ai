@@ -1,0 +1,10 @@
+{
+  "format_version": 1,
+  "generation": "gen-ch2-20261003-001-17151790",
+  "chroma_path": "generations/gen-ch2-20261003-001-17151790/chroma",
+  "search_index_root": "generations/gen-ch2-20261003-001-17151790/search_indexes",
+  "collection": "card_docs",
+  "chunk_count": 218,
+  "embedding_dimension": 768,
+  "embedding_signature": "sentence-transformers:nlpai-lab/KURE-v2:prompt-policy-v2"
+}

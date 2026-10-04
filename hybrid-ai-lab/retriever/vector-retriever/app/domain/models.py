@@ -112,10 +112,12 @@ class GradeSignals:
     reranked: bool  # 리랭크 성공 여부
     main_score: float | None  # 주 점수 1위(리랭크 점수). 리랭크 실패면 None
     score_band: str  # high(≥ 상한)·middle·low(< 하한)·unknown(리랭크 실패)·none(결과 0건)
-    gap: float | None  # 1위 − 2위 리랭크 점수. 결과 1건이면 1위 점수 − 0
+    gap: float | None  # 1위 − '다른 대상' 최고 리랭크 점수(grading.build_signals). 경쟁자가 없으면 1위 점수 − 0
     keywords: tuple[str, ...]  # 질문에서 고른 핵심어
     missing_keywords: tuple[str, ...]  # 결과에서 찾지 못한 핵심어
     overlap: int  # 벡터·BM25 상위 k개 조각ID 겹침 수
+    # 질문이 카드를 지정했을 때 1위 조각이 그 카드인지. 지정이 없거나 1위가 카드 조각이 아니면 참
+    target_match: bool = True
 
     @property
     def keyword_match(self) -> bool:
@@ -136,4 +138,5 @@ class GradeSignals:
             "missing_keywords": list(self.missing_keywords),
             "keyword_match": self.keyword_match,
             "retriever_overlap": self.overlap,
+            "target_match": self.target_match,
         }

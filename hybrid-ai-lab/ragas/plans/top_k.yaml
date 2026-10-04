@@ -1,0 +1,24 @@
+# Top-k 3 · 5 · 10(기준 5, 재색인 아님). 코드에 박혀 있던 top_k=5를 evaluate_retriever.py --top-k 인자로 꺼내 씀
+# 코드 지표는 @k(참고)와 @5(비교용)를 함께 남기고, 기준 대비 차이는 @5로만 계산함
+schema_version: 1
+hyperparameter: top_k
+apply: code_arg
+target: retriever:arg:--top-k
+reindex: false
+baseline: 5
+versions:
+  - id: "3"
+    value: 3
+  - id: "5"
+    value: 5
+    note: 기준 버전
+  - id: "10"
+    value: 10
+    note: 허용 상한
+eval_set:
+  path: eval-set.json
+  sha256: 253f89d84905
+scoring:
+  ragas_provider: local
+  ragas_repeat: 3
+  human_pass_threshold: 0.5

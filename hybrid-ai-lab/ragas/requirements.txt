@@ -1,0 +1,15 @@
+# torch 판(CPU · CUDA · MPS)은 requirements-torch-*.txt로 먼저 설치함. 여기서는 버전만 고정함
+torch==2.14.0
+# RAGAS 0.4.3은 import 때 langchain_community.chat_models.vertexai를 부르는데 0.4에서 빠져 import가 실패함
+# → langchain-community를 0.4 미만으로 고정해야 함(2026-10-03 실측). 우리 코드는 langchain을 직접 쓰지 않음
+ragas==0.4.3
+langchain-community==0.3.31
+# 평가자 연결(로컬 Ollama · Groq는 OpenAI 호환 주소, Claude는 Anthropic SDK) — ragas llm_factory가 instructor로 감쌈
+openai==1.109.1
+anthropic==1.11.0
+# AnswerRelevancy 임베딩(KURE-v2) — 색인 · 리트리버와 같은 버전
+sentence-transformers==6.0.1
+transformers==5.17.0
+pydantic==2.13.5
+python-dotenv==1.2.4
+PyYAML==6.0.3
