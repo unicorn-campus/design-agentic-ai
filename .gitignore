@@ -33,3 +33,6 @@ data/s22/
 hybrid-ai-lab/data/s22/
 hybrid-ai-lab/vector/data/
 .pytest_cache/
+
+# PPT 렌더 결과물(미리보기 PNG·초안 pptx·PDF)
+temp/*/out/
