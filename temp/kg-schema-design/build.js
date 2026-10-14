@@ -369,6 +369,121 @@ async function createSlide02() {
   return s;
 }
 
+// ------------------------------------------------------------------ 슬라이드 4(v8 추가: 프롬프트로 도출)
+async function createSlidePrompt() {
+  const s = L.newSlide({
+    title: "1. 스키마 도출: 프롬프트로 정형 테이블의 스키마 도출",
+    lead: "변환 규칙을 프롬프트에 담아 바이브 코딩 도구에 맡김 — AI는 읽고 판정하고 그리며, 사람은 세 번 답하고 승인함",
+    notes: "앞 장의 변환 규칙은 대부분 기계적으로 적용할 수 있어서, 규칙을 프롬프트에 적어 바이브 코딩 도구에 맡김. "
+      + "규칙 ②③④와 검증, 그림, 저장은 AI가 하고, 업무 판단이 필요한 규칙 ①과 이름, 최종 승인은 사람이 함. "
+      + "DB 카탈로그는 DB가 원래 갖고 있는 구조 설명 테이블이라 따로 만들 필요가 없음(PostgreSQL은 pg_catalog). "
+      + "FK 개수는 열이 아니라 제약 수로 셈: card의 product_id와 brand는 열 2개지만 FK 제약 1개임. "
+      + "라벨은 Neo4j 이름 규칙에 따라 영문(Card, HAS_CARD)으로 두고, 한글 이름은 description에 넣어 그림과 LLM 안내에 씀. "
+      + "한글 라벨도 동작은 하지만(실행 확인), 영문 속성 이름과 섞이지 않게 하려고 영문으로 정함. "
+      + "8단계에서 수정을 요청하면 5단계부터 다시 하며, 5회가 넘으면 남은 쟁점을 정리해 멈춤. "
+      + "최종 파일은 GraphSchema.save()로 저장한 뒤 from_file()로 다시 읽어 개수가 같은지 확인하고, 승인 기록을 함께 남김.",
+  });
+
+  // 맨 위: 사람 줄과 AI 줄에 9단계 카드를 같은 격자로 놓음(사람 단계 1, 4, 8)
+  const laneW = 1.7, gx0 = X0 + laneW + 0.15, gap = 0.2, n = 9;
+  const cw = (X0 + CW - gx0 - gap * (n - 1)) / n;
+  const gx = (i) => gx0 + i * (cw + gap);
+  const yH = 1.92, yA = 2.92, h = 0.7;
+  [[yH, "사람", C.blue], [yA, "AI\n(바이브 코딩 도구)", C.navy]].forEach(([y, t, fill]) => {
+    L.rr(s, { x: gx0 - 0.08, y: y - 0.06, w: X0 + CW - gx0 + 0.08, h: h + 0.12, fill: C.altRow, line: null, r: 0.06 });
+    L.card(s, t, { x: X0, y: y - 0.06, w: laneW, h: h + 0.12, fill, line: null, color: C.white, size: 14, bold: true, r: 0.06 });
+  });
+  const steps = [
+    ["1. 입력 받기", "H"], ["2. 카탈로그\n읽기", "A"], ["3. 규칙 판정\n(②③④)", "A"], ["4. 규칙 ①과\n이름 답", "H"],
+    ["5. 스키마\n초안", "A"], ["6. 기계 검증", "A"], ["7. Mermaid\n그림", "A"], ["8. 검증과\n승인", "H"],
+    ["9. 저장과\n다시 읽기", "A"],
+  ];
+  const yOf = (lane) => (lane === "H" ? yH : yA);
+  steps.forEach(([t, lane], i) => {
+    const human = lane === "H";
+    L.card(s, t, { x: gx(i), y: yOf(lane), w: cw, h, fill: human ? C.blue : C.white, line: human ? null : C.slate,
+      color: human ? C.white : C.ink, size: 14, bold: true, r: 0.08, lw: 1.25 });
+    if (i === n - 1) return;
+    const next = steps[i + 1][1];
+    const x1 = gx(i) + cw + 0.03, x2 = gx(i + 1) - 0.03;
+    if (next === lane) {
+      L.arrow(s, { x1, y1: yOf(lane) + h / 2, x2, y2: yOf(lane) + h / 2, color: C.slate, width: 1.75 });
+    } else {
+      // 줄이 바뀌면 카드 모서리끼리 비스듬히 이음
+      const down = lane === "H";
+      L.arrow(s, { x1, y1: down ? yH + h - 0.05 : yA + 0.05, x2, y2: down ? yA + 0.05 : yH + h - 0.05, color: C.slate,
+        width: 1.75 });
+    }
+  });
+  // 8 → 5 되돌림(점선): 8 아래로 내려가 AI 줄 밑을 지나 5로 올라감(AI 줄의 7열 칸은 비어 있음)
+  const x8 = gx(7) + cw / 2, x5 = gx(4) + cw / 2, yLoop = yA + h + 0.2;
+  L.arrow(s, { x1: x8, y1: yH + h + 0.02, x2: x8, y2: yLoop, color: C.blue, width: 1.5, dash: "dash", head: "none" });
+  L.hline(s, { x: x5, y: yLoop, w: x8 - x5, color: C.blue, width: 1.5, dash: "dash" });
+  L.arrow(s, { x1: x5, y1: yLoop, x2: x5, y2: yA + h + 0.02, color: C.blue, width: 1.5, dash: "dash" });
+  L.text(s, "수정 요청 시 5단계부터 다시(최대 5회)", { x: x5 + 0.1, y: yLoop + 0.02, w: x8 - x5 - 0.2, h: 0.3, size: 14,
+    bold: true, color: C.blue, align: "center", margin: 0 });
+
+  // 아래 3칸
+  // 왼쪽 상자 3개(0.64 + 0.88 + 0.64 + 간격)가 아래 띠(7.12) 위에서 끝나게 맞춘 높이
+  const top = 4.22, bodyY = top + 0.48, bodyB = 7.0;
+  const wA = 4.75, wB = 5.0, g3 = 0.25, wC = CW - wA - wB - g3 * 2;
+  const xA = X0, xB = xA + wA + g3, xC = xB + wB + g3;
+
+  // A: 사람이 답하는 곳 3번
+  sectionLabel(s, "사람이 답하는 곳 3번", { x: xA, y: top, w: wA, fill: C.blue });
+  const asks = [
+    ["1", "출력 폴더와 DB 접속 정보\n비밀번호는 .env에 직접 등록", 0.64],
+    ["4", "규칙 ① 후보(FK 2개 + 업무 열)를 노드 타입\n또는 관계 + 관계 속성으로 정함\n뺄 테이블, 이름 후보 승인", 0.88],
+    ["8", "Mermaid 그림과 판정표를 보고 승인\n(승인자와 일시를 기록)", 0.64],
+  ];
+  let ay = bodyY;
+  asks.forEach(([num, t, hh]) => {
+    L.rr(s, { x: xA, y: ay, w: wA, h: hh, fill: C.tint, line: C.blue, r: 0.06 });
+    L.numBadge(s, num, { x: xA + 0.1, y: ay + (hh - 0.38) / 2, size: 0.38, fsz: 16, fill: C.blue });
+    L.text(s, t, { x: xA + 0.6, y: ay, w: wA - 0.7, h: hh, size: 14, color: C.navy, bold: true, margin: 0 });
+    ay += hh + 0.07;
+  });
+
+  // B: AI가 지키는 규칙
+  sectionLabel(s, "AI가 지키는 규칙", { x: xB, y: top, w: wB });
+  L.rr(s, { x: xB, y: bodyY, w: wB, h: bodyB - bodyY, fill: C.white, line: C.border, r: 0.08 });
+  // 줄 사이를 띄워 상자 높이를 고르게 채움
+  s.addText("• FK 개수는 열 수가 아니라 제약 수로 셈\n"
+    + "• DB는 읽기 전용, 비밀번호는 .env에만 둠\n"
+    + "• 라벨은 영문, 한글 이름은 description에 넣음\n"
+    + "• 그림은 Mermaid만 씀\n"
+    + "• 규칙 ① 판정과 이름은 추측해 확정하지 않음\n"
+    + "• 후보 표시가 남으면 스키마 파일을 만들지 않음",
+  { x: xB + 0.2, y: bodyY + 0.06, w: wB - 0.3, h: bodyB - bodyY - 0.12, fontFace: FONT, fontSize: fs(14), color: C.ink,
+    valign: "middle", margin: 0, isTextBox: true, paraSpaceAfter: 7 });
+
+  // C: 승인 화면 예(Mermaid 그림을 도형으로 옮김)
+  sectionLabel(s, "승인 화면 예 (Mermaid 그림)", { x: xC, y: top, w: wC, fill: C.dark });
+  L.rr(s, { x: xC, y: bodyY, w: wC, h: bodyB - bodyY, fill: C.white, line: C.border, r: 0.08 });
+  const nbW = 1.55, nbH = 1.45, nbY = bodyY + 0.2, nb1 = xC + 0.15, nb2 = xC + wC - 0.15 - nbW;
+  [[nb1, "Member", "회원", "member_id (키)\nage_band"], [nb2, "Card", "카드", "card_id (키)\nstatus"]].forEach(
+    ([x, label, ko, props]) => {
+      L.rr(s, { x, y: nbY, w: nbW, h: nbH, fill: C.tint, line: C.navy, lw: 1.5, r: 0.08 });
+      L.card(s, `:${label}`, { x: x + 0.08, y: nbY + 0.08, w: nbW - 0.16, h: 0.36, ...LOOK.navy, size: 14, bold: true,
+        r: 0.05 });
+      L.text(s, `(${ko})\n${props}`, { x: x + 0.08, y: nbY + 0.48, w: nbW - 0.16, h: nbH - 0.54, size: 14, color: C.ink,
+        align: "center", margin: 0, valign: "top" });
+    });
+  const my = nbY + nbH / 2;
+  L.arrow(s, { x1: nb1 + nbW + 0.04, y1: my, x2: nb2 - 0.04, y2: my, color: C.navy, width: 2 });
+  L.text(s, "HAS_CARD", { x: nb1 + nbW, y: my - 0.36, w: nb2 - nb1 - nbW, h: 0.3, size: 14, bold: true, color: C.blue,
+    align: "center", margin: 0 });
+  L.text(s, "(보유함)", { x: nb1 + nbW, y: my + 0.06, w: nb2 - nb1 - nbW, h: 0.3, size: 14, color: C.ink, align: "center",
+    margin: 0 });
+  L.text(s, "영문 라벨 아래에 한글 이름을 함께 적어\n검토하는 사람이 바로 읽게 함", { x: xC + 0.15, y: nbY + nbH + 0.1,
+    w: wC - 0.3, h: bodyB - nbY - nbH - 0.16, size: 14, color: C.slate, align: "center", margin: 0 });
+
+  band(s, "결과: graph_schema.json(승인본)과 approval.json(승인자, 승인 일시, 입력 파일 SHA-256). 인덱싱은 이 파일을 읽기만 함\n"
+    + "GraphSchema 검증, 저장, 다시 읽기는 Neo4j 서버 없이 됨(실행 확인)",
+  { y: 7.12, h: 0.76, size: 15 });
+  return s;
+}
+
 // ------------------------------------------------------------------ 슬라이드 3
 async function createSlide03() {
   const s = L.newSlide({
@@ -447,6 +562,7 @@ async function main() {
     await createSlide01();
     await createSlideSchema();
     await createSlide02();
+    await createSlidePrompt();  // v8: 3쪽(변환 규칙) 바로 뒤
     await createSlide03();
   }
   const out = process.argv[2] || path.join(__dirname, "그래프스키마도출.pptx");

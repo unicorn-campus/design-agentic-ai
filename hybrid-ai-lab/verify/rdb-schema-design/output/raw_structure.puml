@@ -1,0 +1,79 @@
+@startuml raw_structure
+hide circle
+skinparam linetype ortho
+
+entity card {
+  * card_id : text <<PK>>
+  --
+  brand : text <<FK>>
+  member_id : text <<FK>>
+  product_id : text <<FK>>
+  issue_date : date
+  status : text
+}
+
+entity card_txn {
+  * txn_id : text <<PK>>
+  --
+  card_id : text <<FK>>
+  merchant_id : text <<FK>>
+  amount : int4
+  approval_code : text
+  txn_date : date
+}
+
+entity delinquency {
+  * member_id : text <<PK,FK>>
+  * base_month : bpchar <<PK>>
+  --
+  overdue_amount : int4
+  overdue_count_12m : int4
+  overdue_days : int4
+}
+
+entity lab_metadata {
+  * key : text <<PK>>
+  --
+  value : text
+}
+
+entity member {
+  * member_id : text <<PK>>
+  --
+  age_band : text
+  join_date : date
+  segment_id : int2
+}
+
+entity merchant {
+  * merchant_id : text <<PK>>
+  --
+  category : text
+  merchant_name : text
+}
+
+entity product {
+  * product_id : text <<PK>>
+  --
+  effective_date : date
+  family_card_available : bool
+  family_card_rule : text
+  product_name : text
+}
+
+entity product_annual_fee {
+  * product_id : text <<PK,FK>>
+  * brand : text <<PK>>
+  --
+  base_fee : int4
+  service_fee : int4
+  total_fee : int4
+}
+
+card }o--|| member : "member_id"
+card }o--|| product_annual_fee : "product_id, brand"
+card_txn }o--|| card : "card_id"
+card_txn }o--|| merchant : "merchant_id"
+delinquency }o--|| member : "member_id"
+product_annual_fee }o--|| product : "product_id"
+@enduml

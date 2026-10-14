@@ -1,0 +1,334 @@
+{
+  "tables": {
+    "card": {
+      "columns": [
+        {
+          "name": "card_id",
+          "type": "text",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "brand",
+          "type": "text",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "member_id",
+          "type": "text",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "product_id",
+          "type": "text",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "issue_date",
+          "type": "date",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "pk": false,
+          "fk": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "card_member_id_fkey",
+          "table_name": "card",
+          "ref_table": "member",
+          "columns": [
+            {
+              "column": "member_id",
+              "ref_column": "member_id"
+            }
+          ]
+        },
+        {
+          "constraint_name": "card_product_id_brand_fkey",
+          "table_name": "card",
+          "ref_table": "product_annual_fee",
+          "columns": [
+            {
+              "column": "product_id",
+              "ref_column": "product_id"
+            },
+            {
+              "column": "brand",
+              "ref_column": "brand"
+            }
+          ]
+        }
+      ]
+    },
+    "card_txn": {
+      "columns": [
+        {
+          "name": "txn_id",
+          "type": "text",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "card_id",
+          "type": "text",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "merchant_id",
+          "type": "text",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "amount",
+          "type": "int4",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "approval_code",
+          "type": "text",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "txn_date",
+          "type": "date",
+          "pk": false,
+          "fk": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "card_txn_card_id_fkey",
+          "table_name": "card_txn",
+          "ref_table": "card",
+          "columns": [
+            {
+              "column": "card_id",
+              "ref_column": "card_id"
+            }
+          ]
+        },
+        {
+          "constraint_name": "card_txn_merchant_id_fkey",
+          "table_name": "card_txn",
+          "ref_table": "merchant",
+          "columns": [
+            {
+              "column": "merchant_id",
+              "ref_column": "merchant_id"
+            }
+          ]
+        }
+      ]
+    },
+    "delinquency": {
+      "columns": [
+        {
+          "name": "member_id",
+          "type": "text",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "base_month",
+          "type": "bpchar",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "overdue_amount",
+          "type": "int4",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "overdue_count_12m",
+          "type": "int4",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "overdue_days",
+          "type": "int4",
+          "pk": false,
+          "fk": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "delinquency_member_id_fkey",
+          "table_name": "delinquency",
+          "ref_table": "member",
+          "columns": [
+            {
+              "column": "member_id",
+              "ref_column": "member_id"
+            }
+          ]
+        }
+      ]
+    },
+    "lab_metadata": {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "pk": false,
+          "fk": false
+        }
+      ],
+      "foreign_keys": []
+    },
+    "member": {
+      "columns": [
+        {
+          "name": "member_id",
+          "type": "text",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "age_band",
+          "type": "text",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "join_date",
+          "type": "date",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "segment_id",
+          "type": "int2",
+          "pk": false,
+          "fk": false
+        }
+      ],
+      "foreign_keys": []
+    },
+    "merchant": {
+      "columns": [
+        {
+          "name": "merchant_id",
+          "type": "text",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "category",
+          "type": "text",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "merchant_name",
+          "type": "text",
+          "pk": false,
+          "fk": false
+        }
+      ],
+      "foreign_keys": []
+    },
+    "product": {
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "text",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "effective_date",
+          "type": "date",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "family_card_available",
+          "type": "bool",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "family_card_rule",
+          "type": "text",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "product_name",
+          "type": "text",
+          "pk": false,
+          "fk": false
+        }
+      ],
+      "foreign_keys": []
+    },
+    "product_annual_fee": {
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "text",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "brand",
+          "type": "text",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "base_fee",
+          "type": "int4",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "service_fee",
+          "type": "int4",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "total_fee",
+          "type": "int4",
+          "pk": false,
+          "fk": false
+        }
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "product_annual_fee_product_id_fkey",
+          "table_name": "product_annual_fee",
+          "ref_table": "product",
+          "columns": [
+            {
+              "column": "product_id",
+              "ref_column": "product_id"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

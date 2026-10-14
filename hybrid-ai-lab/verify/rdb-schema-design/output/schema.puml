@@ -1,0 +1,61 @@
+@startuml graph_schema
+hide empty methods
+hide circle
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor #EEF3FA
+  BorderColor #1E2A5C
+}
+left to right direction
+
+class ":카드" as N0 <<노드>> {
+  card_id : STRING <<키>>
+  issue_date : DATE
+  status : STRING
+}
+class ":카드거래" as N1 <<노드>> {
+  txn_id : STRING <<키>>
+  amount : INTEGER
+  approval_code : STRING
+  txn_date : DATE
+}
+class ":연체" as N2 <<노드>> {
+  member_id : STRING <<키>>
+  base_month : STRING <<키>>
+  overdue_amount : INTEGER
+  overdue_count_12m : INTEGER
+  overdue_days : INTEGER
+}
+class ":회원" as N3 <<노드>> {
+  member_id : STRING <<키>>
+  age_band : STRING
+  join_date : DATE
+  segment_id : INTEGER
+}
+class ":가맹점" as N4 <<노드>> {
+  merchant_id : STRING <<키>>
+  category : STRING
+  merchant_name : STRING
+}
+class ":상품" as N5 <<노드>> {
+  product_id : STRING <<키>>
+  effective_date : DATE
+  family_card_available : BOOLEAN
+  family_card_rule : STRING
+  product_name : STRING
+}
+class ":상품연회비" as N6 <<노드>> {
+  product_id : STRING <<키>>
+  brand : STRING <<키>>
+  base_fee : INTEGER
+  service_fee : INTEGER
+  total_fee : INTEGER
+}
+
+N3 --> N0 : 보유함
+N0 --> N6 : 연회비적용
+N0 --> N1 : 결제함
+N1 --> N4 : 이용함
+N3 --> N2 : 연체함
+N5 --> N6 : 연회비정함
+@enduml

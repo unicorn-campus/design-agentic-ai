@@ -1,0 +1,16 @@
+flowchart LR
+    N0["<b>:카드</b><br/>card_id (키)<br/>issue_date<br/>status"]
+    N1["<b>:카드거래</b><br/>txn_id (키)<br/>amount<br/>approval_code<br/>txn_date"]
+    N2["<b>:연체</b><br/>member_id (키)<br/>base_month (키)<br/>overdue_amount<br/>overdue_count_12m<br/>overdue_days"]
+    N3["<b>:회원</b><br/>member_id (키)<br/>age_band<br/>join_date<br/>segment_id"]
+    N4["<b>:가맹점</b><br/>merchant_id (키)<br/>category<br/>merchant_name"]
+    N5["<b>:상품</b><br/>product_id (키)<br/>effective_date<br/>family_card_available<br/>family_card_rule<br/>product_name"]
+    N6["<b>:상품연회비</b><br/>product_id (키)<br/>brand (키)<br/>base_fee<br/>service_fee<br/>total_fee"]
+    N3 -->|"보유함"| N0
+    N0 -->|"연회비적용"| N6
+    N0 -->|"결제함"| N1
+    N1 -->|"이용함"| N4
+    N3 -->|"연체함"| N2
+    N5 -->|"연회비정함"| N6
+    classDef node fill:#EEF3FA,stroke:#1E2A5C,stroke-width:2px,color:#2B3242
+    class N0,N1,N2,N3,N4,N5,N6 node

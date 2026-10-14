@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset='utf-8'><title>graph schema</title><script src='https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js'></script><style>body{background:#fff;font-family:sans-serif;margin:16px}</style></head><body><pre class='mermaid'>flowchart LR
+    N0[&quot;&lt;b&gt;:카드&lt;/b&gt;&lt;br/&gt;card_id (키)&lt;br/&gt;issue_date&lt;br/&gt;status&quot;]
+    N1[&quot;&lt;b&gt;:카드거래&lt;/b&gt;&lt;br/&gt;txn_id (키)&lt;br/&gt;amount&lt;br/&gt;approval_code&lt;br/&gt;txn_date&quot;]
+    N2[&quot;&lt;b&gt;:연체&lt;/b&gt;&lt;br/&gt;member_id (키)&lt;br/&gt;base_month (키)&lt;br/&gt;overdue_amount&lt;br/&gt;overdue_count_12m&lt;br/&gt;overdue_days&quot;]
+    N3[&quot;&lt;b&gt;:회원&lt;/b&gt;&lt;br/&gt;member_id (키)&lt;br/&gt;age_band&lt;br/&gt;join_date&lt;br/&gt;segment_id&quot;]
+    N4[&quot;&lt;b&gt;:가맹점&lt;/b&gt;&lt;br/&gt;merchant_id (키)&lt;br/&gt;category&lt;br/&gt;merchant_name&quot;]
+    N5[&quot;&lt;b&gt;:상품&lt;/b&gt;&lt;br/&gt;product_id (키)&lt;br/&gt;effective_date&lt;br/&gt;family_card_available&lt;br/&gt;family_card_rule&lt;br/&gt;product_name&quot;]
+    N6[&quot;&lt;b&gt;:상품연회비&lt;/b&gt;&lt;br/&gt;product_id (키)&lt;br/&gt;brand (키)&lt;br/&gt;base_fee&lt;br/&gt;service_fee&lt;br/&gt;total_fee&quot;]
+    N3 --&gt;|&quot;보유함&quot;| N0
+    N0 --&gt;|&quot;연회비적용&quot;| N6
+    N0 --&gt;|&quot;결제함&quot;| N1
+    N1 --&gt;|&quot;이용함&quot;| N4
+    N3 --&gt;|&quot;연체함&quot;| N2
+    N5 --&gt;|&quot;연회비정함&quot;| N6
+    classDef node fill:#EEF3FA,stroke:#1E2A5C,stroke-width:2px,color:#2B3242
+    class N0,N1,N2,N3,N4,N5,N6 node
+</pre><div id='status'></div><script>mermaid.initialize({startOnLoad:false, flowchart:{htmlLabels:true}});mermaid.run().then(()=>{document.getElementById('status').textContent='RENDER_OK'}).catch(e=>{document.getElementById('status').textContent='RENDER_FAIL '+e});</script></body></html>

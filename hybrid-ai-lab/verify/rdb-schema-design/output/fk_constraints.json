@@ -1,0 +1,79 @@
+{
+  "source": {
+    "container": "hybrid-ai-lab-rdb",
+    "database": "cardlab",
+    "catalog": "pg_constraint"
+  },
+  "foreign_keys": [
+    {
+      "constraint_name": "card_member_id_fkey",
+      "table_name": "card",
+      "ref_table": "member",
+      "columns": [
+        {
+          "column": "member_id",
+          "ref_column": "member_id"
+        }
+      ]
+    },
+    {
+      "constraint_name": "card_product_id_brand_fkey",
+      "table_name": "card",
+      "ref_table": "product_annual_fee",
+      "columns": [
+        {
+          "column": "product_id",
+          "ref_column": "product_id"
+        },
+        {
+          "column": "brand",
+          "ref_column": "brand"
+        }
+      ]
+    },
+    {
+      "constraint_name": "card_txn_card_id_fkey",
+      "table_name": "card_txn",
+      "ref_table": "card",
+      "columns": [
+        {
+          "column": "card_id",
+          "ref_column": "card_id"
+        }
+      ]
+    },
+    {
+      "constraint_name": "card_txn_merchant_id_fkey",
+      "table_name": "card_txn",
+      "ref_table": "merchant",
+      "columns": [
+        {
+          "column": "merchant_id",
+          "ref_column": "merchant_id"
+        }
+      ]
+    },
+    {
+      "constraint_name": "delinquency_member_id_fkey",
+      "table_name": "delinquency",
+      "ref_table": "member",
+      "columns": [
+        {
+          "column": "member_id",
+          "ref_column": "member_id"
+        }
+      ]
+    },
+    {
+      "constraint_name": "product_annual_fee_product_id_fkey",
+      "table_name": "product_annual_fee",
+      "ref_table": "product",
+      "columns": [
+        {
+          "column": "product_id",
+          "ref_column": "product_id"
+        }
+      ]
+    }
+  ]
+}

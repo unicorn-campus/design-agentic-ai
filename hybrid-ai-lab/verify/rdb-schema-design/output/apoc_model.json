@@ -1,0 +1,745 @@
+{
+  "source": {
+    "jdbc_url": "jdbc:postgresql://host.docker.internal:5432/cardlab",
+    "schema": "public",
+    "procedure": "apoc.model.jdbc",
+    "apoc_extended": "2026.04.0",
+    "neo4j": "2026.09.0"
+  },
+  "nodes": [
+    {
+      "id": "-2",
+      "labels": [
+        "Schema"
+      ],
+      "properties": {
+        "name": "public"
+      }
+    },
+    {
+      "id": "-3",
+      "labels": [
+        "Table"
+      ],
+      "properties": {
+        "name": "lab_metadata"
+      }
+    },
+    {
+      "id": "-4",
+      "labels": [
+        "Column",
+        "PrimaryKey"
+      ],
+      "properties": {
+        "name": "key",
+        "type": "text",
+        "unique": true
+      }
+    },
+    {
+      "id": "-5",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "value",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-6",
+      "labels": [
+        "Table"
+      ],
+      "properties": {
+        "name": "member"
+      }
+    },
+    {
+      "id": "-7",
+      "labels": [
+        "Column",
+        "PrimaryKey"
+      ],
+      "properties": {
+        "name": "member_id",
+        "type": "text",
+        "unique": true
+      }
+    },
+    {
+      "id": "-8",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "segment_id",
+        "type": "int2"
+      }
+    },
+    {
+      "id": "-9",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "join_date",
+        "type": "date"
+      }
+    },
+    {
+      "id": "-10",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "age_band",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-11",
+      "labels": [
+        "Table"
+      ],
+      "properties": {
+        "name": "merchant"
+      }
+    },
+    {
+      "id": "-12",
+      "labels": [
+        "Column",
+        "PrimaryKey"
+      ],
+      "properties": {
+        "name": "merchant_id",
+        "type": "text",
+        "unique": true
+      }
+    },
+    {
+      "id": "-13",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "merchant_name",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-14",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "category",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-15",
+      "labels": [
+        "Table"
+      ],
+      "properties": {
+        "name": "product"
+      }
+    },
+    {
+      "id": "-16",
+      "labels": [
+        "Column",
+        "PrimaryKey"
+      ],
+      "properties": {
+        "name": "product_id",
+        "type": "text",
+        "unique": true
+      }
+    },
+    {
+      "id": "-17",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "product_name",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-18",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "effective_date",
+        "type": "date"
+      }
+    },
+    {
+      "id": "-19",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "family_card_available",
+        "type": "bool"
+      }
+    },
+    {
+      "id": "-20",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "family_card_rule",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-21",
+      "labels": [
+        "Table"
+      ],
+      "properties": {
+        "name": "delinquency"
+      }
+    },
+    {
+      "id": "-22",
+      "labels": [
+        "Column",
+        "ForeignKey",
+        "PrimaryKey"
+      ],
+      "properties": {
+        "name": "member_id",
+        "type": "text",
+        "unique": true
+      }
+    },
+    {
+      "id": "-23",
+      "labels": [
+        "Column",
+        "PrimaryKey"
+      ],
+      "properties": {
+        "name": "base_month",
+        "type": "bpchar",
+        "unique": true
+      }
+    },
+    {
+      "id": "-24",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "overdue_days",
+        "type": "int4"
+      }
+    },
+    {
+      "id": "-25",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "overdue_count_12m",
+        "type": "int4"
+      }
+    },
+    {
+      "id": "-26",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "overdue_amount",
+        "type": "int4"
+      }
+    },
+    {
+      "id": "-27",
+      "labels": [
+        "Table"
+      ],
+      "properties": {
+        "name": "product_annual_fee"
+      }
+    },
+    {
+      "id": "-28",
+      "labels": [
+        "Column",
+        "ForeignKey",
+        "PrimaryKey"
+      ],
+      "properties": {
+        "name": "product_id",
+        "type": "text",
+        "unique": true
+      }
+    },
+    {
+      "id": "-29",
+      "labels": [
+        "Column",
+        "PrimaryKey"
+      ],
+      "properties": {
+        "name": "brand",
+        "type": "text",
+        "unique": true
+      }
+    },
+    {
+      "id": "-30",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "base_fee",
+        "type": "int4"
+      }
+    },
+    {
+      "id": "-31",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "service_fee",
+        "type": "int4"
+      }
+    },
+    {
+      "id": "-32",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "total_fee",
+        "type": "int4"
+      }
+    },
+    {
+      "id": "-33",
+      "labels": [
+        "Table"
+      ],
+      "properties": {
+        "name": "card"
+      }
+    },
+    {
+      "id": "-34",
+      "labels": [
+        "Column",
+        "PrimaryKey"
+      ],
+      "properties": {
+        "name": "card_id",
+        "type": "text",
+        "unique": true
+      }
+    },
+    {
+      "id": "-35",
+      "labels": [
+        "Column",
+        "ForeignKey"
+      ],
+      "properties": {
+        "name": "member_id",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-36",
+      "labels": [
+        "Column",
+        "ForeignKey"
+      ],
+      "properties": {
+        "name": "product_id",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-37",
+      "labels": [
+        "Column",
+        "ForeignKey"
+      ],
+      "properties": {
+        "name": "brand",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-38",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "issue_date",
+        "type": "date"
+      }
+    },
+    {
+      "id": "-39",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "status",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-40",
+      "labels": [
+        "Table"
+      ],
+      "properties": {
+        "name": "card_txn"
+      }
+    },
+    {
+      "id": "-41",
+      "labels": [
+        "Column",
+        "PrimaryKey"
+      ],
+      "properties": {
+        "name": "txn_id",
+        "type": "text",
+        "unique": true
+      }
+    },
+    {
+      "id": "-42",
+      "labels": [
+        "Column",
+        "ForeignKey"
+      ],
+      "properties": {
+        "name": "card_id",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-43",
+      "labels": [
+        "Column",
+        "ForeignKey"
+      ],
+      "properties": {
+        "name": "merchant_id",
+        "type": "text"
+      }
+    },
+    {
+      "id": "-44",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "txn_date",
+        "type": "date"
+      }
+    },
+    {
+      "id": "-45",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "amount",
+        "type": "int4"
+      }
+    },
+    {
+      "id": "-46",
+      "labels": [
+        "Column"
+      ],
+      "properties": {
+        "name": "approval_code",
+        "type": "text"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "type": "IN_SCHEMA",
+      "start": "-3",
+      "end": "-2",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-4",
+      "end": "-3",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-5",
+      "end": "-3",
+      "properties": {}
+    },
+    {
+      "type": "IN_SCHEMA",
+      "start": "-6",
+      "end": "-2",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-7",
+      "end": "-6",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-8",
+      "end": "-6",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-9",
+      "end": "-6",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-10",
+      "end": "-6",
+      "properties": {}
+    },
+    {
+      "type": "IN_SCHEMA",
+      "start": "-11",
+      "end": "-2",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-12",
+      "end": "-11",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-13",
+      "end": "-11",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-14",
+      "end": "-11",
+      "properties": {}
+    },
+    {
+      "type": "IN_SCHEMA",
+      "start": "-15",
+      "end": "-2",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-16",
+      "end": "-15",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-17",
+      "end": "-15",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-18",
+      "end": "-15",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-19",
+      "end": "-15",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-20",
+      "end": "-15",
+      "properties": {}
+    },
+    {
+      "type": "IN_SCHEMA",
+      "start": "-21",
+      "end": "-2",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-22",
+      "end": "-21",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-23",
+      "end": "-21",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-24",
+      "end": "-21",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-25",
+      "end": "-21",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-26",
+      "end": "-21",
+      "properties": {}
+    },
+    {
+      "type": "IN_SCHEMA",
+      "start": "-27",
+      "end": "-2",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-28",
+      "end": "-27",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-29",
+      "end": "-27",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-30",
+      "end": "-27",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-31",
+      "end": "-27",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-32",
+      "end": "-27",
+      "properties": {}
+    },
+    {
+      "type": "IN_SCHEMA",
+      "start": "-33",
+      "end": "-2",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-34",
+      "end": "-33",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-35",
+      "end": "-33",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-36",
+      "end": "-33",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-37",
+      "end": "-33",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-38",
+      "end": "-33",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-39",
+      "end": "-33",
+      "properties": {}
+    },
+    {
+      "type": "IN_SCHEMA",
+      "start": "-40",
+      "end": "-2",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-41",
+      "end": "-40",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-42",
+      "end": "-40",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-43",
+      "end": "-40",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-44",
+      "end": "-40",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-45",
+      "end": "-40",
+      "properties": {}
+    },
+    {
+      "type": "IN_TABLE",
+      "start": "-46",
+      "end": "-40",
+      "properties": {}
+    }
+  ]
+}

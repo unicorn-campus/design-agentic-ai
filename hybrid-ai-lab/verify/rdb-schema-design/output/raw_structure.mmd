@@ -1,0 +1,59 @@
+erDiagram
+    card {
+        text card_id PK
+        text brand FK
+        text member_id FK
+        text product_id FK
+        date issue_date
+        text status
+    }
+    card_txn {
+        text txn_id PK
+        text card_id FK
+        text merchant_id FK
+        int4 amount
+        text approval_code
+        date txn_date
+    }
+    delinquency {
+        text member_id PK,FK
+        bpchar base_month PK
+        int4 overdue_amount
+        int4 overdue_count_12m
+        int4 overdue_days
+    }
+    lab_metadata {
+        text key PK
+        text value
+    }
+    member {
+        text member_id PK
+        text age_band
+        date join_date
+        int2 segment_id
+    }
+    merchant {
+        text merchant_id PK
+        text category
+        text merchant_name
+    }
+    product {
+        text product_id PK
+        date effective_date
+        bool family_card_available
+        text family_card_rule
+        text product_name
+    }
+    product_annual_fee {
+        text product_id PK,FK
+        text brand PK
+        int4 base_fee
+        int4 service_fee
+        int4 total_fee
+    }
+    card }o--|| member : "member_id"
+    card }o--|| product_annual_fee : "product_id, brand"
+    card_txn }o--|| card : "card_id"
+    card_txn }o--|| merchant : "merchant_id"
+    delinquency }o--|| member : "member_id"
+    product_annual_fee }o--|| product : "product_id"

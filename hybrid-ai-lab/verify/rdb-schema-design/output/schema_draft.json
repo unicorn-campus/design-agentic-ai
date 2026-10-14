@@ -1,0 +1,270 @@
+{
+  "node_types": [
+    {
+      "label": "카드",
+      "description": "RDB 표 card",
+      "properties": [
+        {
+          "name": "card_id",
+          "type": "STRING"
+        },
+        {
+          "name": "issue_date",
+          "type": "DATE"
+        },
+        {
+          "name": "status",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "label": "카드거래",
+      "description": "RDB 표 card_txn",
+      "properties": [
+        {
+          "name": "txn_id",
+          "type": "STRING"
+        },
+        {
+          "name": "amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "approval_code",
+          "type": "STRING"
+        },
+        {
+          "name": "txn_date",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "label": "연체",
+      "description": "RDB 표 delinquency",
+      "properties": [
+        {
+          "name": "member_id",
+          "type": "STRING"
+        },
+        {
+          "name": "base_month",
+          "type": "STRING"
+        },
+        {
+          "name": "overdue_amount",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overdue_count_12m",
+          "type": "INTEGER"
+        },
+        {
+          "name": "overdue_days",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "label": "회원",
+      "description": "RDB 표 member",
+      "properties": [
+        {
+          "name": "member_id",
+          "type": "STRING"
+        },
+        {
+          "name": "age_band",
+          "type": "STRING"
+        },
+        {
+          "name": "join_date",
+          "type": "DATE"
+        },
+        {
+          "name": "segment_id",
+          "type": "INTEGER"
+        }
+      ]
+    },
+    {
+      "label": "가맹점",
+      "description": "RDB 표 merchant",
+      "properties": [
+        {
+          "name": "merchant_id",
+          "type": "STRING"
+        },
+        {
+          "name": "category",
+          "type": "STRING"
+        },
+        {
+          "name": "merchant_name",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "label": "상품",
+      "description": "RDB 표 product",
+      "properties": [
+        {
+          "name": "product_id",
+          "type": "STRING"
+        },
+        {
+          "name": "effective_date",
+          "type": "DATE"
+        },
+        {
+          "name": "family_card_available",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "family_card_rule",
+          "type": "STRING"
+        },
+        {
+          "name": "product_name",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "label": "상품연회비",
+      "description": "RDB 표 product_annual_fee",
+      "properties": [
+        {
+          "name": "product_id",
+          "type": "STRING"
+        },
+        {
+          "name": "brand",
+          "type": "STRING"
+        },
+        {
+          "name": "base_fee",
+          "type": "INTEGER"
+        },
+        {
+          "name": "service_fee",
+          "type": "INTEGER"
+        },
+        {
+          "name": "total_fee",
+          "type": "INTEGER"
+        }
+      ]
+    }
+  ],
+  "relationship_types": [
+    {
+      "label": "보유함"
+    },
+    {
+      "label": "연회비적용"
+    },
+    {
+      "label": "결제함"
+    },
+    {
+      "label": "이용함"
+    },
+    {
+      "label": "연체함"
+    },
+    {
+      "label": "연회비정함"
+    }
+  ],
+  "patterns": [
+    [
+      "회원",
+      "보유함",
+      "카드"
+    ],
+    [
+      "카드",
+      "연회비적용",
+      "상품연회비"
+    ],
+    [
+      "카드",
+      "결제함",
+      "카드거래"
+    ],
+    [
+      "카드거래",
+      "이용함",
+      "가맹점"
+    ],
+    [
+      "회원",
+      "연체함",
+      "연체"
+    ],
+    [
+      "상품",
+      "연회비정함",
+      "상품연회비"
+    ]
+  ],
+  "constraints": [
+    {
+      "type": "UNIQUENESS",
+      "node_type": "카드",
+      "property_names": [
+        "card_id"
+      ]
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "카드거래",
+      "property_names": [
+        "txn_id"
+      ]
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "연체",
+      "property_names": [
+        "member_id",
+        "base_month"
+      ]
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "회원",
+      "property_names": [
+        "member_id"
+      ]
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "가맹점",
+      "property_names": [
+        "merchant_id"
+      ]
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "상품",
+      "property_names": [
+        "product_id"
+      ]
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "상품연회비",
+      "property_names": [
+        "product_id",
+        "brand"
+      ]
+    }
+  ],
+  "additional_node_types": false,
+  "additional_relationship_types": false,
+  "additional_patterns": false
+}

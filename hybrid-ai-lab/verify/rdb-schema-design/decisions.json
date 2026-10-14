@@ -1,0 +1,25 @@
+{
+  "_설명": "사람이 정하는 값만 모은 파일. 규칙 ②③④는 tools/draft_schema.py가 자동 적용하고, 여기 값으로 규칙 ①과 이름을 정함",
+  "decided_by": "사용자(2026-10-14 대화)",
+  "rule1": {
+    "card_txn": "node"
+  },
+  "exclude_tables": ["lab_metadata"],
+  "node_names": {
+    "member": "회원",
+    "card": "카드",
+    "card_txn": "카드거래",
+    "merchant": "가맹점",
+    "product": "상품",
+    "product_annual_fee": "상품연회비",
+    "delinquency": "연체"
+  },
+  "relationships": {
+    "card_member_id_fkey": {"name": "보유함", "from": "member", "to": "card", "_후보": true},
+    "card_product_id_brand_fkey": {"name": "연회비적용", "from": "card", "to": "product_annual_fee", "_후보": true},
+    "product_annual_fee_product_id_fkey": {"name": "연회비정함", "from": "product", "to": "product_annual_fee", "_후보": true},
+    "card_txn_card_id_fkey": {"name": "결제함", "from": "card", "to": "card_txn", "_후보": true},
+    "card_txn_merchant_id_fkey": {"name": "이용함", "from": "card_txn", "to": "merchant", "_후보": true},
+    "delinquency_member_id_fkey": {"name": "연체함", "from": "member", "to": "delinquency", "_후보": true}
+  }
+}
