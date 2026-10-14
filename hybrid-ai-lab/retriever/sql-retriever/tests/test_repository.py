@@ -51,7 +51,7 @@ def test_query_module_reads_only_logical_views_and_adds_no_member_condition():
     assert "app_internal.member_basic" in MEMBER_SELECT
 
 
-def test_rls_ddl_scopes_members_and_keeps_existing_lab_account_working():
+def test_rls_ddl_scopes_members_without_read_all_accounts():
     for table in ("public.member", "public.card", "public.card_txn", "public.delinquency"):
         assert f"ALTER TABLE {table} ENABLE ROW LEVEL SECURITY;" in RLS_DDL
     # 값이 없을 때 0행이 되도록 빈 문자열을 NULL과 같게 취급함(정책 4개).
@@ -60,8 +60,9 @@ def test_rls_ddl_scopes_members_and_keeps_existing_lab_account_working():
     scope_view = RLS_DDL.split("CREATE VIEW app_internal.request_scope")[1].split(";")[0]
     assert "app.member_id" not in scope_view
     assert "app.base_date" in scope_view and "app.coverage_start" in scope_view
-    # RLS를 켜면 정책 없는 역할은 0행이 됨. 기존 실습 계정이 조용히 깨지지 않게 함.
-    assert RLS_DDL.count("TO lab_user") == 4
+    # 로그인 계정은 sql_retriever_user 하나뿐임. 전체 허용 정책이 되살아나면 회원 격리가 약해짐.
+    assert "lab_user" not in RLS_DDL
+    assert "USING (true)" not in RLS_DDL
     # 뷰는 필터를 먼저 평가해야 조작된 조건으로 필터 이전 행이 새지 않음.
     assert RLS_DDL.count("WITH (security_barrier = true)") == 8
     # 서비스 계정에는 논리 뷰와 메타데이터만 주고 원본 테이블 권한은 주지 않음.

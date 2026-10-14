@@ -40,24 +40,19 @@ GRANT SELECT ON public.lab_metadata TO sql_retriever_user;
 -- 행 수준 보안 — 회원 격리
 -- ---------------------------------------------------------------------------
 -- 주의: RLS를 켜면 소유자가 아닌 모든 역할이 정책의 적용을 받음. 정책이 없으면 0행이 됨.
--- 그래서 기존 실습 계정 lab_user에는 전체 허용 정책을 함께 만들어 동작을 보존함.
 -- 소유자 cardlab은 FORCE ROW LEVEL SECURITY를 켜지 않았으므로 그대로 전체를 봄(관리 계정).
+-- 원본 전체를 읽어야 하는 오프라인 도구는 cardlab을 씀. app_reader에 전체 허용 정책을 더하지 않음
+-- — 같은 역할의 허용 정책은 OR로 합쳐져 app 뷰의 회원 격리가 풀리기 때문임.
 
 ALTER TABLE public.member ENABLE ROW LEVEL SECURITY;
 CREATE POLICY member_session_scope ON public.member
     FOR SELECT TO app_reader
     USING (member_id = NULLIF(current_setting('app.member_id', true), ''));
-CREATE POLICY member_lab_readall ON public.member
-    FOR SELECT TO lab_user
-    USING (true);
 
 ALTER TABLE public.card ENABLE ROW LEVEL SECURITY;
 CREATE POLICY card_session_scope ON public.card
     FOR SELECT TO app_reader
     USING (member_id = NULLIF(current_setting('app.member_id', true), ''));
-CREATE POLICY card_lab_readall ON public.card
-    FOR SELECT TO lab_user
-    USING (true);
 
 -- card_txn에는 member_id가 없으므로 카드를 거쳐 회원을 확인함.
 -- 안쪽 card 조회에도 위 card 정책이 그대로 적용되어 판정이 어긋나지 않음.
@@ -70,17 +65,11 @@ CREATE POLICY card_txn_session_scope ON public.card_txn
         WHERE scoped_card.card_id = card_txn.card_id
           AND scoped_card.member_id = NULLIF(current_setting('app.member_id', true), '')
     ));
-CREATE POLICY card_txn_lab_readall ON public.card_txn
-    FOR SELECT TO lab_user
-    USING (true);
 
 ALTER TABLE public.delinquency ENABLE ROW LEVEL SECURITY;
 CREATE POLICY delinquency_session_scope ON public.delinquency
     FOR SELECT TO app_reader
     USING (member_id = NULLIF(current_setting('app.member_id', true), ''));
-CREATE POLICY delinquency_lab_readall ON public.delinquency
-    FOR SELECT TO lab_user
-    USING (true);
 
 -- product / product_annual_fee / merchant / lab_metadata는 회원별 자료가 아니므로 RLS를 걸지 않음.
 

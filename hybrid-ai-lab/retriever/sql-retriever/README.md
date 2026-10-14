@@ -66,11 +66,11 @@ SQL_RETRIEVER_GROQ_MODEL=openai/gpt-oss-120b
 SQL_RETRIEVER_GEMMA_MODEL=hf.co/unsloth/gemma-4-12B-it-qat-GGUF:UD-Q4_K_XL
 SQL_RETRIEVER_OLLAMA_BASE_URL=http://127.0.0.1:11434
 # 아래 DB 설정은 선택입니다.
-SQL_RETRIEVER_DB_DSN=host=localhost port=5432 dbname=cardlab user=lab_user
+SQL_RETRIEVER_DB_DSN=host=localhost port=5432 dbname=cardlab user=sql_retriever_user
 SQL_RETRIEVER_DB_PASSWORD=실습_DB_비밀번호
 ```
 
-DB 연결 설정이 없으면 기존 공통 RDB의 `localhost:5432/cardlab`, 읽기 전용 `lab_user`를 사용합니다.  
+DB 연결 설정이 없으면 공통 RDB의 `localhost:5432/cardlab`과 검색기 전용 `sql_retriever_user`를 사용합니다.  
 이 로컬 기본 연결에서만 `../../rdb/compose.yml`의 실습 비밀번호를 읽습니다.  
 기존 `S22_DB_DSN`, `S22_DB_PASSWORD`도 인식합니다. 예전 SQLite용 `S22_DB_PATH`는 사용하지 않습니다.  
 RDB가 꺼져 있다면 [공통 RDB 안내](../../rdb/README.md)에 따라 시작합니다.
@@ -244,8 +244,8 @@ NL2SQL은 원본 테이블을 직접 검색하지 않습니다. 요청 회원·�
 `app.member_id` · `app.base_date` · `app.coverage_start`이며, `set_config(..., true)`로 넣어  
 트랜잭션이 끝나면 자동으로 풀립니다. 지정하지 않으면 모든 논리 뷰가 0행을 반환합니다.
 
-기존 실습 계정 `lab_user`는 영향을 받지 않습니다. RLS를 켜면 정책이 없는 역할은 0행이 되므로,  
-`lab_user`에는 전체 허용 정책을 함께 만들어 다른 실습이 그대로 동작하게 했습니다.
+DB에 로그인할 수 있는 실습 계정은 `sql_retriever_user` 하나뿐이며, 전체 허용 정책을 가진 계정은 없습니다.  
+원본 테이블 전체를 읽어야 하는 오프라인 도구(스키마 추출 등)는 관리 계정 `cardlab`을 씁니다.
 
 ## 데이터 해석과 검증 경계
 

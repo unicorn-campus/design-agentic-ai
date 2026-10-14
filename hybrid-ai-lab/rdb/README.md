@@ -83,8 +83,7 @@ docker compose -f rdb/compose.yml down -v    # 중지 + 데이터 삭제(다음 
 |------|-----|
 | 호스트·포트 | `localhost:5432` |
 | 데이터베이스 | `cardlab` |
-| 관리 계정 | `cardlab` / `cardlab` — 전체 권한 |
-| 실습 계정 | `lab_user` / `cardlab` — `public` 읽기 전용, `private` 접근 불가 |
+| 관리 계정 | `cardlab` / `cardlab` — 전체 권한. 원본 전체를 읽는 오프라인 도구도 이 계정을 씀 |
 | 검색기 계정 | `sql_retriever_user` / `cardlab` — `app` 논리 뷰만 읽음, 원본 테이블 권한 없음 |
 | 뷰 소유자 | `app_reader` — 로그인 불가. `app` 뷰를 소유하며 RLS 정책이 이 역할에 걸림 |
 | 컨테이너 | `hybrid-ai-lab-rdb` (postgres:18-alpine) |
@@ -94,8 +93,11 @@ docker compose -f rdb/compose.yml down -v    # 중지 + 데이터 삭제(다음 
 docker exec -it hybrid-ai-lab-rdb psql -U cardlab -d cardlab
 ```
 
-실습 코드에서는 **`lab_user`를 쓰는 것을 기본**으로 함. 재식별 열쇠에 손이 닿지 않는 것을
-계정 수준에서 보장하기 위함임.
+서비스 코드(검색기 등)는 **`sql_retriever_user`만** 씀. 원본 테이블과 재식별 열쇠에 손이 닿지 않는 것을  
+계정 수준에서 보장하기 위함임.  
+스키마 추출, 그래프 모델 검증처럼 원본 테이블 구조나 전체 행을 읽어야 하는 오프라인 도구는  
+관리 계정 `cardlab`을 씀. 이 계정은 쓰기 권한과 `private` 접근 권한도 있으므로  
+강사 PC 안에서만 쓰고 수강생에게 나눠 주지 않음.
 
 ### 행 수준 보안(RLS)과 논리 뷰
 
@@ -118,8 +120,9 @@ Get-Content -Raw -Encoding utf8 rdb/init/06_history_daily_usage.sql |
   docker exec -i hybrid-ai-lab-rdb psql -X -1 -v ON_ERROR_STOP=1 -U cardlab -d cardlab
 ```
 
-`lab_user`는 영향을 받지 않음. RLS를 켜면 정책이 없는 역할은 0행이 되므로
-`lab_user`에는 전체 허용 정책을 함께 만들어 기존 실습이 그대로 동작하게 했음.
+RLS를 켜면 정책이 없는 역할은 0행이 됨. 전체 허용 정책을 가진 로그인 계정은 두지 않음.  
+특히 `app_reader`에 전체 허용 정책을 더하면 같은 역할의 정책이 OR로 합쳐져  
+`app` 뷰의 회원 격리가 풀리므로 금지함. 관리 계정 `cardlab`은 테이블 소유자라 RLS를 받지 않음.
 
 검색기 계정은 세션 변수 `app.member_id` · `app.base_date` · `app.coverage_start`를
 트랜잭션 안에서 지정해야 `app` 스키마 뷰가 행을 돌려줌. 지정하지 않으면 0행임.
@@ -179,7 +182,7 @@ SQL 예제에서 컬럼을 직접 조회할 때는 아래 필드를 기준으로
 실제 운영에서는 스키마가 아니라 **저장소와 접근 권한 자체를 분리**해야 함.
 
 ```sql
--- lab_user로 실행하면 거부됨
+-- sql_retriever_user로 실행하면 거부됨
 SELECT * FROM private.member_id_map;   -- ERROR: permission denied for schema private
 ```
 

@@ -129,13 +129,9 @@ CREATE INDEX idx_txn_merchant    ON card_txn(merchant_id);
 CREATE INDEX idx_fee_total       ON product_annual_fee(total_fee);
 
 -- ---------------------------------------------------------------------------
--- 실습 계정 — public만 읽기, private은 접근 불가
+-- private 스키마 — 관리 계정(cardlab) 외에는 접근 불가
 -- ---------------------------------------------------------------------------
-CREATE ROLE lab_user LOGIN PASSWORD 'cardlab';
-GRANT CONNECT ON DATABASE cardlab TO lab_user;
-GRANT USAGE ON SCHEMA public TO lab_user;
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO lab_user;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO lab_user;
+-- 로그인 계정은 04_views_rls.sql의 sql_retriever_user 하나뿐이며 public 원본 테이블 권한도 없음.
 -- private에는 USAGE조차 주지 않음. 아래 REVOKE는 기본값을 명시적으로 못 박는 것임.
 REVOKE ALL ON SCHEMA private FROM PUBLIC;
 REVOKE ALL ON ALL TABLES IN SCHEMA private FROM PUBLIC;
