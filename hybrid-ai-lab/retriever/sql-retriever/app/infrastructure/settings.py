@@ -7,6 +7,7 @@ from dotenv import dotenv_values
 
 ROOT = Path(__file__).resolve().parents[2]
 LAB_ROOT = ROOT.parents[1]
+SECRETS_ENV = LAB_ROOT.parent / "secrets" / ".env"
 MODEL = "openai/gpt-oss-120b"
 GEMMA_MODEL = "hf.co/unsloth/gemma-4-12B-it-qat-GGUF:UD-Q4_K_XL"
 OLLAMA_BASE_URL = "http://127.0.0.1:11434"
@@ -37,7 +38,7 @@ class Settings:
 
 
 def load_settings(env_path: Path | None = None) -> Settings:
-    values = dotenv_values(env_path or LAB_ROOT / ".env", interpolate=False)
+    values = dotenv_values(env_path or SECRETS_ENV, interpolate=False)
 
     def get(key, default=""):
         return os.environ.get(key, values.get(key) or default)

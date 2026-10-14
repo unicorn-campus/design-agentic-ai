@@ -54,7 +54,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-키는 작업 디렉터리와 관계없이 **`hybrid-ai-lab/.env`**에서 읽습니다.  
+키는 작업 디렉터리와 관계없이 **`secrets/.env`**에서 읽습니다.  
 서비스 폴더에 키를 복사할 필요는 없습니다. 실제 값은 코드·예제·로그에 포함하지 않습니다.  
 같은 이름의 프로세스 환경변수가 있으면 그 값을 우선합니다.
 

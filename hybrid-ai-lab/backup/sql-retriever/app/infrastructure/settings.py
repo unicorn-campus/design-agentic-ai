@@ -36,7 +36,7 @@ def _local_rdb_password() -> str:
 def load_settings() -> Settings:
     env_path = ROOT / ".env"
     if not env_path.exists():
-        env_path = ROOT.parents[1] / ".env"   # 서비스 .env가 없으면 hybrid-ai-lab/.env
+        env_path = ROOT.parents[2] / "secrets" / ".env"   # 서비스 .env가 없으면 secrets/.env
     values = dotenv_values(env_path)
     key = _value(values, "CLAUDE_API_KEY")
     configured_dsn = _value(values, "S22_DB_DSN")

@@ -144,7 +144,7 @@ uv pip install --python .venv/bin/python -r requirements-dev.txt                
 
 ### 설정과 준비물
 
-`.env.example`을 `.env`로 복사함. 읽는 순서는 **환경변수 → 이 폴더 `.env` → `hybrid-ai-lab/.env`**(앞이 우선).
+`.env.example`을 `.env`로 복사함. 읽는 순서는 **환경변수 → 이 폴더 `.env` → `secrets/.env`**(앞이 우선).
 
 | 준비물 | 확인 방법 |
 |---|---|

@@ -8,12 +8,12 @@ import os
 import uvicorn
 from dotenv import dotenv_values
 
-from app.infrastructure.settings import LAB_ROOT, LLM_PROVIDERS, LLM_RUNTIMES
+from app.infrastructure.settings import LLM_PROVIDERS, LLM_RUNTIMES, SECRETS_ENV
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="SQL Retriever API 서버")
-    values = dotenv_values(LAB_ROOT / ".env", interpolate=False)
+    values = dotenv_values(SECRETS_ENV, interpolate=False)
     default_port = os.getenv("SQL_RETRIEVER_PORT") or values.get("SQL_RETRIEVER_PORT") or "8012"
     parser.add_argument("--port", type=int, default=default_port)
     parser.add_argument(

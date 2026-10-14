@@ -36,7 +36,7 @@ class VllmGateway:
         if not self.api_key:
             raise SearchError(
                 "missing_vllm_key",
-                "hybrid-ai-lab/.env의 SQL_RETRIEVER_VLLM_API_KEY를 설정해 주세요.",
+                "secrets/.env의 SQL_RETRIEVER_VLLM_API_KEY를 설정해 주세요.",
                 503,
             )
         return self.model_factory(

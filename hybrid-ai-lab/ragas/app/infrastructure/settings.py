@@ -11,6 +11,7 @@ from dotenv import dotenv_values
 
 APP_ROOT = Path(__file__).resolve().parents[2]  # hybrid-ai-lab/ragas
 LAB_ROOT = APP_ROOT.parent  # hybrid-ai-lab
+SECRETS_ENV = LAB_ROOT.parent / "secrets" / ".env"  # 저장소 공용 비밀값 파일
 
 
 def _venv_python(project: Path) -> Path:
@@ -49,12 +50,12 @@ class Settings:
 
 
 def load_settings(overrides: Mapping[str, str] | None = None) -> Settings:
-    """환경변수 → ragas/.env → hybrid-ai-lab/.env 순으로 값을 고름(앞이 우선).
+    """환경변수 → ragas/.env → secrets/.env 순으로 값을 고름(앞이 우선).
 
     부수효과: .env 파일을 읽기만 함. 예외: 숫자 칸에 숫자가 아니면 ValueError.
     """
 
-    values = {**dotenv_values(LAB_ROOT / ".env"), **dotenv_values(APP_ROOT / ".env"), **os.environ, **(overrides or {})}
+    values = {**dotenv_values(SECRETS_ENV), **dotenv_values(APP_ROOT / ".env"), **os.environ, **(overrides or {})}
 
     def text(key: str, default: str = "") -> str:
         value = values.get(key)

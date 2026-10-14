@@ -12,7 +12,8 @@ from app.domain.budget import C_01, C_02, C_03, C_04, BudgetPolicy
 from app.domain.grading import GradeThresholds
 
 ROOT = Path(__file__).resolve().parents[2]  # vector-retriever 프로젝트 루트
-LAB_ROOT = ROOT.parents[1]  # hybrid-ai-lab 루트. 공용 .env(GROQ_API_KEY)를 여기에 둠
+LAB_ROOT = ROOT.parents[1]  # hybrid-ai-lab 루트
+SECRETS_ENV = LAB_ROOT.parent / "secrets" / ".env"  # 공용 .env(GROQ_API_KEY)를 여기에 둠
 
 # 기본값 상수. 값의 근거는 Settings 필드의 줄 끝 주석에 적음
 DEFAULT_DATA_ROOT = "../../indexer/vector-bm25/data"
@@ -108,7 +109,7 @@ class Settings:
 def _read_env_files(env_path: Path | None) -> dict[str, str]:
     """.env 파일을 읽어 합침. 먼저 읽은 파일의 값을 우선함(프로젝트 .env > 공용 .env)."""
 
-    files = [env_path] if env_path is not None else [ROOT / ".env", LAB_ROOT / ".env"]
+    files = [env_path] if env_path is not None else [ROOT / ".env", SECRETS_ENV]
     merged: dict[str, str] = {}
     for path in files:
         if path is None or not path.is_file():

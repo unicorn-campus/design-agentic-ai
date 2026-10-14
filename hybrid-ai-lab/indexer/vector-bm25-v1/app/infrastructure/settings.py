@@ -15,6 +15,7 @@ from pydantic import SecretStr
 
 APP_DIR = Path(__file__).resolve().parents[2]   # hybrid-ai-lab/indexer/vector-bm25
 LAB_ROOT = APP_DIR.parents[1]   # hybrid-ai-lab
+SECRETS_ENV = LAB_ROOT.parent / "secrets" / ".env"   # 저장소 공용 비밀값 파일
 
 
 class LLMConfigError(ValueError):
@@ -173,11 +174,11 @@ def _source_value(values: Mapping[str, Any], name: str, aliases: tuple[str, ...]
 
 
 def load_settings(cli_overrides: Mapping[str, Any] | None = None) -> Settings:
-    """CLI → 환경변수 → 앱 .env → Lab .env → 기본값 순으로 값을 선택함."""
+    """CLI → 환경변수 → 앱 .env → secrets/.env → 기본값 순으로 값을 선택함."""
 
     overrides = cli_overrides or {}
     app_env = dotenv_values(APP_DIR / ".env")
-    lab_env = dotenv_values(LAB_ROOT / ".env")
+    lab_env = dotenv_values(SECRETS_ENV)
     selected: dict[str, Any] = {}
     sources: dict[str, str] = {}
 

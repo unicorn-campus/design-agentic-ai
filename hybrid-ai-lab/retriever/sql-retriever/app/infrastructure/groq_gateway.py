@@ -16,7 +16,7 @@ class GroqGateway:
 
     def _model(self):
         if not self.settings.api_key:
-            raise SearchError("missing_groq_key", "hybrid-ai-lab/.env의 GROQ_API_KEY를 설정해 주세요.", 503)
+            raise SearchError("missing_groq_key", "secrets/.env의 GROQ_API_KEY를 설정해 주세요.", 503)
         return self.model_factory(
             model=self.settings.model, api_key=self.settings.api_key,
             temperature=0, reasoning_effort="low", model_kwargs={"include_reasoning": False},

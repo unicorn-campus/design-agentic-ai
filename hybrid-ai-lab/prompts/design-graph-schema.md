@@ -19,7 +19,7 @@
 
 [입력]  
 - DB 접속 정보: 수행 중 사용자에게 받음(1단계)  
-- DB 비밀번호: `hybrid-ai-lab/.env`의 `RDB_PASSWORD` 값  
+- DB 비밀번호: `secrets/.env`의 `RDB_PASSWORD` 값  
 - 출력 기준 폴더(`{base_dir}`): 수행 중 사용자에게 받음(1단계)  
 - 테이블을 그래프로 바꾸는 규칙: [처리] 3단계에 적음  
 - 스키마 검증 도구: Python 패키지 `neo4j-graphrag`의 `GraphSchema`(1.22.0에서 확인)  
@@ -31,7 +31,7 @@
      - DB 종류(예: PostgreSQL), 호스트, 포트, DB 이름, 읽을 스키마 이름(예: public), 계정  
      - 읽을 스키마는 원본 테이블이 있는 스키마로 지정하고, 서비스용 뷰(View)가 정의된 스키마(예: app)는 쓰지 않음  
    - 계정은 SELECT 권한만 있는 읽기 전용 계정을 쓰도록 권함  
-   - 비밀번호는 묻지 않고 `hybrid-ai-lab/.env`의 `RDB_PASSWORD` 값을 읽음  
+   - 비밀번호는 묻지 않고 `secrets/.env`의 `RDB_PASSWORD` 값을 읽음  
      - 값이 있는지만 확인하고, 값 자체는 화면이나 로그에 보여 주지 않음  
      - 파일이 없거나 `RDB_PASSWORD`가 없거나 값이 비어 있으면, 사용자에게 이 파일에  
        `RDB_PASSWORD={비밀번호}` 한 줄을 직접 등록해 달라고 요청함. 등록했다는 답을 받은 뒤 다시 확인함  
@@ -156,7 +156,7 @@
 - MUST NOT:  
   - PlantUML 등 Mermaid가 아닌 그림 형식을 쓰지 않음  
   - DB에 쓰기(INSERT, UPDATE, DELETE, CREATE 등)를 하지 않음  
-  - 비밀번호를 대화, 로그, 스크립트, 출력파일에 적지 않음(`hybrid-ai-lab/.env`에만 둠)  
+  - 비밀번호를 대화, 로그, 스크립트, 출력파일에 적지 않음(`secrets/.env`에만 둠)  
   - 비밀번호를 대화로 묻지 않고, AI가 `.env`에 쓰지 않음  
   - 규칙 ① 판정과 이름을 AI가 추측해 확정하지 않음  
   - 후보 표시가 남은 상태로 graph_schema.json을 만들지 않음  

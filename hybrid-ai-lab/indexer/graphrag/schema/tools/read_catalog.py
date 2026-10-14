@@ -4,7 +4,7 @@
 FK는 제약 단위로 읽음. pg_constraint의 conkey(내 열 번호)와 confkey(상대 열 번호)를 같은 순서끼리 짝지음.
 information_schema를 단순 조인하면 열 2개짜리 FK의 짝이 엇갈려 곱해지기 때문임.
 
-비밀번호는 hybrid-ai-lab/.env의 RDB_PASSWORD를 실행할 때마다 읽음(코드, 로그, 출력에 남기지 않음).
+비밀번호는 secrets/.env의 RDB_PASSWORD를 실행할 때마다 읽음(코드, 로그, 출력에 남기지 않음).
 DB는 읽기 전용 세션으로만 조회함.
 
 실행 예:
@@ -21,7 +21,7 @@ from pathlib import Path
 import psycopg
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DEFAULT_ENV = BASE_DIR.parents[2] / ".env"  # schema → graphrag → indexer → hybrid-ai-lab
+DEFAULT_ENV = BASE_DIR.parents[3] / "secrets" / ".env"  # schema → graphrag → indexer → hybrid-ai-lab → 저장소 루트
 
 # 일반 테이블만 셈(r: 일반, p: 파티션 부모). 뷰(v), 구체화 뷰(m), 외부 테이블(f)은 뺌
 TABLE_KINDS = ("r", "p")

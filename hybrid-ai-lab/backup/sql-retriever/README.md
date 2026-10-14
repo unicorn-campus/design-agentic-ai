@@ -51,7 +51,7 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-예제 루트의 `.env`가 없으면 상위 `hybrid-ai-lab/.env`를 읽습니다.
+예제 루트의 `.env`가 없으면 상위 `secrets/.env`를 읽습니다.
 
 ```dotenv
 CLAUDE_API_KEY=발급받은_API_키

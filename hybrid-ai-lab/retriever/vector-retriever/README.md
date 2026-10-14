@@ -224,7 +224,7 @@ uv pip install --python .venv/bin/python -r requirements-dev.txt                
 
 ### 설정 파일과 색인·모델 준비
 
-`.env.example`을 `.env`로 복사해 값을 채움. 읽는 순서는 **이 폴더의 `.env` → `hybrid-ai-lab/.env` → 환경변수**이며  
+`.env.example`을 `.env`로 복사해 값을 채움. 읽는 순서는 **이 폴더의 `.env` → `secrets/.env` → 환경변수**이며  
 환경변수가 가장 우선임(`app/infrastructure/settings.py`). 비밀값은 `.env.example`에 적지 않음.
 
 실행 전에 아래 3가지가 준비돼야 함.
@@ -235,7 +235,7 @@ uv pip install --python .venv/bin/python -r requirements-dev.txt                
    `HF_LOCAL_FILES_ONLY=true`가 기본이라 **로컬 캐시에 이미 받아 둔 모델만** 씀. 처음 한 번은 `false`로 두고
    받은 뒤 다시 `true`로 돌려 고정된 모델을 재사용함. 임베딩 모델·`EMBED_REVISION`은 색인과 같아야 하며
    다르면 색인 적재가 서명 대조에서 멈춤
-3. **LLM 비밀키** — `GROQ_API_KEY`(C-01 ~ C-04)를 이 폴더의 `.env` 또는 공용 `hybrid-ai-lab/.env`에 둠.
+3. **LLM 비밀키** — `GROQ_API_KEY`(C-01 ~ C-04)를 이 폴더의 `.env` 또는 공용 `secrets/.env`에 둠.
    비어 있으면 서버는 뜨지만 LLM 단계가 대체 경로로 돌아감(경고 로그가 남음)
 
 ## 5. 실행 방법
