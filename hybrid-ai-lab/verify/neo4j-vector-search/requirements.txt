@@ -1,0 +1,4 @@
+# 검증 전용 가상환경. torch·Chroma·Kiwi는 기존 검색기 가상환경에서 tools/export_fixture.py로만 씀
+neo4j-graphrag==1.22.0
+neo4j==6.4.0
+pytest==9.1.1
