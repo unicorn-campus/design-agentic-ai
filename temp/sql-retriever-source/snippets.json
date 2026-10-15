@@ -1,0 +1,874 @@
+{
+ "ports": {
+  "path": "app/application/ports.py",
+  "ranges": [
+   [
+    20,
+    31
+   ],
+   [
+    74,
+    84
+   ]
+  ],
+  "header": "app/application/ports.py:20-31, 74-84  (구간 생략)",
+  "lines": [
+   "class PlannerPort(Protocol):",
+   "    \"\"\"C-01 SQL 계획 생성 LLM 계약. 제공자를 더하면 이 포트를 지키는 어댑터를 하나 더 만듦(23장).\"\"\"",
+   "",
+   "    @abstractmethod",
+   "    def plan(self, request: PlanRequest) -> PlanOutcome:",
+   "        \"\"\"질문을 정형쿼리 선택 또는 NL2SQL 계획으로 바꿈.",
+   "",
+   "        인자: request에는 가린 질문만 담김. 회원ID는 받지 않음.",
+   "        반환값: 계획 dict(route, query_id, sql, target_views, requested_period, reason) 또는 거절 문장.",
+   "        예외: 타임아웃, 연결 오류, 429, 5xx, 400 등 호출 실패는 PlannerFailure를 발생시킴. 재시도는 하지 않음.",
+   "        부수효과: 외부 LLM API를 1번 호출함.",
+   "        \"\"\"",
+   "# …(생략)",
+   "class SqlValidatorPort(Protocol):",
+   "    \"\"\"S-R4 SQL 검증 규칙(31장) 계약.\"\"\"",
+   "",
+   "    @abstractmethod",
+   "    def validate(self, sql: str) -> ValidationResult:",
+   "        \"\"\"SQL을 문법 트리로 검사하고 행 상한을 맞춤.",
+   "",
+   "        반환값: 통과하면 ok True와 LIMIT 200 이하로 맞춘 SQL. 실패하면 ok False와 사유 코드.",
+   "        예외: 없음. 파싱 실패도 사유 코드 PARSE_ERROR로 돌려줌.",
+   "        부수효과: 없음.",
+   "        \"\"\""
+  ]
+ },
+ "bootstrap": {
+  "path": "app/bootstrap.py",
+  "ranges": [
+   [
+    20,
+    29
+   ],
+   [
+    37,
+    55
+   ]
+  ],
+  "header": "app/bootstrap.py:20-29, 37-55  (docstring, 구간 생략)",
+  "lines": [
+   "def create_planner(settings: Settings) -> PlannerPort:",
+   "    if settings.llm_provider == \"groq\":",
+   "        return GroqPlanner(api_key=settings.groq_api_key, model=settings.llm_model, base_url=GROQ_BASE_URL)",
+   "    raise SettingsError(\"SQL_RETRIEVER_LLM_PROVIDER는 지금 groq만 지원합니다.\")",
+   "# …(생략)",
+   "def create_service(env_file: Path | None = None) -> SqlRetrieverService:",
+   "    settings = load_settings(env_file)",
+   "    repository = PostgresRepository(",
+   "        host=settings.db_host,",
+   "        port=settings.db_port,",
+   "        dbname=settings.db_name,",
+   "        user=settings.db_user,",
+   "        password=settings.db_password,",
+   "    )",
+   "    steps = WorkflowSteps(",
+   "        member_repository=repository,",
+   "        executor=repository,",
+   "        planner=create_planner(settings),",
+   "        validator=SqlglotValidator(),",
+   "        audit_log=JsonlAuditLog(settings.audit_log_path),",
+   "        clock=utc_now,",
+   "    )",
+   "    return SqlRetrieverService(LangGraphRunner(steps))"
+  ]
+ },
+ "cli": {
+  "path": "app/presentation/cli.py",
+  "ranges": [
+   [
+    35,
+    45
+   ]
+  ],
+  "header": "app/presentation/cli.py:35-45  (들여쓰기 축소)",
+  "lines": [
+   "payload = {",
+   "    \"request_id\": args.request_id or f\"cli-{uuid.uuid4().hex[:12]}\",",
+   "    \"question\": args.question,",
+   "    \"member_id\": args.member_id,",
+   "    \"base_date\": args.base_date,",
+   "}",
+   "result = service.search(payload)",
+   "# Windows 콘솔 기본 인코딩(cp949)에서도 한글이 깨지지 않게 UTF-8로 씀",
+   "sys.stdout.reconfigure(encoding=\"utf-8\")  # type: ignore[union-attr]",
+   "print(json.dumps(result.body, ensure_ascii=False, indent=2))",
+   "return 0 if result.http_status == 200 else 1"
+  ]
+ },
+ "api": {
+  "path": "app/presentation/api.py",
+  "ranges": [
+   [
+    53,
+    62
+   ]
+  ],
+  "header": "app/presentation/api.py:53-62  (docstring 생략 / 들여쓰기 축소)",
+  "lines": [
+   "@app.post(",
+   "    SEARCH_PATH,",
+   "    response_model=SearchResponse,",
+   "    responses={code: {\"model\": ErrorResponse} for code in (400, 404, 422, 500, 503, 504)},",
+   ")",
+   "def search(request: SearchRequest = Body(...)) -> Any:",
+   "    # 동기 함수라 FastAPI가 작업 스레드에서 실행함. 오류 코드 → HTTP 상태 변환은 서비스 결과를 그대로 씀",
+   "    result = get_service().search(request.model_dump())",
+   "    return JSONResponse(status_code=result.http_status, content=result.body)"
+  ]
+ },
+ "service": {
+  "path": "app/application/services.py",
+  "ranges": [
+   [
+    25,
+    25
+   ],
+   [
+    31,
+    51
+   ]
+  ],
+  "header": "app/application/services.py:25, 31-51  (docstring, 구간 생략 / 들여쓰기 축소)",
+  "lines": [
+   "def search(self, payload: Mapping[str, Any]) -> ServiceResult:",
+   "    # …(생략)",
+   "    raw_request_id = payload.get(\"request_id\")",
+   "    request_id = raw_request_id if isinstance(raw_request_id, str) else \"\"",
+   "    initial_state: WorkflowState = {",
+   "        \"request_id\": payload.get(\"request_id\"),  # type: ignore[typeddict-item]",
+   "        \"question\": payload.get(\"question\"),  # type: ignore[typeddict-item]",
+   "        \"member_id\": payload.get(\"member_id\"),  # type: ignore[typeddict-item]",
+   "        \"base_date\": payload.get(\"base_date\"),",
+   "    }",
+   "    try:",
+   "        final_state = self.runner.run(initial_state)",
+   "    except RetrieverError as error:",
+   "        # detail(내부 사유 코드)은 로그에만 남기고 응답에는 넣지 않음",
+   "        logger.warning(",
+   "            \"workflow error request_id=%s stage=%s code=%s detail=%s\",",
+   "            request_id, error.stage, error.code, error.detail,",
+   "        )",
+   "        return ServiceResult(error.spec.http_status, error_body(request_id, error.code))",
+   "    except Exception as error:  # 설계서에 없는 예기치 못한 실패도 내부 정보 없이 INTERNAL_ERROR로 돌려줌",
+   "        logger.error(\"unexpected failure request_id=%s error=%s\", request_id, type(error).__name__)",
+   "        return ServiceResult(500, error_body(request_id, \"INTERNAL_ERROR\"))",
+   "    return ServiceResult(200, final_state[\"response\"])"
+  ]
+ },
+ "graph": {
+  "path": "app/infrastructure/graph.py",
+  "ranges": [
+   [
+    24,
+    44
+   ],
+   [
+    46,
+    48
+   ]
+  ],
+  "header": "app/infrastructure/graph.py:24-44, 46-48  (docstring, 구간 생략 / 들여쓰기 축소)",
+  "lines": [
+   "def __init__(self, steps: WorkflowSteps):",
+   "    builder = StateGraph(WorkflowState)",
+   "    builder.add_node(tb.STAGE_R1, steps.step_r1)",
+   "    builder.add_node(tb.STAGE_R2, steps.step_r2)",
+   "    builder.add_node(tb.STAGE_R3, steps.step_r3)",
+   "    builder.add_node(tb.STAGE_R4, steps.step_r4)",
+   "    builder.add_node(tb.STAGE_R5, steps.step_r5)",
+   "    builder.add_node(tb.STAGE_R6, steps.step_r6)",
+   "",
+   "    builder.add_edge(START, tb.STAGE_R1)",
+   "    builder.add_edge(tb.STAGE_R1, tb.STAGE_R2)",
+   "    builder.add_edge(tb.STAGE_R2, tb.STAGE_R3)",
+   "    # S-R3: 적합 → S-R4, 부적합(재시도 남음) → S-R2, 답할 수 없음 → S-R6",
+   "    builder.add_conditional_edges(",
+   "        tb.STAGE_R3, next_after_r3, [tb.STAGE_R4, tb.STAGE_R2, tb.STAGE_R6]",
+   "    )",
+   "    # S-R4: 통과 → S-R5, 실패(재시도 남음) → S-R2. 재시도 소진은 단계 안에서 오류 종료",
+   "    builder.add_conditional_edges(tb.STAGE_R4, next_after_r4, [tb.STAGE_R5, tb.STAGE_R2])",
+   "    builder.add_edge(tb.STAGE_R5, tb.STAGE_R6)",
+   "    builder.add_edge(tb.STAGE_R6, END)",
+   "    self._graph = builder.compile()",
+   "# …(생략)",
+   "def run(self, initial_state: WorkflowState) -> WorkflowState:",
+   "    return self._graph.invoke(initial_state, config={\"recursion_limit\": RECURSION_LIMIT})"
+  ]
+ },
+ "state": {
+  "path": "app/application/models.py",
+  "ranges": [
+   [
+    157,
+    171
+   ],
+   [
+    192,
+    195
+   ]
+  ],
+  "header": "app/application/models.py:157-171, 192-195  (docstring, 구간 생략)",
+  "lines": [
+   "class WorkflowState(TypedDict, total=False):",
+   "    # 트리거 입력",
+   "    request_id: str",
+   "    question: str",
+   "    member_id: str  # 세션 변수 전용. LLM과 응답에 넣지 않음",
+   "    # 트리거에서는 요청 원문 문자열(선택), S-R1 뒤에는 확정 기준일(date)로 바뀜",
+   "    base_date: date | str | None",
+   "    # S-R1",
+   "    masked_question: str",
+   "    masked_count: int",
+   "    coverage_start: date",
+   "    started_at: datetime",
+   "    attempt: int",
+   "    # …(생략)",
+   "    # S-R6",
+   "    response: dict[str, Any]",
+   "    # 내부 표시(사용자 승인 P-03): 예산 착지로 재시도를 껐는지. 응답에는 나가지 않음",
+   "    retry_disabled: bool"
+  ]
+ },
+ "budget": {
+  "path": "app/domain/time_budget.py",
+  "ranges": [
+   [
+    8,
+    12
+   ],
+   [
+    38,
+    49
+   ],
+   [
+    52,
+    65
+   ]
+  ],
+  "header": "app/domain/time_budget.py:8-12, 38-49, 52-65  (docstring, 구간 생략)",
+  "lines": [
+   "TOTAL_BUDGET_SECONDS = 15.0  # 전체 시간 예산(설계 개요 2장)",
+   "FINALIZE_SECONDS = 1.0  # 종료 처리 시간. S-R6 몫으로 미리 떼어 둠",
+   "START_RATIO = 0.05  # 시작 기준 비율(설계 가정 A-3, 설계 가이드 기본값)",
+   "START_THRESHOLD_SECONDS = TOTAL_BUDGET_SECONDS * START_RATIO  # 15 × 0.05 = 0.75초",
+   "LLM_WORST_SECONDS = 5.0  # C-01 최악값 = 타임아웃 5초 × (1 + 재시도 0)",
+   "# …(생략)",
+   "def deduction_for(stage: str, attempt: int = 0, *, retry_disabled: bool = False) -> float:",
+   "    if stage in (STAGE_R1, STAGE_R2):",
+   "        return LLM_WORST_SECONDS",
+   "    if stage in (STAGE_R3, STAGE_R4):",
+   "        # 되돌아갈 경로(S-R2 재호출)가 남아 있을 때만 그 최악값을 미리 떼어 둠",
+   "        return LLM_WORST_SECONDS if attempt == 1 and not retry_disabled else 0.0",
+   "    return 0.0",
+   "# …(생략)",
+   "def check_budget(elapsed: float, deduction: float) -> BudgetCheck:",
+   "    remaining_time = TOTAL_BUDGET_SECONDS - elapsed - FINALIZE_SECONDS",
+   "    remaining_budget = remaining_time - deduction",
+   "    return BudgetCheck(",
+   "        elapsed=elapsed,",
+   "        remaining_time=remaining_time,",
+   "        deduction=deduction,",
+   "        remaining_budget=remaining_budget,",
+   "        can_start=remaining_budget >= START_THRESHOLD_SECONDS,",
+   "    )"
+  ]
+ },
+ "settings": {
+  "path": "app/infrastructure/settings.py",
+  "ranges": [
+   [
+    46,
+    50
+   ],
+   [
+    52,
+    57
+   ],
+   [
+    64,
+    74
+   ]
+  ],
+  "header": "app/infrastructure/settings.py:46-50, 52-57, 64-74  (docstring, 구간 생략 / 들여쓰기 축소)",
+  "lines": [
+   "path = env_file or Path(os.environ.get(\"SQL_RETRIEVER_ENV_FILE\", DEFAULT_ENV_FILE))",
+   "values: dict[str, str] = {",
+   "    key: value for key, value in dotenv_values(path).items() if value is not None",
+   "} if path.exists() else {}",
+   "values.update({key: value for key, value in os.environ.items() if value})",
+   "# …(생략)",
+   "def required(name: str) -> str:",
+   "    value = values.get(name, \"\").strip()",
+   "    if not value:",
+   "        raise SettingsError(f\"필수 설정 {name}이(가) 없습니다. secrets/.env에 등록해 주세요.\")",
+   "    return value",
+   "# …(생략)",
+   "audit_path = values.get(\"SQL_RETRIEVER_AUDIT_LOG\")",
+   "return Settings(",
+   "    llm_provider=required(\"SQL_RETRIEVER_LLM_PROVIDER\").lower(),",
+   "    llm_model=required(\"SQL_RETRIEVER_LLM_MODEL\"),",
+   "    groq_api_key=required(\"GROQ_API_KEY\"),",
+   "    db_password=required(\"RDB_PASSWORD\"),",
+   "    db_host=values.get(\"RDB_HOST\", \"localhost\"),",
+   "    db_port=db_port,",
+   "    db_name=values.get(\"RDB_NAME\", \"cardlab\"),",
+   "    audit_log_path=Path(audit_path) if audit_path else PROJECT_ROOT / \"logs\" / \"audit.jsonl\",",
+   ")"
+  ]
+ },
+ "r1_check": {
+  "path": "app/application/steps.py",
+  "ranges": [
+   [
+    135,
+    148
+   ]
+  ],
+  "header": "app/application/steps.py:135-148  (docstring 생략 / 들여쓰기 축소)",
+  "lines": [
+   "if not is_valid_request_id(state.get(\"request_id\")):",
+   "    raise RetrieverError(\"INVALID_REQUEST\", stage=stage, detail=\"request_id\")",
+   "if not is_valid_question(state.get(\"question\")):",
+   "    raise RetrieverError(\"INVALID_REQUEST\", stage=stage, detail=\"question\")",
+   "if not is_valid_member_id(state.get(\"member_id\")):",
+   "    raise RetrieverError(\"INVALID_REQUEST\", stage=stage, detail=\"member_id\")",
+   "raw_base_date = state.get(\"base_date\")",
+   "requested_base_date: date | None = None",
+   "if raw_base_date is not None:",
+   "    requested_base_date = parse_date(raw_base_date)",
+   "    if requested_base_date is None:",
+   "        raise RetrieverError(\"INVALID_REQUEST\", stage=stage, detail=\"base_date\")",
+   "",
+   "masked_question, masked_count = mask_identifiers(state[\"question\"])"
+  ]
+ },
+ "masking": {
+  "path": "app/domain/masking.py",
+  "ranges": [
+   [
+    11,
+    21
+   ]
+  ],
+  "header": "app/domain/masking.py:11-21  (주석 생략)",
+  "lines": [
+   "_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (",
+   "    (\"card\", re.compile(r\"(?<!\\d)(?:\\d[ -]?){14,15}\\d(?!\\d)\")),",
+   "    (\"resident\", re.compile(r\"(?<!\\d)\\d{6}[ -]?[1-8]\\d{6}(?!\\d)\")),",
+   "    (\"phone\", re.compile(r\"(?<!\\d)(?:01[016789]|070|0[2-6][0-9]?)[ -]?\\d{3,4}[ -]?\\d{4}(?!\\d)\")),",
+   "    (\"email\", re.compile(r\"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\")),",
+   "    (\"member_id\", re.compile(r\"(?<![A-Za-z0-9])M-\\d{4}(?!\\d)\")),",
+   ")"
+  ]
+ },
+ "r1_member": {
+  "path": "app/infrastructure/postgres_repository.py",
+  "ranges": [
+   [
+    24,
+    28
+   ],
+   [
+    31,
+    33
+   ],
+   [
+    73,
+    84
+   ]
+  ],
+  "header": "app/infrastructure/postgres_repository.py:24-28, 31-33, 73-84  (docstring, 주석, 구간 생략)",
+  "lines": [
+   "_SET_SCOPE_SQL = (",
+   "    \"SELECT set_config('app.member_id', %s, true),\"",
+   "    \" set_config('app.base_date', %s, true),\"",
+   "    \" set_config('app.coverage_start', %s, true)\"",
+   ")",
+   "# …(생략)",
+   "_METADATA_SQL = \"SELECT key, value FROM public.lab_metadata WHERE key IN ('base_date', 'txn_period')\"",
+   "_MEMBER_SQL = \"SELECT join_date FROM app_internal.member_basic WHERE member_id = %s\"",
+   "        # …(생략)",
+   "        try:",
+   "            with self._read_only(timeout_ms) as cursor:",
+   "                cursor.execute(_METADATA_SQL)",
+   "                metadata = {key: value for key, value in cursor.fetchall()}",
+   "                data_base_date = parse_date(metadata.get(\"base_date\"))",
+   "                if data_base_date is None or \"txn_period\" not in metadata:",
+   "                    raise DatabaseFailure(\"lab_metadata 키 없음\")",
+   "                coverage_start = parse_coverage_start(metadata[\"txn_period\"])",
+   "                base_date = resolve_base_date(requested_base_date, data_base_date)",
+   "                cursor.execute(_SET_SCOPE_SQL, (member_id, base_date.isoformat(), coverage_start.isoformat()))",
+   "                cursor.execute(_MEMBER_SQL, (member_id,))",
+   "                row = cursor.fetchone()"
+  ]
+ },
+ "r2": {
+  "path": "app/application/steps.py",
+  "ranges": [
+   [
+    190,
+    192
+   ],
+   [
+    202,
+    215
+   ],
+   [
+    218,
+    220
+   ]
+  ],
+  "header": "app/application/steps.py:190-192, 202-215, 218-220  (docstring, 구간 생략 / 들여쓰기 축소)",
+  "lines": [
+   "attempt = state[\"attempt\"] + 1",
+   "if not self._measure(state, stage, tb.deduction_for(stage)).can_start:",
+   "    return self._keyword_plan(state, attempt, missing_code=\"TIME_BUDGET_EXCEEDED\")",
+   "# …(생략)",
+   "try:",
+   "    outcome = self.planner.plan(request)",
+   "except PlannerFailure as failure:",
+   "    logger.warning(",
+   "        \"planner failed request_id=%s kind=%s status=%s retry_after=%s\",",
+   "        state.get(\"request_id\"), failure.kind, failure.status_code, failure.retry_after,",
+   "    )",
+   "    return self._keyword_plan(state, attempt, missing_code=\"LLM_UNAVAILABLE\")",
+   "",
+   "if outcome.refusal is not None or outcome.plan is None:",
+   "    plan = _plan(ROUTE_UNANSWERABLE, reason=REASON_REFUSED)",
+   "else:",
+   "    plan = outcome.plan",
+   "return {\"plan\": plan, \"plan_source\": PLAN_SOURCE_LLM, \"attempt\": attempt}",
+   "# …(생략)",
+   "query_id = match_keyword_rule(state[\"masked_question\"])",
+   "if query_id is None:",
+   "    raise RetrieverError(missing_code, stage=tb.STAGE_R2, detail=\"no_keyword_match\")"
+  ]
+ },
+ "groq": {
+  "path": "app/infrastructure/groq_planner.py",
+  "ranges": [
+   [
+    26,
+    31
+   ],
+   [
+    82,
+    98
+   ]
+  ],
+  "header": "app/infrastructure/groq_planner.py:26-31, 82-98  (구간 생략)",
+  "lines": [
+   "TEMPERATURE = 0.2  # 설계 가정 A-1",
+   "REASONING_EFFORT = \"low\"  # 설계 가정 A-1",
+   "MAX_COMPLETION_TOKENS = 4096  # 사용자 결정",
+   "SEED = 42  # 결정적 샘플링은 최선 노력이며 보장되지 않음",
+   "TIMEOUT_SECONDS = 5.0  # 설계 가정 A-1. SDK 기본 60초를 반드시 바꿈",
+   "MAX_RETRIES = 0  # SDK 기본 2회를 끔. 재시도 역할은 반복 구간 L-1이 맡음(20장)",
+   "        # …(생략)",
+   "        self._model = model_factory(",
+   "            model=model,",
+   "            base_url=base_url,",
+   "            api_key=api_key,",
+   "            temperature=TEMPERATURE,",
+   "            reasoning_effort=REASONING_EFFORT,",
+   "            max_completion_tokens=MAX_COMPLETION_TOKENS,",
+   "            seed=SEED,",
+   "            timeout=TIMEOUT_SECONDS,",
+   "            max_retries=MAX_RETRIES,",
+   "            # Groq 전용 인자는 extra_body로 보냄. 추론 문장을 응답에서 뺌(24장 include_reasoning false)",
+   "            extra_body={\"include_reasoning\": False},",
+   "            # Responses API로 자동 전환되지 않게 Chat Completions(POST /chat/completions)로 고정함",
+   "            use_responses_api=False,",
+   "        )",
+   "        self._chain = self._prompt | self._model.with_structured_output(",
+   "            PLAN_JSON_SCHEMA, method=\"json_schema\", strict=True, include_raw=True"
+  ]
+ },
+ "schema": {
+  "path": "app/infrastructure/groq_planner.py",
+  "ranges": [
+   [
+    35,
+    59
+   ]
+  ],
+  "header": "app/infrastructure/groq_planner.py:35-59",
+  "lines": [
+   "PLAN_JSON_SCHEMA: dict[str, Any] = {",
+   "    \"name\": \"sql_plan\",",
+   "    \"strict\": True,",
+   "    \"schema\": {",
+   "        \"type\": \"object\",",
+   "        \"properties\": {",
+   "            \"route\": {\"type\": \"string\", \"enum\": [\"FIXED\", \"NL2SQL\", \"UNANSWERABLE\"]},",
+   "            \"query_id\": {\"type\": [\"string\", \"null\"]},",
+   "            \"sql\": {\"type\": [\"string\", \"null\"]},",
+   "            \"target_views\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}},",
+   "            \"requested_period\": {",
+   "                \"type\": \"object\",",
+   "                \"properties\": {",
+   "                    \"from\": {\"type\": [\"string\", \"null\"]},",
+   "                    \"to\": {\"type\": [\"string\", \"null\"]},",
+   "                },",
+   "                \"required\": [\"from\", \"to\"],",
+   "                \"additionalProperties\": False,",
+   "            },",
+   "            \"reason\": {\"type\": \"string\"},",
+   "        },",
+   "        \"required\": [\"route\", \"query_id\", \"sql\", \"target_views\", \"requested_period\", \"reason\"],",
+   "        \"additionalProperties\": False,",
+   "    },",
+   "}"
+  ]
+ },
+ "user_prompt": {
+  "path": "app/infrastructure/prompts/c01_user_prompt.md",
+  "ranges": [
+   [
+    1,
+    6
+   ]
+  ],
+  "header": "app/infrastructure/prompts/c01_user_prompt.md:1-6",
+  "lines": [
+   "<question>{question}</question>",
+   "<base_date>{base_date}</base_date>",
+   "<coverage_start>{coverage_start}</coverage_start>",
+   "<attempt>{attempt}</attempt>",
+   "<retry_reason>{retry_reason}</retry_reason>",
+   "<previous_sql>{previous_sql}</previous_sql>"
+  ]
+ },
+ "groq_fail": {
+  "path": "app/infrastructure/groq_planner.py",
+  "ranges": [
+   [
+    107,
+    124
+   ],
+   [
+    126,
+    132
+   ]
+  ],
+  "header": "app/infrastructure/groq_planner.py:107-124, 126-132  (docstring, 구간 생략 / 들여쓰기 축소)",
+  "lines": [
+   "try:",
+   "    result = self._chain.invoke(_prompt_variables(request))",
+   "except openai.APITimeoutError as error:  # APIConnectionError의 하위 종류라 먼저 잡음",
+   "    raise PlannerFailure(\"TIMEOUT\") from error",
+   "except openai.APIConnectionError as error:",
+   "    raise PlannerFailure(\"CONNECTION\") from error",
+   "except openai.RateLimitError as error:",
+   "    # retry-after는 기록만 하고 기다리지 않음(11장, 시간 예산 보호)",
+   "    raise PlannerFailure(",
+   "        \"RATE_LIMIT\", status_code=429, retry_after=error.response.headers.get(\"retry-after\")",
+   "    ) from error",
+   "except openai.BadRequestError as error:",
+   "    raise PlannerFailure(\"BAD_REQUEST\", status_code=400) from error",
+   "except openai.APIStatusError as error:",
+   "    kind = \"SERVER_ERROR\" if error.status_code >= 500 else \"OTHER\"  # 401 등은 사용자 승인 P-04",
+   "    raise PlannerFailure(kind, status_code=error.status_code) from error",
+   "except Exception as error:  # 예상 밖 SDK 오류도 키워드 규칙 대체 경로로 보냄(P-04)",
+   "    raise PlannerFailure(\"OTHER\") from error",
+   "# …(생략)",
+   "raw = result.get(\"raw\")",
+   "refusal = getattr(raw, \"additional_kwargs\", {}).get(\"refusal\") if raw is not None else None",
+   "if refusal:",
+   "    return PlanOutcome(refusal=str(refusal))",
+   "if result.get(\"parsing_error\") is not None or not isinstance(result.get(\"parsed\"), dict):",
+   "    # 응답 JSON을 읽지 못함. 구조화 출력이라 드물며, 대체 경로로 보냄(P-04)",
+   "    raise PlannerFailure(\"OTHER\")"
+  ]
+ },
+ "judge": {
+  "path": "app/application/steps.py",
+  "ranges": [
+   [
+    253,
+    276
+   ]
+  ],
+  "header": "app/application/steps.py:253-276  (docstring 생략 / 들여쓰기 축소)",
+  "lines": [
+   "if not isinstance(plan, dict) or any(name not in plan for name in PLAN_FIELDS):",
+   "    return unfit(\"PLAN_FIELD_MISSING\")",
+   "",
+   "route = plan[\"route\"]",
+   "if route == ROUTE_UNANSWERABLE:",
+   "    return _verdict(VERDICT_UNANSWERABLE, unanswerable_reason=plan.get(\"reason\"))",
+   "",
+   "if route == ROUTE_FIXED:",
+   "    fixed = FIXED_QUERIES.get(plan[\"query_id\"]) if isinstance(plan[\"query_id\"], str) else None",
+   "    if fixed is None:",
+   "        return unfit(\"UNKNOWN_QUERY_ID\")",
+   "    sql, sql_source, query_id, views = fixed.sql, ROUTE_FIXED, fixed.query_id, [fixed.view]",
+   "elif route == ROUTE_NL2SQL:",
+   "    sql = plan[\"sql\"]",
+   "    if not isinstance(sql, str) or sql.strip() == \"\":",
+   "        return unfit(\"EMPTY_SQL\")",
+   "    views = plan[\"target_views\"]",
+   "    if not isinstance(views, list) or not views or not all(",
+   "        isinstance(view, str) and is_allowed_view(view) for view in views",
+   "    ):",
+   "        return unfit(\"VIEW_NOT_ALLOWED\")",
+   "    sql_source, query_id = ROUTE_NL2SQL, None",
+   "else:",
+   "    return unfit(\"INVALID_ROUTE\")"
+  ]
+ },
+ "period": {
+  "path": "app/domain/periods.py",
+  "ranges": [
+   [
+    25,
+    25
+   ],
+   [
+    32,
+    51
+   ]
+  ],
+  "header": "app/domain/periods.py:25, 32-51  (docstring, 구간 생략)",
+  "lines": [
+   "def provision_window(view: str, base_date: date, coverage_start: date) -> tuple[date, date] | None:",
+   "    # …(생략)",
+   "    if view == \"app.monthly_usage\":",
+   "        # 뷰 정의: greatest(기준월 - 5개월, 거래 제공 시작월) ~ 기준일",
+   "        start = max(_add_months(_month_start(base_date), -5), _month_start(coverage_start))",
+   "        return start, base_date",
+   "    if view == \"app.merchant_usage\":",
+   "        # 뷰 정의: greatest(기준월 - 5개월, 거래 제공 시작일, 카드 발급일) ~ 기준일. 발급일은 카드마다 달라 뺌",
+   "        start = max(_add_months(_month_start(base_date), -5), coverage_start)",
+   "        return start, base_date",
+   "    if view == \"app.customer_daily_usage\":",
+   "        # 뷰 정의: greatest(기준일 - 89일, 거래 제공 시작일, 가입일) ~ 기준일. 가입일은 S-R1에서 이미 확인함",
+   "        start = max(base_date - timedelta(days=89), coverage_start)",
+   "        return start, base_date",
+   "    if view == \"app.customer_delinquency_history\":",
+   "        # 뷰 정의: 최근 완료월(기준일이 월말이면 그 달, 아니면 전달) - 11개월 ~ 최근 완료월",
+   "        if base_date == _month_end(base_date):",
+   "            latest_completed = _month_start(base_date)",
+   "        else:",
+   "            latest_completed = _add_months(_month_start(base_date), -1)",
+   "        return _add_months(latest_completed, -11), _month_end(latest_completed)",
+   "    return None"
+  ]
+ },
+ "validate": {
+  "path": "app/infrastructure/sql_validator.py",
+  "ranges": [
+   [
+    80,
+    95
+   ],
+   [
+    104,
+    107
+   ]
+  ],
+  "header": "app/infrastructure/sql_validator.py:80-95, 104-107  (docstring, 주석, 구간 생략 / 들여쓰기 축소)",
+  "lines": [
+   "tokens = sqlglot.tokenize(sql, read=DIALECT)",
+   "if any(token.comments for token in tokens):",
+   "    return _fail(\"COMMENT_NOT_ALLOWED\")",
+   "if any(token.token_type == TokenType.SEMICOLON for token in tokens):",
+   "    return _fail(\"MULTIPLE_STATEMENTS\")",
+   "",
+   "statements = [tree for tree in sqlglot.parse(sql, read=DIALECT) if tree is not None]",
+   "if len(statements) != 1:",
+   "    return _fail(\"MULTIPLE_STATEMENTS\")",
+   "tree = statements[0]",
+   "",
+   "if isinstance(tree, _WRITE_NODES) or any(True for _ in tree.find_all(*_WRITE_NODES)):",
+   "    return _fail(\"WRITE_NOT_ALLOWED\")",
+   "if not isinstance(tree, exp.Select):",
+   "    return _fail(\"NOT_SELECT\")",
+   "# …(생략)",
+   "reason = self._check_functions(tree) or self._check_tables_and_columns(tree)",
+   "if reason:",
+   "    return _fail(reason)",
+   "return ValidationResult(ok=True, sql=_apply_row_limit(tree).sql(dialect=DIALECT))"
+  ]
+ },
+ "tables": {
+  "path": "app/infrastructure/sql_validator.py",
+  "ranges": [
+   [
+    139,
+    155
+   ],
+   [
+    180,
+    186
+   ]
+  ],
+  "header": "app/infrastructure/sql_validator.py:139-155, 180-186  (docstring, 구간 생략 / 들여쓰기 축소)",
+  "lines": [
+   "    for table in tree.find_all(exp.Table):",
+   "        schema = table.db.lower()",
+   "        name = table.name.lower()",
+   "        if table.catalog:",
+   "            return \"VIEW_NOT_ALLOWED\"",
+   "        if not schema and name in cte_names:",
+   "            qualifier_view = None",
+   "        else:",
+   "            if schema in FORBIDDEN_SCHEMAS:",
+   "                return \"SCHEMA_NOT_ALLOWED\"",
+   "            full_name = f\"{schema}.{name}\"",
+   "            # 스키마 이름을 붙여 쓴 허용 뷰만 통과(31장 허용 1번)",
+   "            if schema != ALLOWED_SCHEMA or full_name not in ALLOWED_VIEWS:",
+   "                return \"VIEW_NOT_ALLOWED\"",
+   "            used_views.add(full_name)",
+   "            qualifier_view = full_name",
+   "        qualifiers[name] = qualifier_view",
+   "# …(생략)",
+   "limit = tree.args.get(\"limit\")",
+   "value = None",
+   "if isinstance(limit, exp.Limit) and isinstance(limit.expression, exp.Literal) and limit.expression.is_int:",
+   "    value = int(limit.expression.name)",
+   "if value is None or value > ROW_LIMIT:",
+   "    return tree.limit(ROW_LIMIT, copy=True)",
+   "return tree"
+  ]
+ },
+ "tx": {
+  "path": "app/infrastructure/postgres_repository.py",
+  "ranges": [
+   [
+    135,
+    146
+   ],
+   [
+    160,
+    163
+   ],
+   [
+    177,
+    181
+   ]
+  ],
+  "header": "app/infrastructure/postgres_repository.py:135-146, 160-163, 177-181  (docstring, 구간 생략)",
+  "lines": [
+   "    def __enter__(self) -> psycopg.Cursor:",
+   "        try:",
+   "            # 풀에서 접속을 기다리는 시간도 남은 시간 예산을 넘지 않게 함",
+   "            self._connection_cm = self._pool.connection(timeout=self._timeout_ms / 1000)",
+   "            connection = self._connection_cm.__enter__()",
+   "            self._cursor = connection.cursor()",
+   "            self._cursor.execute(\"BEGIN READ ONLY\")",
+   "            self._cursor.execute(_SET_TIMEOUT_SQL, (str(self._timeout_ms),))",
+   "            return self._cursor",
+   "        except BaseException as error:",
+   "            self._finish(error)",
+   "            raise _translate(error) from error",
+   "        # …(생략)",
+   "        if self._cursor is not None:",
+   "            try:",
+   "                # ROLLBACK으로 끝내 세션 변수까지 함께 지움(17장 작업 7)",
+   "                self._cursor.execute(\"ROLLBACK\")",
+   "# …(생략)",
+   "def _translate(error: BaseException) -> BaseException:",
+   "    if isinstance(error, pg_errors.QueryCanceled):",
+   "        return DatabaseTimeout(\"statement_timeout 초과\")",
+   "    if isinstance(error, PoolTimeout):",
+   "        return DatabaseFailure(\"커넥션 풀 대기 시간 초과\")"
+  ]
+ },
+ "execute": {
+  "path": "app/infrastructure/postgres_repository.py",
+  "ranges": [
+   [
+    105,
+    114
+   ]
+  ],
+  "header": "app/infrastructure/postgres_repository.py:105-114  (docstring 생략 / 들여쓰기 축소)",
+  "lines": [
+   "with self._read_only(timeout_ms) as cursor:",
+   "    cursor.execute(_SET_SCOPE_SQL, (member_id, base_date.isoformat(), coverage_start.isoformat()))",
+   "    started = time.perf_counter()",
+   "    # 값 인자 없이 실행하면 psycopg가 SQL 속 %를 자리표시자로 해석하지 않음(LIKE '%..%' 보호)",
+   "    cursor.execute(validated_sql)",
+   "    fetched = cursor.fetchmany(row_limit)",
+   "    db_elapsed_ms = int((time.perf_counter() - started) * 1000)",
+   "    description = cursor.description or []",
+   "columns = [{\"name\": column.name, \"type\": column.type_display} for column in description]",
+   "names = [column[\"name\"] for column in columns]"
+  ]
+ },
+ "r5": {
+  "path": "app/application/steps.py",
+  "ranges": [
+   [
+    349,
+    361
+   ]
+  ],
+  "header": "app/application/steps.py:349-361  (docstring 생략 / 들여쓰기 축소)",
+  "lines": [
+   "try:",
+   "    result = self.executor.execute(",
+   "        state[\"validated_sql\"],",
+   "        member_id=state[\"member_id\"],",
+   "        base_date=state[\"base_date\"],",
+   "        coverage_start=state[\"coverage_start\"],",
+   "        timeout_ms=check.remaining_budget_ms,  # 28장 예 4: 남은 시간 예산 2.7초 → 2,700ms 이하",
+   "        row_limit=row_limit,",
+   "    )",
+   "except DatabaseTimeout as error:",
+   "    raise RetrieverError(\"DB_TIMEOUT\", stage=stage) from error",
+   "except DatabaseFailure as error:",
+   "    raise RetrieverError(\"DB_ERROR\", stage=stage, detail=str(error)) from error"
+  ]
+ },
+ "r6": {
+  "path": "app/application/steps.py",
+  "ranges": [
+   [
+    386,
+    398
+   ]
+  ],
+  "header": "app/application/steps.py:386-398  (docstring 생략 / 들여쓰기 축소)",
+  "lines": [
+   "try:",
+   "    elapsed_ms = int(self._elapsed(state) * 1000)",
+   "    unanswerable = state.get(\"verdict\") == VERDICT_UNANSWERABLE",
+   "    base_date: date = state[\"base_date\"]",
+   "    if unanswerable:",
+   "        columns: list[dict[str, str]] = []",
+   "        rows: list[dict[str, Any]] = []",
+   "        row_count, truncated = 0, False",
+   "        message = unanswerable_message(state.get(\"unanswerable_reason\"))",
+   "    else:",
+   "        columns, rows = state[\"columns\"], state[\"rows\"]",
+   "        row_count, truncated = state[\"row_count\"], state[\"truncated\"]",
+   "        message = result_message(base_date, row_count, truncated)"
+  ]
+ },
+ "message": {
+  "path": "app/domain/messages.py",
+  "ranges": [
+   [
+    19,
+    24
+   ]
+  ],
+  "header": "app/domain/messages.py:19-24  (docstring 생략 / 들여쓰기 축소)",
+  "lines": [
+   "if row_count == 0:",
+   "    return f\"기준일 {base_date.isoformat()} 기준 해당 데이터 없음\"",
+   "message = f\"기준일 {base_date.isoformat()} 기준 {row_count}건\"",
+   "if truncated:",
+   "    message += f\", 앞 {row_count}건만 보여 줌\"",
+   "return message"
+  ]
+ }
+}
