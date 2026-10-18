@@ -35,6 +35,12 @@ _PHONE = re.compile(r"(?<!\d)01[016789][ -]?\d{3,4}[ -]?\d{4}(?!\d)")
 _EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
 _PAN = re.compile(r"(?<!\d)(?:\d[ -]?){15}\d(?!\d)")
 _MEMBER = re.compile(r"\bM-\d{4,}\b", re.IGNORECASE)
+# 발화 속 생일은 접수 칸의 1991-01-06 꼴이 아니라 "생일은 1991년 1월 6일"처럼 말로 나와 값 일치로는 못 잡음.
+# 생일이라는 말 바로 뒤의 날짜만 잡아 상담일, 거래월 같은 업무 날짜는 건드리지 않음
+_BIRTH_PHRASE = re.compile(
+    r"(?:생일|생년월일)\s*(?:은|는|이|:)?\s*"
+    r"(?P<date>\d{4}\s*년\s*\d{1,2}\s*월\s*\d{1,2}\s*일|\d{4}[.-]\s*\d{1,2}[.-]\s*\d{1,2})"
+)
 
 
 def _read_json(value: str | Path | dict[str, Any]) -> dict[str, Any]:
@@ -341,7 +347,32 @@ def _privacy_spans(
         spans.extend(TextSpan(match.start(), match.end(), replacement) for match in re.finditer(re.escape(value), block))
     for pattern in (_PHONE, _EMAIL, _PAN, _MEMBER):
         spans.extend(TextSpan(match.start(), match.end(), "[삭제]") for match in pattern.finditer(block))
+    # 생년월일은 접수 칸 값과 다른 표기(한글 날짜, 점 구분)로도 나오므로 표기를 바꿔 한 번 더 찾음.
+    # 연령대를 모르면 날짜를 남기지 않도록 [삭제]로 바꿈
+    birth_replacement = age_band or "[삭제]"
+    birth = fields.get("본인확인", {}).get("생년월일", "")
+    for pattern in _birth_variants(birth):
+        spans.extend(TextSpan(match.start(), match.end(), birth_replacement) for match in pattern.finditer(block))
+    spans.extend(TextSpan(match.start("date"), match.end("date"), birth_replacement)
+                 for match in _BIRTH_PHRASE.finditer(block))
     return normalize_spans(spans, len(block))
+
+
+def _birth_variants(birth_date: str) -> list[re.Pattern[str]]:
+    """접수 칸의 생년월일(YYYY-MM-DD)을 발화에서 쓰는 다른 표기로 찾는 정규식 목록을 만듦.
+
+    입력 전제: ``birth_date``는 접수 칸에서 읽은 값이며 형식이 다르면 빈 목록을 돌려줌.
+    반환값: "1991년 1월 6일", "1991년 01월 06일", "1991.1.6", "1991.01.06" 꼴을 찾는 정규식임.
+    """
+
+    match = re.fullmatch(r"(\d{4})-(\d{2})-(\d{2})", birth_date)
+    if not match:
+        return []
+    year, month, day = match.group(1), int(match.group(2)), int(match.group(3))
+    return [
+        re.compile(rf"{year}\s*년\s*0?{month}\s*월\s*0?{day}\s*일"),
+        re.compile(rf"(?<!\d){year}\.\s*0?{month}\.\s*0?{day}(?!\d)"),
+    ]
 
 
 def _age_band(birth_date: str, reference_date: str) -> str:

@@ -582,163 +582,444 @@ async function createSlideGuide() {
   return s;
 }
 
-// ------------------------------------------------------------------ 슬라이드 6(v9 추가: 사례 ① 상담 이력)
-async function createSlideCase1() {
+// ------------------------------------------------------------------ v10: 5쪽 단계별 예시(우리 예제의 실제 데이터)
+// 출처 줄은 한 줄을 넘으면 고정 문구와 겹쳐 짧게 둠
+const MEASURED = "실측: 2026-10-18, Groq openai/gpt-oss-120b, neo4j-graphrag 1.22.0, 합성 상담 이력 v3";
+
+// 작은 글자 배지(묶음 이름, 유형 기호 등)
+function tag(s, t, { x, y, w = 0.36, h = 0.32, fill = C.blue, color = C.white, size = 14 }) {
+  L.card(s, t, { x, y, w, h, fill, line: null, color, size, bold: true, r: Math.min(0.08, h / 2) });
+}
+
+// 판정 배지: 맞음(파랑) 또는 틀림(어두운 회색)
+function verdict(s, ok, { x, y }) {
+  tag(s, ok ? "맞음" : "틀림", { x, y, w: 0.72, h: 0.34, fill: ok ? C.blue : C.dark });
+}
+
+// 단계 ① 역량 질문 정하기
+async function createStep1() {
   const s = L.newSlide({
-    title: "1. 스키마 도출: 사례 ① 상담 이력: 넓게 뽑기에서 뼈대 확정까지",
-    lead: "같은 상담 30건에 방법만 바꿔 보니, 역량 질문만 넣었을 때 비로소 불만, 제안, 응답, 재검토 조건이 후보로 나옴",
-    notes: "우리 시스템의 상담 이력(합성 48건) 사례임. 같은 표본 30건, 같은 순서로 방법만 바꿨음. 1건씩 따로 뽑으면 같은 뜻을 다른 이름으로 "
-      + "계속 만들어 노드 타입 이름이 45개까지 흩어졌고, 앞서 나온 이름을 다시 쓰라고 하면 14개로 모였지만 업무 핵심 개념은 하나도 "
-      + "나오지 않았음. 상담 원문에 불만 원인, 제안, 수용과 거절, 재검토 조건 문장을 넣는 것(원문 보강)만으로도 나오지 않았음. "
-      + "역량 질문과 이름 다시 쓰기를 함께 쓰면 불만(Issue)만 26건 나왔고, 역량 질문만 넣으면 네 개념이 모두 나왔지만 각각 30건 중 "
-      + "1 ~ 5건뿐이었음. 그래서 빈도로 거르면 모두 버려짐. 사람이 질문 기준으로 이름을 합치고(Issue와 Complaint), 원천이 따로 있는 것을 "
-      + "빼고(거래 집계는 RDB, 고객 이름과 이메일은 가명처리 대상), 근거가 약한 응답 속성과 관계는 보태서 오른쪽 뼈대를 만들었음.",
+    title: "1. 스키마 도출: 단계 ① 역량 질문 정하기(예시: 상담 이력)",
+    lead: "실제 사용자 질문을 모아 값을 빈칸으로 바꾸고 유형으로 묶은 뒤, 유형마다 역량 질문을 씀",
+    notes: "역량 질문은 문서만 보고 지어내지 않고 사용자가 실제로 묻는 질문에서 출발함. 상담 이력의 출처는 D3 안내문의 검색 평가 질문과 "
+      + "RAGAS 평가셋 문항임. 회원 번호 같은 값을 빈칸으로 바꾸면 같은 틀의 질문이 하나로 묶이고, 묶음마다 역량 질문을 1개 이상 씀. "
+      + "제안과 응답처럼 한 유형에 두 질문이 필요하면 나눠 씀. 질문에는 Complaint 같은 답이 될 이름을 쓰지 않음. 이 예의 초안은 "
+      + "LLM(클로니)이 사용자 질문을 보고 작성했고 사람이 검토함. 약관과 혜택도 같은 방법으로 5개씩 정했음.",
   });
-  const lw = 7.0, rx = X0 + lw + 0.3, rw = CW - lw - 0.3;
+  const c1 = { x: X0, w: 5.0 }, c2 = { x: X0 + 5.35, w: 3.85 }, c3 = { x: X0 + 9.55, w: CW - 9.55 };
+  sectionLabel(s, "실제 사용자 질문(출처)", { x: c1.x, y: 1.9, w: c1.w, fill: C.dark });
+  sectionLabel(s, "값을 빈칸으로 → 질문 유형", { x: c2.x, y: 1.9, w: c2.w, fill: C.dark });
+  sectionLabel(s, "역량 질문(상담 이력 5개)", { x: c3.x, y: 1.9, w: c3.w });
+  [[c1, c2], [c2, c3]].forEach(([a, b]) => L.arrow(s, { x1: a.x + a.w + 0.04, y1: 2.1, x2: b.x - 0.04, y2: 2.1, color: C.slate,
+    width: 2 }));
 
-  // 왼쪽: 방법 5개
-  sectionLabel(s, "같은 상담 30건, 방법만 바꿔 봄", { x: X0, y: 1.9, w: lw, fill: C.dark });
-  L.text(s, "방법", { x: X0, y: 2.36, w: 2.9, h: 0.28, size: 14, bold: true, color: C.slate, margin: 0 });
-  L.text(s, "노드 타입 이름 수", { x: X0 + 3.0, y: 2.36, w: 2.6, h: 0.28, size: 14, bold: true, color: C.slate, margin: 0 });
-  L.text(s, "업무 개념 4개 중", { x: X0 + 5.6, y: 2.36, w: 1.4, h: 0.28, size: 14, bold: true, color: C.slate,
-    align: "center", margin: 0 });
-  const rows = [
-    ["1건씩 따로 뽑기", 45, "0"],
-    ["이름 다시 쓰기\n(앞서 나온 이름을 examples로)", 14, "0"],
-    ["원문 보강\n+ 이름 다시 쓰기", 38, "0"],
-    ["원문 보강 + 역량 질문\n+ 이름 다시 쓰기", 10, "1"],
-    ["원문 보강 + 역량 질문만", 53, "4"],
+  const srcs = [
+    ["D3 안내문 검색 평가", "이 고객의 최근 불편은 무엇이고 이전 상담과 무엇이 달라졌는가?", "A D"],
+    ["D3 안내문 검색 평가", "어떤 제안을 받아들이거나 거절했으며 고객이 밝힌 이유는 무엇인가?", "B"],
+    ["평가셋 Q15", "M-1042 회원은 생활비를 이 카드로 옮기는 것을 왜 원하지 않았나요?", "B"],
+    ["평가셋 Q16", "M-3001 회원은 … 어떤 조건이면 옮기겠다고 했나요?", "C"],
   ];
-  const ry0 = 2.68, rh = 0.6, rg = 0.05, barMax = 2.1;  // 아래 설명 3줄이 결론 띠 위에서 끝나게 맞춤
-  rows.forEach(([name, cnt, got], i) => {
-    const y = ry0 + i * (rh + rg), best = i === rows.length - 1;
-    L.rr(s, { x: X0, y, w: lw, h: rh, fill: best ? C.tint : C.white, line: best ? C.blue : C.border, r: 0.06 });
-    L.text(s, name, { x: X0 + 0.12, y, w: 2.8, h: rh, size: 14, bold: true, color: C.navy, margin: 0 });
-    const bw = Math.max(0.08, (barMax * cnt) / 53);
-    L.box(s, { x: X0 + 3.0, y: y + rh / 2 - 0.13, w: bw, h: 0.26, fill: best ? C.blue : C.slate, line: null });
-    L.text(s, String(cnt), { x: X0 + 3.0 + bw + 0.08, y, w: 0.6, h: rh, size: 15, bold: true, color: C.ink, margin: 0 });
-    L.card(s, `${got} / 4`, { x: X0 + 5.75, y: y + 0.12, w: 1.1, h: rh - 0.24, fill: got === "4" ? C.blue : got === "0" ? C.altRow : C.tint,
-      line: got === "0" ? C.border : null, color: got === "4" ? C.white : C.navy, size: 15, bold: true, r: 0.08 });
+  const types = [
+    ["A", "{회원}의 최근 불편과 그 원인은?"], ["B", "{회원}이 받은 제안과 수용 또는 거절, 이유는?"],
+    ["C", "{회원}은 어떤 조건이면 다시 보나?"], ["D", "{회원}의 이 상담은 어느 상담과 이어지나?"],
+  ];
+  const ry = 2.42, rh = 0.84, rg = 0.08;
+  srcs.forEach(([src, q, tg], i) => {
+    const y = ry + i * (rh + rg);
+    L.rr(s, { x: c1.x, y, w: c1.w, h: rh, fill: C.white, line: C.border, r: 0.06 });
+    s.addText([
+      { text: src, options: { fontSize: fs(14), bold: true, color: C.slate, breakLine: true } },
+      { text: q, options: { fontSize: fs(14), color: C.ink } },
+    ], { x: c1.x + 0.12, y, w: c1.w - 1.1, h: rh, fontFace: FONT, valign: "middle", margin: 0, isTextBox: true });
+    // 배지는 오른쪽 끝에 붙여 글과 겹치지 않게 함
+    const tgs = tg.split(" ");
+    tgs.forEach((t, k) => tag(s, t, { x: c1.x + c1.w - 0.1 - (tgs.length - k) * 0.4, y: y + (rh - 0.32) / 2 }));
   });
-  L.text(s, "업무 개념: 불만 원인, 제안, 수용과 거절, 재검토 조건\n원문 보강: 상담 원문에 그 문장을 넣은 판(v3)\n"
-    + "역량 질문만 넣으면 네 개념이 각각 30건 중 1 ~ 5건뿐이라 빈도로 거르면 버려짐",
-  { x: X0, y: 6.02, w: lw, h: 0.98, size: 14, color: C.slate, margin: 0, valign: "top" });
+  types.forEach(([t, q], i) => {
+    const y = ry + i * (rh + rg);
+    L.rr(s, { x: c2.x, y, w: c2.w, h: rh, fill: C.tint, line: C.blue, r: 0.06 });
+    tag(s, t, { x: c2.x + 0.1, y: y + (rh - 0.32) / 2 });
+    L.text(s, q, { x: c2.x + 0.55, y, w: c2.w - 0.65, h: rh, size: 14, bold: true, color: C.navy, margin: 0 });
+  });
+  const cqs = [
+    ["A", "고객이 말한 불만 원인은 무엇인가?"], ["B", "상담사가 어떤 제안을 했는가?"],
+    ["B", "고객은 그 제안을 수용했는가, 거절했는가, 보류했는가? 그 이유는?"],
+    ["C", "고객은 어떤 조건이 되면 다시 검토하겠다고 했는가?"], ["D", "이 상담은 같은 고객의 어떤 이전 상담과 이어지는가?"],
+  ];
+  const qh = 0.62, qg = 0.07;
+  cqs.forEach(([t, q], i) => {
+    const y = ry + i * (qh + qg);
+    L.rr(s, { x: c3.x, y, w: c3.w, h: qh, fill: C.white, line: C.blue, r: 0.06 });
+    tag(s, t, { x: c3.x + 0.1, y: y + (qh - 0.32) / 2 });
+    L.text(s, `${i + 1}. ${q}`, { x: c3.x + 0.55, y, w: c3.w - 0.65, h: qh, size: 14, color: C.ink, margin: 0 });
+  });
 
-  // 오른쪽: 확정한 뼈대
-  sectionLabel(s, "확정한 뼈대(역량 질문 기준으로 사람이 정함)", { x: rx, y: 1.9, w: rw });
-  const nodeBox = (label, props, { x, y, w, h, dark = false, dash = false }) => {
-    L.rr(s, { x, y, w, h, fill: dark ? C.navy : C.tint, line: dash ? C.sub : C.navy, lw: 1.5, r: 0.08, dash: dash ? "dash" : undefined });
-    L.text(s, label, { x: x + 0.1, y: y + 0.04, w: w - 0.2, h: 0.32, size: 15, bold: true, color: dark ? C.white : C.navy,
-      align: "center", margin: 0 });
-    if (props) {
-      L.text(s, props, { x: x + 0.1, y: y + 0.36, w: w - 0.2, h: h - 0.4, size: 14, color: dark ? "D9E3F5" : C.ink,
-        align: "center", margin: 0, valign: "top" });
-    }
-  };
-  const ax = rx + 0.15, aw = 2.25, bx = rx + rw - 0.15 - 2.6, bw2 = 2.6;
-  nodeBox(":Consultation", "record_id (키)\nconsult_date, topic", { x: ax, y: 3.4, w: aw, h: 1.05, dark: true });
-  nodeBox(":Consultation", "앞선 상담", { x: ax, y: 4.75, w: aw, h: 0.7, dash: true });
-  nodeBox(":Complaint", "cause, category", { x: bx, y: 2.4, w: bw2, h: 0.78 });
-  nodeBox(":Proposal", "content\ndecision, decision_reason", { x: bx, y: 3.4, w: bw2, h: 1.05 });
-  nodeBox(":ReconsiderCondition", "description", { x: bx, y: 4.75, w: bw2, h: 0.7 });
-  // 관계: 이름이 화살표와 겹치거나 오른쪽 밖으로 나가지 않게 선의 왼쪽 위나 옆에 둠
-  L.arrow(s, { x1: ax + aw + 0.03, y1: 3.5, x2: bx - 0.03, y2: 2.85, color: C.navy, width: 1.75 });
-  L.text(s, "HAS_COMPLAINT", { x: ax + aw + 0.08, y: 2.78, w: 1.7, h: 0.28, size: 14, bold: true, color: C.navy, margin: 0 });
-  L.arrow(s, { x1: ax + aw + 0.03, y1: 3.92, x2: bx - 0.03, y2: 3.92, color: C.navy, width: 1.75 });
-  L.text(s, "HAS_PROPOSAL", { x: ax + aw + 0.1, y: 3.6, w: bx - ax - aw - 0.2, h: 0.28, size: 14, bold: true, color: C.navy,
-    align: "center", margin: 0 });
-  L.arrow(s, { x1: bx + bw2 / 2, y1: 3.38, x2: bx + bw2 / 2, y2: 3.2, color: C.blue, width: 1.75 });
-  L.text(s, "ADDRESSES", { x: bx + bw2 / 2 + 0.08, y: 3.15, w: 1.3, h: 0.26, size: 14, bold: true, color: C.blue, margin: 0 });
-  L.arrow(s, { x1: bx + bw2 / 2, y1: 4.47, x2: bx + bw2 / 2, y2: 4.73, color: C.blue, width: 1.75 });
-  L.text(s, "RECONSIDER_WHEN", { x: bx + bw2 / 2 - 2.2, y: 4.46, w: 2.12, h: 0.28, size: 14, bold: true, color: C.blue,
-    align: "right", margin: 0 });
-  L.arrow(s, { x1: ax + aw / 2, y1: 4.47, x2: ax + aw / 2, y2: 4.73, color: C.navy, width: 1.75 });
-  L.text(s, "FOLLOWS", { x: ax + aw / 2 + 0.08, y: 4.46, w: 1.2, h: 0.28, size: 14, bold: true, color: C.navy, margin: 0 });
-  L.text(s, "네이비: LLM 후보를 합침, 파랑: 사람이 보탬(관계 2개와 decision 속성)",
-    { x: rx, y: 5.58, w: rw, h: 0.3, size: 14, color: C.slate, margin: 0, valign: "top" });
-  L.text(s, "합침: Issue와 Complaint → Complaint, Proposal과 SUGGESTS → Proposal, Conversation과 Session → Consultation\n"
-    + "뺌: Transaction(RDB 집계), Customer의 이름과 이메일(가명처리 대상), Request와 Menu(질문에 안 쓰임)",
-  { x: rx, y: 5.96, w: rw, h: 1.06, size: 14, color: C.ink, margin: 0, valign: "top" });
-
-  band(s, "결론: 드문 핵심 개념은 역량 질문만으로 넓게 뽑아야 보이고, 무엇을 살릴지는 빈도가 아니라 질문을 기준으로 사람이 정함",
+  const by = 6.08, bh = 0.92;
+  L.rr(s, { x: X0, y: by, w: 7.3, h: bh, fill: C.altRow, line: C.border, r: 0.08 });
+  s.addText([
+    { text: "답이 될 이름은 쓰지 않음", options: { fontSize: fs(14), bold: true, color: C.navy, breakLine: true } },
+    { text: "피함: \"Complaint 노드의 cause는?\"   권함: \"고객이 말한 불만 원인은?\"", options: { fontSize: fs(14), color: C.ink } },
+  ], { x: X0 + 0.15, y: by, w: 7.0, h: bh, fontFace: FONT, valign: "middle", margin: 0, isTextBox: true });
+  L.rr(s, { x: X0 + 7.6, y: by, w: CW - 7.6, h: bh, fill: C.altRow, line: C.border, r: 0.08 });
+  s.addText([
+    { text: "다른 문서도 같은 방법(각 5개)", options: { fontSize: fs(14), bold: true, color: C.navy, breakLine: true } },
+    { text: "약관: 어떤 조건을 채우면 어떤 면제나 혜택을 받는가?", options: { fontSize: fs(14), color: C.ink, breakLine: true } },
+    { text: "혜택: 혜택의 한도와 제외 대상은 무엇인가?", options: { fontSize: fs(14), color: C.ink } },
+  ], { x: X0 + 7.75, y: by, w: CW - 7.9, h: bh, fontFace: FONT, valign: "middle", margin: 0, isTextBox: true });
+  band(s, "초안은 LLM이 사용자 질문을 보고 작성하고 사람이 검토해 확정함. 개수는 정해 두지 않고 질문 유형마다 1개 이상",
     { y: 7.12, h: 0.72, size: 16 });
-  sourceLine(s, "실측: 2026-10-18, LLM Groq openai/gpt-oss-120b, neo4j-graphrag 1.22.0 SchemaFromTextExtractor, 합성 상담 이력 30건(같은 순서)");
+  sourceLine(s, "근거: D3 상담 이력 안내문(검색 평가 질문), RAGAS 평가셋 Q15와 Q16, 역량 질문은 스키마 후보 실험에 쓴 문장 그대로");
   return s;
 }
 
-// ------------------------------------------------------------------ 슬라이드 7(v9 추가: 사례 ② 채우기 시험과 문서 종류별 차이)
-async function createSlideCase2() {
+// 단계 ② 스키마 후보 넓게 뽑기
+async function createStep2() {
   const s = L.newSlide({
-    title: "1. 스키마 도출: 사례 ② 뼈대 채우기 시험과 문서 종류별 차이",
-    lead: "뼈대의 이름보다 설명(description)이 추출 품질을 좌우함 — 채우기 시험으로 설명을 고쳐 가며 확정",
-    notes: "왼쪽은 확정한 상담 뼈대로 48건 전체를 LLMEntityRelationExtractor와 GraphPruning으로 실제 추출하고 강사용 정답표와 비교한 결과임. "
-      + "v1은 Complaint 설명이 '고객이 말한 불만과 그 원인'이라 일반 문의 고객의 문의 목적이나 사정(이사, 영수증 필요)까지 불만으로 뽑아 "
-      + "24건 중 22건이 잘못 뽑혔음. v2에서 '분명히 말한 불만이나 불편만, 문의 목적과 개인 사정은 아님'으로 좁히자 4건으로 줄었음. "
-      + "Proposal도 '확인해 드릴게요' 같은 절차 안내를 빼라고 하자 제안 노드가 87개에서 56개로 줄고 응답 일치가 올랐음. "
-      + "오른쪽은 같은 절차를 문서 종류별로 해 본 결과임. 혜택 안내는 이름이 빨리 모이고 역량 질문(제외 대상)으로 Exclusion이 핵심 타입이 "
-      + "되어 넓게 뽑은 후보가 거의 뼈대가 됨. 상담은 사람이 보태야 하고, 약관은 청크마다 조항이 달라 이름이 흩어져 조항 구조를 사람이 먼저 그리는 쪽이 맞음. "
-      + "절차는 같고 문서 성격에 따라 LLM 후보와 사람 설계의 비중이 다름.",
+    title: "1. 스키마 도출: 단계 ② 스키마 후보 넓게 뽑기(예시: 상담 이력)",
+    lead: "묶음별 표본을 1건씩 SchemaFromTextExtractor에 넣고(역량 질문만 examples로), 나온 이름을 모두 모음",
+    notes: "문서를 성격이 비슷한 묶음으로 나눠 묶음마다 표본을 뽑음. 상담은 고객 세그먼트 6개, 혜택은 청크 성격 4개로 나눴음. 1건씩 넣는 "
+      + "이유는 새 이름이 몇 개 늘었는지 세어 멈출 때를 정하려는 것임. 가운데는 실제 1건(C-20260701-016)에 대한 추출기 출력임. Proposal과 "
+      + "Condition은 업무 개념이고, Customer의 email과 birthdate 속성은 가명처리 대상이라 ③에서 버릴 후보임. 30건을 모으면 이름이 53개로 "
+      + "흩어지고 업무 개념 이름은 2 ~ 5건씩만 나옴. 같은 30건에 앞 결과 이름을 넘기면 10개로 모이지만 업무 개념은 불만 하나만 나왔음.",
+  });
+  const c1 = { x: X0, w: 4.6 }, c2 = { x: X0 + 4.9, w: 5.3 }, c3 = { x: X0 + 10.5, w: CW - 10.5 };
+  sectionLabel(s, "묶음과 표본 수", { x: c1.x, y: 1.9, w: c1.w, fill: C.dark });
+  const groups = [
+    ["약관", "10청크 → 묶음 1개", "10건 전부 봄"],
+    ["상담", "48건 → 고객 세그먼트 묶음 6개", "시작 12건(묶음마다 2건), 상한 30건"],
+    ["혜택", "160청크 → 묶음 4개(공통 안내 4, 참고 카드 7, 카드 개요 64, 혜택 상세 85)", "시작 4, 7, 10, 10건, 묶음마다 상한 30건"],
+  ];
+  const gy = 2.42, gh = 1.2, gg = 0.1;
+  groups.forEach(([n, a, b], i) => {
+    const y = gy + i * (gh + gg);
+    L.rr(s, { x: c1.x, y, w: c1.w, h: gh, fill: C.white, line: C.border, r: 0.06 });
+    L.card(s, n, { x: c1.x + 0.1, y: y + 0.1, w: 0.8, h: gh - 0.2, fill: C.navy, line: null, color: C.white, size: 15, bold: true,
+      r: 0.06 });
+    s.addText([
+      { text: a, options: { fontSize: fs(14), color: C.ink, breakLine: true } },
+      { text: b, options: { fontSize: fs(14), bold: true, color: C.blue } },
+    ], { x: c1.x + 1.02, y, w: c1.w - 1.12, h: gh, fontFace: FONT, valign: "middle", margin: 0, isTextBox: true, paraSpaceAfter: 3 });
+  });
+  L.text(s, "1건씩 넣는 이유: 새 이름이 몇 개 늘었는지 세어 멈출 때를 정함", { x: c1.x, y: 6.35, w: c1.w, h: 0.6, size: 14,
+    color: C.slate, margin: 0, valign: "top" });
+
+  sectionLabel(s, "실제 1건: C-20260701-016(타사 관리 절차 비교)", { x: c2.x, y: 1.9, w: c2.w });
+  L.rr(s, { x: c2.x, y: 2.42, w: c2.w, h: 1.78, fill: C.altRow, line: C.border, r: 0.06 });
+  L.text(s, "고객: 전환 신청은 아직 안 했어요. 매달 신청을 반복해야 하는 게 불만의 원인이에요.\n"
+    + "상담사: 지금 카드를 유지하시면 자주 쓰시는 곳 할인을 늘릴 수 있는지 확인해 볼까요?\n"
+    + "고객: 그건 다음 결제일이 지나고 다시 볼게요. …\n"
+    + "고객: 2026-06-26 상담 C-20260626-011과 이어지는 기록으로 남겨 주세요.",
+  { x: c2.x + 0.12, y: 2.46, w: c2.w - 0.24, h: 1.7, size: 14, color: C.ink, margin: 0, valign: "middle" });
+  L.arrow(s, { x1: c2.x + 0.25, y1: 4.22, x2: c2.x + 0.25, y2: 4.52, color: C.navy, width: 2 });
+  L.text(s, "SchemaFromTextExtractor(examples = 역량 질문)", { x: c2.x + 0.42, y: 4.22, w: c2.w - 0.42, h: 0.3,
+    size: 14, bold: true, color: C.navy, margin: 0 });
+  L.rr(s, { x: c2.x, y: 4.56, w: c2.w, h: 2.42, fill: C.white, line: C.blue, r: 0.06 });
+  L.text(s, "나온 노드 타입 6개", { x: c2.x + 0.12, y: 4.62, w: 3, h: 0.3, size: 14, bold: true, color: C.navy, margin: 0 });
+  const pills = [["Customer", false], ["Transaction", false], ["Request", false], ["Record", false], ["Proposal", true],
+    ["Condition", true]];
+  let px = c2.x + 0.12, py = 4.98;
+  pills.forEach(([t, biz]) => {
+    const w = 0.22 + t.length * 0.105;
+    if (px + w > c2.x + c2.w - 0.1) { px = c2.x + 0.12; py += 0.42; }
+    tag(s, t, { x: px, y: py, w, h: 0.34, fill: biz ? C.blue : C.altRow, color: biz ? C.white : C.navy });
+    px += w + 0.1;
+  });
+  L.text(s, "관계 7개: MAKES_REQUEST, PROVIDES_PROPOSAL, HAS_CONDITION, CONTINUES_WITH 등\n"
+    + "파랑 = 업무 개념. Customer 속성으로 email, birthdate까지 제안 → 가명처리 대상이라 ③에서 버림",
+  { x: c2.x + 0.12, y: 5.85, w: c2.w - 0.24, h: 1.08, size: 14, color: C.ink, margin: 0, valign: "top" });
+
+  sectionLabel(s, "30건을 모은 결과", { x: c3.x, y: 1.9, w: c3.w });
+  L.rr(s, { x: c3.x, y: 2.42, w: c3.w, h: 0.9, fill: C.tint, line: C.blue, r: 0.06 });
+  L.text(s, "노드 타입 53개, 관계 106개", { x: c3.x, y: 2.42, w: c3.w, h: 0.9, size: 18, bold: true, color: C.navy, align: "center",
+    margin: 0 });
+  s.addText([
+    { text: "많이 나온 이름", options: { fontSize: fs(14), bold: true, color: C.navy, breakLine: true } },
+    { text: "Customer 29, Request 20, Transaction 18, Consultation 12, TransactionSummary 10", options: { fontSize: fs(14),
+      color: C.ink, breakLine: true } },
+    { text: "드물게 나온 업무 개념", options: { fontSize: fs(14), bold: true, color: C.blue, breakLine: true } },
+    { text: "Issue 5, Complaint 2, Proposal 2, Condition 2, REJECTS_CHANGE 1", options: { fontSize: fs(14), color: C.ink } },
+  ], { x: c3.x + 0.05, y: 3.42, w: c3.w - 0.1, h: 1.9, fontFace: FONT, valign: "top", margin: 0, isTextBox: true, paraSpaceAfter: 4 });
+  L.rr(s, { x: c3.x, y: 5.4, w: c3.w, h: 1.58, fill: C.altRow, line: C.border, r: 0.06 });
+  s.addText([
+    { text: "같은 30건, 앞 결과 이름을 넘기면", options: { fontSize: fs(14), bold: true, color: C.slate, breakLine: true } },
+    { text: "10개로 모이지만 업무 개념 1 / 4", options: { fontSize: fs(14), color: C.ink, breakLine: true } },
+    { text: "넘기지 않으면(권고)", options: { fontSize: fs(14), bold: true, color: C.blue, breakLine: true } },
+    { text: "53개로 흩어지지만 업무 개념 4 / 4", options: { fontSize: fs(14), color: C.ink } },
+  ], { x: c3.x + 0.12, y: 5.4, w: c3.w - 0.24, h: 1.58, fontFace: FONT, valign: "middle", margin: 0, isTextBox: true });
+  band(s, "드물게 나온 이름이 핵심일 수 있음 — 빈도로 거르지 말고 ③에서 역량 질문을 기준으로 판단",
+    { y: 7.12, h: 0.72, size: 16 });
+  sourceLine(s, MEASURED + ", 상담 30건(세그먼트 균형 순서), 업무 개념 = 불만, 제안, 응답, 재검토 조건");
+  return s;
+}
+
+// 스키마 초안 그림(③과 ⑤에서 같이 씀)
+function drawDraft(s, { rx, rw, top }) {
+  const nodeBox = (label, props, { x, y, w, h, dark = false, dash = false }) => {
+    L.rr(s, { x, y, w, h, fill: dark ? C.navy : C.tint, line: dash ? C.sub : C.navy, lw: 1.5, r: 0.08, dash: dash ? "dash" : undefined });
+    L.text(s, label, { x: x + 0.08, y: y + 0.03, w: w - 0.16, h: 0.3, size: 14, bold: true, color: dark ? C.white : C.navy,
+      align: "center", margin: 0 });
+    if (props) {
+      L.text(s, props, { x: x + 0.08, y: y + 0.32, w: w - 0.16, h: h - 0.34, size: 14, color: dark ? "D9E3F5" : C.ink,
+        align: "center", margin: 0, valign: "top" });
+    }
+  };
+  const ax = rx + 0.1, aw = 2.0, bw = 2.5, bx = rx + rw - 0.1 - bw, t = top;
+  nodeBox(":Consultation", "record_id (키)", { x: ax, y: t + 0.95, w: aw, h: 0.72, dark: true });
+  nodeBox(":Consultation", "앞선 상담", { x: ax, y: t + 2.05, w: aw, h: 0.62, dash: true });
+  nodeBox(":Complaint", "cause, category", { x: bx, y: t, w: bw, h: 0.68 });
+  nodeBox(":Proposal", "content, decision,\ndecision_reason", { x: bx, y: t + 0.95, w: bw, h: 0.9 });
+  nodeBox(":ReconsiderCondition", "description", { x: bx, y: t + 2.12, w: bw, h: 0.62 });
+  L.arrow(s, { x1: ax + aw + 0.03, y1: t + 1.05, x2: bx - 0.03, y2: t + 0.4, color: C.navy, width: 1.5 });
+  L.text(s, "HAS_COMPLAINT", { x: ax + aw + 0.05, y: t + 0.32, w: 1.7, h: 0.26, size: 14, bold: true, color: C.navy, margin: 0 });
+  L.arrow(s, { x1: ax + aw + 0.03, y1: t + 1.4, x2: bx - 0.03, y2: t + 1.4, color: C.navy, width: 1.5 });
+  L.text(s, "HAS_PROPOSAL", { x: ax + aw + 0.05, y: t + 1.1, w: bx - ax - aw - 0.1, h: 0.26, size: 14, bold: true, color: C.navy,
+    align: "center", margin: 0 });
+  L.arrow(s, { x1: bx + bw / 2, y1: t + 0.93, x2: bx + bw / 2, y2: t + 0.7, color: C.blue, width: 1.5 });
+  L.text(s, "ADDRESSES", { x: bx + bw / 2 + 0.06, y: t + 0.68, w: 1.2, h: 0.24, size: 14, bold: true, color: C.blue, margin: 0 });
+  L.arrow(s, { x1: bx + bw / 2, y1: t + 1.87, x2: bx + bw / 2, y2: t + 2.1, color: C.blue, width: 1.5 });
+  L.text(s, "RECONSIDER_WHEN", { x: bx + bw / 2 - 2.15, y: t + 1.86, w: 2.08, h: 0.26, size: 14, bold: true, color: C.blue,
+    align: "right", margin: 0 });
+  L.arrow(s, { x1: ax + aw / 2, y1: t + 1.69, x2: ax + aw / 2, y2: t + 2.03, color: C.navy, width: 1.5 });
+  L.text(s, "FOLLOWS", { x: ax + aw / 2 + 0.06, y: t + 1.72, w: 1.1, h: 0.26, size: 14, bold: true, color: C.navy, margin: 0 });
+}
+
+// 단계 ③ 스키마 후보 확정(LLM 추천 + 사람 확정)
+async function createStep3() {
+  const s = L.newSlide({
+    title: "1. 스키마 도출: 단계 ③ 스키마 후보 확정(LLM 추천 + 사람 확정)",
+    lead: "후보 목록과 역량 질문을 LLM에 주면 병합, 제거, 추가 초안과 근거를 추천하고, 사람이 검토해 스키마 초안을 확정함",
+    notes: "② 결과(이름 53개와 나온 건수)와 역량 질문 5개를 LLM에 주고 초안을 추천받았음(이 예에서는 클로니가 추천). 추천에는 항목마다 근거가 "
+      + "된 질문 번호를 붙임. 병합은 같은 뜻의 이름을 하나로 합치는 것, 제거는 질문에 안 쓰이거나 다른 원천(RDB)에 있거나 가명처리 대상인 것을 "
+      + "빼는 것, 추가는 후보에 없거나 거의 없던 개념을 넣는 것임. 고객 응답(수용, 거절)은 후보에 1건뿐이었지만 질문 3에 필요해 추가함. "
+      + "사람은 데이터 사정으로 판단함: 응답을 노드로 둘지 속성으로 둘지, 제약은 Community 판에서 되는 UNIQUENESS만. 오른쪽 아래 설명은 "
+      + "④ 시험을 거쳐 좁힌 최종 판이며, 처음부터 해당과 비해당을 함께 쓰는 것이 좋음.",
+  });
+  const lw = 7.5, rx = X0 + lw + 0.3, rw = CW - lw - 0.3;
+  sectionLabel(s, "LLM 추천(괄호 = 근거가 된 역량 질문 번호)", { x: X0, y: 1.9, w: lw, fill: C.dark });
+  const groups = [
+    ["병합", C.navy, ["Issue, Complaint → Complaint (1)", "Proposal, SUGGESTS, MAKES_PROPOSAL → Proposal (2)",
+      "Condition → ReconsiderCondition (4)", "Consultation, Conversation, Session, Record → Consultation (5)",
+      "FOLLOWS, CONTINUES_FROM, PREVIOUS_SESSION → FOLLOWS (5)"]],
+    ["제거", C.dark, ["Request, Menu, Address, Order: 어느 질문에도 안 쓰임", "Transaction, TransactionSummary: RDB에 이미 있는 집계",
+      "Customer의 name, email, birthdate: 가명처리 대상", "Agent, Counselor: 메타데이터(상담사 가명ID)로 충분"]],
+    ["추가", C.blue, ["Proposal.decision, decision_reason (3): 후보는 REJECTS_CHANGE 1건뿐",
+      "ADDRESSES: 제안이 어느 불만을 겨냥했나 (1, 2)", "RECONSIDER_WHEN: 보류한 제안의 재검토 조건 (4)"]],
+  ];
+  let y = 2.42;
+  groups.forEach(([name, fill, lines]) => {
+    const h = 0.14 + lines.length * 0.3;
+    L.rr(s, { x: X0, y, w: lw, h, fill: C.white, line: C.border, r: 0.06 });
+    L.card(s, name, { x: X0 + 0.1, y: y + 0.08, w: 0.8, h: h - 0.16, fill, line: null, color: C.white, size: 15, bold: true, r: 0.06 });
+    L.text(s, lines.join("\n"), { x: X0 + 1.02, y, w: lw - 1.1, h, size: 14, color: C.ink, margin: 0 });
+    y += h + 0.1;
+  });
+
+  sectionLabel(s, "사람이 검토해 정한 것", { x: rx, y: 1.9, w: rw });
+  L.rr(s, { x: rx, y: 2.42, w: rw, h: 1.06, fill: C.tint, line: C.blue, r: 0.06 });
+  L.text(s, "• 고객 응답은 노드 대신 Proposal 속성(decision, decision_reason)으로\n"
+    + "• 상담 주제(Request)는 노드 대신 Consultation.topic 속성으로\n"
+    + "• 제약은 Consultation.record_id UNIQUENESS 하나(Community 판)",
+  { x: rx + 0.12, y: 2.42, w: rw - 0.2, h: 1.06, size: 14, color: C.navy, bold: true, margin: 0 });
+  drawDraft(s, { rx, rw, top: 3.62 });
+  L.rr(s, { x: rx, y: 6.42, w: rw, h: 0.6, fill: C.altRow, line: C.border, r: 0.06 });
+  L.text(s, "Complaint 설명: 불만이나 불편을 분명히 말한 경우만. 문의 목적, 개인 사정은 아님",
+    { x: rx + 0.12, y: 6.42, w: rw - 0.2, h: 0.6, size: 14, color: C.ink, margin: 0 });
+  band(s, "결과: 스키마 초안 = 노드 타입 4, 관계 5, 패턴 5, 제약 1. 사람은 질문과 데이터 사정(RDB, 가명처리, Neo4j 판)으로 판단",
+    { y: 7.12, h: 0.72, size: 16 });
+  sourceLine(s, "근거: 단계 ② 결과(이름 53개와 건수)와 역량 질문 5개, 초안 파일 skeleton_consult_v2.json(GraphSchema 검증 통과)");
+  return s;
+}
+
+// 단계 ④-1 채우기 시험: 실제 1건씩 보기
+async function createStep4a() {
+  const s = L.newSlide({
+    title: "1. 스키마 도출: 단계 ④ 채우기 시험(1) 실제 1건씩 대조",
+    lead: "스키마 초안을 schema로 주고 상담 48건 전체를 실제 추출해, 강사용 정답표와 한 건씩 맞춰 봄",
+    notes: "LLMEntityRelationExtractor에 스키마 초안을 schema로 주고 GraphPruning으로 초안 밖 노드를 지운 뒤 정답표와 비교함. 왼쪽은 불만이 "
+      + "있는 상담 1건으로, 불만 원인, 재검토 조건, 이전 상담 연결은 맞았지만 제안은 상담사가 한 다른 안내(자동납부 재등록 절차 비교)를 골라 "
+      + "응답도 수용으로 적었음. 정답은 할인을 늘리는 제안과 보류임. 오른쪽은 불만이 없는 주소 변경 문의로, 답이 없어야 하는 문서임. v1 설명에서는 "
+      + "'이사'를 불만으로, 절차 안내를 제안으로 뽑았고, 설명을 좁힌 v2에서는 둘 다 사라지고 제안 1개와 이유가 정답과 같아졌음.",
   });
   const lw = 7.3, rx = X0 + lw + 0.3, rw = CW - lw - 0.3;
+  sectionLabel(s, "C-20260701-016, 불만이 있는 상담(v2 설명)", { x: X0, y: 1.9, w: lw, fill: C.dark });
+  L.text(s, "항목", { x: X0 + 0.1, y: 2.36, w: 1.4, h: 0.28, size: 14, bold: true, color: C.slate, margin: 0 });
+  L.text(s, "정답(대조표)", { x: X0 + 1.55, y: 2.36, w: 2.4, h: 0.28, size: 14, bold: true, color: C.slate, margin: 0 });
+  L.text(s, "추출 결과", { x: X0 + 4.0, y: 2.36, w: 2.4, h: 0.28, size: 14, bold: true, color: C.slate, margin: 0 });
+  const rows = [
+    ["불만 원인", "매달 신청을 반복해야 하는 게 불만의 원인", "같음", true],
+    ["재검토 조건", "다음 결제일이 지나고 다시 볼게요", "같음", true],
+    ["이전 상담", "C-20260626-011", "같음(FOLLOWS 관계)", true],
+    ["제안과 응답", "할인을 늘릴 수 있는지 확인, 보류", "자동납부 재등록 절차 비교, 수용", false],
+  ];
+  const ry = 2.7, rh = 0.8, rg = 0.08;
+  rows.forEach(([k, gt, got, ok], i) => {
+    const y = ry + i * (rh + rg);
+    L.rr(s, { x: X0, y, w: lw, h: rh, fill: ok ? C.white : C.altRow, line: ok ? C.border : C.dark, r: 0.06 });
+    L.text(s, k, { x: X0 + 0.1, y, w: 1.4, h: rh, size: 14, bold: true, color: C.navy, margin: 0 });
+    L.text(s, gt, { x: X0 + 1.55, y, w: 2.4, h: rh, size: 14, color: C.ink, margin: 0 });
+    L.text(s, got, { x: X0 + 4.0, y, w: 2.4, h: rh, size: 14, color: C.ink, margin: 0 });
+    verdict(s, ok, { x: X0 + lw - 0.84, y: y + (rh - 0.34) / 2 });
+  });
+  L.text(s, "제안이 둘 이상인 상담에서 다른 안내를 고르는 실수가 남음(응답 엄격 일치 37 / 48의 이유)",
+    { x: X0, y: 6.28, w: lw, h: 0.7, size: 14, color: C.slate, margin: 0, valign: "top" });
 
-  sectionLabel(s, "뼈대 채우기 시험(상담 48건, 정답표와 비교)", { x: X0, y: 1.9, w: lw, fill: C.dark });
-  // 범례
+  sectionLabel(s, "C-20260310-018, 불만이 없는 주소 변경 문의", { x: rx, y: 1.9, w: rw });
+  L.text(s, "답이 없어야 하는 문서: 불만이 나오면 잘못 뽑은 것", { x: rx, y: 2.36, w: rw, h: 0.28, size: 14, bold: true,
+    color: C.slate, margin: 0 });
+  const cases = [
+    ["v1 설명", [["Complaint {cause: \"이사\"}", false], ["Proposal 2개: 수령지 직접 변경 방법(수용), 후속 안내를 영업점 방식으로(수용)", false]]],
+    ["v2 설명(좁힘)", [["Complaint 없음", true], ["Proposal 1개: 앱에서 본인 인증하고 수령지를 직접 바꾸는 방법, 수용, "
+      + "이유 \"집에서 바로 할 수 있는 쪽이 편해서요\"", true]]],
+  ];
+  let cy = 2.7;
+  cases.forEach(([name, items]) => {
+    const h = 1.62;
+    L.rr(s, { x: rx, y: cy, w: rw, h, fill: name.startsWith("v2") ? C.tint : C.white, line: name.startsWith("v2") ? C.blue : C.border,
+      r: 0.06 });
+    tag(s, name, { x: rx + 0.1, y: cy + 0.1, w: 1.6, h: 0.32, fill: name.startsWith("v2") ? C.blue : C.slate });
+    items.forEach(([t, ok], k) => {
+      const iy = cy + 0.5 + k * 0.54;
+      L.text(s, t, { x: rx + 0.15, y: iy, w: rw - 1.15, h: 0.52, size: 14, color: C.ink, margin: 0 });
+      verdict(s, ok, { x: rx + rw - 0.86, y: iy + 0.08 });
+    });
+    cy += h + 0.12;
+  });
+  L.text(s, "v1의 두 번째 제안은 절차 안내라 틀림. 정답표 제안은 1개", { x: rx, y: 6.18, w: rw, h: 0.8, size: 14, color: C.slate,
+    margin: 0, valign: "top" });
+  band(s, "한 건씩 맞춰 보면 어떤 설명이 넓은지 보임. 답이 없어야 하는 문서가 있어야 잘못 뽑기를 찾음",
+    { y: 7.12, h: 0.72, size: 16 });
+  sourceLine(s, MEASURED + ", LLMEntityRelationExtractor와 GraphPruning, 정답: 강사용 상담근거 대조표(v3)");
+  return s;
+}
+
+// 단계 ④-2 채우기 시험: 전체 지표와 설명 고치기
+async function createStep4b() {
+  const s = L.newSlide({
+    title: "1. 스키마 도출: 단계 ④ 채우기 시험(2) 전체 지표와 설명 고치기",
+    lead: "48건 지표로 보고 잘못 뽑기가 많은 타입의 설명을 고쳐 ③으로 돌아감 — 한 번 고치자 불만 오탐이 22건에서 4건으로",
+    notes: "v1은 처음 쓴 설명, v2는 시험 결과를 보고 좁힌 설명임. 불만 오탐은 불만이 없는 상담 24건 중 Complaint를 만든 수, 제안 노드 수는 "
+      + "48건에서 만든 Proposal 합계, 응답 일치는 뽑은 응답이 정답 하나뿐인 기록 수임. 설명 몇 줄을 바꾸자 오탐과 작은 안내를 제안으로 뽑는 "
+      + "일이 크게 줄었음. 남은 문제는 응답 엄격 일치 37 / 48과 불만 오탐 4건이며, 오탐 4건은 '종이 영수증이 없어 불편'처럼 고객이 실제로 "
+      + "불편을 말한 경우라 정답 기준을 다시 볼 대상임.",
+  });
+  const lw = 7.3, rx = X0 + lw + 0.3, rw = CW - lw - 0.3;
+  sectionLabel(s, "상담 48건, 정답표와 비교", { x: X0, y: 1.9, w: lw, fill: C.dark });
   L.box(s, { x: X0 + 3.0, y: 2.44, w: 0.3, h: 0.18, fill: C.pill, line: null });
   L.text(s, "v1 설명", { x: X0 + 3.38, y: 2.36, w: 1.0, h: 0.32, size: 14, color: C.slate, margin: 0 });
   L.box(s, { x: X0 + 4.4, y: 2.44, w: 0.3, h: 0.18, fill: C.blue, line: null });
   L.text(s, "v2 설명(좁힘)", { x: X0 + 4.78, y: 2.36, w: 1.6, h: 0.32, size: 14, color: C.slate, margin: 0 });
   const mets = [
-    ["불만을 잘못 뽑음", "24건 중, 낮을수록 좋음", 22, 4, 24],
+    ["불만을 잘못 뽑음", "불만 없는 24건 중, 낮을수록 좋음", 22, 4, 24],
     ["제안 노드 수", "48건 합계, 낮을수록 좋음", 87, 56, 87],
     ["응답이 정답과 같음", "48건 중, 높을수록 좋음", 31, 37, 48],
-    ["재검토 조건을 잘못 뽑음", "29건 중, 낮을수록 좋음", 6, 0, 29],
-    ["이전 상담 연결을 뽑음", "36건 중, 높을수록 좋음", 34, 36, 36],
+    ["재검토 조건을 잘못 뽑음", "조건 없는 29건 중, 낮을수록 좋음", 6, 0, 29],
+    ["이전 상담 연결을 뽑음", "연결 있는 36건 중, 높을수록 좋음", 34, 36, 36],
   ];
-  const my0 = 2.78, mh = 0.62, mg = 0.07, bx = X0 + 2.85, bmax = 3.55;
+  const my0 = 2.78, mh = 0.74, mg = 0.08, bx = X0 + 3.0, bmax = 3.4;
   mets.forEach(([name, sub, v1, v2, max], i) => {
     const y = my0 + i * (mh + mg);
     L.rr(s, { x: X0, y, w: lw, h: mh, fill: C.white, line: C.border, r: 0.06 });
-    L.text(s, name, { x: X0 + 0.12, y: y + 0.04, w: 2.7, h: 0.3, size: 14, bold: true, color: C.navy, margin: 0 });
-    L.text(s, sub, { x: X0 + 0.12, y: y + 0.32, w: 2.7, h: 0.26, size: 14, color: C.slate, margin: 0 });
-    [[v1, C.pill, 0.1], [v2, C.blue, 0.34]].forEach(([v, col, off]) => {
+    L.text(s, name, { x: X0 + 0.12, y: y + 0.06, w: 2.85, h: 0.3, size: 14, bold: true, color: C.navy, margin: 0 });
+    L.text(s, sub, { x: X0 + 0.12, y: y + 0.38, w: 2.85, h: 0.3, size: 14, color: C.slate, margin: 0 });
+    [[v1, C.pill, 0.14], [v2, C.blue, 0.42]].forEach(([v, col, off]) => {
       const w = Math.max(0.05, (bmax * v) / max);
-      L.box(s, { x: bx, y: y + off, w, h: 0.18, fill: col, line: null });
+      L.box(s, { x: bx, y: y + off, w, h: 0.2, fill: col, line: null });
       L.text(s, String(v), { x: bx + w + 0.06, y: y + off - 0.06, w: 0.6, h: 0.3, size: 14, bold: col === C.blue, color: C.ink,
         margin: 0 });
     });
   });
-  L.rr(s, { x: X0, y: 6.28, w: lw, h: 0.74, fill: C.tint, line: C.blue, r: 0.08 });
-  L.text(s, "Complaint 설명 v1: 고객이 말한 불만과 그 원인\n"
-    + "v2: 불만이나 불편을 분명히 말한 경우만. 문의 목적과 개인 사정(이사, 지출 감소)은 아님",
-  { x: X0 + 0.15, y: 6.28, w: lw - 0.3, h: 0.74, size: 14, bold: true, color: C.navy, margin: 0 });
 
-  sectionLabel(s, "문서 종류에 따라 비중이 다름", { x: rx, y: 1.9, w: rw });
-  const docs = [
-    ["혜택 안내", "이름이 빨리 모임(핵심 6개). 역량 질문을 넣자 제외 대상 Exclusion이 3건에서 25건으로",
-      "넓게 뽑은 후보가 거의 그대로 뼈대, 사람은 합치기 위주"],
-    ["상담 이력", "대화 속 행위(불만, 제안, 응답)는 30건 중 1 ~ 5건만 나옴",
-      "사람이 보태고, 채우기 시험으로 설명을 다듬음"],
-    ["약관", "청크마다 조항이 달라 1건에서만 나온 이름이 76%. 기한과 의무 같은 규칙 구조는 거의 안 나옴",
-      "조항 구조 뼈대를 사람이 먼저 그림"],
+  sectionLabel(s, "고친 설명(description)", { x: rx, y: 1.9, w: rw });
+  const pairs = [
+    ["Complaint", "고객이 말한 불만과 그 원인", "불만이나 불편을 분명히 말한 경우만. 단순 문의 목적, 개인 사정(이사, 지출 감소), 궁금증은 아님"],
+    ["Proposal", "상담사가 한 제안과 고객의 응답", "고객이 받아들이거나 거절할 수 있는 구체적 대안만. '확인해 드릴게요' 같은 절차 안내는 아님, 보통 1개"],
   ];
-  const dy0 = 2.38, dh = 1.18, dg = 0.1;
-  docs.forEach(([name, fact, way], i) => {
-    const y = dy0 + i * (dh + dg);
-    L.rr(s, { x: rx, y, w: rw, h: dh, fill: C.white, line: C.border, r: 0.08 });
-    L.card(s, name, { x: rx + 0.1, y: y + 0.1, w: 1.35, h: dh - 0.2, fill: C.navy, line: null, color: C.white, size: 15, bold: true,
-      r: 0.06 });
+  let py = 2.42;
+  pairs.forEach(([name, v1, v2]) => {
+    const h = 1.5;
+    L.rr(s, { x: rx, y: py, w: rw, h, fill: C.white, line: C.border, r: 0.06 });
+    tag(s, name, { x: rx + 0.1, y: py + 0.1, w: 1.4, h: 0.32, fill: C.navy });
     s.addText([
-      { text: fact, options: { fontSize: fs(14), color: C.ink, breakLine: true } },
-      { text: `→ ${way}`, options: { fontSize: fs(14), color: C.blue, bold: true } },
-    ], { x: rx + 1.6, y, w: rw - 1.7, h: dh, fontFace: FONT, valign: "middle", margin: 0, isTextBox: true, paraSpaceAfter: 4 });
+      { text: `v1: ${v1}`, options: { fontSize: fs(14), color: C.slate, breakLine: true } },
+      { text: `v2: ${v2}`, options: { fontSize: fs(14), bold: true, color: C.navy } },
+    ], { x: rx + 0.15, y: py + 0.48, w: rw - 0.3, h: h - 0.54, fontFace: FONT, valign: "top", margin: 0, isTextBox: true,
+      paraSpaceAfter: 4 });
+    py += h + 0.12;
   });
-  L.rr(s, { x: rx, y: 6.28, w: rw, h: 0.74, fill: C.altRow, line: C.border, r: 0.08 });
-  L.text(s, "표본 수: 이름 다시 쓰기 시험에서 혜택 층은 10 ~ 14건, 상담은 13 ~ 20건에서 멈춤(상한 30건 전)",
-    { x: rx + 0.15, y: 6.28, w: rw - 0.3, h: 0.74, size: 14, color: C.ink, margin: 0 });
-
-  band(s, "결론: 절차 ①~⑤는 같음. 문서 성격에 따라 LLM 후보를 그대로 쓰는 비중과 사람이 설계하는 비중이 달라짐",
+  L.rr(s, { x: rx, y: 5.66, w: rw, h: 1.32, fill: C.altRow, line: C.border, r: 0.06 });
+  s.addText([
+    { text: "남은 문제", options: { fontSize: fs(14), bold: true, color: C.navy, breakLine: true } },
+    { text: "응답 엄격 일치 37 / 48: 제안이 여럿이면 다른 안내를 고름", options: { fontSize: fs(14), color: C.ink, breakLine: true } },
+    { text: "불만 오탐 4건: '종이 영수증이 없어 불편'처럼 실제 불편 발화 → 정답 기준을 다시 볼 대상",
+      options: { fontSize: fs(14), color: C.ink } },
+  ], { x: rx + 0.15, y: 5.66, w: rw - 0.3, h: 1.32, fontFace: FONT, valign: "middle", margin: 0, isTextBox: true });
+  band(s, "결론: 이름보다 설명이 추출 품질을 좌우함. 지표가 기준에 닿을 때까지 ③과 ④를 되풀이",
     { y: 7.12, h: 0.72, size: 16 });
-  sourceLine(s, "실측: 2026-10-18, Groq openai/gpt-oss-120b, neo4j-graphrag 1.22.0 LLMEntityRelationExtractor와 GraphPruning, 정답: 강사용 상담근거 대조표(v3)");
+  sourceLine(s, MEASURED + ", LLMEntityRelationExtractor와 GraphPruning, 정답: 강사용 상담근거 대조표(v3)");
+  return s;
+}
+
+// 단계 ⑤ 고정과 그 뒤
+async function createStep5() {
+  const s = L.newSlide({
+    title: "1. 스키마 도출: 단계 ⑤ 고정과 그 뒤",
+    lead: "시험을 통과한 스키마 초안을 GraphSchema.save()로 파일에 고정하고, 인덱싱은 그 파일만 읽음",
+    notes: "상담 스키마 초안 v2로 저장과 다시 읽기를 해 보았음(사람의 최종 승인 전이라 프로젝트에는 저장하지 않고 작업 폴더에서 시연). 다시 읽은 "
+      + "스키마는 저장 전과 같았고, Neo4j 서버 없이 됨. additional_* 세 값이 False라 인덱싱 때 목록 밖 노드 타입과 관계는 가지치기가 지움. "
+      + "스키마나 원천이 바뀌면 새 세대로 다시 인덱싱하며, 상담 원문을 v3로 고쳤을 때 새 세대를 만들어 상담 48청크만 새로 임베딩하고 나머지 170청크는 "
+      + "재사용했음. 혜택과 약관은 ②까지 했음. 혜택은 질문을 넣자 제외 대상(Exclusion)이 핵심이 되어 후보가 거의 초안이 되고, 약관은 이름이 "
+      + "흩어져 조항 구조 초안을 사람이 먼저 그리는 쪽이 맞아 보임.",
+  });
+  const c1 = { x: X0, w: 5.6 }, c2 = { x: X0 + 5.9, w: 4.75 }, c3 = { x: X0 + 10.95, w: CW - 10.95 };
+  sectionLabel(s, "저장과 다시 읽기(실측)", { x: c1.x, y: 1.9, w: c1.w, fill: C.dark });
+  L.codeBox(s, [
+    "schema = GraphSchema.model_validate(초안)",
+    "schema.save(\"graph_schema_consult.json\")",
+    "again = GraphSchema.from_file(",
+    "    \"graph_schema_consult.json\")",
+    "again == schema        # True",
+  ], { x: c1.x, y: 2.42, w: c1.w, h: 1.86, size: 14 });
+  const res = ["노드 타입 4", "관계 5", "패턴 5", "제약 1", "additional_* 3개 모두 False"];
+  let rx0 = c1.x, ry0 = 4.42;
+  res.forEach((t) => {
+    const w = 0.3 + t.length * 0.13;
+    if (rx0 + w > c1.x + c1.w) { rx0 = c1.x; ry0 += 0.44; }
+    tag(s, t, { x: rx0, y: ry0, w, h: 0.36, fill: C.tint, color: C.navy });
+    rx0 += w + 0.1;
+  });
+  L.text(s, "Neo4j 서버 없이 됨. 상담 초안은 사람의 최종 승인 전이라 작업 폴더에서 시연함",
+    { x: c1.x, y: 5.38, w: c1.w, h: 0.62, size: 14, color: C.slate, margin: 0, valign: "top" });
+
+  sectionLabel(s, "고정의 뜻", { x: c2.x, y: 1.9, w: c2.w });
+  L.rr(s, { x: c2.x, y: 2.42, w: c2.w, h: 2.95, fill: C.white, line: C.border, r: 0.06 });
+  bullets(s, [
+    "목록 밖 노드 타입과 관계는 가지치기가 지움(additional_* False)",
+    "스키마나 원천이 바뀌면 새 세대로 다시 인덱싱",
+    "실제 예: 상담 원문 v3를 반영할 때 새 세대 gen-d3v3-20261018을 만들고 상담 48청크만 새로 임베딩, 170청크는 재사용",
+  ], { x: c2.x + 0.15, y: 2.56, w: c2.w - 0.3, h: 2.7, gap: 12 });
+  // 인덱싱이 이 파일을 읽는 자리(1쪽 인덱싱 줄과 같은 순서)
+  L.text(s, "인덱싱이 이 파일을 읽는 곳", { x: c2.x, y: 5.5, w: c2.w, h: 0.3, size: 14, bold: true, color: C.navy, margin: 0 });
+  chipFlow(s, [{ t: "GraphSchema\n파일", style: "tint" }, { t: "④ 추출", style: "navy" }, { t: "가지치기", style: "navy" }],
+    { x: c2.x, y: 5.86, w: c2.w, h: 0.72, gap: 0.3, size: 14 });
+  L.text(s, "추출 프롬프트의 허용 목록과 가지치기 기준으로 함께 씀", { x: c2.x, y: 6.62, w: c2.w, h: 0.36, size: 14, color: C.slate,
+    margin: 0 });
+
+  sectionLabel(s, "문서 종류별 진행", { x: c3.x, y: 1.9, w: c3.w });
+  const docs = [
+    ["상담", "① ~ ④ 완료, ⑤는 사람의 최종 승인 남음"],
+    ["혜택", "②까지. 질문을 넣자 Exclusion 3 → 25건, 후보가 거의 그대로 초안"],
+    ["약관", "②까지. 이름 76%가 1건에서만 나옴 → 조항 구조 초안을 사람이 먼저"],
+  ];
+  const dh = 1.44, dg = 0.12;
+  docs.forEach(([n, t], i) => {
+    const y = 2.42 + i * (dh + dg);
+    L.rr(s, { x: c3.x, y, w: c3.w, h: dh, fill: i === 0 ? C.tint : C.white, line: i === 0 ? C.blue : C.border, r: 0.06 });
+    tag(s, n, { x: c3.x + 0.1, y: y + 0.1, w: 0.8, h: 0.32, fill: C.navy });
+    L.text(s, t, { x: c3.x + 0.12, y: y + 0.48, w: c3.w - 0.24, h: dh - 0.54, size: 14, color: C.ink, margin: 0, valign: "top" });
+  });
+  band(s, "결론: 다섯 단계는 문서와 상관없이 같고, 문서 성격에 따라 LLM 후보를 그대로 쓰는 비중과 사람 판단의 비중이 달라짐",
+    { y: 7.12, h: 0.72, size: 16 });
+  sourceLine(s, MEASURED + ", 인덱서 세대 gen-d3v3-20261018(청크 218개 중 48개 새 임베딩)");
   return s;
 }
 
@@ -747,14 +1028,16 @@ async function main() {
   // ONLY=schema: 7가지 장표만 한 장짜리 덱으로 만듦(사용자가 직접 고친 덱을 덮어쓰지 않고 붙여 넣게 하려는 용도)
   if (process.env.ONLY === "schema") {
     await createSlideSchema();
+  } else if (process.env.ONLY === "steps") {
+    // v10: 사용자가 덱을 직접 고치는 중이라 단계별 예시 6장만 따로 만들어 붙여 넣게 함
+    for (const f of [createStep1, createStep2, createStep3, createStep4a, createStep4b, createStep5]) await f();  // v10: 단계별 예시
   } else {
     await createSlide01();
     await createSlideSchema();
     await createSlide02();
     await createSlidePrompt();  // v8: 3쪽(변환 규칙) 바로 뒤
     await createSlideGuide();  // v9: 5쪽 권고 절차(옛 createSlide03 대체)
-    await createSlideCase1();  // v9: 6쪽 사례 ①
-    await createSlideCase2();  // v9: 7쪽 사례 ②
+    for (const f of [createStep1, createStep2, createStep3, createStep4a, createStep4b, createStep5]) await f();  // v10: 단계별 예시
   }
   const out = process.argv[2] || path.join(__dirname, "그래프스키마도출.pptx");
   await L.getPptx().writeFile({ fileName: out });

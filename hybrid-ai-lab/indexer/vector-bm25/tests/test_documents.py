@@ -68,3 +68,32 @@ def test_consultation_loader_returns_pseudonymized_text_before_chunking(tmp_path
     assert document.context_spans[0].end == len(document.text)
     assert document.metadata["member_pseudo_id"] == "m_59853c3d8e1e3c25"
     assert document.metadata["record_id"] == "C-20260302-001"
+
+
+def test_consultation_loader_removes_spoken_birth_date_but_keeps_business_dates(tmp_path: Path) -> None:
+    """발화 속 한글 표기 생년월일은 연령대로 바꾸고 상담일과 거래월 같은 업무 날짜는 남김을 보증함.
+
+    실제 D3 원문 12건에서 "기록 대조용 생일은 1971년 1월 15일이고"처럼 말한 생일이 정제 뒤에도 남았던 회귀 사례임.
+    """
+    policies, profiles = _configs(tmp_path)
+    source_file = tmp_path / "D3_S02_test.txt"
+    source_file.write_text(
+        """========================================
+[상담ID] C-20260302-001 | 2026-03-02 | 채널: 콜센터 | 회원번호: M-1042
+[기록정보] 문서종류: consult_log | 공개등급: restricted
+[접수정보] 고객명: 가상고객0042 | 전화: 010-0000-0042 | 이메일: customer0042@example.invalid | 상담사명: 가상상담사19
+[본인확인] 가상 카드번호: 0000-0000-0042-0714 | 끝 4자리: 0714 | 생년월일: 1971-01-15 | 나이: 만 55세
+[상담주제] 연회비 대비 가치
+고객: 기록 대조용 생일은 1971년 1월 15일이고 이메일은 customer0042@example.invalid입니다.
+상담사: 2026-02 승인 거래는 3건입니다. 2026-01-31 상담과 이어서 보겠습니다.
+고객: 다른 기록에는 생년월일: 1971.01.15로 남아 있을 수도 있어요.
+""",
+        encoding="utf-8",
+    )
+
+    source = FileSystemSourceCatalog(policies).discover(str(tmp_path), "D3", 2)[0]
+    document = ConfiguredDocumentLoader(policies, profiles).load(source)[0]
+    for private in ("1971년 1월 15일", "1971.01.15", "1971-01-15", "customer0042@example.invalid"):
+        assert private not in document.text
+    assert "생일은 50대이고" in document.text
+    assert "2026-02 승인 거래" in document.text and "2026-01-31 상담" in document.text
