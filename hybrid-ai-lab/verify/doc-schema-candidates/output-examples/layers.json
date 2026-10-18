@@ -1,0 +1,50 @@
+{
+  "regulation": [
+    {
+      "layer": "약관 전체",
+      "population": 10,
+      "start": 10,
+      "used": 10,
+      "stop": "모두 봄"
+    }
+  ],
+  "consult_log": [
+    {
+      "layer": "상담 전체(세그먼트 균형)",
+      "population": 48,
+      "start": 12,
+      "used": 30,
+      "stop": "상한 30건"
+    }
+  ],
+  "benefit_guide": [
+    {
+      "layer": "공통 안내",
+      "population": 4,
+      "start": 4,
+      "used": 4,
+      "stop": "모두 봄"
+    },
+    {
+      "layer": "참고 카드",
+      "population": 7,
+      "start": 7,
+      "used": 7,
+      "stop": "모두 봄"
+    },
+    {
+      "layer": "카드 개요",
+      "population": 64,
+      "start": 10,
+      "used": 30,
+      "stop": "상한 30건"
+    },
+    {
+      "layer": "혜택 상세",
+      "population": 85,
+      "start": 10,
+      "used": 30,
+      "stop": "상한 30건"
+    }
+  ]
+}

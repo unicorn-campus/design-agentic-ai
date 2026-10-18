@@ -1,0 +1,466 @@
+{
+  "doc_type": "consult_log",
+  "layers": [
+    {
+      "layer": "상담 전체(세그먼트 균형)",
+      "population": 48,
+      "start": 12,
+      "used": 30,
+      "stop": "상한 30건"
+    }
+  ],
+  "node_types": [
+    {
+      "label": "Transaction",
+      "chunks": 29
+    },
+    {
+      "label": "Customer",
+      "chunks": 20
+    },
+    {
+      "label": "Request",
+      "chunks": 20
+    },
+    {
+      "label": "Consultation",
+      "chunks": 19
+    },
+    {
+      "label": "Channel",
+      "chunks": 19
+    },
+    {
+      "label": "ContactPreference",
+      "chunks": 15
+    },
+    {
+      "label": "Record",
+      "chunks": 14
+    },
+    {
+      "label": "Card",
+      "chunks": 11
+    },
+    {
+      "label": "Agent",
+      "chunks": 4
+    },
+    {
+      "label": "Preference",
+      "chunks": 4
+    },
+    {
+      "label": "Product",
+      "chunks": 2
+    },
+    {
+      "label": "Category",
+      "chunks": 2
+    },
+    {
+      "label": "Statement",
+      "chunks": 2
+    },
+    {
+      "label": "Merchant",
+      "chunks": 1
+    }
+  ],
+  "relationship_types": [
+    {
+      "label": "INCLUDES",
+      "chunks": 27
+    },
+    {
+      "label": "HANDLES",
+      "chunks": 24
+    },
+    {
+      "label": "HAS_RECORD",
+      "chunks": 22
+    },
+    {
+      "label": "HAS_REQUEST",
+      "chunks": 20
+    },
+    {
+      "label": "HAS_PREFERENCE",
+      "chunks": 19
+    },
+    {
+      "label": "MAKES_REQUEST",
+      "chunks": 19
+    },
+    {
+      "label": "INITIATES",
+      "chunks": 18
+    },
+    {
+      "label": "REQUESTS_CHANNEL",
+      "chunks": 13
+    },
+    {
+      "label": "APPLIES_TO",
+      "chunks": 12
+    },
+    {
+      "label": "FOR_CARD",
+      "chunks": 10
+    },
+    {
+      "label": "INVOLVES",
+      "chunks": 8
+    },
+    {
+      "label": "REFERS_TO",
+      "chunks": 4
+    },
+    {
+      "label": "HANDLED_BY",
+      "chunks": 4
+    },
+    {
+      "label": "RELATED_TO",
+      "chunks": 4
+    },
+    {
+      "label": "USES_CHANNEL",
+      "chunks": 3
+    },
+    {
+      "label": "FOR_PRODUCT",
+      "chunks": 2
+    },
+    {
+      "label": "RESPONDS_TO",
+      "chunks": 1
+    },
+    {
+      "label": "TARGETS",
+      "chunks": 1
+    },
+    {
+      "label": "MAINTAINS",
+      "chunks": 1
+    },
+    {
+      "label": "HAS",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_RECEIPT",
+      "chunks": 1
+    },
+    {
+      "label": "CATEGORIZED_AS",
+      "chunks": 1
+    },
+    {
+      "label": "INITIRES",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_CARD",
+      "chunks": 1
+    },
+    {
+      "label": "FOR_CATEGORY",
+      "chunks": 1
+    },
+    {
+      "label": "FOR_MERCHANT",
+      "chunks": 1
+    }
+  ],
+  "patterns": [
+    {
+      "pattern": [
+        "Request",
+        "INCLUDES",
+        "Transaction"
+      ],
+      "chunks": 13
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "HAS_REQUEST",
+        "Request"
+      ],
+      "chunks": 12
+    },
+    {
+      "pattern": [
+        "Request",
+        "REQUESTS_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 11
+    },
+    {
+      "pattern": [
+        "Customer",
+        "INITIATES",
+        "Consultation"
+      ],
+      "chunks": 10
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_PREFERENCE",
+        "ContactPreference"
+      ],
+      "chunks": 9
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "HAS_RECORD",
+        "Record"
+      ],
+      "chunks": 9
+    },
+    {
+      "pattern": [
+        "Customer",
+        "MAKES_REQUEST",
+        "Request"
+      ],
+      "chunks": 9
+    },
+    {
+      "pattern": [
+        "ContactPreference",
+        "APPLIES_TO",
+        "Channel"
+      ],
+      "chunks": 9
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "INCLUDES",
+        "Transaction"
+      ],
+      "chunks": 8
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "FOR_CARD",
+        "Card"
+      ],
+      "chunks": 7
+    },
+    {
+      "pattern": [
+        "Card",
+        "INVOLVES",
+        "Transaction"
+      ],
+      "chunks": 4
+    },
+    {
+      "pattern": [
+        "Preference",
+        "APPLIES_TO",
+        "Channel"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Agent",
+        "HANDLES",
+        "Consultation"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "FOR_PRODUCT",
+        "Product"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Request",
+        "HAS_PREFERENCE",
+        "ContactPreference"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_PREFERENCE",
+        "Preference"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Request",
+        "RELATED_TO",
+        "Product"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Agent",
+        "REFERS_TO",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "MAINTAINS",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "TARGETS",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "HAS_PREFERENCE",
+        "Preference"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Record",
+        "INVOLVES",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "ContactPreference",
+        "REQUESTS_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Record",
+        "RELATED_TO",
+        "Request"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "REFERS_TO",
+        "Preference"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "USES_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "CATEGORIZED_AS",
+        "Category"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Statement",
+        "INCLUDES",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "REFERS_TO",
+        "Statement"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "INITIRES",
+        "Consultation"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_CARD",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "FOR_CATEGORY",
+        "Category"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "ContactPreference",
+        "USES_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "FOR_MERCHANT",
+        "Merchant"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "USES_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "INITIATES",
+        "Request"
+      ],
+      "chunks": 1
+    }
+  ]
+}

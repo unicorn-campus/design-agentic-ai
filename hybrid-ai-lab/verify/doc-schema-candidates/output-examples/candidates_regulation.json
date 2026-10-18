@@ -1,0 +1,874 @@
+{
+  "doc_type": "regulation",
+  "layers": [
+    {
+      "layer": "약관 전체",
+      "population": 10,
+      "start": 10,
+      "used": 10,
+      "stop": "모두 봄"
+    }
+  ],
+  "node_types": [
+    {
+      "label": "Member",
+      "chunks": 9
+    },
+    {
+      "label": "Card",
+      "chunks": 8
+    },
+    {
+      "label": "Refund",
+      "chunks": 6
+    },
+    {
+      "label": "CardIssuer",
+      "chunks": 6
+    },
+    {
+      "label": "Service",
+      "chunks": 4
+    },
+    {
+      "label": "Fee",
+      "chunks": 4
+    },
+    {
+      "label": "Transaction",
+      "chunks": 4
+    },
+    {
+      "label": "Contract",
+      "chunks": 4
+    },
+    {
+      "label": "Request",
+      "chunks": 3
+    },
+    {
+      "label": "Dispute",
+      "chunks": 3
+    },
+    {
+      "label": "Suspension",
+      "chunks": 3
+    },
+    {
+      "label": "Merchant",
+      "chunks": 3
+    },
+    {
+      "label": "Statement",
+      "chunks": 3
+    },
+    {
+      "label": "Account",
+      "chunks": 3
+    },
+    {
+      "label": "Document",
+      "chunks": 2
+    },
+    {
+      "label": "Bank",
+      "chunks": 2
+    },
+    {
+      "label": "Issuer",
+      "chunks": 1
+    },
+    {
+      "label": "CardCompany",
+      "chunks": 1
+    },
+    {
+      "label": "Point",
+      "chunks": 1
+    },
+    {
+      "label": "CurrencyConversion",
+      "chunks": 1
+    },
+    {
+      "label": "Limit",
+      "chunks": 1
+    },
+    {
+      "label": "Report",
+      "chunks": 1
+    },
+    {
+      "label": "Record",
+      "chunks": 1
+    },
+    {
+      "label": "Objection",
+      "chunks": 1
+    },
+    {
+      "label": "TermsChange",
+      "chunks": 1
+    },
+    {
+      "label": "DataProcessing",
+      "chunks": 1
+    },
+    {
+      "label": "Outsourcing",
+      "chunks": 1
+    },
+    {
+      "label": "Termination",
+      "chunks": 1
+    },
+    {
+      "label": "Correction",
+      "chunks": 1
+    },
+    {
+      "label": "Loan",
+      "chunks": 1
+    }
+  ],
+  "relationship_types": [
+    {
+      "label": "HAS_CARD",
+      "chunks": 8
+    },
+    {
+      "label": "ISSUED_BY",
+      "chunks": 8
+    },
+    {
+      "label": "INCLUDES_SERVICE",
+      "chunks": 4
+    },
+    {
+      "label": "HAS_FEE",
+      "chunks": 4
+    },
+    {
+      "label": "HAS_FAMILY_MEMBER",
+      "chunks": 4
+    },
+    {
+      "label": "MAKES_TRANSACTION",
+      "chunks": 4
+    },
+    {
+      "label": "REQUESTS_REFUND",
+      "chunks": 3
+    },
+    {
+      "label": "PROVIDED_BY",
+      "chunks": 3
+    },
+    {
+      "label": "HANDLES_DISPUTE",
+      "chunks": 3
+    },
+    {
+      "label": "SUBMITS_REQUEST",
+      "chunks": 3
+    },
+    {
+      "label": "DESCRIBES",
+      "chunks": 2
+    },
+    {
+      "label": "TARGETS_CONTRACT",
+      "chunks": 2
+    },
+    {
+      "label": "RAISES_DISPUTE",
+      "chunks": 2
+    },
+    {
+      "label": "LINKED_TO",
+      "chunks": 2
+    },
+    {
+      "label": "HAS_CONTRACT",
+      "chunks": 2
+    },
+    {
+      "label": "TRANSACTION_AT",
+      "chunks": 2
+    },
+    {
+      "label": "HAS_ACCOUNT",
+      "chunks": 2
+    },
+    {
+      "label": "TERMINATED_BY",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_REFUND",
+      "chunks": 1
+    },
+    {
+      "label": "SUBJECT_TO_SUSPENSION",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_POINT",
+      "chunks": 1
+    },
+    {
+      "label": "WITHDRAWS_FOR",
+      "chunks": 1
+    },
+    {
+      "label": "RECORDS_USAGE",
+      "chunks": 1
+    },
+    {
+      "label": "ACCEPTS_CARD",
+      "chunks": 1
+    },
+    {
+      "label": "PROCESSES",
+      "chunks": 1
+    },
+    {
+      "label": "CONVERTED_BY",
+      "chunks": 1
+    },
+    {
+      "label": "RECORDED_IN",
+      "chunks": 1
+    },
+    {
+      "label": "REPORTS_FOR",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_HAS_REFUND",
+      "chunks": 1
+    },
+    {
+      "label": "TRANSACTION_RECORDED_IN",
+      "chunks": 1
+    },
+    {
+      "label": "SUBMITS_REPORT",
+      "chunks": 1
+    },
+    {
+      "label": "CONTRACT_TERMINATES_REFUND",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_HAS_LIMIT",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_HAS_SUSPENSION",
+      "chunks": 1
+    },
+    {
+      "label": "SENDS",
+      "chunks": 1
+    },
+    {
+      "label": "RECEIVES",
+      "chunks": 1
+    },
+    {
+      "label": "TERMINATES_CONTRACT",
+      "chunks": 1
+    },
+    {
+      "label": "SUBMITS_OBJECTION",
+      "chunks": 1
+    },
+    {
+      "label": "PROCESS_PERSONAL_DATA",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_SUSPENSION",
+      "chunks": 1
+    },
+    {
+      "label": "NOTIFIES_TERMS_CHANGE",
+      "chunks": 1
+    },
+    {
+      "label": "REQUESTS_CORRECTION",
+      "chunks": 1
+    },
+    {
+      "label": "RECORDS",
+      "chunks": 1
+    },
+    {
+      "label": "REINSTATED",
+      "chunks": 1
+    },
+    {
+      "label": "OUTSOURCED_TO",
+      "chunks": 1
+    },
+    {
+      "label": "STATEMENT_INCLUDES_TRANSACTION",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_LOAN",
+      "chunks": 1
+    },
+    {
+      "label": "REFUND_FOR",
+      "chunks": 1
+    },
+    {
+      "label": "CANCELS",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_STATEMENT",
+      "chunks": 1
+    },
+    {
+      "label": "ACCOUNT_LINKED_TO_BANK",
+      "chunks": 1
+    },
+    {
+      "label": "LOAN_REPAYMENT",
+      "chunks": 1
+    }
+  ],
+  "patterns": [
+    {
+      "pattern": [
+        "Member",
+        "HAS_CARD",
+        "Card"
+      ],
+      "chunks": 8
+    },
+    {
+      "pattern": [
+        "Card",
+        "ISSUED_BY",
+        "CardIssuer"
+      ],
+      "chunks": 5
+    },
+    {
+      "pattern": [
+        "Member",
+        "HAS_FAMILY_MEMBER",
+        "Member"
+      ],
+      "chunks": 4
+    },
+    {
+      "pattern": [
+        "Member",
+        "MAKES_TRANSACTION",
+        "Transaction"
+      ],
+      "chunks": 4
+    },
+    {
+      "pattern": [
+        "Member",
+        "SUBMITS_REQUEST",
+        "Request"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Member",
+        "REQUESTS_REFUND",
+        "Refund"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_FEE",
+        "Fee"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Refund",
+        "PROVIDED_BY",
+        "CardIssuer"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Card",
+        "INCLUDES_SERVICE",
+        "Service"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "INCLUDES_SERVICE",
+        "Service"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Request",
+        "TARGETS_CONTRACT",
+        "Contract"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Member",
+        "RAISES_DISPUTE",
+        "Dispute"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "HAS_FEE",
+        "Fee"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "TRANSACTION_AT",
+        "Merchant"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Member",
+        "HAS_ACCOUNT",
+        "Account"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Document",
+        "DESCRIBES",
+        "Issuer"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "ISSUED_BY",
+        "Issuer"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Refund",
+        "PROVIDED_BY",
+        "Issuer"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "ISSUED_BY",
+        "CardCompany"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "HAS_REFUND",
+        "Refund"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Contract",
+        "TERMINATED_BY",
+        "CardCompany"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "SUBJECT_TO_SUSPENSION",
+        "Suspension"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Contract",
+        "TERMINATED_BY",
+        "Member"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardCompany",
+        "HANDLES_DISPUTE",
+        "Dispute"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Account",
+        "WITHDRAWS_FOR",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "CONVERTED_BY",
+        "CurrencyConversion"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardIssuer",
+        "RECORDS_USAGE",
+        "Service"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Statement",
+        "DESCRIBES",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "LINKED_TO",
+        "Account"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "HAS_POINT",
+        "Point"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "RECORDED_IN",
+        "Statement"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Merchant",
+        "ACCEPTS_CARD",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Bank",
+        "PROCESSES",
+        "Account"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "REQUESTS_REFUND",
+        "Refund"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Contract",
+        "ISSUED_BY",
+        "CardIssuer"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "HAS_CONTRACT",
+        "Contract"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardIssuer",
+        "HANDLES_DISPUTE",
+        "Dispute"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_HAS_SUSPENSION",
+        "Suspension"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Contract",
+        "CONTRACT_TERMINATES_REFUND",
+        "Refund"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_CONTRACT",
+        "Contract"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Report",
+        "REPORTS_FOR",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "TRANSACTION_RECORDED_IN",
+        "Statement"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "SUBMITS_REPORT",
+        "Report"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_HAS_REFUND",
+        "Refund"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardIssuer",
+        "SENDS",
+        "Document"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "LINKED_TO",
+        "Account"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "RECEIVES",
+        "Document"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardIssuer",
+        "OUTSOURCED_TO",
+        "Outsourcing"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardIssuer",
+        "NOTIFIES_TERMS_CHANGE",
+        "TermsChange"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "SUBMITS_OBJECTION",
+        "Objection"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Suspension",
+        "REINSTATED",
+        "Member"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardIssuer",
+        "PROCESS_PERSONAL_DATA",
+        "Member"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "REQUESTS_CORRECTION",
+        "Correction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "HAS_SUSPENSION",
+        "Suspension"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Objection",
+        "HANDLES_DISPUTE",
+        "Dispute"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "TERMINATES_CONTRACT",
+        "Termination"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "RECORDS",
+        "Record"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "HAS_LOAN",
+        "Loan"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "CANCELS",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_STATEMENT",
+        "Statement"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Loan",
+        "LOAN_REPAYMENT",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Statement",
+        "STATEMENT_INCLUDES_TRANSACTION",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Refund",
+        "REFUND_FOR",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Account",
+        "ACCOUNT_LINKED_TO_BANK",
+        "Bank"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Member",
+        "HAS_STATEMENT",
+        "Statement"
+      ],
+      "chunks": 1
+    }
+  ]
+}

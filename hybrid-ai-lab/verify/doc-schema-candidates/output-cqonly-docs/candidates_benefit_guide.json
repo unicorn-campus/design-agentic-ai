@@ -1,0 +1,1547 @@
+{
+  "doc_type": "benefit_guide",
+  "layers": [
+    {
+      "layer": "공통 안내",
+      "population": 4,
+      "start": 4,
+      "used": 4,
+      "stop": "모두 봄"
+    },
+    {
+      "layer": "참고 카드",
+      "population": 7,
+      "start": 7,
+      "used": 7,
+      "stop": "모두 봄"
+    },
+    {
+      "layer": "카드 개요",
+      "population": 64,
+      "start": 10,
+      "used": 30,
+      "stop": "상한 30건"
+    },
+    {
+      "layer": "혜택 상세",
+      "population": 85,
+      "start": 10,
+      "used": 30,
+      "stop": "상한 30건"
+    }
+  ],
+  "node_types": [
+    {
+      "label": "Card",
+      "chunks": 58
+    },
+    {
+      "label": "Benefit",
+      "chunks": 49
+    },
+    {
+      "label": "Condition",
+      "chunks": 46
+    },
+    {
+      "label": "Limit",
+      "chunks": 34
+    },
+    {
+      "label": "Channel",
+      "chunks": 28
+    },
+    {
+      "label": "Exclusion",
+      "chunks": 25
+    },
+    {
+      "label": "Fee",
+      "chunks": 16
+    },
+    {
+      "label": "Brand",
+      "chunks": 10
+    },
+    {
+      "label": "MerchantCategory",
+      "chunks": 5
+    },
+    {
+      "label": "Issuer",
+      "chunks": 4
+    },
+    {
+      "label": "Bonus",
+      "chunks": 4
+    },
+    {
+      "label": "PaymentTiming",
+      "chunks": 4
+    },
+    {
+      "label": "BenefitProgram",
+      "chunks": 3
+    },
+    {
+      "label": "TransactionType",
+      "chunks": 3
+    },
+    {
+      "label": "Restriction",
+      "chunks": 3
+    },
+    {
+      "label": "Document",
+      "chunks": 2
+    },
+    {
+      "label": "Provider",
+      "chunks": 2
+    },
+    {
+      "label": "Company",
+      "chunks": 2
+    },
+    {
+      "label": "CardVariant",
+      "chunks": 2
+    },
+    {
+      "label": "CardProduct",
+      "chunks": 2
+    },
+    {
+      "label": "PDFDocument",
+      "chunks": 1
+    },
+    {
+      "label": "VirtualCard",
+      "chunks": 1
+    },
+    {
+      "label": "CreditCard",
+      "chunks": 1
+    },
+    {
+      "label": "Merchant",
+      "chunks": 1
+    },
+    {
+      "label": "CardFee",
+      "chunks": 1
+    },
+    {
+      "label": "Payout",
+      "chunks": 1
+    },
+    {
+      "label": "TelecomCompany",
+      "chunks": 1
+    },
+    {
+      "label": "FeeStructure",
+      "chunks": 1
+    },
+    {
+      "label": "AnnualFee",
+      "chunks": 1
+    },
+    {
+      "label": "BrandVariant",
+      "chunks": 1
+    },
+    {
+      "label": "BenefitPlan",
+      "chunks": 1
+    },
+    {
+      "label": "Category",
+      "chunks": 1
+    },
+    {
+      "label": "Payment",
+      "chunks": 1
+    },
+    {
+      "label": "PointProgram",
+      "chunks": 1
+    },
+    {
+      "label": "TransactionChannel",
+      "chunks": 1
+    },
+    {
+      "label": "DiscountBenefit",
+      "chunks": 1
+    },
+    {
+      "label": "Coupon",
+      "chunks": 1
+    },
+    {
+      "label": "Offer",
+      "chunks": 1
+    },
+    {
+      "label": "Settlement",
+      "chunks": 1
+    },
+    {
+      "label": "DesignOption",
+      "chunks": 1
+    },
+    {
+      "label": "Account",
+      "chunks": 1
+    },
+    {
+      "label": "Transaction",
+      "chunks": 1
+    },
+    {
+      "label": "Implementation",
+      "chunks": 1
+    },
+    {
+      "label": "CardProgram",
+      "chunks": 1
+    },
+    {
+      "label": "TransactionCategory",
+      "chunks": 1
+    },
+    {
+      "label": "Partner",
+      "chunks": 1
+    },
+    {
+      "label": "Promotion",
+      "chunks": 1
+    },
+    {
+      "label": "FamilyCard",
+      "chunks": 1
+    }
+  ],
+  "relationship_types": [
+    {
+      "label": "HAS_BENEFIT",
+      "chunks": 27
+    },
+    {
+      "label": "HAS_CONDITION",
+      "chunks": 26
+    },
+    {
+      "label": "HAS_LIMIT",
+      "chunks": 23
+    },
+    {
+      "label": "HAS_FEE",
+      "chunks": 15
+    },
+    {
+      "label": "ISSUED_BY",
+      "chunks": 12
+    },
+    {
+      "label": "BENEFIT_HAS_CONDITION",
+      "chunks": 11
+    },
+    {
+      "label": "APPLIES_TO_CHANNEL",
+      "chunks": 10
+    },
+    {
+      "label": "HAS_EXCLUSION",
+      "chunks": 9
+    },
+    {
+      "label": "EXCLUDES",
+      "chunks": 8
+    },
+    {
+      "label": "BENEFIT_HAS_LIMIT",
+      "chunks": 8
+    },
+    {
+      "label": "OFFERS",
+      "chunks": 7
+    },
+    {
+      "label": "CARD_HAS_BENEFIT",
+      "chunks": 6
+    },
+    {
+      "label": "BENEFIT_HAS_EXCLUSION",
+      "chunks": 6
+    },
+    {
+      "label": "APPLIES_TO",
+      "chunks": 5
+    },
+    {
+      "label": "REQUIRES",
+      "chunks": 5
+    },
+    {
+      "label": "BENEFIT_APPLIES_TO_CHANNEL",
+      "chunks": 3
+    },
+    {
+      "label": "CARD_HAS_FEE",
+      "chunks": 3
+    },
+    {
+      "label": "HAS_BRAND",
+      "chunks": 3
+    },
+    {
+      "label": "REQUIRES_CONDITION",
+      "chunks": 3
+    },
+    {
+      "label": "DOCUMENTED_IN",
+      "chunks": 2
+    },
+    {
+      "label": "PROVIDES",
+      "chunks": 2
+    },
+    {
+      "label": "OFFERS_BENEFIT",
+      "chunks": 2
+    },
+    {
+      "label": "APPLIES_TO_MERCHANT_CATEGORY",
+      "chunks": 2
+    },
+    {
+      "label": "HAS_CHANNEL",
+      "chunks": 2
+    },
+    {
+      "label": "BENEFIT_HAS_BONUS",
+      "chunks": 2
+    },
+    {
+      "label": "OFFER_BENEFIT",
+      "chunks": 2
+    },
+    {
+      "label": "HAS_VARIANT",
+      "chunks": 2
+    },
+    {
+      "label": "APPLIES_VIA",
+      "chunks": 2
+    },
+    {
+      "label": "HAS_PAYMENT_TIMING",
+      "chunks": 2
+    },
+    {
+      "label": "HAS_BONUS",
+      "chunks": 2
+    },
+    {
+      "label": "PROVIDES_BENEFIT",
+      "chunks": 2
+    },
+    {
+      "label": "HAS_FAMILY_CARD",
+      "chunks": 2
+    },
+    {
+      "label": "APPLICABLE_TO",
+      "chunks": 2
+    },
+    {
+      "label": "CARD_ASSOCIATED_WITH_BRAND",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_DOCUMENT",
+      "chunks": 1
+    },
+    {
+      "label": "REFERS_TO",
+      "chunks": 1
+    },
+    {
+      "label": "BENEFIT_APPLIES_TO_MERCHANT_CATEGORY",
+      "chunks": 1
+    },
+    {
+      "label": "VIA_CHANNEL",
+      "chunks": 1
+    },
+    {
+      "label": "VARIANT_HAS_BENEFIT",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_HAS_VARIANT",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_PAYOUT",
+      "chunks": 1
+    },
+    {
+      "label": "ASSOCIATED_WITH_TELECOM",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_FEE_STRUCTURE",
+      "chunks": 1
+    },
+    {
+      "label": "ALLOCATES",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_PLAN",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_PAYMENT",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_TARGET",
+      "chunks": 1
+    },
+    {
+      "label": "BENEFIT_FOR_CHANNEL",
+      "chunks": 1
+    },
+    {
+      "label": "ACCRUES_VIA",
+      "chunks": 1
+    },
+    {
+      "label": "ASSOCIATED_WITH",
+      "chunks": 1
+    },
+    {
+      "label": "BENEFIT_HAS_CHANNEL",
+      "chunks": 1
+    },
+    {
+      "label": "BENEFIT_HAS_PAYMENT_TIMING",
+      "chunks": 1
+    },
+    {
+      "label": "BENEFIT_VIA_CHANNEL",
+      "chunks": 1
+    },
+    {
+      "label": "USES_CHANNEL",
+      "chunks": 1
+    },
+    {
+      "label": "BENEFIT_EXCLUDES_TRANSACTION",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_SUPPORTS_TRANSACTION",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_OFFER_BENEFIT",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_OFFER",
+      "chunks": 1
+    },
+    {
+      "label": "BENEFIT_HAS_RESTRICTION",
+      "chunks": 1
+    },
+    {
+      "label": "OFFER_HAS_LIMIT",
+      "chunks": 1
+    },
+    {
+      "label": "OFFER_HAS_CONDITION",
+      "chunks": 1
+    },
+    {
+      "label": "OFFER_INCLUDES_COUPON",
+      "chunks": 1
+    },
+    {
+      "label": "OFFER_PROVIDED_BY",
+      "chunks": 1
+    },
+    {
+      "label": "OFFER_ASSOCIATED_CARD",
+      "chunks": 1
+    },
+    {
+      "label": "OFFER_HAS_EXCLUSION",
+      "chunks": 1
+    },
+    {
+      "label": "SETTLED_ON",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_RESTRICTION",
+      "chunks": 1
+    },
+    {
+      "label": "EXCLUDED_FOR",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_PROVIDES_BENEFIT",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_HAS_TRANSACTION",
+      "chunks": 1
+    },
+    {
+      "label": "GUARDIAN_OF",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_HAS_RESTRICTION",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_HAS_DESIGN",
+      "chunks": 1
+    },
+    {
+      "label": "TRANSACTION_RESTRICTED_BY",
+      "chunks": 1
+    },
+    {
+      "label": "ACCOUNT_HAS_CARD",
+      "chunks": 1
+    },
+    {
+      "label": "EXCLUDES_TRANSACTION_TYPE",
+      "chunks": 1
+    },
+    {
+      "label": "IMPLEMENTED_ON",
+      "chunks": 1
+    },
+    {
+      "label": "PAYOUT_ON",
+      "chunks": 1
+    },
+    {
+      "label": "USES_TRANSACTION",
+      "chunks": 1
+    },
+    {
+      "label": "REQUIRES_TRANSACTION_TYPE",
+      "chunks": 1
+    },
+    {
+      "label": "CARD_HAS_LIMIT",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_PARTNER",
+      "chunks": 1
+    },
+    {
+      "label": "LIMITED_BY",
+      "chunks": 1
+    }
+  ],
+  "patterns": [
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_CONDITION",
+        "Condition"
+      ],
+      "chunks": 23
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 23
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 15
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_HAS_CONDITION",
+        "Condition"
+      ],
+      "chunks": 11
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_FEE",
+        "Fee"
+      ],
+      "chunks": 11
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "APPLIES_TO_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 9
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 8
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "EXCLUDES",
+        "Exclusion"
+      ],
+      "chunks": 7
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_HAS_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 6
+    },
+    {
+      "pattern": [
+        "Card",
+        "ISSUED_BY",
+        "Brand"
+      ],
+      "chunks": 6
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_HAS_EXCLUSION",
+        "Exclusion"
+      ],
+      "chunks": 6
+    },
+    {
+      "pattern": [
+        "Card",
+        "OFFERS",
+        "Benefit"
+      ],
+      "chunks": 5
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_EXCLUSION",
+        "Exclusion"
+      ],
+      "chunks": 5
+    },
+    {
+      "pattern": [
+        "Card",
+        "ISSUED_BY",
+        "Issuer"
+      ],
+      "chunks": 4
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_HAS_FEE",
+        "Fee"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_APPLIES_TO_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "REQUIRES",
+        "Condition"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "APPLIES_TO",
+        "Channel"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_BRAND",
+        "Brand"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "BenefitProgram",
+        "HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Card",
+        "OFFERS_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "APPLIES_TO_MERCHANT_CATEGORY",
+        "MerchantCategory"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_HAS_BONUS",
+        "Bonus"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Card",
+        "OFFER_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Card",
+        "OFFERS",
+        "BenefitProgram"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "BenefitProgram",
+        "HAS_EXCLUSION",
+        "Exclusion"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Card",
+        "PROVIDES_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_ASSOCIATED_WITH_BRAND",
+        "Brand"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_DOCUMENT",
+        "Document"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "DOCUMENTED_IN",
+        "Document"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "VirtualCard",
+        "DOCUMENTED_IN",
+        "PDFDocument"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "REFERS_TO",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Provider",
+        "PROVIDES",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "ISSUED_BY",
+        "Provider"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CreditCard",
+        "ISSUED_BY",
+        "Company"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_APPLIES_TO_MERCHANT_CATEGORY",
+        "MerchantCategory"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "PROVIDES",
+        "Benefit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "APPLIES_TO",
+        "Merchant"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "VIA_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_HAS_VARIANT",
+        "CardVariant"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardVariant",
+        "VARIANT_HAS_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_FEE",
+        "CardFee"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_PAYOUT",
+        "Payout"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_FEE_STRUCTURE",
+        "FeeStructure"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Channel",
+        "ASSOCIATED_WITH_TELECOM",
+        "TelecomCompany"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_FEE",
+        "AnnualFee"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardProduct",
+        "HAS_PLAN",
+        "BenefitPlan"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitPlan",
+        "HAS_EXCLUSION",
+        "Exclusion"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitPlan",
+        "HAS_CONDITION",
+        "Condition"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardProduct",
+        "HAS_VARIANT",
+        "BrandVariant"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitPlan",
+        "ALLOCATES",
+        "Category"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitPlan",
+        "HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitProgram",
+        "HAS_TARGET",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitProgram",
+        "REQUIRES_CONDITION",
+        "Condition"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitProgram",
+        "HAS_PAYMENT",
+        "Payment"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_VARIANT",
+        "CardVariant"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardVariant",
+        "HAS_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitProgram",
+        "REQUIRES",
+        "Condition"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitProgram",
+        "APPLIES_TO",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_FOR_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "ACCRUES_VIA",
+        "TransactionChannel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Brand",
+        "HAS_FEE",
+        "Fee"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "ASSOCIATED_WITH",
+        "PointProgram"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_HAS_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_HAS_PAYMENT_TIMING",
+        "PaymentTiming"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_VIA_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "APPLIES_VIA",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardProduct",
+        "HAS_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardProduct",
+        "HAS_FEE",
+        "Fee"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Condition",
+        "USES_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitProgram",
+        "HAS_CONDITION",
+        "Condition"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitProgram",
+        "HAS_BONUS",
+        "Bonus"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "BenefitProgram",
+        "HAS_PAYMENT_TIMING",
+        "PaymentTiming"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_SUPPORTS_TRANSACTION",
+        "TransactionType"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_OFFER_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_EXCLUDES_TRANSACTION",
+        "TransactionType"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_HAS_RESTRICTION",
+        "Restriction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_OFFER",
+        "Benefit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "DiscountBenefit",
+        "REQUIRES",
+        "Condition"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "DiscountBenefit",
+        "APPLIES_VIA",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_BENEFIT",
+        "DiscountBenefit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "DiscountBenefit",
+        "HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "DiscountBenefit",
+        "EXCLUDES",
+        "Exclusion"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "OFFER_HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "OFFER_HAS_CONDITION",
+        "Condition"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "OFFER_ASSOCIATED_CARD",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "OFFER_INCLUDES_COUPON",
+        "Coupon"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "OFFER_PROVIDED_BY",
+        "Company"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "OFFER_HAS_EXCLUSION",
+        "Exclusion"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "SETTLED_ON",
+        "Settlement"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_PAYMENT_TIMING",
+        "PaymentTiming"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_RESTRICTION",
+        "Restriction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_BONUS",
+        "Bonus"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "EXCLUDED_FOR",
+        "TransactionType"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_HAS_RESTRICTION",
+        "Restriction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "TRANSACTION_RESTRICTED_BY",
+        "Restriction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_HAS_TRANSACTION",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_HAS_DESIGN",
+        "DesignOption"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_PROVIDES_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Account",
+        "ACCOUNT_HAS_CARD",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardProgram",
+        "APPLIES_TO_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardProgram",
+        "REQUIRES_CONDITION",
+        "Condition"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardProgram",
+        "EXCLUDES_TRANSACTION_TYPE",
+        "Exclusion"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardProgram",
+        "PAYOUT_ON",
+        "PaymentTiming"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardProgram",
+        "HAS_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardProgram",
+        "HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardProgram",
+        "IMPLEMENTED_ON",
+        "Implementation"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Condition",
+        "USES_TRANSACTION",
+        "TransactionCategory"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Condition",
+        "REQUIRES_TRANSACTION_TYPE",
+        "TransactionType"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "APPLICABLE_TO",
+        "Channel"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "CARD_HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "APPLICABLE_TO",
+        "MerchantCategory"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Promotion",
+        "HAS_PARTNER",
+        "Partner"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Promotion",
+        "HAS_EXCLUSION",
+        "Exclusion"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Promotion",
+        "HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Promotion",
+        "HAS_CONDITION",
+        "Condition"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_FAMILY_CARD",
+        "FamilyCard"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "FamilyCard",
+        "HAS_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "REQUIRES_CONDITION",
+        "Condition"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "APPLIES_TO",
+        "MerchantCategory"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "LIMITED_BY",
+        "Limit"
+      ],
+      "chunks": 1
+    }
+  ]
+}

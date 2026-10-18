@@ -1,0 +1,36 @@
+{
+  "_설명": "상담 이력 스키마 뼈대 추천안(사람 확정 전). 근거: output-cqonly-v3 넓게 뽑기 결과 + 역량 질문 5개. README 「뼈대 추천」 참조",
+  "node_types": [
+    {"label": "Consultation", "description": "상담 1건(상담ID 단위). 속성은 인덱서 메타데이터에서 채움",
+     "properties": [{"name": "record_id", "type": "STRING"}, {"name": "consult_date", "type": "DATE"},
+                    {"name": "channel", "type": "STRING"}, {"name": "topic", "type": "STRING"},
+                    {"name": "member_pseudo_id", "type": "STRING"}]},
+    {"label": "Complaint", "description": "고객이 말한 불만과 그 원인",
+     "properties": [{"name": "cause", "type": "STRING"}, {"name": "category", "type": "STRING"}]},
+    {"label": "Proposal", "description": "상담사가 한 제안과 고객의 응답(수용, 거절, 보류)",
+     "properties": [{"name": "content", "type": "STRING"}, {"name": "decision", "type": "STRING"},
+                    {"name": "decision_reason", "type": "STRING"}]},
+    {"label": "ReconsiderCondition", "description": "고객이 판단을 미루며 말한 재검토 조건",
+     "properties": [{"name": "description", "type": "STRING"}]}
+  ],
+  "relationship_types": [
+    {"label": "HAS_COMPLAINT", "description": "상담에서 나온 불만"},
+    {"label": "HAS_PROPOSAL", "description": "상담에서 나온 제안"},
+    {"label": "ADDRESSES", "description": "제안이 겨냥한 불만"},
+    {"label": "RECONSIDER_WHEN", "description": "보류한 제안을 다시 볼 조건"},
+    {"label": "FOLLOWS", "description": "같은 고객의 앞선 상담을 잇는 뒤 상담"}
+  ],
+  "patterns": [
+    ["Consultation", "HAS_COMPLAINT", "Complaint"],
+    ["Consultation", "HAS_PROPOSAL", "Proposal"],
+    ["Proposal", "ADDRESSES", "Complaint"],
+    ["Proposal", "RECONSIDER_WHEN", "ReconsiderCondition"],
+    ["Consultation", "FOLLOWS", "Consultation"]
+  ],
+  "constraints": [
+    {"type": "UNIQUENESS", "node_type": "Consultation", "property_names": ["record_id"]}
+  ],
+  "additional_node_types": false,
+  "additional_relationship_types": false,
+  "additional_patterns": false
+}

@@ -18,5 +18,6 @@
   "no_future_churn_labels": true,
   "db_fact_cutoff": "각 상담일 직전월까지 승인 거래만",
   "limitation": "합성 상담 진술은 실제 결과나 인과 효과의 증거가 아님. 위험 예측 학습용 사후 정답은 미생성.",
-  "transaction_augmentation": "12명 가입일 이후 전 기간 월 승인액 100만원 이상. 원문 금액은 추가 거래 반영 후 재집계함."
+  "transaction_augmentation": "12명 가입일 이후 전 기간 월 승인액 100만원 이상. 원문 금액은 추가 거래 반영 후 재집계함.",
+  "source_version": "v3"
 }

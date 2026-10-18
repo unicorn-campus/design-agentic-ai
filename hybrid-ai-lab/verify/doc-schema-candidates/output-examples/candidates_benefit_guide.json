@@ -1,0 +1,399 @@
+{
+  "doc_type": "benefit_guide",
+  "layers": [
+    {
+      "layer": "공통 안내",
+      "population": 4,
+      "start": 4,
+      "used": 4,
+      "stop": "모두 봄"
+    },
+    {
+      "layer": "참고 카드",
+      "population": 7,
+      "start": 7,
+      "used": 7,
+      "stop": "모두 봄"
+    },
+    {
+      "layer": "카드 개요",
+      "population": 64,
+      "start": 10,
+      "used": 30,
+      "stop": "상한 30건"
+    },
+    {
+      "layer": "혜택 상세",
+      "population": 85,
+      "start": 10,
+      "used": 30,
+      "stop": "상한 30건"
+    }
+  ],
+  "node_types": [
+    {
+      "label": "Card",
+      "chunks": 65
+    },
+    {
+      "label": "Condition",
+      "chunks": 59
+    },
+    {
+      "label": "Limit",
+      "chunks": 58
+    },
+    {
+      "label": "Benefit",
+      "chunks": 56
+    },
+    {
+      "label": "Channel",
+      "chunks": 31
+    },
+    {
+      "label": "Fee",
+      "chunks": 29
+    },
+    {
+      "label": "Company",
+      "chunks": 18
+    },
+    {
+      "label": "Document",
+      "chunks": 9
+    },
+    {
+      "label": "Account",
+      "chunks": 5
+    },
+    {
+      "label": "Coupon",
+      "chunks": 2
+    },
+    {
+      "label": "Offer",
+      "chunks": 2
+    },
+    {
+      "label": "Design",
+      "chunks": 2
+    },
+    {
+      "label": "Guardian",
+      "chunks": 1
+    }
+  ],
+  "relationship_types": [
+    {
+      "label": "HAS_BENEFIT",
+      "chunks": 57
+    },
+    {
+      "label": "HAS_LIMIT",
+      "chunks": 55
+    },
+    {
+      "label": "HAS_CONDITION",
+      "chunks": 54
+    },
+    {
+      "label": "HAS_FEE",
+      "chunks": 29
+    },
+    {
+      "label": "HAS_CHANNEL",
+      "chunks": 29
+    },
+    {
+      "label": "ISSUED_BY",
+      "chunks": 18
+    },
+    {
+      "label": "BENEFIT_HAS_CONDITION",
+      "chunks": 11
+    },
+    {
+      "label": "DESCRIBES",
+      "chunks": 11
+    },
+    {
+      "label": "BENEFIT_HAS_LIMIT",
+      "chunks": 6
+    },
+    {
+      "label": "HAS_FAMILY_CARD",
+      "chunks": 4
+    },
+    {
+      "label": "HAS_ACCOUNT",
+      "chunks": 3
+    },
+    {
+      "label": "BENEFIT_HAS_CHANNEL",
+      "chunks": 2
+    },
+    {
+      "label": "TARGETS",
+      "chunks": 2
+    },
+    {
+      "label": "HAS_DESIGN",
+      "chunks": 2
+    },
+    {
+      "label": "PROTECTS",
+      "chunks": 1
+    },
+    {
+      "label": "ASSOCIATED_WITH",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_COUPON",
+      "chunks": 1
+    }
+  ],
+  "patterns": [
+    {
+      "pattern": [
+        "Card",
+        "HAS_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 53
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 46
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_CONDITION",
+        "Condition"
+      ],
+      "chunks": 46
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_FEE",
+        "Fee"
+      ],
+      "chunks": 29
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 29
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 18
+    },
+    {
+      "pattern": [
+        "Card",
+        "ISSUED_BY",
+        "Company"
+      ],
+      "chunks": 16
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_CONDITION",
+        "Condition"
+      ],
+      "chunks": 10
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_HAS_CONDITION",
+        "Condition"
+      ],
+      "chunks": 10
+    },
+    {
+      "pattern": [
+        "Document",
+        "DESCRIBES",
+        "Card"
+      ],
+      "chunks": 9
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 5
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_FAMILY_CARD",
+        "Card"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "BENEFIT_HAS_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_ACCOUNT",
+        "Account"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_DESIGN",
+        "Design"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_FEE",
+        "Fee"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "HAS_CONDITION",
+        "Condition"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "TARGETS",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Coupon",
+        "HAS_LIMIT",
+        "Limit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "TARGETS",
+        "Account"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Coupon",
+        "ISSUED_BY",
+        "Company"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "ISSUED_BY",
+        "Company"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Coupon",
+        "HAS_CONDITION",
+        "Condition"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Guardian",
+        "PROTECTS",
+        "Account"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "ASSOCIATED_WITH",
+        "Account"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Offer",
+        "HAS_BENEFIT",
+        "Benefit"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_ACCOUNT",
+        "Account"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "HAS_COUPON",
+        "Coupon"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Benefit",
+        "ISSUED_BY",
+        "Company"
+      ],
+      "chunks": 1
+    }
+  ]
+}

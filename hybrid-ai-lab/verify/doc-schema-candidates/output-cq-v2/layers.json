@@ -1,0 +1,11 @@
+{
+  "consult_log": [
+    {
+      "layer": "상담 전체(세그먼트 균형)",
+      "population": 48,
+      "start": 12,
+      "used": 30,
+      "stop": "상한 30건"
+    }
+  ]
+}

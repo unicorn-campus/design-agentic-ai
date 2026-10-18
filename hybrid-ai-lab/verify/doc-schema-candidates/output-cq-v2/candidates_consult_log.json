@@ -1,0 +1,150 @@
+{
+  "doc_type": "consult_log",
+  "layers": [
+    {
+      "layer": "상담 전체(세그먼트 균형)",
+      "population": 48,
+      "start": 12,
+      "used": 30,
+      "stop": "상한 30건"
+    }
+  ],
+  "node_types": [
+    {
+      "label": "Transaction",
+      "chunks": 29
+    },
+    {
+      "label": "Request",
+      "chunks": 25
+    },
+    {
+      "label": "Customer",
+      "chunks": 24
+    },
+    {
+      "label": "Consultation",
+      "chunks": 22
+    },
+    {
+      "label": "Channel",
+      "chunks": 21
+    },
+    {
+      "label": "Card",
+      "chunks": 4
+    },
+    {
+      "label": "Consultant",
+      "chunks": 2
+    }
+  ],
+  "relationship_types": [
+    {
+      "label": "INCLUDES",
+      "chunks": 29
+    },
+    {
+      "label": "HAS_CONSULTATION",
+      "chunks": 29
+    },
+    {
+      "label": "CONDUCTS",
+      "chunks": 29
+    },
+    {
+      "label": "DISCUSSES",
+      "chunks": 29
+    },
+    {
+      "label": "FOLLOWS",
+      "chunks": 22
+    },
+    {
+      "label": "USES_CHANNEL",
+      "chunks": 21
+    },
+    {
+      "label": "TARGETS",
+      "chunks": 17
+    },
+    {
+      "label": "ON_CARD",
+      "chunks": 10
+    }
+  ],
+  "patterns": [
+    {
+      "pattern": [
+        "Consultation",
+        "DISCUSSES",
+        "Transaction"
+      ],
+      "chunks": 22
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "FOLLOWS",
+        "Consultation"
+      ],
+      "chunks": 21
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "INCLUDES",
+        "Request"
+      ],
+      "chunks": 19
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_CONSULTATION",
+        "Consultation"
+      ],
+      "chunks": 17
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "USES_CHANNEL",
+        "Channel"
+      ],
+      "chunks": 16
+    },
+    {
+      "pattern": [
+        "Request",
+        "TARGETS",
+        "Transaction"
+      ],
+      "chunks": 14
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "ON_CARD",
+        "Card"
+      ],
+      "chunks": 4
+    },
+    {
+      "pattern": [
+        "Consultant",
+        "CONDUCTS",
+        "Consultation"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Request",
+        "TARGETS",
+        "Card"
+      ],
+      "chunks": 1
+    }
+  ]
+}

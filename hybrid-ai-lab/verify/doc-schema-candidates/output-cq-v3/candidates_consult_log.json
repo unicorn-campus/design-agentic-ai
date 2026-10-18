@@ -1,0 +1,218 @@
+{
+  "doc_type": "consult_log",
+  "layers": [
+    {
+      "layer": "상담 전체(세그먼트 균형)",
+      "population": 48,
+      "start": 12,
+      "used": 30,
+      "stop": "상한 30건"
+    }
+  ],
+  "node_types": [
+    {
+      "label": "Transaction",
+      "chunks": 30
+    },
+    {
+      "label": "ContactPreference",
+      "chunks": 30
+    },
+    {
+      "label": "Issue",
+      "chunks": 26
+    },
+    {
+      "label": "Consultation",
+      "chunks": 21
+    },
+    {
+      "label": "Customer",
+      "chunks": 20
+    },
+    {
+      "label": "Card",
+      "chunks": 10
+    },
+    {
+      "label": "Menu",
+      "chunks": 3
+    },
+    {
+      "label": "PaymentMethod",
+      "chunks": 3
+    },
+    {
+      "label": "Agent",
+      "chunks": 2
+    },
+    {
+      "label": "OrderMethod",
+      "chunks": 1
+    }
+  ],
+  "relationship_types": [
+    {
+      "label": "INTERACTS_WITH",
+      "chunks": 30
+    },
+    {
+      "label": "HAS_TRANSACTION",
+      "chunks": 30
+    },
+    {
+      "label": "HAS_PREFERENCE",
+      "chunks": 30
+    },
+    {
+      "label": "HAS_ISSUE",
+      "chunks": 26
+    },
+    {
+      "label": "HAS_CONSULTATION",
+      "chunks": 24
+    },
+    {
+      "label": "FOLLOW_UP",
+      "chunks": 19
+    },
+    {
+      "label": "HAS_CARD",
+      "chunks": 17
+    },
+    {
+      "label": "USES_MENU",
+      "chunks": 3
+    },
+    {
+      "label": "HAS_PAYMENT_METHOD",
+      "chunks": 3
+    },
+    {
+      "label": "HAS_ORDER_METHOD",
+      "chunks": 1
+    }
+  ],
+  "patterns": [
+    {
+      "pattern": [
+        "Consultation",
+        "FOLLOW_UP",
+        "Consultation"
+      ],
+      "chunks": 18
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "HAS_PREFERENCE",
+        "ContactPreference"
+      ],
+      "chunks": 17
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "HAS_TRANSACTION",
+        "Transaction"
+      ],
+      "chunks": 16
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "HAS_ISSUE",
+        "Issue"
+      ],
+      "chunks": 15
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_PREFERENCE",
+        "ContactPreference"
+      ],
+      "chunks": 14
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_CONSULTATION",
+        "Consultation"
+      ],
+      "chunks": 13
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_TRANSACTION",
+        "Transaction"
+      ],
+      "chunks": 12
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_ISSUE",
+        "Issue"
+      ],
+      "chunks": 8
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_TRANSACTION",
+        "Transaction"
+      ],
+      "chunks": 7
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_CARD",
+        "Card"
+      ],
+      "chunks": 5
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "HAS_PAYMENT_METHOD",
+        "PaymentMethod"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Agent",
+        "INTERACTS_WITH",
+        "Customer"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_PAYMENT_METHOD",
+        "PaymentMethod"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Customer",
+        "USES_MENU",
+        "Menu"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "HAS_CARD",
+        "Card"
+      ],
+      "chunks": 1
+    }
+  ]
+}

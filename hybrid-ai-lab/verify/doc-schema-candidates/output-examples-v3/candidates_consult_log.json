@@ -1,0 +1,958 @@
+{
+  "doc_type": "consult_log",
+  "layers": [
+    {
+      "layer": "상담 전체(세그먼트 균형)",
+      "population": 48,
+      "start": 12,
+      "used": 30,
+      "stop": "상한 30건"
+    }
+  ],
+  "node_types": [
+    {
+      "label": "Customer",
+      "chunks": 24
+    },
+    {
+      "label": "Transaction",
+      "chunks": 21
+    },
+    {
+      "label": "CommunicationMethod",
+      "chunks": 16
+    },
+    {
+      "label": "Consultation",
+      "chunks": 14
+    },
+    {
+      "label": "Request",
+      "chunks": 8
+    },
+    {
+      "label": "SupportRequest",
+      "chunks": 7
+    },
+    {
+      "label": "FollowUpMethod",
+      "chunks": 6
+    },
+    {
+      "label": "TransactionBatch",
+      "chunks": 5
+    },
+    {
+      "label": "Card",
+      "chunks": 5
+    },
+    {
+      "label": "Agent",
+      "chunks": 3
+    },
+    {
+      "label": "TransactionSummary",
+      "chunks": 3
+    },
+    {
+      "label": "VirtualCard",
+      "chunks": 3
+    },
+    {
+      "label": "Statement",
+      "chunks": 3
+    },
+    {
+      "label": "Notification",
+      "chunks": 2
+    },
+    {
+      "label": "CardClosureRequest",
+      "chunks": 2
+    },
+    {
+      "label": "Address",
+      "chunks": 2
+    },
+    {
+      "label": "OrderApp",
+      "chunks": 1
+    },
+    {
+      "label": "Location",
+      "chunks": 1
+    },
+    {
+      "label": "Department",
+      "chunks": 1
+    },
+    {
+      "label": "Menu",
+      "chunks": 1
+    },
+    {
+      "label": "NotificationCategory",
+      "chunks": 1
+    },
+    {
+      "label": "ConsultationRecord",
+      "chunks": 1
+    },
+    {
+      "label": "Message",
+      "chunks": 1
+    },
+    {
+      "label": "Company",
+      "chunks": 1
+    },
+    {
+      "label": "Category",
+      "chunks": 1
+    },
+    {
+      "label": "Application",
+      "chunks": 1
+    },
+    {
+      "label": "Branch",
+      "chunks": 1
+    },
+    {
+      "label": "ContactMethod",
+      "chunks": 1
+    },
+    {
+      "label": "Preference",
+      "chunks": 1
+    },
+    {
+      "label": "MerchantCategory",
+      "chunks": 1
+    },
+    {
+      "label": "Receipt",
+      "chunks": 1
+    },
+    {
+      "label": "Store",
+      "chunks": 1
+    },
+    {
+      "label": "Order",
+      "chunks": 1
+    },
+    {
+      "label": "Response",
+      "chunks": 1
+    },
+    {
+      "label": "Record",
+      "chunks": 1
+    },
+    {
+      "label": "CancellationRequest",
+      "chunks": 1
+    },
+    {
+      "label": "OrderMethod",
+      "chunks": 1
+    },
+    {
+      "label": "Consultant",
+      "chunks": 1
+    }
+  ],
+  "relationship_types": [
+    {
+      "label": "INITIATES",
+      "chunks": 24
+    },
+    {
+      "label": "RELATED_TO",
+      "chunks": 17
+    },
+    {
+      "label": "HANDLES",
+      "chunks": 17
+    },
+    {
+      "label": "INTERACTS_WITH",
+      "chunks": 16
+    },
+    {
+      "label": "ASSOCIATED_WITH",
+      "chunks": 12
+    },
+    {
+      "label": "USES",
+      "chunks": 10
+    },
+    {
+      "label": "PREFERS_METHOD",
+      "chunks": 10
+    },
+    {
+      "label": "REQUESTS",
+      "chunks": 9
+    },
+    {
+      "label": "OWNS",
+      "chunks": 9
+    },
+    {
+      "label": "TARGETS",
+      "chunks": 8
+    },
+    {
+      "label": "PROVIDES_INFO",
+      "chunks": 6
+    },
+    {
+      "label": "REQUESTS_INFO",
+      "chunks": 6
+    },
+    {
+      "label": "HANDLED_BY",
+      "chunks": 6
+    },
+    {
+      "label": "HAS_TRANSACTION",
+      "chunks": 6
+    },
+    {
+      "label": "GUIDED_BY",
+      "chunks": 4
+    },
+    {
+      "label": "PREFERS_CHANNEL",
+      "chunks": 3
+    },
+    {
+      "label": "RECEIVES",
+      "chunks": 3
+    },
+    {
+      "label": "HAS_SUMMARY",
+      "chunks": 2
+    },
+    {
+      "label": "PREFERRED_METHOD",
+      "chunks": 2
+    },
+    {
+      "label": "HAS_RECEIPT",
+      "chunks": 2
+    },
+    {
+      "label": "HAS_CARD",
+      "chunks": 2
+    },
+    {
+      "label": "HAS_BATCH",
+      "chunks": 1
+    },
+    {
+      "label": "PREFERS",
+      "chunks": 1
+    },
+    {
+      "label": "FAVORS",
+      "chunks": 1
+    },
+    {
+      "label": "PROCESSED_BY",
+      "chunks": 1
+    },
+    {
+      "label": "SENT_BY",
+      "chunks": 1
+    },
+    {
+      "label": "GUIDES",
+      "chunks": 1
+    },
+    {
+      "label": "MODIFIES",
+      "chunks": 1
+    },
+    {
+      "label": "ASSIGNS_DELIVERY_ADDRESS",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_APPLICATION",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_CONSULTATION",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_STATEMENT",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_PREFERENCE",
+      "chunks": 1
+    },
+    {
+      "label": "MAKES_REQUEST",
+      "chunks": 1
+    },
+    {
+      "label": "INCLUDES",
+      "chunks": 1
+    },
+    {
+      "label": "PLACED_ORDER",
+      "chunks": 1
+    },
+    {
+      "label": "OCCURS_AT",
+      "chunks": 1
+    },
+    {
+      "label": "PROVIDES",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_RECORD",
+      "chunks": 1
+    },
+    {
+      "label": "BELONGS_TO",
+      "chunks": 1
+    },
+    {
+      "label": "GENERATED",
+      "chunks": 1
+    },
+    {
+      "label": "HAS_ADDRESS",
+      "chunks": 1
+    },
+    {
+      "label": "USES_METHOD",
+      "chunks": 1
+    }
+  ],
+  "patterns": [
+    {
+      "pattern": [
+        "Customer",
+        "INITIATES",
+        "SupportRequest"
+      ],
+      "chunks": 6
+    },
+    {
+      "pattern": [
+        "Customer",
+        "INITIATES",
+        "Request"
+      ],
+      "chunks": 6
+    },
+    {
+      "pattern": [
+        "Customer",
+        "PREFERS_METHOD",
+        "CommunicationMethod"
+      ],
+      "chunks": 6
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "RELATED_TO",
+        "Transaction"
+      ],
+      "chunks": 6
+    },
+    {
+      "pattern": [
+        "Customer",
+        "INITIATES",
+        "Consultation"
+      ],
+      "chunks": 5
+    },
+    {
+      "pattern": [
+        "SupportRequest",
+        "RELATED_TO",
+        "TransactionBatch"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Customer",
+        "PREFERS_CHANNEL",
+        "CommunicationMethod"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Request",
+        "USES",
+        "CommunicationMethod"
+      ],
+      "chunks": 3
+    },
+    {
+      "pattern": [
+        "Customer",
+        "INTERACTS_WITH",
+        "Agent"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Customer",
+        "REQUESTS_INFO",
+        "Transaction"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Customer",
+        "OWNS",
+        "Card"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "CardClosureRequest",
+        "TARGETS",
+        "Card"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "SupportRequest",
+        "GUIDED_BY",
+        "FollowUpMethod"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_TRANSACTION",
+        "Transaction"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Customer",
+        "USES",
+        "CommunicationMethod"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Request",
+        "REQUESTS_INFO",
+        "Transaction"
+      ],
+      "chunks": 2
+    },
+    {
+      "pattern": [
+        "Agent",
+        "HANDLES",
+        "SupportRequest"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "SupportRequest",
+        "ASSOCIATED_WITH",
+        "Consultation"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "SupportRequest",
+        "ASSOCIATED_WITH",
+        "Notification"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "REQUESTS",
+        "CardClosureRequest"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Card",
+        "HAS_SUMMARY",
+        "TransactionSummary"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardClosureRequest",
+        "GUIDED_BY",
+        "FollowUpMethod"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "OrderApp",
+        "HAS_BATCH",
+        "TransactionBatch"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "RELATED_TO",
+        "Consultation"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "TARGETS",
+        "Location"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "HAS_SUMMARY",
+        "TransactionSummary"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "SupportRequest",
+        "TARGETS",
+        "Department"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "SupportRequest",
+        "ASSOCIATED_WITH",
+        "TransactionBatch"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "SupportRequest",
+        "PREFERRED_METHOD",
+        "FollowUpMethod"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "SupportRequest",
+        "ASSOCIATED_WITH",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "GUIDED_BY",
+        "FollowUpMethod"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "SupportRequest",
+        "USES",
+        "CommunicationMethod"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "SupportRequest",
+        "ASSOCIATED_WITH",
+        "NotificationCategory"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "SupportRequest",
+        "RELATED_TO",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "REQUESTS_INFO",
+        "TransactionSummary"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "PREFERS_METHOD",
+        "FollowUpMethod"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "INITIATES",
+        "ConsultationRecord"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "ConsultationRecord",
+        "ASSOCIATED_WITH",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Message",
+        "SENT_BY",
+        "Company"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "PROCESSED_BY",
+        "Company"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "RELATED_TO",
+        "Category"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Agent",
+        "HANDLES",
+        "Request"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Statement",
+        "RELATED_TO",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "ASSOCIATED_WITH",
+        "Statement"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "REQUESTS",
+        "Request"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "ASSOCIATED_WITH",
+        "Request"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_APPLICATION",
+        "Application"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "USES",
+        "ContactMethod"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Agent",
+        "GUIDES",
+        "Customer"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "MODIFIES",
+        "Address"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_CARD",
+        "Card"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Application",
+        "TARGETS",
+        "Branch"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_CONSULTATION",
+        "Consultation"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_STATEMENT",
+        "Statement"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Agent",
+        "PROVIDES_INFO",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Application",
+        "ASSIGNS_DELIVERY_ADDRESS",
+        "Address"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "HAS_PREFERENCE",
+        "Preference"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "PREFERS_METHOD",
+        "Preference"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "RELATED_TO",
+        "MerchantCategory"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "OCCURS_AT",
+        "Store"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "PLACED_ORDER",
+        "Order"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Order",
+        "INCLUDES",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Transaction",
+        "HAS_RECEIPT",
+        "Receipt"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "RECEIVES",
+        "CommunicationMethod"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Record",
+        "RELATED_TO",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "REQUESTS",
+        "Response"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "REQUESTS",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_RECORD",
+        "Record"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Consultation",
+        "GENERATED",
+        "CancellationRequest"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CancellationRequest",
+        "TARGETS",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "RECEIVES",
+        "Statement"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "TARGETS",
+        "Address"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Customer",
+        "HAS_ADDRESS",
+        "Address"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "CardClosureRequest",
+        "RELATED_TO",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "HAS_TRANSACTION",
+        "Transaction"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "USES_METHOD",
+        "OrderMethod"
+      ],
+      "chunks": 1
+    },
+    {
+      "pattern": [
+        "Request",
+        "HANDLED_BY",
+        "Consultant"
+      ],
+      "chunks": 1
+    }
+  ]
+}
