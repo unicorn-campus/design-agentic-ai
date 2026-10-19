@@ -43,10 +43,16 @@ schema/
 | 정형 테이블 | `rdb/graph_schema.json` | 7 | 6 | 6 | hiondal, 2026-10-14 |
 | 혜택 안내서 | `doc/benefit_guide/graph_schema.json` | 5 | 4 | 4 | 자동 승인, 2026-10-18 |
 | 상담 기록 | `doc/consult_log/graph_schema.json` | 4 | 4 | 4 | 자동 승인, 2026-10-18 |
-| 약관과 규정 | 없음 | - | - | - | 미확정 (채움 시험 미달로 중단) |
+| 약관과 규정 | `doc/regulation/graph_schema.json` | 5 | 4 | 4 | **합격 기준 미달 상태로 확정**, 2026-10-19 |
 
 - 숫자는 `GraphSchema.from_file()`로 다시 읽어 센 값 (2026-10-19)
 - 비정형 스키마는 사람 승인이 아닌 자동 승인 상태임. 인덱싱에 쓰기 전에 사람이 검토하고 승인해야 함
+- 약관은 채움 시험 라운드 3에서 R1만 통과하고 R2 ~ R5가 미달인 초안을 사용자 요청으로 현재 수준 그대로 확정함.  
+  `approval.json`의 `below_criteria`에 미달 질문(R2, R3, R4, R5)과 사유를 남김. 스키마 설명을 보완해 다시 시험해야 함
+  - 노드: TermsDocument, Clause, Requirement, Deadline, Handling / 관계: HAS_CLAUSE, SETS_REQUIREMENT, SETS_DEADLINE, DEFINES_HANDLING
+  - 약관만 추출 단위 규칙(조항 제목 줄로 나눔)이 있어 `approval.json`의 `extraction_unit_rule`에 함께 남김
+- `doc/tools/finalize.py`는 기본적으로 미달이면 멈춤. 미달 상태로 확정하려면 `--accept-below=사유`를 줘야 하고,  
+  그 사유가 승인 기록에 남음(verify 원본 도구에는 이 옵션이 없음)
 - 인덱서는 출처마다 `graph_schema.json`을 따로 읽음. 어떤 스키마를 어디까지 적재할지는 인덱싱 단계에서 정함
 
 ## 가상환경

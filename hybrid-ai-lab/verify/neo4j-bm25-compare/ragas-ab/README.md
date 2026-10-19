@@ -229,6 +229,7 @@ done
 | Neo4j 전용 인덱스 `ragasab_tokens_ws` | 실행 뒤 0건 |
 | 기존 Neo4j 노드 | `__KGBuilder__` 729건 그대로 — 건드리지 않음 |
 | 기존 코드 | `indexer/`와 `retriever/`와 `ragas/`에 변경 없음(`git status`로 확인) |
+| Ollama | 처음엔 꺼져 있었음. 상태 확인용 `ollama list`가 Ollama 앱과 서버를 띄움(2026-10-19 10:45:08, 의도치 않음). 모델은 내려받지 않음 |
 
 ## 한계
 
