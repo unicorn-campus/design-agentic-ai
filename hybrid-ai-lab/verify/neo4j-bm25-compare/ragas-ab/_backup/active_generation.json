@@ -1,0 +1,10 @@
+{
+  "format_version": 1,
+  "generation": "gen-birthfix-20261018b-efeb65bd",
+  "chroma_path": "generations/gen-birthfix-20261018b-efeb65bd/chroma",
+  "search_index_root": "generations/gen-birthfix-20261018b-efeb65bd/search_indexes",
+  "collection": "card_docs",
+  "chunk_count": 218,
+  "embedding_dimension": 768,
+  "embedding_signature": "sentence-transformers:nlpai-lab/KURE-v2:prompt-policy-v2"
+}

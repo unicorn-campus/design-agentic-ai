@@ -1,0 +1,1134 @@
+{
+  "created_at": "2026-10-19T02:15:53+00:00",
+  "version": "base1",
+  "eval_set_hash": null,
+  "provider": "local",
+  "model": "hf.co/unsloth/Qwen3.5-9B-GGUF:Q4_K_M",
+  "embedding_model": "nlpai-lab/KURE-v2",
+  "repeat": 3,
+  "scored": 14,
+  "excluded": [
+    {
+      "id": "Q10",
+      "reason": "status_not_answered"
+    },
+    {
+      "id": "Q11",
+      "reason": "status_not_answered"
+    },
+    {
+      "id": "Q13",
+      "reason": "status_not_answered"
+    },
+    {
+      "id": "Q18",
+      "reason": "no_answer_question"
+    },
+    {
+      "id": "Q19",
+      "reason": "no_answer_question"
+    },
+    {
+      "id": "Q20",
+      "reason": "no_answer_question"
+    },
+    {
+      "id": "Q21",
+      "reason": "no_answer_question"
+    },
+    {
+      "id": "Q22",
+      "reason": "no_answer_question"
+    }
+  ],
+  "summary": {
+    "context_precision": {
+      "mean": 0.9667,
+      "std": 0.0,
+      "min": 0.9667,
+      "max": 0.9667,
+      "n": 14,
+      "repeat_means": [
+        0.9667,
+        0.9667,
+        0.9667
+      ]
+    },
+    "context_recall": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "n": 14,
+      "repeat_means": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "faithfulness": {
+      "mean": 0.881,
+      "std": 0.0,
+      "min": 0.881,
+      "max": 0.881,
+      "n": 14,
+      "repeat_means": [
+        0.881,
+        0.881,
+        0.881
+      ]
+    },
+    "answer_relevancy": {
+      "mean": 0.7893,
+      "std": 0.0,
+      "min": 0.7893,
+      "max": 0.7893,
+      "n": 14,
+      "repeat_means": [
+        0.7893,
+        0.7893,
+        0.7893
+      ]
+    }
+  },
+  "rows": [
+    {
+      "id": "Q01",
+      "question": "직전 12개월 동안 카드를 얼마나 쓰면 다음 해 기본 연회비가 면제되나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.9999999999,
+            0.9999999999,
+            0.9999999999
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.7496,
+          "std": 0.0,
+          "min": 0.7496,
+          "max": 0.7496,
+          "n": 3,
+          "values": [
+            0.7495661535009316,
+            0.7495661535009316,
+            0.7495661535009316
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q02",
+      "question": "할부로 산 상품의 철회는 며칠 안에 요청해야 하나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.99999999995,
+            0.99999999995,
+            0.99999999995
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.7484,
+          "std": 0.0,
+          "min": 0.7484,
+          "max": 0.7484,
+          "n": 3,
+          "values": [
+            0.7484313135916117,
+            0.7484313135916117,
+            0.7484313135916117
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q03",
+      "question": "명세서 금액에 이의를 제기하려면 언제까지 해야 하고, 결과는 언제 알려주나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.9999999999,
+            0.9999999999,
+            0.9999999999
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.7449,
+          "std": 0.0,
+          "min": 0.7449,
+          "max": 0.7449,
+          "n": 3,
+          "values": [
+            0.7449433174364138,
+            0.7449433174364138,
+            0.7449433174364138
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q04",
+      "question": "약관이 바뀌면 언제부터 미리 안내하나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 0.8333,
+          "std": 0.0,
+          "min": 0.8333,
+          "max": 0.8333,
+          "n": 3,
+          "values": [
+            0.8333333332916666,
+            0.8333333332916666,
+            0.8333333332916666
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.6794,
+          "std": 0.0,
+          "min": 0.6794,
+          "max": 0.6794,
+          "n": 3,
+          "values": [
+            0.6794406654621846,
+            0.6794406654621846,
+            0.6794406654621846
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q05",
+      "question": "결제일이 휴일이면 카드 대금은 언제 출금되나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.99999999995,
+            0.99999999995,
+            0.99999999995
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.743,
+          "std": 0.0,
+          "min": 0.743,
+          "max": 0.743,
+          "n": 3,
+          "values": [
+            0.7430123666916814,
+            0.7430123666916814,
+            0.7430123666916814
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q06",
+      "question": "오랫동안 쓰지 않은 휴면카드는 어떻게 처리되나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.9999999999,
+            0.9999999999,
+            0.9999999999
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.693,
+          "std": 0.0,
+          "min": 0.693,
+          "max": 0.693,
+          "n": 3,
+          "values": [
+            0.6930424990730942,
+            0.6930424990730942,
+            0.6930424990730942
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q07",
+      "question": "한빛 모아생활 카드의 생활 포인트는 결제액의 몇 %를 적립하고, 월 한도는 얼마인가요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 0.7,
+          "std": 0.0,
+          "min": 0.7,
+          "max": 0.7,
+          "n": 3,
+          "values": [
+            0.6999999999766667,
+            0.6999999999766667,
+            0.6999999999766667
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 0.3333,
+          "std": 0.0,
+          "min": 0.3333,
+          "max": 0.3333,
+          "n": 3,
+          "values": [
+            0.3333333333333333,
+            0.3333333333333333,
+            0.3333333333333333
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.9676,
+          "std": 0.0,
+          "min": 0.9676,
+          "max": 0.9676,
+          "n": 3,
+          "values": [
+            0.9676067507004492,
+            0.9676067507004492,
+            0.9676067507004492
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q08",
+      "question": "한빛 모아생활 카드의 포인트 재충전(리필)은 어떤 조건에서 받을 수 있나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.99999999995,
+            0.99999999995,
+            0.99999999995
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.7299,
+          "std": 0.0,
+          "min": 0.7299,
+          "max": 0.7299,
+          "n": 3,
+          "values": [
+            0.7298601070246445,
+            0.7298601070246445,
+            0.7298601070246445
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q09",
+      "question": "한빛 가족돌봄 카드의 돌봄 바우처는 얼마이고, 언제까지 쓸 수 있나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.9999999999,
+            0.9999999999,
+            0.9999999999
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.9625,
+          "std": 0.0,
+          "min": 0.9625,
+          "max": 0.9625,
+          "n": 3,
+          "values": [
+            0.962541074189779,
+            0.962541074189779,
+            0.962541074189779
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q12",
+      "question": "한빛 반려동행 카드는 동물병원 진료비를 얼마나 할인해 주나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.99999999995,
+            0.99999999995,
+            0.99999999995
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.9351,
+          "std": 0.0,
+          "min": 0.9351,
+          "max": 0.9351,
+          "n": 3,
+          "values": [
+            0.9351046054692079,
+            0.9351046054692079,
+            0.9351046054692079
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q14",
+      "question": "M-1042 회원은 첫 상담에서 어떤 기준으로 비교해 달라고 했고, 가장 최근 상담에서는 카드 해지를 어디까지 진행했나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.99999999995,
+            0.99999999995,
+            0.99999999995
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 3,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.7149,
+          "std": 0.0,
+          "min": 0.7149,
+          "max": 0.7149,
+          "n": 3,
+          "values": [
+            0.7148957822287109,
+            0.7148957822287109,
+            0.7148957822287109
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q15",
+      "question": "M-1042 회원은 다른 결제 수단으로 쓰던 생활비를 이 카드로 옮기는 것을 왜 원하지 않았나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.9999999999,
+            0.9999999999,
+            0.9999999999
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.7668,
+          "std": 0.0,
+          "min": 0.7668,
+          "max": 0.7668,
+          "n": 3,
+          "values": [
+            0.7668277576825279,
+            0.7668277576825279,
+            0.7668277576825279
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q16",
+      "question": "M-3001 회원은 첫 상담에서 타사 카드와 무엇을 비교한다고 했고, 가장 최근 상담에서는 어떤 조건이면 옮기겠다고 했나요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.99999999995,
+            0.99999999995,
+            0.99999999995
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.8128,
+          "std": 0.0,
+          "min": 0.8128,
+          "max": 0.8128,
+          "n": 3,
+          "values": [
+            0.8128178666701928,
+            0.8128178666701928,
+            0.8128178666701928
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    {
+      "id": "Q17",
+      "question": "M-3001 회원과 상담할 때 피해야 할 설명이나 제안은 무엇인가요?",
+      "metrics": {
+        "context_precision": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            0.999999999975,
+            0.999999999975,
+            0.999999999975
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "context_recall": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "faithfulness": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0,
+          "n": 3,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        },
+        "answer_relevancy": {
+          "mean": 0.802,
+          "std": 0.0,
+          "min": 0.802,
+          "max": 0.802,
+          "n": 3,
+          "values": [
+            0.801963597717586,
+            0.801963597717586,
+            0.801963597717586
+          ],
+          "reasons": [
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    }
+  ],
+  "failed_scores": [],
+  "log_file": "C:\\Users\\hiond\\class\\design-agentic-ai\\hybrid-ai-lab\\verify\\neo4j-bm25-compare\\ragas-ab\\runs\\base1\\retriever.json"
+}

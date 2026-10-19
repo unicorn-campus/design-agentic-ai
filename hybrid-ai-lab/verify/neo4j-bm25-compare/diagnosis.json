@@ -1,0 +1,139 @@
+{
+  "formula": "idf = ln(1 + (N - df + 0.5)/(df + 0.5)), tfc = tf / (k1*((1-b) + b*dl/avgdl) + tf)",
+  "baseline_bm25": {
+    "implementation": "bm25s",
+    "version": "0.3.11",
+    "method": "lucene",
+    "k1": 1.5,
+    "b": 0.75
+  },
+  "variants": {
+    "V1_k1-1.5_len-exact": {
+      "k1": 1.5,
+      "lucene_norm": false,
+      "b": 0.75
+    },
+    "V2_k1-1.2_len-exact": {
+      "k1": 1.2,
+      "lucene_norm": false,
+      "b": 0.75
+    },
+    "V3_k1-1.2_len-lucene": {
+      "k1": 1.2,
+      "lucene_norm": true,
+      "b": 0.75
+    }
+  },
+  "variant_agreement": {
+    "V1_k1-1.5_len-exact": {
+      "mean_overlap10_vs_baseline": 1.0,
+      "mean_overlap10_vs_A": 0.9523809523809523,
+      "top1_match_vs_A": 0.9523809523809523,
+      "max_relative_score_gap_vs_A": 0.164224813374494
+    },
+    "V2_k1-1.2_len-exact": {
+      "mean_overlap10_vs_baseline": 0.9690476190476192,
+      "mean_overlap10_vs_A": 0.9714285714285713,
+      "top1_match_vs_A": 0.9523809523809523,
+      "max_relative_score_gap_vs_A": 0.03746038632901708
+    },
+    "V3_k1-1.2_len-lucene": {
+      "mean_overlap10_vs_baseline": 0.9547619047619048,
+      "mean_overlap10_vs_A": 0.9714285714285713,
+      "top1_match_vs_A": 0.9761904761904762,
+      "max_relative_score_gap_vs_A": 0.03553362545967798
+    }
+  },
+  "length_quantization": {
+    "min_length": 89,
+    "max_length": 435,
+    "mean_length": 277.2201834862385,
+    "changed_by_quantization": 203,
+    "mean_relative_shift": 0.05049373243571066,
+    "examples": [
+      {
+        "exact": 429,
+        "lucene": 416
+      },
+      {
+        "exact": 414,
+        "lucene": 384
+      },
+      {
+        "exact": 384,
+        "lucene": 384
+      },
+      {
+        "exact": 402,
+        "lucene": 384
+      },
+      {
+        "exact": 420,
+        "lucene": 416
+      },
+      {
+        "exact": 416,
+        "lucene": 416
+      }
+    ]
+  },
+  "analyzer_probe": [
+    {
+      "name": "josa",
+      "text": "연회비를 면제합니다.",
+      "query": "연회비",
+      "kiwi_tokens": [
+        "연회비",
+        "면제",
+        "하"
+      ],
+      "cjk": [
+        "josa"
+      ],
+      "standard": []
+    },
+    {
+      "name": "compound",
+      "text": "직전 12개월 이용금액이 3,000,000원 이상",
+      "query": "이용금액",
+      "kiwi_tokens": [
+        "직전",
+        "12",
+        "개월",
+        "이용",
+        "금액",
+        "3000000",
+        "원",
+        "이상"
+      ],
+      "cjk": [
+        "compound"
+      ],
+      "standard": []
+    },
+    {
+      "name": "number_comma",
+      "text": "3,000,000원 이상이면 면제",
+      "query": "3000000",
+      "kiwi_tokens": [
+        "3000000",
+        "원",
+        "이상",
+        "면제"
+      ],
+      "cjk": [],
+      "standard": []
+    },
+    {
+      "name": "date_form",
+      "text": "2026-02 명세서",
+      "query": "2026년 2월",
+      "kiwi_tokens": [
+        "2026-02",
+        "명세서"
+      ],
+      "cjk": [],
+      "standard": []
+    }
+  ]
+}

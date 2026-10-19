@@ -487,6 +487,354 @@ async function createSlidePrompt() {
   return s;
 }
 
+// ------------------------------------------------------------------ 슬라이드 12(v11 추가: 소스 문서 프롬프트 수행)
+async function createSlideDocPrompt() {
+  const s = L.newSlide({
+    title: "1. 스키마 도출: 프롬프트로 소스 문서의 스키마 도출",
+    lead: "앞의 다섯 단계를 프롬프트에 담아 바이브 코딩 도구에 맡김 — AI는 초안을 내고 시험하며, 사람은 여섯 번 확정함",
+    notes: "정형 테이블은 규칙만으로 대부분 판정할 수 있어 사람이 세 번 답했지만, 문서는 테이블 구조가 없어 LLM이 후보와 초안을 내고 "
+      + "사람이 역량 질문 기준으로 확정해야 함. 그래서 승인 단계가 1, 2, 3, 5, 7, 8 여섯 곳임. "
+      + "1단계에서 AI는 청크 위치 파일(예: 인덱서의 활성 세대 기록)을 받아 실제 청크 파일을 찾고, 본문 칸과 문서 종류를 제안하고, "
+      + "개인정보 꼴이 남았는지 셈. 3단계에서 청크 하나에 조항이 여러 개 들었으면 표본으로 뽑힌 청크만 제목 줄로 나눔. 원본이 많아도 "
+      + "다시 청킹하지 않으며, 인덱싱도 추출 직전에 같은 규칙으로 나눔. 4단계는 역량 질문만 examples로 넘겨 후보를 넓게 뽑고, "
+      + "5단계에서 AI가 병합, 제거, 추가를 질문 번호와 함께 추천하면 사람이 제약까지 확정함. 7단계 기대 답은 정답표가 있으면 그것을 씀. "
+      + "8단계는 후보에 쓰지 않은 표본으로 시험해 질문마다 지표를 보고, 미달이면 설명(description)을 고쳐 5단계부터 다시 함. "
+      + "자동 승인으로 돌려 본 실행에서 혜택과 상담은 통과해 파일을 만들었고, 약관은 조항 단위로 바꾼 뒤에도 기대 답 검토가 먼저 필요해 멈춤.",
+  });
+
+  // 맨 위: AI 줄에 9단계, 사람 줄에는 승인 단계 위에만 카드(4쪽과 같은 격자)
+  const laneW = 1.7, gx0 = X0 + laneW + 0.15, gap = 0.2, n = 9;
+  const cw = (X0 + CW - gx0 - gap * (n - 1)) / n;
+  const gx = (i) => gx0 + i * (cw + gap);
+  const yH = 1.92, yA = 2.92, h = 0.7;
+  [[yH, "사람", C.blue], [yA, "AI\n(바이브 코딩 도구)", C.navy]].forEach(([y, t, fill]) => {
+    L.rr(s, { x: gx0 - 0.08, y: y - 0.06, w: X0 + CW - gx0 + 0.08, h: h + 0.12, fill: C.altRow, line: null, r: 0.06 });
+    L.card(s, t, { x: X0, y: y - 0.06, w: laneW, h: h + 0.12, fill, line: null, color: C.white, size: 14, bold: true, r: 0.06 });
+  });
+  const steps = ["1. 입력 받기", "2. 역량 질문\n초안", "3. 추출 단위,\n표본 계획", "4. 후보\n넓게 뽑기", "5. 스키마\n초안 추천",
+    "6. 기계 검증", "7. 기대 답\n초안", "8. 채우기\n시험", "9. 저장과\n다시 읽기"];
+  const approve = { 0: "입력값\n확인", 1: "질문\n확정", 2: "단위, 표본\n승인", 4: "초안, 제약\n확정", 6: "기대 답,\n기준 확정",
+    7: "통과\n판정" };
+  steps.forEach((t, i) => {
+    L.card(s, t, { x: gx(i), y: yA, w: cw, h, fill: C.white, line: C.slate, color: C.ink, size: 14, bold: true, r: 0.08,
+      lw: 1.25 });
+    if (approve[i]) {
+      L.card(s, approve[i], { x: gx(i), y: yH, w: cw, h, fill: C.blue, line: null, color: C.white, size: 14, bold: true,
+        r: 0.08 });
+      // AI가 낸 초안을 사람이 받아 확정함(아래에서 위로)
+      L.arrow(s, { x1: gx(i) + cw / 2, y1: yA - 0.02, x2: gx(i) + cw / 2, y2: yH + h + 0.02, color: C.blue, width: 1.5 });
+    }
+    if (i < n - 1) {
+      L.arrow(s, { x1: gx(i) + cw + 0.03, y1: yA + h / 2, x2: gx(i + 1) - 0.03, y2: yA + h / 2, color: C.slate, width: 1.75 });
+    }
+  });
+  // 8 → 5 되돌림(점선): AI 줄 밑으로 지나감
+  const x8 = gx(7) + cw / 2, x5 = gx(4) + cw / 2, yLoop = yA + h + 0.2;
+  L.arrow(s, { x1: x8, y1: yA + h + 0.02, x2: x8, y2: yLoop, color: C.blue, width: 1.5, dash: "dash", head: "none" });
+  L.hline(s, { x: x5, y: yLoop, w: x8 - x5, color: C.blue, width: 1.5, dash: "dash" });
+  L.arrow(s, { x1: x5, y1: yLoop, x2: x5, y2: yA + h + 0.02, color: C.blue, width: 1.5, dash: "dash" });
+  L.text(s, "설명 고치기 시 5단계부터 다시(최대 5회)", { x: x5 + 0.1, y: yLoop + 0.02, w: x8 - x5 - 0.2, h: 0.3, size: 14,
+    bold: true, color: C.blue, align: "center", margin: 0 });
+
+  // 아래 3칸(4쪽과 같은 폭)
+  const top = 4.22, bodyY = top + 0.48, bodyB = 7.0;
+  const wA = 4.75, wB = 5.0, g3 = 0.25, wC = CW - wA - wB - g3 * 2;
+  const xA = X0, xB = xA + wA + g3, xC = xB + wB + g3;
+
+  // A: 사람이 확정하는 곳 6번(단계 번호 배지 + 한 줄)
+  sectionLabel(s, "사람이 확정하는 곳 6번", { x: xA, y: top, w: wA, fill: C.blue });
+  const asks = [
+    ["1", "입력값 확인(AI가 추천값 제시)"], ["2", "역량 질문 확정(사용자 질문에서 초안)"], ["3", "추출 단위, 묶음, 표본 수 승인"],
+    ["5", "스키마 초안과 제약 확정"], ["7", "기대 답과 합격 기준 확정"], ["8", "통과 판정, 미달이면 설명 고치기"],
+  ];
+  const ah = 0.33, ag = (bodyB - bodyY - ah * asks.length) / (asks.length - 1);
+  asks.forEach(([num, t], i) => {
+    const y = bodyY + i * (ah + ag);
+    L.rr(s, { x: xA, y, w: wA, h: ah, fill: C.tint, line: C.blue, r: 0.05 });
+    L.numBadge(s, num, { x: xA + 0.06, y: y + 0.025, size: 0.28, fsz: 14, fill: C.blue });
+    L.text(s, t, { x: xA + 0.45, y, w: wA - 0.5, h: ah, size: 14, color: C.navy, bold: true, margin: 0 });
+  });
+
+  // B: AI가 지키는 규칙
+  sectionLabel(s, "AI가 지키는 규칙", { x: xB, y: top, w: wB });
+  L.rr(s, { x: xB, y: bodyY, w: wB, h: bodyB - bodyY, fill: C.white, line: C.border, r: 0.08 });
+  s.addText("• 후보 뽑기에는 역량 질문만 넘김(이름 재사용 안내 없음)\n"
+    + "• 판단은 빈도가 아니라 역량 질문 기준\n"
+    + "• 시험은 후보에 안 쓴 표본, 답 없는 문서 포함\n"
+    + "• 조항 여러 개 든 청크는 표본만 나눔\n"
+    + "• 키는 .env에서 읽기만 함, AI가 쓰지 않음\n"
+    + "• 쓰는 Neo4j 판이 지원하는 제약만 씀",
+  { x: xB + 0.2, y: bodyY + 0.06, w: wB - 0.3, h: bodyB - bodyY - 0.12, fontFace: FONT, fontSize: fs(14), color: C.ink,
+    valign: "middle", margin: 0, isTextBox: true, paraSpaceAfter: 7 });
+
+  // C: 승인 화면 예(실행 결과의 상담 초안 일부를 도형으로 옮김)
+  sectionLabel(s, "승인 화면 예 (Mermaid 그림)", { x: xC, y: top, w: wC, fill: C.dark });
+  L.rr(s, { x: xC, y: bodyY, w: wC, h: bodyB - bodyY, fill: C.white, line: C.border, r: 0.08 });
+  // 관계 이름(HAS_PROPOSAL)이 상자에 붙지 않게 상자 폭을 4쪽보다 조금 줄이고 속성은 줄마다 하나씩 씀
+  const nbW = 1.55, nbH = 1.62, nbY = bodyY + 0.16, nb1 = xC + 0.12, nb2 = xC + wC - 0.12 - nbW;
+  [[nb1, "Consultation", "상담", "record_id (키)\nconsult_date"], [nb2, "Proposal", "상담 제안", "content\ndecision\nreason"]]
+    .forEach(([x, label, ko, props]) => {
+      L.rr(s, { x, y: nbY, w: nbW, h: nbH, fill: C.tint, line: C.navy, lw: 1.5, r: 0.08 });
+      L.card(s, `:${label}`, { x: x + 0.06, y: nbY + 0.08, w: nbW - 0.12, h: 0.36, ...LOOK.navy, size: 14, bold: true,
+        r: 0.05 });
+      L.text(s, `(${ko})\n${props}`, { x: x + 0.06, y: nbY + 0.48, w: nbW - 0.12, h: nbH - 0.54, size: 14, color: C.ink,
+        align: "center", margin: 0, valign: "top" });
+    });
+  const my = nbY + nbH / 2;
+  L.arrow(s, { x1: nb1 + nbW + 0.04, y1: my, x2: nb2 - 0.04, y2: my, color: C.navy, width: 2 });
+  L.text(s, "HAS_\nPROPOSAL", { x: nb1 + nbW, y: my - 0.62, w: nb2 - nb1 - nbW, h: 0.56, size: 14, bold: true, color: C.blue,
+    align: "center", margin: 0, valign: "bottom" });
+  L.text(s, "(제안함)", { x: nb1 + nbW, y: my + 0.06, w: nb2 - nb1 - nbW, h: 0.3, size: 14, color: C.ink, align: "center",
+    margin: 0 });
+  L.text(s, "추천표와 함께 보고 고치거나 승인함", { x: xC + 0.15, y: nbY + nbH + 0.1,
+    w: wC - 0.3, h: bodyB - nbY - nbH - 0.16, size: 14, color: C.slate, align: "center", margin: 0 });
+
+  band(s, "결과: 문서 종류마다 graph_schema.json과 approval.json(승인자, 일시, 입력 SHA-256, 마지막 시험 지표, 추출 단위)\n"
+    + "시험 보고서 fill_report.md는 질문마다 뽑음, 잘못 뽑음, 값 같음과 합격 판정을 보여 줌. 인덱싱은 승인 파일을 읽기만 함",
+  { y: 7.12, h: 0.76, size: 15 });
+  L.text(s, "※ 기대 답을 LLM이 쓰면 시험하는 모델과 같아 점수가 후해질 수 있음 → 7단계에서 사람이 반드시 검토함",
+    { x: 0.515, y: 8.029, w: 14.792, h: 0.37, size: 16, color: C.ink, margin: 0 });
+  return s;
+}
+
+// ------------------------------------------------------------------ 별도 장표(검색 저장소 구성 4가지 안 비교)
+async function createSlideStoreCompare() {
+  const s = L.newSlide({
+    title: "그래프DB 구축: 검색 저장소 구성 4가지 안 비교",
+    lead: "벡터, 키워드, 그래프를 어디에 두느냐로 갈림 — 한국어 키워드 품질과 운영 부담이 선택을 가름",
+    notes: "검색에 쓰는 것은 벡터 색인(의미 검색), 키워드 색인(BM25), 지식 그래프 세 가지이고, 네 안은 이 셋을 어느 저장소에 두느냐로 나뉨. "
+      + "일반적인 비교이며, 우리 프로젝트의 지금 구성(Chroma, Kiwi와 bm25s로 만든 BM25 파일, Neo4j)은 1-a의 한 예임. "
+      + "한국어 실무에서는 1-b처럼 한국어 형태소 분석기가 있는 검색 엔진(Elasticsearch 또는 OpenSearch의 공식 nori 플러그인, 사용자 사전 지원)에 "
+      + "벡터와 키워드를 함께 두고 그래프 DB를 따로 두는 구성이 흔함. Neo4j 전문 검색에는 한국어 분석기가 없어, 3번은 형태소 분석기로 미리 "
+      + "나눈 낱말을 넣거나 Java 분석기 플러그인을 직접 만들어야 함. 미리 나눠 넣은 우리 실측에서 키워드 상위 10 겹침이 0.952였고, "
+      + "Neo4j는 BM25의 k1 값을 바꿀 수 없었음. neo4j-graphrag의 하이브리드 검색기는 필터를 받지 않아 회원별 검색 같은 조건은 직접 Cypher로 짜야 함. "
+      + "증분 색인: Lucene 계열 키워드 색인(Elasticsearch, OpenSearch, Neo4j 전문 검색)은 문서를 넣고 고치고 지우는 대로 따로 갱신되므로 "
+      + "어느 안이든 전체를 다시 만들 필요가 없음. 그래서 차이는 '바뀐 문서 하나를 몇 곳에 써야 하고, 그 곳들이 서로 어긋나지 않게 맞춰야 하느냐'임. "
+      + "다만 bm25s처럼 추가와 삭제 기능이 없는 정적 라이브러리로 키워드 색인을 만들면 바뀔 때마다 전체를 다시 만들어야 하며, 지금 우리 구성이 이 경우임. "
+      + "Neo4j Community 판에는 온라인 백업과 클러스터가 없고 Enterprise 판에는 있음. "
+      + "바뀐 청크만 LLM으로 다시 추출하고 엔티티를 병합하는 그래프 쪽 일은 네 안 모두 같음.",
+  });
+
+  const labW = 1.6, gx0 = X0 + labW + 0.15, g = 0.15;
+  const cw = (X0 + CW - gx0 - g * 3) / 4;
+  const cx = (i) => gx0 + i * (cw + g);
+  const CHIP = { 벡터: C.blue, 키워드: C.navy, 그래프: C.dark };
+  const plans = [
+    { name: "1-a 분리형(저장소 따로)", stores: [["벡터 DB", ["벡터"]], ["키워드 색인", ["키워드"]], ["Neo4j", ["그래프"]]] },
+    { name: "1-b 분리형(검색 엔진)", stores: [["검색 엔진(nori)", ["벡터", "키워드"]], ["Neo4j", ["그래프"]]], pick: true },
+    { name: "2 벡터 통합형", stores: [["Neo4j", ["벡터", "그래프"]], ["키워드 색인", ["키워드"]]], pick: true },
+    { name: "3 전부 통합형", stores: [["Neo4j", ["벡터", "키워드", "그래프"]]] },
+  ];
+  const yHead = 1.86, hHead = 0.42, yStore = yHead + hHead + 0.08, hStore = 0.86;
+  // 증분 색인 줄만 세 줄(지원 여부 + 맞춤 부담)이라 높게 두고 나머지 줄을 조금 줄여 전체 높이를 지킴
+  const yRow0 = yStore + hStore + 0.14, rhBase = 0.58, rhTall = 0.98, rg = 0.06;
+  const rows = [
+    ["한국어 키워드\n품질", [["좋음", "형태소 분석기를\n골라 씀(예: Kiwi)"], ["좋음", "nori 공식 플러그인과\n사용자 사전"],
+      ["좋음", "형태소 분석기를\n골라 씀"], ["주의", "한국어 분석기 없음,\n미리 나누거나 직접 개발"]]],
+    ["운영:\n저장소와 장애", [["보통", "3곳 운영,\n한 곳 멈춰도 나머지 검색"], ["좋음", "2곳, 검색 엔진\n복제로 장애 대비"],
+      ["보통", "2곳, Neo4j 멈추면\n벡터와 그래프 함께 멈춤"], ["주의", "1곳으로 단순,\n멈추면 검색 전부 멈춤"]]],
+    ["운영:\n규모와 백업", [["보통", "저장소마다 확장과\n백업을 따로 함"], ["좋음", "대규모, 필터,\n백업 기능 갖춤"],
+      ["보통", "Community는 온라인\n백업과 클러스터 없음"], ["주의", "같은 제약에 키워드\n색인까지 몰림"]]],
+    // 바뀐 문서 하나를 몇 곳에 쓰고 맞춰야 하나(Lucene 계열 색인은 모두 문서 단위로 갱신됨). 그래프 재추출은 네 안 모두 같아 뺌
+    // 첫 줄은 증분 색인 지원 여부(굵게), 둘째 줄부터 저장소 사이 맞춤 부담
+    ["운영:\n증분 색인", [["주의", "지원: 벡터와 그래프\n키워드는 도구 따라 다름\n3곳에 따로 쓰고 맞춤"],
+      ["보통", "지원: 모두\n2곳, 검색 엔진은 벡터와\n키워드를 한 문서로 갱신"],
+      ["보통", "지원: 벡터와 그래프\n키워드는 도구 따라 다름\n2곳, Neo4j와 키워드 맞춤"],
+      ["좋음", "지원: 모두\n1곳, 한 트랜잭션에서\n벡터와 키워드 함께 갱신"]]],
+    ["그래프 연결", [["보통", "저장소 사이를\nID로 이어 조회"], ["보통", "같음(검색 결과 ID로\nNeo4j 조회)"],
+      ["좋음", "관계 선 하나,\n쿼리 한 번"], ["좋음", "관계 선 하나,\n쿼리 한 번"]]],
+  ];
+  const chipFill = { 좋음: C.blue, 기준: C.blue, 실측: C.blue, 보통: C.slate, 미측정: C.slate, "채점 중": C.slate, 주의: C.dark };
+  const rhOf = (r) => (rows[r][0].includes("증분") ? rhTall : rhBase);
+  const yOfRow = (r) => yRow0 + rows.slice(0, r).reduce((a, _, k) => a + rhOf(k) + rg, 0);
+  const yEnd = yOfRow(rows.length - 1) + rhOf(rows.length - 1);
+
+  // 열 바탕: 권고 안(1-b, 2)은 파란 테두리로 표시
+  plans.forEach((p, i) => {
+    L.rr(s, { x: cx(i) - 0.05, y: yHead - 0.05, w: cw + 0.1, h: yEnd - yHead + 0.1, fill: C.altRow,
+      line: p.pick ? C.blue : null, lw: 1.5, r: 0.08 });
+    L.card(s, p.name, { x: cx(i), y: yHead, w: cw, h: hHead, fill: p.pick ? C.blue : C.navy, line: null, color: C.white,
+      size: 15, bold: true, r: 0.06 });
+    // 저장소 상자: 상자 폭은 그 안에 든 칩 수에 비례
+    const units = p.stores.reduce((a, st) => a + Math.max(st[1].length, 1), 0);
+    const sg = 0.08, unitW = (cw - sg * (p.stores.length - 1)) / units;
+    let x = cx(i);
+    p.stores.forEach(([name, chips]) => {
+      const w = unitW * chips.length + (chips.length - 1) * 0;
+      L.rr(s, { x, y: yStore, w, h: hStore, fill: C.white, line: C.slate, lw: 1, r: 0.06 });
+      L.text(s, name, { x, y: yStore + 0.04, w, h: 0.34, size: 14, bold: true, color: C.ink, align: "center", margin: 0 });
+      const chW = (w - 0.12 - 0.06 * (chips.length - 1)) / chips.length;
+      chips.forEach((c, k) => L.card(s, c, { x: x + 0.06 + k * (chW + 0.06), y: yStore + 0.44, w: chW, h: 0.34, fill: CHIP[c],
+        line: null, color: C.white, size: 14, bold: true, r: 0.05 }));
+      x += w + sg;
+    });
+  });
+
+  // 비교 줄: 왼쪽 줄 이름 + 칸마다 판정 칩과 한두 줄 설명
+  rows.forEach(([label, cells], r) => {
+    const y = yOfRow(r), rh = rhOf(r);
+    const ops = label.startsWith("운영") || label.startsWith("한국어");
+    L.card(s, label, { x: X0, y, w: labW, h: rh, fill: ops ? C.blue : C.tint, line: ops ? null : C.blue,
+      color: ops ? C.white : C.navy, size: 14, bold: true, r: 0.06 });
+    cells.forEach(([v, t], i) => {
+      L.rr(s, { x: cx(i), y, w: cw, h: rh, fill: C.white, line: C.border, r: 0.05 });
+      const chipW = v.length >= 3 ? 0.86 : 0.62;
+      L.card(s, v, { x: cx(i) + 0.07, y: y + (rh - 0.32) / 2, w: chipW, h: 0.32, fill: chipFill[v], line: null,
+        color: C.white, size: 14, bold: true, r: 0.05 });
+      const tx = { x: cx(i) + chipW + 0.14, y, w: cw - chipW - 0.18, h: rh };
+      if (t.startsWith("지원:")) {
+        // 지원 여부 줄은 굵은 남색으로 먼저 보이게 함
+        const [head, ...rest] = t.split("\n");
+        s.addText([{ text: head, options: { bold: true, color: C.navy, breakLine: true } },
+          { text: rest.join("\n"), options: { color: C.ink } }],
+        { ...tx, fontFace: FONT, fontSize: fs(14), margin: 0, valign: "middle", isTextBox: true });
+      } else {
+        L.text(s, t, { ...tx, size: 14, color: C.ink, margin: 0 });
+      }
+    });
+  });
+
+  band(s, "권고: 한국어 실서비스는 1-b 분리형(검색 엔진)이 정석, 그래프 비중이 크고 규모가 작으면 2 벡터 통합형\n"
+    + "3 전부 통합형은 증분 색인이 가장 단순하지만 한국어 분석기와 필터를 Neo4j에서 직접 만들어야 해 한국어에서는 마지막 선택지",
+  { y: 7.12, h: 0.76, size: 15 });
+  L.text(s, "※ 키워드 색인을 추가와 삭제가 없는 정적 라이브러리(예: bm25s)로 만들면 바뀔 때마다 전체를 다시 만들어야 함(지금 우리 구성)",
+    { x: 0.515, y: 8.029, w: 14.792, h: 0.37, size: 16, color: C.ink, margin: 0 });
+  return s;
+}
+
+// ------------------------------------------------------------------ 별도 장표 2쪽(1-b 분리형의 인덱싱 파이프라인)
+async function createSlidePipeline1b() {
+  const s = L.newSlide({
+    title: "그래프DB 구축: 1-b 분리형(검색 엔진)의 인덱싱 파이프라인",
+    lead: "청킹까지 함께 쓰고 두 갈래로 나눔 — 검색 갈래는 검색 엔진에 문서 단위로 쓰고, KG 갈래는 지금과 같음",
+    notes: "1-b에서 바뀌는 곳은 ③ 청킹 뒤의 검색 갈래뿐임. 지금은 Chroma에 벡터를, bm25s로 BM25 파일을 따로 만들지만, 1-b는 검색 엔진 한 문서에 "
+      + "본문, 벡터, 메타데이터를 함께 넣고 문서 단위로 넣고 고치고 지움. 키워드 분석은 nori와 사용자 사전으로 옮기거나, Kiwi로 미리 나눈 낱말을 "
+      + "공백 분석기로 넣는 두 길이 있음. nori로 옮기면 Kiwi와 결과가 같지 않아 순위 비교 시험이 필요함. "
+      + "KG 갈래는 그대로임. 청크 하나에 제목 단위가 여럿 든 문서는 추출 직전에 청크를 추출 단위(예: 규정은 조항, 매뉴얼은 절)로 나누고, "
+      + "제목 단위가 하나뿐인 문서는 청크를 그대로 씀. 추출 단위 노드와 추출 노드는 Neo4jWriter 한 묶음으로 저장함. "
+      + "세대는 새 인덱스를 만든 뒤 검색 엔진 별칭과 Neo4j 세대를 같은 순간에 바꿔야 하며, 한쪽만 바뀌면 검색 결과의 chunk_id가 그래프에 없게 됨. "
+      + "노드 설명 임베딩을 Neo4j에 둘지 검색 엔진에 둘지는 따로 정할 일임. "
+      + "라이선스: Elasticsearch는 2021년부터 SSPL과 Elastic License 2.0이었고 2024년 8월 말 AGPL v3를 선택지로 더해 다시 오픈소스로 인정됨. "
+      + "OpenSearch는 Elasticsearch 7.10.2에서 갈라진 Apache 2.0 프로젝트이며 2024년 9월부터 리눅스 재단 산하 OpenSearch Software Foundation이 관리함. "
+      + "회사 서비스에 넣을 때는 사내 법무 또는 오픈소스 담당의 확인을 받음.",
+  });
+
+  // 9칸 격자, 네 줄(설계 시, 인덱싱 공통, KG 갈래, 검색 갈래)
+  const laneW = 1.7, gx0 = X0 + laneW + 0.15, gap = 0.15, n = 9;
+  const cw = (X0 + CW - gx0 - gap * (n - 1)) / n;
+  const gx = (i) => gx0 + i * (cw + gap);
+  const span = (k) => k * cw + (k - 1) * gap;
+  // 맨 아래 "추출 단위" 예시 띠를 넣으려고 줄 높이를 조금 줄임
+  const lanes = [
+    { y: 1.86, h: 0.56, t: "설계 시\n(사전 1회)", fill: C.dark },
+    { y: 2.56, h: 0.56, t: "인덱싱 공통\n(매 실행)", fill: C.navy },
+    { y: 3.26, h: 0.62, t: "KG 갈래\n(그대로)", fill: C.navy },
+    { y: 4.02, h: 0.62, t: "검색 갈래\n(1-b에서 바뀜)", fill: C.blue },
+  ];
+  lanes.forEach((ln) => {
+    L.rr(s, { x: gx0 - 0.08, y: ln.y - 0.06, w: X0 + CW - gx0 + 0.08, h: ln.h + 0.12, fill: C.altRow, line: null, r: 0.06 });
+    L.card(s, ln.t, { x: X0, y: ln.y - 0.06, w: laneW, h: ln.h + 0.12, fill: ln.fill, line: null, color: C.white, size: 14,
+      bold: true, r: 0.06 });
+  });
+  const LOOKS = {
+    plain: { fill: C.white, line: C.slate, color: C.ink },
+    key: { fill: C.navy, line: null, color: C.white },
+    changed: { fill: C.blue, line: null, color: C.white },
+    schema: { fill: C.tint, line: C.blue, color: C.navy },
+  };
+  const box = (lane, i, k, t, look = "plain") => {
+    const ln = lanes[lane], st = LOOKS[look];
+    L.card(s, t, { x: gx(i), y: ln.y, w: span(k), h: ln.h, fill: st.fill, line: st.line, color: st.color, size: 14, bold: true,
+      r: 0.08, lw: 1.25 });
+  };
+  const flow = (lane, items) => {
+    items.forEach(([i, k, t, look]) => box(lane, i, k, t, look));
+    const ym = lanes[lane].y + lanes[lane].h / 2;
+    items.slice(0, -1).forEach(([i, k], j) => {
+      const x1 = gx(i) + span(k) + 0.03, x2 = gx(items[j + 1][0]) - 0.03;
+      L.arrow(s, { x1, y1: ym, x2, y2: ym, color: C.slate, width: 1.75 });
+    });
+  };
+  flow(0, [[0, 1, "원천 분석"], [1, 1, "후보 도출"], [2, 1, "3단계 확정\n(사람)"], [4, 2, "GraphSchema 파일\n(버전 관리)", "schema"]]);
+  flow(1, [[0, 1, "로드"], [1, 1, "정제와\n가명처리"], [2, 1, "③ 청킹"]]);
+  flow(2, [[3, 1, "④-1 추출 단위\n나누기"], [4, 1, "④-2 추출", "key"], [5, 1, "가지치기\n(Pruning)", "key"], [6, 1, "KG 저장"],
+    [7, 1, "병합"], [8, 1, "임베딩\n(노드 설명)"]]);
+  flow(3, [[3, 1, "청크 임베딩\n(바뀐 것만)", "changed"], [4, 2, "키워드 분석\n(nori 또는 Kiwi 낱말)", "changed"],
+    [6, 2, "검색 엔진에 쓰기\n(문서 단위로 넣고 지움)", "changed"], [8, 1, "별칭 전환\n(세대)", "changed"]]);
+
+  // GraphSchema 파일 → 추출, 가지치기(점선, 읽어 씀). 인덱싱 공통 줄의 5, 6번째 칸은 비어 있어 선이 상자를 지나지 않음
+  [4, 5].forEach((i) => L.arrow(s, { x1: gx(i) + cw / 2, y1: lanes[0].y + lanes[0].h + 0.02, x2: gx(i) + cw / 2,
+    y2: lanes[2].y - 0.02, color: C.blue, width: 1.5, dash: "dash" }));
+  L.text(s, "읽어 씀", { x: gx(4) + cw / 2 + 0.06, y: lanes[1].y + 0.12, w: 0.9, h: 0.3, size: 14, bold: true, color: C.blue,
+    margin: 0 });
+  L.text(s, "인덱싱은 읽기만 함\n바뀌면 새 세대로 재인덱싱", { x: gx(6) + 0.1, y: lanes[0].y, w: span(3) - 0.1, h: lanes[0].h, size: 14,
+    bold: true, color: C.blue, margin: 0 });
+  L.text(s, "청크는 검색용 크기 그대로\n두 갈래가 함께 씀", { x: gx(6) + 0.1, y: lanes[1].y, w: span(3) - 0.1, h: lanes[1].h, size: 14,
+    color: C.slate, margin: 0 });
+
+  // ③ 청킹에서 두 갈래로: 청킹 오른쪽 → 3번째와 4번째 칸 사이 세로선 → 각 갈래 첫 상자
+  const xs = gx(2) + cw + 0.03, xm = gx(3) - gap / 2 - 0.02;
+  const y2 = lanes[1].y + lanes[1].h / 2, y3 = lanes[2].y + lanes[2].h / 2, y4 = lanes[3].y + lanes[3].h / 2;
+  L.hline(s, { x: xs, y: y2, w: xm - xs, color: C.slate, width: 1.75 });
+  L.arrow(s, { x1: xm, y1: y2, x2: xm, y2: y4, color: C.slate, width: 1.75, head: "none" });
+  [y3, y4].forEach((y) => L.arrow(s, { x1: xm, y1: y, x2: gx(3) - 0.03, y2: y, color: C.slate, width: 1.75 }));
+
+  // 아래: 세대 전환, 검색 때 연결, 라이선스
+  const top = 4.92, bodyY = top + 0.48, bodyB = 7.12;
+  const wL = 4.15, g3 = 0.25, wR = CW - wL * 2 - g3 * 2;
+  const xA = X0, xB = xA + wL + g3, xC = xB + wL + g3;
+  sectionLabel(s, "세대 전환을 함께", { x: xA, y: top, w: wL });
+  L.rr(s, { x: xA, y: bodyY, w: wL, h: bodyB - bodyY, fill: C.white, line: C.border, r: 0.08 });
+  bullets(s, ["새 세대 인덱스를 다 만든 뒤 검색 엔진 별칭과 Neo4j 세대를 같은 순간에 바꿈",
+    "한쪽만 바뀌면 검색 결과의 chunk_id가 그래프에 없게 됨",
+    "증분 색인은 바뀐 문서만 두 곳에 쓰고 맞춤"], { x: xA + 0.18, y: bodyY + 0.14, w: wL - 0.3, h: bodyB - bodyY - 0.24, gap: 8 });
+  sectionLabel(s, "검색 때 그래프로 건너감", { x: xB, y: top, w: wL });
+  L.rr(s, { x: xB, y: bodyY, w: wL, h: bodyB - bodyY, fill: C.white, line: C.border, r: 0.08 });
+  bullets(s, ["검색 엔진이 하이브리드로 청크를 찾음(BM25와 벡터, 회원 필터)",
+    "돌려받은 chunk_id로 Neo4j 추출 단위 노드의 parent_chunk_ids를 찾음",
+    "관계를 따라 질문에 필요한 근거 노드를 얻음"], { x: xB + 0.18, y: bodyY + 0.14, w: wL - 0.3, h: bodyB - bodyY - 0.24,
+    gap: 8 });
+  sectionLabel(s, "검색 엔진 라이선스(2026-10 기준, 둘 다 nori 지원)", { x: xC, y: top, w: wR, fill: C.dark });
+  // 칸마다 세 줄로 줄여 상자 안에 들어가게 함(렌더링에서 넘침 확인 후 고침)
+  const lic = [
+    ["Elasticsearch", "AGPL v3, SSPL, ELv2 중 선택\n2024-08 AGPL 추가로 다시 오픈소스\nAGPL로 고쳐서 서비스하면 소스 공개"],
+    ["OpenSearch", "Apache 2.0(7.10.2에서 갈라짐)\n2024-09부터 리눅스 재단 산하 재단 관리\n고쳐 써도 소스 공개 의무 없음"],
+  ];
+  const lh = 0.8, lg = 0.06;
+  lic.forEach(([name, t], k) => {
+    const y = bodyY + k * (lh + lg);
+    L.rr(s, { x: xC, y, w: wR, h: lh, fill: C.white, line: C.border, r: 0.06 });
+    L.card(s, name, { x: xC + 0.08, y: y + (lh - 0.36) / 2, w: 1.55, h: 0.36, fill: C.navy, line: null, color: C.white, size: 14,
+      bold: true, r: 0.05 });
+    L.text(s, t, { x: xC + 1.72, y, w: wR - 1.8, h: lh, size: 14, color: C.ink, margin: 0 });
+  });
+  // 맨 아래 띠: 추출 단위의 뜻과 예(나누는 경우, 그대로 쓰는 경우)를 도형으로 보여 줌
+  const yE = 7.26, hE = 0.64, mid = yE + hE / 2;
+  L.rr(s, { x: X0, y: yE - 0.04, w: CW, h: hE + 0.08, fill: C.altRow, line: null, r: 0.06 });
+  s.addText([{ text: "추출 단위", options: { bold: true, color: C.navy, breakLine: true } },
+    { text: "LLM에 한 번에 넣는 글 조각", options: { color: C.ink } }],
+  { x: X0 + 0.12, y: yE, w: 2.55, h: hE, fontFace: FONT, fontSize: fs(14), margin: 0, valign: "middle", isTextBox: true });
+  const chip = (t, x, w, look) => L.card(s, t, { x, y: yE + 0.1, w, h: hE - 0.2, ...LOOKS[look], size: 14, bold: true,
+    r: 0.05, lw: 1.25 });
+  const arr = (x1, x2) => L.arrow(s, { x1, y1: mid, x2, y2: mid, color: C.slate, width: 1.75 });
+  // 예 1: 청크 하나에 제목 단위가 여럿 → 나눠서 여러 번 추출
+  let ex = X0 + 2.75;
+  chip("예 1) 약관 청크 A\n조항 3개가 함께 듦", ex, 2.05, "plain");
+  arr(ex + 2.08, ex + 2.3);
+  ex += 2.33;
+  ["제33조", "제34조", "제34조의2"].forEach((t, k) => chip(t, ex + k * 1.06, 1.0, "schema"));
+  arr(ex + 3.15, ex + 3.37);
+  chip("LLM 3번 추출", ex + 3.4, 1.35, "key");
+  // 예 2: 청크 하나가 한 건 → 그대로 한 번 추출
+  ex += 3.4 + 1.35 + 0.25;
+  chip("예 2) 상담 청크 B\n상담 1건", ex, 1.8, "plain");
+  arr(ex + 1.83, ex + 2.05);
+  chip("그대로", ex + 2.08, 0.8, "schema");
+  arr(ex + 2.91, ex + 3.13);
+  chip("LLM 1번 추출", ex + 3.16, X0 + CW - (ex + 3.16) - 0.1, "key");
+  return s;
+}
+
 // 출처 줄: 구분선 + 한 줄(가이드 3절 ⑤⑥). 링크가 있으면 글자에 하이퍼링크를 붙임
 function sourceLine(s, prefix, links = []) {
   L.hline(s, { x: X0, y: 8.08, w: CW, color: C.footLine, width: 1 });
@@ -1028,6 +1376,13 @@ async function main() {
   // ONLY=schema: 7가지 장표만 한 장짜리 덱으로 만듦(사용자가 직접 고친 덱을 덮어쓰지 않고 붙여 넣게 하려는 용도)
   if (process.env.ONLY === "schema") {
     await createSlideSchema();
+  } else if (process.env.ONLY === "storecompare") {
+    // 그래프DB 구축 저장소 구성 비교(별도 파일): 1쪽 4가지 안 비교, 2쪽 1-b 인덱싱 파이프라인
+    await createSlideStoreCompare();
+    await createSlidePipeline1b();
+  } else if (process.env.ONLY === "docprompt") {
+    // v11: 사용자가 덱을 직접 고치는 중이라 소스 문서 프롬프트 장표 1장만 따로 만들어 끝에 붙임
+    await createSlideDocPrompt();
   } else if (process.env.ONLY === "steps") {
     // v10: 사용자가 덱을 직접 고치는 중이라 단계별 예시 6장만 따로 만들어 붙여 넣게 함
     for (const f of [createStep1, createStep2, createStep3, createStep4a, createStep4b, createStep5]) await f();  // v10: 단계별 예시
