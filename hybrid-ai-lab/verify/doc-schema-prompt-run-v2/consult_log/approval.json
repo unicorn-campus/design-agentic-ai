@@ -1,0 +1,509 @@
+{
+  "doc": "consult_log",
+  "approver": "사용자 승인(2026-10-24 '나안으로 해요. 약관과 상담 기록 모두 미달 사유를 적고 9단계 확정해 주세요.'), 합격 기준 미달 상태로 확정",
+  "approved_at": "2026-10-24 00:32",
+  "input_sha256": {
+    "competency_questions.md": "65080d085c82b0f1aaae19db67523eb96ca362a5f79a8f806ee68902b1176d18",
+    "sample_plan.json": "8339fff60b5503826dc16cf2329139aa4df944bfb21bff6b19890fc0538a8ff2",
+    "decisions.json": "a2f94180e9d7835687c2e087bfa90ab124002362dd8068385daaf7be1a9e87e7",
+    "consult_log/expected_answers.json": "5b1b6cfea12c5b2fa5a22f486b81e64d837f907ecd533d6a12038edb3c27831d",
+    "shared_concepts.json": "3a463d49fb5980ba34ac5be33edf6dc554b4a41a8275bc6257ceb6dc09a79d3f",
+    "consult_log/schema_spec.json": "c7cbbc090f62a11e02cd3798d9c3c3067c86a7ec0b4acd5957ac6435359f7e88",
+    "pass_criteria.json": "ced68c19d8c7116b192214fd8b93d618214a652554b8b675d3cfde98d9a5e865",
+    "output/measure_avg.json": "9c39af46cd5dc0a0acc447b60ecf7d8edb8563f57cd8bb712210825e16bdfd45"
+  },
+  "last_metrics": {
+    "round": "5m2",
+    "metrics": {
+      "C1": {
+        "pos": 8,
+        "hit": 8,
+        "neg": 10,
+        "fp": 3,
+        "same": 8,
+        "recall": 1.0,
+        "fp_rate": 0.3,
+        "match": 1.0,
+        "pass": false
+      },
+      "C2": {
+        "pos": 18,
+        "hit": 17,
+        "neg": 0,
+        "fp": 0,
+        "same": 17,
+        "recall": 0.9444444444444444,
+        "fp_rate": null,
+        "match": 1.0,
+        "pass": true
+      },
+      "C3": {
+        "pos": 18,
+        "hit": 17,
+        "neg": 0,
+        "fp": 0,
+        "same": 17,
+        "recall": 0.9444444444444444,
+        "fp_rate": null,
+        "match": 1.0,
+        "pass": true
+      },
+      "C4": {
+        "pos": 8,
+        "hit": 6,
+        "neg": 10,
+        "fp": 0,
+        "same": 6,
+        "recall": 0.75,
+        "fp_rate": 0.0,
+        "match": 1.0,
+        "pass": false
+      },
+      "C5": {
+        "pos": 14,
+        "hit": 14,
+        "neg": 4,
+        "fp": 0,
+        "same": 14,
+        "recall": 1.0,
+        "fp_rate": 0.0,
+        "match": 1.0,
+        "pass": true
+      },
+      "X1": {
+        "pos": 9,
+        "hit": 8,
+        "neg": 9,
+        "fp": 3,
+        "same": 6,
+        "recall": 0.8888888888888888,
+        "fp_rate": 0.3333333333333333,
+        "match": 0.75,
+        "pass": false
+      },
+      "X2": {
+        "pos": 18,
+        "hit": 14,
+        "neg": 0,
+        "fp": 0,
+        "same": 14,
+        "recall": 0.7777777777777778,
+        "fp_rate": null,
+        "match": 1.0,
+        "pass": false
+      },
+      "A1": {
+        "pos": 8,
+        "hit": 7,
+        "neg": 10,
+        "fp": 3,
+        "same": 6,
+        "recall": 0.875,
+        "fp_rate": 0.3,
+        "match": 0.8571428571428571,
+        "pass": false
+      },
+      "A2": {
+        "pos": 18,
+        "hit": 17,
+        "neg": 0,
+        "fp": 0,
+        "same": 11,
+        "recall": 0.9444444444444444,
+        "fp_rate": null,
+        "match": 0.6470588235294118,
+        "pass": true
+      }
+    },
+    "usage": {
+      "queue_time": 3.9015137729999996,
+      "prompt_tokens": 73632,
+      "prompt_time": 2.711906312,
+      "completion_tokens": 41721,
+      "completion_time": 104.31072785900004,
+      "total_tokens": 115353,
+      "total_time": 107.02263417100002
+    },
+    "all_pass": false
+  },
+  "draft_counts": {
+    "node_types": 10,
+    "relationship_types": 11,
+    "patterns": 12,
+    "constraints": 7
+  },
+  "reread_counts": {
+    "node_types": 10,
+    "relationship_types": 11,
+    "patterns": 12,
+    "constraints": 7
+  },
+  "reread_same": true,
+  "below_criteria": {
+    "failed": [
+      "C1",
+      "X1",
+      "X2",
+      "A1"
+    ],
+    "reason": "C1, X1, A1: 불만이 없는 상담 C-20260407-019, C-20260701-030에서 세 번 모두 불만을 뽑음(설명의 비해당 예를 모델이 따르지 않음). Q23(다중카드 고객군은 불만 없음) 답에 영향 가능. X2: 카드 이름 뽑음 평균 78%"
+  },
+  "last_metrics_basis": "fill_metrics는 마지막 측정(5m2) 한 번의 값. 판정은 5라운드, 5m1, 5m2 세 번 평균(average_metrics)",
+  "average_metrics": {
+    "C1": {
+      "runs_pass": [
+        true,
+        false,
+        false
+      ],
+      "runs": {
+        "5": {
+          "recall": 1.0,
+          "fp_rate": 0.2,
+          "match": 0.875
+        },
+        "5m1": {
+          "recall": 1.0,
+          "fp_rate": 0.3,
+          "match": 1.0
+        },
+        "5m2": {
+          "recall": 1.0,
+          "fp_rate": 0.3,
+          "match": 1.0
+        }
+      },
+      "recall": 1.0,
+      "fp_rate": 0.26666666666666666,
+      "match": 0.9583333333333334,
+      "pass_avg": false,
+      "pos": 24,
+      "hit": 24,
+      "neg": 30,
+      "fp": 8,
+      "same": 23
+    },
+    "C2": {
+      "runs_pass": [
+        true,
+        true,
+        true
+      ],
+      "runs": {
+        "5": {
+          "recall": 0.9444444444444444,
+          "fp_rate": null,
+          "match": 1.0
+        },
+        "5m1": {
+          "recall": 1.0,
+          "fp_rate": null,
+          "match": 1.0
+        },
+        "5m2": {
+          "recall": 0.9444444444444444,
+          "fp_rate": null,
+          "match": 1.0
+        }
+      },
+      "recall": 0.9629629629629629,
+      "fp_rate": null,
+      "match": 1.0,
+      "pass_avg": true,
+      "pos": 54,
+      "hit": 52,
+      "neg": 0,
+      "fp": 0,
+      "same": 52
+    },
+    "C3": {
+      "runs_pass": [
+        true,
+        true,
+        true
+      ],
+      "runs": {
+        "5": {
+          "recall": 0.9444444444444444,
+          "fp_rate": null,
+          "match": 1.0
+        },
+        "5m1": {
+          "recall": 1.0,
+          "fp_rate": null,
+          "match": 1.0
+        },
+        "5m2": {
+          "recall": 0.9444444444444444,
+          "fp_rate": null,
+          "match": 1.0
+        }
+      },
+      "recall": 0.9629629629629629,
+      "fp_rate": null,
+      "match": 1.0,
+      "pass_avg": true,
+      "pos": 54,
+      "hit": 52,
+      "neg": 0,
+      "fp": 0,
+      "same": 52
+    },
+    "C4": {
+      "runs_pass": [
+        true,
+        true,
+        false
+      ],
+      "runs": {
+        "5": {
+          "recall": 1.0,
+          "fp_rate": 0.0,
+          "match": 1.0
+        },
+        "5m1": {
+          "recall": 1.0,
+          "fp_rate": 0.0,
+          "match": 1.0
+        },
+        "5m2": {
+          "recall": 0.75,
+          "fp_rate": 0.0,
+          "match": 1.0
+        }
+      },
+      "recall": 0.9166666666666666,
+      "fp_rate": 0.0,
+      "match": 1.0,
+      "pass_avg": true,
+      "pos": 24,
+      "hit": 22,
+      "neg": 30,
+      "fp": 0,
+      "same": 22
+    },
+    "C5": {
+      "runs_pass": [
+        true,
+        true,
+        true
+      ],
+      "runs": {
+        "5": {
+          "recall": 1.0,
+          "fp_rate": 0.0,
+          "match": 1.0
+        },
+        "5m1": {
+          "recall": 1.0,
+          "fp_rate": 0.0,
+          "match": 1.0
+        },
+        "5m2": {
+          "recall": 1.0,
+          "fp_rate": 0.0,
+          "match": 1.0
+        }
+      },
+      "recall": 1.0,
+      "fp_rate": 0.0,
+      "match": 1.0,
+      "pass_avg": true,
+      "pos": 42,
+      "hit": 42,
+      "neg": 12,
+      "fp": 0,
+      "same": 42
+    },
+    "X1": {
+      "runs_pass": [
+        false,
+        false,
+        false
+      ],
+      "runs": {
+        "5": {
+          "recall": 0.8888888888888888,
+          "fp_rate": 0.2222222222222222,
+          "match": 0.75
+        },
+        "5m1": {
+          "recall": 0.8888888888888888,
+          "fp_rate": 0.3333333333333333,
+          "match": 0.875
+        },
+        "5m2": {
+          "recall": 0.8888888888888888,
+          "fp_rate": 0.3333333333333333,
+          "match": 0.75
+        }
+      },
+      "recall": 0.8888888888888888,
+      "fp_rate": 0.2962962962962963,
+      "match": 0.7916666666666666,
+      "pass_avg": false,
+      "pos": 27,
+      "hit": 24,
+      "neg": 27,
+      "fp": 8,
+      "same": 19
+    },
+    "X2": {
+      "runs_pass": [
+        false,
+        true,
+        false
+      ],
+      "runs": {
+        "5": {
+          "recall": 0.7222222222222222,
+          "fp_rate": null,
+          "match": 1.0
+        },
+        "5m1": {
+          "recall": 0.8333333333333334,
+          "fp_rate": null,
+          "match": 1.0
+        },
+        "5m2": {
+          "recall": 0.7777777777777778,
+          "fp_rate": null,
+          "match": 1.0
+        }
+      },
+      "recall": 0.7777777777777778,
+      "fp_rate": null,
+      "match": 1.0,
+      "pass_avg": false,
+      "pos": 54,
+      "hit": 42,
+      "neg": 0,
+      "fp": 0,
+      "same": 42
+    },
+    "A1": {
+      "runs_pass": [
+        true,
+        false,
+        false
+      ],
+      "runs": {
+        "5": {
+          "recall": 0.875,
+          "fp_rate": 0.2,
+          "match": 1.0
+        },
+        "5m1": {
+          "recall": 0.875,
+          "fp_rate": 0.3,
+          "match": 1.0
+        },
+        "5m2": {
+          "recall": 0.875,
+          "fp_rate": 0.3,
+          "match": 0.8571428571428571
+        }
+      },
+      "recall": 0.875,
+      "fp_rate": 0.26666666666666666,
+      "match": 0.9523809523809523,
+      "pass_avg": false,
+      "pos": 24,
+      "hit": 21,
+      "neg": 30,
+      "fp": 8,
+      "same": 20
+    },
+    "A2": {
+      "runs_pass": [
+        true,
+        true,
+        true
+      ],
+      "runs": {
+        "5": {
+          "recall": 0.8888888888888888,
+          "fp_rate": null,
+          "match": 0.625
+        },
+        "5m1": {
+          "recall": 0.8888888888888888,
+          "fp_rate": null,
+          "match": 0.625
+        },
+        "5m2": {
+          "recall": 0.9444444444444444,
+          "fp_rate": null,
+          "match": 0.6470588235294118
+        }
+      },
+      "recall": 0.9074074074074074,
+      "fp_rate": null,
+      "match": 0.6326530612244898,
+      "pass_avg": true,
+      "pos": 54,
+      "hit": 49,
+      "neg": 0,
+      "fp": 0,
+      "same": 31
+    }
+  },
+  "llm": "Groq openai/gpt-oss-120b(시험과 인덱싱이 같은 모델이어야 함)",
+  "metadata_header": [
+    "record_id",
+    "consult_date",
+    "channel"
+  ],
+  "indexer_code_rules": {
+    "shared_name_rule": "Topic 15개, MerchantCategory 18개, ProposalTrait 6개 목록에서만. 띄어쓰기를 뺀 꼴로 합침",
+    "metadata_nodes": {
+      "CustomerSegment": {
+        "doc": "consult_log",
+        "field": "source",
+        "rule": "^D3_S\\d+_([^_]+)_",
+        "rel": "IN_SEGMENT"
+      },
+      "PseudoMember": {
+        "doc": "consult_log",
+        "field": "member_pseudo_id",
+        "rel": "OF_MEMBER"
+      },
+      "Topic(상담 주제)": {
+        "doc": "consult_log",
+        "field": "topic",
+        "rel": "HAS_TOPIC",
+        "map": {
+          "연회비 대비 가치": "연회비",
+          "혜택 불일치": "부가서비스와 포인트",
+          "생활비 절약": "부가서비스와 포인트",
+          "앱 인증 불편 완화": "본인 인증과 보안",
+          "광고 알림 누적": "통지와 광고",
+          "민원 처리 경과 부재": "민원과 이의 처리",
+          "명세서 항목 이해": "명세서와 결제",
+          "가전 구매 주기": "할부",
+          "의심 문자 확인": "분실과 부정 사용",
+          "타사 관리 절차 비교": "해지",
+          "카드 중복": "발급과 카드 관리",
+          "우편 주소 수정": "개인정보와 회원 정보"
+        }
+      },
+      "FOLLOWS": {
+        "doc": "consult_log",
+        "rule": "같은 member_pseudo_id의 상담을 consult_date 순으로 이음",
+        "rel": "FOLLOWS"
+      }
+    },
+    "reference_node": "Product는 상품 이름으로 정형 Product.product_name을 찾아 product_id를 채움",
+    "vocabulary_enforcement": {
+      "labels": [
+        "Topic",
+        "MerchantCategory",
+        "ProposalTrait"
+      ],
+      "rule": "이름(띄어쓰기를 뺀 꼴)이 대표 이름 목록에 없으면 그 노드와 관계를 지움(4라운드 라4)"
+    },
+    "llm_excluded": "CustomerSegment, PseudoMember, IN_SEGMENT, OF_MEMBER, HAS_TOPIC, FOLLOWS는 LLM 추출 스키마에서 빼고 코드가 채움",
+    "note": "이 규칙은 설명이 아니라 인덱서 코드가 해야 함. GraphRAG v0에는 아직 없음"
+  },
+  "test_rounds": "8단계 5라운드 + 측정 2번. 기록은 review/step8*.md"
+}

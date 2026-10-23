@@ -1,0 +1,1019 @@
+{
+  "doc": "consult_log",
+  "dropped_excluded": [],
+  "answers": {
+    "D3_C-20260314-001_ecda468c4130fd63_0000": {
+      "C1": {
+        "answer": "본인 확인을 끝내려 해도 같은 요청 화면으로 계속 되돌아간다는 점이에요",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "혼자 반복해서 누르지 마시고 공식 도움 경로로 문의해 보시는 건 어떠세요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "수용 / 혼자 계속 눌러봐도 똑같이 막혀서 지쳤거든요",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "없음",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "없음",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "주제: 본인 인증과 보안 / 업종: 없음",
+        "location": "C-20260314-001, 고객: 제일 불편한 건 본인 확인을 끝내려 해도 같은 요청 화면으로 계속 되돌아간다는 점이에요.",
+        "source": "LLM 초안"
+      },
+      "X2": {
+        "answer": "한빛 가족돌봄 카드",
+        "location": "C-20260314-001, 상담사: ‘반복 인증을 본인 실수로 걱정’ 내용을 한빛 가족돌봄 카드 상담으로 기록하겠습니다.",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "본인 인증과 보안",
+        "location": "C-20260314-001, 고객: 제일 불편한 건 본인 확인을 끝내려 해도 같은 요청 화면으로 계속 되돌아간다는 점이에요.",
+        "source": "LLM 초안"
+      },
+      "A2": {
+        "answer": "수용: 고객 할 일 증가 / 거절: 없음",
+        "location": "C-20260314-001, 상담사: 혼자 반복해서 누르지 마시고 공식 도움 경로로 문의해 보시는 건 어떠세요? / 고객: 그렇게 할게요.",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260707-006_f715b867ebf8cbf7_0000": {
+      "C1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "원거래와 취소 내역을 찾는 경로를 이메일로 정리해 보내 드릴까요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "수용 / 전화로 들으면 금방 잊어버려서 적힌 게 좋아요",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "없음",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260501-003",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause, proposal, proposal_decision, proposal_reason",
+        "source": "AI가 정답표로 고침"
+      },
+      "X2": {
+        "answer": "한빛 가족돌봄 카드",
+        "location": "C-20260707-006",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "없음",
+        "location": "",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "A2": {
+        "answer": "수용: 글로 남는 안내",
+        "location": "정답표 complaint_cause, proposal, proposal_decision, proposal_reason",
+        "source": "AI가 정답표로 고침"
+      }
+    },
+    "D3_C-20260501-003_e2df5e2eba417fa3_0000": {
+      "C1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "종이 영수증을 찾아서 거래 시점과 맞춰 보시는 건 어떠세요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "거절 / 온라인 주문이라 받은 종이가 아예 없거든요",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "그래도 안 맞으면 다음 명세서 나올 때 다시 문의할게요",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260302-002",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "없음",
+        "location": "record_id: C-20260501-003",
+        "source": "2라운드 고침(업종 대표 이름)"
+      },
+      "X2": {
+        "answer": "한빛 가족돌봄 카드",
+        "location": "record_id: C-20260501-003",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "없음",
+        "location": "",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "A2": {
+        "answer": "거절: 고객 할 일 증가",
+        "location": "정답표 proposal, proposal_decision",
+        "source": "4라운드 고침(기대 답 오류)"
+      }
+    },
+    "D3_C-20260526-007_e3a02b7b27b3c220_0000": {
+      "C1": {
+        "answer": "왜 기다려야 하는지 아무도 말해 주지 않는 게 불만이에요.",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "민원을 새로 접수해서 처음부터 다시 진행해 보시는 건 어떠세요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "거절 / 처음부터 다시 설명하면 더 늦어질 것 같아서요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "답이 오면 그때 다시 생각할게요.",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260407-007",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "주제: 민원과 이의 처리 / 업종: 없음",
+        "location": "record_id: C-20260526-007",
+        "source": "LLM 초안"
+      },
+      "X2": {
+        "answer": "한빛 살림시간 카드",
+        "location": "record_id: C-20260526-007",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "민원과 이의 처리",
+        "location": "record_id: C-20260526-007",
+        "source": "LLM 초안"
+      },
+      "A2": {
+        "answer": "수용: 없음 / 거절: 고객 할 일 증가",
+        "location": "record_id: C-20260526-007",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260402-002_720181a92cfa824e_0000": {
+      "C1": {
+        "answer": "실적을 못 채우면 혜택이 사라지는 구조가 불만이에요.",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "실적을 채웠는지 알려 주는 알림이 있는지 확인해 안내드릴까요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "거절 / 알림이 와도 결국 제가 금액을 맞춰야 하니까요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "다음 명세서를 보고 다시 판단할게요.",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260302-001",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "주제: 부가서비스와 포인트 / 업종: 없음",
+        "location": "정답표 complaint_cause, proposal, proposal_decision, proposal_reason",
+        "source": "AI가 정답표로 고침"
+      },
+      "X2": {
+        "answer": "한빛 살림시간 카드",
+        "location": "record_id: C-20260402-002",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "부가서비스와 포인트",
+        "location": "정답표 complaint_cause, proposal, proposal_decision, proposal_reason",
+        "source": "AI가 정답표로 고침"
+      },
+      "A2": {
+        "answer": "거절: 소비 증가 필요",
+        "location": "정답표 complaint_cause, proposal, proposal_decision, proposal_reason",
+        "source": "AI가 정답표로 고침"
+      }
+    },
+    "D3_C-20260407-007_d8d4b0dbad84a613_0000": {
+      "C1": {
+        "answer": "접수만 해 놓고 아무도 설명을 안 해 주는 게 불만이에요.",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "진행 상황을 전화로 알려 드리는 방법도 있는데 그렇게 해 보시겠어요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "거절 / 업무 중에는 못 받으니 글로 확인하고 싶어요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "없음",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "없음",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "주제: 민원과 이의 처리 / 업종: 없음",
+        "location": "고객: 접수만 해 놓고 아무도 설명을 안 해 주는 게 불만이에요.",
+        "source": "LLM 초안"
+      },
+      "X2": {
+        "answer": "한빛 살림시간",
+        "location": "상담사: 이번 요청에 대해 ‘경과 설명 요청’ 내용을 한빛 살림시간 카드 상담으로 기록하였습니다.",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "민원과 이의 처리",
+        "location": "고객: 접수만 해 놓고 아무도 설명을 안 해 주는 게 불만이에요.",
+        "source": "LLM 초안"
+      },
+      "A2": {
+        "answer": "수용: 글로 남는 안내, 고객이 요청한 방식 / 거절: 말로만 안내",
+        "location": "상담사: 진행 상황을 전화로 알려 드리는 방법도 있는데 그렇게 해 보시겠어요?; 상담사: 공식 문의 채널에서 서면 답변을 요청하는 방법을 안내하겠습니다.; 상담사: 후속 안내는 요청하신 방식(다음 자발적 문의)을 기준으로 남겼습니다.",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260407-019_f27cc5eec71190a9_0000": {
+      "C1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "매장에 영수증을 다시 받아 보시는 건 어떠세요? 요청에 필요한 정보는 안내드릴게요.",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "거절 / 종이 영수증은 이미 버려서 설명하기 번거로워요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "없음",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260318-013",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "없음",
+        "location": "record_id C-20260407-019",
+        "source": "2라운드 고침(업종 대표 이름)"
+      },
+      "X2": {
+        "answer": "한빛 사업기본 카드",
+        "location": "record_id C-20260407-019",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "없음",
+        "location": "",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "A2": {
+        "answer": "거절: 고객 할 일 증가",
+        "location": "record_id C-20260407-019",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260602-020_548c8991e9f72d00_0000": {
+      "C1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "이용내역을 매달 앱으로 받아 보시는 설정은 어떠세요? 신청 방법을 안내드릴게요.",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "거절 / 파일을 지워서 다시 받는 것뿐이고 결제 불편은 없어요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "없음",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260526-017",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "없음",
+        "location": "record_id: C-20260602-020",
+        "source": "LLM 초안"
+      },
+      "X2": {
+        "answer": "한빛 사업기본 카드",
+        "location": "record_id: C-20260602-020",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "없음",
+        "location": "",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "A2": {
+        "answer": "수용: 고객 할 일 없음 / 거절: 고객 할 일 증가",
+        "location": "record_id: C-20260602-020",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260626-011_f23a684874231f8d_0000": {
+      "C1": {
+        "answer": "조건이 바뀔 때마다 신청 방법을 다시 확인해야 하는 점이 불만이에요.",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "번거로운 신청을 한 번에 묶어 설정하는 방법이 있는지 확인해 드릴까요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "보류 / 지금은 타사 조건부터 보고 싶어요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "다음 명세서를 받아 본 뒤에 정할게요.",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260410-016",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "주제: 부가서비스와 포인트 / 업종: 없음",
+        "location": "정답표 complaint_cause, proposal, proposal_decision, proposal_reason",
+        "source": "AI가 정답표로 고침"
+      },
+      "X2": {
+        "answer": "한빛 사업기본 카드",
+        "location": "상담사: 앞선 기록과 연결하고, 이번에는 ‘타사 검토 구체화’ 내용으로 한빛 사업기본 카드 상담 기록에 정리하겠습니다.",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "부가서비스와 포인트",
+        "location": "정답표 complaint_cause, proposal, proposal_decision, proposal_reason",
+        "source": "AI가 정답표로 고침"
+      },
+      "A2": {
+        "answer": "보류: 고객 할 일 증가, 말로만 안내",
+        "location": "상담사: 번거로운 신청을 한 번에 묶어 설정하는 방법이 있는지 확인해 드릴까요?",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260607-024_1e956856432056da_0000": {
+      "C1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "명세서를 전자 수신으로 바꾸면 주소 걱정이 줄어드는데, 신청해 보시겠어요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "보류 / 옛집으로 간 우편이 먼저 걱정돼서요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "발송 기록을 확인한 다음에 정할게요.",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260402-018",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "없음",
+        "location": "고객: 옛 주소로 발송된 우편이 있는지는 어디서 보나요?",
+        "source": "2라운드 고침(업종 대표 이름)"
+      },
+      "X2": {
+        "answer": "한빛 가족돌봄 카드",
+        "location": "‘주소 변경 전 우편 발송 확인’ 내용으로 한빛 가족돌봄 카드 상담 기록에 정리하겠습니다.",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "없음",
+        "location": "",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "A2": {
+        "answer": "수용: 고객이 요청한 방식 / 거절: 고객 할 일 증가",
+        "location": "상담사: 명세서를 전자 수신으로 바꾸면 주소 걱정이 줄어드는데, 신청해 보시겠어요? / 고객: 안내 방식은 여전히 영업점 안내가 편해요. 서류를 보면서 한 항목씩 확인하고 싶어요.",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260310-018_bcd33f7f4defe9e9_0000": {
+      "C1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "앱에서 본인 인증하고 수령지를 직접 바꾸시는 방법으로 안내드릴까요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "수용 / 집에서 바로 할 수 있는 쪽이 편해서요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "없음",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "없음",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause, proposal, proposal_decision, proposal_reason",
+        "source": "AI가 정답표로 고침"
+      },
+      "X2": {
+        "answer": "한빛 가족돌봄 카드",
+        "location": "record_id: C-20260310-018 | consult_date: 2026-03-10 | channel: 앱 채팅",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "없음",
+        "location": "",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "A2": {
+        "answer": "수용: 고객이 요청한 방식",
+        "location": "정답표 complaint_cause, proposal, proposal_decision, proposal_reason",
+        "source": "AI가 정답표로 고침"
+      }
+    },
+    "D3_C-20260814-025_1924f11d00681b19_0000": {
+      "C1": {
+        "answer": "필요한 업무 안내까지 광고에 묻혀 버리는 게 불편한 이유예요.",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "광고 수신을 한 번에 끄는 설정으로 바꿔 드릴지 지금 정해 보시겠어요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "보류 / 한 번에 끄면 놓치는 안내가 있을까 봐서요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "다음 달 알림이 줄어드는지 보고 다시 정할게요.",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260514-020",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "주제: 통지와 광고 / 업종: 없음",
+        "location": "고객: 필요한 업무 안내까지 광고에 묻혀 버리는 게 불편한 이유예요.",
+        "source": "LLM 초안"
+      },
+      "X2": {
+        "answer": "한빛 가족돌봄 카드",
+        "location": "상담사: 앞선 기록과 연결하고, 이번에는 ‘이용 편의 재검토’ 내용으로 한빛 가족돌봄 카드 상담 기록에 정리하겠습니다.",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "통지와 광고",
+        "location": "고객: 필요한 업무 안내까지 광고에 묻혀 버리는 게 불편한 이유예요.",
+        "source": "LLM 초안"
+      },
+      "A2": {
+        "answer": "수용: 없음 / 거절: 고객 할 일 증가",
+        "location": "상담사: 광고 수신을 한 번에 끄는 설정으로 바꿔 드릴지 지금 정해 보시겠어요?",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260710-030_0192b7b696c5a803_0000": {
+      "C1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "정리하실 카드를 해지하는 대신 역할이 다른 카드로 바꿔 보시는 건 어떠세요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "거절 / 지금은 카드 수를 늘리고 싶지 않아서요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "연결된 결제 확인이 끝나면 그때 신청할게요.",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260614-029",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "없음",
+        "location": "record_id: C-20260710-030",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "X2": {
+        "answer": "한빛 하늘여정 카드 / 한빛 자유여행 카드",
+        "location": "record_id: C-20260710-030",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "없음",
+        "location": "",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "A2": {
+        "answer": "수용: 없음 / 거절: 고객 할 일 증가",
+        "location": "record_id: C-20260710-030",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260322-025_36f64f5d75789498_0000": {
+      "C1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "앱에서 결제 알림을 켜 두시는 건 어떠세요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "수용 / 문자를 믿지 않고 앱에서 직접 보면 되니까요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "없음",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "없음",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "없음",
+        "location": "C-20260322-025",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "X2": {
+        "answer": "한빛 살림시간 카드",
+        "location": "C-20260322-025",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "없음",
+        "location": "",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "A2": {
+        "answer": "수용: 고객 할 일 증가 / 거절: 없음",
+        "location": "C-20260322-025",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260701-030_a342144b2eb166ec_0000": {
+      "C1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "낯선 문자가 오면 앱 채팅으로 먼저 보내 확인해 보시는 건 어떠세요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "수용 / 보안 질문을 자주 하면 불편한 고객으로 보일까 봐 망설였거든요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "없음",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260626-023",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "없음",
+        "location": "C-20260701-030",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "X2": {
+        "answer": "한빛 살림시간 카드",
+        "location": "C-20260701-030",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "없음",
+        "location": "",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "A2": {
+        "answer": "수용: 고객이 요청한 방식 / 거절: 없음",
+        "location": "C-20260701-030",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260507-035_d4f6b979afb06278_0000": {
+      "C1": {
+        "answer": "제가 쓰는 주문 앱만 할인에서 빠지는 게 제일 불만이에요.",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "할인되는 다른 주문 앱으로 옮겨 보시는 건 어떠세요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "거절 / 주문 목록과 배송 주소를 처음부터 다시 등록해야 해서요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "없음",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260414-033",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "주제: 부가서비스와 포인트 / 업종: 간편결제",
+        "location": "정답표 complaint_cause",
+        "source": "5라운드 고침(불만 원인 대상만)"
+      },
+      "X2": {
+        "answer": "한빛 반려동행 카드",
+        "location": "C-20260507-035",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "부가서비스와 포인트",
+        "location": "정답표 complaint_cause",
+        "source": "5라운드 고침(불만 원인 대상만)"
+      },
+      "A2": {
+        "answer": "수용: 없음 / 거절: 고객 할 일 증가",
+        "location": "C-20260507-035",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260418-035_21996089fcb8a7a2_0000": {
+      "C1": {
+        "answer": "없음",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "마트 결제는 영수증으로 품목을 나눠 적어 보시는 건 어떠세요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "수용 / 마트에서는 식료품과 생활용품을 같이 사서 분류가 섞여서요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "없음",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260301-035",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "주제: 없음 / 업종: 장보기와 마트",
+        "location": "고객: 마트 결제를 따로 묶고 싶어요.",
+        "source": "2라운드 고침(업종 대표 이름)"
+      },
+      "X2": {
+        "answer": "한빛 반려동행 카드",
+        "location": "상담사: 앞선 기록과 연결하고, 이번에는 ‘품목별 가계부 분류 문의’ 내용으로 한빛 반려동행 카드 상담 기록에 정리하겠습니다.",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "없음",
+        "location": "",
+        "source": "AI가 C1과 맞춤(불만 없음)"
+      },
+      "A2": {
+        "answer": "수용: 고객 할 일 증가, 말로만 안내 / 거절: 없음",
+        "location": "상담사: 카드는 그대로 두시고, 마트 결제는 영수증으로 품목을 나눠 적어 보시는 건 어떠세요?",
+        "source": "LLM 초안"
+      }
+    },
+    "D3_C-20260630-032_6fbc727378aef6b8_0000": {
+      "C1": {
+        "answer": "장보기 할인이 제 주문 방식에서는 계속 빠지는 게 가장 큰 불만이에요.",
+        "location": "정답표 complaint_cause",
+        "source": "기존 정답표"
+      },
+      "C2": {
+        "answer": "장보기에 맞는 다른 결제 수단을 같이 비교해 보시겠어요?",
+        "location": "정답표 proposal",
+        "source": "기존 정답표"
+      },
+      "C3": {
+        "answer": "보류 / 다른 결제는 각각 용도가 있어서요.",
+        "location": "정답표 proposal_decision, proposal_reason",
+        "source": "기존 정답표"
+      },
+      "C4": {
+        "answer": "다음 명세서가 나오면 다시 볼게요.",
+        "location": "정답표 hold_condition",
+        "source": "기존 정답표"
+      },
+      "C5": {
+        "answer": "C-20260507-035",
+        "location": "정답표 previous_record_id",
+        "source": "기존 정답표"
+      },
+      "X1": {
+        "answer": "주제: 부가서비스와 포인트 / 업종: 장보기와 마트",
+        "location": "record C-20260630-032",
+        "source": "2라운드 고침(업종 대표 이름)"
+      },
+      "X2": {
+        "answer": "한빛 반려동행 카드",
+        "location": "record C-20260630-032",
+        "source": "LLM 초안"
+      },
+      "A1": {
+        "answer": "부가서비스와 포인트",
+        "location": "record C-20260630-032",
+        "source": "LLM 초안"
+      },
+      "A2": {
+        "answer": "거절: 고객 할 일 증가, 글로 남는 안내",
+        "location": "record C-20260630-032",
+        "source": "LLM 초안"
+      }
+    }
+  },
+  "consistency_fixes": [
+    {
+      "chunk_id": "D3_C-20260707-006_f715b867ebf8cbf7_0000",
+      "q": "A1",
+      "before": "고객: 명세서에서 취소한 결제도 보이네요.",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260501-003_e2df5e2eba417fa3_0000",
+      "q": "A1",
+      "before": "민원과 이의 처리",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260501-003_e2df5e2eba417fa3_0000",
+      "q": "X1",
+      "before": "주제: 민원과 이의 처리 / 업종: 매장",
+      "after": "주제: 없음 / 업종: 매장"
+    },
+    {
+      "chunk_id": "D3_C-20260407-019_f27cc5eec71190a9_0000",
+      "q": "A1",
+      "before": "민원과 이의 처리",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260407-019_f27cc5eec71190a9_0000",
+      "q": "X1",
+      "before": "주제: 민원과 이의 처리 / 업종: 가전",
+      "after": "주제: 없음 / 업종: 가전"
+    },
+    {
+      "chunk_id": "D3_C-20260602-020_548c8991e9f72d00_0000",
+      "q": "A1",
+      "before": "명세서와 결제 / 통지와 광고 / 민원과 이의 처리",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260607-024_1e956856432056da_0000",
+      "q": "A1",
+      "before": "민원과 이의 처리",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260607-024_1e956856432056da_0000",
+      "q": "X1",
+      "before": "주제: 민원과 이의 처리 / 업종: 우편",
+      "after": "주제: 없음 / 업종: 우편"
+    },
+    {
+      "chunk_id": "D3_C-20260310-018_bcd33f7f4defe9e9_0000",
+      "q": "A1",
+      "before": "명세서 수령지",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260710-030_0192b7b696c5a803_0000",
+      "q": "A1",
+      "before": "해지 / 발급과 카드 관리",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260710-030_0192b7b696c5a803_0000",
+      "q": "X1",
+      "before": "주제: 해지 / 업종: 없음",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260322-025_36f64f5d75789498_0000",
+      "q": "A1",
+      "before": "본인 인증과 보안 / 통지와 광고",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260322-025_36f64f5d75789498_0000",
+      "q": "X1",
+      "before": "주제: 본인 인증과 보안 / 업종: 없음",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260701-030_a342144b2eb166ec_0000",
+      "q": "A1",
+      "before": "본인 인증과 보안",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260701-030_a342144b2eb166ec_0000",
+      "q": "X1",
+      "before": "주제: 본인 인증과 보안 / 업종: 없음",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260418-035_21996089fcb8a7a2_0000",
+      "q": "A1",
+      "before": "명세서와 결제",
+      "after": "없음"
+    },
+    {
+      "chunk_id": "D3_C-20260418-035_21996089fcb8a7a2_0000",
+      "q": "X1",
+      "before": "주제: 명세서와 결제 / 업종: 마트",
+      "after": "주제: 없음 / 업종: 마트"
+    },
+    {
+      "chunk_id": "D3_C-20260707-006_f715b867ebf8cbf7_0000",
+      "q": "X1",
+      "before": "고객: 명세서에서 취소한 결제도 보이네요. / 고객: 매장에서 취소 접수했다는 문자를 받았어요.",
+      "after": "없음",
+      "why": "형식 어긋남(원문 발화를 통째로 적음), 정답표에 불만 없음"
+    },
+    {
+      "chunk_id": "D3_C-20260707-006_f715b867ebf8cbf7_0000",
+      "q": "A2",
+      "before": "없음",
+      "after": "수용: 글로 남는 안내",
+      "why": "정답표: 이메일로 정리 제안을 '적힌 게 좋아요'라며 수용"
+    },
+    {
+      "chunk_id": "D3_C-20260310-018_bcd33f7f4defe9e9_0000",
+      "q": "X1",
+      "before": "‘이사 후 명세서 수령지 변경 경로 문의’ 내용을 한빛 가족돌봄 카드 상담으로 기록하겠습니다.",
+      "after": "없음",
+      "why": "형식 어긋남(원문 발화를 통째로 적음), 정답표에 불만 없음"
+    },
+    {
+      "chunk_id": "D3_C-20260310-018_bcd33f7f4defe9e9_0000",
+      "q": "A2",
+      "before": "수용: 네, 그렇게 할게요. / 거절: 없음",
+      "after": "수용: 고객이 요청한 방식",
+      "why": "형식 어긋남(목록에 없는 글). 정답표: 앱에서 직접 바꾸는 방법을 '집에서 바로 할 수 있어 편해서' 수용"
+    },
+    {
+      "chunk_id": "D3_C-20260402-002_720181a92cfa824e_0000",
+      "q": "X1",
+      "before": "없음",
+      "after": "주제: 부가서비스와 포인트 / 업종: 없음",
+      "why": "정답표 불만 '실적을 못 채우면 혜택이 사라지는 구조'인데 주제가 비어 있었음"
+    },
+    {
+      "chunk_id": "D3_C-20260402-002_720181a92cfa824e_0000",
+      "q": "A1",
+      "before": "민원과 이의 처리 / 명세서와 결제",
+      "after": "부가서비스와 포인트",
+      "why": "위와 같음"
+    },
+    {
+      "chunk_id": "D3_C-20260402-002_720181a92cfa824e_0000",
+      "q": "A2",
+      "before": "없음",
+      "after": "거절: 소비 증가 필요",
+      "why": "정답표: 실적 알림 제안을 '결국 제가 금액을 맞춰야 하니까요'라며 거절"
+    },
+    {
+      "chunk_id": "D3_C-20260626-011_f23a684874231f8d_0000",
+      "q": "X1",
+      "before": "주제: 발급과 카드 관리 / 업종: 타사",
+      "after": "주제: 부가서비스와 포인트 / 업종: 없음",
+      "why": "정답표 불만 '신청 방법을 다시 확인해야 하는 점'인데 주제가 '발급과 카드 관리', 업종이 '타사'로 적혀 있었음"
+    },
+    {
+      "chunk_id": "D3_C-20260626-011_f23a684874231f8d_0000",
+      "q": "A1",
+      "before": "발급과 카드 관리",
+      "after": "부가서비스와 포인트",
+      "why": "위와 같음"
+    }
+  ]
+}

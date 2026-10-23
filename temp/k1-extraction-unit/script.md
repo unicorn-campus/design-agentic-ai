@@ -10,11 +10,24 @@
 | 내용 | 근거 |
 |------|------|
 | 추출 단위 = LLM에 한 번에 넣는 글 조각. 청크 하나에 조항이 여럿이면 LLM이 목록만 뽑고 내용을 놓치기 쉬워 제목 줄로 나눔. 검색 청크는 다시 만들지 않고 추출 직전에 같은 규칙으로 나눠 원래 청크 ID로 이음 | `hybrid-ai-lab/prompts/design-kg-schema-doc.md` 21 ~ 23행, 72 ~ 85행 |
-| 약관 규칙: heading `^(제\d+조(?:의\d+)?)\(([^)]*)\)\s*$`, body_start `①`, drop_lines `^제\d+장\s` | `verify/doc-schema-prompt-run/decisions.json` `input.extraction_units.regulation` |
-| 나누기 코드 `_split_by_heading`, `split_chunks` | `verify/doc-schema-prompt-run/tools/common.py` 65 ~ 100행 |
+| 약관 규칙: heading `^(제\d+조(?:의\d+)?)\(([^)]*)\)\s*$`, body_start `①`, drop_lines `^제\d+장\s` | `verify/doc-schema-prompt-run/decisions.json` `input.extraction_units.regulation`, v0는 승인 기록 `approval.json`의 `extraction_unit_rule`에서 읽음 |
+| 나누기 코드 `_split_by_heading`, `k1_split_units`(2026-10-23부터 v0 인덱싱 코드로 바꿈). 단위 ID는 `{doc_id}#{조항 번호}`, 나온 청크 목록은 `chunk_ids` | `indexer/graphrag/v0/kg_build.py` 53 ~ 107행 |
 | 혜택 안내와 상담 기록은 추출 단위 규칙이 없어 청크를 그대로 씀(혜택 안내는 청킹 때 카드 경계로 이미 나뉨, 상담 기록은 상담 1건 단위) | `decisions.json`(regulation만 규칙 있음), 프롬프트 "하나뿐이면 청크를 그대로 씀" |
 | 실험: 약관을 청크 단위로 넣으니 라운드 2에서 조항과 문서 노드만 나와 중단. 조항 단위로 바꾸니 조건, 기한, 처리 노드가 나오기 시작. 다만 라운드 3에서도 합격 기준(R2 ~ R5) 미달 | `verify/doc-schema-prompt-run/RESULT.md` 190 ~ 191행 |
 | 추출 단위 규칙은 스키마 승인 기록(approval.json)에 남겨 인덱싱이 같은 단위로 추출 | 프롬프트 158행, 202행 |
+| 모델 비교(2026-10-23): 청크째 넣으면 gpt-oss-120b와 NuExtract 2.0 8B는 조건, 기한 0%. Opus 5.5는 청크째로도 뽑지만 같은 청크에서 조건 노드가 청크째 1개, 조항 단위 4개 | `verify/kg-unit-opus/README.md`, `verify/kg-unit-nuextract/README.md` |
+
+### 실무 관행(31쪽 「실무 관행」 상자, 2026-10-23 사용자 요청으로 이 쪽에만 짧은 출처 표기)
+
+| 장표 문구 | 출처 표기 | 근거 |
+|-----------|-----------|------|
+| 작게 나눌수록 더 뽑음 (600토큰 청크가 2400토큰의 약 2배) | GraphRAG 논문 2024 | Edge 외, From Local to Global: A Graph RAG Approach to Query-Focused Summarization. HotPotQA에서 GPT-4가 600토큰 청크에서 2400토큰보다 엔티티 참조를 약 2배 뽑음. 큰 청크는 LLM 호출이 적어 쌈 https://arxiv.org/pdf/2404.16130 |
+| 놓친 것 다시 묻기(gleaning) 1회가 기본값 | Microsoft GraphRAG, LightRAG | GraphRAG 설정 `extract_graph.max_gleanings` 기본 1 https://www.mintlify.com/microsoft/graphrag/configuration/settings , LightRAG `entity_extract_max_gleaning` 기본 1 https://huggingface.co/spaces/rm-lht/lightrag/blob/dccea7a78772008c121131304c816f09bb901aea/README-zh.md |
+| 엔티티는 나온 청크 ID를 여러 개 기록 | LightRAG, Neo4j GraphRAG | LightRAG 엔티티와 관계의 `source_id`(청크 ID 여러 개, `MAX_SOURCE_IDS_PER_ENTITY` 기본 300) https://www.gitlink.org.cn/louis_lifu/LightRAG , Neo4j GraphRAG Python의 `(Chunk)<-[:FROM_CHUNK]-(__Entity__)` https://graphacademy.neo4j.com/courses/genai-graphrag-python/2-knowledge-graph-pipeline/3-chunk-size/ |
+| 법률 문서는 조, 항 같은 구조 단위로 나눔 | PROPOR 2026 논문 | Retrieval-Augmented Generation and Knowledge Graphs in Portuguese-Language Legal Documents. 규정 문서를 조, 항, 호 구조 단위 노드로 두고 근거 경로를 되짚음 https://aclanthology.org/2026.propor-1.1/ |
+
+- 장표 반영 위치: 표 행 높이 0.44 → 0.36인치로 줄여 생긴 왼쪽 아래 공간(y 7.55, 높이 0.92인치)
+- 덱(`신한카드 하이브리드AI_W05~W07`)은 사용자가 PowerPoint에서 고친 곳이 많아 build.js와 위치가 다름(표 y 6.01, 빨간 설명 문구). build.js로 다시 빌드하기 전에 덱과 먼저 맞춰야 함
 
 ### 실측(2026-10-19, 활성 세대 `birthfix-20261018b`의 약관 청크 10개에 위 규칙 적용)
 
@@ -31,10 +44,10 @@
 | e98b48c1e9405e47_0000 | 1,030 | 37 | 2 (차례 + 앞 조항) |
 | f3487e8e2595b581_0000 | 1,143 | 5 | 5 |
 
-- 나눈 단위 51개(겹침으로 두 번 나온 조항을 합친 뒤). 부모 청크가 2개인 단위 13개, 1개인 단위 38개
+- 나눈 단위 51개(겹침으로 두 번 나온 조항을 합친 뒤). 두 청크에 걸친 단위 13개, 한 청크 안의 단위 38개
 - 단위 길이 97 ~ 632자, 중앙값 147자
 - 예시 청크 `…112f1e4abea05436_0000`(1,449자)의 조항 9개: 제16조, 제16조의2, 제16조의3, 제17조, 제18조, 제19조, 제19조의2, 제20조, 제21조
-- 예시 단위 `regulation:제16조의2`의 parent_chunk_ids: `…112f1e4abea05436_0000`, `…a4fd4ae81ec3f063_0000`
+- 예시 단위 `D1_27223010abe31291#제16조의2`가 나온 청크(chunk_ids): `…112f1e4abea05436_0000`, `…a4fd4ae81ec3f063_0000`
 - 실측 스크립트는 세션 임시 폴더의 `measure_units.py`(읽기만 함)
 
 ---
@@ -54,10 +67,10 @@
    - 조항 제목 줄 찾기(제16조(할부 거래) 꼴)
    - 다음 줄이 ①로 시작할 때만 시작점(차례 줄은 건너뜀)
    - 다음 제목 전까지가 한 단위(장 제목 줄은 버림)
-   - 겹친 조항은 하나로 합치고 부모 청크 ID를 모두 기록
+   - 겹친 조항은 하나로 합치고, 나온 청크 ID를 모두 기억
 3. 왼쪽 아래 「문서 종류별 추출 단위」 표: 약관(조항 제목 줄로 나눔, 청크 10 → 단위 51) /
    혜택 안내(청크 그대로, 카드 경계로 이미 나뉨, 160 → 160) / 상담 기록(청크 그대로, 상담 1건, 48 → 48)
-4. 오른쪽 아래 「검색 청크와 잇기」: [검색엔진이 찾은 chunk_id] → [추출 단위 노드의 parent_chunk_ids] → [근거 노드] 흐름 +
+4. 오른쪽 아래 「검색 청크와 잇기」: [검색엔진이 찾은 chunk_id] → [같은 chunk_id의 청크 노드에서 엔티티] → [근거 노드] 흐름 +
    "규칙은 스키마 승인 기록에서 가져와 스키마 설계, 시험, 인덱싱이 같은 단위를 씀"
 
 **발표자 노트**
@@ -68,7 +81,9 @@
 중입니다.
 나누는 방법은 단순합니다. 조항 제목 줄을 찾되 바로 다음 줄이 ①로 시작할 때만 조항의 시작으로 봅니다. 그래야 제목만 이어지는
 차례가 단위가 되지 않습니다. 다음 제목 전까지를 한 단위로 자르고, 청크가 겹쳐서 같은 조항이 두 번 나오면 하나만 남기되
-원래 청크 ID를 모두 기록합니다. 이 parent_chunk_ids가 검색 결과의 chunk_id와 그래프를 잇는 끈입니다.
+나온 청크 ID를 모두 기억합니다. 추출 단위는 추출할 때만 쓰는 임시 조각이라 그래프에 노드로 남기지 않습니다. 그래프의
+청크 노드는 검색용 청크와 하나씩 맞고, 조항에서 뽑힌 엔티티는 그 조항이 나온 청크마다 FROM_CHUNK로 이어집니다. 그래서
+검색 결과의 chunk_id로 청크 노드를 바로 찾습니다.
 혜택 안내와 상담 기록은 청크가 이미 카드 하나, 상담 한 건이라 그대로 씁니다.
 
 ---
@@ -76,20 +91,21 @@
 ## 장표 2. K1 코드 예제
 
 - 제목: K1 추출 단위 나누기 코드
-- 리드문: 제목 줄과 본문 시작 표시로 조항을 자르고, 겹친 조항은 합치면서 부모 청크 ID를 모음
+- 리드문: 제목 줄과 본문 시작 표시로 조항을 자르고, 겹친 조항은 합치면서 나온 청크 ID를 모음
 
 **도형 구성**
 
 1. 왼쪽 코드 상자 「나누기 규칙과 _split_by_heading」(실제 소스에서 docstring과 메타데이터 복사 줄을 줄인 발췌)
-2. 오른쪽 위 코드 상자 「split_chunks: 겹친 조항 합치기」
-3. 오른쪽 아래 「결과 예」 상자: regulation:제16조의2 단위 JSON(부모 청크 2개) + 칩 「약관 청크 10개 → 단위 51개, 부모 청크 2개인 단위 13개」
+2. 오른쪽 위 코드 상자 「k1_split_units: 겹친 조항 합치기」
+3. 오른쪽 아래 「결과 예」 상자: D1_27223010abe31291#제16조의2 단위 JSON(chunk_ids 2개) + 칩 「각 추출 단위는 여러 개의 청크에 소속될 수 있음」(사용자가 PowerPoint에서 고친 문구)
 
-- 발췌에서 줄인 것: docstring, 메타데이터에 unit_no와 unit_title, section_label을 넣는 줄, doc_type 필드,
-  drop_lines가 없을 때의 처리. split_chunks는 else 대신 continue로 풀어 씀. 처리 순서와 조건은 소스와 같음
+- 발췌에서 줄인 것: docstring, k1_split_units 앞부분(base와 rule 준비, 규칙 없는 문서 처리, 단위가 없는 청크 기록),
+  메타데이터에 section_label을 넣는 줄, text_hash 계산. 긴 줄은 장표 폭에 맞게 나눔. 처리 순서와 조건은 소스와 같음
 
 **발표자 노트**
 
 규칙은 세 가지 값입니다. 조항 제목 꼴의 정규식, 본문 시작 표시 ①, 버릴 줄(장 제목)입니다. _split_by_heading은 제목 줄 가운데
-다음 줄이 ①로 시작하는 줄만 시작점으로 삼고, 다음 시작점 전까지를 한 단위로 자릅니다. 단위 ID는 문서 종류와 조항 번호로
-만들어서, 같은 조항이 겹침 구간 때문에 두 청크에 나오면 같은 ID가 됩니다. split_chunks는 같은 ID를 만나면 글이 더 긴 쪽을 남기고
-두 청크의 ID를 parent_chunk_ids에 모읍니다. 약관 청크 10개에서 단위 51개가 나왔고, 그중 13개는 부모 청크가 두 개였습니다.
+다음 줄이 ①로 시작하는 줄만 시작점으로 삼고, 다음 시작점 전까지를 한 단위로 자릅니다. 단위 ID는 문서 ID와 조항 번호로
+만들어서, 같은 조항이 겹침 구간 때문에 두 청크에 나오면 같은 ID가 됩니다. k1_split_units는 같은 ID를 만나면 글이 더 긴 쪽을 남기고
+두 청크의 ID를 chunk_ids에 모읍니다. 이 목록은 K4에서 뽑힌 엔티티를 어느 청크 노드에 이을지 정하는 데만 쓰고, 추출 단위
+자체는 그래프에 남기지 않습니다. 약관 청크 10개에서 단위 51개가 나왔고, 그중 13개는 두 청크에 걸쳐 있었습니다.

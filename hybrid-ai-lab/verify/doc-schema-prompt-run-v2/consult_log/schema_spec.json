@@ -1,0 +1,521 @@
+{
+  "doc": "consult_log",
+  "metadata_header": [
+    "record_id",
+    "consult_date",
+    "channel"
+  ],
+  "recommend": [
+    {
+      "kind": "병합",
+      "item": "Consultation, Conversation, Record, ConsultationRecord, Interaction, Call, Communication → Consultation",
+      "cq": [
+        "C5"
+      ]
+    },
+    {
+      "kind": "병합",
+      "item": "Issue와 Request 중 불편이나 불만을 말한 것 → Complaint(cause)",
+      "cq": [
+        "C1"
+      ]
+    },
+    {
+      "kind": "병합",
+      "item": "Proposal, Guidance, Procedure → Proposal(content)",
+      "cq": [
+        "C2"
+      ]
+    },
+    {
+      "kind": "병합",
+      "item": "Channel, CommunicationChannel, MessageChannel → Consultation.channel 속성",
+      "cq": [
+        "C5"
+      ]
+    },
+    {
+      "kind": "추가",
+      "item": "Proposal.decision, Proposal.reason(후보에 거의 없음)",
+      "cq": [
+        "C3"
+      ]
+    },
+    {
+      "kind": "추가",
+      "item": "ReconsiderCondition(후보에 Condition 1건뿐)",
+      "cq": [
+        "C4"
+      ]
+    },
+    {
+      "kind": "추가",
+      "item": "FOLLOWS(Consultation → Consultation, 후보 3건)",
+      "cq": [
+        "C5"
+      ]
+    },
+    {
+      "kind": "추가",
+      "item": "Consultation.member_pseudo_id(정형 Member에 잇는 키 후보. 청크에는 가명 ID만 있어 Member.member_id로 바로 잇지 못함)",
+      "cq": [
+        "C5"
+      ]
+    },
+    {
+      "kind": "제거",
+      "item": "Customer의 name, email, contact(개인정보 처리 대상)",
+      "cq": []
+    },
+    {
+      "kind": "제거",
+      "item": "Transaction, TransactionSummary, TransactionBatch(정형 스키마 CardTxn에 이미 있음)",
+      "cq": []
+    },
+    {
+      "kind": "제거",
+      "item": "Card(정형 스키마에 이미 있음)",
+      "cq": []
+    },
+    {
+      "kind": "제거",
+      "item": "Agent, Counselor, Address, Device, Menu, Preference 계열(어느 역량 질문에도 안 쓰임)",
+      "cq": []
+    },
+    {
+      "kind": "공통",
+      "item": "Topic: Complaint -ABOUT-> Topic, Consultation -HAS_TOPIC-> Topic",
+      "cq": [
+        "X1",
+        "A1"
+      ]
+    },
+    {
+      "kind": "공통",
+      "item": "MerchantCategory: Complaint, Proposal -MENTIONS_CATEGORY-> MerchantCategory",
+      "cq": [
+        "X1"
+      ]
+    },
+    {
+      "kind": "참조",
+      "item": "Product(정형 참조): Consultation -MENTIONS_PRODUCT-> Product",
+      "cq": [
+        "X2"
+      ]
+    },
+    {
+      "kind": "추가",
+      "item": "CustomerSegment(메타데이터 source), PseudoMember(메타데이터 member_pseudo_id). Consultation의 topic, member_pseudo_id 속성은 노드로 옮겨 뺌",
+      "cq": [
+        "A1",
+        "C5"
+      ]
+    },
+    {
+      "kind": "추가",
+      "item": "ProposalTrait(제안 성격): Proposal -HAS_TRAIT-> ProposalTrait",
+      "cq": [
+        "A2"
+      ]
+    },
+    {
+      "kind": "2라운드 고침",
+      "item": "다1 ~ 다5, 라1 ~ 라3(8단계 1라운드 결과)",
+      "cq": []
+    },
+    {
+      "kind": "3라운드 고침",
+      "item": "다6 Product, 다7 Complaint(8단계 2라운드 결과)",
+      "cq": [
+        "X2",
+        "C1"
+      ]
+    },
+    {
+      "kind": "4라운드 고침",
+      "item": "다8 Requirement, 다9 Deadline, 다10 MerchantCategory와 APPLIES_TO, 라4 목록 밖 이름 지우기",
+      "cq": [
+        "R2",
+        "R3",
+        "X1"
+      ]
+    },
+    {
+      "kind": "5라운드 고침",
+      "item": "다11 Complaint와 ABOUT, 다12 ReconsiderCondition과 RECONSIDER_WHEN",
+      "cq": [
+        "C4",
+        "X1",
+        "A1"
+      ]
+    }
+  ],
+  "node_types": [
+    {
+      "label": "Consultation",
+      "ko": "상담",
+      "description": "해당: 상담 기록 한 건(머리줄의 record_id 하나). 비해당: 상담 안의 발언 한 줄, 고객 개인, 거래 내역",
+      "properties": [
+        {
+          "name": "record_id",
+          "description": "상담ID. 머리줄 record_id 값을 그대로 씀(예: C-20260314-001)",
+          "required": true
+        },
+        {
+          "name": "consult_date",
+          "description": "상담일. 머리줄 consult_date 값"
+        },
+        {
+          "name": "channel",
+          "description": "상담 채널. 머리줄 channel 값(콜센터, 영업점, 앱 채팅)"
+        }
+      ]
+    },
+    {
+      "label": "Complaint",
+      "ko": "불만 원인",
+      "description": "해당: 고객이 이미 겪은 일에 대해 불편하다, 불만이다, 답답하다, 부담이다, 지쳤다처럼 감정을 드러내며 직접 말한 원인. 고객 말에 이런 감정 표현이 있을 때만 해당. 비해당: 감정 표현 없는 사정 설명(예: 종이 영수증은 이미 버렸어요, 통화 가능한 시간을 정하기 어려워요), 할 수 없다거나 안 하겠다는 말(예: 영수증은 못 맞춰요), '번거롭다'는 말만 있고 불만이라고 하지 않은 경우(예: 종이 영수증은 이미 버려서 설명하기 번거로워요), 앞으로의 걱정(예: 옛집으로 간 우편이 먼저 걱정돼서요, 불편한 고객으로 보일까 봐), 확인 요청이나 단순 질문, 사실을 말한 것(예: 취소한 결제도 보이네요), 무엇을 해 달라거나 하지 말아 달라는 부탁, 선호 표현, 상담사의 추측, 고객이 만족한다고 한 점. 불만 노드마다 빠짐없이 그 원인이 된 주제 1 ~ 2개를 ABOUT으로 이음",
+      "properties": [
+        {
+          "name": "cause",
+          "description": "고객이 말한 불만 원인 문장(원문 그대로)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "label": "Proposal",
+      "ko": "상담 제안",
+      "description": "해당: 상담사가 고객에게 해 보라고 권한 구체적인 방법이나 대안(예: ~해 보시는 건 어떠세요?). 비해당: 사실 확인 질문, 인사, 기록하겠다는 말",
+      "properties": [
+        {
+          "name": "content",
+          "description": "상담사가 제안한 문장(원문 그대로)",
+          "required": true
+        },
+        {
+          "name": "decision",
+          "description": "고객의 반응. 수용, 거절, 보류 중 하나만 씀"
+        },
+        {
+          "name": "reason",
+          "description": "고객이 수용, 거절, 보류하며 말한 이유 문장(원문 그대로)"
+        }
+      ]
+    },
+    {
+      "label": "ReconsiderCondition",
+      "ko": "재검토 조건",
+      "description": "해당: 고객이 나중에 다시 생각하거나 행동하겠다며 말한 조건. 제안의 결정(수용, 거절, 보류)과 상관없이, 고객이 '~하면 다시 생각할게요', '~면 그때 ~할게요', '~나오면 다시 볼게요', '그래도 ~하면 다음에 문의할게요'처럼 말하면 모두 해당(예: 다음 명세서를 보고 다시 판단할게요, 그래도 안 맞으면 다음 명세서 나올 때 다시 문의할게요, 연결된 결제 확인이 끝나면 그때 신청할게요). 그 말이 붙은 제안에 RECONSIDER_WHEN으로 붙임. 비해당: 수용하거나 거절한 이유 자체(reason에 씀), 상담사의 안내나 질문",
+      "properties": [
+        {
+          "name": "condition",
+          "description": "고객이 말한 다시 생각할 조건 문장(원문 그대로)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "label": "Topic",
+      "ko": "주제",
+      "shared": true,
+      "description": "해당: 조항이나 불만이 다루는 업무 주제 하나. 이름은 아래 대표 이름 목록에서만 고름(각 이름 뒤는 뜻). 불만에 붙일 때는 불만의 원인이 된 대상으로 고르고, 상담이 일어난 장면(명세서를 보며 통화, 앱 화면 확인 등)으로 고르지 않음(예: 혜택 조건이 불만이면 명세서를 보며 말했어도 '부가서비스와 포인트'). 목록: 연회비: 연회비를 매기고 면제하거나 돌려주는 일; 부가서비스와 포인트: 할인, 적립, 캐시백 같은 부가서비스와 포인트를 받는 조건, 신청, 적용 대상; 본인 인증과 보안: 본인 확인, 인증 절차, 비밀번호, 카드와 인증수단 보관; 통지와 광고: 카드사가 회원에게 알리는 방법과 광고, 판촉 알림; 민원과 이의 처리: 민원, 이의신청, 다툼의 접수와 처리 경과 설명; 명세서와 결제: 이용대금 명세서, 결제일과 출금, 납부, 취소와 환불의 반영; 할부: 할부 거래와 그 철회, 항변; 분실과 부정 사용: 분실, 도난, 의심 문자, 본인이 하지 않은 거래; 이용정지와 휴면: 카드 이용정지와 해제, 오래 쓰지 않은 카드; 해지: 회원이나 카드사의 계약 해지, 다른 카드사로 옮기기; 발급과 카드 관리: 카드 발급, 가족카드, 전달, 갱신, 여러 장 보유 정리; 개인정보와 회원 정보: 개인정보 처리, 주소나 연락처 같은 회원 정보 변경; 해외 이용: 해외 결제와 해외 이용 수수료, 원화결제; 카드대출과 금리: 카드대출, 연체, 금리; 이용한도와 승인: 이용한도, 승인과 취소의 원칙. 비해당: 목록에 없는 이름, 카드 이름, 혜택 이름, 업종 이름",
+      "properties": [
+        {
+          "name": "name",
+          "type": "STRING",
+          "description": "주제 대표 이름. 목록의 글자를 그대로 씀"
+        }
+      ]
+    },
+    {
+      "label": "MerchantCategory",
+      "ko": "업종과 결제 대상",
+      "shared": true,
+      "description": "해당: 혜택이 적용되거나 고객이 말한 결제 대상 업종 하나. 이름은 아래 대표 이름 목록에서만 고름(각 이름 뒤는 뜻). 가맹점 한 곳의 이름(예: 가상 편의점 하루상점)은 그 가맹점이 속한 업종 이름으로 바꿔 씀. 목록: 일반 가맹점: 업종을 가리지 않는 국내 일반 가맹점 전체; 해외 결제: 해외 가맹점 결제와 해외 원화 환산 매입; 장보기와 마트: 마트, 장보기, 식료품과 생활용품 구매(매장이든 앱 주문이든); 편의점: 편의점; 커피와 제과: 커피점, 제과점; 음식점과 배달: 음식점, 배달앱 식사 주문; 온라인쇼핑: 쇼핑몰, 생활소품몰, 반려생활몰 같은 온라인 구매; 간편결제: 간편결제 서비스와 결제 앱을 거친 결제; 대중교통과 택시: 버스, 도시철도, 택시, 철도 승차권; 주유와 충전: 주유, 전기차 충전, 수소 충전; 자동차 관리와 주차: 정비, 세차, 주차요금; 통신: 이동통신, 통신요금; 정기결제와 구독: 영상, 음악 같은 구독과 생활요금, 관리비, 렌탈, 멤버십의 월 정기결제; 문화와 여가: 영화, 공연, 놀이공원, 운동시설, 취미 수강권; 여행과 숙박: 공항 라운지, 숙박, 리조트 예약; 교육: 학원, 온라인 강의 수강료; 의료와 돌봄: 병원, 약국, 동물병원, 돌봄 서비스; 사업경비: 사무용품, 택배 같은 사업 운영 경비. 혜택에 잇는 것은 청크에 '대상', '대상·채널', '대상 영역'처럼 적용 대상이 적혀 있을 때만임. 한도, 이용 기준, 통합 한도만 적힌 청크에서는 업종을 만들지 않음. 비해당: 목록에 없는 이름, 가맹점 이름 그대로, 매장이나 우편처럼 결제 대상이 아닌 장소나 수단",
+      "properties": [
+        {
+          "name": "name",
+          "type": "STRING",
+          "description": "업종 대표 이름. 목록의 글자를 그대로 씀"
+        }
+      ]
+    },
+    {
+      "label": "Product",
+      "ko": "카드 상품(정형 참조)",
+      "reference": true,
+      "description": "해당: 한빛 카드 상품 하나. 정형 스키마의 Product를 가리키는 참조 노드. 상담에서는 상담사나 고객이 '한빛 ○○ 카드'처럼 이름을 말한 카드가 모두 해당하며, 상담을 마무리하며 '한빛 ○○ 카드 상담으로 기록하겠습니다'처럼 기록에 남긴다고 말한 카드도 해당함(이때 Consultation -MENTIONS_PRODUCT-> Product로 이음). 비해당: 실제 카드사 상품, 개별 혜택, 연회비와 가족카드 규칙(정형 데이터에 있음), '이 카드', '타사 카드'처럼 이름이 없는 말",
+      "properties": [
+        {
+          "name": "product_id",
+          "type": "STRING",
+          "description": "상품 ID(예: D2-C001). 혜택 안내는 머리줄 값, 상담은 상품 이름으로 정형 데이터에서 찾음"
+        },
+        {
+          "name": "product_name",
+          "type": "STRING",
+          "description": "상품 이름(예: 한빛 모아생활). 정형 Product.product_name과 같은 글자"
+        }
+      ]
+    },
+    {
+      "label": "CustomerSegment",
+      "ko": "고객군",
+      "metadata_node": true,
+      "description": "해당: 상담 기록이 속한 고객군 하나(메타데이터 원천 파일 이름에서 채움). 비해당: 나이대, 상담 채널",
+      "properties": [
+        {
+          "name": "name",
+          "type": "STRING",
+          "description": "고객군 이름(예: 신규가입, 장기보유)"
+        }
+      ]
+    },
+    {
+      "label": "PseudoMember",
+      "ko": "가명 회원",
+      "metadata_node": true,
+      "description": "해당: 가명 처리된 회원 하나(메타데이터 member_pseudo_id). 비해당: 실명, 연락처, 정형 Member(키가 다름)",
+      "properties": [
+        {
+          "name": "member_pseudo_id",
+          "type": "STRING",
+          "description": "가명 회원 ID"
+        }
+      ]
+    },
+    {
+      "label": "ProposalTrait",
+      "ko": "제안 성격",
+      "description": "해당: 제안이 고객에게 요구하거나 주는 성격 하나. 이름은 아래 목록에서만 고름(각 이름 뒤는 뜻). 제안 하나에 맞는 것을 1 ~ 3개 고름. 목록: 소비 증가 필요: 제안대로 하려면 고객이 돈을 더 쓰거나 실적을 채워야 함(예: 면제 조건을 맞추려 사용액을 늘림); 고객 할 일 증가: 고객이 새로 신청, 방문, 서류 준비, 설정 같은 일을 해야 함; 고객 할 일 없음: 고객이 따로 할 일 없이 자동으로 적용되거나 상담사가 대신 처리함; 글로 남는 안내: 이메일, 문자, 서면, 앱 화면 정리처럼 나중에 다시 볼 수 있게 글로 보냄; 말로만 안내: 전화나 대화로만 설명하고 글로 남기지 않음; 고객이 요청한 방식: 고객이 원한다고 말한 채널이나 방식(예: 앱에서 직접, 오전 전화, 집에서)에 맞춤. 비해당: 제안 내용 문장, 고객의 결정(수용, 거절, 보류)",
+      "properties": [
+        {
+          "name": "name",
+          "type": "STRING",
+          "description": "제안 성격 대표 이름. 목록의 글자를 그대로 씀"
+        }
+      ]
+    }
+  ],
+  "relationship_types": [
+    {
+      "label": "HAS_COMPLAINT",
+      "ko": "불만을 말함",
+      "description": "상담에서 고객이 말한 불만 원인"
+    },
+    {
+      "label": "HAS_PROPOSAL",
+      "ko": "제안함",
+      "description": "상담에서 상담사가 한 제안"
+    },
+    {
+      "label": "RECONSIDER_WHEN",
+      "ko": "다시 생각할 조건",
+      "description": "제안(수용, 거절, 보류 모두)에 고객이 덧붙인 다시 생각하거나 나중에 행동할 조건"
+    },
+    {
+      "label": "FOLLOWS",
+      "ko": "이전 상담에 이어짐",
+      "description": "이번 상담이 같은 가명 회원의 바로 앞 상담에 이어짐. 코드가 메타데이터(같은 member_pseudo_id, 상담일 순)로 채움. LLM 추출에 쓰지 않음",
+      "metadata_rel": true
+    },
+    {
+      "label": "ABOUT",
+      "ko": "주제를 다룸",
+      "description": "불만이 다루는 주제. 불만 노드마다 빠짐없이 주제 1 ~ 2개를 이음"
+    },
+    {
+      "label": "HAS_TOPIC",
+      "ko": "상담 주제",
+      "description": "상담 기록의 주제(메타데이터 topic을 대표 이름으로 바꿔 채움)"
+    },
+    {
+      "label": "MENTIONS_CATEGORY",
+      "ko": "업종을 말함",
+      "description": "불만이나 제안에서 고객이나 상담사가 말한 업종이나 결제 대상"
+    },
+    {
+      "label": "MENTIONS_PRODUCT",
+      "ko": "카드를 말함",
+      "description": "상담에서 이름이 나온 한빛 카드 상품"
+    },
+    {
+      "label": "IN_SEGMENT",
+      "ko": "고객군에 속함",
+      "description": "상담 기록이 속한 고객군(메타데이터로 채움)"
+    },
+    {
+      "label": "OF_MEMBER",
+      "ko": "회원의 상담",
+      "description": "상담 기록의 가명 회원(메타데이터로 채움)"
+    },
+    {
+      "label": "HAS_TRAIT",
+      "ko": "제안 성격을 가짐",
+      "description": "제안의 성격. 제안 하나에 1 ~ 3개"
+    }
+  ],
+  "patterns": [
+    [
+      "Consultation",
+      "HAS_COMPLAINT",
+      "Complaint"
+    ],
+    [
+      "Consultation",
+      "HAS_PROPOSAL",
+      "Proposal"
+    ],
+    [
+      "Proposal",
+      "RECONSIDER_WHEN",
+      "ReconsiderCondition"
+    ],
+    [
+      "Consultation",
+      "FOLLOWS",
+      "Consultation"
+    ],
+    [
+      "Complaint",
+      "ABOUT",
+      "Topic"
+    ],
+    [
+      "Consultation",
+      "HAS_TOPIC",
+      "Topic"
+    ],
+    [
+      "Complaint",
+      "MENTIONS_CATEGORY",
+      "MerchantCategory"
+    ],
+    [
+      "Proposal",
+      "MENTIONS_CATEGORY",
+      "MerchantCategory"
+    ],
+    [
+      "Consultation",
+      "MENTIONS_PRODUCT",
+      "Product"
+    ],
+    [
+      "Consultation",
+      "IN_SEGMENT",
+      "CustomerSegment"
+    ],
+    [
+      "Consultation",
+      "OF_MEMBER",
+      "PseudoMember"
+    ],
+    [
+      "Proposal",
+      "HAS_TRAIT",
+      "ProposalTrait"
+    ]
+  ],
+  "constraints": [
+    {
+      "type": "UNIQUENESS",
+      "node_type": "Consultation",
+      "property_name": "record_id"
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "Topic",
+      "property_name": "name"
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "MerchantCategory",
+      "property_name": "name"
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "Product",
+      "property_name": "product_id"
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "CustomerSegment",
+      "property_name": "name"
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "PseudoMember",
+      "property_name": "member_pseudo_id"
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "ProposalTrait",
+      "property_name": "name"
+    }
+  ],
+  "cq_map": {
+    "C1": [
+      {
+        "label": "Complaint",
+        "property": "cause"
+      }
+    ],
+    "C2": [
+      {
+        "label": "Proposal",
+        "property": "content"
+      }
+    ],
+    "C3": [
+      {
+        "label": "Proposal",
+        "property": "decision"
+      },
+      {
+        "label": "Proposal",
+        "property": "reason"
+      }
+    ],
+    "C4": [
+      {
+        "label": "ReconsiderCondition",
+        "property": "condition"
+      }
+    ],
+    "C5": [
+      {
+        "rel": "FOLLOWS",
+        "metadata": true
+      }
+    ],
+    "X1": [
+      {
+        "rel": "ABOUT"
+      },
+      {
+        "rel": "MENTIONS_CATEGORY"
+      }
+    ],
+    "X2": [
+      {
+        "rel": "MENTIONS_PRODUCT"
+      }
+    ],
+    "A1": [
+      {
+        "rel": "IN_SEGMENT"
+      },
+      {
+        "rel": "ABOUT"
+      }
+    ],
+    "A2": [
+      {
+        "rel": "HAS_TRAIT"
+      }
+    ]
+  }
+}

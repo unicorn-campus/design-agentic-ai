@@ -1,0 +1,12 @@
+{
+ "generation": "gen-sample-012-90ee363a",
+ "search_index": "card_chunks-gen-sample-012-90ee363a",
+ "neo4j_generation": "gen-sample-012-90ee363a",
+ "chunk_count": 10,
+ "input_sha256": "fb1063a01b45fd9b86d35e97cee4c4b35ac391f51eb2999bf810883a5808c7d9",
+ "config_signature": "4b9016d4d5df8a35ec3c10da27cfd1a82b61385ac0dce3d2081ee76061981ca3",
+ "published_at": "2026-10-23 17:58:09",
+ "runs": [
+  "sample-012@20261023175738"
+ ]
+}

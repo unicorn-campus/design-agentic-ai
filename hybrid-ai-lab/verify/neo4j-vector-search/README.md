@@ -15,8 +15,15 @@
 
 ## 실행
 
+Neo4j는 실습 공용 컨테이너 `neo4j`(`hybrid-ai-lab/neo4j/compose.yml`, bolt 7687)를 씀. 처음이면 `neo4j/README.md`대로 `.env`를 만든 뒤 띄움.  
+비밀번호는 `neo4j/.env`의 값을 환경변수 `NEO4J_PASSWORD`로 넘김(이 폴더 `.env.example`에는 비밀번호를 두지 않음).
+
 ```bash
-docker run -d --name verify-neo4j -p 17474:7474 -p 17687:7687 -e NEO4J_AUTH=neo4j/verify-neo4j-pass -e NEO4J_PLUGINS='["apoc"]' neo4j:2026.09.0-community
+docker compose -f ../../neo4j/compose.yml up -d
+```
+
+```bash
+export NEO4J_PASSWORD=$(grep '^NEO4J_PASSWORD=' ../../neo4j/.env | cut -d= -f2-)
 ```
 
 ```bash

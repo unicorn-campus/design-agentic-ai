@@ -1,0 +1,23 @@
+flowchart LR
+    Consultation["<b>:Consultation</b><br/>(상담)<br/>record_id<br/>consult_date<br/>channel"]
+    Complaint["<b>:Complaint</b><br/>(불만 원인)<br/>cause"]
+    Proposal["<b>:Proposal</b><br/>(상담 제안)<br/>content<br/>decision<br/>reason"]
+    ReconsiderCondition["<b>:ReconsiderCondition</b><br/>(재검토 조건)<br/>condition"]
+    Topic["<b>:Topic</b><br/>(주제)<br/>name"]
+    MerchantCategory["<b>:MerchantCategory</b><br/>(업종과 결제 대상)<br/>name"]
+    Product["<b>:Product</b><br/>(카드 상품(정형 참조))<br/>product_id<br/>product_name"]
+    CustomerSegment["<b>:CustomerSegment</b><br/>(고객군)<br/>name"]
+    PseudoMember["<b>:PseudoMember</b><br/>(가명 회원)<br/>member_pseudo_id"]
+    ProposalTrait["<b>:ProposalTrait</b><br/>(제안 성격)<br/>name"]
+    Consultation -->|HAS_COMPLAINT| Complaint
+    Consultation -->|HAS_PROPOSAL| Proposal
+    Proposal -->|RECONSIDER_WHEN| ReconsiderCondition
+    Consultation -->|FOLLOWS| Consultation
+    Complaint -->|ABOUT| Topic
+    Consultation -->|HAS_TOPIC| Topic
+    Complaint -->|MENTIONS_CATEGORY| MerchantCategory
+    Proposal -->|MENTIONS_CATEGORY| MerchantCategory
+    Consultation -->|MENTIONS_PRODUCT| Product
+    Consultation -->|IN_SEGMENT| CustomerSegment
+    Consultation -->|OF_MEMBER| PseudoMember
+    Proposal -->|HAS_TRAIT| ProposalTrait

@@ -80,19 +80,20 @@ python -m venv .venv
 echo C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/indexer/vector-bm25/.venv/Lib/site-packages > .venv/Lib/site-packages/_reuse_lab_venv.pth
 ```
 
+OpenSearch는 실습 공용 컨테이너 `opensearch`(`hybrid-ai-lab/opensearch/compose.yml`, 포트 9200)를 씀.
+
 ```bash
-docker run -d --name verify-opensearch -p 19200:9200 -e discovery.type=single-node -e DISABLE_SECURITY_PLUGIN=true -e DISABLE_INSTALL_DEMO_CONFIG=true -e "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g" opensearchproject/opensearch:2.19.1
+docker compose -f ../../opensearch/compose.yml up -d
 ```
 
 ```bash
-OPENSEARCH_URL=http://localhost:19200 .venv/Scripts/python.exe run_test.py
+OPENSEARCH_URL=http://localhost:9200 .venv/Scripts/python.exe run_test.py
 ```
 
-```bash
-docker rm -f verify-opensearch
-```
+- 공용 컨테이너라 시험이 끝나도 지우지 않음. 멈추려면 `docker compose -f ../../opensearch/compose.yml stop`
 
-- `run_test.py`는 시작할 때 `card_chunks-gen-*` 인덱스를 지우고 시작함. 시험 전용 컨테이너에서만 돌릴 것
+- `run_test.py`는 시험 전용 이름 `sbx_card_chunks`로 인덱스와 별칭을 만들고, 시작할 때 `sbx_card_chunks-gen-*`만 지움.  
+  같은 컨테이너를 쓰는 GraphRAG v0 인덱스(`card_chunks-gen-*`)는 건드리지 않음
 - 보안 플러그인을 끈 설정은 로컬 실습 전용임. 운영에서는 인증을 켜고 접속 정보는 환경변수로 넣음
 - `vector-bm25` 폴더 위치가 다르면 `LAB_ROOT` 환경변수로 지정함
 

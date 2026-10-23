@@ -1,0 +1,81 @@
+{
+  "round": 1,
+  "metrics": {
+    "B1": {
+      "pos": 35,
+      "hit": 29,
+      "neg": 3,
+      "fp": 0,
+      "same": 14,
+      "recall": 0.8285714285714286,
+      "fp_rate": 0.0,
+      "match": 0.4827586206896552,
+      "pass": false
+    },
+    "B2": {
+      "pos": 37,
+      "hit": 36,
+      "neg": 1,
+      "fp": 0,
+      "same": 35,
+      "recall": 0.972972972972973,
+      "fp_rate": 0.0,
+      "match": 0.9722222222222222,
+      "pass": true
+    },
+    "B3": {
+      "pos": 37,
+      "hit": 36,
+      "neg": 1,
+      "fp": 0,
+      "same": 35,
+      "recall": 0.972972972972973,
+      "fp_rate": 0.0,
+      "match": 0.9722222222222222,
+      "pass": true
+    },
+    "B4": {
+      "pos": 36,
+      "hit": 35,
+      "neg": 2,
+      "fp": 1,
+      "same": 34,
+      "recall": 0.9722222222222222,
+      "fp_rate": 0.5,
+      "match": 0.9714285714285714,
+      "pass": false
+    },
+    "X1": {
+      "pos": 22,
+      "hit": 21,
+      "neg": 16,
+      "fp": 7,
+      "same": 1,
+      "recall": 0.9545454545454546,
+      "fp_rate": 0.4375,
+      "match": 0.047619047619047616,
+      "pass": false
+    },
+    "X2": {
+      "pos": 35,
+      "hit": 35,
+      "neg": 3,
+      "fp": 3,
+      "same": 35,
+      "recall": 1.0,
+      "fp_rate": 1.0,
+      "match": 1.0,
+      "pass": false
+    }
+  },
+  "usage": {
+    "queue_time": 1.5252351849999999,
+    "prompt_tokens": 92586,
+    "prompt_time": 9.179516492999998,
+    "completion_tokens": 86598,
+    "completion_time": 194.505425333,
+    "total_tokens": 179184,
+    "total_time": 203.68494182600003
+  },
+  "all_pass": false
+}

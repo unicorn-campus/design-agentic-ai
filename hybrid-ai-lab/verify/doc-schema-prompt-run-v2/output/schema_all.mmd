@@ -1,0 +1,52 @@
+flowchart LR
+    subgraph regulation["약관"]
+        regulation_TermsDocument["TermsDocument<br/>(약관 문서)"]
+        regulation_Clause["Clause<br/>(조항)"]
+        regulation_Requirement["Requirement<br/>(충족 조건)"]
+        regulation_Deadline["Deadline<br/>(기한과 통지 시점)"]
+        regulation_Handling["Handling<br/>(상황별 처리)"]
+    end
+    subgraph benefit_guide["혜택 안내"]
+        benefit_guide_Benefit["Benefit<br/>(혜택)"]
+        benefit_guide_BenefitCondition["BenefitCondition<br/>(혜택 조건)"]
+        benefit_guide_BenefitLimit["BenefitLimit<br/>(혜택 한도와 기한)"]
+        benefit_guide_BenefitExclusion["BenefitExclusion<br/>(혜택 제외와 중복 제한)"]
+    end
+    subgraph consult_log["상담 기록"]
+        consult_log_Consultation["Consultation<br/>(상담)"]
+        consult_log_Complaint["Complaint<br/>(불만 원인)"]
+        consult_log_Proposal["Proposal<br/>(상담 제안)"]
+        consult_log_ReconsiderCondition["ReconsiderCondition<br/>(재검토 조건)"]
+        consult_log_CustomerSegment["CustomerSegment<br/>(고객군)"]
+        consult_log_PseudoMember["PseudoMember<br/>(가명 회원)"]
+        consult_log_ProposalTrait["ProposalTrait<br/>(제안 성격)"]
+    end
+    Topic(["Topic<br/>(주제, 공통)"])
+    MerchantCategory(["MerchantCategory<br/>(업종과 결제 대상, 공통)"])
+    Product(["Product<br/>(카드 상품, 정형 참조)"])
+    regulation_TermsDocument -->|HAS_CLAUSE 구조용| regulation_Clause
+    regulation_Clause -->|SETS_REQUIREMENT| regulation_Requirement
+    regulation_Clause -->|SETS_DEADLINE| regulation_Deadline
+    regulation_Clause -->|DEFINES_HANDLING| regulation_Handling
+    regulation_Clause -->|ABOUT| Topic
+    Product -->|OFFERS_BENEFIT| benefit_guide_Benefit
+    benefit_guide_Benefit -->|REQUIRES| benefit_guide_BenefitCondition
+    benefit_guide_Benefit -->|LIMITED_BY| benefit_guide_BenefitLimit
+    benefit_guide_Benefit -->|EXCLUDES| benefit_guide_BenefitExclusion
+    benefit_guide_Benefit -->|APPLIES_TO| MerchantCategory
+    consult_log_Consultation -->|HAS_COMPLAINT| consult_log_Complaint
+    consult_log_Consultation -->|HAS_PROPOSAL| consult_log_Proposal
+    consult_log_Proposal -->|RECONSIDER_WHEN| consult_log_ReconsiderCondition
+    consult_log_Consultation -->|FOLLOWS| consult_log_Consultation
+    consult_log_Complaint -->|ABOUT| Topic
+    consult_log_Consultation -->|HAS_TOPIC| Topic
+    consult_log_Complaint -->|MENTIONS_CATEGORY| MerchantCategory
+    consult_log_Proposal -->|MENTIONS_CATEGORY| MerchantCategory
+    consult_log_Consultation -->|MENTIONS_PRODUCT| Product
+    consult_log_Consultation -->|IN_SEGMENT| consult_log_CustomerSegment
+    consult_log_Consultation -->|OF_MEMBER| consult_log_PseudoMember
+    consult_log_Proposal -->|HAS_TRAIT| consult_log_ProposalTrait
+    classDef shared fill:#fde68a,stroke:#b45309
+    class Topic,MerchantCategory shared
+    classDef ref fill:#bfdbfe,stroke:#1d4ed8
+    class Product ref

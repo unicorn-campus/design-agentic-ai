@@ -6,10 +6,13 @@
 - 증분 색인(incremental): 지금 쓰는 세대에 바로 써서 쓰는 순간 보임. 준비만 병렬, 반영은
   K4 ~ K6(KG에 새 청크 넣기) → S3(검색엔진 문서 교체) → K7(KG 옛 청크 지우기) → 기록 갱신 순서
 - 서브 워크플로우(kg_build, search_index)는 인덱스 구축만 하고 활성 세대 파일은 바꾸지 않음
+- K8 커뮤니티 요약(선택, --communities): 전체 재색인은 K4 ~ K6 뒤, 증분 색인은 K7 뒤(그래프가 완성된 뒤)에 함.
+  옵션이 없으면 K8을 부르지 않고 출력도 그대로임
 
 실행:
   python orchestrator.py full --run sample-001 --chunks data/sample-chunks.json
   python orchestrator.py incremental --run sample-002 --chunks data/sample-chunks-v2.json
+  python orchestrator.py full --run sample-007 --chunks data/sample-chunks.json --full-reindex --communities
 """
 
 from __future__ import annotations
@@ -24,16 +27,28 @@ from concurrent.futures import ThreadPoolExecutor
 
 import neo4j
 
+import community
 import config
 import kg_build
 import search_index
 from common import doc_id_of, load_json, log, save_json, sha256_file, sha256_text
 
 
-def neo4j_driver():
+def neo4j_password() -> str:
+    """환경변수 NEO4J_PASSWORD를 먼저 쓰고, 없으면 Neo4j compose 옆 .env에서 읽음(값은 출력하지 않음)."""
+
     password = os.environ.get("NEO4J_PASSWORD")
+    if not password and config.NEO4J_ENV_FILE.exists():
+        for line in config.NEO4J_ENV_FILE.read_text(encoding="utf-8").splitlines():
+            if line.strip().startswith("NEO4J_PASSWORD="):
+                password = line.split("=", 1)[1].strip().strip('"').strip("'")
     if not password:
-        raise SystemExit("환경변수 NEO4J_PASSWORD가 없음(README의 실행 방법 참고)")
+        raise SystemExit("Neo4j 비밀번호가 없음: 환경변수 NEO4J_PASSWORD나 hybrid-ai-lab/neo4j/.env 필요")
+    return password
+
+
+def neo4j_driver():
+    password = neo4j_password()
     return neo4j.GraphDatabase.driver(config.NEO4J_URI, auth=(config.NEO4J_USER, password))
 
 
@@ -48,6 +63,29 @@ def config_signature() -> str:
              if (config.SCHEMA_DIR / d / "graph_schema.json").exists()]
     parts += [config.LLM_MODEL, config.EMBED_MODEL, config.EMBED_REVISION, str(config.BM25_K1), str(config.BM25_B)]
     return sha256_text("|".join(parts))
+
+
+# ---------------------------------------------------------------- K8 기록 파일
+
+REPORTS_FILE = "community_reports.json"  # 세대 폴더의 K8 보고서 기록. {member_hash: 보고서와 임베딩}
+
+
+def load_reports(*gen_dirs) -> dict:
+    """앞에 준 세대 폴더부터 K8 보고서 기록을 찾아 합침. 같은 지문은 앞 폴더 것을 씀(이번 세대 > 이전 활성 세대)."""
+
+    out: dict = {}
+    for d in reversed([d for d in gen_dirs if d is not None]):
+        if (d / REPORTS_FILE).exists():
+            out.update(load_json(d / REPORTS_FILE))
+    return out
+
+
+def step3_k8(driver, generation, gen_dir, run_id, previous_dir) -> dict:
+    """K8을 돌리고 이번 세대의 보고서 기록을 세대 폴더에 저장함(다음 실행이 지문이 같은 보고서를 다시 씀)."""
+
+    result, reports = community.k8_summarize(driver, generation, run_id, load_reports(gen_dir, previous_dir))
+    save_json(gen_dir / REPORTS_FILE, reports)
+    return result
 
 
 # ---------------------------------------------------------------- ① ~ ⑤
@@ -75,7 +113,7 @@ def step2_common(chunks_path, gen_dir) -> list[dict]:
     return chunks
 
 
-def step3_build_full(chunks, generation, gen_dir, run_id, active, driver) -> dict:
+def step3_build_full(chunks, generation, gen_dir, run_id, active, driver, communities: bool = False) -> dict:
     """③ 인덱스 구축(전체 재색인). 둘 다 새 세대에 쓰므로 KG 구축과 검색엔진 인덱싱을 통째로 병렬로 돌림."""
 
     previous_kg = None
@@ -87,7 +125,11 @@ def step3_build_full(chunks, generation, gen_dir, run_id, active, driver) -> dic
     def kg_side():
         prepared = kg_build.prepare(chunks, previous_kg)  # K1 ~ K3
         save_json(gen_dir / "kg_prepared.json", prepared)  # 준비 결과 보관: 반영에서 실패해도 계산을 다시 하지 않음
-        return prepared, kg_build.apply(driver, prepared, generation, run_id)  # K4 ~ K6
+        applied = kg_build.apply(driver, prepared, generation, run_id)  # K4 ~ K6
+        if communities:  # K8: 새 세대라 K7이 없음. K6까지 끝나면 그래프가 완성됨
+            previous_dir = config.GENERATIONS / active["generation"] if active else None
+            applied["k8"] = step3_k8(driver, generation, gen_dir, run_id, previous_dir)
+        return prepared, applied
 
     def search_side():
         prepared = search_index.prepare(chunks, previous_index)  # S1 ~ S2
@@ -102,25 +144,28 @@ def step3_build_full(chunks, generation, gen_dir, run_id, active, driver) -> dic
             "tokenizer": search_prepared["tokenizer"]}
 
 
-def step4_verify(chunks, generation, index, kg_prepared, driver) -> dict:
-    """④ 검증. 두 준비 보고의 chunk_id 목록을 비교함.
-    검색엔진 = 모든 청크, KG = 모든 청크(단, 추출 단위가 없는 청크와 추출에 실패한 단위의 청크는 빠질 수 있음)."""
+def step4_verify(chunks, generation, index, kg_prepared, driver, communities: bool = False) -> dict:
+    """④ 검증. 검색엔진 chunk_id 집합 = 전체 청크 = KG 청크 노드 chunk_id 집합인지, 청크 하나에 노드가 하나인지 봄.
+    추출 단위가 없거나 추출에 실패한 청크도 청크 노드는 있으므로 예외 목록이 필요 없음(엔티티만 없음)."""
 
     all_ids = {c["chunk_id"] for c in chunks}
     search_ids = search_index.chunk_ids(index)
-    kg_ids = kg_build.covered_chunk_ids(driver, generation)
-    failed = set(kg_prepared["failed_units"])
-    allowed = set(kg_prepared["no_unit_chunks"]) | {
-        cid for u in kg_prepared["units"] if u["unit_id"] in failed for cid in u["parent_chunk_ids"]}
+    kg_list = kg_build.chunk_node_ids(driver, generation)
+    kg_ids = set(kg_list)
     report = {
-        "search_equal": search_ids == all_ids,
+        "search_equal": search_ids == all_ids, "kg_equal": kg_ids == all_ids,
         "search_missing": sorted(all_ids - search_ids), "search_extra": sorted(search_ids - all_ids),
-        "kg_missing": sorted(all_ids - kg_ids), "kg_missing_allowed": sorted(allowed),
-        "kg_extra": sorted(kg_ids - all_ids)}
-    report["ok"] = (report["search_equal"] and not report["kg_extra"]
-                    and set(report["kg_missing"]) <= allowed)
+        "kg_missing": sorted(all_ids - kg_ids), "kg_extra": sorted(kg_ids - all_ids),
+        "kg_duplicate_chunk_nodes": sorted({c for c in kg_list if kg_list.count(c) > 1}),
+        "failed_units": kg_prepared["failed_units"]}  # 게시 조건은 아님. 엔티티가 빠진 청크를 알리는 기록
+    report["ok"] = report["search_equal"] and report["kg_equal"] and not report["kg_duplicate_chunk_nodes"]
     log(f"④ 검증: {'통과' if report['ok'] else '실패'} (검색엔진 {len(search_ids)}/{len(all_ids)}, "
-        f"KG {len(kg_ids)}/{len(all_ids)}, KG에 없어도 되는 청크 {len(allowed)}개)")
+        f"KG 청크 노드 {len(kg_list)}개 = 고유 {len(kg_ids)}/{len(all_ids)}, 추출 실패 단위 {len(report['failed_units'])}개)")
+    if communities:  # K8을 켠 실행만 커뮤니티를 확인함(끈 실행의 보고서 꼴과 로그는 그대로 둠)
+        c = report["communities"] = community.verify(driver, generation)
+        report["ok"] = report["ok"] and c["ok"]
+        log(f"④ 검증(K8): {'통과' if c['ok'] else '실패'} (커뮤니티 {c['communities']}개, 요약 빠짐 {c['incomplete']}, "
+            f"빈 묶음 {c['empty']}, 세대 밖 구성원 {c['foreign_members']})")
     return report
 
 
@@ -133,7 +178,7 @@ def step5_publish(record: dict) -> None:
 
 # ---------------------------------------------------------------- 전체 재색인
 
-def run_full(run: str, chunks_path, full_reindex: bool) -> None:
+def run_full(run: str, chunks_path, full_reindex: bool, communities: bool = False) -> None:
     active = read_active()
     gen = step1_issue_generation(run, chunks_path, active, full_reindex)
     if gen["skip"]:
@@ -142,8 +187,8 @@ def run_full(run: str, chunks_path, full_reindex: bool) -> None:
     run_id = f"{run}@{time.strftime('%Y%m%d%H%M%S')}"
     chunks = step2_common(chunks_path, gen_dir)
     with neo4j_driver() as driver:
-        built = step3_build_full(chunks, generation, gen_dir, run_id, active, driver)
-        report = step4_verify(chunks, generation, built["index"], built["kg_prepared"], driver)
+        built = step3_build_full(chunks, generation, gen_dir, run_id, active, driver, communities)
+        report = step4_verify(chunks, generation, built["index"], built["kg_prepared"], driver, communities)
     save_json(gen_dir / "build_report.json", {"run_id": run_id, "kg": built["kg"], "search": built["search"],
                                               "verify": report, "llm_usage": built["kg_prepared"]["llm_usage"]})
     if not report["ok"]:
@@ -163,7 +208,7 @@ def _by_doc(chunks: list[dict]) -> dict[str, set[str]]:
     return out
 
 
-def run_incremental(run: str, chunks_path) -> None:
+def run_incremental(run: str, chunks_path, communities: bool = False) -> None:
     """지금 쓰는 세대에 바뀐 문서만 반영함. 준비는 병렬, 반영은 K4 ~ K6 → S3 → K7 → 기록 갱신 순서."""
 
     active = read_active()
@@ -194,10 +239,14 @@ def run_incremental(run: str, chunks_path) -> None:
         kg_result = kg_build.apply(driver, kg_prepared, generation, run_id)  # K4 ~ K6
         search_result = search_index.apply(index, search_prepared, delete_doc_ids=removed)  # S3
         cleanup = kg_build.cleanup(driver, generation, run_id, changed + removed)  # K7
+        if communities:  # K8: K7이 옛 청크와 고아 엔티티를 지운 뒤라야 묶음에 지워질 엔티티가 섞이지 않음
+            kg_result["k8"] = step3_k8(driver, generation, gen_dir, run_id, None)
 
         # 기록 갱신: 이 세대의 청킹 결과와 준비 결과, 활성 세대 파일의 입력 지문
         touched = set(changed) | set(removed)
-        merged_kg = {"units": [u for u in old_kg["units"] if u["doc_id"] not in touched] + kg_prepared["units"],
+        merged_kg = {"chunks": [c for c in old_kg.get("chunks", []) if c["doc_id"] not in touched]
+                     + kg_prepared["chunks"],
+                     "units": [u for u in old_kg["units"] if u["doc_id"] not in touched] + kg_prepared["units"],
                      "no_unit_chunks": [c for c in old_kg["no_unit_chunks"] if doc_id_of(c) not in touched]
                      + kg_prepared["no_unit_chunks"],
                      "failed_units": [u["unit_id"] for u in old_kg["units"]
@@ -205,7 +254,7 @@ def run_incremental(run: str, chunks_path) -> None:
                      + kg_prepared["failed_units"], "llm_usage": kg_prepared["llm_usage"]}
         save_json(gen_dir / "kg_prepared.json", merged_kg)
         shutil.copyfile(chunks_path, gen_dir / "prepared-chunks.json")
-        report = step4_verify(new_chunks, generation, index, merged_kg, driver)  # 확인용(게시 조건 아님)
+        report = step4_verify(new_chunks, generation, index, merged_kg, driver, communities)  # 확인용(게시 조건 아님)
     save_json(gen_dir / f"incremental_report-{run}.json", {"run_id": run_id, "changed_docs": changed,
                                                            "removed_docs": removed, "kg": kg_result,
                                                            "search": search_result, "cleanup": cleanup,
@@ -222,11 +271,12 @@ def main() -> None:
     p.add_argument("--run", required=True, help="실행 이름. 같은 이름이면 같은 세대 ID")
     p.add_argument("--chunks", default=str(config.DEFAULT_CHUNKS), help="청킹 결과 파일(prepared-chunks.json)")
     p.add_argument("--full-reindex", action="store_true", help="사전 검사를 건너뛰고 새 세대를 만듦")
+    p.add_argument("--communities", action="store_true", help="K8 커뮤니티 요약을 켬(선택 단계)")
     a = p.parse_args()
     if a.mode == "full":
-        run_full(a.run, a.chunks, a.full_reindex)
+        run_full(a.run, a.chunks, a.full_reindex, a.communities)
     else:
-        run_incremental(a.run, a.chunks)
+        run_incremental(a.run, a.chunks, a.communities)
 
 
 if __name__ == "__main__":

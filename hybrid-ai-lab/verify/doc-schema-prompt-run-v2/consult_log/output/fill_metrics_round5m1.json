@@ -1,0 +1,114 @@
+{
+  "round": "5m1",
+  "metrics": {
+    "C1": {
+      "pos": 8,
+      "hit": 8,
+      "neg": 10,
+      "fp": 3,
+      "same": 8,
+      "recall": 1.0,
+      "fp_rate": 0.3,
+      "match": 1.0,
+      "pass": false
+    },
+    "C2": {
+      "pos": 18,
+      "hit": 18,
+      "neg": 0,
+      "fp": 0,
+      "same": 18,
+      "recall": 1.0,
+      "fp_rate": null,
+      "match": 1.0,
+      "pass": true
+    },
+    "C3": {
+      "pos": 18,
+      "hit": 18,
+      "neg": 0,
+      "fp": 0,
+      "same": 18,
+      "recall": 1.0,
+      "fp_rate": null,
+      "match": 1.0,
+      "pass": true
+    },
+    "C4": {
+      "pos": 8,
+      "hit": 8,
+      "neg": 10,
+      "fp": 0,
+      "same": 8,
+      "recall": 1.0,
+      "fp_rate": 0.0,
+      "match": 1.0,
+      "pass": true
+    },
+    "C5": {
+      "pos": 14,
+      "hit": 14,
+      "neg": 4,
+      "fp": 0,
+      "same": 14,
+      "recall": 1.0,
+      "fp_rate": 0.0,
+      "match": 1.0,
+      "pass": true
+    },
+    "X1": {
+      "pos": 9,
+      "hit": 8,
+      "neg": 9,
+      "fp": 3,
+      "same": 7,
+      "recall": 0.8888888888888888,
+      "fp_rate": 0.3333333333333333,
+      "match": 0.875,
+      "pass": false
+    },
+    "X2": {
+      "pos": 18,
+      "hit": 15,
+      "neg": 0,
+      "fp": 0,
+      "same": 15,
+      "recall": 0.8333333333333334,
+      "fp_rate": null,
+      "match": 1.0,
+      "pass": true
+    },
+    "A1": {
+      "pos": 8,
+      "hit": 7,
+      "neg": 10,
+      "fp": 3,
+      "same": 7,
+      "recall": 0.875,
+      "fp_rate": 0.3,
+      "match": 1.0,
+      "pass": false
+    },
+    "A2": {
+      "pos": 18,
+      "hit": 16,
+      "neg": 0,
+      "fp": 0,
+      "same": 10,
+      "recall": 0.8888888888888888,
+      "fp_rate": null,
+      "match": 0.625,
+      "pass": true
+    }
+  },
+  "usage": {
+    "queue_time": 3.286237426,
+    "prompt_tokens": 73632,
+    "prompt_time": 3.616320141,
+    "completion_tokens": 42435,
+    "completion_time": 110.534182298,
+    "total_tokens": 116067,
+    "total_time": 114.150502439
+  },
+  "all_pass": false
+}

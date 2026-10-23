@@ -61,7 +61,7 @@ flowchart TD
 
 ```
 ragas/
-├─ eval-set.md                 평가셋 v3 22문항(사람용 원본 · 검토 칸)
+├─ eval-set.md                 평가셋 v4 25문항(사람용 원본 · 검토 칸)
 ├─ eval-set.json               기계용 평가셋(build_eval_set.py가 검증 통과 때만 씀)
 ├─ plans/
 │  ├─ chunk_size.yaml          청크 크기 600 · 800(기준 800, 재색인)

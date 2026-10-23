@@ -112,6 +112,16 @@ class GroqLLM(LLMInterface):
 
     def invoke(self, input: str, message_history: Optional[Any] = None,
                system_instruction: Optional[str] = None) -> LLMResponse:
+        return LLMResponse(content=self._clean(self.chat_json(input, system_instruction)))
+
+    def chat_json(self, input: str, system_instruction: Optional[str] = None) -> str:
+        """JSON 모드로 한 번 묻고 응답 글을 그대로 돌려줌(그래프 꼴로 다듬지 않음).
+
+        K2 추출은 invoke가 이 글을 그래프 꼴로 다듬어 쓰고, K8 커뮤니티 요약은 보고서 JSON을 그대로 씀.
+        예외: 4xx(429 제외)는 바로 RuntimeError, 429와 5xx는 6번까지 기다렸다 다시 부른 뒤 RuntimeError.
+        부수효과: 응답의 토큰 사용량을 self.usage에 더함.
+        """
+
         messages = ([{"role": "system", "content": system_instruction}] if system_instruction else [])
         messages.append({"role": "user", "content": input})
         body = {"model": self.model_name, "messages": messages, "response_format": {"type": "json_object"},
@@ -125,7 +135,7 @@ class GroqLLM(LLMInterface):
                 for k, v in (payload.get("usage") or {}).items():
                     if isinstance(v, (int, float)):
                         self.usage[k] += v
-                return LLMResponse(content=self._clean(payload["choices"][0]["message"]["content"]))
+                return payload["choices"][0]["message"]["content"]
             except urllib.error.HTTPError as e:
                 detail = e.read()[:300]
                 if e.code == 400 and b"json_validate_failed" in detail and attempt < 2:

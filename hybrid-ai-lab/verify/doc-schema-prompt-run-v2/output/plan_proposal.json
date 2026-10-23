@@ -1,0 +1,113 @@
+{
+  "note": "3단계 승인 전 제안. 승인 기록은 승인 뒤 따로 남김",
+  "content": {
+    "seed": 20261018,
+    "table": [
+      {
+        "doc": "regulation",
+        "group": "약관 조항 전체",
+        "chunks": 10,
+        "chunks_split": 10,
+        "discovery_start": 10,
+        "discovery_cap": 20,
+        "test": 30
+      },
+      {
+        "doc": "benefit_guide",
+        "group": "본문 아님",
+        "chunks": 11,
+        "chunks_split": 0,
+        "discovery_start": 8,
+        "discovery_cap": 8,
+        "test": 3
+      },
+      {
+        "doc": "benefit_guide",
+        "group": "카드 개요",
+        "chunks": 64,
+        "chunks_split": 0,
+        "discovery_start": 10,
+        "discovery_cap": 30,
+        "test": 16
+      },
+      {
+        "doc": "benefit_guide",
+        "group": "혜택 상세",
+        "chunks": 85,
+        "chunks_split": 0,
+        "discovery_start": 10,
+        "discovery_cap": 30,
+        "test": 21
+      },
+      {
+        "doc": "consult_log",
+        "group": "D3_S01_신규가입_상담이력_합성.txt",
+        "chunks": 8,
+        "chunks_split": 0,
+        "discovery_start": 5,
+        "discovery_cap": 5,
+        "test": 3
+      },
+      {
+        "doc": "consult_log",
+        "group": "D3_S02_장기보유_상담이력_합성.txt",
+        "chunks": 8,
+        "chunks_split": 0,
+        "discovery_start": 5,
+        "discovery_cap": 5,
+        "test": 3
+      },
+      {
+        "doc": "consult_log",
+        "group": "D3_S03_VIP_상담이력_합성.txt",
+        "chunks": 8,
+        "chunks_split": 0,
+        "discovery_start": 5,
+        "discovery_cap": 5,
+        "test": 3
+      },
+      {
+        "doc": "consult_log",
+        "group": "D3_S04_휴면직전_상담이력_합성.txt",
+        "chunks": 8,
+        "chunks_split": 0,
+        "discovery_start": 5,
+        "discovery_cap": 5,
+        "test": 3
+      },
+      {
+        "doc": "consult_log",
+        "group": "D3_S05_다중카드_상담이력_합성.txt",
+        "chunks": 8,
+        "chunks_split": 0,
+        "discovery_start": 5,
+        "discovery_cap": 5,
+        "test": 3
+      },
+      {
+        "doc": "consult_log",
+        "group": "D3_S06_연회비부담_상담이력_합성.txt",
+        "chunks": 8,
+        "chunks_split": 0,
+        "discovery_start": 5,
+        "discovery_cap": 5,
+        "test": 3
+      }
+    ],
+    "notes": {
+      "regulation": "청크 10건 중 10건만 나눔 → 단위 시험용 30건, 발견용 20건(목표 시험용 30 ~ 50건)",
+      "benefit_guide": "청크 160건 → 시험용 40건(목표 30 ~ 50건)",
+      "consult_log": "청크 48건 → 시험용 18건(목표 30 ~ 50건) 모자람: 청크가 적어 시험용을 줄임"
+    },
+    "units": {
+      "regulation": {
+        "kind": "제목 꼴로 나눔",
+        "heading": "^(제\\d+조(?:의\\d+)?)\\(([^)]*)\\)\\s*$",
+        "body_start": "①",
+        "drop_lines": "^제\\d+장\\s"
+      },
+      "benefit_guide": "청크 그대로",
+      "consult_log": "청크 그대로"
+    }
+  }
+}

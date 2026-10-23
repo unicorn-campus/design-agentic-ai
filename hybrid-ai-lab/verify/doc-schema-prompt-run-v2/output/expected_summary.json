@@ -1,0 +1,47 @@
+{
+  "summary": {
+    "regulation": {
+      "test": 30,
+      "dropped_excluded": 0,
+      "has_answer": {
+        "R1": 29,
+        "R2": 6,
+        "R3": 13,
+        "R4": 10,
+        "R5": 30,
+        "X1": 28
+      },
+      "fixes": 0
+    },
+    "benefit_guide": {
+      "test": 38,
+      "dropped_excluded": 2,
+      "has_answer": {
+        "B1": 35,
+        "B2": 37,
+        "B3": 37,
+        "B4": 36,
+        "B5": 18,
+        "X1": 22,
+        "X2": 35
+      },
+      "fixes": 1
+    },
+    "consult_log": {
+      "test": 18,
+      "dropped_excluded": 0,
+      "has_answer": {
+        "C1": 8,
+        "C2": 18,
+        "C3": 18,
+        "C4": 8,
+        "C5": 14,
+        "X1": 12,
+        "X2": 18,
+        "A1": 8,
+        "A2": 17
+      },
+      "fixes": 26
+    }
+  }
+}

@@ -45,13 +45,14 @@ RAGAS는 ContextRecall이 세 실행 모두 1.000이고 ContextPrecision과 Answ
 기존 구현과 같게 맞춘 것: 같은 Kiwi 분석기로 자른 낱말을 질의로 씀, 점수 0 이하는 버림,  
 열람 등급과 회원 필터는 점수를 낸 뒤 순위 매기기 전에 적용, 같은 점수면 조각ID 오름차순.
 
-접속은 Neo4j **HTTP Query API**(포트 17474)를 씀 — 검색기 가상환경에 `neo4j` 드라이버가 없고  
-새 패키지를 깔지 않기로 했기 때문임. 접속값은 `../../neo4j-vector-search/.env.example`에서 읽고 출력하지 않음.
+접속은 Neo4j **HTTP Query API**(포트 7474)를 씀 — 검색기 가상환경에 `neo4j` 드라이버가 없고  
+새 패키지를 깔지 않기로 했기 때문임. 주소와 사용자는 `../../neo4j-vector-search/.env.example`에서,  
+비밀번호는 실습 공용 컨테이너의 `hybrid-ai-lab/neo4j/.env`에서 읽고 출력하지 않음. 포트를 바꿨으면 `NEO4J_HTTP_PORT`로 넘김.
 
 ## 실행
 
 ```bash
-docker start verify-neo4j     # 이미 떠 있으면 하지 않아도 됨
+docker compose -f neo4j/compose.yml up -d     # hybrid-ai-lab 폴더에서. 이미 떠 있으면 하지 않아도 됨
 ```
 
 ```bash
@@ -73,7 +74,7 @@ ragas/.venv/Scripts/python verify/neo4j-bm25-compare/ragas-ab/compare.py
 
 - 전용 라벨 `RagasAbChunk`와 전용 인덱스 `ragasab_tokens_ws`만 만들고 끝나면 지움
 - 사용 중 세대 포인터(`active_generation.json`)는 실행 전 백업하고 실행 뒤 내용으로 같은지 확인함. 재색인은 하지 않음
-- 새 패키지를 깔지 않음. `verify-neo4j` 말고 다른 컨테이너를 켜거나 끄지 않음
+- 새 패키지를 깔지 않음. `neo4j` 말고 다른 컨테이너를 켜거나 끄지 않음
 
 ## 시험 조건
 
@@ -85,7 +86,7 @@ ragas/.venv/Scripts/python verify/neo4j-bm25-compare/ragas-ab/compare.py
 | 답변 생성 | 프로젝트 설정 그대로 — Groq `gpt-oss-120b`(C-01 ~ C-04) |
 | RAGAS 평가자 | 계획 파일 `ragas/plans/top_k.yaml`과 같은 local(Ollama Qwen3.5-9B), 반복 3회, 핵심 4지표 |
 | 평가셋 지문 | `0fdb90cdd27c` — 계획 파일 `top_k.yaml`의 `eval_set.sha256`과 같음(실행 중 직접 계산해 대조) |
-| Neo4j | `verify-neo4j`(HTTP 17474, Bolt 17687) |
+| Neo4j | `neo4j`(HTTP 7474, Bolt 7687) |
 | 걸린 시간 | 검색과 답변 생성 114초, 112초, 117초. RAGAS 채점 12.8분, 14.1분, 11.5분(합계 약 44분) |
 
 ## 결과

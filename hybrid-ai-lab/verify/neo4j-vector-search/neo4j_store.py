@@ -49,7 +49,7 @@ def connect() -> Driver:
     """환경변수(NEO4J_URI·NEO4J_USER·NEO4J_PASSWORD)로 시험용 Neo4j에 연결함."""
 
     return GraphDatabase.driver(
-        os.environ.get("NEO4J_URI", "bolt://localhost:17687"),
+        os.environ.get("NEO4J_URI", "bolt://localhost:7687"),  # 실습 공용 컨테이너 neo4j(hybrid-ai-lab/neo4j/compose.yml)
         auth=(os.environ.get("NEO4J_USER", "neo4j"), os.environ["NEO4J_PASSWORD"]),
     )
 

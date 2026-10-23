@@ -1,0 +1,477 @@
+{
+  "input": {
+    "base_dir": "C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/verify/doc-schema-prompt-run-v2",
+    "chunk_source": "C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/indexer/vector-bm25/data/active_generation.json",
+    "chunk_file": "C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/indexer/vector-bm25/data/artifacts/cardname-20261023/prepared-chunks.json",
+    "text_field": "text",
+    "doc_type_field": "doc_type",
+    "doc_types": [
+      "regulation",
+      "benefit_guide",
+      "consult_log"
+    ],
+    "question_sources": [
+      "C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/ragas/eval-set.json (Q01 ~ Q25)",
+      "C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/indexer/vector-bm25/evaluation/group2_questions.json",
+      "C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/specs/userstory.md"
+    ],
+    "structured_schema": "C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/indexer/graphrag/schema/rdb/graph_schema.json",
+    "answer_tables": {
+      "consult_log": [
+        "C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/docs/_instructor/D3/상담근거_대조표.jsonl",
+        "C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/docs/_instructor/D3/정제검증_기대값.json"
+      ]
+    },
+    "llm_provider": "groq",
+    "llm_model": "openai/gpt-oss-120b",
+    "secret_file": "C:/Users/hiond/class/design-agentic-ai/secrets/.env",
+    "secret_key_name": "GROQ_API_KEY",
+    "cq_guide": "C:/Users/hiond/class/design-agentic-ai/references/how-to-competency-question.md",
+    "neo4j_graphrag_version": "1.22.0",
+    "neo4j_edition": "Community(neo4j:2026.09.0-community), 제약은 UNIQUENESS만 사용",
+    "neo4j_graphrag_venv": "C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/indexer/graphrag/v0/.venv",
+    "extraction_units": {
+      "regulation": {
+        "kind": "제목 꼴로 나눔",
+        "heading": "^(제\\d+조(?:의\\d+)?)\\(([^)]*)\\)\\s*$",
+        "body_start": "①",
+        "drop_lines": "^제\\d+장\\s"
+      }
+    },
+    "chunk_file_v3": "C:/Users/hiond/class/design-agentic-ai/hybrid-ai-lab/indexer/vector-bm25/data/artifacts/birthfix-20261018b/prepared-chunks.json"
+  },
+  "steps": [
+    {
+      "step": "1",
+      "rev": 1,
+      "judge": "사용자 승인",
+      "date": "2026-10-23 22:24",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step1.md",
+      "review_sha256": "0221e3116b12ee5eb58e4331fbb095fbf9ef9fc76550cf5d7851c22b158139c4",
+      "user_answer": "1단계 입력값을 검토 파일대로 승인합니다.",
+      "content": {
+        "chunk_count": 218,
+        "doc_types": {
+          "regulation": 10,
+          "benefit_guide": 160,
+          "consult_log": 48
+        },
+        "pii_found": {
+          "전화번호": 0,
+          "이메일": 0,
+          "카드나 계좌 번호": 0,
+          "주민번호": 0,
+          "생년월일": 0
+        },
+        "resolve_reasons": [
+          "위치 파일에 청크 경로는 없음. generation=gen-birthfix-20261018b-efeb65bd, chunk_count=218",
+          "이름 규칙 일치: gen-{실행 ID}-{해시}의 실행 ID = 산출물 폴더 'birthfix-20261018b'",
+          "청크 수 일치: 218개"
+        ]
+      }
+    },
+    {
+      "step": "2",
+      "rev": 1,
+      "judge": "사용자 승인",
+      "date": "2026-10-23 22:29",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step2.md",
+      "review_sha256": "289af916ccfa7f59ca6dc60730e73540e06a4e35c77d91271ce4f3aa42774ffb",
+      "user_answer": "2단계 기본 질문과 역량 질문을 검토 파일대로 승인합니다.",
+      "content": {
+        "competency_questions": "competency_questions.md, competency_questions.json",
+        "count": 19,
+        "added": [
+          "용도 ②(거시 질문)",
+          "상담 품질 담당자",
+          "X1",
+          "X2",
+          "A1",
+          "A2"
+        ]
+      }
+    },
+    {
+      "step": "3",
+      "rev": 1,
+      "judge": "사용자 승인",
+      "date": "2026-10-23 22:47",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step3.md",
+      "review_sha256": "52a374e615281ef9a31fcc1c9c102c1f0e3a93c5c1e3d976c88061c0411b836a",
+      "user_answer": "3단계 추출 단위, 묶음, 표본 계획, 메타데이터 노드 후보를 검토 파일대로 승인합니다.",
+      "history": [
+        "첫 검토 파일에 사용자가 개념 설명과 열 뜻을 요청함 → 프롬프트 규칙 추가 후 다시 씀",
+        "혜택 안내 묶음(공통 안내, 참고 카드)이 내용과 맞지 않는다는 지적 → 카드 개요, 혜택 상세, 본문 아님으로 고침"
+      ],
+      "content": {
+        "seed": 20261018,
+        "table": [
+          {
+            "doc": "regulation",
+            "group": "약관 조항 전체",
+            "chunks": 10,
+            "chunks_split": 10,
+            "discovery_start": 10,
+            "discovery_cap": 20,
+            "test": 30
+          },
+          {
+            "doc": "benefit_guide",
+            "group": "본문 아님",
+            "chunks": 11,
+            "chunks_split": 0,
+            "discovery_start": 8,
+            "discovery_cap": 8,
+            "test": 3
+          },
+          {
+            "doc": "benefit_guide",
+            "group": "카드 개요",
+            "chunks": 64,
+            "chunks_split": 0,
+            "discovery_start": 10,
+            "discovery_cap": 30,
+            "test": 16
+          },
+          {
+            "doc": "benefit_guide",
+            "group": "혜택 상세",
+            "chunks": 85,
+            "chunks_split": 0,
+            "discovery_start": 10,
+            "discovery_cap": 30,
+            "test": 21
+          },
+          {
+            "doc": "consult_log",
+            "group": "D3_S01_신규가입_상담이력_합성.txt",
+            "chunks": 8,
+            "chunks_split": 0,
+            "discovery_start": 5,
+            "discovery_cap": 5,
+            "test": 3
+          },
+          {
+            "doc": "consult_log",
+            "group": "D3_S02_장기보유_상담이력_합성.txt",
+            "chunks": 8,
+            "chunks_split": 0,
+            "discovery_start": 5,
+            "discovery_cap": 5,
+            "test": 3
+          },
+          {
+            "doc": "consult_log",
+            "group": "D3_S03_VIP_상담이력_합성.txt",
+            "chunks": 8,
+            "chunks_split": 0,
+            "discovery_start": 5,
+            "discovery_cap": 5,
+            "test": 3
+          },
+          {
+            "doc": "consult_log",
+            "group": "D3_S04_휴면직전_상담이력_합성.txt",
+            "chunks": 8,
+            "chunks_split": 0,
+            "discovery_start": 5,
+            "discovery_cap": 5,
+            "test": 3
+          },
+          {
+            "doc": "consult_log",
+            "group": "D3_S05_다중카드_상담이력_합성.txt",
+            "chunks": 8,
+            "chunks_split": 0,
+            "discovery_start": 5,
+            "discovery_cap": 5,
+            "test": 3
+          },
+          {
+            "doc": "consult_log",
+            "group": "D3_S06_연회비부담_상담이력_합성.txt",
+            "chunks": 8,
+            "chunks_split": 0,
+            "discovery_start": 5,
+            "discovery_cap": 5,
+            "test": 3
+          }
+        ],
+        "notes": {
+          "regulation": "청크 10건 중 10건만 나눔 → 단위 시험용 30건, 발견용 20건(목표 시험용 30 ~ 50건)",
+          "benefit_guide": "청크 160건 → 시험용 40건(목표 30 ~ 50건)",
+          "consult_log": "청크 48건 → 시험용 18건(목표 30 ~ 50건) 모자람: 청크가 적어 시험용을 줄임"
+        },
+        "units": {
+          "regulation": {
+            "kind": "제목 꼴로 나눔",
+            "heading": "^(제\\d+조(?:의\\d+)?)\\(([^)]*)\\)\\s*$",
+            "body_start": "①",
+            "drop_lines": "^제\\d+장\\s"
+          },
+          "benefit_guide": "청크 그대로",
+          "consult_log": "청크 그대로"
+        },
+        "metadata_node_candidates": {
+          "consult_log.source": "노드 후보: 고객군(이름 규칙 D3_S번호_(고객군)_)",
+          "consult_log.topic": "노드 후보: 주제",
+          "consult_log.member_pseudo_id": "노드 후보: 가명 회원",
+          "benefit_guide.product_id": "참조 노드 후보: 정형 Product",
+          "benefit_guide.benefit_id": "키 속성",
+          "regulation.version/effective_date/supersedes": "속성",
+          "consult_log.age_band/channel/agent_pseudo_id": "쓰지 않음"
+        }
+      }
+    },
+    {
+      "step": "5",
+      "rev": 1,
+      "judge": "사용자 승인",
+      "date": "2026-10-23 23:02",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step5.md",
+      "review_sha256": "199b8f88badf0d4e19a86193a0c3b9f918287e8620a8d32012d7b07b7129f4e2",
+      "user_answer": "5단계 스키마 초안을 검토 파일대로 승인합니다. 정해 줄 점은 추천대로 합니다.",
+      "content": {
+        "files_sha256": {
+          "shared_concepts.json": "35d4445fbad8de83eff65f06f8246adc5c47d865db27eb127eec2285ce2b9afc",
+          "regulation/schema_spec.json": "cf2824927752348dd2cca78aa4b08ca2f3ea6f0c34a396a3c6c5995469ca34c4",
+          "benefit_guide/schema_spec.json": "0944a639c3f15301642464361b18b5729a77bf79f96598682a77010b95d2b543",
+          "consult_log/schema_spec.json": "7cde62f3b3c0607e990c7f1436db251686a05b7893f759017302039a575bb512"
+        },
+        "decided": {
+          "설계 참고 출처 7건": "인덱싱의 엔티티 추출에서 빼고 검색엔진에만 둠(절 제목에 '참고 카드:'가 든 청크)",
+          "제안 성격 목록": "6개 목록 그대로 씀. A2 평가 결과는 목록을 정답에 맞춘 효과일 수 있다고 보고에 적음",
+          "업종 동의어 표": "8단계 시험에서 나온 이름을 보고 만듦"
+        }
+      }
+    },
+    {
+      "step": "6",
+      "rev": 1,
+      "judge": "기계 검증(승인 단계 아님)",
+      "date": "2026-10-23 23:03",
+      "content": {
+        "validate": {
+          "regulation": "결과: 통과",
+          "benefit_guide": "결과: 통과",
+          "consult_log": "결과: 통과"
+        },
+        "shared_check": "결과: 통과",
+        "preview_render": "regulation, benefit_guide, consult_log, 전체 그림 모두 브라우저에서 'rendered 1' 확인"
+      }
+    },
+    {
+      "step": "입력 변경",
+      "rev": 1,
+      "judge": "사용자 지시",
+      "date": "2026-10-23 23:33",
+      "user_answer": "원본 상담내역에 카드이름을 추가하여 다시 만들고 step7을 다시 수행함",
+      "content": {
+        "source": "docs/D3 상담 원문 v3 → v4(상담마다 상담사 마무리 발화에 보유 카드 이름 삽입, 48줄)",
+        "chunk_file": "indexer/vector-bm25/data/artifacts/cardname-20261023/prepared-chunks.json(색인 없이 dry-run으로 만듦, 활성 세대 그대로)",
+        "changed_chunks": "상담 48개(본문과 ID 해시). 약관 10, 혜택 160은 본문과 ID 그대로",
+        "sample_plan": "3단계 표본 구성은 그대로 두고 상담 청크 ID만 같은 record_id의 새 ID로 바꿈",
+        "not_rerun": "4단계 후보 뽑기와 5단계 초안은 다시 돌리지 않음(상담 청크마다 한 줄만 바뀜)"
+      }
+    },
+    {
+      "step": "7",
+      "rev": 2,
+      "judge": "사용자 승인",
+      "date": "2026-10-23 23:42",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step7.md",
+      "review_sha256": "8445e5b9e267d5640c7a17313f1a5d8dd9c7c4a61819cef926e01f1fcfa1ca9f",
+      "user_answer": "7단계 기대 답과 합격 기준을 검토 파일대로 승인합니다.",
+      "history": [
+        "첫 검토 파일(rev 1)은 상담 X2 답이 0건이라 처리 방법을 물음 → 사용자가 원문에 카드 이름을 넣고 다시 만들라고 지시"
+      ],
+      "content": {
+        "files_sha256": {
+          "pass_criteria.json": "ced68c19d8c7116b192214fd8b93d618214a652554b8b675d3cfde98d9a5e865",
+          "regulation/expected_answers.json": "f588b61002dc5caa7b46ff3dd673bd6026c38fa4212f0324d18e2efe43a45b0f",
+          "benefit_guide/expected_answers.json": "bd05204bd66b49355fb2dfc2061ee5eafbe3dd22b5d2b70596baa380da93403b",
+          "consult_log/expected_answers.json": "edecad5d92e21568384ce97f06cf48b2a789c70fc714069d9a2f169db83c035a"
+        },
+        "pass_criteria": {
+          "recall_min": 0.8,
+          "fp_max": 0.2,
+          "match_min": 0.6,
+          "connect_unlinked_max": 0.3,
+          "x1_path_min": 0.6,
+          "hub_share_warn": 0.3,
+          "hub_warnings_max": 0,
+          "note": "7단계 합격 기준(사용자 승인 2026-10-23). 답이 없는 표본이 0건인 질문은 잘못 뽑음 기준을 보지 않음. 구조용 관계는 허브 경고에서 뺌"
+        }
+      }
+    },
+    {
+      "step": "8",
+      "rev": 1,
+      "judge": "사용자 결정",
+      "date": "2026-10-24 00:03",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step8.md",
+      "review_sha256": "3ea5ecf18958c78683b074d91baf9d81b50d3c6034df7085b21bd5bad545ecd6",
+      "user_answer": "고칠 안 가, 나, 다, 라를 전부 반영해 2라운드를 준비해 주세요. 라1 업종 목록과 다의 설명은 시험 전에 보여 주세요.",
+      "content": {
+        "round": 1,
+        "passed": "5/21",
+        "connect": "통과",
+        "decision": "고쳐서 2라운드(반복 1/5)",
+        "llm": "Groq openai/gpt-oss-120b 유지(사용자 결정)"
+      }
+    },
+    {
+      "step": "5",
+      "rev": 2,
+      "judge": "사용자 승인",
+      "date": "2026-10-24 00:03",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step8_r2_prep.md",
+      "review_sha256": "16fed8d189f68dfad8b4e534f3672293bf72ba0cfb5342308714d9a84ec95434",
+      "user_answer": "2라운드 준비 내용을 검토 파일대로 승인합니다. 2라운드 시험을 돌려 주세요.",
+      "content": {
+        "changes": "다1 ~ 다5 설명, 라1 업종 목록 18개, 라2 FOLLOWS 코드 채움, 라3 표지와 카드 목록 추출 제외, 가1 채점, 나 기대 답 52칸",
+        "files_sha256": {
+          "shared_concepts.json": "01294a3ce70d7e8e35bce455f176318aa437cafac8ce57d47398f09340955299",
+          "regulation/schema_spec.json": "0a399505ae32ef9cfde9e19406f62a476075d2b9b7762750b4fa4247e4c7b2e5",
+          "regulation/expected_answers.json": "31cb2a4430d1297b28377b86ceac31bd68b088ae0c273a262e7e76306fe763e7",
+          "benefit_guide/schema_spec.json": "d88ed0a7f475e9154620e313737ae32714cde6bcda52687a5d53131af8a9d7b1",
+          "benefit_guide/expected_answers.json": "9cffc963439f80e2d7222f626542eb05a7a97b9507f39e102e02afb92401ce76",
+          "consult_log/schema_spec.json": "8fd88ddfde445cde6556d04fff14d52f7bcf3ae6592fdec44f00676f36412d6b",
+          "consult_log/expected_answers.json": "c3ef7acede93cb768ded56cab2f5dbb75c4a4a6ac7317fa9d4a1f8b3434fb5b5"
+        }
+      }
+    },
+    {
+      "step": "8",
+      "rev": 2,
+      "judge": "사용자 결정",
+      "date": "2026-10-24 00:09",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step8_round2.md",
+      "user_answer": "정답표 따르고, 모두 통과하거나 최대 반복회수 도달까지 계속해요.",
+      "content": {
+        "round": 2,
+        "passed": "10/21",
+        "번거로워요": "정답표를 따름(불만 아님, 가안)",
+        "continue": "3 ~ 5라운드를 사용자 확인 없이 이어 감. 라운드마다 검토 파일과 기록은 남김"
+      }
+    },
+    {
+      "step": "8",
+      "rev": 3,
+      "judge": "사용자 사전 결정(2026-10-24 '모두 통과하거나 최대 반복회수 도달까지 계속')",
+      "date": "2026-10-24 00:16",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step8_round3.md",
+      "review_sha256": "a4d82645c836e7414ea31e2ddb14a5dc350b04efd9c3897aca5d8a41a18a50ed",
+      "content": {
+        "note": "3라운드 14/21, 4라운드 준비(나4, 다8 ~ 다10, 라4). 사용자 사전 결정으로 확인 없이 진행"
+      }
+    },
+    {
+      "step": "8",
+      "rev": 4,
+      "judge": "사용자 사전 결정(2026-10-24 '모두 통과하거나 최대 반복회수 도달까지 계속')",
+      "date": "2026-10-24 00:19",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step8_round4.md",
+      "review_sha256": "d45d90d291000f702df9999336e5cd79b6da384867def5ac5b2883d7d04f4118",
+      "content": {
+        "note": "4라운드 17/21, 5라운드 준비(나5, 다11, 다12)"
+      }
+    },
+    {
+      "step": "8",
+      "rev": 5,
+      "judge": "반복 한도 도달(사용자 결정 대기)",
+      "date": "2026-10-24 00:23",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step8_final.md",
+      "review_sha256": "211075a5cceb760ee1ecfbcdac7ed2520f095d441f3fd52c7c3f50aec62514ca",
+      "content": {
+        "round5": "17/21",
+        "rescore_final": {
+          "r3": 15,
+          "r4": 18,
+          "r5": 17
+        },
+        "all_pass_docs": [
+          "benefit_guide"
+        ],
+        "failing": {
+          "regulation": [
+            "R3",
+            "R4"
+          ],
+          "consult_log": [
+            "X1",
+            "X2"
+          ]
+        },
+        "expected_changes_after_r1": 87,
+        "step9": "실행하지 않음(사용자 통과 승인 필요)"
+      }
+    },
+    {
+      "step": "8",
+      "rev": 6,
+      "judge": "사용자 결정",
+      "date": "2026-10-24 00:26",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step8_final.md",
+      "review_sha256": "211075a5cceb760ee1ecfbcdac7ed2520f095d441f3fd52c7c3f50aec62514ca",
+      "user_answer": "가안으로 해요",
+      "content": {
+        "benefit_guide": "8단계 통과 승인 → 9단계 저장(4, 5라운드 모두 6/6 통과)",
+        "regulation, consult_log": "스키마를 고치지 않고 측정만 2번 더 돌려(5m1, 5m2) 5라운드와 함께 세 번 평균으로 판정"
+      }
+    },
+    {
+      "step": "9",
+      "rev": 1,
+      "judge": "사용자 결정(가안)",
+      "date": "2026-10-24 00:30",
+      "content": {
+        "doc": "benefit_guide",
+        "files": [
+          "benefit_guide/graph_schema.json",
+          "benefit_guide/approval.json"
+        ],
+        "reread_same": true
+      }
+    },
+    {
+      "step": "8",
+      "rev": 7,
+      "judge": "측정 반복(사용자 결정 대기)",
+      "date": "2026-10-24 00:30",
+      "review_file": "verify/doc-schema-prompt-run-v2/review/step8_measure.md",
+      "review_sha256": "8a0d12e4ccb1dc6ad09b1fb1cbfff9397a3db25501ca0d4292a86e1703080a42",
+      "content": {
+        "avg_pass": {
+          "regulation": "5/6(R3 미달)",
+          "consult_log": "5/9(C1, X1, X2, A1 미달)"
+        }
+      }
+    },
+    {
+      "step": "9",
+      "rev": 2,
+      "judge": "사용자 결정(나안)",
+      "date": "2026-10-24 00:32",
+      "user_answer": "나안으로 해요. 약관과 상담 기록 모두 미달 사유를 적고 9단계 확정해 주세요.",
+      "content": {
+        "docs": [
+          "regulation",
+          "consult_log"
+        ],
+        "below_criteria": {
+          "regulation": [
+            "R3"
+          ],
+          "consult_log": [
+            "C1",
+            "X1",
+            "X2",
+            "A1"
+          ]
+        }
+      }
+    }
+  ]
+}

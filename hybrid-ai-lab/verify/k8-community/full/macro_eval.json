@@ -1,0 +1,302 @@
+{
+  "generation": "gen-full-001-807ef9e6",
+  "top_k": 5,
+  "questions": {
+    "Q23": {
+      "question": "고객군별로 고객들이 말한 불만을 주제별로 나눠 주세요",
+      "top": [
+        {
+          "id": "comm-b0e0d623e459",
+          "score": 0.86,
+          "title": "광고 알림 과다 수신에 대한 고객 불만 및 상담 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        },
+        {
+          "id": "comm-26010fc5c5c6",
+          "score": 0.85,
+          "title": "민원 처리 경과 부재와 대기 사유 불명확에 대한 고객 불만 및 대응 제안",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        },
+        {
+          "id": "comm-f7c050770cd4",
+          "score": 0.833,
+          "title": "카드 중복 문제에 대한 다채널 상담 및 제안 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 13
+        },
+        {
+          "id": "comm-7ad7e8bf32c8",
+          "score": 0.833,
+          "title": "생활비 절약을 위한 구매 분류 및 알림 관리 상담",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 12
+        },
+        {
+          "id": "comm-f2e75bcb6111",
+          "score": 0.833,
+          "title": "연회비 대비 가치에 대한 고객 불만 및 상담 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 23
+        }
+      ],
+      "points": [
+        {
+          "point": "장기보유: 연회비 대비 혜택 부족",
+          "in_any_report": true,
+          "in_top_reports": true,
+          "in_answer": false
+        },
+        {
+          "point": "연회비부담: 장보기 할인 제외",
+          "in_any_report": true,
+          "in_top_reports": false,
+          "in_answer": false
+        },
+        {
+          "point": "신규가입: 앱 인증 반복",
+          "in_any_report": true,
+          "in_top_reports": false,
+          "in_answer": false
+        },
+        {
+          "point": "VIP: 혜택 신청 반복",
+          "in_any_report": true,
+          "in_top_reports": true,
+          "in_answer": false
+        },
+        {
+          "point": "장기보유: 민원 경과 설명 없음",
+          "in_any_report": true,
+          "in_top_reports": true,
+          "in_answer": false
+        },
+        {
+          "point": "휴면직전: 광고 알림 중복",
+          "in_any_report": true,
+          "in_top_reports": true,
+          "in_answer": false
+        },
+        {
+          "point": "고객군 구분이 드러남",
+          "in_any_report": false,
+          "in_top_reports": false,
+          "in_answer": false
+        }
+      ],
+      "answer": "보고서에 없음",
+      "score": {
+        "in_any_report": 6,
+        "in_top_reports": 4,
+        "in_answer": 0
+      },
+      "of": 7
+    },
+    "Q24": {
+      "question": "상담에서 고객이 받아들인 제안에는 어떤 공통점이 있나요?",
+      "top": [
+        {
+          "id": "comm-b0e0d623e459",
+          "score": 0.886,
+          "title": "광고 알림 과다 수신에 대한 고객 불만 및 상담 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        },
+        {
+          "id": "comm-f7c050770cd4",
+          "score": 0.88,
+          "title": "카드 중복 문제에 대한 다채널 상담 및 제안 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 13
+        },
+        {
+          "id": "comm-70d991783454",
+          "score": 0.875,
+          "title": "가전 구매 주기 상담 연속 및 제안 현황",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 6
+        },
+        {
+          "id": "comm-bb43a3c697da",
+          "score": 0.874,
+          "title": "의심 문자 확인 상담 및 보안 안내",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 12
+        },
+        {
+          "id": "comm-26010fc5c5c6",
+          "score": 0.874,
+          "title": "민원 처리 경과 부재와 대기 사유 불명확에 대한 고객 불만 및 대응 제안",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        }
+      ],
+      "points": [
+        {
+          "point": "할 일이나 소비가 늘지 않는 제안",
+          "in_any_report": true,
+          "in_top_reports": true,
+          "in_answer": false
+        },
+        {
+          "point": "글로 남는 안내",
+          "in_any_report": true,
+          "in_top_reports": true,
+          "in_answer": false
+        },
+        {
+          "point": "고객이 원한 방식(앱, 집에서)",
+          "in_any_report": true,
+          "in_top_reports": true,
+          "in_answer": false
+        },
+        {
+          "point": "소비를 늘리는 제안은 거절",
+          "in_any_report": true,
+          "in_top_reports": true,
+          "in_answer": false
+        }
+      ],
+      "answer": "보고서에 따르면 고객이 받아들인 제안은 모두 ‘구체적이고 실행 가능한, 선택적으로 제한하거나 직접 설정·조회·확인할 수 있는 방안’이라는 공통점을 가지고 있다. 즉, 전체를 차단하거나 근본적인 변화를 주는 제안이 아니라, 특정 채널·기능을 부분적으로 조정하거나 필요한 정보를 직접 확인·요청하는 형태의 제안이 수용되었다.",
+      "score": {
+        "in_any_report": 4,
+        "in_top_reports": 4,
+        "in_answer": 0
+      },
+      "of": 4
+    },
+    "Q25": {
+      "question": "고객군별 불만을 주제로 나누고, 주제마다 관련된 약관 조항과 카드 혜택을 찾아 주세요(관련 혜택이 없으면 없다고 답)",
+      "top": [
+        {
+          "id": "comm-b0e0d623e459",
+          "score": 0.891,
+          "title": "광고 알림 과다 수신에 대한 고객 불만 및 상담 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        },
+        {
+          "id": "comm-f2e75bcb6111",
+          "score": 0.887,
+          "title": "연회비 대비 가치에 대한 고객 불만 및 상담 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 23
+        },
+        {
+          "id": "comm-26010fc5c5c6",
+          "score": 0.885,
+          "title": "민원 처리 경과 부재와 대기 사유 불명확에 대한 고객 불만 및 대응 제안",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        },
+        {
+          "id": "comm-106f914048ef",
+          "score": 0.884,
+          "title": "장보기 할인 혜택 불일치와 결제·앱 전환 제안",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 16
+        },
+        {
+          "id": "comm-a8ee5675cff8",
+          "score": 0.88,
+          "title": "카드 이용·계약·분쟁 처리 전반 가이드",
+          "doc_types": [
+            "regulation"
+          ],
+          "members": 147
+        }
+      ],
+      "points": [
+        {
+          "point": "연회비 불만 → 제9조 또는 제10조",
+          "in_any_report": false,
+          "in_top_reports": false,
+          "in_answer": false
+        },
+        {
+          "point": "혜택 조건 불만 → 제17조",
+          "in_any_report": false,
+          "in_top_reports": false,
+          "in_answer": false
+        },
+        {
+          "point": "민원 경과 → 제34조",
+          "in_any_report": false,
+          "in_top_reports": false,
+          "in_answer": false
+        },
+        {
+          "point": "알림 중복 → 제5조",
+          "in_any_report": false,
+          "in_top_reports": false,
+          "in_answer": false
+        },
+        {
+          "point": "인증 반복 → 제29조",
+          "in_any_report": false,
+          "in_top_reports": false,
+          "in_answer": false
+        },
+        {
+          "point": "혜택: 자동맞춤",
+          "in_any_report": true,
+          "in_top_reports": false,
+          "in_answer": false
+        },
+        {
+          "point": "혜택: 장보기 직접 결제 또는 간편생활",
+          "in_any_report": true,
+          "in_top_reports": false,
+          "in_answer": false
+        }
+      ],
+      "answer": "고객군별 불만 주제별 정리:\n1. 광고 알림 과다 수신 – 관련 약관 조항: 보고서에 없음. 카드 혜택: 없음.\n2. 연회비 대비 가치 – 관련 약관 조항: 보고서에 없음. 카드 혜택: 없음.\n3. 민원 처리 경과 부재 – 관련 약관 조항: 보고서에 없음. 카드 혜택: 없음.\n4. 장보기 할인 혜택 불일치 – 관련 약관 조항: 보고서에 없음. 카드 혜택: 없음.",
+      "score": {
+        "in_any_report": 2,
+        "in_top_reports": 0,
+        "in_answer": 0
+      },
+      "of": 7
+    }
+  },
+  "communities": 78,
+  "mixed_doc_type_communities": 0,
+  "llm_usage": {
+    "queue_time": 0.159089103,
+    "prompt_tokens": 10107,
+    "prompt_time": 0.41590260700000004,
+    "completion_tokens": 1304,
+    "completion_time": 2.775553255,
+    "total_tokens": 11411,
+    "total_time": 3.1914558619999998
+  }
+}

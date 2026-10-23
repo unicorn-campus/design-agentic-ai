@@ -1,0 +1,25 @@
+{
+  "expected_changes": [
+    {
+      "doc": "regulation",
+      "chunk_id": "regulation:제30조",
+      "q": "R2",
+      "before": "정지 원인이 해소되고 본인 확인이 끝나면 이용을 재개할 수 있습니다.",
+      "after": "없음"
+    },
+    {
+      "doc": "consult_log",
+      "chunk_id": "D3_C-20260507-035_d4f6b979afb06278_0000",
+      "q": "X1",
+      "before": "주제: 부가서비스와 포인트, 민원과 이의 처리 / 업종: 간편결제",
+      "after": "주제: 부가서비스와 포인트 / 업종: 간편결제"
+    },
+    {
+      "doc": "consult_log",
+      "chunk_id": "D3_C-20260507-035_d4f6b979afb06278_0000",
+      "q": "A1",
+      "before": "부가서비스와 포인트, 민원과 이의 처리",
+      "after": "부가서비스와 포인트"
+    }
+  ]
+}

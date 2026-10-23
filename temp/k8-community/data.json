@@ -1,0 +1,207 @@
+{
+  "generation": "gen-full-001-807ef9e6",
+  "full": {
+    "entities": 1663,
+    "relations": 1527,
+    "groups": 144,
+    "summarized": 78,
+    "size_top": [
+      147,
+      37,
+      32
+    ],
+    "tokens": 228427,
+    "mixed": 0
+  },
+  "example": {
+    "title": "연회비 대비 가치에 대한 고객 불만 및 상담 흐름",
+    "summary": "고객은 연회비에 비해 실질적인 혜택이 부족하다고 불만을 제기하고, 매달 계산과 실적 관리까지 부담을 느낍니다. 이와 관련해 앱 채팅, 영업점 방문, 콜센터 통화를 통해 연회비 대비 가치를 평가하는 상담이 연속적으로 진행되었습니다. 상담 과정에서 결제 수단 변경, 연회비 분납, 비용 확인 등 다양한 제안이 제시되었으며, 일부는 수용되고 일부는 보류·거절되었습니다. 고객은 다음 청구서를 확인한 뒤 최종 결정을 내리겠다고 밝혔습니다.",
+    "size": 23,
+    "findings": [
+      "고객은 연회비가 높지만 체감 혜택이 없어 생활비 관리에 부담을 느낀다. [근거: Complaint(연회비 하나 때문에 생활비 관리 방식을 전부 바꾸고 싶지는 않아요.), Complaint(연회비는 그대로인데 제가 받는 혜택이 없다는 게 불만이에요.) …]",
+      "월별 계산과 실적 추적 요구가 추가적인 스트레스를 유발한다. [근거: Complaint(매달 계산도 부담이고요.), Complaint(실적을 매번 챙기는 것도 부담이에요.) …]",
+      "앱 채팅, 영업점, 콜센터 등 여러 채널에서 연회비 대비 가치에 대한 상담이 연속적으로 이루어졌다. [근거: Consultation(앱 채팅), Consultation(영업점) …]"
+    ]
+  },
+  "prompt_entities": [
+    "e1. Complaint: cause=매달 계산도 부담이고요.",
+    "e2. Complaint: cause=실적을 매번 챙기는 것도 부담이에요."
+  ],
+  "prompt_relations": [
+    "e9 -[HAS_COMPLAINT]-> e1"
+  ],
+  "macro": {
+    "Q23": {
+      "label": "고객군별 불만 주제",
+      "question": "고객군별로 고객들이 말한 불만을 주제별로 나눠 주세요",
+      "top": [
+        {
+          "id": "comm-b0e0d623e459",
+          "score": 0.86,
+          "title": "광고 알림 과다 수신에 대한 고객 불만 및 상담 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        },
+        {
+          "id": "comm-26010fc5c5c6",
+          "score": 0.85,
+          "title": "민원 처리 경과 부재와 대기 사유 불명확에 대한 고객 불만 및 대응 제안",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        },
+        {
+          "id": "comm-f7c050770cd4",
+          "score": 0.833,
+          "title": "카드 중복 문제에 대한 다채널 상담 및 제안 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 13
+        },
+        {
+          "id": "comm-7ad7e8bf32c8",
+          "score": 0.833,
+          "title": "생활비 절약을 위한 구매 분류 및 알림 관리 상담",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 12
+        },
+        {
+          "id": "comm-f2e75bcb6111",
+          "score": 0.833,
+          "title": "연회비 대비 가치에 대한 고객 불만 및 상담 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 23
+        }
+      ],
+      "score": {
+        "in_any_report": 6,
+        "in_top_reports": 4,
+        "in_answer": 0
+      },
+      "of": 7
+    },
+    "Q24": {
+      "label": "받아들여진 제안의 공통점",
+      "question": "상담에서 고객이 받아들인 제안에는 어떤 공통점이 있나요?",
+      "top": [
+        {
+          "id": "comm-b0e0d623e459",
+          "score": 0.886,
+          "title": "광고 알림 과다 수신에 대한 고객 불만 및 상담 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        },
+        {
+          "id": "comm-f7c050770cd4",
+          "score": 0.88,
+          "title": "카드 중복 문제에 대한 다채널 상담 및 제안 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 13
+        },
+        {
+          "id": "comm-70d991783454",
+          "score": 0.875,
+          "title": "가전 구매 주기 상담 연속 및 제안 현황",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 6
+        },
+        {
+          "id": "comm-bb43a3c697da",
+          "score": 0.874,
+          "title": "의심 문자 확인 상담 및 보안 안내",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 12
+        },
+        {
+          "id": "comm-26010fc5c5c6",
+          "score": 0.874,
+          "title": "민원 처리 경과 부재와 대기 사유 불명확에 대한 고객 불만 및 대응 제안",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        }
+      ],
+      "score": {
+        "in_any_report": 4,
+        "in_top_reports": 4,
+        "in_answer": 0
+      },
+      "of": 4
+    },
+    "Q25": {
+      "label": "불만별 약관 조항과 혜택",
+      "question": "고객군별 불만을 주제로 나누고, 주제마다 관련된 약관 조항과 카드 혜택을 찾아 주세요(관련 혜택이 없으면 없다고 답)",
+      "top": [
+        {
+          "id": "comm-b0e0d623e459",
+          "score": 0.891,
+          "title": "광고 알림 과다 수신에 대한 고객 불만 및 상담 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        },
+        {
+          "id": "comm-f2e75bcb6111",
+          "score": 0.887,
+          "title": "연회비 대비 가치에 대한 고객 불만 및 상담 흐름",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 23
+        },
+        {
+          "id": "comm-26010fc5c5c6",
+          "score": 0.885,
+          "title": "민원 처리 경과 부재와 대기 사유 불명확에 대한 고객 불만 및 대응 제안",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 21
+        },
+        {
+          "id": "comm-106f914048ef",
+          "score": 0.884,
+          "title": "장보기 할인 혜택 불일치와 결제·앱 전환 제안",
+          "doc_types": [
+            "consult_log"
+          ],
+          "members": 16
+        },
+        {
+          "id": "comm-a8ee5675cff8",
+          "score": 0.88,
+          "title": "카드 이용·계약·분쟁 처리 전반 가이드",
+          "doc_types": [
+            "regulation"
+          ],
+          "members": 147
+        }
+      ],
+      "score": {
+        "in_any_report": 2,
+        "in_top_reports": 0,
+        "in_answer": 0
+      },
+      "of": 7
+    }
+  },
+  "finding": "Q23: 불만 주제 6개가 보고서 전체에 모두 있고 상위 5개에 4개가 있으나, 그래프에 고객군 정보가 없어 LLM이 「보고서에 없음」으로 답함. Q25: 묶음 78개가 모두 한 문서 종류 안에서만 생기고 약관 보고서에 조항 번호가 없어 조항을 잇지 못함"
+}

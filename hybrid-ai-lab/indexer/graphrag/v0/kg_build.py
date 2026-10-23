@@ -2,7 +2,10 @@
 
 준비 prepare(): K1 추출 단위 나누기 → K2 추출(LLM) → K3 가지치기. 결과는 파일로 보관만 하고 Neo4j에는 쓰지 않음
 반영 apply():   K4 적재(Neo4j에 새 청크 넣기) → K5 병합(관련 엔티티만) → K6 노드 설명 임베딩
-정리 cleanup(): K7 청크 정리(옛 추출 단위 노드와 고아 엔티티 지우기)
+정리 cleanup(): K7 청크 정리(옛 청크 노드와 고아 엔티티 지우기)
+
+추출 단위(약관 조항)는 LLM에 넣을 글을 정하는 데만 씀. 그래프의 Chunk 노드는 검색엔진 청크와 1대1이고
+노드의 chunk_id가 검색엔진 chunk_id와 같음. 검색 결과에서 그래프로 들어갈 때 ID 일치 하나로 찾게 하려는 것임.
 
 활성 세대 파일은 바꾸지 않음(게시는 오케스트레이터가 함).
 """
@@ -69,7 +72,8 @@ def _split_by_heading(chunk: dict, rule: dict) -> list[dict]:
 def k1_split_units(chunks: list[dict], schemas: dict) -> tuple[list[dict], list[str]]:
     """청크를 추출 단위로 나눔. 규칙이 있는 문서 유형(약관)만 나누고 나머지는 청크 하나가 단위 하나.
 
-    반환: (추출 단위 목록, 단위가 하나도 안 나온 청크 ID 목록). 단위의 parent_chunk_ids는 이 단위가 나온 검색용 청크 ID.
+    반환: (추출 단위 목록, 단위가 하나도 안 나온 청크 ID 목록). 단위의 chunk_ids는 이 단위가 나온 검색용 청크 ID.
+    chunk_ids는 준비 결과 파일에만 두는 기록임. K4가 이 목록으로 엔티티를 청크 노드에 잇고, 그래프에는 쓰지 않음.
     """
 
     units: dict[str, dict] = {}
@@ -82,7 +86,7 @@ def k1_split_units(chunks: list[dict], schemas: dict) -> tuple[list[dict], list[
         rule = schemas[doc_type]["unit_rule"]
         if not rule:
             units[c["chunk_id"]] = {**base, "unit_id": c["chunk_id"], "text": c["text"],
-                                    "parent_chunk_ids": [c["chunk_id"]]}
+                                    "chunk_ids": [c["chunk_id"]]}
             continue
         parts = _split_by_heading(c, rule)
         if not parts:
@@ -93,10 +97,10 @@ def k1_split_units(chunks: list[dict], schemas: dict) -> tuple[list[dict], list[
             old = units.get(uid)
             if old is None:
                 units[uid] = {**base, "metadata": md, "unit_id": uid, "text": p["text"],
-                              "parent_chunk_ids": [c["chunk_id"]]}
-            else:  # 청크 겹침 때문에 같은 조항이 또 나오면 긴 글을 남기고 원래 청크 ID는 모두 모음
-                keep = p["text"] if len(p["text"]) > len(old["text"]) else old["text"]
-                old.update(text=keep, parent_chunk_ids=old["parent_chunk_ids"] + [c["chunk_id"]])
+                              "chunk_ids": [c["chunk_id"]]}
+            elif c["chunk_id"] not in old["chunk_ids"]:  # 겹침으로 같은 조항이 또 나오면 긴 글을 남기고 청크 ID는 모두 모음
+                keep = max(old["text"], p["text"], key=len)  # 길이가 같으면 먼저 나온 글을 남김
+                old.update(text=keep, chunk_ids=old["chunk_ids"] + [c["chunk_id"]])
     for u in units.values():
         u["text_hash"] = sha256_text(u["text"])
     return list(units.values()), empty
@@ -164,7 +168,11 @@ def prepare(chunks: list[dict], previous: dict | None = None) -> dict:
     failed = [u["unit_id"] for u in units if "error" in u]
     log(f"[KG K3] 가지치기 뒤 노드 {sum(len(u.get('graph', {}).get('nodes', [])) for u in units)}개, "
         f"추출 실패 단위 {len(failed)}개, 토큰 {usage.get('total_tokens', 0)}")
-    return {"units": units, "no_unit_chunks": empty, "failed_units": failed, "llm_usage": usage}
+    # 청크 노드는 단위가 없거나 추출에 실패한 청크도 만듦. 검색엔진과 청크 집합이 늘 같아야 ④가 같음 비교 하나로 끝남
+    chunk_rows = [{"chunk_id": c["chunk_id"], "doc_id": doc_id_of(c["chunk_id"]),
+                   "doc_type": c["metadata"].get("doc_type"), "text": c["text"]} for c in chunks]
+    return {"chunks": chunk_rows, "units": units, "no_unit_chunks": empty, "failed_units": failed,
+            "llm_usage": usage}
 
 
 # ---------------------------------------------------------------- K4 적재, K5 병합, K6 노드 설명 임베딩
@@ -174,20 +182,22 @@ def apply(driver, prepared: dict, generation: str, run_id: str) -> dict:
 
     nodes, rels, merge_keys = [], [], set()
     schemas = load_schemas()
+    # 청크 노드(라벨 Chunk): 검색엔진 청크 하나에 하나. 임시 ID는 이 실행 안에서 관계 양 끝을 찾는 데만 씀
+    chunk_node = lambda cid: f"{generation}|{cid}|{run_id}"
+    for c in prepared["chunks"]:
+        nodes.append(Neo4jNode(id=chunk_node(c["chunk_id"]), label="Chunk", properties={
+            "generation": generation, "run_id": run_id, "chunk_id": c["chunk_id"], "doc_id": c["doc_id"],
+            "doc_type": c["doc_type"], "text": c["text"]}))
     for u in prepared["units"]:
         if "graph" not in u:
             continue
-        # 추출 단위 노드(라벨 Chunk): 검색용 청크와 잇는 입구. parent_chunk_ids에 검색용 청크 ID가 있음
-        chunk_node_id = f"{generation}|{u['unit_id']}|{run_id}"
-        nodes.append(Neo4jNode(id=chunk_node_id, label="Chunk", properties={
-            "generation": generation, "run_id": run_id, "unit_id": u["unit_id"], "doc_id": u["doc_id"],
-            "doc_type": u["doc_type"], "parent_chunk_ids": u["parent_chunk_ids"], "text": u["text"],
-            "text_hash": u["text_hash"]}))
         graph = Neo4jGraph.model_validate(u["graph"])
         for n in graph.nodes:
             n.properties = {**(n.properties or {}), "generation": generation, "run_id": run_id}
             nodes.append(n)
-            rels.append(Neo4jRelationship(type="FROM_CHUNK", start_node_id=n.id, end_node_id=chunk_node_id))
+            # 겹친 조항은 두 청크에 모두 이음. 어느 청크로 검색돼도 그 조항의 엔티티가 후보가 되게 하려는 것임
+            for cid in dict.fromkeys(u["chunk_ids"]):
+                rels.append(Neo4jRelationship(type="FROM_CHUNK", start_node_id=n.id, end_node_id=chunk_node(cid)))
             for c in schemas[u["doc_type"]]["schema"].constraints:  # K5에서 합칠 값(이번에 들어온 것만)
                 if c.node_type == n.label and n.properties.get(c.property_name) not in (None, ""):
                     merge_keys.add((n.label, c.property_name, str(n.properties[c.property_name])))
@@ -195,9 +205,10 @@ def apply(driver, prepared: dict, generation: str, run_id: str) -> dict:
 
     # K4: 노드는 CREATE로 새로 만들고, 단위 ID가 붙은 임시 ID로 관계 양 끝을 찾은 뒤 임시 ID는 지움(라이브러리 동작)
     asyncio.run(Neo4jWriter(driver).run(Neo4jGraph(nodes=nodes, relationships=rels)))
-    log(f"[KG K4] 적재: 노드 {len(nodes)}개(추출 단위 노드 포함), 관계 {len(rels)}개")
+    log(f"[KG K4] 적재: 노드 {len(nodes)}개(청크 노드 {len(prepared['chunks'])}개 포함), 관계 {len(rels)}개")
 
     merged = k5_merge(driver, generation, merge_keys)
+    dedup_from_chunk(driver, generation)
     embedded = k6_embed_descriptions(driver, generation)
     return {"written_nodes": len(nodes), "written_rels": len(rels), "merged_groups": merged, "embedded": embedded}
 
@@ -205,7 +216,7 @@ def apply(driver, prepared: dict, generation: str, run_id: str) -> dict:
 def k5_merge(driver, generation: str, keys: set[tuple[str, str, str]]) -> int:
     """같은 세대에서 스키마의 고유 속성(UNIQUENESS 제약) 값이 같은 노드를 하나로 합침.
 
-    예) 상담 노드 C-20260501-003이 본문 추출과 앞 상담 참조(FOLLOWS)로 두 번 생기면 하나로 합침.
+    예) 상담 노드 C-20260302-002가 그 상담 본문 추출과 다음 상담의 앞 상담 참조(FOLLOWS)로 두 번 생기면 하나로 합침.
     이번에 들어온 값만 대상으로 하여 관련 엔티티만 건드림.
     """
 
@@ -219,6 +230,22 @@ def k5_merge(driver, generation: str, keys: set[tuple[str, str, str]]) -> int:
         groups += sum(r["c"] for r in records)
     log(f"[KG K5] 병합: 같은 고유 속성 값 묶음 {groups}개를 합침 (검사한 값 {len(keys)}개)")
     return groups
+
+
+def dedup_from_chunk(driver, generation: str) -> int:
+    """같은 엔티티와 같은 청크 사이의 FROM_CHUNK를 하나만 남김.
+
+    K5가 한 청크의 여러 조항에서 뽑힌 같은 노드(예: 약관 문서 노드)를 합치면 그 청크로 가는 관계가 여러 개 생길 수 있음.
+    표본(2026-10-23)에서는 mergeNodes의 mergeRels가 이미 합쳐 0건이었음. APOC 동작에 기대지 않으려고 둔 안전장치임.
+    """
+
+    records, _, _ = driver.execute_query(
+        "MATCH (e:__Entity__ {generation: $g})-[r:FROM_CHUNK]->(c:Chunk {generation: $g}) "
+        "WITH e, c, collect(r) AS rs WHERE size(rs) > 1 "
+        "FOREACH (x IN tail(rs) | DELETE x) RETURN sum(size(rs) - 1) AS n", g=generation)
+    removed = records[0]["n"] or 0
+    log(f"[KG K5] FROM_CHUNK 중복 {removed}개 지움")
+    return removed
 
 
 def k6_embed_descriptions(driver, generation: str) -> int:
@@ -247,8 +274,9 @@ def k6_embed_descriptions(driver, generation: str) -> int:
 # ---------------------------------------------------------------- K7 청크 정리
 
 def cleanup(driver, generation: str, run_id: str, doc_ids: list[str]) -> dict:
-    """K7. 바뀌거나 사라진 문서의 옛 추출 단위 노드(이번 실행에서 만들지 않은 것)를 지우고,
-    근거 청크를 하나도 잃은 엔티티(고아)를 지움. 증분 색인에서 검색엔진 교체(S3) 뒤에 부름."""
+    """K7. 바뀌거나 사라진 문서의 옛 청크 노드(이번 실행에서 만들지 않은 것)를 지우고,
+    근거 청크를 하나도 잃은 엔티티(고아)를 지움. 증분 색인에서 검색엔진 교체(S3) 뒤에 부름.
+    바뀐 문서는 K4에서 청크 노드를 새로 만들었으므로 지우는 동안에도 같은 chunk_id 노드가 그래프에 하나 이상 있음."""
 
     records, _, _ = driver.execute_query(
         "MATCH (c:Chunk {generation: $g}) WHERE c.doc_id IN $docs AND c.run_id <> $run "
@@ -258,14 +286,13 @@ def cleanup(driver, generation: str, run_id: str, doc_ids: list[str]) -> dict:
         "MATCH (e:__Entity__ {generation: $g}) WHERE NOT (e)-[:FROM_CHUNK]->(:Chunk) "
         "DETACH DELETE e RETURN count(*) AS n", g=generation)
     orphans = records[0]["n"]
-    log(f"[KG K7] 청크 정리: 옛 추출 단위 노드 {chunks}개, 고아 엔티티 {orphans}개 지움")
-    return {"deleted_unit_nodes": chunks, "deleted_orphans": orphans}
+    log(f"[KG K7] 청크 정리: 옛 청크 노드 {chunks}개, 고아 엔티티 {orphans}개 지움")
+    return {"deleted_chunk_nodes": chunks, "deleted_orphans": orphans}
 
 
-def covered_chunk_ids(driver, generation: str) -> set[str]:
-    """④ 검증용: 이 세대 KG의 추출 단위 노드가 가리키는 검색용 청크 ID 전체."""
+def chunk_node_ids(driver, generation: str) -> list[str]:
+    """④ 검증용: 이 세대 청크 노드의 chunk_id 전체. 중복을 그대로 돌려줘 청크 하나에 노드가 둘인 경우도 잡게 함."""
 
     records, _, _ = driver.execute_query(
-        "MATCH (c:Chunk {generation: $g}) UNWIND c.parent_chunk_ids AS id RETURN collect(DISTINCT id) AS ids",
-        g=generation)
-    return set(records[0]["ids"])
+        "MATCH (c:Chunk {generation: $g}) RETURN collect(c.chunk_id) AS ids", g=generation)
+    return list(records[0]["ids"])

@@ -34,7 +34,9 @@ WORK = Path(__file__).resolve().parent
 LOG_PATH = WORK / "run.log"
 CHUNKS_PATH = sb.LAB_ROOT / "data" / "artifacts" / "birthfix-20261018b" / "prepared-chunks.json"
 CONFIG_DIR = sb.LAB_ROOT / "config"
-ALIAS = "card_chunks"
+# 공용 컨테이너 opensearch를 함께 쓰는 GraphRAG v0가 card_chunks-gen-* 인덱스를 쓰므로, 시작할 때 지우는 대상과
+# 겹치지 않게 이 시험만의 이름을 씀
+ALIAS = "sbx_card_chunks"
 GEN1 = "gen-20261019-001"
 GEN2 = "gen-20261019-002"
 GEN_SKIP = "gen-20261019-skip"
@@ -169,7 +171,7 @@ def cleanup(client) -> None:
 
 
 def main() -> int:
-    client = sb.make_client(os.environ.get("OPENSEARCH_URL", "http://localhost:19200"))
+    client = sb.make_client(os.environ.get("OPENSEARCH_URL", "http://localhost:9200"))  # 실습 공용 컨테이너 opensearch
     info = client.info()
     import opensearchpy
 

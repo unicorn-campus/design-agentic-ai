@@ -1,0 +1,311 @@
+{
+  "doc": "benefit_guide",
+  "metadata_header": [
+    "product_id",
+    "card_name",
+    "benefit_id",
+    "section_label",
+    "effective_date"
+  ],
+  "recommend": [
+    {
+      "kind": "병합",
+      "item": "Benefit, BenefitProgram, Offer, Bonus, BenefitTier → Benefit",
+      "cq": [
+        "B1"
+      ]
+    },
+    {
+      "kind": "병합",
+      "item": "Condition, Channel, MerchantCategory, TransactionType, Target → BenefitCondition(대상 가맹점이나 채널은 조건 속성으로)",
+      "cq": [
+        "B2"
+      ]
+    },
+    {
+      "kind": "병합",
+      "item": "Limit, TimeWindow, PaymentTiming → BenefitLimit",
+      "cq": [
+        "B3"
+      ]
+    },
+    {
+      "kind": "병합",
+      "item": "Exclusion, Restriction → BenefitExclusion",
+      "cq": [
+        "B4"
+      ]
+    },
+    {
+      "kind": "병합",
+      "item": "Card(문서 쪽 카드 상품) → ProductGuide(정형 Product와 이름이 겹치지 않게 '상품 안내'로 둠)",
+      "cq": [
+        "B5"
+      ]
+    },
+    {
+      "kind": "추가",
+      "item": "ProductGuide.product_id, Benefit.product_id(정형 Product.product_id에 잇는 키, 머리줄에서 채움)",
+      "cq": [
+        "B1",
+        "B5"
+      ]
+    },
+    {
+      "kind": "추가",
+      "item": "ProductGuide.issue_target, payment_limit(후보에 거의 없음)",
+      "cq": [
+        "B5"
+      ]
+    },
+    {
+      "kind": "제거",
+      "item": "Fee, FeeComponent, AnnualFee(정형 스키마 ProductAnnualFee에 이미 있음)",
+      "cq": []
+    },
+    {
+      "kind": "제거",
+      "item": "Issuer, Provider, Brand, Company, Document, Account, Transaction(어느 역량 질문에도 안 쓰이거나 정형에 있음)",
+      "cq": []
+    },
+    {
+      "kind": "제거",
+      "item": "ProductGuide.issue_target, payment_limit. B5의 기대 답 16건이 모두 연회비나 가족카드 규칙이라 정형 스키마(ProductAnnualFee, Product.family_card_rule)가 답함 → 문서 쪽 시험에서 B5 뺌",
+      "cq": [
+        "B5"
+      ]
+    },
+    {
+      "kind": "참조",
+      "item": "ProductGuide → Product(정형 참조, product_id와 product_name). 정형 스키마에 있는 개념이라 같은 라벨과 키로 가리킴",
+      "cq": [
+        "X2",
+        "B1"
+      ]
+    },
+    {
+      "kind": "공통",
+      "item": "MerchantCategory(업종과 결제 대상) 추가, Benefit -APPLIES_TO-> MerchantCategory",
+      "cq": [
+        "X1"
+      ]
+    },
+    {
+      "kind": "추가",
+      "item": "Benefit.apply_method(자동 적용, 신청 필요). 혜택 신청 반복 불만과 자동 적용 혜택을 잇는 데 씀",
+      "cq": [
+        "X1"
+      ]
+    },
+    {
+      "kind": "2라운드 고침",
+      "item": "다1 ~ 다5, 라1 ~ 라3(8단계 1라운드 결과)",
+      "cq": []
+    }
+  ],
+  "node_types": [
+    {
+      "label": "Product",
+      "ko": "카드 상품(정형 참조)",
+      "reference": true,
+      "description": "해당: 한빛 카드 상품 하나. 정형 스키마의 Product를 가리키는 참조 노드. 비해당: 실제 카드사 상품, 개별 혜택, 연회비와 가족카드 규칙(정형 데이터에 있음)",
+      "properties": [
+        {
+          "name": "product_id",
+          "type": "STRING",
+          "description": "상품 ID(예: D2-C001). 혜택 안내는 머리줄 값, 상담은 상품 이름으로 정형 데이터에서 찾음"
+        },
+        {
+          "name": "product_name",
+          "type": "STRING",
+          "description": "상품 이름(예: 한빛 모아생활). 정형 Product.product_name과 같은 글자"
+        }
+      ]
+    },
+    {
+      "label": "Benefit",
+      "ko": "혜택",
+      "description": "해당: 카드가 주는 혜택 하나(할인, 적립, 캐시백, 바우처, 라운지 등)와 그 크기. 비해당: 혜택을 받는 조건, 한도, 제외 거래, 연회비",
+      "properties": [
+        {
+          "name": "benefit_id",
+          "description": "혜택ID. 머리줄 benefit_id 값(예: D2-C055-B07). 없으면 비움"
+        },
+        {
+          "name": "product_id",
+          "description": "상품ID. 머리줄 product_id 값",
+          "required": true
+        },
+        {
+          "name": "name",
+          "description": "혜택 이름",
+          "required": true
+        },
+        {
+          "name": "amount",
+          "description": "혜택의 크기 문장(원문 그대로): 적립률, 할인율, 금액, 횟수. 여러 혜택을 합산한 제공 상한만 적혀 있으면(예: 월 ~원 상당까지 제공) 그 문장을 씀. 혜택 노드를 만들면 amount를 반드시 채움"
+        },
+        {
+          "name": "apply_method",
+          "type": "STRING",
+          "description": "혜택을 받는 방식. 혜택 설명에 신청, 등록, 응모, 지정, 선택처럼 고객이 따로 해야 하는 일이 적혀 있으면 '신청 필요', 그런 문구가 없으면 '자동 적용'. '알 수 없음'은 혜택 설명 자체가 없을 때만 씀"
+        }
+      ]
+    },
+    {
+      "label": "BenefitCondition",
+      "ko": "혜택 조건",
+      "description": "해당: 혜택을 받으려면 충족해야 하는 것(전월 이용 실적, 신청, 대상 가맹점이나 업종, 채널). 비해당: 혜택 크기, 한도, 받을 수 없는 거래",
+      "properties": [
+        {
+          "name": "description",
+          "description": "조건 문장(원문 그대로)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "label": "BenefitLimit",
+      "ko": "혜택 한도와 기한",
+      "description": "해당: 혜택의 월이나 연 한도, 사용 기한, 신청 기한, 지급 시점. 비해당: 결제 한도(상품 안내에 씀), 혜택을 받는 조건",
+      "properties": [
+        {
+          "name": "description",
+          "description": "한도나 기한 문장(원문 그대로)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "label": "BenefitExclusion",
+      "ko": "혜택 제외와 중복 제한",
+      "description": "해당: 혜택에서 빠지는 거래, 다른 혜택과 함께 받을 수 없다는 제한. 비해당: 혜택을 받는 조건, 한도",
+      "properties": [
+        {
+          "name": "description",
+          "description": "제외나 제한 문장(원문 그대로)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "label": "MerchantCategory",
+      "ko": "업종과 결제 대상",
+      "shared": true,
+      "description": "해당: 혜택이 적용되거나 고객이 말한 결제 대상 업종 하나. 이름은 아래 대표 이름 목록에서만 고름(각 이름 뒤는 뜻). 가맹점 한 곳의 이름(예: 가상 편의점 하루상점)은 그 가맹점이 속한 업종 이름으로 바꿔 씀. 목록: 일반 가맹점: 업종을 가리지 않는 국내 일반 가맹점 전체; 해외 결제: 해외 가맹점 결제와 해외 원화 환산 매입; 장보기와 마트: 마트, 장보기, 식료품과 생활용품 구매(매장이든 앱 주문이든); 편의점: 편의점; 커피와 제과: 커피점, 제과점; 음식점과 배달: 음식점, 배달앱 식사 주문; 온라인쇼핑: 쇼핑몰, 생활소품몰, 반려생활몰 같은 온라인 구매; 간편결제: 간편결제 서비스와 결제 앱을 거친 결제; 대중교통과 택시: 버스, 도시철도, 택시, 철도 승차권; 주유와 충전: 주유, 전기차 충전, 수소 충전; 자동차 관리와 주차: 정비, 세차, 주차요금; 통신: 이동통신, 통신요금; 정기결제와 구독: 영상, 음악 같은 구독과 생활요금, 관리비, 렌탈, 멤버십의 월 정기결제; 문화와 여가: 영화, 공연, 놀이공원, 운동시설, 취미 수강권; 여행과 숙박: 공항 라운지, 숙박, 리조트 예약; 교육: 학원, 온라인 강의 수강료; 의료와 돌봄: 병원, 약국, 동물병원, 돌봄 서비스; 사업경비: 사무용품, 택배 같은 사업 운영 경비. 비해당: 목록에 없는 이름, 가맹점 이름 그대로, 매장이나 우편처럼 결제 대상이 아닌 장소나 수단",
+      "properties": [
+        {
+          "name": "name",
+          "type": "STRING",
+          "description": "업종 대표 이름. 목록의 글자를 그대로 씀"
+        }
+      ]
+    }
+  ],
+  "relationship_types": [
+    {
+      "label": "OFFERS_BENEFIT",
+      "ko": "혜택을 줌",
+      "description": "상품 안내가 설명하는 카드가 주는 혜택"
+    },
+    {
+      "label": "REQUIRES",
+      "ko": "조건이 필요함",
+      "description": "혜택을 받기 위한 조건"
+    },
+    {
+      "label": "LIMITED_BY",
+      "ko": "한도와 기한이 있음",
+      "description": "혜택의 한도나 기한"
+    },
+    {
+      "label": "EXCLUDES",
+      "ko": "제외함",
+      "description": "혜택에서 빠지는 거래나 중복 제한"
+    },
+    {
+      "label": "APPLIES_TO",
+      "ko": "업종에 적용됨",
+      "description": "혜택이 적용되는 업종이나 결제 대상. 혜택 하나에 0 ~ 3개"
+    }
+  ],
+  "patterns": [
+    [
+      "Product",
+      "OFFERS_BENEFIT",
+      "Benefit"
+    ],
+    [
+      "Benefit",
+      "REQUIRES",
+      "BenefitCondition"
+    ],
+    [
+      "Benefit",
+      "LIMITED_BY",
+      "BenefitLimit"
+    ],
+    [
+      "Benefit",
+      "EXCLUDES",
+      "BenefitExclusion"
+    ],
+    [
+      "Benefit",
+      "APPLIES_TO",
+      "MerchantCategory"
+    ]
+  ],
+  "constraints": [
+    {
+      "type": "UNIQUENESS",
+      "node_type": "Product",
+      "property_name": "product_id"
+    },
+    {
+      "type": "UNIQUENESS",
+      "node_type": "MerchantCategory",
+      "property_name": "name"
+    }
+  ],
+  "cq_map": {
+    "B1": [
+      {
+        "label": "Benefit",
+        "property": "amount"
+      }
+    ],
+    "B2": [
+      {
+        "label": "BenefitCondition",
+        "property": "description"
+      }
+    ],
+    "B3": [
+      {
+        "label": "BenefitLimit",
+        "property": "description"
+      }
+    ],
+    "B4": [
+      {
+        "label": "BenefitExclusion",
+        "property": "description"
+      }
+    ],
+    "X1": [
+      {
+        "rel": "APPLIES_TO"
+      },
+      {
+        "label": "Benefit",
+        "property": "apply_method"
+      }
+    ],
+    "X2": [
+      {
+        "rel": "OFFERS_BENEFIT"
+      }
+    ]
+  }
+}

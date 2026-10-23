@@ -1,0 +1,57 @@
+{
+  "R1": {
+    "pos": 30,
+    "hit": 30,
+    "neg": 0,
+    "fp": 0,
+    "same": 23,
+    "recall": 1.0,
+    "fp_rate": null,
+    "match": 0.7666666666666667,
+    "pass": true
+  },
+  "R2": {
+    "pos": 6,
+    "hit": 1,
+    "neg": 24,
+    "fp": 0,
+    "same": 0,
+    "recall": 0.16666666666666666,
+    "fp_rate": 0.0,
+    "match": 0.0,
+    "pass": false
+  },
+  "R3": {
+    "pos": 16,
+    "hit": 1,
+    "neg": 14,
+    "fp": 0,
+    "same": 0,
+    "recall": 0.0625,
+    "fp_rate": 0.0,
+    "match": 0.0,
+    "pass": false
+  },
+  "R4": {
+    "pos": 9,
+    "hit": 6,
+    "neg": 21,
+    "fp": 14,
+    "same": 5,
+    "recall": 0.6666666666666666,
+    "fp_rate": 0.6666666666666666,
+    "match": 0.8333333333333334,
+    "pass": false
+  },
+  "R5": {
+    "pos": 30,
+    "hit": 30,
+    "neg": 0,
+    "fp": 0,
+    "same": 7,
+    "recall": 1.0,
+    "fp_rate": null,
+    "match": 0.23333333333333334,
+    "pass": false
+  }
+}

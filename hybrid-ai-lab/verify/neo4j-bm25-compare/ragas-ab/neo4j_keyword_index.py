@@ -31,7 +31,10 @@ BASELINE = ROOT.parent / "fixtures" / "baseline.json"
 
 LABEL = "RagasAbChunk"  # 이 시험 전용 라벨. 기존 Chunk, Card, Document 노드와 섞이지 않게 분리함
 INDEX_NAME = "ragasab_tokens_ws"  # 이 시험 전용 인덱스 이름(끝나면 지움)
-HTTP_PORT = 17474  # 시험 전용 컨테이너 verify-neo4j의 HTTP 포트
+# 실습 공용 컨테이너 neo4j(hybrid-ai-lab/neo4j/compose.yml)의 HTTP 포트. compose에서 포트를 바꿨으면 환경변수로 맞춤
+HTTP_PORT = int(os.environ.get("NEO4J_HTTP_PORT", "7474"))
+# 비밀번호는 실습 공용 컨테이너의 .env에 있음. 접속값 파일(ENV_SOURCE)에는 비밀번호를 두지 않음
+NEO4J_ENV = ROOT.parent.parent.parent / "neo4j" / ".env"
 POOL = 300  # 전문 검색에서 한 번에 받아 올 후보 수. 세대 조각이 218건이라 전부 덮음
 
 _LUCENE_SPECIAL = re.compile(r'([+\-!(){}\[\]^"~*?:\\/]|&&|\|\|)')
@@ -59,16 +62,19 @@ def read_connection() -> tuple[str, tuple[str, str]]:
     """
 
     values: dict[str, str] = {}
-    if ENV_SOURCE.exists():
-        for line in ENV_SOURCE.read_text(encoding="utf-8").splitlines():
+    for source in (ENV_SOURCE, NEO4J_ENV):  # 뒤 파일의 빈칸 아닌 값이 앞 파일 값을 채움(비밀번호는 NEO4J_ENV에만 있음)
+        if not source.exists():
+            continue
+        for line in source.read_text(encoding="utf-8").splitlines():
             if "=" in line and not line.lstrip().startswith("#"):
                 key, value = line.split("=", 1)
-                values[key.strip()] = value.strip()
+                if value.strip():
+                    values[key.strip()] = value.strip()
     uri = os.environ.get("NEO4J_URI") or values.get("NEO4J_URI", "")
     user = os.environ.get("NEO4J_USER") or values.get("NEO4J_USER", "")
     password = os.environ.get("NEO4J_PASSWORD") or values.get("NEO4J_PASSWORD", "")
     if not (uri and user and password):
-        raise SystemExit(f"Neo4j 접속 설정을 찾지 못함: {ENV_SOURCE}")
+        raise SystemExit(f"Neo4j 접속 설정을 찾지 못함: {ENV_SOURCE}, 비밀번호는 {NEO4J_ENV}")
     host = uri.split("//", 1)[-1].split(":")[0] or "localhost"
     return f"http://{host}:{HTTP_PORT}/db/neo4j/query/v2", (user, password)
 

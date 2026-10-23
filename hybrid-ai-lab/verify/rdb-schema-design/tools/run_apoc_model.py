@@ -33,7 +33,7 @@ def to_plain(value):
 
 
 def main() -> None:
-    driver = GraphDatabase.driver(os.environ.get("NEO4J_URI", "bolt://localhost:17687"),
+    driver = GraphDatabase.driver(os.environ.get("NEO4J_URI", "bolt://localhost:27687"),  # README의 neo4j-apoc-jdbc 컨테이너
                                   auth=(os.environ.get("NEO4J_USER", "neo4j"), os.environ["NEO4J_PASSWORD"]))
     config = {
         "schema": os.environ.get("RDB_SCHEMA", "public"),

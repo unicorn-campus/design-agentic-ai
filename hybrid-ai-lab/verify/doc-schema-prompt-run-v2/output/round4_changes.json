@@ -1,0 +1,32 @@
+{
+  "expected_changes": [
+    {
+      "doc": "benefit_guide",
+      "chunk_id": "D2_5a3c0df949be0524_3628fa639d6036c8_0000",
+      "q": "X1",
+      "before": "없음",
+      "after": "업종: 장보기와 마트, 커피와 제과, 대중교통과 택시, 음식점과 배달, 교육, 온라인쇼핑 / 방식: 자동 적용"
+    },
+    {
+      "doc": "benefit_guide",
+      "chunk_id": "D2_5a3c0df949be0524_4ec1975240ee01b1_0000",
+      "q": "X1",
+      "before": "없음",
+      "after": "업종: 통신 / 방식: 신청 필요"
+    },
+    {
+      "doc": "benefit_guide",
+      "chunk_id": "D2_5a3c0df949be0524_89396f4c91417ef8_0000",
+      "q": "X1",
+      "before": "없음",
+      "after": "업종: 편의점, 장보기와 마트, 커피와 제과 / 방식: 자동 적용"
+    },
+    {
+      "doc": "consult_log",
+      "chunk_id": "D3_C-20260501-003_e2df5e2eba417fa3_0000",
+      "q": "A2",
+      "before": "없음",
+      "after": "거절: 고객 할 일 증가"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+flowchart LR
+    Product["<b>:Product</b><br/>(카드 상품(정형 참조))<br/>product_id<br/>product_name"]
+    Benefit["<b>:Benefit</b><br/>(혜택)<br/>benefit_id<br/>product_id<br/>name<br/>amount<br/>apply_method"]
+    BenefitCondition["<b>:BenefitCondition</b><br/>(혜택 조건)<br/>description"]
+    BenefitLimit["<b>:BenefitLimit</b><br/>(혜택 한도와 기한)<br/>description"]
+    BenefitExclusion["<b>:BenefitExclusion</b><br/>(혜택 제외와 중복 제한)<br/>description"]
+    MerchantCategory["<b>:MerchantCategory</b><br/>(업종과 결제 대상)<br/>name"]
+    Product -->|OFFERS_BENEFIT| Benefit
+    Benefit -->|REQUIRES| BenefitCondition
+    Benefit -->|LIMITED_BY| BenefitLimit
+    Benefit -->|EXCLUDES| BenefitExclusion
+    Benefit -->|APPLIES_TO| MerchantCategory

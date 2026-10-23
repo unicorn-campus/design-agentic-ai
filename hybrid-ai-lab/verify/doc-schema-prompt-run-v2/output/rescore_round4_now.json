@@ -1,0 +1,242 @@
+{
+ "passed": 18,
+ "metrics": {
+  "regulation": {
+   "R1": {
+    "pos": 30,
+    "hit": 27,
+    "neg": 0,
+    "fp": 0,
+    "same": 27,
+    "recall": 0.9,
+    "fp_rate": null,
+    "match": 1.0,
+    "pass": true
+   },
+   "R2": {
+    "pos": 2,
+    "hit": 2,
+    "neg": 28,
+    "fp": 2,
+    "same": 2,
+    "recall": 1.0,
+    "fp_rate": 0.07142857142857142,
+    "match": 1.0,
+    "pass": true
+   },
+   "R3": {
+    "pos": 12,
+    "hit": 10,
+    "neg": 18,
+    "fp": 0,
+    "same": 9,
+    "recall": 0.8333333333333334,
+    "fp_rate": 0.0,
+    "match": 0.9,
+    "pass": true
+   },
+   "R4": {
+    "pos": 26,
+    "hit": 21,
+    "neg": 4,
+    "fp": 0,
+    "same": 21,
+    "recall": 0.8076923076923077,
+    "fp_rate": 0.0,
+    "match": 1.0,
+    "pass": true
+   },
+   "R5": {
+    "pos": 30,
+    "hit": 27,
+    "neg": 0,
+    "fp": 0,
+    "same": 25,
+    "recall": 0.9,
+    "fp_rate": null,
+    "match": 0.9259259259259259,
+    "pass": true
+   },
+   "X1": {
+    "pos": 28,
+    "hit": 26,
+    "neg": 2,
+    "fp": 0,
+    "same": 25,
+    "recall": 0.9285714285714286,
+    "fp_rate": 0.0,
+    "match": 0.9615384615384616,
+    "pass": true
+   }
+  },
+  "benefit_guide": {
+   "B1": {
+    "pos": 35,
+    "hit": 30,
+    "neg": 2,
+    "fp": 0,
+    "same": 25,
+    "recall": 0.8571428571428571,
+    "fp_rate": 0.0,
+    "match": 0.8333333333333334,
+    "pass": true
+   },
+   "B2": {
+    "pos": 37,
+    "hit": 37,
+    "neg": 0,
+    "fp": 0,
+    "same": 37,
+    "recall": 1.0,
+    "fp_rate": null,
+    "match": 1.0,
+    "pass": true
+   },
+   "B3": {
+    "pos": 37,
+    "hit": 37,
+    "neg": 0,
+    "fp": 0,
+    "same": 36,
+    "recall": 1.0,
+    "fp_rate": null,
+    "match": 0.972972972972973,
+    "pass": true
+   },
+   "B4": {
+    "pos": 37,
+    "hit": 37,
+    "neg": 0,
+    "fp": 0,
+    "same": 37,
+    "recall": 1.0,
+    "fp_rate": null,
+    "match": 1.0,
+    "pass": true
+   },
+   "X1": {
+    "pos": 26,
+    "hit": 21,
+    "neg": 11,
+    "fp": 0,
+    "same": 14,
+    "recall": 0.8076923076923077,
+    "fp_rate": 0.0,
+    "match": 0.6666666666666666,
+    "pass": true
+   },
+   "X2": {
+    "pos": 37,
+    "hit": 37,
+    "neg": 0,
+    "fp": 0,
+    "same": 37,
+    "recall": 1.0,
+    "fp_rate": null,
+    "match": 1.0,
+    "pass": true
+   }
+  },
+  "consult_log": {
+   "C1": {
+    "pos": 8,
+    "hit": 8,
+    "neg": 10,
+    "fp": 2,
+    "same": 8,
+    "recall": 1.0,
+    "fp_rate": 0.2,
+    "match": 1.0,
+    "pass": true
+   },
+   "C2": {
+    "pos": 18,
+    "hit": 17,
+    "neg": 0,
+    "fp": 0,
+    "same": 17,
+    "recall": 0.9444444444444444,
+    "fp_rate": null,
+    "match": 1.0,
+    "pass": true
+   },
+   "C3": {
+    "pos": 18,
+    "hit": 17,
+    "neg": 0,
+    "fp": 0,
+    "same": 17,
+    "recall": 0.9444444444444444,
+    "fp_rate": null,
+    "match": 1.0,
+    "pass": true
+   },
+   "C4": {
+    "pos": 8,
+    "hit": 5,
+    "neg": 10,
+    "fp": 0,
+    "same": 5,
+    "recall": 0.625,
+    "fp_rate": 0.0,
+    "match": 1.0,
+    "pass": false
+   },
+   "C5": {
+    "pos": 14,
+    "hit": 14,
+    "neg": 4,
+    "fp": 0,
+    "same": 14,
+    "recall": 1.0,
+    "fp_rate": 0.0,
+    "match": 1.0,
+    "pass": true
+   },
+   "X1": {
+    "pos": 9,
+    "hit": 7,
+    "neg": 9,
+    "fp": 1,
+    "same": 6,
+    "recall": 0.7777777777777778,
+    "fp_rate": 0.1111111111111111,
+    "match": 0.8571428571428571,
+    "pass": false
+   },
+   "X2": {
+    "pos": 18,
+    "hit": 16,
+    "neg": 0,
+    "fp": 0,
+    "same": 16,
+    "recall": 0.8888888888888888,
+    "fp_rate": null,
+    "match": 1.0,
+    "pass": true
+   },
+   "A1": {
+    "pos": 8,
+    "hit": 6,
+    "neg": 10,
+    "fp": 1,
+    "same": 6,
+    "recall": 0.75,
+    "fp_rate": 0.1,
+    "match": 1.0,
+    "pass": false
+   },
+   "A2": {
+    "pos": 18,
+    "hit": 15,
+    "neg": 0,
+    "fp": 0,
+    "same": 10,
+    "recall": 0.8333333333333334,
+    "fp_rate": null,
+    "match": 0.6666666666666666,
+    "pass": true
+   }
+  }
+ }
+}

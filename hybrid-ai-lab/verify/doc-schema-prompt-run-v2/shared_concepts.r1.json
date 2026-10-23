@@ -1,0 +1,271 @@
+{
+  "shared_node_types": {
+    "Topic": {
+      "docs": [
+        "regulation",
+        "consult_log"
+      ],
+      "key": "name",
+      "name_rule": "대표 이름 목록에서만 고름",
+      "vocabulary": [
+        {
+          "name": "연회비",
+          "clauses": [
+            "제9조",
+            "제10조"
+          ],
+          "consult_topics": [
+            "연회비 대비 가치"
+          ]
+        },
+        {
+          "name": "부가서비스와 포인트",
+          "clauses": [
+            "제17조",
+            "제18조"
+          ],
+          "consult_topics": [
+            "혜택 불일치",
+            "생활비 절약"
+          ]
+        },
+        {
+          "name": "본인 인증과 보안",
+          "clauses": [
+            "제8조",
+            "제26조",
+            "제27조",
+            "제29조"
+          ],
+          "consult_topics": [
+            "앱 인증 불편 완화"
+          ]
+        },
+        {
+          "name": "통지와 광고",
+          "clauses": [
+            "제5조",
+            "제38조"
+          ],
+          "consult_topics": [
+            "광고 알림 누적"
+          ]
+        },
+        {
+          "name": "민원과 이의 처리",
+          "clauses": [
+            "제34조",
+            "제35조",
+            "제39조"
+          ],
+          "consult_topics": [
+            "민원 처리 경과 부재"
+          ]
+        },
+        {
+          "name": "명세서와 결제",
+          "clauses": [
+            "제20조",
+            "제21조",
+            "제22조",
+            "제22조의2",
+            "제24조",
+            "제25조",
+            "제25조의2"
+          ],
+          "consult_topics": [
+            "명세서 항목 이해"
+          ]
+        },
+        {
+          "name": "할부",
+          "clauses": [
+            "제16조",
+            "제16조의2",
+            "제16조의3"
+          ],
+          "consult_topics": [
+            "가전 구매 주기"
+          ]
+        },
+        {
+          "name": "분실과 부정 사용",
+          "clauses": [
+            "제12조",
+            "제28조"
+          ],
+          "consult_topics": [
+            "의심 문자 확인"
+          ]
+        },
+        {
+          "name": "이용정지와 휴면",
+          "clauses": [
+            "제12조의2",
+            "제12조의3",
+            "제29조",
+            "제30조"
+          ],
+          "consult_topics": []
+        },
+        {
+          "name": "해지",
+          "clauses": [
+            "제36조",
+            "제37조",
+            "제38조의2"
+          ],
+          "consult_topics": [
+            "타사 관리 절차 비교"
+          ]
+        },
+        {
+          "name": "발급과 카드 관리",
+          "clauses": [
+            "제6조",
+            "제6조의2",
+            "제7조",
+            "제11조"
+          ],
+          "consult_topics": [
+            "카드 중복"
+          ]
+        },
+        {
+          "name": "개인정보와 회원 정보",
+          "clauses": [
+            "제31조",
+            "제32조",
+            "제33조"
+          ],
+          "consult_topics": [
+            "우편 주소 수정"
+          ]
+        },
+        {
+          "name": "해외 이용",
+          "clauses": [
+            "제19조",
+            "제19조의2"
+          ],
+          "consult_topics": []
+        },
+        {
+          "name": "카드대출과 금리",
+          "clauses": [
+            "제22조의3",
+            "제22조의4",
+            "제23조",
+            "제34조의2"
+          ],
+          "consult_topics": []
+        },
+        {
+          "name": "이용한도와 승인",
+          "clauses": [
+            "제13조",
+            "제14조",
+            "제15조"
+          ],
+          "consult_topics": []
+        }
+      ],
+      "unassigned_clauses": [
+        "제1조",
+        "제2조",
+        "제3조",
+        "제4조",
+        "제40조"
+      ]
+    },
+    "MerchantCategory": {
+      "docs": [
+        "benefit_guide",
+        "consult_log"
+      ],
+      "key": "name",
+      "name_rule": "띄어쓰기를 없앤 꼴로 맞추고, 8단계 시험에서 나온 이름으로 동의어 표를 만들어 합침"
+    }
+  },
+  "reference_nodes": {
+    "Product": {
+      "docs": [
+        "benefit_guide",
+        "consult_log"
+      ],
+      "structured_label": "Product",
+      "key": "product_id",
+      "fill": {
+        "benefit_guide": "머리줄 product_id",
+        "consult_log": "상품 이름으로 정형 Product에서 찾음"
+      }
+    }
+  },
+  "metadata_nodes": {
+    "CustomerSegment": {
+      "doc": "consult_log",
+      "field": "source",
+      "rule": "^D3_S\\d+_([^_]+)_",
+      "rel": "IN_SEGMENT"
+    },
+    "PseudoMember": {
+      "doc": "consult_log",
+      "field": "member_pseudo_id",
+      "rel": "OF_MEMBER"
+    },
+    "Topic(상담 주제)": {
+      "doc": "consult_log",
+      "field": "topic",
+      "rel": "HAS_TOPIC",
+      "map": {
+        "연회비 대비 가치": "연회비",
+        "혜택 불일치": "부가서비스와 포인트",
+        "생활비 절약": "부가서비스와 포인트",
+        "앱 인증 불편 완화": "본인 인증과 보안",
+        "광고 알림 누적": "통지와 광고",
+        "민원 처리 경과 부재": "민원과 이의 처리",
+        "명세서 항목 이해": "명세서와 결제",
+        "가전 구매 주기": "할부",
+        "의심 문자 확인": "분실과 부정 사용",
+        "타사 관리 절차 비교": "해지",
+        "카드 중복": "발급과 카드 관리",
+        "우편 주소 수정": "개인정보와 회원 정보"
+      }
+    }
+  },
+  "structural_relationships": [
+    {
+      "doc": "regulation",
+      "rel": "HAS_CLAUSE",
+      "why": "문서 노드 하나가 모든 조항에 이어짐. 검색 경로로는 쓰고 커뮤니티 묶기에서는 뺄 수 있음"
+    }
+  ],
+  "paths": {
+    "X1": [
+      "(Complaint)-[ABOUT]->(Topic)<-[ABOUT]-(Clause)",
+      "(Complaint)-[MENTIONS_CATEGORY]->(MerchantCategory)<-[APPLIES_TO]-(Benefit)"
+    ],
+    "X2": [
+      "(Consultation)-[MENTIONS_PRODUCT]->(Product)-[OFFERS_BENEFIT]->(Benefit)"
+    ],
+    "A1": [
+      "(CustomerSegment)<-[IN_SEGMENT]-(Consultation)-[HAS_COMPLAINT]->(Complaint)-[ABOUT]->(Topic)"
+    ],
+    "A2": [
+      "(Proposal {decision})-[HAS_TRAIT]->(ProposalTrait)"
+    ]
+  },
+  "proposal_traits": [
+    "소비 증가 필요",
+    "고객 할 일 증가",
+    "고객 할 일 없음",
+    "글로 남는 안내",
+    "말로만 안내",
+    "고객이 요청한 방식"
+  ],
+  "excluded_from_extraction": {
+    "doc": "benefit_guide",
+    "rule": "section_label에 '참고 카드:'가 든 청크",
+    "why": "가상 카드를 설계할 때 참고한 실제 카드 이름과 주소라 엔티티로 넣으면 실제 상품이 섞임(5단계 사용자 결정)"
+  }
+}

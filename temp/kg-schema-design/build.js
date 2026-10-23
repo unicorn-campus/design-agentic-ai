@@ -711,7 +711,7 @@ async function createSlidePipeline1b() {
       + "본문, 벡터, 메타데이터를 함께 넣고 문서 단위로 넣고 고치고 지움. 키워드 분석은 nori와 사용자 사전으로 옮기거나, Kiwi로 미리 나눈 낱말을 "
       + "공백 분석기로 넣는 두 길이 있음. nori로 옮기면 Kiwi와 결과가 같지 않아 순위 비교 시험이 필요함. "
       + "KG 갈래는 그대로임. 청크 하나에 제목 단위가 여럿 든 문서는 추출 직전에 청크를 추출 단위(예: 규정은 조항, 매뉴얼은 절)로 나누고, "
-      + "제목 단위가 하나뿐인 문서는 청크를 그대로 씀. 추출 단위 노드와 추출 노드는 Neo4jWriter 한 묶음으로 저장함. "
+      + "제목 단위가 하나뿐인 문서는 청크를 그대로 씀. 추출 단위는 추출할 때만 쓰고 그래프에 남기지 않음. 검색용 청크와 1대1인 청크 노드와 추출 노드를 Neo4jWriter 한 묶음으로 저장함. "
       + "세대는 새 인덱스를 만든 뒤 검색 엔진 별칭과 Neo4j 세대를 같은 순간에 바꿔야 하며, 한쪽만 바뀌면 검색 결과의 chunk_id가 그래프에 없게 됨. "
       + "노드 설명 임베딩을 Neo4j에 둘지 검색 엔진에 둘지는 따로 정할 일임. "
       + "라이선스: Elasticsearch는 2021년부터 SSPL과 Elastic License 2.0이었고 2024년 8월 말 AGPL v3를 선택지로 더해 다시 오픈소스로 인정됨. "
@@ -791,7 +791,7 @@ async function createSlidePipeline1b() {
   sectionLabel(s, "검색 때 그래프로 건너감", { x: xB, y: top, w: wL });
   L.rr(s, { x: xB, y: bodyY, w: wL, h: bodyB - bodyY, fill: C.white, line: C.border, r: 0.08 });
   bullets(s, ["검색 엔진이 하이브리드로 청크를 찾음(BM25와 벡터, 회원 필터)",
-    "돌려받은 chunk_id로 Neo4j 추출 단위 노드의 parent_chunk_ids를 찾음",
+    "돌려받은 chunk_id와 같은 ID의 Neo4j 청크 노드를 찾음",
     "관계를 따라 질문에 필요한 근거 노드를 얻음"], { x: xB + 0.18, y: bodyY + 0.14, w: wL - 0.3, h: bodyB - bodyY - 0.24,
     gap: 8 });
   sectionLabel(s, "검색 엔진 라이선스(2026-10 기준, 둘 다 nori 지원)", { x: xC, y: top, w: wR, fill: C.dark });

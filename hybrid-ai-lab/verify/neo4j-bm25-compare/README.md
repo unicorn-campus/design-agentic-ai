@@ -29,7 +29,14 @@
 ## 실행
 
 ```bash
-docker start verify-neo4j
+docker compose -f neo4j/compose.yml up -d
+```
+
+- `hybrid-ai-lab` 폴더에서 실행함. 실습 공용 컨테이너 `neo4j`(bolt 7687)를 씀. 처음이면 `neo4j/README.md`대로 `.env`를 만듦
+- `run_compare.py`와 `tools/diagnose.py`는 접속값을 환경변수로만 받음. 비밀번호는 `neo4j/.env`의 값을 넘김
+
+```bash
+export NEO4J_URI=bolt://localhost:7687 NEO4J_USER=neo4j NEO4J_PASSWORD=$(grep '^NEO4J_PASSWORD=' neo4j/.env | cut -d= -f2-)
 ```
 
 ```bash
@@ -60,7 +67,7 @@ cd verify/neo4j-bm25-compare
 | 질문 | 42개 — `group2_questions.json` E01 ~ E20, `ragas/eval-set.json` Q01 ~ Q22 |
 | 근거 문서가 적힌 질문 | 30개 |
 | 답이 없어야 하는 질문 | 12개(E04, E06, E07, E09, E14, E15, E19, Q18 ~ Q22) |
-| Neo4j | `neo4j:2026.09.0-community`(컨테이너 `verify-neo4j`) |
+| Neo4j | `neo4j:2026.09.0-community`(컨테이너 `neo4j`) |
 
 기준과 후보는 같은 청크 218건, 같은 질문 42개, 같은 조건(열람 등급 public + restricted, 회원 필터 없음)으로 비교함.
 
@@ -248,7 +255,6 @@ A가 돌려준 상위 50건만 받아 앱이 기준 BM25 점수로 다시 줄 �
 
 ## 컨테이너 상태
 
-- `docker start verify-neo4j`로 켬. 검증이 끝난 뒤에도 **켜 둔 채로 둠**
-- 다른 컨테이너(`verify-neo4j-apoc`, `hybrid-ai-lab-rdb` 등)는 켜거나 끄거나 지우지 않음
-- 검증이 만든 `BmChunk` 노드와 `bm25cmp_*`, `bm25probe_*` 인덱스는 모두 지움.  
-  실행 뒤 남은 노드는 기존 벡터 시험 자료 그대로임(`Chunk` 446, `Card` 256, `Document` 20, `Fee` 7)
+- `docker compose -f neo4j/compose.yml up -d`로 켬. 검증이 끝난 뒤에도 **켜 둔 채로 둠**
+- 다른 컨테이너(`opensearch`, `hybrid-ai-lab-rdb` 등)는 켜거나 끄거나 지우지 않음
+- 검증이 만든 `BmChunk` 노드와 `bm25cmp_*`, `bm25probe_*` 인덱스는 끝나면 모두 지움. 다른 노드는 건드리지 않음

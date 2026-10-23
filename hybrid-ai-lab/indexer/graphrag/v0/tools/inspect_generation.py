@@ -29,8 +29,11 @@ def main() -> None:
             "count(*) AS n ORDER BY label")})
         print("관계:", {r["t"]: r["n"] for r in q(
             "MATCH (a {generation: $g})-[r]->(b {generation: $g}) RETURN type(r) AS t, count(*) AS n ORDER BY t")})
-        print("부모 청크가 2개인 추출 단위:", [r["u"] for r in q(
-            "MATCH (c:Chunk {generation: $g}) WHERE size(c.parent_chunk_ids) > 1 RETURN c.unit_id AS u ORDER BY u")])
+        print("두 청크에 이어진 조항:", [r["u"] for r in q(
+            "MATCH (k:Clause {generation: $g})-[:FROM_CHUNK]->(c:Chunk) WITH k, count(c) AS n WHERE n > 1 "
+            "RETURN k.clause_no AS u ORDER BY u")])
+        print("청크 노드:", q("MATCH (c:Chunk {generation: $g}) RETURN count(*) AS n, "
+                            "count(DISTINCT c.chunk_id) AS ids")[0])
         print("상담 노드:", q("MATCH (c:Consultation {generation: $g}) OPTIONAL MATCH (c)-[:FOLLOWS]->(p) "
                              "RETURN c.record_id AS record, c.topic AS topic, p.record_id AS follows ORDER BY record"))
         print("임베딩 없는 엔티티:", q("MATCH (n:__Entity__ {generation: $g}) WHERE n.embedding IS NULL "

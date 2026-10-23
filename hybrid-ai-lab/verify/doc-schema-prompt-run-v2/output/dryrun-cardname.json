@@ -1,0 +1,29 @@
+{
+  "sources": 8,
+  "extract": {
+    "source_count": 8,
+    "prepared_count": 218
+  },
+  "chunk": {
+    "chunk_count": 218,
+    "reused_count": 0,
+    "embedded_count": 0
+  },
+  "index": {
+    "collection_count": 0,
+    "newly_embedded": 0,
+    "skipped_by_hash": 0,
+    "failed": [],
+    "embedding_dimension": 768,
+    "generation": null
+  },
+  "timings": {
+    "discover_docs": 14,
+    "load_split_clean": 25337,
+    "total_ms": 25382
+  },
+  "status": "dry_run",
+  "exit_code": 0,
+  "thread_id": "cardname-20261023",
+  "no_op": false
+}

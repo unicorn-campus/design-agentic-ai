@@ -1,0 +1,350 @@
+{
+  "doc": "regulation",
+  "approver": "사용자 승인(2026-10-24 '나안으로 해요. 약관과 상담 기록 모두 미달 사유를 적고 9단계 확정해 주세요.'), 합격 기준 미달 상태로 확정",
+  "approved_at": "2026-10-24 00:32",
+  "input_sha256": {
+    "competency_questions.md": "65080d085c82b0f1aaae19db67523eb96ca362a5f79a8f806ee68902b1176d18",
+    "sample_plan.json": "8339fff60b5503826dc16cf2329139aa4df944bfb21bff6b19890fc0538a8ff2",
+    "decisions.json": "a2f94180e9d7835687c2e087bfa90ab124002362dd8068385daaf7be1a9e87e7",
+    "regulation/expected_answers.json": "b5fa41710c9e6ace7da1b9411bfa49e0074e19ef80bf382c1f2c7d7e0b7f0fd0",
+    "shared_concepts.json": "3a463d49fb5980ba34ac5be33edf6dc554b4a41a8275bc6257ceb6dc09a79d3f",
+    "regulation/schema_spec.json": "5949f99f7089baf852431c6933bfa67ae76a4b7c54b4e47ec969ea8bb3fb265e",
+    "pass_criteria.json": "ced68c19d8c7116b192214fd8b93d618214a652554b8b675d3cfde98d9a5e865",
+    "output/measure_avg.json": "9c39af46cd5dc0a0acc447b60ecf7d8edb8563f57cd8bb712210825e16bdfd45"
+  },
+  "last_metrics": {
+    "round": "5m2",
+    "metrics": {
+      "R1": {
+        "pos": 30,
+        "hit": 26,
+        "neg": 0,
+        "fp": 0,
+        "same": 26,
+        "recall": 0.8666666666666667,
+        "fp_rate": null,
+        "match": 1.0,
+        "pass": true
+      },
+      "R2": {
+        "pos": 2,
+        "hit": 2,
+        "neg": 28,
+        "fp": 2,
+        "same": 2,
+        "recall": 1.0,
+        "fp_rate": 0.07142857142857142,
+        "match": 1.0,
+        "pass": true
+      },
+      "R3": {
+        "pos": 12,
+        "hit": 10,
+        "neg": 18,
+        "fp": 1,
+        "same": 9,
+        "recall": 0.8333333333333334,
+        "fp_rate": 0.05555555555555555,
+        "match": 0.9,
+        "pass": true
+      },
+      "R4": {
+        "pos": 26,
+        "hit": 21,
+        "neg": 4,
+        "fp": 1,
+        "same": 21,
+        "recall": 0.8076923076923077,
+        "fp_rate": 0.25,
+        "match": 1.0,
+        "pass": false
+      },
+      "R5": {
+        "pos": 30,
+        "hit": 26,
+        "neg": 0,
+        "fp": 0,
+        "same": 24,
+        "recall": 0.8666666666666667,
+        "fp_rate": null,
+        "match": 0.9230769230769231,
+        "pass": true
+      },
+      "X1": {
+        "pos": 28,
+        "hit": 26,
+        "neg": 2,
+        "fp": 0,
+        "same": 25,
+        "recall": 0.9285714285714286,
+        "fp_rate": 0.0,
+        "match": 0.9615384615384616,
+        "pass": true
+      }
+    },
+    "usage": {
+      "queue_time": 6.126749186,
+      "prompt_tokens": 75651,
+      "prompt_time": 4.209413775000002,
+      "completion_tokens": 38259,
+      "completion_time": 93.08226574999998,
+      "total_tokens": 113910,
+      "total_time": 97.291679525
+    },
+    "all_pass": false
+  },
+  "draft_counts": {
+    "node_types": 6,
+    "relationship_types": 5,
+    "patterns": 5,
+    "constraints": 2
+  },
+  "reread_counts": {
+    "node_types": 6,
+    "relationship_types": 5,
+    "patterns": 5,
+    "constraints": 2
+  },
+  "reread_same": true,
+  "below_criteria": {
+    "failed": [
+      "R3"
+    ],
+    "reason": "R3 기한: 세 번 평균 뽑음 75%(회별 58, 83, 83). 같은 설명으로 흔들림"
+  },
+  "extraction_unit_rule": {
+    "kind": "제목 꼴로 나눔",
+    "heading": "^(제\\d+조(?:의\\d+)?)\\(([^)]*)\\)\\s*$",
+    "body_start": "①",
+    "drop_lines": "^제\\d+장\\s"
+  },
+  "last_metrics_basis": "fill_metrics는 마지막 측정(5m2) 한 번의 값. 판정은 5라운드, 5m1, 5m2 세 번 평균(average_metrics)",
+  "average_metrics": {
+    "R1": {
+      "runs_pass": [
+        true,
+        true,
+        true
+      ],
+      "runs": {
+        "5": {
+          "recall": 0.9,
+          "fp_rate": null,
+          "match": 1.0
+        },
+        "5m1": {
+          "recall": 0.8666666666666667,
+          "fp_rate": null,
+          "match": 1.0
+        },
+        "5m2": {
+          "recall": 0.8666666666666667,
+          "fp_rate": null,
+          "match": 1.0
+        }
+      },
+      "recall": 0.8777777777777778,
+      "fp_rate": null,
+      "match": 1.0,
+      "pass_avg": true,
+      "pos": 90,
+      "hit": 79,
+      "neg": 0,
+      "fp": 0,
+      "same": 79
+    },
+    "R2": {
+      "runs_pass": [
+        true,
+        true,
+        true
+      ],
+      "runs": {
+        "5": {
+          "recall": 1.0,
+          "fp_rate": 0.17857142857142858,
+          "match": 1.0
+        },
+        "5m1": {
+          "recall": 1.0,
+          "fp_rate": 0.07142857142857142,
+          "match": 1.0
+        },
+        "5m2": {
+          "recall": 1.0,
+          "fp_rate": 0.07142857142857142,
+          "match": 1.0
+        }
+      },
+      "recall": 1.0,
+      "fp_rate": 0.10714285714285714,
+      "match": 1.0,
+      "pass_avg": true,
+      "pos": 6,
+      "hit": 6,
+      "neg": 84,
+      "fp": 9,
+      "same": 6
+    },
+    "R3": {
+      "runs_pass": [
+        false,
+        true,
+        true
+      ],
+      "runs": {
+        "5": {
+          "recall": 0.5833333333333334,
+          "fp_rate": 0.05555555555555555,
+          "match": 1.0
+        },
+        "5m1": {
+          "recall": 0.8333333333333334,
+          "fp_rate": 0.05555555555555555,
+          "match": 1.0
+        },
+        "5m2": {
+          "recall": 0.8333333333333334,
+          "fp_rate": 0.05555555555555555,
+          "match": 0.9
+        }
+      },
+      "recall": 0.75,
+      "fp_rate": 0.05555555555555555,
+      "match": 0.9629629629629629,
+      "pass_avg": false,
+      "pos": 36,
+      "hit": 27,
+      "neg": 54,
+      "fp": 3,
+      "same": 26
+    },
+    "R4": {
+      "runs_pass": [
+        false,
+        true,
+        false
+      ],
+      "runs": {
+        "5": {
+          "recall": 0.9230769230769231,
+          "fp_rate": 0.25,
+          "match": 0.9583333333333334
+        },
+        "5m1": {
+          "recall": 0.9230769230769231,
+          "fp_rate": 0.0,
+          "match": 1.0
+        },
+        "5m2": {
+          "recall": 0.8076923076923077,
+          "fp_rate": 0.25,
+          "match": 1.0
+        }
+      },
+      "recall": 0.8846153846153846,
+      "fp_rate": 0.16666666666666666,
+      "match": 0.9855072463768116,
+      "pass_avg": true,
+      "pos": 78,
+      "hit": 69,
+      "neg": 12,
+      "fp": 2,
+      "same": 68
+    },
+    "R5": {
+      "runs_pass": [
+        true,
+        true,
+        true
+      ],
+      "runs": {
+        "5": {
+          "recall": 0.9,
+          "fp_rate": null,
+          "match": 0.9259259259259259
+        },
+        "5m1": {
+          "recall": 0.8666666666666667,
+          "fp_rate": null,
+          "match": 0.9230769230769231
+        },
+        "5m2": {
+          "recall": 0.8666666666666667,
+          "fp_rate": null,
+          "match": 0.9230769230769231
+        }
+      },
+      "recall": 0.8777777777777778,
+      "fp_rate": null,
+      "match": 0.9240506329113924,
+      "pass_avg": true,
+      "pos": 90,
+      "hit": 79,
+      "neg": 0,
+      "fp": 0,
+      "same": 73
+    },
+    "X1": {
+      "runs_pass": [
+        true,
+        true,
+        true
+      ],
+      "runs": {
+        "5": {
+          "recall": 0.9642857142857143,
+          "fp_rate": 0.0,
+          "match": 0.9629629629629629
+        },
+        "5m1": {
+          "recall": 0.9285714285714286,
+          "fp_rate": 0.0,
+          "match": 0.9615384615384616
+        },
+        "5m2": {
+          "recall": 0.9285714285714286,
+          "fp_rate": 0.0,
+          "match": 0.9615384615384616
+        }
+      },
+      "recall": 0.9404761904761905,
+      "fp_rate": 0.0,
+      "match": 0.9620253164556962,
+      "pass_avg": true,
+      "pos": 84,
+      "hit": 79,
+      "neg": 6,
+      "fp": 0,
+      "same": 76
+    }
+  },
+  "llm": "Groq openai/gpt-oss-120b(시험과 인덱싱이 같은 모델이어야 함)",
+  "metadata_header": [
+    "source",
+    "version",
+    "effective_date",
+    "supersedes",
+    "section_label"
+  ],
+  "indexer_code_rules": {
+    "shared_name_rule": "Topic은 대표 이름 목록 15개에서만, 띄어쓰기를 뺀 꼴로 합침",
+    "structural_relationships": [
+      {
+        "doc": "regulation",
+        "rel": "HAS_CLAUSE",
+        "why": "문서 노드 하나가 모든 조항에 이어짐. 검색 경로로는 쓰고 커뮤니티 묶기에서는 뺄 수 있음"
+      }
+    ],
+    "vocabulary_enforcement": {
+      "labels": [
+        "Topic",
+        "MerchantCategory",
+        "ProposalTrait"
+      ],
+      "rule": "이름(띄어쓰기를 뺀 꼴)이 대표 이름 목록에 없으면 그 노드와 관계를 지움(4라운드 라4)"
+    },
+    "note": "이 규칙은 설명이 아니라 인덱서 코드가 해야 함. GraphRAG v0에는 아직 없음"
+  },
+  "test_rounds": "8단계 5라운드 + 측정 2번. 기록은 review/step8*.md"
+}

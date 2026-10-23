@@ -1,0 +1,34 @@
+{
+  "note": "1라운드 추출 결과를 2라운드 채점과 기대 답으로 다시 채점(LLM 호출 없음)",
+  "pass": {
+    "regulation": {
+      "R1": true,
+      "R2": false,
+      "R3": false,
+      "R4": true,
+      "R5": true,
+      "X1": true
+    },
+    "benefit_guide": {
+      "B1": false,
+      "B2": true,
+      "B3": true,
+      "B4": true,
+      "X1": false,
+      "X2": true
+    },
+    "consult_log": {
+      "C1": false,
+      "C2": true,
+      "C3": true,
+      "C4": false,
+      "C5": true,
+      "X1": false,
+      "X2": false,
+      "A1": false,
+      "A2": false
+    }
+  },
+  "passed": 11,
+  "total": 21
+}

@@ -19,9 +19,12 @@
   이미지 `neo4j:2026.04.0-community`
 
 ```bash
-docker run -d --name verify-neo4j-apoc -p 27474:7474 -p 27687:7687 -e NEO4J_AUTH=neo4j/verify-neo4j-pass -e NEO4J_PLUGINS='["apoc"]' -e SC_WITHOUT_DATABASE_PLUGIN=postgresql -v {플러그인 폴더}:/plugins neo4j:2026.04.0-community
+docker run -d --name neo4j-apoc-jdbc -p 27474:7474 -p 27687:7687 -e NEO4J_AUTH=neo4j/$NEO4J_PASSWORD -e NEO4J_PLUGINS='["apoc"]' -e SC_WITHOUT_DATABASE_PLUGIN=postgresql -v {플러그인 폴더}:/plugins neo4j:2026.04.0-community
 ```
 
+- 실습 공용 컨테이너 `neo4j`(`hybrid-ai-lab/neo4j/compose.yml`)로는 대신할 수 없음. 그쪽은 APOC Extended를 넣지 않았고  
+  (core APOC와 함께 두면 core 프로시저가 깨짐) Neo4j 판도 2026.09라 `apoc.model.jdbc`가 돌지 않기 때문임
+- `NEO4J_PASSWORD`는 실행 전에 환경변수로 정함. `tools/run_apoc_model.py`도 같은 값을 읽고, 기본 접속 주소는 `bolt://localhost:27687`임
 - `{플러그인 폴더}`에는 위 두 jar를 넣음. `SC_WITHOUT_DATABASE_PLUGIN=postgresql`이 없으면 SchemaCrawler가  
   'PostgreSQL용 데이터베이스 플러그인을 넣으라'며 실패함(플러그인 대신 환경변수로 해결, 추가 다운로드 없음)
 - DB 계정은 관리 계정 `cardlab`(원본 테이블 구조를 읽어야 하므로, `rdb/README.md` 접속 정보 참조). 값은 환경변수로만 넘김
